@@ -23,6 +23,12 @@ p{color:#888;font-size:18px;margin-bottom:32px;line-height:1.6}
 .links a .title{font-weight:700;font-size:15px;margin-bottom:2px}
 .links a .desc{font-size:13px;color:#777;line-height:1.4}
 </style>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
+<script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
 </head>
 <body>
 <div class="wrap">
@@ -39,5 +45,32 @@ p{color:#888;font-size:18px;margin-bottom:32px;line-height:1.6}
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener"><div class="icon">🧩</div><div class="text"><div class="title">Install Chrome Extension</div><div class="desc">Get all 40+ SEO checks directly in your browser — free</div></div></a>
 </div>
 </div>
-</body>
+<style id="consent-css">
+.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}
+.consent-inner{max-width:680px;margin:0 auto;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}
+.consent-text{flex:1;font-size:13px;color:#bbb;line-height:1.6;font-family:'DM Sans',sans-serif}.consent-text strong{color:#f5f5f5;font-size:14px}.consent-text a{color:#e8a44e}
+.consent-btns{display:flex;gap:8px;flex-shrink:0}
+.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s}
+.consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
+.consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
+@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;justify-content:center}}
+</style><div id="consentBanner" class="consent-banner" style="display:none">
+<div class="consent-inner">
+<div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. No personal data is sold. <a href="/privacy-policy.html">Privacy Policy</a></div>
+<div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div>
+</div></div><script>
+(function(){
+  var c=localStorage.getItem('lumina_consent');
+  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
+  if(c==='denied')return;
+  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
+  document.getElementById('consentAccept').addEventListener('click',function(){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    localStorage.setItem('lumina_consent','granted');b.style.display='none';
+  });
+  document.getElementById('consentReject').addEventListener('click',function(){
+    localStorage.setItem('lumina_consent','denied');b.style.display='none';
+  });
+})();
+</script></body>
 </html>

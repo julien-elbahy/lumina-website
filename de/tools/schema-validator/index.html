@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kostenloser Schema JSON-LD Validator – Strukturierte Daten prüfen | Lumina SEO</title>
+<title>Kostenloser Schema JSON-LD Validator | Lumina SEO</title>
 <meta name="description" content="Validiere deine JSON-LD Structured Data gegen Googles Pflichtfelder. Tiefe Inhalts-Prüfung, nicht nur Syntax. Kostenlos, ohne Anmeldung.">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/schema-validator/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/">
@@ -11,6 +11,12 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet">
 <style>body{font-family:'DM Sans',sans-serif;background:#0f0f0f;color:#f5f5f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}div{max-width:520px;padding:24px}h1{font-size:32px;font-weight:800;margin-bottom:12px;letter-spacing:-1px}h1 span{color:#d4843a}p{color:#888;font-size:17px;margin-bottom:24px;line-height:1.6}a{display:inline-block;background:#d4843a;color:#fff;padding:12px 24px;border-radius:8px;font-weight:700;text-decoration:none;transition:transform .15s;margin:6px}a:hover{transform:translateY(-2px)}.s{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.note{font-size:14px;color:#666;margin-top:24px;border-top:1px solid rgba(255,255,255,.06);padding-top:16px}</style>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
+<script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
 </head>
 <body>
 <div>
@@ -21,5 +27,32 @@
 <a href="/de/" class="s">Startseite</a>
 <p class="note">Die englische Version des Tools ist bereits voll funktionsfähig und kann sofort genutzt werden.</p>
 </div>
-</body>
+<style id="consent-css">
+.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}
+.consent-inner{max-width:680px;margin:0 auto;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}
+.consent-text{flex:1;font-size:13px;color:#bbb;line-height:1.6;font-family:'DM Sans',sans-serif}.consent-text strong{color:#f5f5f5;font-size:14px}.consent-text a{color:#e8a44e}
+.consent-btns{display:flex;gap:8px;flex-shrink:0}
+.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s}
+.consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
+.consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
+@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;justify-content:center}}
+</style><div id="consentBanner" class="consent-banner" style="display:none">
+<div class="consent-inner">
+<div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics, um zu verstehen, wie Besucher diese Seite nutzen. Es werden keine personenbezogenen Daten verkauft. <a href="/de/datenschutz.html">Datenschutz</a></div>
+<div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div>
+</div></div><script>
+(function(){
+  var c=localStorage.getItem('lumina_consent');
+  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
+  if(c==='denied')return;
+  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
+  document.getElementById('consentAccept').addEventListener('click',function(){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    localStorage.setItem('lumina_consent','granted');b.style.display='none';
+  });
+  document.getElementById('consentReject').addEventListener('click',function(){
+    localStorage.setItem('lumina_consent','denied');b.style.display='none';
+  });
+})();
+</script></body>
 </html>
