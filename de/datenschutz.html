@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutzerklärung – Lumina SEO & GEO Extension</title>
+<meta name="description" content="Datenschutzerklärung der Lumina SEO & GEO Chrome Extension. Lumina erhebt keine personenbezogenen Daten.">
+<link rel="canonical" href="https://lumina-seo.com/de/datenschutz.html">
+<link rel="alternate" hreflang="en" href="https://lumina-seo.com/privacy-policy.html">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/datenschutz.html">
+<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/privacy-policy.html">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#0f0f0f;--dark2:#1a1a1a;--white:#f5f5f5;--gray:#999;--orange:#d4843a}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--white);line-height:1.8;-webkit-font-smoothing:antialiased}a{color:var(--orange)}
+nav{padding:16px 32px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}nav img{width:32px;height:32px;border-radius:8px}nav span{font-weight:800;font-size:18px}
+.content{max-width:720px;margin:0 auto;padding:60px 24px 100px}h1{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}.date{font-size:14px;color:var(--gray);margin-bottom:40px}h2{font-size:20px;font-weight:700;margin:32px 0 12px}p,ul{font-size:15px;color:#ccc;margin-bottom:16px}ul{padding-left:24px}li{margin-bottom:8px}code{background:var(--dark2);padding:2px 6px;border-radius:4px;font-size:13px}
+footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:#555;text-align:center}
+</style>
+</head>
+<body>
+<nav><a href="/de/"><img src="/icon128.png" alt="Lumina" width="32" height="32"></a><a href="/de/" style="color:var(--white);text-decoration:none"><span>Lumina</span></a></nav>
+<div class="content">
+<h1>Datenschutzerklärung</h1>
+<p class="date">Letzte Aktualisierung: 23. März 2026</p>
+<p>Lumina – SEO & GEO ("Lumina", "die Extension") ist eine Chrome-Browser-Extension, erstellt von Julien El-Bahy. Diese Datenschutzerklärung erklärt, wie die Extension mit Ihren Daten umgeht.</p>
+<h2>Datenerhebung</h2>
+<p>Lumina erhebt, überträgt oder speichert <strong>keine</strong> personenbezogenen Daten auf externen Servern. Die Extension verwendet keine Analyse-Tools, Tracking-Skripte oder Werbung jeglicher Art.</p>
+<h2>Wie Ihre Daten verarbeitet werden</h2>
+<p>Alle SEO-Analysen (Seiten-Audits, Heading-Checks, Link-Analysen, Schema-Validierung etc.) werden <strong>lokal in Ihrem Browser</strong> durchgeführt. Die Extension liest den Inhalt des aktuell aktiven Tabs für die Analyse. Diese Daten werden niemals an einen Server gesendet, der von Lumina oder Dritten betrieben wird.</p>
+<h2>API-Schlüssel</h2>
+<p>Lumina ermöglicht optional die Verbindung eigener API-Schlüssel für erweiterte Funktionen:</p>
+<ul>
+<li><strong>OpenAI API-Schlüssel:</strong> Für KI-gestützte Content-Tools. Anfragen werden direkt von Ihrem Browser an die OpenAI-API gesendet.</li>
+<li><strong>DataForSEO API-Schlüssel:</strong> Für Keyword-Recherche und SERP-Analyse. Anfragen gehen direkt an die DataForSEO-API.</li>
+<li><strong>Google PageSpeed Insights API-Schlüssel:</strong> Für Performance-Analysen. Anfragen gehen direkt an Googles API.</li>
+</ul>
+<p>Alle API-Schlüssel werden im lokalen Speicher von Chrome (<code>chrome.storage.local</code>) auf Ihrem Gerät gespeichert. Sie werden niemals an andere Server als den jeweiligen API-Anbieter übertragen.</p>
+<h2>Google OAuth (Search Console & Analytics)</h2>
+<p>Lumina ermöglicht die Verbindung Ihrer Google Search Console und Google Analytics 4 Konten über Googles OAuth 2.0 Autorisierung. Dabei gilt:</p>
+<ul>
+<li>Sie werden zu Googles Consent-Screen weitergeleitet, wo Sie Zugriff auf <code>webmasters.readonly</code> (Search Console) und/oder <code>analytics.readonly</code> (Analytics) Scopes gewähren.</li>
+<li>Access-Tokens werden in Chrome's Session Storage gespeichert und beim Schließen des Browsers gelöscht.</li>
+<li>Refresh-Tokens werden in Chrome's Local Storage für dauerhaften Zugriff gespeichert.</li>
+<li>Alle Datenanfragen gehen direkt von Ihrem Browser zu Googles APIs. Lumina betreibt keinen Backend-Server.</li>
+<li>Sie können die Verbindung jederzeit über die Einstellungen der Extension trennen.</li>
+</ul>
+<p>Lumina fordert ausschließlich <strong>Lesezugriff</strong> an. Es kann keine Daten in Ihrer Search Console oder Analytics ändern.</p>
+<h2>Lokal gespeicherte Daten</h2>
+<p>Die Extension speichert folgende Daten lokal auf Ihrem Gerät:</p>
+<ul>
+<li>Ihre Einstellungen und Präferenzen (Theme, API-Keys, Standardoptionen)</li>
+<li>Zwischengespeicherte Keyword-Daten (um redundante API-Aufrufe zu reduzieren)</li>
+<li>Google OAuth Refresh-Tokens (wenn Sie GSC/GA4 verbinden)</li>
+</ul>
+<p>Sie können alle gespeicherten Daten jederzeit über die Einstellungen der Extension löschen ("Alle Daten zurücksetzen").</p>
+<h2>Berechtigungen</h2>
+<p>Die Extension benötigt folgende Chrome-Berechtigungen:</p>
+<ul>
+<li><code>storage</code> — Einstellungen und API-Keys lokal speichern</li>
+<li><code>activeTab</code> / <code>tabs</code> — Aktuelle Seite für Analysen lesen</li>
+<li><code>scripting</code> — Content-Scripts für On-Page-Features (Heading-Highlighting, Link-Checker)</li>
+<li><code>webRequest</code> — HTTP-Response-Headers erfassen (Statuscodes, X-Robots-Tag)</li>
+<li><code>host_permissions (&lt;all_urls&gt;)</code> — Für robots.txt-Abruf, Link-Checks und API-Aufrufe</li>
+<li><code>identity</code> — Google OAuth Authentifizierung</li>
+<li><code>clipboardWrite</code> — Text/Daten in die Zwischenablage kopieren</li>
+<li><code>downloads</code> — Screenshots und CSV-Dateien exportieren</li>
+</ul>
+<h2>Drittanbieter-Dienste</h2>
+<p>Bei Nutzung API-verbundener Features werden Daten an folgende Drittanbieter gesendet:</p>
+<ul>
+<li><a href="https://policies.google.com/privacy" target="_blank">Google (Search Console, Analytics, PageSpeed)</a></li>
+<li><a href="https://openai.com/privacy/" target="_blank">OpenAI (KI-Content-Tools)</a></li>
+<li><a href="https://dataforseo.com/privacy-policy" target="_blank">DataForSEO (Keyword-Recherche, SERP-Daten)</a></li>
+</ul>
+<h2>Datenschutz von Kindern</h2>
+<p>Lumina richtet sich nicht an Kinder unter 13 Jahren. Wir erheben wissentlich keine Daten von Kindern.</p>
+<h2>Änderungen dieser Richtlinie</h2>
+<p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit aktualisiertem Datum veröffentlicht.</p>
+<h2>Kontakt</h2>
+<p>Bei Fragen zur Datenschutzerklärung: <strong>julien.elbahy [at] gmail.com</strong></p>
+</div>
+<footer>&copy; 2026 Lumina – SEO &amp; GEO. <a href="/de/">Zurück zur Startseite</a></footer>
+</body>
+</html>
