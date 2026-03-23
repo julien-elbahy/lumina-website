@@ -25,9 +25,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root,[data-theme="dark"]{--bg:#1c1914;--bg2:#262119;--card:rgba(255,245,225,.06);--card-h:rgba(255,245,225,.10);--text:#f2eade;--text2:#ccc0ae;--muted:#918474;--accent:#eca550;--accent-h:#f4ba6e;--accent-soft:rgba(236,165,80,.08);--accent-glow:rgba(236,165,80,.18);--border:rgba(255,240,215,.10);--border-h:rgba(255,240,215,.20);--ok:#50e090;--warn:#f4c44a;--err:#f47878;--blur:32px;--shadow-s:0 1px 4px rgba(0,0,0,.25);--input-bg:rgba(0,0,0,.15);--font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
-[data-theme="light"]{--bg:#f4f1ec;--bg2:#eae6df;--card:rgba(255,255,255,.78);--card-h:rgba(255,255,255,.92);--text:#1e1814;--text2:#4a4038;--muted:#908476;--accent:#d4843a;--accent-h:#c07030;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(160,135,105,.16);--border-h:rgba(160,135,105,.30);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--blur:18px;--shadow-s:0 1px 3px rgba(50,30,10,.05);--input-bg:rgba(255,255,255,.9)}
+[data-theme="light"]{--bg:#e8e3db;--bg2:#ddd8cf;--card:rgba(255,255,255,.78);--card-h:rgba(255,255,255,.92);--text:#1e1814;--text2:#4a4038;--muted:#908476;--accent:#d4843a;--accent-h:#c07030;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(160,135,105,.16);--border-h:rgba(160,135,105,.30);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--blur:18px;--shadow-s:0 1px 3px rgba(50,30,10,.05);--input-bg:rgba(255,255,255,.9)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);overflow-x:hidden;color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
-.tn{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:12px;align-items:center}.nr a{font-size:13px;font-weight:600;color:var(--muted)}.nr a:hover{color:var(--text)}.bt{background:var(--card);border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;transition:all .2s;color:var(--text2)}.bt:hover{border-color:var(--accent)}.bc{background:var(--accent);color:#fff!important;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;transition:transform .15s}.bc:hover{transform:translateY(-1px)}
+.tn{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px;color:var(--text)}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:14px;align-items:center}.nr>a{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}.nr>a:hover{color:var(--text)}.bt{background:var(--card);border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;transition:all .2s;color:var(--text2)}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;transition:transform .15s;white-space:nowrap}.bc:hover{transform:translateY(-1px)}
+.tools-dd{position:relative}.tools-trigger{cursor:pointer}.tools-sub{display:none;position:absolute;top:100%;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:6px 0;min-width:200px;box-shadow:0 12px 40px rgba(0,0,0,.3);z-index:110;margin-top:0}.tools-sub::before{content:'';position:absolute;top:-12px;left:0;right:0;height:16px}.tools-dd:hover .tools-sub{display:block}.tools-sub a{display:block;padding:7px 16px;font-size:12px;color:var(--muted);white-space:nowrap}.tools-sub a:hover{background:var(--accent-soft);color:var(--text)}
 .ct{max-width:780px;margin:0 auto;padding:24px}
 .th{text-align:center;margin-bottom:24px}.th .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.th h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.th p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
 .cd{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s)}
@@ -49,48 +50,54 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 
 @media(max-width:640px){.burger-btn{display:flex}.nr,.nav-right{display:none}}
 @media(max-width:640px){.ct{padding:16px}.nr,.nav-right{display:none}.url-row{flex-wrap:wrap}.url-row .li{max-width:100%}}
+
+.tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
+@media(max-width:640px){.tf-inner{grid-template-columns:repeat(2,1fr);gap:20px}}
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
 <script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
 </head>
 <body>
-<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO & GEO</em></span></a><div class="nr"><a href="/">Home</a><a href="/tools/serp-preview/">SERP</a><a href="/tools/schema-validator/">Schema</a><a href="/about.html">About</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Add to Chrome</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menü"><span></span><span></span><span></span></button></nav>
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO & GEO</em></span></a><div class="nr"><a href="/#features">Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><div class="tools-dd"><a class="tools-trigger">Tools ▾</a><div class="tools-sub"><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a></div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Add to Chrome</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/">Home</a>
+<a href="/#features">Features</a>
+<a href="/about.html">About</a>
+<a href="/support.html">Support</a>
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 6px">Tools</div>
 <a href="/tools/serp-preview/">SERP Preview</a>
 <a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/tools/schema-validator/">Schema Validator</a>
-<a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/heading-checker/">Heading Checker</a>
 <a href="/tools/og-preview/">OG Preview</a>
 <a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
-<a href="/about.html">About</a>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Add to Chrome — Free</a>
+<a href="/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
 </div>
 <div class="ct">
 <div class="th"><div class="lb">Free GEO Tool</div><h1>llms.txt Generator</h1><p>Create an llms.txt file for your website. Guide AI crawlers like ChatGPT, Claude, and Perplexity on what to index and how to cite your site.</p></div>
 <div class="cd">
 <label>Site Name</label>
 <input type="text" id="siteName" placeholder="e.g. Lumina SEO">
-<label>Short Description <span class="hint">— One sentence about your site</span></label>
+<label style="margin-top:12px">Short Description</label>
 <textarea id="siteDesc" rows="2" placeholder="e.g. Lumina is a free Chrome extension for SEO professionals."></textarea>
-<label>Key Pages <span class="hint">— URLs for AI crawlers</span></label>
+<label style="margin-top:12px">Key Pages</label>
 <div id="urlList">
 <div class="url-row"><input type="text" class="ui" placeholder="https://example.com/"><input type="text" class="li" placeholder="Homepage"><button class="rm" title="Remove">×</button></div>
 <div class="url-row"><input type="text" class="ui" placeholder="https://example.com/about"><input type="text" class="li" placeholder="About Us"><button class="rm" title="Remove">×</button></div>
 <div class="url-row"><input type="text" class="ui" placeholder="https://example.com/blog"><input type="text" class="li" placeholder="Blog"><button class="rm" title="Remove">×</button></div>
 </div>
 <button class="btn" id="btnAdd" style="margin-top:6px">+ Add URL</button>
-<label>What Your Site Does <span class="hint">— Bullet points (one per line)</span></label>
+<label style="margin-top:12px">What Your Site Does <span style="font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted);opacity:.7">— one per line</span></label>
 <textarea id="siteFeatures" rows="4" placeholder="On-page SEO analysis&#10;Schema JSON-LD validation&#10;AI crawler access checking"></textarea>
-<label>Contact / Author <span class="hint">— Optional</span></label>
+<label style="margin-top:12px">Contact / Author <span style="font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted);opacity:.7">— optional</span></label>
 <input type="text" id="siteAuthor" placeholder="e.g. Created by Jane Doe">
-<div class="btns">
+<div class="btns" style="margin-top:14px">
 <button class="btn primary" id="btnGen">Generate llms.txt</button>
 <button class="btn" id="btnExample">Load Example</button>
 </div>
-<div class="out" id="output"></div>
+<div class="out" id="output" style="display:none"></div>
 <div class="btns" id="outBtns" style="display:none">
 <button class="btn" id="btnCopy">📋 Copy</button>
 <button class="btn" id="btnDL">💾 Download</button>
@@ -98,21 +105,29 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 </div>
 <div class="content">
 <h2>What is llms.txt?</h2>
-<p>llms.txt is a proposed standard (see <a href="https://llmstxt.org/" target="_blank" rel="noopener">llmstxt.org</a>) that helps AI search engines understand your website. While robots.txt controls crawler access, llms.txt tells AI systems what your site is about, which pages matter, and how to cite your content.</p>
-<h2>Where to place it</h2>
-<p>Upload to your site root at <code>https://yourdomain.com/llms.txt</code>. Some sites also provide <code>/llms-full.txt</code> with more detail.</p>
+<p>llms.txt is a proposed standard (<a href="https://llmstxt.org/" target="_blank" rel="noopener">llmstxt.org</a>) that helps AI search engines understand your website.</p>
 <h2 style="margin-top:28px">More tools</h2>
 <div class="other-tools"><a href="/tools/serp-preview/"><h4>SERP Preview</h4><p>Google snippet preview with pixel counter.</p></a><a href="/tools/schema-validator/"><h4>Schema Validator</h4><p>Validate JSON-LD against Google fields.</p></a><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">What's the difference between robots.txt and llms.txt?<span class="arrow">+</span></div><div class="faq-a">robots.txt controls crawler access. llms.txt doesn't control access — it provides structured info about your site's purpose, key pages, and how AI should cite your content.</div></div>
-<div class="faq-item"><div class="faq-q">Do all AI crawlers support llms.txt?<span class="arrow">+</span></div><div class="faq-a">Adoption is growing. Having one is a forward-looking investment in your GEO strategy, even if not all systems read it yet.</div></div>
-<div class="faq-item"><div class="faq-q">How can I check if a site has llms.txt?<span class="arrow">+</span></div><div class="faq-a">Visit yourdomain.com/llms.txt, or use the Lumina Extension which checks automatically on every page.</div></div>
+<div class="faq-item"><div class="faq-q">What's the difference between robots.txt and llms.txt?<span class="arrow">+</span></div><div class="faq-a">robots.txt controls crawler access. llms.txt provides structured info about your site's purpose and how AI should cite your content.</div></div>
+<div class="faq-item"><div class="faq-q">Do all AI crawlers support llms.txt?<span class="arrow">+</span></div><div class="faq-a">Adoption is growing. Having one is a forward-looking investment in your GEO strategy.</div></div>
 <div class="cta-box"><h3>Check llms.txt on any site</h3><p>Lumina checks for llms.txt, verifies AI crawler access, and tracks AI traffic — all in one click.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
-<footer class="tf"><p>© 2026 <a href="/">Lumina SEO</a> · <a href="/imprint.html">Imprint</a> · <a href="/privacy-policy.html">Privacy</a> · <a href="/support.html">Support</a></p></footer>
+<footer class="tf"><div class="tf-inner"><div class="tf-col"><div class="tf-h">Lumina SEO</div><p>© 2026 Lumina SEO & GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div><div class="tf-col"><div class="tf-h">Tools</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a></div><div class="tf-col"><div class="tf-h">More</div><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt</a><a href="/tools/llms-txt-generator/">llms.txt</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div><div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a><a href="/support.html">Support</a></div></div></footer>
 <script>
-var at=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',at);document.getElementById('themeToggle').textContent=at==='dark'?'☀️':'🌙';document.getElementById('themeToggle').addEventListener('click',function(){at=at==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',at);this.textContent=at==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',at)});
-document.getElementById('burgerBtn').addEventListener('click',function(){var m=document.getElementById('mobileMenu');this.classList.toggle('open');m.classList.toggle('open');document.body.style.overflow=m.classList.contains('open')?'hidden':''});
+
+var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
+var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}
+var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
+if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
+
+}
+var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
+if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+
+
+
 
 function addRow(){var r=document.createElement('div');r.className='url-row';r.innerHTML='<input type="text" class="ui" placeholder="https://example.com/page"><input type="text" class="li" placeholder="Label"><button class="rm" title="Remove">×</button>';document.getElementById('urlList').appendChild(r);r.querySelector('.rm').addEventListener('click',function(){r.remove()})}
 document.getElementById('btnAdd').addEventListener('click',addRow);
@@ -139,9 +154,13 @@ var list=document.getElementById('urlList');list.innerHTML='';
 [{u:'https://lumina-seo.com/',l:'Homepage'},{u:'https://lumina-seo.com/tools/serp-preview/',l:'SERP Preview Tool'},{u:'https://lumina-seo.com/tools/schema-validator/',l:'Schema Validator'},{u:'https://lumina-seo.com/privacy-policy.html',l:'Privacy Policy'}].forEach(function(p){var r=document.createElement('div');r.className='url-row';r.innerHTML='<input type="text" class="ui" value="'+p.u+'"><input type="text" class="li" value="'+p.l+'"><button class="rm" title="Remove">×</button>';list.appendChild(r);r.querySelector('.rm').addEventListener('click',function(){r.remove()})})});
 document.getElementById('btnCopy').addEventListener('click',function(){var t=document.getElementById('output').textContent;navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)})});
 document.getElementById('btnDL').addEventListener('click',function(){var t=document.getElementById('output').textContent;var b=new Blob([t],{type:'text/plain'});var a=document.createElement('a');a.download='llms.txt';a.href=URL.createObjectURL(b);a.click()});
-document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
+);
+
+var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");}
 </script>
-<style id="consent-css">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px;flex-shrink:0}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}.consent-btn.reject:hover{color:var(--text);border-color:var(--accent)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
+
+<style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
-<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})();</script>
-</body></html>
+<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+</body>
+</html>

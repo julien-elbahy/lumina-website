@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +39,11 @@ header{padding:80px 24px 40px;text-align:center}header h1{font-size:clamp(28px,4
 .cta-box{text-align:center;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:40px 24px;margin-bottom:60px}.cta-box h3{font-size:22px;font-weight:800;margin-bottom:8px}.cta-box p{color:var(--gray);font-size:15px;margin-bottom:20px}.cta-box .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:15px;transition:transform .15s;border:none;cursor:pointer}.cta-box .btn-primary:hover{transform:translateY(-2px);color:#fff}
 footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:#555;text-align:center}footer a{color:#666}
 @media(max-width:768px){nav{padding:12px 16px}.nav-links a:not(.btn-cws){display:none}}
+
+[data-theme="light"]{--dark:#e0dbd3;--dark2:#d6d0c7;--dark3:#cbc4ba;--gray:#6e6357;--light-gray:#4a4038;--white:#1e1814;--orange:#d4843a;--orange-light:#c07030;--green:#279e5e;--red:#c53e3e;--yellow:#bf8310}
+[data-theme="light"] body{color:#1e1814}[data-theme="light"] body::before{opacity:.01}
+[data-theme="light"] nav{background:rgba(224,219,211,.9);border-bottom-color:rgba(160,135,105,.16)}
+[data-theme="light"] .btn-cws{color:#fff!important}
 </style>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -48,7 +53,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
 </head>
 <body>
-<nav><a href="/de/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/de/">Startseite</a><a href="/de/tools/serp-preview/">Tools</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener" style="color:#fff">Zu Chrome hinzufügen</a></div></nav>
+<nav><a href="/de/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/de/">Startseite</a><a href="/de/tools/serp-preview/">Tools</a><button class="theme-toggle" id="themeToggle" style="background:none;border:1px solid rgba(255,255,255,.1);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;color:var(--gray)">🌙</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener" style="color:#fff">Zu Chrome hinzufügen</a></div></nav>
 
 <header>
 <img class="about-photo" src="/julien.webp" alt="Julien El-Bahy" width="200" height="200">
@@ -119,6 +124,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 .consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
 .consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
 @media(max-width:600px){.consent-banner{padding:12px 10px 80px}.consent-inner{flex-direction:column;text-align:center;gap:12px;padding:14px 16px;border-radius:10px}.consent-text{font-size:12px}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px;width:100%}}
+
+[data-theme="light"]{--dark:#e0dbd3;--dark2:#d6d0c7;--dark3:#cbc4ba;--gray:#6e6357;--light-gray:#4a4038;--white:#1e1814;--orange:#d4843a;--orange-light:#c07030;--green:#279e5e;--red:#c53e3e;--yellow:#bf8310}
+[data-theme="light"] body{color:#1e1814}[data-theme="light"] body::before{opacity:.01}
+[data-theme="light"] nav{background:rgba(224,219,211,.9);border-bottom-color:rgba(160,135,105,.16)}
+[data-theme="light"] .btn-cws{color:#fff!important}
 </style><div id="consentBanner" class="consent-banner" style="display:none">
 <div class="consent-inner">
 <div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics, um zu verstehen, wie Besucher diese Seite nutzen. Es werden keine personenbezogenen Daten verkauft. <a href="/de/datenschutz.html">Datenschutz</a></div>
@@ -137,5 +147,9 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
     localStorage.setItem('lumina_consent','denied');b.style.display='none';
   });
 })();
-</script></body>
+</script><script>
+var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
+var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}
+</script>
+</body>
 </html>

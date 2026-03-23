@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,10 +42,15 @@ select option{background:var(--dark3);color:var(--white)}
 .help-item .icon{font-size:24px;margin-bottom:8px}.help-item h4{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px}.help-item p{font-size:12px;color:var(--gray)}
 footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:#555;text-align:center}footer a{color:#666}
 @media(max-width:768px){nav{padding:12px 16px}.nav-links a:not(.btn-cws){display:none}}
+
+[data-theme="light"]{--dark:#e0dbd3;--dark2:#d6d0c7;--dark3:#cbc4ba;--gray:#6e6357;--light-gray:#4a4038;--white:#1e1814;--orange:#d4843a;--orange-light:#c07030;--green:#279e5e;--red:#c53e3e;--yellow:#bf8310}
+[data-theme="light"] body{color:#1e1814}[data-theme="light"] body::before{opacity:.01}
+[data-theme="light"] nav{background:rgba(224,219,211,.9);border-bottom-color:rgba(160,135,105,.16)}
+[data-theme="light"] .btn-cws{color:#fff!important}
 </style>
 </head>
 <body>
-<nav><a href="/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/">Home</a><a href="/about.html">About</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener" style="color:#fff">Add to Chrome</a></div></nav>
+<nav><a href="/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/">Home</a><a href="/about.html">About</a><button class="theme-toggle" id="themeToggle" style="background:none;border:1px solid rgba(255,255,255,.1);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;color:var(--gray)">🌙</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener" style="color:#fff">Add to Chrome</a></div></nav>
 
 <header>
 <p style="font-size:13px;color:var(--orange);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Support</p>
@@ -65,7 +70,7 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 <select id="sTopic">
 <option value="Bug Report">Bug Report</option>
 <option value="Feature Request">Feature Request</option>
-<option value="Question">General Question</option>
+<option value="Question" selected>General Question</option>
 <option value="Feedback">Feedback</option>
 <option value="Other">Other</option>
 </select>
@@ -117,6 +122,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 .consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
 .consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
 @media(max-width:600px){.consent-banner{padding:12px 10px 80px}.consent-inner{flex-direction:column;text-align:center;gap:12px;padding:14px 16px;border-radius:10px}.consent-text{font-size:12px}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px;width:100%}}
+
+[data-theme="light"]{--dark:#e0dbd3;--dark2:#d6d0c7;--dark3:#cbc4ba;--gray:#6e6357;--light-gray:#4a4038;--white:#1e1814;--orange:#d4843a;--orange-light:#c07030;--green:#279e5e;--red:#c53e3e;--yellow:#bf8310}
+[data-theme="light"] body{color:#1e1814}[data-theme="light"] body::before{opacity:.01}
+[data-theme="light"] nav{background:rgba(224,219,211,.9);border-bottom-color:rgba(160,135,105,.16)}
+[data-theme="light"] .btn-cws{color:#fff!important}
 </style><div id="consentBanner" class="consent-banner" style="display:none">
 <div class="consent-inner">
 <div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. No personal data is sold. <a href="/privacy-policy.html">Privacy Policy</a></div>
@@ -142,6 +152,10 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 document.querySelectorAll('.eml-link').forEach(function(a){a.textContent=e});
 document.querySelectorAll('.eml-text').forEach(function(p){p.textContent=e});
 })();
+</script>
+<script>
+var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
+var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}
 </script>
 </body>
 </html>
