@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free llms.txt Generator – AI Crawler Guide | Lumina SEO</title>
 <meta name="description" content="Generate an llms.txt file for your website. Tell AI crawlers like ChatGPT, Claude, and Perplexity what content to index and how to cite your site. Free tool.">
-<meta name="keywords" content="llms.txt generator, llms.txt file, llms txt creator, AI crawler guide, GEO optimization, generative engine optimization, AI search optimization">
+<meta name="keywords" content="llms.txt generator, llms.txt file, llms txt creator, AI crawler guide, GEO optimization, generative engine optimization">
 <link rel="canonical" href="https://lumina-seo.com/tools/llms-txt-generator/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/llms-txt-generator/">
 <link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/llms-txt-generator/">
@@ -13,242 +13,115 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/tools/llms-txt-generator/">
-<meta property="og:title" content="Free llms.txt Generator – AI Crawler Guide | Lumina SEO">
+<meta property="og:title" content="Free llms.txt Generator | Lumina SEO">
 <meta property="og:description" content="Create an llms.txt file to guide AI crawlers on your content. Free, no signup.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"llms.txt Generator","url":"https://lumina-seo.com/tools/llms-txt-generator/","description":"Generate an llms.txt file for your website to guide AI crawlers.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"llms.txt Generator","url":"https://lumina-seo.com/tools/llms-txt-generator/","description":"Free llms.txt generator for AI crawler optimization.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--orange:#d4843a;--orange-light:#e8a44e;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#252525;--gray:#888;--light-gray:#bbb;--white:#f5f5f5;--green:#22c55e;--red:#ef4444;--font:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--dark);color:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}a{color:var(--orange-light);text-decoration:none}a:hover{color:var(--orange)}
-nav{padding:14px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,15,15,.95);border-bottom:1px solid rgba(255,255,255,.06)}.nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:var(--white)}.nav-logo img{width:36px;height:36px;border-radius:8px}.nav-links{display:flex;gap:20px;align-items:center}.nav-links a{color:var(--light-gray);font-size:14px;font-weight:500}.btn-cws{background:var(--orange);color:#fff;padding:8px 18px;border-radius:8px;font-weight:700;font-size:14px;transition:transform .15s}.btn-cws:hover{transform:translateY(-1px);color:#fff}
-.container{max-width:900px;margin:0 auto;padding:0 24px}
-header{padding:60px 24px 32px;text-align:center}header h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}header h1 .accent{color:var(--orange-light)}header p{font-size:17px;color:var(--gray);max-width:620px;margin:0 auto;line-height:1.7}
-.tool-card{background:var(--dark2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin:0 auto 24px;max-width:900px}
-.form-group{margin-bottom:16px}
-label{display:block;font-size:13px;font-weight:600;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
-label .hint{font-weight:400;text-transform:none;letter-spacing:0;color:#666;font-size:12px}
-input,textarea{width:100%;background:var(--dark3);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;color:var(--white);font-family:var(--font);font-size:15px;transition:border-color .2s}
-input:focus,textarea:focus{outline:none;border-color:var(--orange)}
-textarea{font-family:var(--font);resize:vertical;min-height:80px}
-.url-row{display:flex;gap:8px;margin-bottom:6px;align-items:center}
-.url-row input{flex:1}
-.url-row .label-input{flex:1;max-width:160px}
-.btn-sm{background:var(--dark3);border:1px solid rgba(255,255,255,.1);color:var(--light-gray);padding:8px 12px;border-radius:6px;font-size:13px;cursor:pointer;font-family:var(--font);transition:border-color .2s;white-space:nowrap}
-.btn-sm:hover{border-color:var(--orange);color:var(--white)}
-.btn-rm{background:none;border:none;color:#666;font-size:18px;cursor:pointer;padding:0 6px}
-.btn-rm:hover{color:var(--red)}
-.output-wrap{margin-top:20px;display:none}
-.output-wrap label{margin-bottom:8px}
-.output-pre{background:var(--dark3);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:16px;font-family:var(--mono);font-size:13px;color:#7ec8e3;line-height:1.6;white-space:pre-wrap;word-break:break-word;max-height:400px;overflow-y:auto}
-.btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.btn-action{background:var(--orange);border:none;color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;transition:transform .15s;font-family:var(--font)}
-.btn-action:hover{transform:translateY(-1px)}
-.btn-sec{background:var(--dark3);border:1px solid rgba(255,255,255,.1);color:var(--light-gray);padding:10px 16px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--font);transition:border-color .2s}
-.btn-sec:hover{border-color:var(--orange);color:var(--white)}
-section{padding:60px 24px}.content h2{font-size:24px;font-weight:800;margin-bottom:16px;letter-spacing:-.5px}.content p{font-size:15px;color:#ccc;line-height:1.8;margin-bottom:16px}
-.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:20px}.other-tools a{display:block;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;transition:border-color .2s}.other-tools a:hover{border-color:var(--orange)}.other-tools a h4{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px}.other-tools a p{font-size:12px;color:var(--gray);line-height:1.5}
-.cta-box{text-align:center;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:40px 24px;margin-top:40px}.cta-box h3{font-size:22px;font-weight:800;margin-bottom:8px}.cta-box p{color:var(--gray);font-size:15px;margin-bottom:20px}.cta-box .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:transform .15s}.cta-box .btn-primary:hover{transform:translateY(-2px);color:#fff}
-.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:16px 0}.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}.faq-q:hover{color:var(--orange-light)}.faq-q .arrow{color:var(--gray);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:14px;color:var(--gray);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:10px}
-footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:#555;text-align:center}footer a{color:#666}
-@media(max-width:768px){nav{padding:12px 16px}.nav-links a:not(.btn-cws){display:none}.url-row{flex-direction:column}.url-row .label-input{max-width:100%}}
+:root,[data-theme="dark"]{--bg:#1c1914;--bg2:#262119;--card:rgba(255,245,225,.06);--card-h:rgba(255,245,225,.10);--text:#f2eade;--text2:#ccc0ae;--muted:#918474;--accent:#eca550;--accent-h:#f4ba6e;--accent-soft:rgba(236,165,80,.08);--accent-glow:rgba(236,165,80,.18);--border:rgba(255,240,215,.10);--border-h:rgba(255,240,215,.20);--ok:#50e090;--warn:#f4c44a;--err:#f47878;--blur:32px;--shadow-s:0 1px 4px rgba(0,0,0,.25);--input-bg:rgba(0,0,0,.15);--font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+[data-theme="light"]{--bg:#f4f1ec;--bg2:#eae6df;--card:rgba(255,255,255,.78);--card-h:rgba(255,255,255,.92);--text:#1e1814;--text2:#4a4038;--muted:#908476;--accent:#d4843a;--accent-h:#c07030;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(160,135,105,.16);--border-h:rgba(160,135,105,.30);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--blur:18px;--shadow-s:0 1px 3px rgba(50,30,10,.05);--input-bg:rgba(255,255,255,.9)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
+.tn{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:12px;align-items:center}.nr a{font-size:13px;font-weight:600;color:var(--muted)}.nr a:hover{color:var(--text)}.bt{background:var(--card);border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;transition:all .2s;color:var(--text2)}.bt:hover{border-color:var(--accent)}.bc{background:var(--accent);color:#fff!important;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;transition:transform .15s}.bc:hover{transform:translateY(-1px)}
+.ct{max-width:780px;margin:0 auto;padding:24px}
+.th{text-align:center;margin-bottom:24px}.th .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.th h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.th p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
+.cd{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s)}
+label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px;margin-top:12px}label:first-child{margin-top:0}
+.hint{font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted);opacity:.7}
+input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:var(--font);font-size:14px;transition:all .2s}input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}textarea{resize:vertical;min-height:60px}
+.url-row{display:flex;gap:6px;margin-bottom:6px;align-items:center}.url-row input{flex:1}.url-row .li{max-width:160px}.url-row .rm{background:var(--card);border:1px solid var(--border);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;transition:all .2s;flex-shrink:0}.url-row .rm:hover{background:var(--err);color:#fff;border-color:var(--err)}
+.btns{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}.btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .2s;font-family:var(--font)}.btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:var(--accent);font-size:13px;padding:10px 20px}.btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 16px var(--accent-glow)}
+.out{display:none;margin-top:16px;background:var(--input-bg);border:1px solid var(--border);border-radius:14px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.6;white-space:pre-wrap;color:var(--text2);max-height:400px;overflow-y:auto}
+.content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}.content code{font-family:var(--mono);font-size:12px;background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent)}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
+.tf{padding:24px;text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:32px}.tf a{color:var(--muted)}.tf a:hover{color:var(--accent)}
+@media(max-width:640px){.ct{padding:16px}.tn .nr a:not(.bc):not(.bt){display:none}.url-row{flex-wrap:wrap}.url-row .li{max-width:100%}}
 </style>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
 <script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
 </head>
 <body>
-<nav><a href="/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/">Home</a><a href="/tools/serp-preview/">SERP Preview</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener">Add to Chrome</a></div></nav>
-
-<header>
-<p style="font-size:13px;color:var(--orange);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Free GEO Tool</p>
-<h1>llms.txt <span class="accent">Generator</span></h1>
-<p>Create an llms.txt file for your website. Guide AI crawlers like ChatGPT, Claude, and Perplexity on what content to index and how to cite your site.</p>
-</header>
-
-<div class="container">
-<div class="tool-card">
-<div class="form-group"><label>Site Name</label><input type="text" id="siteName" placeholder="e.g. Lumina SEO"></div>
-<div class="form-group"><label>Short Description <span class="hint">— One sentence about your site</span></label><textarea id="siteDesc" rows="2" placeholder="e.g. Lumina is a free Chrome extension for SEO professionals offering on-page audits, AI crawler checks, and more."></textarea></div>
-
-<div class="form-group">
-<label>Key Pages <span class="hint">— URLs you want AI crawlers to know about</span></label>
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO & GEO</em></span></a><div class="nr"><a href="/">Home</a><a href="/tools/serp-preview/">SERP</a><a href="/tools/schema-validator/">Schema</a><a href="/about.html">About</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Add to Chrome</a></div></nav>
+<div class="ct">
+<div class="th"><div class="lb">Free GEO Tool</div><h1>llms.txt Generator</h1><p>Create an llms.txt file for your website. Guide AI crawlers like ChatGPT, Claude, and Perplexity on what to index and how to cite your site.</p></div>
+<div class="cd">
+<label>Site Name</label>
+<input type="text" id="siteName" placeholder="e.g. Lumina SEO">
+<label>Short Description <span class="hint">— One sentence about your site</span></label>
+<textarea id="siteDesc" rows="2" placeholder="e.g. Lumina is a free Chrome extension for SEO professionals."></textarea>
+<label>Key Pages <span class="hint">— URLs for AI crawlers</span></label>
 <div id="urlList">
-<div class="url-row"><input type="text" class="url-input" placeholder="https://example.com/"><input type="text" class="label-input" placeholder="Label (e.g. Homepage)"><button class="btn-rm" title="Remove">×</button></div>
-<div class="url-row"><input type="text" class="url-input" placeholder="https://example.com/about"><input type="text" class="label-input" placeholder="Label (e.g. About Us)"><button class="btn-rm" title="Remove">×</button></div>
-<div class="url-row"><input type="text" class="url-input" placeholder="https://example.com/blog"><input type="text" class="label-input" placeholder="Label (e.g. Blog)"><button class="btn-rm" title="Remove">×</button></div>
+<div class="url-row"><input type="text" class="ui" placeholder="https://example.com/"><input type="text" class="li" placeholder="Homepage"><button class="rm" title="Remove">×</button></div>
+<div class="url-row"><input type="text" class="ui" placeholder="https://example.com/about"><input type="text" class="li" placeholder="About Us"><button class="rm" title="Remove">×</button></div>
+<div class="url-row"><input type="text" class="ui" placeholder="https://example.com/blog"><input type="text" class="li" placeholder="Blog"><button class="rm" title="Remove">×</button></div>
 </div>
-<button class="btn-sm" id="btnAddUrl" style="margin-top:8px;">+ Add URL</button>
+<button class="btn" id="btnAdd" style="margin-top:6px">+ Add URL</button>
+<label>What Your Site Does <span class="hint">— Bullet points (one per line)</span></label>
+<textarea id="siteFeatures" rows="4" placeholder="On-page SEO analysis&#10;Schema JSON-LD validation&#10;AI crawler access checking"></textarea>
+<label>Contact / Author <span class="hint">— Optional</span></label>
+<input type="text" id="siteAuthor" placeholder="e.g. Created by Jane Doe">
+<div class="btns">
+<button class="btn primary" id="btnGen">Generate llms.txt</button>
+<button class="btn" id="btnExample">Load Example</button>
 </div>
-
-<div class="form-group"><label>What Your Site Does <span class="hint">— A few bullet points (one per line)</span></label><textarea id="siteFeatures" rows="4" placeholder="On-page SEO analysis&#10;Schema JSON-LD validation&#10;AI crawler access checking&#10;Google Search Console integration"></textarea></div>
-
-<div class="form-group"><label>Contact / Author <span class="hint">— Optional</span></label><input type="text" id="siteAuthor" placeholder="e.g. Created by Jane Doe. Contact: hello@example.com"></div>
-
-<div class="btn-row">
-<button class="btn-action" id="btnGenerate">Generate llms.txt</button>
-<button class="btn-sec" id="btnLoadExample">Load Example</button>
-</div>
-
-<div class="output-wrap" id="outputWrap">
-<label>Generated llms.txt</label>
-<div class="output-pre" id="outputPre"></div>
-<div class="btn-row">
-<button class="btn-sec" id="btnCopy">📋 Copy to Clipboard</button>
-<button class="btn-sec" id="btnDownload">💾 Download as llms.txt</button>
+<div class="out" id="output"></div>
+<div class="btns" id="outBtns" style="display:none">
+<button class="btn" id="btnCopy">📋 Copy</button>
+<button class="btn" id="btnDL">💾 Download</button>
 </div>
 </div>
-</div>
-
-<section class="content">
+<div class="content">
 <h2>What is llms.txt?</h2>
-<p>llms.txt is a proposed standard (see <a href="https://llmstxt.org/" target="_blank" rel="noopener">llmstxt.org</a>) that helps AI-powered search engines and large language models understand your website. While robots.txt controls crawler access, llms.txt tells AI systems what your site is about, which pages are most important, and how to accurately represent your content.</p>
-<p>As AI search engines like ChatGPT, Perplexity, Claude, and Google's AI Overviews become more prevalent, having an llms.txt file helps ensure your content is properly understood, cited, and ranked by these systems.</p>
-
-<h2>Where to place llms.txt</h2>
-<p>Upload the generated file to the root of your website at <code>https://yourdomain.com/llms.txt</code>. Some sites also provide a more detailed version at <code>/llms-full.txt</code> with additional content for AI systems that support longer context.</p>
-
-<h2 style="margin-top:40px;">More free SEO tools</h2>
-<div class="other-tools">
-<a href="/tools/serp-preview/"><h4>SERP Preview Tool</h4><p>Preview your title and description in Google search results with pixel-width measurement.</p></a>
-<a href="/tools/schema-validator/"><h4>Schema JSON-LD Validator</h4><p>Validate your structured data against Google's required fields.</p></a>
-</div>
-
-<h2 style="margin-top:40px">Frequently asked questions</h2>
-<div class="faq-item"><div class="faq-q">What is the difference between robots.txt and llms.txt?<span class="arrow">+</span></div><div class="faq-a">robots.txt controls which crawlers can access your site and which pages they can crawl. llms.txt is complementary — it doesn't control access but provides structured information about your site's purpose, key pages, and how AI systems should understand and cite your content.</div></div>
-<div class="faq-item"><div class="faq-q">Do all AI crawlers support llms.txt?<span class="arrow">+</span></div><div class="faq-a">llms.txt is an emerging standard and adoption is growing. Even if not all AI systems read it yet, having one signals to any system that does check it that you've thoughtfully prepared your content for AI indexing. It's a forward-looking investment in your GEO strategy.</div></div>
-<div class="faq-item"><div class="faq-q">How can I check if a site has an llms.txt?<span class="arrow">+</span></div><div class="faq-a">You can manually check by visiting yourdomain.com/llms.txt. Or install the free Lumina Chrome Extension which automatically checks for llms.txt and llms-full.txt on any page you visit, with a detailed report in the Crawler tab.</div></div>
-
-<div class="cta-box">
-<h3>Check llms.txt on any site instantly</h3>
-<p>The Lumina extension checks for llms.txt, verifies AI crawler access via robots.txt, and tracks AI traffic — all in one click.</p>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-primary" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
-</div>
-</section>
-</div>
-
-<footer><p>&copy; 2026 <a href="/">Lumina SEO</a> · <a href="/imprint.html">Imprint</a> · <a href="/privacy-policy.html">Privacy</a> · <a href="/support.html">Support</a></p></footer>
-
+<p>llms.txt is a proposed standard (see <a href="https://llmstxt.org/" target="_blank" rel="noopener">llmstxt.org</a>) that helps AI search engines understand your website. While robots.txt controls crawler access, llms.txt tells AI systems what your site is about, which pages matter, and how to cite your content.</p>
+<h2>Where to place it</h2>
+<p>Upload to your site root at <code>https://yourdomain.com/llms.txt</code>. Some sites also provide <code>/llms-full.txt</code> with more detail.</p>
+<h2 style="margin-top:28px">More tools</h2>
+<div class="other-tools"><a href="/tools/serp-preview/"><h4>SERP Preview</h4><p>Google snippet preview with pixel counter.</p></a><a href="/tools/schema-validator/"><h4>Schema Validator</h4><p>Validate JSON-LD against Google fields.</p></a><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags.</p></a></div>
+<h2 style="margin-top:28px">FAQ</h2>
+<div class="faq-item"><div class="faq-q">What's the difference between robots.txt and llms.txt?<span class="arrow">+</span></div><div class="faq-a">robots.txt controls crawler access. llms.txt doesn't control access — it provides structured info about your site's purpose, key pages, and how AI should cite your content.</div></div>
+<div class="faq-item"><div class="faq-q">Do all AI crawlers support llms.txt?<span class="arrow">+</span></div><div class="faq-a">Adoption is growing. Having one is a forward-looking investment in your GEO strategy, even if not all systems read it yet.</div></div>
+<div class="faq-item"><div class="faq-q">How can I check if a site has llms.txt?<span class="arrow">+</span></div><div class="faq-a">Visit yourdomain.com/llms.txt, or use the Lumina Extension which checks automatically on every page.</div></div>
+<div class="cta-box"><h3>Check llms.txt on any site</h3><p>Lumina checks for llms.txt, verifies AI crawler access, and tracks AI traffic — all in one click.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+</div></div>
+<footer class="tf"><p>© 2026 <a href="/">Lumina SEO</a> · <a href="/imprint.html">Imprint</a> · <a href="/privacy-policy.html">Privacy</a> · <a href="/support.html">Support</a></p></footer>
 <script>
-// Add/remove URL rows
-document.getElementById('btnAddUrl').addEventListener('click', function() {
-  var row = document.createElement('div');
-  row.className = 'url-row';
-  row.innerHTML = '<input type="text" class="url-input" placeholder="https://example.com/page"><input type="text" class="label-input" placeholder="Label"><button class="btn-rm" title="Remove">\u00d7</button>';
-  document.getElementById('urlList').appendChild(row);
-  row.querySelector('.btn-rm').addEventListener('click', function() { row.remove(); });
-});
-document.querySelectorAll('.btn-rm').forEach(function(b) {
-  b.addEventListener('click', function() { b.parentElement.remove(); });
-});
-
-// Generate
-document.getElementById('btnGenerate').addEventListener('click', function() {
-  var name = document.getElementById('siteName').value.trim();
-  var desc = document.getElementById('siteDesc').value.trim();
-  var features = document.getElementById('siteFeatures').value.trim();
-  var author = document.getElementById('siteAuthor').value.trim();
-  if (!name) { document.getElementById('siteName').focus(); return; }
-
-  var txt = '# ' + name + '\n\n';
-  if (desc) txt += '> ' + desc + '\n\n';
-
-  // Key pages
-  var rows = document.querySelectorAll('#urlList .url-row');
-  var hasUrls = false;
-  rows.forEach(function(r) {
-    var url = r.querySelector('.url-input').value.trim();
-    var label = r.querySelector('.label-input').value.trim();
-    if (url) { if (!hasUrls) { txt += '## Key pages\n\n'; hasUrls = true; }
-      txt += '- [' + (label || url) + '](' + url + ')' + (label ? ': ' + label : '') + '\n'; }
-  });
-  if (hasUrls) txt += '\n';
-
-  // Features
-  if (features) {
-    txt += '## What ' + name + ' does\n\n';
-    features.split('\n').forEach(function(line) {
-      line = line.trim();
-      if (line) txt += '- ' + line + '\n';
-    });
-    txt += '\n';
-  }
-
-  // Author
-  if (author) txt += '## Author\n\n' + author + '\n';
-
-  document.getElementById('outputPre').textContent = txt;
-  document.getElementById('outputWrap').style.display = 'block';
-  document.getElementById('outputWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-});
-
-// Copy
-document.getElementById('btnCopy').addEventListener('click', function() {
-  var text = document.getElementById('outputPre').textContent;
-  navigator.clipboard.writeText(text).then(function() {
-    var btn = document.getElementById('btnCopy');
-    btn.textContent = '✓ Copied!'; setTimeout(function() { btn.textContent = '📋 Copy to Clipboard'; }, 1500);
-  });
-});
-
-// Download
-document.getElementById('btnDownload').addEventListener('click', function() {
-  var text = document.getElementById('outputPre').textContent;
-  var blob = new Blob([text], { type: 'text/plain' });
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'llms.txt';
-  a.click();
-});
-
-// Load example
-document.getElementById('btnLoadExample').addEventListener('click', function() {
-  document.getElementById('siteName').value = 'Lumina SEO';
-  document.getElementById('siteDesc').value = 'Lumina is a free, all-in-one Chrome extension for SEO professionals. It provides on-page audits, AI crawler checks, llms.txt validation, schema validation, Google Search Console and GA4 dashboards, keyword research, and AI-powered content tools.';
-  var urls = document.querySelectorAll('#urlList .url-row');
-  if (urls[0]) { urls[0].querySelector('.url-input').value = 'https://lumina-seo.com/'; urls[0].querySelector('.label-input').value = 'Homepage'; }
-  if (urls[1]) { urls[1].querySelector('.url-input').value = 'https://lumina-seo.com/privacy-policy.html'; urls[1].querySelector('.label-input').value = 'Privacy Policy'; }
-  if (urls[2]) { urls[2].querySelector('.url-input').value = 'https://lumina-seo.com/tools/serp-preview/'; urls[2].querySelector('.label-input').value = 'SERP Preview Tool'; }
-  document.getElementById('siteFeatures').value = 'On-page SEO audit with SERP preview\nAI crawler access check (robots.txt)\nllms.txt checker\nSchema JSON-LD deep validation\nGoogle Search Console dashboard\nGoogle Analytics 4 dashboard\nKeyword research and SERP analysis\nAI-powered content optimization';
-  document.getElementById('siteAuthor').value = 'Created by Julien El-Bahy. Contact: julien.elbahy@gmail.com';
-});
-
-// FAQ
+var at=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',at);document.getElementById('themeToggle').textContent=at==='dark'?'☀️':'🌙';document.getElementById('themeToggle').addEventListener('click',function(){at=at==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',at);this.textContent=at==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',at)});
+function addRow(){var r=document.createElement('div');r.className='url-row';r.innerHTML='<input type="text" class="ui" placeholder="https://example.com/page"><input type="text" class="li" placeholder="Label"><button class="rm" title="Remove">×</button>';document.getElementById('urlList').appendChild(r);r.querySelector('.rm').addEventListener('click',function(){r.remove()})}
+document.getElementById('btnAdd').addEventListener('click',addRow);
+document.querySelectorAll('.rm').forEach(function(b){b.addEventListener('click',function(){b.parentElement.remove()})});
+document.getElementById('btnGen').addEventListener('click',function(){
+var name=document.getElementById('siteName').value.trim()||'My Website';
+var desc=document.getElementById('siteDesc').value.trim()||'';
+var features=document.getElementById('siteFeatures').value.trim()||'';
+var author=document.getElementById('siteAuthor').value.trim()||'';
+var urls=[];document.querySelectorAll('.url-row').forEach(function(r){var u=r.querySelector('.ui').value.trim(),l=r.querySelector('.li').value.trim();if(u)urls.push({url:u,label:l})});
+var out='# '+name+'\n\n';
+if(desc)out+='> '+desc+'\n\n';
+if(urls.length){out+='## Key Pages\n\n';urls.forEach(function(u){out+='- ['+( u.label||u.url)+']('+u.url+')\n'});out+='\n'}
+if(features){out+='## What This Site Does\n\n';features.split('\n').forEach(function(f){f=f.trim();if(f)out+='- '+f+'\n'});out+='\n'}
+out+='## How to Cite\n\nWhen referencing content from this site, please cite as "'+name+'" with a link to the original page URL.\n\n';
+if(author)out+='## Contact\n\n'+author+'\n';
+var o=document.getElementById('output');o.textContent=out;o.style.display='block';document.getElementById('outBtns').style.display='flex'});
+document.getElementById('btnExample').addEventListener('click',function(){
+document.getElementById('siteName').value='Lumina SEO';
+document.getElementById('siteDesc').value='Lumina is a free Chrome extension for SEO professionals offering on-page audits, AI crawler checks, schema validation, and more.';
+document.getElementById('siteFeatures').value='On-page SEO audit with SERP preview\nAI crawler access check (GPTBot, ClaudeBot, etc.)\nSchema JSON-LD deep validation\nGoogle Search Console dashboard\nKeyword research and AI content tools';
+document.getElementById('siteAuthor').value='Created by Julien El-Bahy. https://lumina-seo.com';
+var list=document.getElementById('urlList');list.innerHTML='';
+[{u:'https://lumina-seo.com/',l:'Homepage'},{u:'https://lumina-seo.com/tools/serp-preview/',l:'SERP Preview Tool'},{u:'https://lumina-seo.com/tools/schema-validator/',l:'Schema Validator'},{u:'https://lumina-seo.com/privacy-policy.html',l:'Privacy Policy'}].forEach(function(p){var r=document.createElement('div');r.className='url-row';r.innerHTML='<input type="text" class="ui" value="'+p.u+'"><input type="text" class="li" value="'+p.l+'"><button class="rm" title="Remove">×</button>';list.appendChild(r);r.querySelector('.rm').addEventListener('click',function(){r.remove()})})});
+document.getElementById('btnCopy').addEventListener('click',function(){var t=document.getElementById('output').textContent;navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)})});
+document.getElementById('btnDL').addEventListener('click',function(){var t=document.getElementById('output').textContent;var b=new Blob([t],{type:'text/plain'});var a=document.createElement('a');a.download='llms.txt';a.href=URL.createObjectURL(b);a.click()});
 document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
 </script>
-<style id="consent-css">
-.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}
-.consent-inner{max-width:680px;margin:0 auto;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}
-.consent-text{flex:1;font-size:13px;color:#bbb;line-height:1.6;font-family:'DM Sans',sans-serif}.consent-text strong{color:#f5f5f5;font-size:14px}.consent-text a{color:#e8a44e}
-.consent-btns{display:flex;gap:8px;flex-shrink:0}
-.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s}
-.consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
-.consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
-@media(max-width:600px){.consent-banner{padding:12px 10px 80px}.consent-inner{flex-direction:column;text-align:center;gap:12px;padding:14px 16px;border-radius:10px}.consent-text{font-size:12px}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px;width:100%}}
-</style><div id="consentBanner" class="consent-banner" style="display:none">
-<div class="consent-inner">
-<div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. No personal data is sold. <a href="/privacy-policy.html">Privacy Policy</a></div>
-<div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div>
-</div></div><script>
-(function(){
-  var c=localStorage.getItem('lumina_consent');
-  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
-  if(c==='denied')return;
-  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
-  document.getElementById('consentAccept').addEventListener('click',function(){
-    gtag('consent','update',{'analytics_storage':'granted'});
-    localStorage.setItem('lumina_consent','granted');b.style.display='none';
-  });
-  document.getElementById('consentReject').addEventListener('click',function(){
-    localStorage.setItem('lumina_consent','denied');b.style.display='none';
-  });
-})();
-</script></body>
-</html>
+<style id="consent-css">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px;flex-shrink:0}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}.consent-btn.reject:hover{color:var(--text);border-color:var(--accent)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
+<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})();</script>
+</body></html>

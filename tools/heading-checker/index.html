@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Heading Structure Checker – H1-H6 Analyzer | Lumina SEO</title>
+<meta name="description" content="Analyze the heading structure of any webpage. Check H1-H6 hierarchy, find missing or duplicate H1 tags, and visualize the heading tree. Free, no signup.">
+<meta name="keywords" content="heading checker, H1 checker, heading structure analyzer, H1-H6 hierarchy, SEO heading tool, heading tree viewer">
+<link rel="canonical" href="https://lumina-seo.com/tools/heading-checker/">
+<link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/heading-checker/">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/heading-checker/">
+<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/heading-checker/">
+<meta name="theme-color" content="#d4843a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lumina-seo.com/tools/heading-checker/">
+<meta property="og:title" content="Free Heading Structure Checker | Lumina SEO">
+<meta property="og:description" content="Check H1-H6 hierarchy for any URL. Find missing H1s, duplicate headings, and structural issues.">
+<meta property="og:image" content="https://lumina-seo.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Heading Structure Checker","url":"https://lumina-seo.com/tools/heading-checker/","description":"Free heading hierarchy analyzer for SEO.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{--bg:#1c1914;--bg2:#262119;--card:rgba(255,245,225,.06);--card-h:rgba(255,245,225,.10);--text:#f2eade;--text2:#ccc0ae;--muted:#918474;--accent:#eca550;--accent-h:#f4ba6e;--accent-soft:rgba(236,165,80,.08);--accent-glow:rgba(236,165,80,.18);--border:rgba(255,240,215,.10);--border-h:rgba(255,240,215,.20);--ok:#50e090;--warn:#f4c44a;--err:#f47878;--ok-bg:rgba(80,224,144,.08);--warn-bg:rgba(244,196,74,.07);--err-bg:rgba(244,120,120,.07);--ok-border:rgba(80,224,144,.18);--warn-border:rgba(244,196,74,.17);--err-border:rgba(244,120,120,.17);--blur:32px;--shadow-s:0 1px 4px rgba(0,0,0,.25);--shadow-m:0 8px 36px rgba(0,0,0,.35);--input-bg:rgba(0,0,0,.15);--font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+[data-theme="light"]{--bg:#f4f1ec;--bg2:#eae6df;--card:rgba(255,255,255,.78);--card-h:rgba(255,255,255,.92);--text:#1e1814;--text2:#4a4038;--muted:#908476;--accent:#d4843a;--accent-h:#c07030;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(160,135,105,.16);--border-h:rgba(160,135,105,.30);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--ok-bg:rgba(39,158,94,.07);--warn-bg:rgba(191,131,16,.07);--err-bg:rgba(197,62,62,.06);--ok-border:rgba(39,158,94,.20);--warn-border:rgba(191,131,16,.20);--err-border:rgba(197,62,62,.18);--blur:18px;--shadow-s:0 1px 3px rgba(50,30,10,.05);--shadow-m:0 6px 24px rgba(50,30,10,.08);--input-bg:rgba(255,255,255,.9)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
+.tn{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:12px;align-items:center}.nr a{font-size:13px;font-weight:600;color:var(--muted)}.nr a:hover{color:var(--text)}.bt{background:var(--card);border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;transition:all .2s;color:var(--text2)}.bt:hover{border-color:var(--accent)}.bc{background:var(--accent);color:#fff!important;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;transition:transform .15s}.bc:hover{transform:translateY(-1px)}
+.ct{max-width:780px;margin:0 auto;padding:24px}
+.th{text-align:center;margin-bottom:24px}.th .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.th h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.th p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
+.cd{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s)}
+.url-bar{display:flex;gap:8px;margin-bottom:12px}.url-bar input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:var(--mono);font-size:12px;transition:all .2s}.url-bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}.ab{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:10px 20px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;transition:all .25s;font-family:var(--font);white-space:nowrap}.ab:hover{transform:translateY(-2px);box-shadow:0 6px 24px var(--accent-glow)}.ab:disabled{opacity:.4;transform:none}
+.skel{height:12px;background:var(--border);border-radius:6px;animation:shimmer 1.5s infinite;margin-bottom:10px}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
+/* Status */
+.sb{padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid;backdrop-filter:blur(12px)}.sb.ok{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.sb.er{background:var(--err-bg);border-color:var(--err-border);color:var(--err)}.sb.wn{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}
+/* Metrics */
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:14px}.mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center}.mc h4{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}.mc p{font-size:18px;font-weight:800;margin-top:1px}
+/* Heading tree */
+.hi{margin-bottom:2px;padding:5px 10px;display:flex;align-items:baseline;gap:6px;border-radius:8px;transition:background .15s}.hi:hover{background:var(--accent-soft)}.ht{font-family:var(--mono);font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;min-width:24px;text-align:center;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-glow);flex-shrink:0}.hx{font-size:12px;color:var(--text2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Issues */
+.issue{display:flex;gap:8px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:13px}.issue:last-child{border-bottom:none}.issue-i{width:18px;text-align:center;flex-shrink:0}.issue-t{flex:1;color:var(--text2);line-height:1.5}
+.content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
+.tf{padding:24px;text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:32px}.tf a{color:var(--muted)}.tf a:hover{color:var(--accent)}
+@media(max-width:640px){.url-bar{flex-direction:column}.ct{padding:16px}.tn .nr a:not(.bc):not(.bt){display:none}.metrics{grid-template-columns:repeat(3,1fr)}}
+</style>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
+<script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
+</head>
+<body>
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO & GEO</em></span></a><div class="nr"><a href="/">Home</a><a href="/tools/serp-preview/">SERP</a><a href="/tools/meta-tag-analyzer/">Meta</a><a href="/about.html">About</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Add to Chrome</a></div></nav>
+<div class="ct">
+<div class="th"><div class="lb">Free SEO Tool</div><h1>Heading Structure Checker</h1><p>Analyze H1–H6 hierarchy for any page. Find missing H1s, skipped levels, and structural issues — just like the Lumina extension.</p></div>
+<div class="cd">
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Analyze Headings</button></div>
+<div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div><div class="skel w70"></div></div>
+<div id="res" style="display:none"></div>
+</div>
+<div class="content">
+<h2>Why heading structure matters</h2>
+<p>Search engines use headings (H1–H6) to understand page structure and content hierarchy. A proper heading structure helps Google determine topic relevance and improves accessibility for screen readers.</p>
+<p>Common issues: missing H1, multiple H1s, skipped heading levels (e.g. H1 → H3), empty headings, and headings that are too long. The Lumina extension checks all of these in real-time and lets you highlight headings directly on the page.</p>
+<h2 style="margin-top:28px">More tools</h2>
+<div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags for any URL.</p></a><a href="/tools/serp-preview/"><h4>SERP Preview</h4><p>Google snippet with pixel counter.</p></a><a href="/tools/og-preview/"><h4>Open Graph Preview</h4><p>Preview social share cards.</p></a></div>
+<h2 style="margin-top:28px">FAQ</h2>
+<div class="faq-item"><div class="faq-q">How many H1 tags should a page have?<span class="arrow">+</span></div><div class="faq-a">Best practice is exactly one H1 per page. While HTML5 technically allows multiple H1s, Google recommends a single H1 that describes the page's main topic.</div></div>
+<div class="faq-item"><div class="faq-q">What is a skipped heading level?<span class="arrow">+</span></div><div class="faq-a">Going from H1 directly to H3 (skipping H2) breaks the semantic hierarchy. Screen readers and search engines expect a logical progression.</div></div>
+<div class="cta-box"><h3>Highlight headings on any page</h3><p>Lumina shows color-coded heading badges directly on live pages and detects structural errors automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+</div></div>
+<footer class="tf"><p>© 2026 <a href="/">Lumina SEO</a> · <a href="/imprint.html">Imprint</a> · <a href="/privacy-policy.html">Privacy</a> · <a href="/support.html">Support</a></p></footer>
+<script>
+var at=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',at);document.getElementById('themeToggle').textContent=at==='dark'?'☀️':'🌙';document.getElementById('themeToggle').addEventListener('click',function(){at=at==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',at);this.textContent=at==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',at)});
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+document.getElementById('btnGo').addEventListener('click',function(){analyze(document.getElementById('urlIn').value)});
+document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')analyze(this.value)});
+function analyze(url){
+url=url.trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
+document.getElementById('urlIn').value=url;
+var btn=document.getElementById('btnGo');btn.disabled=true;btn.textContent='Analyzing…';
+document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
+fetch('https://lumina-proxy.julien-elbahy.workers.dev/fetch?url='+encodeURIComponent(url))
+.then(function(r){return r.json()}).then(function(data){
+if(data.error)throw new Error(data.error);
+var doc=new DOMParser().parseFromString(data.html,'text/html');
+var headings=[],counts={};
+for(var i=1;i<=6;i++){counts['h'+i]=0;doc.querySelectorAll('h'+i).forEach(function(h){var t=h.textContent.trim().replace(/\s+/g,' ');headings.push({l:i,t:t});counts['h'+i]++})}
+var issues=[];
+if(counts.h1===0)issues.push({icon:'❌',msg:'No H1 tag found. Every page should have exactly one H1.'});
+else if(counts.h1>1)issues.push({icon:'⚠️',msg:'Multiple H1 tags ('+counts.h1+'). Best practice is one H1 per page.'});
+else issues.push({icon:'✅',msg:'Single H1 found — good.'});
+// Check skipped levels
+var usedLevels=[];for(var i=1;i<=6;i++)if(counts['h'+i]>0)usedLevels.push(i);
+for(var j=1;j<usedLevels.length;j++){if(usedLevels[j]-usedLevels[j-1]>1)issues.push({icon:'⚠️',msg:'Skipped heading level: H'+usedLevels[j-1]+' → H'+usedLevels[j]+'. Consider adding H'+(usedLevels[j-1]+1)+'.'})}
+// Check sequential skips in order
+for(var j=1;j<headings.length;j++){if(headings[j].l>headings[j-1].l+1)issues.push({icon:'⚠️',msg:'Jump from H'+headings[j-1].l+' to H'+headings[j].l+' at "'+esc(headings[j].t.substring(0,50))+'…"'})}
+// Empty headings
+headings.forEach(function(h){if(!h.t)issues.push({icon:'⚠️',msg:'Empty H'+h.l+' tag found.'})});
+// Long headings
+headings.forEach(function(h){if(h.t.length>70)issues.push({icon:'⚠️',msg:'H'+h.l+' is '+h.t.length+' chars — consider shortening.'})});
+var total=headings.length;
+if(!issues.some(function(i){return i.icon==='❌'||i.icon==='⚠️'}))issues.push({icon:'✅',msg:'Heading structure looks clean!'});
+// Render
+var html='';
+var errCount=issues.filter(function(i){return i.icon==='❌'}).length;
+var warnCount=issues.filter(function(i){return i.icon==='⚠️'}).length;
+if(errCount)html+='<div class="sb er">❌ '+errCount+' error'+(errCount>1?'s':'')+' found</div>';
+else if(warnCount)html+='<div class="sb wn">⚠️ '+warnCount+' warning'+(warnCount>1?'s':'')+'</div>';
+else html+='<div class="sb ok">✅ Heading structure is perfect!</div>';
+html+='<div class="metrics">';for(var i=1;i<=6;i++){var c=counts['h'+i];html+='<div class="mc"><h4>H'+i+'</h4><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
+html+='</div>';
+if(issues.length>1||issues[0].icon!=='✅'){html+='<div style="margin-bottom:14px">';issues.forEach(function(i){html+='<div class="issue"><div class="issue-i">'+i.icon+'</div><div class="issue-t">'+i.msg+'</div></div>'});html+='</div>'}
+if(headings.length){html+='<div style="max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:12px;padding:8px">';headings.forEach(function(h){html+='<div class="hi" style="margin-left:'+((h.l-1)*16)+'px"><span class="ht">H'+h.l+'</span><span class="hx">'+(h.t?esc(h.t):'<em style="color:var(--err)">(empty)</em>')+'</span></div>'});html+='</div>'}
+else html+='<p style="color:var(--muted);text-align:center;padding:20px">No headings found on this page.</p>';
+document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
+}).catch(function(e){
+document.getElementById('res').innerHTML='<div class="sb er">❌ '+esc(e.message)+'</div>';document.getElementById('res').style.display='block';
+}).finally(function(){btn.disabled=false;btn.textContent='Analyze Headings';document.getElementById('loading').style.display='none'})}
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
+var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');analyze(params.get('url'))}
+</script>
+<style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand visitors. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
+<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})();</script>
+</body></html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,6 @@
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-preview/">
 <link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-preview/">
 <link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-preview/">
-<meta name="author" content="Lumina SEO">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
@@ -21,362 +20,110 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SERP Preview Tool","url":"https://lumina-seo.com/tools/serp-preview/","description":"Free Google SERP simulator with pixel-width measurement. Preview title tags and meta descriptions in real-time.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SERP Preview Tool","url":"https://lumina-seo.com/tools/serp-preview/","description":"Free Google SERP simulator with pixel-width measurement.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--orange:#d4843a;--orange-light:#e8a44e;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#252525;--gray:#888;--light-gray:#bbb;--white:#f5f5f5;--green:#22c55e;--red:#ef4444;--font:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--dark);color:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:var(--orange-light);text-decoration:none}a:hover{color:var(--orange)}
-nav{padding:14px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,15,15,.95);border-bottom:1px solid rgba(255,255,255,.06)}
-.nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:var(--white)}
-.nav-logo img{width:36px;height:36px;border-radius:8px}
-.nav-logo span{letter-spacing:-.5px}
-.nav-links{display:flex;gap:20px;align-items:center}
-.nav-links a{color:var(--light-gray);font-size:14px;font-weight:500}
-.btn-cws{background:var(--orange);color:#fff;padding:8px 18px;border-radius:8px;font-weight:700;font-size:14px;transition:transform .15s}
-.btn-cws:hover{transform:translateY(-1px);color:#fff}
-.container{max-width:900px;margin:0 auto;padding:0 24px}
-header{padding:60px 24px 32px;text-align:center}
-header h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}
-header h1 .accent{color:var(--orange-light)}
-header p{font-size:17px;color:var(--gray);max-width:600px;margin:0 auto 8px;line-height:1.7}
-.tool-card{background:var(--dark2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin:0 auto 24px;max-width:900px}
-.form-row{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;align-items:end}
-.form-group{flex:1;min-width:200px}
-.form-group label{display:block;font-size:13px;font-weight:600;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
-.form-group input,.form-group textarea{width:100%;background:var(--dark3);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;color:var(--white);font-family:var(--font);font-size:15px;transition:border-color .2s}
-.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--orange)}
-.form-group textarea{resize:vertical;min-height:60px}
-.counter{font-family:var(--mono);font-size:12px;margin-top:4px;color:var(--gray)}
-.counter .ok{color:var(--green)}.counter .warn{color:var(--orange)}.counter .err{color:var(--red)}
-.toggle-row{display:flex;gap:8px;margin-bottom:20px;justify-content:center}
-.toggle-btn{background:var(--dark3);border:1px solid rgba(255,255,255,.1);color:var(--gray);padding:8px 16px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font)}
-.toggle-btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
-.serp-preview{background:#fff;border-radius:12px;padding:20px 24px;margin-top:16px;max-width:650px}
-.serp-preview.dark{background:#202124}
-.serp-preview.mobile{max-width:400px}
-.serp-url{font-size:14px;color:#202124;margin-bottom:2px;display:flex;align-items:center;gap:6px}
-.serp-url .domain{color:#202124}.serp-url .path{color:#5f6368}
-.serp-preview.dark .serp-url .domain{color:#bdc1c6}.serp-preview.dark .serp-url .path{color:#969ba1}
-.serp-title{font-size:20px;color:#1a0dab;line-height:1.3;margin-bottom:4px;cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.serp-preview.dark .serp-title{color:#8ab4f8}
-.serp-preview.mobile .serp-title{font-size:18px}
-.serp-desc{font-size:14px;color:#4d5156;line-height:1.58;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.serp-preview.dark .serp-desc{color:#bdc1c6}
-.serp-desc mark{background:transparent;font-weight:700;color:inherit}
-.btn-action{background:var(--dark3);border:1px solid rgba(255,255,255,.1);color:var(--light-gray);padding:8px 14px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font)}
-.btn-action:hover{border-color:var(--orange);color:var(--white)}
-.action-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;justify-content:center}
-section{padding:60px 24px}
-.content h2{font-size:24px;font-weight:800;margin-bottom:16px;letter-spacing:-.5px}
-.content p{font-size:15px;color:#ccc;line-height:1.8;margin-bottom:16px}
-.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:16px 0}
-.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-.faq-q:hover{color:var(--orange-light)}
-.faq-q .arrow{color:var(--gray);transition:transform .3s;flex-shrink:0;margin-left:16px}
-.faq-item.open .faq-q .arrow{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:14px;color:var(--gray);line-height:1.8}
-.faq-item.open .faq-a{max-height:300px;padding-top:10px}
-.cta-box{text-align:center;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:40px 24px;margin-top:40px}
-.cta-box h3{font-size:22px;font-weight:800;margin-bottom:8px}
-.cta-box p{color:var(--gray);font-size:15px;margin-bottom:20px}
-.cta-box .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:15px;transition:transform .15s;border:none;cursor:pointer}
-.cta-box .btn-primary:hover{transform:translateY(-2px);color:#fff}
-footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:#555;text-align:center}
-footer a{color:#666}
-.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:20px}
-.other-tools a{display:block;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;transition:border-color .2s}
-.other-tools a:hover{border-color:var(--orange)}
-.other-tools a h4{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px}
-.other-tools a p{font-size:12px;color:var(--gray);line-height:1.5}
-@media(max-width:768px){nav{padding:12px 16px}.nav-links a:not(.btn-cws){display:none}.form-row{flex-direction:column}}
+:root,[data-theme="dark"]{--bg:#1c1914;--bg2:#262119;--card:rgba(255,245,225,.06);--card-h:rgba(255,245,225,.10);--text:#f2eade;--text2:#ccc0ae;--muted:#918474;--accent:#eca550;--accent-h:#f4ba6e;--accent-soft:rgba(236,165,80,.08);--accent-glow:rgba(236,165,80,.18);--border:rgba(255,240,215,.10);--border-h:rgba(255,240,215,.20);--ok:#50e090;--warn:#f4c44a;--err:#f47878;--ok-bg:rgba(80,224,144,.08);--warn-bg:rgba(244,196,74,.07);--err-bg:rgba(244,120,120,.07);--ok-border:rgba(80,224,144,.18);--warn-border:rgba(244,196,74,.17);--err-border:rgba(244,120,120,.17);--blur:32px;--shadow-s:0 1px 4px rgba(0,0,0,.25);--shadow-m:0 8px 36px rgba(0,0,0,.35);--input-bg:rgba(0,0,0,.15);--font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+[data-theme="light"]{--bg:#f4f1ec;--bg2:#eae6df;--card:rgba(255,255,255,.78);--card-h:rgba(255,255,255,.92);--text:#1e1814;--text2:#4a4038;--muted:#908476;--accent:#d4843a;--accent-h:#c07030;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(160,135,105,.16);--border-h:rgba(160,135,105,.30);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--ok-bg:rgba(39,158,94,.07);--warn-bg:rgba(191,131,16,.07);--err-bg:rgba(197,62,62,.06);--ok-border:rgba(39,158,94,.20);--warn-border:rgba(191,131,16,.20);--err-border:rgba(197,62,62,.18);--blur:18px;--shadow-s:0 1px 3px rgba(50,30,10,.05);--shadow-m:0 6px 24px rgba(50,30,10,.08);--input-bg:rgba(255,255,255,.9)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
+.tool-nav{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nav-left{display:flex;align-items:center;gap:12px}.nav-left img{width:28px;height:28px;border-radius:6px}.nav-left span{font-weight:800;font-size:16px}.nav-left em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nav-right{display:flex;gap:12px;align-items:center}.nav-right a{font-size:13px;font-weight:600;color:var(--muted)}.nav-right a:hover{color:var(--text)}.btn-theme{background:var(--card);border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;transition:all .2s;color:var(--text2)}.btn-theme:hover{border-color:var(--accent)}.btn-cws{background:var(--accent);color:#fff!important;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;transition:transform .15s}.btn-cws:hover{transform:translateY(-1px)}
+.container{max-width:780px;margin:0 auto;padding:24px}
+.tool-header{text-align:center;margin-bottom:24px}.tool-header .label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.tool-header h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.tool-header p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
+.card{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s);transition:all .25s}
+label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px}
+input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:var(--font);font-size:14px;transition:all .2s}input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}textarea{resize:vertical;min-height:56px}
+.input-row{display:flex;gap:10px;margin-bottom:12px;align-items:end}.input-row .grow{flex:1}
+.px-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}.px-track{flex:1;height:4px;background:var(--border);border-radius:3px;overflow:hidden}.px-fill{height:100%;border-radius:3px;transition:width .2s,background .2s}.px-label{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}.px-label .ok{color:var(--ok)}.px-label .warn{color:var(--warn)}.px-label .err{color:var(--err)}
+.toggles{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center;backdrop-filter:blur(var(--blur))}.tgl{background:0;border:0;padding:7px 12px;font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:8px;transition:all .2s;letter-spacing:.4px;font-family:var(--font);white-space:nowrap}.tgl.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 12px var(--accent-glow)}.tgl:hover:not(.active){color:var(--text);background:var(--accent-soft)}.tgl.chk{display:inline-flex;align-items:center;gap:4px}.tgl.chk input{accent-color:var(--accent)}
+.serp-wrap{display:flex;justify-content:center;margin:16px 0}.serp{padding:18px 22px;border-radius:12px;max-width:650px;width:100%;transition:all .3s;border:1px solid var(--border);font-family:Arial,sans-serif}.serp.lt{background:#fff;border-color:#e8eaed}.serp.dk{background:#202124;border-color:#3c4043}.serp.mob{max-width:400px}
+.serp-head{display:flex;align-items:center;gap:10px;margin-bottom:4px}.serp-fav{width:26px;height:26px;border-radius:50%;flex-shrink:0;overflow:hidden}.serp-fav img{width:100%;height:100%;object-fit:contain;border-radius:50%}.serp-info{display:flex;flex-direction:column;min-width:0;flex:1}.serp-name{font-size:14px;line-height:20px}.serp.lt .serp-name{color:#202124}.serp.dk .serp-name{color:#e8eaed}.serp-urltext{font-size:12px;line-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.serp.lt .serp-urltext{color:#4d5156}.serp.dk .serp-urltext{color:#969ba1}.serp-dots{font-size:20px;flex-shrink:0;cursor:default}.serp.lt .serp-dots{color:#70757a}.serp.dk .serp-dots{color:#9aa0a6}
+.serp-title{font-size:20px;line-height:1.3;margin:5px 0 0;cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:normal}.serp.lt .serp-title{color:#1a0dab}.serp.dk .serp-title{color:#8ab4f8}.serp.mob .serp-title{font-size:18px}
+.serp-desc{font-size:14px;line-height:1.58;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}.serp.lt .serp-desc{color:#4d5156}.serp.dk .serp-desc{color:#bdc1c6}.serp-desc mark{background:transparent;font-weight:700;color:inherit}
+.actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px}.act-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .2s;font-family:var(--font);letter-spacing:.2px;white-space:nowrap}.act-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.act-btn:disabled{opacity:.4;cursor:default}
+.content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
+.tool-footer{padding:24px;text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:32px}.tool-footer a{color:var(--muted)}.tool-footer a:hover{color:var(--accent)}
+@media(max-width:640px){.input-row{flex-direction:column}.container{padding:16px}.tool-nav .nav-right a:not(.btn-cws):not(.btn-theme){display:none}.serp{max-width:100%!important}}
 </style>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});
-</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
 <script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
 </head>
 <body>
-<nav><a href="/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/">Home</a><a href="/#features">Features</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener">Add to Chrome</a></div></nav>
-
-<header>
-<p style="font-size:13px;color:var(--orange);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Free SEO Tool</p>
-<h1>Google SERP <span class="accent">Preview Tool</span></h1>
-<p>See exactly how your title tag and meta description will appear in Google search results. With pixel-width counter, desktop/mobile toggle, and keyword bold highlighting.</p>
-</header>
-
+<nav class="tool-nav"><a href="/" class="nav-left"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO & GEO</em></span></a><div class="nav-right"><a href="/">Home</a><a href="/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/tools/schema-validator/">Schema</a><a href="/about.html">About</a><button class="btn-theme" id="themeToggle" title="Toggle theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener">Add to Chrome</a></div></nav>
 <div class="container">
-<div class="tool-card">
-<div class="form-row">
-<div class="form-group" style="flex:2"><label>Page URL</label><input type="text" id="inputUrl" placeholder="https://example.com/your-page" value="https://lumina-seo.com/"></div>
-<div style="padding-bottom:4px"><button class="btn-action" id="btnFetch" style="padding:10px 16px;">Fetch from URL</button></div>
+<div class="tool-header"><div class="label">Free SEO Tool</div><h1>Google SERP Preview</h1><p>See how your title and description appear in Google search results. Pixel measurement, desktop/mobile, keyword highlighting.</p></div>
+<div class="card">
+<div class="input-row"><div class="grow"><label>Page URL</label><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com/"></div><button class="act-btn" id="btnFetch" style="padding:10px 14px;margin-bottom:1px">Fetch from URL</button></div>
+<div><label>Title Tag</label><input type="text" id="titleIn" placeholder="Your page title" maxlength="200"><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="titleBar"></div></div><span class="px-label"><span id="titleChars">0</span> chars · <span id="titlePx">0</span>px <span id="titleSt"></span></span></div></div>
+<div style="margin-top:10px"><label>Meta Description</label><textarea id="descIn" placeholder="Your meta description" maxlength="500" rows="2"></textarea><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="descBar"></div></div><span class="px-label"><span id="descChars">0</span> chars · <span id="descPx">0</span>px <span id="descSt"></span></span></div></div>
+<div style="margin-top:10px"><label>Highlight Keywords</label><input type="text" id="kwIn" placeholder="e.g. serp preview tool"></div>
 </div>
-<div class="form-group"><label>Title Tag</label><input type="text" id="inputTitle" placeholder="Your page title" maxlength="200">
-<div style="display:flex;align-items:center;gap:6px;margin:4px 0 0;"><div style="flex:1;background:rgba(255,255,255,.08);border-radius:3px;height:4px;overflow:hidden;"><div id="titleBar" style="width:0%;height:100%;border-radius:3px;transition:width .2s,background .2s;"></div></div><span class="counter"><span id="titleChars">0</span> chars · <span id="titlePx">0</span>px <span id="titleStatus"></span></span></div></div>
-<div class="form-group" style="margin-top:12px"><label>Meta Description</label><textarea id="inputDesc" placeholder="Your meta description" maxlength="500" rows="3"></textarea>
-<div style="display:flex;align-items:center;gap:6px;margin:4px 0 0;"><div style="flex:1;background:rgba(255,255,255,.08);border-radius:3px;height:4px;overflow:hidden;"><div id="descBar" style="width:0%;height:100%;border-radius:3px;transition:width .2s,background .2s;"></div></div><span class="counter"><span id="descChars">0</span> chars · <span id="descPx">0</span>px <span id="descStatus"></span></span></div></div>
-<div class="form-row" style="margin-top:12px;margin-bottom:0">
-<div class="form-group" style="min-width:140px;flex:0 0 auto"><label>Bold Keywords</label><input type="text" id="inputKeyword" placeholder="e.g. serp preview"></div>
-</div>
-<div class="toggle-row" style="margin-top:20px">
-<button class="toggle-btn active" data-mode="desktop">🖥 Desktop</button>
-<button class="toggle-btn" data-mode="mobile">📱 Mobile</button>
-<button class="toggle-btn" data-theme="light">☀️ Light</button>
-<button class="toggle-btn" data-theme="dark">🌙 Dark</button>
-<label class="toggle-btn" style="cursor:pointer;display:inline-flex;align-items:center;gap:5px;"><input type="checkbox" id="shadowToggle" style="accent-color:var(--orange);"> Shadow</label>
-</div>
-<div style="display:flex;justify-content:center;">
-<div class="serp-preview" id="serpPreview">
-<div class="serp-url"><img id="serpFavicon" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" width="18" height="18" style="border-radius:50%;flex-shrink:0;" onerror="this.style.display='none'"> <span class="domain" id="serpDomain">lumina-seo.com</span> <span class="path" id="serpPath"></span></div>
-<div class="serp-title" id="serpTitle">Your title tag will appear here</div>
-<div class="serp-desc" id="serpDesc">Your meta description will appear here. Write a compelling description that encourages clicks from search results.</div>
-</div>
-</div>
-<div class="action-row">
-<button class="btn-action" id="btnCopyTitle">Copy Title</button>
-<button class="btn-action" id="btnCopyDesc">Copy Description</button>
-<button class="btn-action" id="btnCopyHtml">📋 Copy as HTML</button>
-<button class="btn-action" id="btnSaveImg">💾 Save as Image</button>
-<button class="btn-action" id="btnCopyImg">📷 Copy Image</button>
-<button class="btn-action" id="btnReset">↻ Reset</button>
-</div>
-</div>
-
-<section class="content">
-<h2>How to use this SERP preview tool</h2>
-<p>Enter your page URL, title tag, and meta description in the fields above. The preview updates instantly as you type. Use the pixel counter to ensure your title stays under 580px (desktop) and your description under 920px — otherwise Google will truncate them with "..."</p>
-<p>Use the <strong>Fetch from URL</strong> button to pull the current title and description from any live page. The keyword field lets you see how Google bolds matching search terms in your snippet.</p>
-<p>For even more powerful on-page analysis — including indexation checks, heading structure, schema validation, and AI crawler checks — try the full <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Lumina Chrome Extension</a> (free).</p>
-
-<h2>Optimal title tag and meta description length</h2>
-<p>Google uses pixel width, not character count, to determine truncation. Different characters have different widths — "W" takes more space than "i". As a guideline: keep titles under 60 characters (~580px) and descriptions under 155 characters (~920px). Our tool shows both counts in real-time.</p>
-
-<h2 style="margin-top:40px;">More free SEO tools</h2>
-<div class="other-tools">
-<a href="/tools/schema-validator/"><h4>Schema JSON-LD Validator</h4><p>Paste your JSON-LD markup and validate it against Google's required fields. Deep content cross-check.</p></a>
-<a href="/tools/llms-txt-generator/"><h4>llms.txt Generator</h4><p>Generate an llms.txt file for your site. Help AI crawlers understand what content to index and cite.</p></a>
-</div>
-
-<h2 style="margin-top:40px">Frequently asked questions</h2>
-<div class="faq-item"><div class="faq-q">What is a SERP preview tool?<span class="arrow">+</span></div><div class="faq-a">A SERP preview tool simulates how your page will appear in Google's search results. It shows your title tag, URL, and meta description as they would look to users, helping you optimize for maximum click-through rate before publishing.</div></div>
-<div class="faq-item"><div class="faq-q">Why does pixel width matter more than character count?<span class="arrow">+</span></div><div class="faq-a">Google truncates titles and descriptions based on pixel width, not character count. A title with many wide characters (like "W" or "M") will be truncated sooner than one with narrow characters (like "i" or "l"). Our tool measures the actual pixel width to give you an accurate preview.</div></div>
-<div class="faq-item"><div class="faq-q">Does Google always use my title and description?<span class="arrow">+</span></div><div class="faq-a">Not always. Google may rewrite your title tag or generate a different description from your page content if it believes its version better matches the search query. Well-optimized, relevant meta tags are more likely to be used as-is.</div></div>
-<div class="faq-item"><div class="faq-q">Is this tool free to use?<span class="arrow">+</span></div><div class="faq-a">Yes, completely free with no signup required. For more comprehensive SEO analysis, install the free Lumina Chrome Extension which includes this SERP preview plus 40+ additional SEO checks.</div></div>
-
-<div class="cta-box">
-<h3>Want this built into every page you visit?</h3>
-<p>The Lumina extension gives you this SERP preview plus 40+ SEO checks on every page — automatically, for free.</p>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-primary" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
-</div>
-</section>
-</div>
-
-<footer><p>&copy; 2026 <a href="/">Lumina SEO</a> · <a href="/imprint.html">Imprint</a> · <a href="/privacy-policy.html">Privacy</a> · <a href="/support.html">Support</a></p></footer>
-
-<!-- Hidden canvas for pixel measurement -->
-<canvas id="measureCanvas" style="display:none;"></canvas>
-
+<div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobile</button><button class="tgl active" data-serp="light">☀️ Light</button><button class="tgl" data-serp="dark">🌙 Dark</button><label class="tgl chk"><input type="checkbox" id="shd"> Shadow</label></div>
+<div class="serp-wrap"><div class="serp lt" id="serpEl"><div class="serp-head"><div class="serp-fav"><img id="serpFav" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" onerror="this.style.display='none'" alt=""></div><div class="serp-info"><div class="serp-name" id="serpDom">lumina-seo.com</div><div class="serp-urltext" id="serpPath"></div></div><div class="serp-dots">⋮</div></div><div class="serp-title" id="serpT">Your title tag will appear here</div><div class="serp-desc" id="serpD">Your meta description will appear here.</div></div></div>
+<div class="actions"><button class="act-btn" id="bCT">Copy Title</button><button class="act-btn" id="bCD">Copy Desc</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Save Image</button><button class="act-btn" id="bCI">📷 Copy Image</button><button class="act-btn" id="bR">↻ Reset</button></div>
+<div class="content" style="margin-top:32px">
+<h2>How to use</h2><p>Enter your URL, title, and description. The preview updates as you type. The pixel counter shows if Google will truncate your snippet. Use <strong>Fetch from URL</strong> to pull current values from any live page.</p>
+<h2>Optimal lengths</h2><p>Google truncates by pixel width. Keep titles under ~60 chars (~580px) and descriptions under ~155 chars (~920px). Wide characters (W, M) take more space than narrow ones (i, l).</p>
+<h2 style="margin-top:28px">More tools</h2>
+<div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags for any URL.</p></a><a href="/tools/schema-validator/"><h4>Schema Validator</h4><p>Validate JSON-LD against Google fields.</p></a><a href="/tools/llms-txt-generator/"><h4>llms.txt Generator</h4><p>Create AI crawler guides.</p></a></div>
+<h2 style="margin-top:28px">FAQ</h2>
+<div class="faq-item"><div class="faq-q">What is a SERP preview tool?<span class="arrow">+</span></div><div class="faq-a">It simulates how your page appears in Google search results — title, URL, description — helping you optimize for click-through rate.</div></div>
+<div class="faq-item"><div class="faq-q">Why does pixel width matter?<span class="arrow">+</span></div><div class="faq-a">Google truncates based on pixel width, not character count. Wide characters get cut sooner. This tool measures actual pixels.</div></div>
+<div class="faq-item"><div class="faq-q">Does Google always use my title?<span class="arrow">+</span></div><div class="faq-a">Not always. Google may rewrite if it thinks its version better matches the query. Well-optimized meta tags are more likely used as-is.</div></div>
+<div class="cta-box"><h3>Get this on every page you visit</h3><p>Lumina gives you this SERP preview plus 40+ SEO checks — free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+</div></div>
+<footer class="tool-footer"><p>© 2026 <a href="/">Lumina SEO</a> · <a href="/imprint.html">Imprint</a> · <a href="/privacy-policy.html">Privacy</a> · <a href="/support.html">Support</a></p></footer>
+<canvas id="mc" style="display:none"></canvas>
 <script>
-var titleIn=document.getElementById('inputTitle'),descIn=document.getElementById('inputDesc'),urlIn=document.getElementById('inputUrl'),kwIn=document.getElementById('inputKeyword');
-var serpTitle=document.getElementById('serpTitle'),serpDesc=document.getElementById('serpDesc'),serpDomain=document.getElementById('serpDomain'),serpPath=document.getElementById('serpPath'),serpFav=document.getElementById('serpFavicon');
-var titleChars=document.getElementById('titleChars'),titlePx=document.getElementById('titlePx'),titleStatus=document.getElementById('titleStatus'),titleBar=document.getElementById('titleBar');
-var descChars=document.getElementById('descChars'),descPx=document.getElementById('descPx'),descStatus=document.getElementById('descStatus'),descBar=document.getElementById('descBar');
-var preview=document.getElementById('serpPreview'),shadowBox=document.getElementById('shadowToggle');
-var canvas=document.getElementById('measureCanvas'),ctx=canvas.getContext('2d');
-var mode='desktop',theme='light';
-
-function measurePx(text,font){ctx.font=font;return Math.round(ctx.measureText(text).width);}
-function titleFont(){return mode==='mobile'?'18px Arial':'20px Arial';}
-function descFont(){return '14px Arial';}
-function maxTitlePx(){return mode==='mobile'?500:580;}
-function maxDescPx(){return mode==='mobile'?780:920;}
-
-// Word-boundary truncation with ellipsis (matches extension logic)
-function truncateAtWord(text,font,maxPx){
-  if(!text)return '';
-  var px=measurePx(text,font);
-  if(px<=maxPx)return text;
-  var ellipsis='\u2026';
-  var ellipsisPx=measurePx(ellipsis,font);
-  var target=maxPx-ellipsisPx;
-  var lo=0,hi=text.length,best=0;
-  while(lo<=hi){var mid=Math.floor((lo+hi)/2);if(measurePx(text.substring(0,mid),font)<=target){best=mid;lo=mid+1;}else{hi=mid-1;}}
-  var cut=text.lastIndexOf(' ',best);
-  if(cut<best*0.5)cut=best;
-  return text.substring(0,cut).replace(/[\s,;:\-\u2013]+$/,'')+ellipsis;
-}
-
-function boldKw(text){
-  var kw=kwIn.value.trim();if(!kw)return escHtml(text);
-  var words=kw.split(/\s+/).filter(Boolean);
-  var escaped=words.map(function(w){return w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');});
-  var re=new RegExp('('+escaped.join('|')+')','gi');
-  return escHtml(text).replace(re,'<mark>$1</mark>');
-}
-function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function updateBar(barEl,px,maxPx){
-  var pct=Math.min(100,Math.round(px/maxPx*100));
-  barEl.style.width=pct+'%';
-  if(px>maxPx){barEl.style.background='var(--red)';}
-  else if(px>maxPx*0.85){barEl.style.background='var(--yellow)';}
-  else{barEl.style.background='var(--green)';}
-}
-
-function update(){
-  var t=titleIn.value||'',d=descIn.value||'',u=urlIn.value||'';
-  // Title measurement
-  var tPx=measurePx(t,titleFont());
-  var maxT=maxTitlePx();
-  titleChars.textContent=t.length;titlePx.textContent=tPx;
-  updateBar(titleBar,tPx,maxT);
-  if(tPx>maxT){titleStatus.innerHTML='<span class="err">\u26a0 Will be truncated</span>';}
-  else if(tPx>maxT*0.85){titleStatus.innerHTML='<span class="warn">Close to limit</span>';}
-  else if(t.length>0){titleStatus.innerHTML='<span class="ok">\u2713 Good</span>';}
-  else{titleStatus.innerHTML='';}
-  // Description measurement
-  var dPx=measurePx(d,descFont());
-  var maxD=maxDescPx();
-  descChars.textContent=d.length;descPx.textContent=dPx;
-  updateBar(descBar,dPx,maxD);
-  if(dPx>maxD){descStatus.innerHTML='<span class="err">\u26a0 Will be truncated</span>';}
-  else if(dPx>maxD*0.85){descStatus.innerHTML='<span class="warn">Close to limit</span>';}
-  else if(d.length>0){descStatus.innerHTML='<span class="ok">\u2713 Good</span>';}
-  else{descStatus.innerHTML='';}
-  // Title preview — truncate at word boundary like Google does
-  var displayTitle = mode==='mobile' ? t : truncateAtWord(t,titleFont(),maxT);
-  serpTitle.textContent=displayTitle||'Your title tag will appear here';
-  serpTitle.style.maxWidth='';serpTitle.style.overflow='';serpTitle.style.textOverflow='';serpTitle.style.whiteSpace='';
-  // Description preview
-  var displayDesc = truncateAtWord(d,descFont(),maxD);
-  serpDesc.innerHTML=boldKw(displayDesc)||'Your meta description will appear here.';
-  // URL + Favicon
-  try{var uo=new URL(u);serpDomain.textContent=uo.hostname;serpPath.textContent=uo.pathname!=='/'?' \u203a '+uo.pathname.replace(/^\//,'').replace(/\//g,' \u203a '):'';
-    serpFav.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(uo.hostname)+'&sz=32';serpFav.style.display='';
-  }catch(e){serpDomain.textContent=u;serpPath.textContent='';serpFav.style.display='none';}
-  // Shadow
-  if(shadowBox.checked){preview.style.boxShadow='0 8px 32px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.15)';}
-  else{preview.style.boxShadow='none';}
-}
-
-titleIn.addEventListener('input',update);descIn.addEventListener('input',update);urlIn.addEventListener('input',update);kwIn.addEventListener('input',update);
-shadowBox.addEventListener('change',update);
-
-// Mode toggles
-document.querySelectorAll('.toggle-btn[data-mode]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.toggle-btn[data-mode]').forEach(function(x){x.classList.remove('active')});b.classList.add('active');mode=b.dataset.mode;preview.classList.toggle('mobile',mode==='mobile');update()})});
-document.querySelectorAll('.toggle-btn[data-theme]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.toggle-btn[data-theme]').forEach(function(x){x.classList.remove('active')});b.classList.add('active');theme=b.dataset.theme;preview.classList.toggle('dark',theme==='dark');update()})});
-
-// Fetch
-document.getElementById('btnFetch').addEventListener('click',function(){
-  var url=urlIn.value.trim();if(!url)return;
-  var btn=document.getElementById('btnFetch');btn.textContent='Fetching\u2026';btn.disabled=true;
-  fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url),{signal:AbortSignal.timeout(8000)})
-  .then(function(r){return r.text()})
-  .then(function(html){
-    var doc=new DOMParser().parseFromString(html,'text/html');
-    var t=doc.querySelector('title');if(t)titleIn.value=t.textContent.trim();
-    var m=doc.querySelector('meta[name="description"]');if(m)descIn.value=m.getAttribute('content')||'';
-    update();
-  })
-  .catch(function(e){alert('Could not fetch: '+e.message)})
-  .finally(function(){btn.textContent='Fetch from URL';btn.disabled=false});
-});
-
-// Copy buttons
-function copyAndFlash(btn,text,label){
-  navigator.clipboard.writeText(text).then(function(){
-    var orig=btn.textContent;btn.textContent='\u2713 Copied!';setTimeout(function(){btn.textContent=orig},1500);
-  });
-}
-document.getElementById('btnCopyTitle').addEventListener('click',function(){copyAndFlash(this,titleIn.value,'Copy Title')});
-document.getElementById('btnCopyDesc').addEventListener('click',function(){copyAndFlash(this,descIn.value,'Copy Description')});
-document.getElementById('btnCopyHtml').addEventListener('click',function(){
-  var html='<title>'+titleIn.value.replace(/</g,'&lt;')+'</title>\n<meta name="description" content="'+descIn.value.replace(/"/g,'&quot;')+'">';
-  copyAndFlash(this,html,'Copy as HTML');
-});
-
-// Reset
-document.getElementById('btnReset').addEventListener('click',function(){titleIn.value='';descIn.value='';kwIn.value='';update()});
-
-// FAQ
+var at=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',at);document.getElementById('themeToggle').textContent=at==='dark'?'☀️':'🌙';document.getElementById('themeToggle').addEventListener('click',function(){at=at==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',at);this.textContent=at==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',at)});
+var tI=document.getElementById('titleIn'),dI=document.getElementById('descIn'),uI=document.getElementById('urlIn'),kI=document.getElementById('kwIn');
+var sT=document.getElementById('serpT'),sD=document.getElementById('serpD'),sDom=document.getElementById('serpDom'),sP=document.getElementById('serpPath'),sF=document.getElementById('serpFav');
+var tC=document.getElementById('titleChars'),tPx=document.getElementById('titlePx'),tSt=document.getElementById('titleSt'),tB=document.getElementById('titleBar');
+var dC=document.getElementById('descChars'),dPx=document.getElementById('descPx'),dSt=document.getElementById('descSt'),dB=document.getElementById('descBar');
+var sE=document.getElementById('serpEl'),shd=document.getElementById('shd');
+var cv=document.getElementById('mc'),cx=cv.getContext('2d');var md='desktop',st='light';
+function mp(t,f){cx.font=f;return Math.round(cx.measureText(t).width)}
+function tf(){return md==='mobile'?'18px Arial':'20px Arial'}function df(){return'14px Arial'}
+function mtP(){return md==='mobile'?500:580}function mdP(){return md==='mobile'?780:920}
+function trW(t,f,mx){if(!t)return'';var p=mp(t,f);if(p<=mx)return t;var e='\u2026',ep=mp(e,f),tg=mx-ep;var lo=0,hi=t.length,b=0;while(lo<=hi){var m=Math.floor((lo+hi)/2);if(mp(t.substring(0,m),f)<=tg){b=m;lo=m+1}else hi=m-1}var c=t.lastIndexOf(' ',b);if(c<b*.5)c=b;return t.substring(0,c).replace(/[\s,;:\-\u2013]+$/,'')+e}
+function bK(t){var k=kI.value.trim();if(!k)return esc(t);var w=k.split(/\s+/).filter(Boolean).map(function(w){return w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')});return esc(t).replace(new RegExp('('+w.join('|')+')','gi'),'<mark>$1</mark>')}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function uB(b,p,m){var pc=Math.min(100,Math.round(p/m*100));b.style.width=pc+'%';b.style.background=p>m?'var(--err)':p>m*.85?'var(--warn)':'var(--ok)'}
+function upd(){
+var t=tI.value||'',d=dI.value||'',u=uI.value||'';
+var tp=mp(t,tf()),mt=mtP();tC.textContent=t.length;tPx.textContent=tp;uB(tB,tp,mt);
+tSt.innerHTML=tp>mt?'<span class="err">\u26a0</span>':tp>mt*.85?'<span class="warn">~</span>':t?'<span class="ok">\u2713</span>':'';
+var dp=mp(d,df()),mx=mdP();dC.textContent=d.length;dPx.textContent=dp;uB(dB,dp,mx);
+dSt.innerHTML=dp>mx?'<span class="err">\u26a0</span>':dp>mx*.85?'<span class="warn">~</span>':d?'<span class="ok">\u2713</span>':'';
+sT.textContent=trW(t,tf(),mt)||'Your title tag will appear here';
+sD.innerHTML=bK(trW(d,df(),mx))||'Your meta description will appear here.';
+try{var o=new URL(u);sDom.textContent=o.hostname;sP.textContent=o.pathname!=='/'?' \u203a '+o.pathname.replace(/^\//,'').replace(/\//g,' \u203a '):'';sF.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(o.hostname)+'&sz=32';sF.style.display=''}catch(e){sDom.textContent=u;sP.textContent='';sF.style.display='none'}
+sE.style.boxShadow=shd.checked?'0 8px 32px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.15)':'none'}
+tI.addEventListener('input',upd);dI.addEventListener('input',upd);uI.addEventListener('input',upd);kI.addEventListener('input',upd);shd.addEventListener('change',upd);
+document.querySelectorAll('.tgl[data-mode]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tgl[data-mode]').forEach(function(x){x.classList.remove('active')});b.classList.add('active');md=b.dataset.mode;sE.classList.toggle('mob',md==='mobile');upd()})});
+document.querySelectorAll('.tgl[data-serp]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tgl[data-serp]').forEach(function(x){x.classList.remove('active')});b.classList.add('active');st=b.dataset.serp;sE.className='serp '+(st==='dark'?'dk':'lt')+(md==='mobile'?' mob':'');upd()})});
+document.getElementById('btnFetch').addEventListener('click',function(){var u=uI.value.trim();if(!u)return;var b=this;b.textContent='Fetching\u2026';b.disabled=true;fetch('https://lumina-proxy.julien-elbahy.workers.dev/fetch?url='+encodeURIComponent(u)).then(function(r){return r.json()}).then(function(d){if(d.error)throw new Error(d.error);var doc=new DOMParser().parseFromString(d.html,'text/html');var t=doc.querySelector('title');if(t)tI.value=t.textContent.trim();var m=doc.querySelector('meta[name="description"]');if(m)dI.value=m.getAttribute('content')||'';upd()}).catch(function(e){alert('Could not fetch: '+e.message)}).finally(function(){b.textContent='Fetch from URL';b.disabled=false})});
+function cf(b,t){navigator.clipboard.writeText(t).then(function(){var o=b.textContent;b.textContent='\u2713 Copied!';setTimeout(function(){b.textContent=o},1500)})}
+document.getElementById('bCT').addEventListener('click',function(){cf(this,tI.value)});
+document.getElementById('bCD').addEventListener('click',function(){cf(this,dI.value)});
+document.getElementById('bCH').addEventListener('click',function(){cf(this,'<title>'+tI.value.replace(/</g,'&lt;')+'</title>\n<meta name="description" content="'+dI.value.replace(/"/g,'&quot;')+'">')});
+document.getElementById('bR').addEventListener('click',function(){tI.value='';dI.value='';kI.value='';upd()});
 document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
-
-// Init
-update();
+upd();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-// Save SERP preview as image
-function serpToCanvas(cb) {
-  var el = document.getElementById('serpPreview');
-  var btn1 = document.getElementById('btnSaveImg');
-  var btn2 = document.getElementById('btnCopyImg');
-  btn1.disabled = true; btn2.disabled = true;
-  btn1.textContent = '⏳ Rendering…'; btn2.textContent = '⏳ …';
-  // Add padding for nicer export
-  el.style.padding = '24px';
-  html2canvas(el, { backgroundColor: el.classList.contains('dark') ? '#202124' : '#ffffff', scale: 2, useCORS: true }).then(function(canvas) {
-    el.style.padding = '20px 24px';
-    btn1.disabled = false; btn2.disabled = false;
-    btn1.textContent = '💾 Save as Image'; btn2.textContent = '📷 Copy Image';
-    cb(canvas);
-  }).catch(function(e) {
-    el.style.padding = '20px 24px';
-    btn1.disabled = false; btn2.disabled = false;
-    btn1.textContent = '💾 Save as Image'; btn2.textContent = '📷 Copy Image';
-    alert('Could not render image: ' + e.message);
-  });
-}
-document.getElementById('btnSaveImg').addEventListener('click', function() {
-  serpToCanvas(function(canvas) {
-    var a = document.createElement('a');
-    a.download = 'serp-preview.png';
-    a.href = canvas.toDataURL('image/png');
-    a.click();
-  });
-});
-document.getElementById('btnCopyImg').addEventListener('click', function() {
-  serpToCanvas(function(canvas) {
-    canvas.toBlob(function(blob) {
-      navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]).then(function() {
-        var btn = document.getElementById('btnCopyImg');
-        btn.textContent = '✓ Copied!'; setTimeout(function() { btn.textContent = '📷 Copy Image'; }, 1500);
-      }).catch(function() { alert('Could not copy image. Try "Save as Image" instead.'); });
-    });
-  });
-});
+function s2c(cb){var e=sE,b1=document.getElementById('bSI'),b2=document.getElementById('bCI');b1.disabled=b2.disabled=true;b1.textContent='⏳…';b2.textContent='⏳…';e.style.padding='24px';html2canvas(e,{backgroundColor:sE.classList.contains('dk')?'#202124':'#fff',scale:2,useCORS:true}).then(function(c){e.style.padding='18px 22px';b1.disabled=b2.disabled=false;b1.textContent='💾 Save Image';b2.textContent='📷 Copy Image';cb(c)}).catch(function(er){e.style.padding='18px 22px';b1.disabled=b2.disabled=false;b1.textContent='💾 Save Image';b2.textContent='📷 Copy Image';alert('Error: '+er.message)})}
+document.getElementById('bSI').addEventListener('click',function(){s2c(function(c){var a=document.createElement('a');a.download='serp-preview.png';a.href=c.toDataURL('image/png');a.click()})});
+document.getElementById('bCI').addEventListener('click',function(){s2c(function(c){c.toBlob(function(b){navigator.clipboard.write([new ClipboardItem({'image/png':b})]).then(function(){var btn=document.getElementById('bCI');btn.textContent='\u2713 Copied!';setTimeout(function(){btn.textContent='📷 Copy Image'},1500)}).catch(function(){alert('Could not copy. Try Save.')})})})});
 </script>
-<style id="consent-css">
-.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}
-.consent-inner{max-width:680px;margin:0 auto;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}
-.consent-text{flex:1;font-size:13px;color:#bbb;line-height:1.6;font-family:'DM Sans',sans-serif}.consent-text strong{color:#f5f5f5;font-size:14px}.consent-text a{color:#e8a44e}
-.consent-btns{display:flex;gap:8px;flex-shrink:0}
-.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s}
-.consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
-.consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
-@media(max-width:600px){.consent-banner{padding:12px 10px 80px}.consent-inner{flex-direction:column;text-align:center;gap:12px;padding:14px 16px;border-radius:10px}.consent-text{font-size:12px}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px;width:100%}}
-</style><div id="consentBanner" class="consent-banner" style="display:none">
-<div class="consent-inner">
-<div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. No personal data is sold. <a href="/privacy-policy.html">Privacy Policy</a></div>
-<div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div>
-</div></div><script>
-(function(){
-  var c=localStorage.getItem('lumina_consent');
-  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
-  if(c==='denied')return;
-  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
-  document.getElementById('consentAccept').addEventListener('click',function(){
-    gtag('consent','update',{'analytics_storage':'granted'});
-    localStorage.setItem('lumina_consent','granted');b.style.display='none';
-  });
-  document.getElementById('consentReject').addEventListener('click',function(){
-    localStorage.setItem('lumina_consent','denied');b.style.display='none';
-  });
-})();
-</script></body>
+<style id="consent-css">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px;flex-shrink:0}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}.consent-btn.reject:hover{color:var(--text);border-color:var(--accent)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px}}</style>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
+<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})();</script>
+</body>
 </html>
