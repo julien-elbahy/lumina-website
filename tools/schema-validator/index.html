@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Schema JSON-LD Validator – Structured Data Checker | Lumina SEO</title>
+<meta name="description" content="Validate your JSON-LD structured data for free. Checks Google required fields, date formats, URL validity, and nested objects. No signup needed.">
+<meta name="keywords" content="JSON-LD validator, schema markup checker, structured data validator, schema.org tester, Google rich results checker, free schema tool">
+<link rel="canonical" href="https://lumina-seo.com/tools/schema-validator/">
+<link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/schema-validator/">
+<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/schema-validator/">
+<meta name="theme-color" content="#d4843a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lumina-seo.com/tools/schema-validator/">
+<meta property="og:title" content="Free Schema JSON-LD Validator | Lumina SEO">
+<meta property="og:description" content="Validate structured data against Google required fields. Deep checks for dates, URLs, and nested objects.">
+<meta property="og:image" content="https://lumina-seo.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Schema JSON-LD Validator","url":"https://lumina-seo.com/tools/schema-validator/","description":"Free JSON-LD structured data validator with Google required fields check.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#d4843a;--orange-light:#e8a44e;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#252525;--gray:#888;--light-gray:#bbb;--white:#f5f5f5;--green:#22c55e;--red:#ef4444;--yellow:#eab308;--font:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--dark);color:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}a{color:var(--orange-light);text-decoration:none}a:hover{color:var(--orange)}
+nav{padding:14px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(15,15,15,.95);border-bottom:1px solid rgba(255,255,255,.06)}.nav-logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:var(--white)}.nav-logo img{width:36px;height:36px;border-radius:8px}.nav-links{display:flex;gap:20px;align-items:center}.nav-links a{color:var(--light-gray);font-size:14px;font-weight:500}.btn-cws{background:var(--orange);color:#fff;padding:8px 18px;border-radius:8px;font-weight:700;font-size:14px;transition:transform .15s}.btn-cws:hover{transform:translateY(-1px);color:#fff}
+.container{max-width:900px;margin:0 auto;padding:0 24px}
+header{padding:60px 24px 32px;text-align:center}header h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}header h1 .accent{color:var(--orange-light)}header p{font-size:17px;color:var(--gray);max-width:600px;margin:0 auto;line-height:1.7}
+.tool-card{background:var(--dark2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px;margin:0 auto 24px;max-width:900px}
+label{display:block;font-size:13px;font-weight:600;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+textarea{width:100%;background:var(--dark3);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:14px;color:#7ec8e3;font-family:var(--mono);font-size:13px;line-height:1.6;resize:vertical;min-height:200px;tab-size:2;transition:border-color .2s}
+textarea:focus{outline:none;border-color:var(--orange)}
+.btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn-action{background:var(--orange);border:none;color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;transition:transform .15s;font-family:var(--font)}
+.btn-action:hover{transform:translateY(-1px)}
+.btn-sec{background:var(--dark3);border:1px solid rgba(255,255,255,.1);color:var(--light-gray);padding:10px 16px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--font);transition:border-color .2s}
+.btn-sec:hover{border-color:var(--orange);color:var(--white)}
+#results{margin-top:20px;display:none}
+.result-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.result-header .badge{padding:4px 12px;border-radius:6px;font-weight:700;font-size:13px}
+.badge-ok{background:rgba(34,197,94,.15);color:var(--green)}.badge-warn{background:rgba(234,179,8,.15);color:var(--yellow)}.badge-err{background:rgba(239,68,68,.15);color:var(--red)}
+.result-header .type-name{font-size:18px;font-weight:700}
+.check-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px;align-items:flex-start}
+.check-icon{width:20px;text-align:center;flex-shrink:0;font-size:14px}
+.check-text{flex:1;color:var(--light-gray)}.check-text strong{color:var(--white)}
+section{padding:60px 24px}.content h2{font-size:24px;font-weight:800;margin-bottom:16px;letter-spacing:-.5px}.content p{font-size:15px;color:#ccc;line-height:1.8;margin-bottom:16px}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:20px}.other-tools a{display:block;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px;transition:border-color .2s}.other-tools a:hover{border-color:var(--orange)}.other-tools a h4{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px}.other-tools a p{font-size:12px;color:var(--gray);line-height:1.5}
+.cta-box{text-align:center;background:var(--dark2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:40px 24px;margin-top:40px}.cta-box h3{font-size:22px;font-weight:800;margin-bottom:8px}.cta-box p{color:var(--gray);font-size:15px;margin-bottom:20px}.cta-box .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:15px;transition:transform .15s;border:none;cursor:pointer}.cta-box .btn-primary:hover{transform:translateY(-2px);color:#fff}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:16px 0}.faq-q{font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center}.faq-q:hover{color:var(--orange-light)}.faq-q .arrow{color:var(--gray);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:14px;color:var(--gray);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:10px}
+footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;color:#555;text-align:center}footer a{color:#666}
+@media(max-width:768px){nav{padding:12px 16px}.nav-links a:not(.btn-cws){display:none}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nav-logo"><img src="/icon128.png" alt="Lumina" width="36" height="36"><span>Lumina</span></a><div class="nav-links"><a href="/">Home</a><a href="/tools/serp-preview/">SERP Preview</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-cws" target="_blank" rel="noopener">Add to Chrome</a></div></nav>
+
+<header>
+<p style="font-size:13px;color:var(--orange);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Free SEO Tool</p>
+<h1>Schema <span class="accent">JSON-LD Validator</span></h1>
+<p>Paste your JSON-LD structured data and validate it against Google's required fields. Checks date formats, URL validity, nested objects, and more.</p>
+</header>
+
+<div class="container">
+<div class="tool-card">
+<label>Paste JSON-LD</label>
+<textarea id="inputSchema" placeholder='Paste your JSON-LD here, e.g.:
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "My Article Title",
+  "author": { "@type": "Person", "name": "John" }
+}'></textarea>
+<div class="btn-row">
+<button class="btn-action" id="btnValidate">Validate Schema</button>
+<button class="btn-sec" id="btnPrettify">Format JSON</button>
+<button class="btn-sec" id="btnLoadExample">Load Example</button>
+<button class="btn-sec" id="btnClear">Clear</button>
+</div>
+<div id="results"></div>
+</div>
+
+<section class="content">
+<h2>How this validator works</h2>
+<p>This tool parses your JSON-LD and checks it against Google's documentation for structured data. Unlike syntax-only validators, it also checks whether required fields are present for each schema type, whether dates use ISO 8601 format, whether URLs are valid, and whether nested objects (like author or publisher) have their own required fields.</p>
+<p>For even deeper validation — checking your schema against actual page content (e.g., does the price in your Product schema match the price on the page?) — use the <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Lumina Chrome Extension</a> which cross-references schema data with live page content.</p>
+
+<h2 style="margin-top:40px;">More free SEO tools</h2>
+<div class="other-tools">
+<a href="/tools/serp-preview/"><h4>SERP Preview Tool</h4><p>Preview how your title and description look in Google search results with pixel-width measurement.</p></a>
+<a href="/tools/llms-txt-generator/"><h4>llms.txt Generator</h4><p>Create a guide for AI crawlers on what content to index and how to cite your site.</p></a>
+</div>
+
+<h2 style="margin-top:40px">Frequently asked questions</h2>
+<div class="faq-item"><div class="faq-q">What schema types does this validator support?<span class="arrow">+</span></div><div class="faq-a">It validates the most common types used for Google Rich Results: Article, Product, FAQPage, LocalBusiness, Organization, Person, BreadcrumbList, Event, Recipe, HowTo, VideoObject, and WebSite. Each type has its own set of required and recommended fields.</div></div>
+<div class="faq-item"><div class="faq-q">How is this different from Google's Rich Results Test?<span class="arrow">+</span></div><div class="faq-a">Google's Rich Results Test checks if your schema qualifies for specific rich result types. Our tool focuses on field-level validation — checking required fields, data formats, and nested objects. Both tools complement each other. We provide a direct link to Google's tool for each validation.</div></div>
+<div class="faq-item"><div class="faq-q">Can I validate schema from a live URL?<span class="arrow">+</span></div><div class="faq-a">This web tool works with pasted JSON-LD. For live URL validation, install the free Lumina Chrome Extension — it automatically extracts and validates all JSON-LD schemas on any page you visit.</div></div>
+
+<div class="cta-box">
+<h3>Validate schemas on every page you visit</h3>
+<p>Lumina automatically extracts and validates JSON-LD on any page — plus cross-checks schema data against actual page content.</p>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-primary" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
+</div>
+</section>
+</div>
+
+<footer><p>&copy; 2026 <a href="/">Lumina SEO</a> · <a href="/privacy-policy.html">Privacy Policy</a></p></footer>
+
+<script>
+var REQUIRED_FIELDS = {
+  'Article': { required: ['headline','author','datePublished'], recommended: ['image','dateModified','publisher'] },
+  'NewsArticle': { required: ['headline','author','datePublished'], recommended: ['image','dateModified','publisher'] },
+  'BlogPosting': { required: ['headline','author','datePublished'], recommended: ['image','dateModified','publisher'] },
+  'Product': { required: ['name'], recommended: ['image','description','offers','brand','sku','review','aggregateRating'] },
+  'FAQPage': { required: ['mainEntity'], recommended: [] },
+  'LocalBusiness': { required: ['name','address'], recommended: ['telephone','openingHours','geo','image','url','priceRange'] },
+  'Organization': { required: ['name'], recommended: ['url','logo','contactPoint','sameAs'] },
+  'Person': { required: ['name'], recommended: ['url','image','jobTitle','sameAs'] },
+  'BreadcrumbList': { required: ['itemListElement'], recommended: [] },
+  'Event': { required: ['name','startDate','location'], recommended: ['endDate','image','description','offers','performer','organizer'] },
+  'Recipe': { required: ['name'], recommended: ['image','author','datePublished','description','recipeIngredient','recipeInstructions'] },
+  'HowTo': { required: ['name','step'], recommended: ['image','totalTime','estimatedCost'] },
+  'VideoObject': { required: ['name','description','thumbnailUrl','uploadDate'], recommended: ['duration','contentUrl','embedUrl'] },
+  'WebSite': { required: ['name','url'], recommended: ['potentialAction'] },
+  'Review': { required: ['itemReviewed','author'], recommended: ['reviewRating','datePublished'] }
+};
+
+function validate(json) {
+  var issues = [];
+  var type = json['@type'] || 'Unknown';
+  var spec = REQUIRED_FIELDS[type];
+  if (!spec) {
+    issues.push({ level: 'warn', msg: 'Unknown schema type: <strong>' + type + '</strong>. Cannot check required fields.' });
+    return { type: type, issues: issues };
+  }
+  spec.required.forEach(function(f) {
+    if (!json[f] && json[f] !== 0) issues.push({ level: 'error', msg: 'Missing required field: <strong>' + f + '</strong>' });
+  });
+  spec.recommended.forEach(function(f) {
+    if (!json[f] && json[f] !== 0) issues.push({ level: 'warn', msg: 'Missing recommended field: <strong>' + f + '</strong>' });
+  });
+  // Date format checks
+  ['datePublished','dateModified','startDate','endDate','uploadDate'].forEach(function(f) {
+    if (json[f] && !/^\d{4}-\d{2}-\d{2}/.test(json[f])) {
+      issues.push({ level: 'error', msg: '<strong>' + f + '</strong>: "' + json[f] + '" is not ISO 8601 format (expected YYYY-MM-DD)' });
+    }
+  });
+  // URL checks
+  ['url','image','thumbnailUrl','contentUrl','logo'].forEach(function(f) {
+    var val = json[f];
+    if (typeof val === 'object' && val) val = val.url || val['@id'];
+    if (typeof val === 'string' && val && !/^https?:\/\//.test(val)) {
+      issues.push({ level: 'warn', msg: '<strong>' + f + '</strong>: "' + val.substring(0, 60) + '" should be an absolute URL (start with https://)' });
+    }
+  });
+  // Nested author/publisher check
+  if (json.author) {
+    if (typeof json.author === 'string') issues.push({ level: 'warn', msg: '<strong>author</strong> should be an object with @type and name, not a plain string' });
+    else if (typeof json.author === 'object' && !json.author.name) issues.push({ level: 'error', msg: '<strong>author.name</strong> is missing' });
+  }
+  if (json.publisher && typeof json.publisher === 'object' && !json.publisher.name) {
+    issues.push({ level: 'error', msg: '<strong>publisher.name</strong> is missing' });
+  }
+  // FAQPage mainEntity check
+  if (type === 'FAQPage' && Array.isArray(json.mainEntity)) {
+    json.mainEntity.forEach(function(q, i) {
+      if (!q.name && !q.text) issues.push({ level: 'error', msg: 'FAQ item #' + (i + 1) + ': missing <strong>name</strong> (question text)' });
+      if (!q.acceptedAnswer) issues.push({ level: 'error', msg: 'FAQ item #' + (i + 1) + ': missing <strong>acceptedAnswer</strong>' });
+      else if (!q.acceptedAnswer.text) issues.push({ level: 'error', msg: 'FAQ item #' + (i + 1) + ': missing <strong>acceptedAnswer.text</strong>' });
+    });
+  }
+  // Offers check for Product
+  if (type === 'Product' && json.offers) {
+    var offers = Array.isArray(json.offers) ? json.offers : [json.offers];
+    offers.forEach(function(o, i) {
+      if (!o.price && o.price !== 0) issues.push({ level: 'warn', msg: 'Offer #' + (i + 1) + ': missing <strong>price</strong>' });
+      if (!o.priceCurrency) issues.push({ level: 'warn', msg: 'Offer #' + (i + 1) + ': missing <strong>priceCurrency</strong>' });
+      if (!o.availability) issues.push({ level: 'warn', msg: 'Offer #' + (i + 1) + ': missing <strong>availability</strong>' });
+    });
+  }
+  if (issues.length === 0) issues.push({ level: 'ok', msg: 'All required and recommended fields are present. Schema looks good!' });
+  return { type: type, issues: issues };
+}
+
+document.getElementById('btnValidate').addEventListener('click', function() {
+  var raw = document.getElementById('inputSchema').value.trim();
+  var res = document.getElementById('results');
+  res.style.display = 'block';
+  if (!raw) { res.innerHTML = '<p style="color:var(--red);">Please paste JSON-LD to validate.</p>'; return; }
+  var json;
+  try { json = JSON.parse(raw); } catch (e) {
+    res.innerHTML = '<div class="result-header"><span class="badge badge-err">Parse Error</span></div><div class="check-item"><div class="check-icon">❌</div><div class="check-text"><strong>Invalid JSON:</strong> ' + e.message + '</div></div>';
+    return;
+  }
+  // Handle @graph arrays
+  var schemas = [];
+  if (json['@graph'] && Array.isArray(json['@graph'])) schemas = json['@graph'];
+  else if (Array.isArray(json)) schemas = json;
+  else schemas = [json];
+
+  var html = '';
+  schemas.forEach(function(s) {
+    var result = validate(s);
+    var errors = result.issues.filter(function(i) { return i.level === 'error'; }).length;
+    var warns = result.issues.filter(function(i) { return i.level === 'warn'; }).length;
+    var badgeCls = errors > 0 ? 'badge-err' : warns > 0 ? 'badge-warn' : 'badge-ok';
+    var badgeText = errors > 0 ? errors + ' error' + (errors > 1 ? 's' : '') : warns > 0 ? warns + ' warning' + (warns > 1 ? 's' : '') : 'Valid';
+    html += '<div class="result-header"><span class="badge ' + badgeCls + '">' + badgeText + '</span><span class="type-name">' + result.type + '</span></div>';
+    result.issues.forEach(function(i) {
+      var icon = i.level === 'error' ? '❌' : i.level === 'warn' ? '⚠️' : '✅';
+      html += '<div class="check-item"><div class="check-icon">' + icon + '</div><div class="check-text">' + i.msg + '</div></div>';
+    });
+    html += '<div style="margin-bottom:20px;"></div>';
+  });
+  // External links
+  html += '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"><a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener" style="background:var(--dark3);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--light-gray);">Test in Google Rich Results →</a><a href="https://validator.schema.org/" target="_blank" rel="noopener" style="background:var(--dark3);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--light-gray);">Schema.org Validator →</a></div>';
+  res.innerHTML = html;
+});
+
+document.getElementById('btnPrettify').addEventListener('click', function() {
+  var ta = document.getElementById('inputSchema');
+  try { ta.value = JSON.stringify(JSON.parse(ta.value), null, 2); } catch (e) { alert('Invalid JSON: ' + e.message); }
+});
+
+document.getElementById('btnLoadExample').addEventListener('click', function() {
+  document.getElementById('inputSchema').value = JSON.stringify({
+    "@context": "https://schema.org", "@type": "Article",
+    "headline": "How to Optimize for AI Search Engines",
+    "author": { "@type": "Person", "name": "Julien El-Bahy" },
+    "datePublished": "2026-03-20",
+    "image": "https://example.com/image.jpg",
+    "publisher": { "@type": "Organization", "name": "Lumina SEO", "logo": { "@type": "ImageObject", "url": "https://lumina-seo.com/icon128.png" } }
+  }, null, 2);
+});
+
+document.getElementById('btnClear').addEventListener('click', function() {
+  document.getElementById('inputSchema').value = '';
+  document.getElementById('results').style.display = 'none';
+});
+
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
+</script>
+</body>
+</html>
