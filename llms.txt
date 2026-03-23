@@ -1,0 +1,25 @@
+# Lumina – SEO & GEO Chrome Extension
+
+> Lumina is a free, all-in-one Chrome extension for SEO professionals and web developers. It provides on-page audits, AI crawler checks, llms.txt validation, schema validation, Google Search Console and GA4 dashboards, keyword research, and AI-powered content tools — all directly in the browser.
+
+## Key pages
+
+- [Homepage](https://lumina-seo.com/): Overview of all features, comparison with other SEO extensions, and download link.
+- [Privacy Policy](https://lumina-seo.com/privacy-policy.html): Full privacy policy. Lumina collects no data and has no backend server.
+- [Chrome Web Store](https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe): Install the extension.
+
+## What Lumina does
+
+Lumina analyzes any webpage for SEO and GEO (Generative Engine Optimization) factors:
+
+- On-page SEO: title, meta description, canonical, robots, HTTP status, SERP preview
+- Crawling: robots.txt parser, sitemap check, hreflang validation, broken link checker
+- GEO: AI crawler access check (GPTBot, ClaudeBot, etc.), llms.txt checker, AI Traffic Dashboard
+- Schema: JSON-LD deep validation against actual page content
+- Content: heading structure, word count, JS vs No-JS comparison
+- Data: Google Search Console and GA4 dashboards with comparison charts
+- Tools: keyword research, AI content optimization, local search simulation, screenshots
+
+## Author
+
+Created by Julien El-Bahy. Contact: julien.elbahy@gmail.com
