@@ -163,25 +163,36 @@ function showLoading(){demoLoading.style.display='block';document.querySelectorA
 function hideLoading(){demoLoading.style.display='none';demoGo.disabled=false;demoGo.textContent='Analyze'}
 function showError(msg){hideLoading();var p=document.getElementById('panel-seo');p.classList.add('active');p.innerHTML='<div class="demo-error"><div class="err-icon">⚠️</div><p>'+msg+'</p></div>'}
 
-function analyzeSite(url){
-  url=normalizeUrl(url);if(!url){showError('Please enter a valid URL.');return}
-  demoUrl.value=url.replace(/^https?:\/\//,'');
-  showLoading();
+var PROXIES=[
+  {url:function(u){return'https://api.allorigins.win/get?url='+encodeURIComponent(u)},parse:function(r){return r.json().then(function(d){return{html:d.contents,status:d.status}})}},
+  {url:function(u){return'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u)},parse:function(r){return r.text().then(function(t){return{html:t,status:null}})}},
+  {url:function(u){return'https://corsproxy.io/?url='+encodeURIComponent(u)},parse:function(r){return r.text().then(function(t){return{html:t,status:null}})}}
+];
+
+function tryProxy(url,idx){
+  if(idx>=PROXIES.length){showError('Could not fetch this URL. The site may block proxy access or all proxies are unavailable. Try another URL.');return}
+  var p=PROXIES[idx];
   var controller=new AbortController();
-  var timeout=setTimeout(function(){controller.abort()},15000);
-  fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url),{signal:controller.signal})
-  .then(function(r){return r.json()})
+  var timeout=setTimeout(function(){controller.abort()},10000);
+  fetch(p.url(url),{signal:controller.signal})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return p.parse(r)})
   .then(function(data){
     clearTimeout(timeout);
-    if(!data.contents){showError('Could not fetch this URL. The site may block proxy access. Try another one.');return}
-    var result=parseHTML(data.contents,url,data.status);
+    if(!data.html||data.html.length<100){throw new Error('Empty response')}
+    var result=parseHTML(data.html,url,data.status);
     renderResults(result);
   })
   .catch(function(e){
     clearTimeout(timeout);
-    if(e.name==='AbortError')showError('Request timed out after 15 seconds. Try a different URL.');
-    else showError('Could not fetch this URL. Try another one.');
+    tryProxy(url,idx+1);
   });
+}
+
+function analyzeSite(url){
+  url=normalizeUrl(url);if(!url){showError('Please enter a valid URL.');return}
+  demoUrl.value=url.replace(/^https?:\/\//,'');
+  showLoading();
+  tryProxy(url,0);
 }
 
 function parseHTML(html,url,status){
@@ -354,7 +365,7 @@ analyzeSite('https://'+DEMO_SITES[Math.floor(Math.random()*DEMO_SITES.length)]);
 .consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:transform .15s}
 .consent-btn.accept{background:#d4843a;color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}
 .consent-btn.reject{background:#252525;color:#bbb;border:1px solid rgba(255,255,255,.1)}.consent-btn.reject:hover{color:#fff;border-color:#d4843a}
-@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;justify-content:center}}
+@media(max-width:600px){.consent-banner{padding:12px 10px 80px}.consent-inner{flex-direction:column;text-align:center;gap:12px;padding:14px 16px;border-radius:10px}.consent-text{font-size:12px}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px;width:100%}}
 </style><div id="consentBanner" class="consent-banner" style="display:none">
 <div class="consent-inner">
 <div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics, um zu verstehen, wie Besucher diese Seite nutzen. Es werden keine personenbezogenen Daten verkauft. <a href="/de/datenschutz.html">Datenschutz</a></div>
