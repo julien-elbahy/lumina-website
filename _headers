@@ -1,0 +1,22 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  X-XSS-Protection: 1; mode=block
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+/*.html
+  Content-Type: text/html; charset=UTF-8
+
+/julien.webp
+  Cache-Control: public, max-age=2592000
+
+/og-image.png
+  Cache-Control: public, max-age=2592000
+
+/icon128.png
+  Cache-Control: public, max-age=2592000
+
+/favicon.png
+  Cache-Control: public, max-age=2592000
