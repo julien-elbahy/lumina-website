@@ -110,8 +110,8 @@ footer{border-color:rgba(160,135,105,.12)}
 .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:300;padding:70px 24px 100px;overflow-y:auto;flex-direction:column;gap:0;align-items:stretch}.mobile-menu.open{display:flex}.mobile-menu a{font-size:16px;font-weight:600;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text2);display:block}.mobile-menu a:hover{color:var(--accent)}.mobile-menu .mm-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
 .mobile-menu .mm-cat .mm-arrow{font-size:14px;transition:transform .3s;color:var(--muted)}
 .mobile-menu .mm-cat.open .mm-arrow{transform:rotate(45deg)}
-.mobile-menu .mm-links{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.mobile-menu .mm-cat.open+.mm-links{max-height:600px}.mobile-menu .mm-cws{display:block;text-align:center;margin-top:20px;background:var(--accent);color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px;border-bottom:none}
+.mobile-menu .mm-links{display:none}
+.mobile-menu .mm-cat.open+.mm-links{display:block}.mobile-menu .mm-cws{display:block;text-align:center;margin-top:20px;background:var(--accent);color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px;border-bottom:none}
 @media(max-width:640px){.burger-btn{display:flex}.nr>a:not(.lang-sw),.nr .tools-dd,.nr .bc{display:none}.nr{gap:10px}}
 /* ── Footer ── */
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
@@ -306,7 +306,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/#features">Features</a>
 <a href="/about.html">About</a>
 <a href="/support.html">Support</a>
-<div class="mm-cat" onclick="this.classList.toggle('open')">SEO Analysis<span class="mm-arrow">+</span></div>
+<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">SEO Analysis<span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <a href="/tools/serp-preview/">SERP Preview</a>
 <a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
@@ -314,7 +314,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/tools/heading-checker/">Heading Checker</a>
 <a href="/tools/og-preview/">OG Preview</a>
 </div>
-<div class="mm-cat" onclick="this.classList.toggle('open')">Technical SEO<span class="mm-arrow">+</span></div>
+<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">Technical SEO<span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <a href="/tools/tech-stack/">Tech Stack Detector</a>
 <a href="/tools/security-headers/">Security Headers</a>
@@ -322,7 +322,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/tools/redirect-checker/">Redirect Checker</a>
 <a href="/tools/link-analyzer/">Link Analyzer</a>
 </div>
-<div class="mm-cat" onclick="this.classList.toggle('open')">Content &amp; GEO<span class="mm-arrow">+</span></div>
+<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">Content &amp; GEO<span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <a href="/tools/word-counter/">Word Counter</a>
 <a href="/tools/image-seo-checker/">Image SEO Checker</a>
@@ -331,7 +331,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 </div>
-<div class="mm-cat" onclick="this.classList.toggle('open')">SERP &amp; Keywords<span class="mm-arrow">+</span></div>
+<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">SERP &amp; Keywords<span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <a href="/tools/serp-checker/">SERP Checker</a>
 <a href="/tools/keyword-research/">Keyword Research</a>
