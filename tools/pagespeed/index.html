@@ -272,7 +272,7 @@ function go(url){
   // Run both mobile and desktop
   var done=0,results={};
   ['mobile','desktop'].forEach(function(strategy){
-    fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(url)+'&strategy='+strategy+'&category=performance&category=accessibility&category=best-practices&category=seo')
+    fetch('https://lumina-proxy.julien-elbahy.workers.dev/psi?url='+encodeURIComponent(url)+'&strategy='+strategy+'&categories=performance,accessibility,best-practices,seo')
     .then(function(r){return r.json()})
     .then(function(data){results[strategy]=data;done++;if(done>=2)render()})
     .catch(function(e){results[strategy]={error:e.message};done++;if(done>=2)render()});
