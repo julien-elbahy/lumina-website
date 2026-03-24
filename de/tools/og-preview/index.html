@@ -76,7 +76,8 @@
 <div class="ct">
 <div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Open Graph Preview</h1><p>See how your page looks when shared on Facebook, Twitter/X, and LinkedIn. Check all OG and Twitter Card tags.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Social Cards anzeigen</button></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Social Cards anzeigen</button>
+</div>
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none"></div>
 </div>
@@ -91,7 +92,7 @@
 <div class="cta-box"><h3>Check OG tags on every page</h3><p>Lumina shows a live OG preview with image dimensions and all social tags — on every page you visit.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
-<footer class="tf"><div class="tf-inner"><div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div><div class="tf-col"><div class="tf-h">Tools</div><a href="/de/tools/serp-preview/">SERP Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><a href="/de/tools/tech-stack/">Tech Stack</a></div><div class="tf-col"><div class="tf-h">Unternehmen</div><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div><div class="tf-col"><div class="tf-h">Rechtliches</div><a href="/de/impressum.html">Impressum</a><a href="/de/datenschutz.html">Datenschutz</a></div></div></footer>
+<footer class="tf"><div class="tf-inner"><div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div><div class="tf-col"><div class="tf-h">Tools</div><a href="/de/tools/serp-preview/">SERP Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><a href="/de/tools/tech-stack/">Tech Stack</a><a href="/de/tools/security-headers/">Security</a></div><div class="tf-col"><div class="tf-h">Unternehmen</div><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div><div class="tf-col"><div class="tf-h">Rechtliches</div><a href="/de/impressum.html">Impressum</a><a href="/de/datenschutz.html">Datenschutz</a></div></div></footer>
 <script>
 
 var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
@@ -112,12 +113,51 @@ function row(l,v,b){return'<div class="row"><div class="lbl">'+l+(b||'')+'</div>
 function bdg(c,t){return' <span class="badge '+c+'">'+t+'</span>'}
 document.getElementById('btnGo').addEventListener('click',function(){go(document.getElementById('urlIn').value)});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')go(this.value)});
+var WORKER='https://lumina-proxy.julien-elbahy.workers.dev/deep';
+var WORKER_FALLBACK='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
+
+function fetchSmart(url,cb){
+  fetchSmart(url,function(err,data){
+    if(err){cb(err);return}
+    if(data.error&&WORKER_FALLBACK){
+      fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(url))
+      .then(function(r){return r.json()})
+      .then(function(d2){cb(null,d2)
+  });
+    } else {cb(null,data)}
+  })
+  .catch(function(){
+    if(WORKER_FALLBACK){
+      fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(url))
+      .then(function(r){return r.json()})
+      .then(function(d2){cb(null,d2)})
+      .catch(function(e){cb(e.message)});
+    } else {cb('Fetch failed')}
+  });
+}
+
+
+
+function fetchWithFallback(targetUrl){
+  return fetch(WORKER_PRIMARY+'?url='+encodeURIComponent(targetUrl))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if(data.error&&data.error.indexOf('Browser Rendering')>=0){
+        return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
+      }
+      return data;
+    })
+    .catch(function(){
+      return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
+    });
+}
+
 function go(url){
 url=url.trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
 document.getElementById('urlIn').value=url;
 var btn=document.getElementById('btnGo');btn.disabled=true;btn.textContent='Laden…';
 document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
-fetch('https://lumina-proxy.julien-elbahy.workers.dev/fetch?url='+encodeURIComponent(url))
+fetchWithFallback(url)
 .then(function(r){return r.json()}).then(function(data){
 if(data.error)throw new Error(data.error);
 var doc=new DOMParser().parseFromString(data.html,'text/html');var base;try{base=new URL(url)}catch(e){base={hostname:''}}

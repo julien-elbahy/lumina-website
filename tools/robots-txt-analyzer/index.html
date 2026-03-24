@@ -91,7 +91,7 @@
 <div class="faq-item"><div class="faq-q">Does blocking remove training data?<span class="arrow">+</span></div><div class="faq-a">No. robots.txt only prevents future crawling. Contact the AI provider directly to request data removal.</div></div>
 <div class="cta-box"><h3>AI crawler check on every page</h3><p>Lumina shows robots.txt rules, X-Robots-Tag, and AI traffic sources — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
-<footer class="tf"><div class="tf-inner"><div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div><div class="tf-col"><div class="tf-h">Tools</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a><a href="/tools/link-analyzer/">Link Analyzer</a><a href="/tools/tech-stack/">Tech Stack</a></div><div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div><div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div></div></footer>
+<footer class="tf"><div class="tf-inner"><div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div><div class="tf-col"><div class="tf-h">Tools</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a><a href="/tools/link-analyzer/">Link Analyzer</a><a href="/tools/tech-stack/">Tech Stack</a><a href="/tools/security-headers/">Security</a></div><div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div><div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div></div></footer>
 <script>
 
 var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
@@ -112,6 +112,21 @@ var AI_BOTS=[{name:'GPTBot',label:'OpenAI (ChatGPT)'},{name:'ChatGPT-User',label
 var SEARCH_BOTS=[{name:'Googlebot',label:'Google'},{name:'Bingbot',label:'Bing'},{name:'Yandex',label:'Yandex'},{name:'DuckDuckBot',label:'DuckDuckGo'}];
 document.getElementById('btnGo').addEventListener('click',function(){go(document.getElementById('urlIn').value)});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')go(this.value)});
+var WORKER_PRIMARY='https://lumina-proxy.julien-elbahy.workers.dev/deep';
+var WORKER_FALLBACK='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
+function fetchWithFallback(targetUrl){
+  return fetch(WORKER_PRIMARY+'?url='+encodeURIComponent(targetUrl))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if(data.error&&data.error.indexOf('Browser Rendering')>=0){
+        return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
+      }
+      return data;
+    })
+    .catch(function(){
+      return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
+    });
+}
 function go(url){
 url=url.trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
 try{var base=new URL(url);url=base.origin+'/robots.txt'}catch(e){}
