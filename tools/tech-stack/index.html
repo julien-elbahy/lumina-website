@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Tech Stack & Analytics Detector | Lumina SEO</title>
+<meta name="description" content="Detect analytics tools, CMS platforms, consent managers, and marketing scripts on any website. Finds GA4, GTM, Shopify, WordPress, and 45+ technologies. Free.">
+<meta name="keywords" content="tech stack detector, analytics checker, CMS detector, website technology, GA4 checker, GTM detector, WordPress detector, Shopify detector">
+<link rel="canonical" href="https://lumina-seo.com/tools/tech-stack/">
+<link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/tech-stack/">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/tech-stack/">
+<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/tech-stack/">
+<meta name="theme-color" content="#d4843a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lumina-seo.com/tools/tech-stack/">
+<meta property="og:title" content="Free Tech Stack & Analytics Detector | Lumina SEO">
+<meta property="og:description" content="Detect 45+ technologies on any website: analytics, CMS, consent tools, SEO plugins, marketing scripts, and more.">
+<meta property="og:image" content="https://lumina-seo.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tech Stack & Analytics Detector","url":"https://lumina-seo.com/tools/tech-stack/","description":"Detect analytics, CMS, consent managers, and marketing technologies on any website.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{--bg:#1c1914;--bg2:#262119;--card:rgba(255,245,225,.06);--card-h:rgba(255,245,225,.10);--text:#f2eade;--text2:#ccc0ae;--muted:#918474;--accent:#eca550;--accent-h:#f4ba6e;--accent-soft:rgba(236,165,80,.08);--accent-glow:rgba(236,165,80,.18);--border:rgba(255,240,215,.10);--border-h:rgba(255,240,215,.20);--ok:#50e090;--warn:#f4c44a;--err:#f47878;--ok-bg:rgba(80,224,144,.08);--warn-bg:rgba(244,196,74,.07);--err-bg:rgba(244,120,120,.07);--ok-border:rgba(80,224,144,.18);--warn-border:rgba(244,196,74,.17);--err-border:rgba(244,120,120,.17);--blur:32px;--shadow-s:0 1px 4px rgba(0,0,0,.25);--shadow-m:0 8px 36px rgba(0,0,0,.35);--input-bg:rgba(0,0,0,.15);--font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+[data-theme="light"]{--bg:#faf8f5;--bg2:#f0ece6;--card:rgba(255,255,255,.85);--card-h:rgba(255,255,255,.95);--text:#1e1814;--text2:#4a4038;--muted:#908476;--accent:#c87a30;--accent-h:#b06820;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(140,120,90,.12);--border-h:rgba(140,120,90,.22);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--ok-bg:rgba(39,158,94,.07);--warn-bg:rgba(191,131,16,.07);--err-bg:rgba(197,62,62,.06);--ok-border:rgba(39,158,94,.20);--warn-border:rgba(191,131,16,.20);--err-border:rgba(197,62,62,.18);--blur:18px;--shadow-s:0 1px 4px rgba(100,70,30,.06);--shadow-m:0 6px 24px rgba(100,70,30,.08);--input-bg:rgba(255,255,255,.7)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);overflow-x:hidden;color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .35s,color .35s;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
+.tn{padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px;color:var(--text)}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:14px;align-items:center}.nr>a{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}.nr>a:hover{color:var(--text)}.bt{background:var(--card);border:1px solid var(--border);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1;transition:all .2s;color:var(--text2)}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;transition:transform .15s;white-space:nowrap}.bc:hover{transform:translateY(-1px)}
+.tools-dd{position:relative}.tools-trigger{cursor:pointer}.tools-sub{display:none;position:absolute;top:100%;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:200px;box-shadow:var(--shadow-m);z-index:50}.tools-dd:hover .tools-sub{display:block}.tools-sub a{display:block;padding:7px 12px;border-radius:8px;font-size:13px;color:var(--text2);white-space:nowrap}.tools-sub a:hover{background:var(--accent-soft);color:var(--accent)}
+.burger-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:301;flex-direction:column;gap:5px}.burger-btn span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}.burger-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.burger-btn.open span:nth-child(2){opacity:0}.burger-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0f0f0f;z-index:300;padding:70px 24px 100px;overflow-y:auto;flex-direction:column;gap:0;align-items:stretch}.mobile-menu.open{display:flex}.mobile-menu a{font-size:17px;font-weight:600;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text2);display:block}.mobile-menu a:hover{color:var(--accent)}.mobile-menu .mm-cws{display:block;text-align:center;margin-top:20px;background:var(--accent);color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px}
+@media(max-width:640px){.burger-btn{display:flex}.nr{display:none}}
+.ct{max-width:780px;margin:0 auto;padding:24px}
+.th{text-align:center;margin-bottom:24px}.th .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.th h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.th p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
+.cd{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s)}
+.url-bar{display:flex;gap:8px}.url-bar input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.url-bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.ab{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .25s}.ab:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}.ab:disabled{opacity:.5;cursor:default;transform:none}
+.skel{height:12px;background:var(--border);border-radius:6px;margin-bottom:8px;animation:shimmer 1.5s infinite}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}
+.cat-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.cat-head:first-child{margin-top:0}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.tech-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);transition:all .2s;font-size:13px;font-weight:600}
+.tech-item.found{border-color:var(--ok-border);background:var(--ok-bg)}.tech-item.found .dot{background:var(--ok)}
+.tech-item.missing{opacity:.4;border-color:transparent}.tech-item.missing .dot{background:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tech-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gen-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;margin-right:6px;border:1px solid;font-family:var(--mono)}.gen-tag.cms{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}.gen-tag.analytics{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.gen-tag.consent{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.gen-tag.marketing{background:rgba(200,100,255,.08);color:#c878ff;border-color:rgba(200,100,255,.2)}.gen-tag.seo{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.2)}.gen-tag.monitoring{background:rgba(100,200,255,.08);color:#64c8ff;border-color:rgba(100,200,255,.2)}.gen-tag.testing{background:rgba(255,140,180,.08);color:#ff8cb4;border-color:rgba(255,140,180,.2)}.gen-tag.chat{background:rgba(100,200,180,.08);color:#64c8b4;border-color:rgba(100,200,180,.2)}.gen-tag.email{background:rgba(180,100,255,.08);color:#b464ff;border-color:rgba(180,100,255,.2)}.gen-tag.payments{background:rgba(100,255,160,.08);color:#64ffa0;border-color:rgba(100,255,160,.2)}.gen-tag.frameworks{background:rgba(100,160,255,.08);color:#64a0ff;border-color:rgba(100,160,255,.2)}.gen-tag.cdn{background:rgba(255,200,100,.08);color:#ffc864;border-color:rgba(255,200,100,.2)}.gen-tag.security{background:rgba(255,100,100,.08);color:#ff6464;border-color:rgba(255,100,100,.2)}.gen-tag.social{background:rgba(100,180,255,.08);color:#64b4ff;border-color:rgba(100,180,255,.2)}
+.summary-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.error-msg{text-align:center;padding:24px;color:var(--muted)}.error-msg .icon{font-size:24px;margin-bottom:6px}
+.exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:10px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
+.tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
+@media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}.tech-grid{grid-template-columns:1fr 1fr}}
+.gen-tag.forms{background:rgba(255,180,100,.08);color:#ffb464;border-color:rgba(255,180,100,.2)}.gen-tag.builder{background:rgba(200,140,255,.08);color:#c88cff;border-color:rgba(200,140,255,.2)}.gen-tag.media{background:rgba(255,100,140,.08);color:#ff648c;border-color:rgba(255,100,140,.2)}.gen-tag.push{background:rgba(100,255,200,.08);color:#64ffc8;border-color:rgba(100,255,200,.2)}.gen-tag.a11y{background:rgba(100,200,100,.08);color:#64c864;border-color:rgba(100,200,100,.2)}.gen-tag.tags{background:rgba(180,180,100,.08);color:#b4b464;border-color:rgba(180,180,100,.2)}.gen-tag.i18n{background:rgba(100,180,255,.08);color:#64b4ff;border-color:rgba(100,180,255,.2)}.gen-tag.engage{background:rgba(255,140,200,.08);color:#ff8cc8;border-color:rgba(255,140,200,.2)}
+@media(max-width:400px){.metrics{grid-template-columns:1fr 1fr 1fr}.tech-grid{grid-template-columns:1fr}}
+</style>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
+<script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
+</head>
+<body>
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO & GEO</em></span></a><div class="nr"><a href="/#features">Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><div class="tools-dd"><a class="tools-trigger">Tools ▾</a><div class="tools-sub"><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a><a href="/tools/link-analyzer/">Link Analyzer</a><a href="/tools/tech-stack/">Tech Stack Detector</a></div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Add to Chrome</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="/">Home</a><a href="/#features">Features</a><a href="/about.html">About</a><a href="/support.html">Support</a>
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 6px">Tools</div>
+<a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a><a href="/tools/link-analyzer/">Link Analyzer</a><a href="/tools/tech-stack/">Tech Stack Detector</a>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
+</div>
+
+<div class="ct">
+<div class="th"><div class="lb">Free SEO & GEO Tool</div><h1>Tech Stack & Analytics Detector</h1><p>Detect analytics tools, CMS platforms, consent managers, SEO plugins, and marketing scripts on any website — 467 technologies across 22 categories.</p></div>
+<div class="cd">
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Detect Tech Stack</button></div>
+<div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div><div class="skel w70"></div></div>
+<div id="res" style="display:none">
+<div class="metrics">
+<div class="metric"><h4>Detected</h4><p id="mFound">0</p></div>
+<div class="metric"><h4>Categories</h4><p id="mCats">0</p></div>
+<div class="metric"><h4>Checked</h4><p id="mTotal">467</p></div>
+</div>
+<div class="summary-bar" id="summaryBar"></div>
+<div id="techResults"></div>
+<button class="exp-btn" id="btnCopy">📋 Copy Results</button>
+</div>
+</div>
+<div class="content">
+<h2>What this tool detects</h2>
+<p>This tool scans a page's HTML source for signatures of 467 technologies across 22 categories: analytics & tracking, tag managers, advertising, CMS & e-commerce platforms, consent management, SEO plugins, monitoring & error tracking, and A/B testing tools.</p>
+<p>Detection is based on the same signature database used by the <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe">Lumina Chrome Extension</a>.</p>
+<h2 style="margin-top:28px">More tools</h2>
+<div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Full meta tag audit for any URL.</p></a><a href="/tools/robots-txt-analyzer/"><h4>Robots.txt Analyzer</h4><p>Check AI & search crawler access.</p></a><a href="/tools/link-analyzer/"><h4>Link Analyzer</h4><p>Internal/external link analysis.</p></a></div>
+<h2 style="margin-top:28px">FAQ</h2>
+<div class="faq-item"><div class="faq-q">How does detection work?<span class="arrow">+</span></div><div class="faq-a">The tool fetches the page HTML and searches for known script URLs, global variables, and code patterns specific to each technology. For example, GA4 is detected by finding <code>gtag(</code> or <code>googletagmanager.com/gtag</code> in the source.</div></div>
+<div class="faq-item"><div class="faq-q">Can it detect everything?<span class="arrow">+</span></div><div class="faq-a">The tool detects technologies that leave traces in the HTML source. Server-side tools, backend-only integrations, or scripts loaded from a custom domain may not be detected. The Lumina extension detects more because it runs in the browser after JavaScript execution.</div></div>
+<div class="faq-item"><div class="faq-q">Is the meta tag <code>generator</code> used?<span class="arrow">+</span></div><div class="faq-a">Yes! The tool also checks the <code>&lt;meta name="generator"&gt;</code> tag, which many CMS platforms set automatically (WordPress, Joomla, Drupal, etc.).</div></div>
+<div class="cta-box"><h3>Detect tech on every page you visit</h3><p>Lumina shows analytics, CMS, consent tools, and SEO plugins automatically — on every page, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+</div></div>
+
+<footer class="tf"><div class="tf-inner"><div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div><div class="tf-col"><div class="tf-h">Tools</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a><a href="/tools/link-analyzer/">Link Analyzer</a><a href="/tools/tech-stack/">Tech Stack</a></div><div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div><div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div></div></footer>
+
+<script>
+var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
+var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}
+var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
+if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
+
+var WORKER='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
+var urlIn=document.getElementById('urlIn');
+var btn=document.getElementById('btnGo');
+
+var SIGS=[
+{cat:'\ud83d\udcca Analytics & Tracking',tag:'analytics',items:[
+{name:'Google Analytics (GA4)',p:['gtag(','google-analytics.com/g/','googletagmanager.com/gtag']},
+{name:'Google Analytics (UA)',p:['google-analytics.com/analytics.js',"ga('create"]},
+{name:'Google Tag Manager',p:['googletagmanager.com/gtm.js','googletagmanager.com/ns.html']},
+{name:'Meta Pixel',p:['connect.facebook.net','fbq(']},
+{name:'Hotjar',p:['static.hotjar.com']},
+{name:'Microsoft Clarity',p:['clarity.ms/tag/','clarity.ms/s/']},
+{name:'Matomo / Piwik',p:['matomo.js','piwik.js','matomo.cloud']},
+{name:'LinkedIn Insight',p:['snap.licdn.com','linkedin.com/insight']},
+{name:'TikTok Pixel',p:['analytics.tiktok.com']},
+{name:'Pinterest Tag',p:['pintrk(','s.pinimg.com/ct/core.js']},
+{name:'Plausible',p:['plausible.io/js/']},
+{name:'Fathom',p:['cdn.usefathom.com']},
+{name:'Cloudflare Web Analytics',p:['cloudflareinsights.com','beacon.min.js']},
+{name:'Vercel Analytics',p:['vitals.vercel-insights.com','va.vercel-scripts.com']},
+{name:'PostHog',p:['posthog.com','ph.posthog']},
+{name:'Heap Analytics',p:['heap-analytics.com','cdn.heapanalytics.com']},
+{name:'Mixpanel',p:['cdn.mxpnl.com','mixpanel.com/track']},
+{name:'Segment',p:['cdn.segment.com']},
+{name:'Amplitude',p:['cdn.amplitude.com','amplitude.getinstance']},
+{name:'Snap Pixel',p:['sc-static.net/scevent.min.js','snaptr(']},
+{name:'Twitter/X Pixel',p:['static.ads-twitter.com','twq(']},
+{name:'Reddit Pixel',p:['alb.reddit.com/snooze','rdt(']},
+{name:'Chartbeat',p:['static.chartbeat.com']},
+{name:'Parse.ly',p:['cdn.parsely.com','parsely-cfg']},
+{name:'Countly',p:['countly.min.js']},
+{name:'GoSquared',p:['d1l6p2sc9645hc.cloudfront.net']},
+{name:'Woopra',p:['static.woopra.com']},
+{name:'Kissmetrics',p:['scripts.kissmetrics.com','_kmq']},
+{name:'Clicky',p:['static.getclicky.com']},
+{name:'Simple Analytics',p:['scripts.simpleanalyticscdn.com']},
+{name:'Umami',p:['umami.is/script']},
+{name:'Gauges',p:['secure.gaug.es']},
+{name:'Pendo',p:['pendo.io','cdn.pendo.io']},
+{name:'Smartlook',p:['web-sdk.smartlook.com','rec.smartlook.com']},
+{name:'ContentSquare',p:['contentsquare.com','t.contentsquare.net']},
+{name:'Quantum Metric',p:['cdn.quantummetric.com']},
+{name:'Heap',p:['cdn.heapanalytics.com']},
+{name:'Pirsch',p:['api.pirsch.io']},
+{name:'Cabin Analytics',p:['scripts.withcabin.com']},
+{name:'Microanalytics',p:['microanalytics.io']},
+{name:'Counter.dev',p:['cdn.counter.dev']},
+]},
+{cat:'\ud83d\udcb0 Advertising & Retargeting',tag:'marketing',items:[
+{name:'Google Ads',p:['googleads.g.doubleclick.net','googlesyndication.com']},
+{name:'Google Consent Mode',p:['consent_mode',"gtag('consent"]},
+{name:'Google AdSense',p:['pagead2.googlesyndication.com']},
+{name:'Google Publisher Tag',p:['securepubads.g.doubleclick.net','googletag.cmd']},
+{name:'Amazon Ads',p:['amazon-adsystem.com']},
+{name:'Criteo',p:['static.criteo.net']},
+{name:'Taboola',p:['cdn.taboola.com']},
+{name:'Outbrain',p:['outbrain.com/outbrain.js']},
+{name:'AdRoll',p:['d.adroll.com']},
+{name:'Bing Ads / UET',p:['bat.bing.com','uetq']},
+{name:'TradeDoubler',p:['tradedoubler.com']},
+{name:'Awin',p:['dwin1.com','awin1.com']},
+{name:'Impact.com',p:['impactradius']},
+{name:'Quora Pixel',p:['q.quora.com']},
+{name:'Ezoic',p:['ezoic.net','ezodn.com']},
+{name:'Mediavine',p:['mediavine.com','mv-script']},
+{name:'Monumetric',p:['monumetric.com']},
+{name:'AdThrive / Raptive',p:['adthrive.com','raptive.com']},
+{name:'Skimlinks',p:['skimresources.com']},
+{name:'ShareASale',p:['shareasale.com']},
+{name:'CJ Affiliate',p:['cj.com','commission-junction']},
+{name:'Rakuten Advertising',p:['rakuten.com','linksynergy.com']},
+]},
+{cat:'\ud83d\udcac Chat, CRM & Support',tag:'chat',items:[
+{name:'HubSpot',p:['js.hs-scripts.com','js.hsforms.net','hs-analytics']},
+{name:'Intercom',p:['widget.intercom.io','intercomsettings']},
+{name:'Drift',p:['js.driftt.com']},
+{name:'Crisp',p:['client.crisp.chat']},
+{name:'Tawk.to',p:['embed.tawk.to']},
+{name:'Zendesk',p:['static.zdassets.com','zopim.com']},
+{name:'Freshchat',p:['wchat.freshchat.com']},
+{name:'LiveChat',p:['cdn.livechatinc.com']},
+{name:'Olark',p:['static.olark.com']},
+{name:'Tidio',p:['code.tidio.co']},
+{name:'Chatwoot',p:['app.chatwoot.com']},
+{name:'Help Scout',p:['beacon-v2.helpscout.net']},
+{name:'Zoho SalesIQ',p:['salesiq.zoho.com']},
+{name:'Pipedrive',p:['leadbooster-chat.pipedrive.com']},
+{name:'Front',p:['chat.frontapp.com']},
+{name:'Gorgias',p:['config.gorgias.chat']},
+{name:'Re:amaze',p:['reamaze.js']},
+{name:'Chatra',p:['call.chatra.io']},
+{name:'JivoChat',p:['code.jivosite.com']},
+{name:'Userlike',p:['userlike-cdn-widgets.s3']},
+{name:'Smartsupp',p:['smartsupp.com']},
+{name:'Kommunicate',p:['widget.kommunicate.io']},
+{name:'Chatbot.com',p:['cdn.chatbot.com']},
+{name:'BotPress',p:['cdn.botpress.cloud']},
+]},
+{cat:'\ud83c\udf6a Consent Management',tag:'consent',items:[
+{name:'Cookiebot',p:['consent.cookiebot.com']},
+{name:'Usercentrics',p:['usercentrics.eu']},
+{name:'OneTrust',p:['cdn.cookielaw.org','onetrust.com']},
+{name:'Complianz',p:['complianz-gdpr']},
+{name:'Borlabs Cookie',p:['borlabs-cookie','borlabscookie']},
+{name:'Didomi',p:['sdk.privacy-center.org']},
+{name:'Quantcast Choice',p:['quantcast.com/choice']},
+{name:'Termly',p:['app.termly.io']},
+{name:'iubenda',p:['cdn.iubenda.com']},
+{name:'Axeptio',p:['static.axept.io']},
+{name:'Klaro',p:['klaro.js','klaro.min.js']},
+{name:'CookieYes',p:['cdn-cookieyes.com']},
+{name:'Osano',p:['cmp.osano.com']},
+{name:'TrustArc',p:['consent.trustarc.com']},
+{name:'Real Cookie Banner',p:['real-cookie-banner']},
+{name:'Cookie Script',p:['cookie-script.com']},
+{name:'Moove GDPR',p:['moove-gdpr']},
+{name:'Cookie Notice',p:['cookie-notice']},
+{name:'GDPR Cookie Compliance',p:['gdpr-cookie-compliance']},
+{name:'Sourcepoint',p:['sourcepoint.com','sp-prod.net']},
+{name:'LiveRamp',p:['ats-wrapper','liveramp.com']},
+]},
+{cat:'\ud83d\udd27 CMS & Website Builders',tag:'cms',items:[
+{name:'WordPress',p:['wp-content','wp-includes','wp-json']},
+{name:'Shopify',p:['cdn.shopify.com','shopify.theme']},
+{name:'WooCommerce',p:['woocommerce','wc-cart']},
+{name:'Squarespace',p:['static1.squarespace.com']},
+{name:'Wix',p:['static.parastorage.com']},
+{name:'Webflow',p:['assets.website-files.com']},
+{name:'Joomla',p:['com_content','joomla']},
+{name:'Drupal',p:['drupal.js','drupal.settings','sites/default/files']},
+{name:'TYPO3',p:['typo3conf','typo3temp']},
+{name:'Ghost',p:['ghost.org']},
+{name:'Hugo',p:['powered by hugo']},
+{name:'Next.js',p:['_next/static','__next']},
+{name:'Nuxt.js',p:['_nuxt/','__nuxt']},
+{name:'Gatsby',p:['gatsby-']},
+{name:'Astro',p:['astro-island','astro-slot']},
+{name:'Contentful',p:['ctfassets.net']},
+{name:'Strapi',p:['strapi.io']},
+{name:'Sanity',p:['cdn.sanity.io']},
+{name:'Prismic',p:['prismic.io']},
+{name:'Storyblok',p:['storyblok.com']},
+{name:'BigCommerce',p:['cdn11.bigcommerce.com']},
+{name:'PrestaShop',p:['prestashop']},
+{name:'Magento',p:['mage/cookies','magento']},
+{name:'Jimdo',p:['jimdofree.com']},
+{name:'Weebly',p:['editmysite.com']},
+{name:'Duda',p:['du-app.com','multiscreensite.com']},
+{name:'HubSpot CMS',p:['hs-sites.com']},
+{name:'Framer',p:['framerusercontent.com']},
+{name:'Cargo',p:['cargo.site']},
+{name:'Craft CMS',p:['craftcms','cpresources']},
+{name:'Concrete CMS',p:['concrete5','concretecms']},
+{name:'Contao',p:['contao']},
+{name:'ProcessWire',p:['processwire']},
+{name:'Kirby',p:['getkirby.com','kirby']},
+{name:'Statamic',p:['statamic']},
+{name:'Grav',p:['getgrav.org','grav-']},
+{name:'Blogger',p:['blogger.com','blogspot.com']},
+{name:'Medium',p:['medium.com']},
+{name:'Substack',p:['substackcdn.com','substack.com']},
+{name:'Notion Site',p:['notion.site']},
+{name:'Carrd',p:['carrd.co']},
+{name:'Strikingly',p:['strikingly.com']},
+{name:'Tilda',p:['tilda.cc','tildacdn.com']},
+{name:'Readymag',p:['readymag.com']},
+{name:'Ucraft',p:['ucraft.com']},
+{name:'Volusion',p:['volusion.com','a.vimage']},
+{name:'OpenCart',p:['opencart']},
+{name:'Zen Cart',p:['zen-cart','zencart']},
+{name:'Ecwid',p:['app.ecwid.com']},
+{name:'Saleor',p:['saleor']},
+{name:'Medusa',p:['medusajs.com']},
+{name:'Webiny',p:['webiny.com']},
+{name:'Payload CMS',p:['payloadcms.com']},
+{name:'KeystoneJS',p:['keystonejs.com']},
+{name:'Directus',p:['directus.io']},
+{name:'DatoCMS',p:['datocms.com','datocms-assets']},
+{name:'Builder.io',p:['cdn.builder.io','builder.io']},
+{name:'Plasmic',p:['plasmic.app']},
+]},
+{cat:'\ud83d\udd0d SEO & Schema Tools',tag:'seo',items:[
+{name:'Yoast SEO',p:['yoast-schema-graph','yoast_seo']},
+{name:'RankMath',p:['rank-math','rankmath']},
+{name:'Schema App',p:['app.schemaapp.com']},
+{name:'All in One SEO',p:['aioseo-','all-in-one-seo']},
+{name:'SEOPress',p:['seopress']},
+{name:'The SEO Framework',p:['the-seo-framework']},
+{name:'Slim SEO',p:['slim-seo']},
+{name:'Schema Pro',p:['schema-pro']},
+{name:'WP SEO Structured Data Schema',p:['wp-seo-structured-data-schema']},
+{name:'Squirrly SEO',p:['squirrly']},
+{name:'SmartCrawl',p:['smartcrawl']},
+{name:'SEO Ultimate',p:['seo-ultimate']},
+]},
+{cat:'\ud83d\udce1 Monitoring & Error Tracking',tag:'monitoring',items:[
+{name:'Sentry',p:['browser.sentry-cdn.com','sentry.io']},
+{name:'New Relic',p:['js-agent.newrelic.com']},
+{name:'Datadog RUM',p:['datadoghq.com/datadog-rum']},
+{name:'Lucky Orange',p:['luckyorange.com']},
+{name:'Mouseflow',p:['mouseflow.com']},
+{name:'FullStory',p:['fullstory.com']},
+{name:'LogRocket',p:['cdn.logrocket.io']},
+{name:'Bugsnag',p:['d2wy8f7a9ursnm.cloudfront.net','bugsnag']},
+{name:'Raygun',p:['cdn.raygun.io']},
+{name:'Rollbar',p:['cdn.rollbar.com']},
+{name:'Dynatrace',p:['js-cdn.dynatrace.com']},
+{name:'SpeedCurve',p:['cdn.speedcurve.com','lux.js']},
+{name:'Instana',p:['eum.instana.io']},
+{name:'Elastic RUM',p:['elastic-apm-rum']},
+{name:'TrackJS',p:['cdn.trackjs.com']},
+{name:'Airbrake',p:['cdn.airbrake.io']},
+{name:'AppDynamics',p:['cdn.appdynamics.com']},
+{name:'Atatus',p:['cdn.atatus.com']},
+{name:'CatchJS',p:['cdn.catchjs.com']},
+]},
+{cat:'\ud83e\uddea A/B Testing & Personalization',tag:'testing',items:[
+{name:'VWO',p:['dev.visualwebsiteoptimizer.com']},
+{name:'Optimizely',p:['cdn.optimizely.com']},
+{name:'AB Tasty',p:['abtasty.com']},
+{name:'Google Optimize',p:['optimize.google.com']},
+{name:'LaunchDarkly',p:['app.launchdarkly.com']},
+{name:'Split.io',p:['cdn.split.io']},
+{name:'Kameleoon',p:['kameleoon.eu']},
+{name:'Convert.com',p:['cdn-3.convertexperiments.com']},
+{name:'Dynamic Yield',p:['cdn.dynamicyield.com']},
+{name:'Statsig',p:['statsigapi.net']},
+{name:'Mutiny',p:['cdn.mutinycdn.com']},
+{name:'Intellimize',p:['cdn.intellimize.co']},
+]},
+{cat:'\ud83d\udce7 Email & Marketing Automation',tag:'email',items:[
+{name:'Mailchimp',p:['chimpstatic.com','list-manage.com']},
+{name:'Klaviyo',p:['static.klaviyo.com']},
+{name:'Brevo (Sendinblue)',p:['sibautomation.com','sendinblue.com','brevo.com']},
+{name:'ActiveCampaign',p:['trackcmp.net','activecampaign.com']},
+{name:'ConvertKit',p:['convertkit.com','ck.page']},
+{name:'Drip',p:['d3rxaij56vjege.cloudfront.net','getdrip.com']},
+{name:'Omnisend',p:['omnisrc.com','omnisend.com']},
+{name:'Moosend',p:['cdn.stat-track.com']},
+{name:'GetResponse',p:['getresponse.com','gr-widget']},
+{name:'MailerLite',p:['static.mailerlite.com']},
+{name:'AWeber',p:['forms.aweber.com']},
+{name:'Constant Contact',p:['cc.constantcontact.com']},
+{name:'Campaign Monitor',p:['createsend.com','campaignmonitor.com']},
+{name:'SendPulse',p:['cdn.sendpulse.com']},
+{name:'Benchmark Email',p:['cdn.benchmarkemail.com']},
+{name:'Freshmarketer',p:['cdn.freshmarketer.com']},
+{name:'Customer.io',p:['assets.customer.io','customerioforms']},
+{name:'Iterable',p:['js.iterable.com']},
+{name:'Ortto (Autopilot)',p:['cdn.ap.o']},
+{name:'Keap (Infusionsoft)',p:['infusionsoft.app']},
+]},
+{cat:'\ud83d\udcb3 Payments & E-Commerce Tools',tag:'payments',items:[
+{name:'Stripe',p:['js.stripe.com']},
+{name:'PayPal',p:['paypal.com/sdk','paypalobjects.com']},
+{name:'Klarna',p:['js.klarna.com']},
+{name:'Apple Pay',p:['apple-pay']},
+{name:'Google Pay',p:['pay.google.com']},
+{name:'Square',p:['squareup.com']},
+{name:'Mollie',p:['js.mollie.com']},
+{name:'Adyen',p:['checkoutshopper-live.adyen.com']},
+{name:'Snipcart',p:['cdn.snipcart.com']},
+{name:'Braintree',p:['js.braintreegateway.com']},
+{name:'Afterpay',p:['afterpay.com','portal.afterpay']},
+{name:'Affirm',p:['cdn1.affirm.com']},
+{name:'Clearpay',p:['clearpay.com']},
+{name:'Zip (Quadpay)',p:['cdn.us.zip.co']},
+{name:'Yotpo Reviews',p:['staticw2.yotpo.com']},
+{name:'Judge.me',p:['judge.me']},
+{name:'Stamped.io',p:['stamped.io']},
+{name:'Loox',p:['loox.io']},
+{name:'Trustpilot',p:['widget.trustpilot.com']},
+{name:'Bazaarvoice',p:['bazaarvoice.com','bvapi']},
+{name:'Recharge',p:['rechargepayments.com']},
+{name:'Bold Commerce',p:['boldcommerce.com','boldapps']},
+{name:'Privy',p:['widget.privy.com','privy.com']},
+{name:'Justuno',p:['cdn.justuno.com']},
+]},
+{cat:'\u26a1 Frameworks & Libraries',tag:'frameworks',items:[
+{name:'React',p:['react.production.min','__react','reactdom']},
+{name:'Vue.js',p:['vue.min.js','vue.global','__vue__']},
+{name:'Angular',p:['angular.min.js','ng-version']},
+{name:'Svelte',p:['__svelte']},
+{name:'jQuery',p:['jquery.min.js','jquery/']},
+{name:'Bootstrap',p:['bootstrap.min.css','bootstrap.min.js','bootstrap.bundle']},
+{name:'Tailwind CSS',p:['tailwindcss']},
+{name:'Alpine.js',p:['cdn.jsdelivr.net/npm/alpinejs','x-data=']},
+{name:'HTMX',p:['htmx.org','hx-get=','hx-post=']},
+{name:'GSAP',p:['cdnjs.cloudflare.com/ajax/libs/gsap','greensock']},
+{name:'Three.js',p:['three.min.js','three.module']},
+{name:'D3.js',p:['d3.min.js','d3js.org']},
+{name:'Font Awesome',p:['fontawesome','font-awesome']},
+{name:'Material UI',p:['mui.com']},
+{name:'Lottie',p:['lottie.min.js','lottie-player','bodymovin']},
+{name:'AOS (Animate on Scroll)',p:['aos.css','aos.js','data-aos=']},
+{name:'Swiper',p:['swiper-bundle','swiperjs.com']},
+{name:'Slick Slider',p:['slick.min.js','slick-carousel']},
+{name:'Lightbox / Fancybox',p:['fancybox','lightbox.min','glightbox']},
+{name:'Lodash',p:['lodash.min.js']},
+{name:'Moment.js',p:['moment.min.js']},
+{name:'Axios',p:['axios.min.js']},
+{name:'Backbone.js',p:['backbone.min.js','backbone-min.js']},
+{name:'Ember.js',p:['ember.min.js','emberjs.com']},
+{name:'Preact',p:['preact.min.js','preactjs.com']},
+{name:'Solid.js',p:['solidjs.com']},
+{name:'Qwik',p:['qwik.dev','qwikloader']},
+{name:'Lit',p:['lit.dev','lit-element']},
+{name:'Stimulus',p:['stimulus.js','stimulus.min']},
+{name:'Turbo',p:['turbo.js','hotwired.dev']},
+{name:'Leaflet',p:['leaflet.js','leaflet.css']},
+{name:'Mapbox',p:['api.mapbox.com','mapbox-gl']},
+{name:'Chart.js',p:['chart.min.js','chartjs.org']},
+{name:'Highcharts',p:['highcharts.com','highcharts.js']},
+{name:'Anime.js',p:['animejs.com','anime.min.js']},
+{name:'ScrollReveal',p:['scrollreveal.min.js']},
+{name:'Popper.js',p:['popper.min.js','popperjs.org']},
+{name:'Select2',p:['select2.min.js','select2.min.css']},
+{name:'DataTables',p:['datatables.min.js','cdn.datatables.net']},
+{name:'Isotope',p:['isotope.pkgd','isotope-layout']},
+{name:'Masonry',p:['masonry.pkgd','masonry-layout']},
+{name:'Typed.js',p:['typed.min.js','cdn.jsdelivr.net/npm/typed']},
+{name:'Parallax.js',p:['parallax.min.js']},
+{name:'Wow.js',p:['wow.min.js']},
+{name:'Waypoints',p:['waypoints.min.js','noframework.waypoints']},
+{name:'Hammer.js',p:['hammer.min.js','hammerjs.github.io']},
+{name:'Socket.io',p:['socket.io.min.js','cdn.socket.io']},
+{name:'Firebase',p:['firebase.google.com','firebaseapp.com','firebase-app']},
+{name:'Supabase',p:['supabase.co','supabase.io']},
+{name:'Framer Motion',p:['framer-motion']},
+{name:'Material Icons',p:['fonts.googleapis.com/icon','material-icons']},
+{name:'Ionicons',p:['ionicons.com','ionicons/']},
+{name:'Heroicons',p:['heroicons.com']},
+{name:'Phosphor Icons',p:['phosphoricons.com']},
+]},
+{cat:'\ud83c\udf10 CDN & Performance',tag:'cdn',items:[
+{name:'Cloudflare CDN',p:['cdnjs.cloudflare.com']},
+{name:'Fastly',p:['fastly.net']},
+{name:'Akamai',p:['akamai.net','akamaihd.net','akamaized.net']},
+{name:'AWS CloudFront',p:['cloudfront.net']},
+{name:'KeyCDN',p:['kxcdn.com']},
+{name:'StackPath / MaxCDN',p:['stackpathcdn.com']},
+{name:'jsDelivr',p:['cdn.jsdelivr.net']},
+{name:'unpkg',p:['unpkg.com']},
+{name:'Google Fonts',p:['fonts.googleapis.com','fonts.gstatic.com']},
+{name:'Adobe Fonts (Typekit)',p:['use.typekit.net']},
+{name:'Lazy Loading (native)',p:['loading="lazy"']},
+{name:'Preconnect Hints',p:['rel="preconnect"']},
+{name:'Preload Hints',p:['rel="preload"']},
+{name:'Service Worker',p:['serviceworker','navigator.serviceworker']},
+{name:'Bunny CDN',p:['b-cdn.net']},
+{name:'Google Cloud CDN',p:['storage.googleapis.com']},
+{name:'Azure CDN',p:['azureedge.net','azure-api.net']},
+{name:'Imgix',p:['imgix.net']},
+{name:'Cloudinary',p:['res.cloudinary.com','cloudinary.com']},
+{name:'ImageKit',p:['ik.imagekit.io']},
+{name:'Uploadcare',p:['ucarecdn.com']},
+{name:'WP Rocket',p:['wp-rocket','rocket-loader']},
+{name:'W3 Total Cache',p:['w3tc','w3-total-cache']},
+{name:'Autoptimize',p:['autoptimize']},
+{name:'LiteSpeed Cache',p:['litespeed-cache','lscache']},
+{name:'Perfmatters',p:['perfmatters']},
+{name:'Flying Press',p:['flying-press']},
+]},
+{cat:'\ud83d\udee1\ufe0f Security & Auth',tag:'security',items:[
+{name:'reCAPTCHA',p:['google.com/recaptcha','grecaptcha']},
+{name:'hCaptcha',p:['hcaptcha.com','h-captcha']},
+{name:'Turnstile (Cloudflare)',p:['challenges.cloudflare.com/turnstile']},
+{name:'Subresource Integrity',p:['integrity="sha']},
+{name:'Auth0',p:['cdn.auth0.com','auth0.com']},
+{name:'Firebase Auth',p:['firebase.google.com/auth','firebaseauth']},
+{name:'Clerk',p:['clerk.com','clerk.dev']},
+{name:'Supabase Auth',p:['supabase.co/auth']},
+{name:'Okta',p:['okta.com','oktacdn.com']},
+{name:'OneLogin',p:['onelogin.com']},
+{name:'Wordfence',p:['wordfence']},
+{name:'Sucuri',p:['sucuri.net','cloudproxy.sucuri.net']},
+{name:'SiteLock',p:['sitelock.com']},
+{name:'Cloudflare Bot Management',p:['cf-chl-bypass']},
+{name:'PerimeterX / HUMAN',p:['perimeterx.net','px-cdn.net']},
+]},
+{cat:'\ud83d\udcf1 Social & Sharing',tag:'social',items:[
+{name:'Facebook SDK',p:['connect.facebook.net/en_us/sdk.js','fb-root']},
+{name:'Twitter Widgets',p:['platform.twitter.com/widgets']},
+{name:'YouTube Embed',p:['youtube.com/embed','youtube-nocookie.com']},
+{name:'Vimeo Embed',p:['player.vimeo.com']},
+{name:'AddThis',p:['addthis.com']},
+{name:'ShareThis',p:['sharethis.com']},
+{name:'Disqus',p:['disqus.com','disqus_shortname']},
+{name:'Instagram Embed',p:['instagram.com/embed']},
+{name:'Spotify Embed',p:['open.spotify.com/embed']},
+{name:'SoundCloud Embed',p:['w.soundcloud.com']},
+{name:'LinkedIn SDK',p:['platform.linkedin.com']},
+{name:'TikTok Embed',p:['tiktok.com/embed']},
+{name:'Elfsight',p:['apps.elfsight.com','elfsight.com']},
+{name:'EmbedSocial',p:['embedsocial.com']},
+{name:'Smash Balloon',p:['smashballoon']},
+{name:'Juicer',p:['assets.juicer.io']},
+]},
+{cat:'\ud83d\udcdd Forms & Popups',tag:'forms',items:[
+{name:'Typeform',p:['embed.typeform.com','typeform.com']},
+{name:'JotForm',p:['form.jotform.com','cdn.jotfor.ms']},
+{name:'Google Forms',p:['docs.google.com/forms']},
+{name:'WPForms',p:['wpforms']},
+{name:'Gravity Forms',p:['gravityforms']},
+{name:'Contact Form 7',p:['contact-form-7']},
+{name:'Formidable Forms',p:['formidable-forms','formidableforms']},
+{name:'Ninja Forms',p:['ninja-forms','ninjaforms']},
+{name:'Fluent Forms',p:['fluent-forms','fluentform']},
+{name:'Tally',p:['tally.so']},
+{name:'Paperform',p:['paperform.co']},
+{name:'Formspree',p:['formspree.io']},
+{name:'Netlify Forms',p:['netlify','data-netlify=']},
+{name:'OptinMonster',p:['optinmonster.com','omapi-']},
+{name:'Sumo',p:['load.sumo.com','sumo.com']},
+{name:'Hello Bar',p:['hellobar.com','my.hellobar']},
+{name:'ConvertBox',p:['convertbox.com']},
+{name:'Popupsmart',p:['popupsmart.com']},
+{name:'Wisepops',p:['wisepops.com','loader.wisepops']},
+{name:'Elementor Forms',p:['elementor-form']},
+{name:'Hubspot Forms',p:['js.hsforms.net']},
+{name:'Calendly',p:['assets.calendly.com','calendly.com']},
+{name:'Acuity Scheduling',p:['acuityscheduling.com']},
+]},
+{cat:'\ud83c\udfa8 Page Builders & WP Plugins',tag:'builder',items:[
+{name:'Elementor',p:['elementor','elementor-']},
+{name:'Divi',p:['divi','et-boc','et_pb_']},
+{name:'Beaver Builder',p:['fl-builder','beaver-builder']},
+{name:'WPBakery',p:['wpbakery','js_composer']},
+{name:'Oxygen Builder',p:['oxygen-']},
+{name:'Bricks Builder',p:['bricks-builder']},
+{name:'Breakdance',p:['breakdance']},
+{name:'GeneratePress',p:['generatepress']},
+{name:'Astra Theme',p:['astra-theme','astra-']},
+{name:'Kadence',p:['kadence-blocks','kadence-']},
+{name:'OceanWP',p:['oceanwp']},
+{name:'Avada',p:['avada','fusion-']},
+{name:'ThemeForest',p:['themeforest']},
+{name:'Advanced Custom Fields',p:['acf-','advanced-custom-fields']},
+{name:'Custom Post Type UI',p:['cptui']},
+{name:'WP All Import',p:['wp-all-import']},
+{name:'Wordfence Security',p:['wordfence']},
+{name:'UpdraftPlus',p:['updraftplus']},
+{name:'WP Super Cache',p:['wp-super-cache']},
+{name:'WPML',p:['wpml-','sitepress-multilingual']},
+{name:'Polylang',p:['polylang']},
+{name:'TranslatePress',p:['translatepress']},
+{name:'Weglot',p:['cdn.weglot.com','weglot.com']},
+]},
+{cat:'\ud83c\udfa5 Video & Media',tag:'media',items:[
+{name:'Wistia',p:['fast.wistia.com','wistia.net']},
+{name:'Vidyard',p:['play.vidyard.com']},
+{name:'Brightcove',p:['players.brightcove.net']},
+{name:'JW Player',p:['cdn.jwplayer.com','jwplayer.js']},
+{name:'Cloudflare Stream',p:['cloudflarestream.com','videodelivery.net']},
+{name:'Mux',p:['stream.mux.com','mux.com']},
+{name:'Dailymotion',p:['dailymotion.com/embed']},
+{name:'Kaltura',p:['cdnapi.kaltura.com']},
+{name:'Loom',p:['loom.com/embed']},
+{name:'Plyr',p:['plyr.js','plyr.min.js','cdn.plyr.io']},
+{name:'Video.js',p:['video.min.js','videojs.com','vjs.zencdn.net']},
+]},
+{cat:'\ud83d\udce3 Push Notifications',tag:'push',items:[
+{name:'OneSignal',p:['cdn.onesignal.com','onesignal.com']},
+{name:'PushEngage',p:['clientcdn.pushengage.com']},
+{name:'Pushwoosh',p:['cdn.pushwoosh.com']},
+{name:'Firebase Cloud Messaging',p:['firebase-messaging']},
+{name:'WebEngage',p:['cdn.webengage.com']},
+{name:'CleverTap',p:['clevertap.com','wzrkt.com']},
+{name:'MoEngage',p:['cdn.moengage.com']},
+{name:'Aimtell',p:['cdn.aimtell.com']},
+{name:'PushOwl',p:['cdn.pushowl.com']},
+{name:'Webpushr',p:['cdn.webpushr.com']},
+]},
+{cat:'\u267f Accessibility',tag:'a11y',items:[
+{name:'accessiBe',p:['acsbapp.com','accessibe.com']},
+{name:'AudioEye',p:['audioeye.com','fix.audioeye']},
+{name:'UserWay',p:['cdn.userway.org','userway.org']},
+{name:'EqualWeb',p:['equalweb.com']},
+{name:'Recite Me',p:['reciteme.com']},
+{name:'Monsido',p:['monsido.com']},
+{name:'Siteimprove',p:['siteimproveanalytics.com']},
+{name:'Max Access',p:['maxaccess']},
+]},
+{cat:'\ud83d\udcca Tag Management',tag:'tags',items:[
+{name:'Tealium',p:['tags.tiqcdn.com','tealium.com']},
+{name:'Ensighten',p:['nexus.ensighten.com']},
+{name:'Adobe Launch',p:['assets.adobedtm.com','launch-']},
+{name:'Commanders Act',p:['commander1.com','tagcommander']},
+{name:'Matomo Tag Manager',p:['matomo.js','piwik.js']},
+{name:'Zaraz (Cloudflare)',p:['zaraz.','cdn-cgi/zaraz']},
+{name:'Piwik PRO Tag Manager',p:['piwik.pro']},
+{name:'Yahoo Tag Manager',p:['s.yjtag.jp']},
+]},
+{cat:'\ud83c\udf0d Translation & i18n',tag:'i18n',items:[
+{name:'Weglot',p:['cdn.weglot.com']},
+{name:'TranslatePress',p:['translatepress']},
+{name:'WPML',p:['wpml-','sitepress-multilingual']},
+{name:'Polylang',p:['polylang']},
+{name:'Google Translate Widget',p:['translate.google.com','googletrans']},
+{name:'Lokalise',p:['app.lokalise.com']},
+{name:'Crowdin',p:['crowdin.com']},
+{name:'Smartling',p:['smartling.com']},
+{name:'Transifex',p:['transifex.com']},
+]},
+{cat:'\ud83d\udd14 Notifications & Engagement',tag:'engage',items:[
+{name:'Hotjar Feedback',p:['static.hotjar.com']},
+{name:'SurveyMonkey',p:['surveymonkey.com']},
+{name:'Qualtrics',p:['siteintercept.qualtrics.com']},
+{name:'Feedbackify',p:['feedbackify.com']},
+{name:'UserVoice',p:['uservoice.com','widget.uservoice']},
+{name:'Canny',p:['canny.io']},
+{name:'Nolt',p:['nolt.io']},
+{name:'Beamer',p:['app.getbeamer.com']},
+{name:'ProductBoard',p:['productboard.com']},
+{name:'Announcement Bar',p:['shopify-announcement-bar']},
+]},
+]];
+
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+btn.addEventListener('click',function(){go(urlIn.value)});
+urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)});
+
+function go(url){
+  url=(url||'').trim();if(!url)return;
+  if(!/^https?:\/\//i.test(url))url='https://'+url;
+  urlIn.value=url;
+  document.getElementById('loading').style.display='block';
+  document.getElementById('res').style.display='none';
+  btn.disabled=true;btn.textContent='Scanning…';
+
+  fetch(WORKER+'?url='+encodeURIComponent(url))
+  .then(function(r){return r.json()})
+  .then(function(data){
+    btn.disabled=false;btn.textContent='Detect Tech Stack';
+    document.getElementById('loading').style.display='none';
+    if(data.error){showError(data.error);return}
+    if(!data.html||data.html.length<50){showError('Empty response.');return}
+    detect(data.html);
+  })
+  .catch(function(e){
+    btn.disabled=false;btn.textContent='Detect Tech Stack';
+    document.getElementById('loading').style.display='none';
+    showError('Could not fetch: '+e.message);
+  });
+}
+
+function showError(msg){
+  document.getElementById('res').style.display='block';
+  document.getElementById('techResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(msg)+'</p></div>';
+  document.getElementById('summaryBar').innerHTML='';
+  document.getElementById('mFound').textContent='0';
+  document.getElementById('mCats').textContent='0';
+}
+
+var lastResults=[];
+
+function detect(html){
+  var lc=html.toLowerCase();
+  var doc=new DOMParser().parseFromString(html,'text/html');
+  var generator=(doc.querySelector('meta[name="generator"]')||{}).content||'';
+
+  var totalFound=0,catSet=new Set(),results=[];
+  var summaryTags={};
+
+  SIGS.forEach(function(cat){
+    var catResults=[];
+    cat.items.forEach(function(sig){
+      var found=sig.p.some(function(p){return lc.indexOf(p.toLowerCase())>=0});
+      // Also check generator tag
+      if(!found&&generator){
+        var gl=generator.toLowerCase(),nl=sig.name.toLowerCase();
+        if(gl.indexOf(nl)>=0||(nl==='wordpress'&&gl.indexOf('wordpress')>=0))found=true;
+      }
+      catResults.push({name:sig.name,found:found,tag:cat.tag});
+      if(found){totalFound++;catSet.add(cat.cat);summaryTags[cat.tag]=(summaryTags[cat.tag]||0)+1;}
+    });
+    results.push({cat:cat.cat,tag:cat.tag,items:catResults});
+  });
+
+  // Check generator tag as extra
+  if(generator){
+    var genFound=false;
+    results.forEach(function(r){r.items.forEach(function(i){if(i.found)genFound=true})});
+    // Add generator info to results if not already detected
+  }
+
+  lastResults=results;
+
+  document.getElementById('mFound').textContent=totalFound;
+  document.getElementById('mCats').textContent=catSet.size;
+
+  // Summary tags
+  var sumHtml='';
+  var tagLabels={analytics:'Analytics',marketing:'Advertising',consent:'Consent',cms:'CMS',seo:'SEO',monitoring:'Monitoring',testing:'A/B Testing',chat:'Chat',email:'Email',payments:'Payments',frameworks:'Frameworks',cdn:'CDN',security:'Security',social:'Social',forms:'Forms',builder:'Builders',media:'Video',push:'Push',a11y:'A11y',tags:'Tags',i18n:'i18n',engage:'Engage'};
+  for(var t in summaryTags){
+    sumHtml+='<span class="gen-tag '+t+'">'+summaryTags[t]+' '+(tagLabels[t]||t)+'</span>';
+  }
+  if(generator)sumHtml+='<span class="gen-tag cms" title="'+esc(generator)+'">Generator: '+esc(generator.substring(0,30))+'</span>';
+  document.getElementById('summaryBar').innerHTML=sumHtml;
+
+  // Render results — show found first, then missing
+  var html='';
+  results.forEach(function(cat){
+    var foundItems=cat.items.filter(function(i){return i.found});
+    var missingItems=cat.items.filter(function(i){return !i.found});
+    if(foundItems.length===0&&missingItems.length>0){
+      // Skip categories with zero detections
+      return;
+    }
+    html+='<div class="cat-head">'+cat.cat+' ('+foundItems.length+'/'+cat.items.length+')</div>';
+    html+='<div class="tech-grid">';
+    foundItems.forEach(function(i){
+      html+='<div class="tech-item found"><div class="dot"></div><span class="tech-name">'+esc(i.name)+'</span></div>';
+    });
+    missingItems.forEach(function(i){
+      html+='<div class="tech-item missing"><div class="dot"></div><span class="tech-name">'+esc(i.name)+'</span></div>';
+    });
+    html+='</div>';
+  });
+
+  // Show categories with zero detections collapsed
+  var emptyCount=0;
+  results.forEach(function(cat){if(cat.items.filter(function(i){return i.found}).length===0)emptyCount++});
+  if(emptyCount>0){
+    html+='<div class="cat-head" style="color:var(--muted);cursor:pointer" id="showEmpty">+ '+emptyCount+' categories with no detections</div>';
+    html+='<div id="emptySection" style="display:none">';
+    results.forEach(function(cat){
+      if(cat.items.filter(function(i){return i.found}).length>0)return;
+      html+='<div class="cat-head" style="color:var(--muted)">'+cat.cat+' (0/'+cat.items.length+')</div>';
+      html+='<div class="tech-grid">';
+      cat.items.forEach(function(i){
+        html+='<div class="tech-item missing"><div class="dot"></div><span class="tech-name">'+esc(i.name)+'</span></div>';
+      });
+      html+='</div>';
+    });
+    html+='</div>';
+  }
+
+  document.getElementById('techResults').innerHTML=html;
+  document.getElementById('res').style.display='block';
+
+  // Toggle empty categories
+  var showBtn=document.getElementById('showEmpty');
+  if(showBtn){showBtn.addEventListener('click',function(){
+    var s=document.getElementById('emptySection');
+    if(s.style.display==='none'){s.style.display='block';showBtn.textContent='− Hide empty categories'}
+    else{s.style.display='none';showBtn.textContent='+ '+emptyCount+' categories with no detections'}
+  })}
+}
+
+// Copy results
+document.getElementById('btnCopy').addEventListener('click',function(){
+  var txt='Tech Stack Analysis: '+urlIn.value+'\n\n';
+  lastResults.forEach(function(cat){
+    var found=cat.items.filter(function(i){return i.found});
+    if(found.length===0)return;
+    txt+=cat.cat+'\n';
+    found.forEach(function(i){txt+='  ✓ '+i.name+'\n'});
+    txt+='\n';
+  });
+  navigator.clipboard.writeText(txt).then(function(){
+    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Results'},1500);
+  });
+});
+
+var params=new URLSearchParams(window.location.search);if(params.get("url")){urlIn.value=params.get("url");go(params.get("url"))}
+</script>
+<style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
+<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+</body>
+</html>
