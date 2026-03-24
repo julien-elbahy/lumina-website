@@ -292,7 +292,6 @@ var list=document.getElementById('urlList');list.innerHTML='';
 [{u:'https://lumina-seo.com/',l:'Homepage'},{u:'https://lumina-seo.com/tools/serp-preview/',l:'SERP Preview Tool'},{u:'https://lumina-seo.com/tools/schema-validator/',l:'Schema Validator'},{u:'https://lumina-seo.com/privacy-policy.html',l:'Privacy Policy'}].forEach(function(p){var r=document.createElement('div');r.className='url-row';r.innerHTML='<input type="text" class="ui" value="'+p.u+'"><input type="text" class="li" value="'+p.l+'"><button class="rm" title="Remove">×</button>';list.appendChild(r);r.querySelector('.rm').addEventListener('click',function(){r.remove()})})});
 document.getElementById('btnCopy').addEventListener('click',function(){var t=document.getElementById('output').textContent;navigator.clipboard.writeText(t).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)})});
 document.getElementById('btnDL').addEventListener('click',function(){var t=document.getElementById('output').textContent;var b=new Blob([t],{type:'text/plain'});var a=document.createElement('a');a.download='llms.txt';a.href=URL.createObjectURL(b);a.click()});
-);
 
 
 </script>
