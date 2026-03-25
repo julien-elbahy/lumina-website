@@ -313,6 +313,9 @@ var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dar
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
 
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
+
+
 </script>
 </body>
 </html>

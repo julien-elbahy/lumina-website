@@ -51,7 +51,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 /* Status bar */
 .status-bar{padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid;backdrop-filter:blur(12px)}.status-bar.ok{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.status-bar.err{background:var(--err-bg);border-color:var(--err-border);color:var(--err)}.status-bar.warn{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}
 /* Metrics */
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;text-align:center;margin-bottom:12px}.metric{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px}.metric h4{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}.metric p{font-size:20px;font-weight:800;color:var(--text)}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;text-align:center;margin-bottom:12px}.metric{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px}.metric .mh{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}.metric p{font-size:20px;font-weight:800;color:var(--text)}
 /* Headings */
 .hi{margin-bottom:2px;padding:5px 10px;display:flex;align-items:baseline;gap:6px;border-radius:8px;transition:background .15s}.hi:hover{background:var(--accent-soft)}.hi .ht{font-weight:800;color:var(--accent);white-space:nowrap;font-size:12px;min-width:24px;font-family:var(--mono)}.hi .hx{font-size:13px;color:var(--text2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* OG Preview */
@@ -61,9 +61,9 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 /* Error */
 .error-msg{text-align:center;padding:32px 16px;color:var(--muted)}.error-msg .icon{font-size:28px;margin-bottom:8px}
 /* Other tools */
-.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 /* CTA */
-.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 /* FAQ */
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
 /* Footer */
@@ -279,12 +279,11 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 </div>
 <h2 style="font-size:18px;font-weight:800;margin:32px 0 12px">More free SEO tools</h2>
 <div class="other-tools">
-<a href="/tools/serp-preview/"><h4>SERP Preview</h4><p>Preview Google search snippets with pixel measurement.</p></a>
-<a href="/tools/schema-validator/"><h4>Schema Validator</h4><p>Validate JSON-LD against Google required fields.</p></a>
-<a href="/tools/llms-txt-generator/"><h4>llms.txt Generator</h4><p>Create AI crawler guides for your site.</p></a>
+<a href="/tools/serp-preview/"><h3>SERP Preview</h3><p>Preview Google search snippets with pixel measurement.</p></a>
+<a href="/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate JSON-LD against Google required fields.</p></a>
+<a href="/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides for your site.</p></a>
 </div>
-<div class="cta-box">
-<h3>Get the full analysis in one click</h3>
+<div class="cta-box"><div class="cta-t">Get the full analysis in one click</div>
 <p>40+ SEO checks, AI crawler analysis, GSC & GA4 dashboards — directly in your browser.</p>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
 </div>
@@ -307,6 +306,9 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}})()
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
+
 
 
 
@@ -439,7 +441,7 @@ function renderSEO(d){
 
 function renderHeadings(d){
   var h='<div class="metrics">';
-  for(var i=1;i<=6;i++){var c=d.hC['h'+i];h+='<div class="metric"><h4>H'+i+'</h4><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
+  for(var i=1;i<=6;i++){var c=d.hC['h'+i];h+='<div class="metric"><div class="mh">H'+i+'</h4><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
   h+='</div>';
   if(!d.headings.length)h+='<p style="color:var(--muted);text-align:center;padding:20px">No headings found.</p>';
   else d.headings.slice(0,30).forEach(function(x){h+='<div class="hi" style="margin-left:'+(x.l-1)*16+'px"><span class="ht">H'+x.l+'</span><span class="hx">'+esc(x.t)+'</span></div>'});
@@ -449,14 +451,14 @@ function renderHeadings(d){
 
 function renderLinks(d){
   var h='<div class="section-title">Links</div><div class="metrics">';
-  h+='<div class="metric"><h4>Total</h4><p>'+d.links.total+'</p></div>';
-  h+='<div class="metric"><h4>Internal</h4><p>'+d.links.int+'</p></div>';
-  h+='<div class="metric"><h4>External</h4><p>'+d.links.ext+'</p></div>';
-  if(d.links.nf)h+='<div class="metric"><h4>Nofollow</h4><p>'+d.links.nf+'</p></div>';
+  h+='<div class="metric"><div class="mh">Total</div><p>'+d.links.total+'</p></div>';
+  h+='<div class="metric"><div class="mh">Internal</div><p>'+d.links.int+'</p></div>';
+  h+='<div class="metric"><div class="mh">External</div><p>'+d.links.ext+'</p></div>';
+  if(d.links.nf)h+='<div class="metric"><div class="mh">Nofollow</div><p>'+d.links.nf+'</p></div>';
   h+='</div><div class="section-title">Images</div><div class="metrics">';
-  h+='<div class="metric"><h4>Total</h4><p>'+d.imgs.total+'</p></div>';
-  h+='<div class="metric"><h4>Missing ALT</h4><p style="color:'+(d.imgs.noAlt?'var(--warn)':'var(--ok)')+'">'+d.imgs.noAlt+'</p></div>';
-  h+='<div class="metric"><h4>With ALT</h4><p>'+(d.imgs.total-d.imgs.noAlt)+'</p></div></div>';
+  h+='<div class="metric"><div class="mh">Total</div><p>'+d.imgs.total+'</p></div>';
+  h+='<div class="metric"><div class="mh">Missing ALT</div><p style="color:'+(d.imgs.noAlt?'var(--warn)':'var(--ok)')+'">'+d.imgs.noAlt+'</p></div>';
+  h+='<div class="metric"><div class="mh">With ALT</div><p>'+(d.imgs.total-d.imgs.noAlt)+'</p></div></div>';
   document.getElementById('p-links').innerHTML=h;
 }
 

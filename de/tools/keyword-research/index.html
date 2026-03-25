@@ -38,7 +38,7 @@
 .url-bar{display:flex;gap:8px}.url-bar input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.url-bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .ab{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .25s}.ab:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}.ab:disabled{opacity:.5;cursor:default;transform:none}
 .skel{height:12px;background:var(--border);border-radius:6px;margin-bottom:8px;animation:shimmer 1.5s infinite}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
-.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}
 @media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
 .filters{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}.fbtn{background:0;border:0;padding:7px 11px;font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:8px;transition:all .2s;letter-spacing:.4px;font-family:var(--font);white-space:nowrap}.fbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 12px var(--accent-glow)}.fbtn:hover:not(.active){color:var(--text);background:var(--accent-soft)}
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
@@ -46,15 +46,15 @@
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
-.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
-.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
 .error-msg{text-align:center;padding:24px;color:var(--muted)}.error-msg .icon{font-size:24px;margin-bottom:6px}
 .section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
 
-.psi-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}.psi-score{text-align:center;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px}.psi-score h4{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}.psi-ring{width:60px;height:60px;margin:0 auto}.psi-cwv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.psi-cwv-item{text-align:center;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px}.psi-cwv-item h4{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:4px}.psi-cwv-item p{font-size:16px;font-weight:800}.psi-strategy{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;justify-content:center}.psi-tab{background:0;border:0;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);border-radius:8px;transition:all .2s;font-family:var(--font)}.psi-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff}
+.psi-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}.psi-score{text-align:center;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px}.psi-score .mh{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}.psi-ring{width:60px;height:60px;margin:0 auto}.psi-cwv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.psi-cwv-item{text-align:center;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px}.psi-cwv-item .mh{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:4px}.psi-cwv-item p{font-size:16px;font-weight:800}.psi-strategy{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;justify-content:center}.psi-tab{background:0;border:0;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);border-radius:8px;transition:all .2s;font-family:var(--font)}.psi-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff}
 @media(max-width:480px){.psi-scores{grid-template-columns:repeat(2,1fr)}.psi-cwv{grid-template-columns:1fr 1fr 1fr}}
 .mm-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none}
 
@@ -68,6 +68,9 @@
 .kw-filter{display:flex;gap:8px;margin-bottom:10px;align-items:center}.kw-filter input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--mono);font-size:12px}.kw-filter input:focus{outline:none;border-color:var(--accent)}.kw-filter .count{font-size:11px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
 .list-scroll{max-height:520px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 @media(max-width:480px){.kw-tbl .col-cpc,.kw-tbl .col-comp{display:none}.kw-tbl th.h-cpc,.kw-tbl th.h-comp{display:none}}
+.kw-tbl .col-sel{width:28px;text-align:center;padding:4px}.kw-tbl .col-sel input{cursor:pointer;accent-color:var(--accent)}
+.map-tbl{width:100%;border-collapse:collapse;font-size:13px}.map-tbl th{text-align:left;padding:10px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);border-bottom:1px solid var(--border);background:var(--card)}.map-tbl td{padding:8px 12px;border-bottom:1px solid var(--border)}.map-tbl tr.main-kw{background:var(--accent-soft)}.map-tbl tr.main-kw td:first-child{font-weight:800;color:var(--accent)}.map-tbl .kw-type{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:6px;border:1px solid}.map-tbl .kw-type.main{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.25)}.map-tbl .kw-type.sec{background:var(--card);color:var(--muted);border-color:var(--border)}.map-tbl tr{cursor:pointer;transition:background .15s}.map-tbl tr:hover{background:var(--accent-soft)}
+.gsc-tbl{width:100%;border-collapse:collapse;font-size:12px}.gsc-tbl th{text-align:left;padding:8px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}.gsc-tbl td{padding:6px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px}.gsc-tbl tr:hover td{background:var(--accent-soft)}
 @media(max-width:480px){.kw-input{flex-direction:column}.api-key-row{flex-direction:column;align-items:stretch}}
 /* ── Mega Menu ── */
 .tools-dd{position:relative}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
@@ -235,21 +238,66 @@
 <div class="th"><div class="lb">Free Keyword Tool</div><h1>Keyword Research</h1><p>Find related keywords with search volume, CPC, and competition data. Powered by DataForSEO. 5 free queries per day.</p></div>
 <div class="cd">
 <div class="kw-input"><input type="text" id="kwIn" placeholder="Suchbegriff eingeben…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">Keywords finden</button></div>
-<div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"></div>
+<div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ Was ist das?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Ohne Key bekommst du 5 kostenlose Suchen pro Tag. Mit eigenem <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a>-Key sind Suchen unbegrenzt. Key erstellen: bei dataforseo.com anmelden → API Dashboard → login:password kopieren → bei <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> als <code>login:password</code> kodieren.</div></div>
 <div class="quota-bar" id="quotaInfo">5 free queries per day</div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><h4>Keywords</h4><p id="mCount">0</p></div><div class="metric"><h4>Seed</h4><p id="mSeed" style="font-size:14px">—</p></div><div class="metric"><h4>Avg. Volume</h4><p id="mAvgVol">—</p></div><div class="metric"><h4>Avg. CPC</h4><p id="mAvgCpc">—</p></div></div>
+<div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seed</div><p id="mSeed" style="font-size:14px">—</p></div><div class="metric"><div class="mh">Avg. Volume</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Avg. CPC</div><p id="mAvgCpc">—</p></div></div>
 <div class="kw-filter"><input type="text" id="kwFilter" placeholder="Keywords filtern…"><span class="count" id="kwCount"></span></div>
 <div id="kwResults" class="list-scroll"></div>
-<button class="exp-btn" id="btnCsv">📊 CSV Export</button>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+<button class="exp-btn" id="btnCsv">📊 CSV-Export</button>
+<button class="exp-btn" id="btnMap" disabled>📋 Keyword-Mapping</button>
+</div>
+</div>
+<!-- Mapping Table -->
+<div id="mapWrap" style="display:none">
+<div class="cd" style="position:relative">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<div style="font-size:16px;font-weight:800">Keyword-Mapping</div>
+<button class="exp-btn" onclick="document.getElementById('mapWrap').style.display='none'" style="margin:0;padding:4px 10px">✕ Schließen</button>
+</div>
+<p style="font-size:11px;color:var(--muted);margin-bottom:10px">Klicke ein Keyword um es als <strong>Hauptkeyword</strong> zu setzen. Der Rest sind Nebenkeywords.</p>
+<div id="mapTable" style="border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg)"></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center">
+<button class="exp-btn" id="btnMapSave" style="margin:0">💾 Bild speichern</button>
+<button class="exp-btn" id="btnMapCopy" style="margin:0">📷 Bild kopieren</button>
+<button class="exp-btn" id="btnMapText" style="margin:0">📋 Text kopieren</button>
+<label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer"><input type="checkbox" id="mapShadow" checked> Schatten</label>
+</div>
+</div>
+</div>
+<!-- GSC Section -->
+<div class="cd" id="gscSection" style="margin-top:8px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<div style="font-size:14px;font-weight:800">📊 Google Search Console</div>
+<div id="gscStatus" style="font-size:10px;color:var(--muted);font-family:var(--mono)"></div>
+</div>
+<div id="gscConnect">
+<p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">Verbinde deine Google Search Console um echte Klicks, Impressionen, CTR und Positionsdaten für deine Keywords zu sehen.</p>
+<button class="ab" id="btnGscConnect" style="font-size:12px;padding:10px 18px">🔗 Google Search Console verbinden</button>
+<div style="font-size:10px;color:var(--muted);margin-top:6px">Benötigt Google OAuth. Deine Daten bleiben in deinem Browser — wir speichern keine Tokens auf unserem Server.</div>
+</div>
+<div id="gscMain" style="display:none">
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center">
+<select id="gscSite" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);flex:1;min-width:180px"></select>
+<select id="gscRange" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px">
+<option value="7">Letzte 7 Tage</option><option value="28" selected>Letzte 28 Tage</option><option value="90">Letzte 90 Tage</option></select>
+<button class="exp-btn" id="btnGscLoad" style="margin:0;padding:6px 14px">Daten laden</button>
+<button class="exp-btn" id="btnGscDisconnect" style="margin:0;padding:6px 10px;font-size:9px;color:var(--err)">Trennen</button>
+</div>
+<div id="gscLoading" style="display:none"><div class="skel w90"></div><div class="skel w50"></div></div>
+<div id="gscResults" style="display:none">
+<div class="metrics" id="gscMetrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px"></div>
+<div id="gscTable" class="list-scroll" style="max-height:400px"></div>
+</div>
 </div>
 </div>
 <div class="content"><h2>How it works</h2><p>Enter a seed keyword and this tool finds related keywords from Google Ads data via the DataForSEO API. Results include monthly search volume, cost-per-click, and competition level.</p>
 <h2 style="margin-top:28px">More tools</h2>
-<div class="other-tools"><a href="/de/tools/serp-checker/"><h4>SERP Checker</h4><p>Check Google rankings.</p></a><a href="/de/tools/serp-overlap/"><h4>SERP Overlap</h4><p>Compare rankings for 2 keywords.</p></a><a href="/de/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Optimize titles & descriptions.</p></a></div>
+<div class="other-tools"><a href="/de/tools/serp-checker/"><h3>SERP Checker</h3><p>Check Google rankings.</p></a><a href="/de/tools/serp-overlap/"><h3>SERP Overlap</h3><p>Compare rankings for 2 keywords.</p></a><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Optimize titles & descriptions.</p></a></div>
 <div class="faq-item"><div class="faq-q">Where does the data come from?<span class="arrow">+</span></div><div class="faq-a">Keyword data comes from Google Ads via the DataForSEO API. Volume is the average monthly search count, CPC is the cost per click in USD, and competition is from 0 (low) to 1 (high).</div></div>
-<div class="cta-box"><h3>Keyword data in every analysis</h3><p>Lumina integrates keyword research directly into your SEO workflow.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="cta-box"><div class="cta-t">Keyword data in every analysis</div><p>Lumina integrates keyword research directly into your SEO workflow.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -283,7 +331,7 @@ function dfsPost(endpoint,data){
   }).then(function(r){return r.json()}).then(function(d){
     if(d._lumina){
       var q=document.getElementById('quotaInfo');
-      if(q)q.textContent=d._lumina.ownKey?'Eigener API-Key (unbegrenzt)':'Kostenlose Abfragen: '+d._lumina.remaining+'/5 heute';
+      if(q)q.textContent=d._lumina.ownKey?'Eigener API-Key (unbegrenzt)':'Kostenlose Abfragen: '+Math.floor(d._lumina.remaining/2)+'/5 heute';
     }
     if(d.needsKey){throw new Error(d.error||'API-Key erforderlich')}
     return d;
@@ -302,7 +350,7 @@ function buildSparkline(monthly){
 }
 
 var kwIn=document.getElementById('kwIn'),btn=document.getElementById('btnGo');
-var allKws=[],sortCol='vol',sortDir='desc',filterText='';
+var allKws=[],sortCol='vol',sortDir='desc',filterText='',filterSrc='';
 var googleDomains={'2040':'www.google.at','2276':'www.google.de','2756':'www.google.ch','2826':'www.google.co.uk','2840':'www.google.com','2250':'www.google.fr','2380':'www.google.it','2724':'www.google.es','2528':'www.google.nl','2616':'www.google.pl','2392':'www.google.co.jp','2036':'www.google.com.au','2124':'www.google.ca','2356':'www.google.co.in','2076':'www.google.com.br'};
 var currentGoogleDomain='www.google.com';
 
@@ -320,25 +368,37 @@ function go(){
   document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Suche läuft…';
 
-  dfsPost('dataforseo_labs/google/keyword_suggestions/live',[{
-    keyword:kw,location_code:parseInt(loc),language_code:lang,include_seed_keyword:true,limit:50,
-    order_by:['keyword_info.search_volume,desc']
-  }]).then(function(data){
+  var basePayload={keyword:kw,location_code:parseInt(loc),language_code:lang,include_seed_keyword:true,limit:50,order_by:['keyword_info.search_volume,desc']};
+
+  var p1=dfsPost('dataforseo_labs/google/keyword_suggestions/live',[basePayload]).catch(function(){return{tasks:[]}});
+  var p2=dfsPost('dataforseo_labs/google/related_keywords/live',[{keyword:kw,location_code:parseInt(loc),language_code:lang,limit:30,order_by:['keyword_info.search_volume,desc']}]).catch(function(){return{tasks:[]}});
+
+  Promise.all([p1,p2]).then(function(results){
     btn.disabled=false;btn.textContent='Keywords finden';
     document.getElementById('loading').style.display='none';
-    if(data.status_code&&data.status_code!==20000){throw new Error(data.status_message||'API-Fehler')}
-    var tasks=data.tasks||[];
-    if(!tasks.length||!tasks[0].result||!tasks[0].result.length)throw new Error('Keine Ergebnisse');
+
     var items=[];
-    (tasks[0].result||[]).forEach(function(res){
-      (res.items||[]).forEach(function(item){
-        var kd=item.keyword_data||item;
-        var ki=kd.keyword_info||{};
-        var kp=kd.keyword_properties||item.keyword_properties||{};
-        var keyword=kd.keyword||item.keyword||'';
-        if(keyword)items.push({keyword:keyword,vol:ki.search_volume||0,cpc:ki.cpc||0,comp:ki.competition||0,monthly:ki.monthly_searches||[],kd:kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null});
+    var seen={};
+
+    function extractItems(data,source){
+      var tasks=data.tasks||[];
+      (tasks[0]&&tasks[0].result||[]).forEach(function(res){
+        (res.items||[]).forEach(function(item){
+          var kd=item.keyword_data||item;
+          var ki=kd.keyword_info||{};
+          var kp=kd.keyword_properties||item.keyword_properties||{};
+          var keyword=kd.keyword||item.keyword||'';
+          if(keyword&&!seen[keyword.toLowerCase()]){
+            seen[keyword.toLowerCase()]=true;
+            items.push({keyword:keyword,vol:ki.search_volume||0,cpc:ki.cpc||0,comp:ki.competition||0,monthly:ki.monthly_searches||[],kd:kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,src:source});
+          }
+        });
       });
-    });
+    }
+
+    extractItems(results[0],'suggestions');
+    extractItems(results[1],'related');
+
     if(!items.length)throw new Error('Keine Keyword-Vorschläge gefunden');
     allKws=items.map(function(r){
       if(r.kd===null)r.kd=Math.round(Math.min(100,r.comp*70+(r.cpc||0)*3));
@@ -349,7 +409,7 @@ function go(){
     var totalVol=0,totalCpc=0;allKws.forEach(function(i){totalVol+=i.vol;totalCpc+=i.cpc});
     document.getElementById('mAvgVol').textContent=allKws.length?Math.round(totalVol/allKws.length).toLocaleString():'—';
     document.getElementById('mAvgCpc').textContent=allKws.length?'$'+(totalCpc/allKws.length).toFixed(2):'—';
-    sortCol='vol';sortDir='desc';filterText='';document.getElementById('kwFilter').value='';
+    sortCol='vol';sortDir='desc';filterText='';filterSrc='';document.getElementById('kwFilter').value='';
     renderTable();
     document.getElementById('res').style.display='block';
   }).catch(function(e){
@@ -363,23 +423,37 @@ function go(){
 function renderTable(){
   var items=allKws.slice();
   if(filterText)items=items.filter(function(i){return i.keyword.toLowerCase().indexOf(filterText)!==-1});
+  if(filterSrc)items=items.filter(function(i){return i.src===filterSrc});
   items.sort(function(a,b){var va=a[sortCol],vb=b[sortCol];if(sortCol==='keyword')return sortDir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));return sortDir==='asc'?va-vb:vb-va});
   var maxVol=0;items.forEach(function(i){if(i.vol>maxVol)maxVol=i.vol});
+  var sugCount=allKws.filter(function(i){return i.src==='suggestions'}).length;
+  var relCount=allKws.filter(function(i){return i.src==='related'}).length;
   document.getElementById('kwCount').textContent=items.length+(items.length!==allKws.length?' von '+allKws.length:'')+' Keywords';
-  var cols=[{key:'keyword',label:'Keyword',cls:'col-kw'},{key:'trend',label:'Trend',cls:'col-trend'},{key:'vol',label:'Volumen',cls:'col-vol'},{key:'cpc',label:'CPC',cls:'col-cpc h-cpc'},{key:'comp',label:'Wettb.',cls:'col-comp h-comp'},{key:'kd',label:'KD',cls:'col-kd'}];
-  var h='<table class="kw-tbl"><thead><tr>';
+  var fb='';
+  if(relCount>0){
+    fb='<div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap">';
+    fb+='<button class="fbtn'+(filterSrc===''?' active':'')+'" data-src="">All ('+allKws.length+')</button>';
+    fb+='<button class="fbtn'+(filterSrc==='suggestions'?' active':'')+'" data-src="suggestions">Suggestions ('+sugCount+')</button>';
+    fb+='<button class="fbtn'+(filterSrc==='related'?' active':'')+'" data-src="related">Related ('+relCount+')</button>';
+    fb+='</div>';
+  }
+  var h=fb+'<table class="kw-tbl"><thead><tr><th class="col-sel"><input type="checkbox" id="selAll" title="Select all"></th>';
+  var cols=[{key:'keyword',label:'Keyword',cls:'col-kw'},{key:'trend',label:'Trend',cls:'col-trend'},{key:'vol',label:'Volume',cls:'col-vol'},{key:'cpc',label:'CPC',cls:'col-cpc h-cpc'},{key:'comp',label:'Comp',cls:'col-comp h-comp'},{key:'kd',label:'KD',cls:'col-kd'}];
   cols.forEach(function(c){
     var sorted=sortCol===c.key;var arrow=sorted?(sortDir==='asc'?'↑':'↓'):'↕';
     var sc=c.key==='trend'?'':' data-sort="'+c.key+'"';
     h+='<th class="'+c.cls+(sorted?' sorted':'')+'"'+sc+'>'+c.label+(c.key!=='trend'?' <span class="sort-arrow">'+arrow+'</span>':'')+'</th>';
   });
   h+='</tr></thead><tbody>';
-  items.forEach(function(item){
+  items.forEach(function(item,idx){
     var volPct=maxVol>0?Math.round(item.vol/maxVol*100):0;
     var compCls=item.comp>0.66?'err':item.comp>0.33?'warn':'ok';
     var kdCls=item.kd>=70?'err':item.kd>=40?'warn':'ok';
+    var relTag=item.src==='related'?' <span class="rel-tag ext" style="font-size:8px;padding:1px 4px">related</span>':'';
+    var chk=selectedKws.has(item.keyword)?' checked':'';
     h+='<tr>';
-    h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://'+currentGoogleDomain+'/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a></td>';
+    h+='<td class="col-sel"><input type="checkbox" data-kw="'+esc(item.keyword)+'"'+chk+'></td>';
+    h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://'+currentGoogleDomain+'/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a>'+relTag+'</td>';
     h+='<td class="col-trend">'+buildSparkline(item.monthly)+'</td>';
     h+='<td class="col-vol">'+item.vol.toLocaleString()+'<div class="kw-vol-bar"><div class="kw-vol-fill" style="width:'+volPct+'%"></div></div></td>';
     h+='<td class="col-cpc">$'+item.cpc.toFixed(2)+'</td>';
@@ -388,19 +462,212 @@ function renderTable(){
     h+='</tr>';
   });
   h+='</tbody></table>';
-  document.getElementById('kwResults').innerHTML=items.length?h:'<p style="color:var(--muted);padding:12px">Keine Keywords gefunden.</p>';
+  document.getElementById('kwResults').innerHTML=items.length?h:'<p style="color:var(--muted);padding:12px">No keywords match your filter.</p>';
   document.querySelectorAll('.kw-tbl th[data-sort]').forEach(function(th){
     th.addEventListener('click',function(){var k=th.dataset.sort;if(sortCol===k)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=k;sortDir=k==='keyword'?'asc':'desc'}renderTable()});
   });
+  document.querySelectorAll('.fbtn[data-src]').forEach(function(b){
+    b.addEventListener('click',function(){filterSrc=b.dataset.src;renderTable()});
+  });
+  // Checkbox handlers
+  document.querySelectorAll('.kw-tbl input[data-kw]').forEach(function(cb){
+    cb.addEventListener('change',function(){if(this.checked)selectedKws.add(this.dataset.kw);else selectedKws.delete(this.dataset.kw);updateMapBtn()});
+  });
+  var sa=document.getElementById('selAll');
+  if(sa)sa.addEventListener('change',function(){var cbs=document.querySelectorAll('.kw-tbl input[data-kw]');cbs.forEach(function(cb){cb.checked=sa.checked;if(sa.checked)selectedKws.add(cb.dataset.kw);else selectedKws.delete(cb.dataset.kw)});updateMapBtn()});
 }
+var selectedKws=new Set(),mainKw='';
+function updateMapBtn(){document.getElementById('btnMap').disabled=selectedKws.size<1}
 
 document.getElementById('btnCsv').addEventListener('click',function(){
-  var csv='Keyword,Volume,CPC,Competition,Difficulty\n';
-  allKws.forEach(function(i){csv+='"'+(i.keyword||'').replace(/"/g,'""')+'",'+i.vol+','+i.cpc.toFixed(2)+','+i.comp.toFixed(3)+','+i.kd+'\n'});
+  var csv='Keyword,Volume,CPC,Competition,Difficulty,Source\n';
+  allKws.forEach(function(i){csv+='"'+(i.keyword||'').replace(/"/g,'""')+'",'+i.vol+','+i.cpc.toFixed(2)+','+i.comp.toFixed(3)+','+i.kd+','+(i.src||'suggestions')+'\n'});
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='keywords.csv';a.click();
 });
 
+// ── Keyword Mapping Table ──
+document.getElementById('btnMap').addEventListener('click',function(){
+  if(selectedKws.size<1)return;
+  var sel=allKws.filter(function(i){return selectedKws.has(i.keyword)});
+  sel.sort(function(a,b){return b.vol-a.vol});
+  if(!mainKw||!selectedKws.has(mainKw))mainKw=sel[0].keyword;
+  renderMapTable(sel);
+  document.getElementById('mapWrap').style.display='block';
+  document.getElementById('mapWrap').scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+function renderMapTable(sel){
+  var h='<table class="map-tbl"><thead><tr><th>Type</th><th>Keyword</th><th>Volume</th><th>KD</th></tr></thead><tbody>';
+  // Main keyword first
+  var main=sel.find(function(i){return i.keyword===mainKw});
+  var rest=sel.filter(function(i){return i.keyword!==mainKw});
+  if(main){
+    var kdCls=main.kd>=70?'err':main.kd>=40?'warn':'ok';
+    h+='<tr class="main-kw" data-kw="'+esc(main.keyword)+'"><td><span class="kw-type main">Main</span></td><td>'+esc(main.keyword)+'</td><td style="font-family:var(--mono)">'+main.vol.toLocaleString()+'</td><td><span class="badge '+kdCls+'">'+main.kd+'</span></td></tr>';
+  }
+  rest.forEach(function(item){
+    var kdCls=item.kd>=70?'err':item.kd>=40?'warn':'ok';
+    h+='<tr data-kw="'+esc(item.keyword)+'"><td><span class="kw-type sec">Secondary</span></td><td>'+esc(item.keyword)+'</td><td style="font-family:var(--mono)">'+item.vol.toLocaleString()+'</td><td><span class="badge '+kdCls+'">'+item.kd+'</span></td></tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('mapTable').innerHTML=h;
+  // Click to toggle main
+  document.querySelectorAll('.map-tbl tr[data-kw]').forEach(function(tr){
+    tr.addEventListener('click',function(){mainKw=tr.dataset.kw;renderMapTable(sel)});
+  });
+}
+
+function roundedRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath()}
+
+function mapToCanvas(cb){
+  var el=document.getElementById('mapTable');
+  var isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  var bgColor=isDark?'#1c1914':'#faf8f5';
+  html2canvas(el,{backgroundColor:bgColor,scale:2}).then(function(c){
+    var hasSh=document.getElementById('mapShadow').checked;
+    var rad=14,pad=hasSh?48:0;
+    var nc=document.createElement('canvas');nc.width=c.width+pad*2;nc.height=c.height+pad*2;
+    var ctx=nc.getContext('2d');
+    if(hasSh){ctx.shadowColor='rgba(0,0,0,.25)';ctx.shadowBlur=28;ctx.shadowOffsetY=6;roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.fillStyle=bgColor;ctx.fill();ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0}
+    ctx.save();roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.clip();ctx.drawImage(c,pad,pad);ctx.restore();
+    cb(nc);
+  }).catch(function(e){alert('Export-Fehler: '+e.message)});
+}
+document.getElementById('btnMapSave').addEventListener('click',function(){mapToCanvas(function(c){var a=document.createElement('a');a.download='keyword-mapping.png';a.href=c.toDataURL('image/png');a.click()})});
+document.getElementById('btnMapCopy').addEventListener('click',function(){var b=this;b.textContent='⏳…';mapToCanvas(function(c){c.toBlob(function(bl){navigator.clipboard.write([new ClipboardItem({'image/png':bl})]).then(function(){b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📷 Bild kopieren'},1500)}).catch(function(){b.textContent='📷 Bild kopieren';alert('Kopieren fehlgeschlagen. Versuche Speichern.')})})})});
+document.getElementById('btnMapText').addEventListener('click',function(){
+  var sel=allKws.filter(function(i){return selectedKws.has(i.keyword)});
+  sel.sort(function(a,b){return b.vol-a.vol});
+  var txt='Keyword-Mapping\n\nHauptkeyword: '+mainKw+'\n\n';
+  txt+='Keyword\tVolumen\tKD\tTyp\n';
+  sel.forEach(function(i){txt+=i.keyword+'\t'+i.vol+'\t'+i.kd+'\t'+(i.keyword===mainKw?'Haupt':'Neben')+'\n'});
+  navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnMapText');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Text kopieren'},1500)});
+});
+
+// ── GSC Integration ──
+var GSC_CLIENT_ID=localStorage.getItem('lumina_gsc_client_id')||'';
+var GSC_SCOPES='https://www.googleapis.com/auth/webmasters.readonly';
+var gscToken=localStorage.getItem('lumina_gsc_token')||'';
+var gscRefresh=localStorage.getItem('lumina_gsc_refresh')||'';
+var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+
+function gscIsConnected(){return !!gscToken&&Date.now()<gscExpiry}
+
+function gscUpdateUI(){
+  var connected=gscIsConnected();
+  document.getElementById('gscConnect').style.display=connected?'none':'block';
+  document.getElementById('gscMain').style.display=connected?'block':'none';
+  document.getElementById('gscStatus').textContent=connected?'✓ Connected':'';
+  if(connected)gscLoadSites();
+}
+
+// Check for OAuth callback on page load
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var code=params.get('code');
+  if(code){
+    // Exchange code for tokens
+    var cid=localStorage.getItem('lumina_gsc_client_id')||'';
+    var csec=localStorage.getItem('lumina_gsc_client_secret')||'';
+    if(!cid||!csec){alert('OAuth-Zugangsdaten fehlen. Bitte neu verbinden.');return}
+    window.history.replaceState({},'',window.location.pathname);
+    fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:'code='+encodeURIComponent(code)+'&client_id='+encodeURIComponent(cid)+'&client_secret='+encodeURIComponent(csec)+'&redirect_uri='+encodeURIComponent(window.location.origin+window.location.pathname)+'&grant_type=authorization_code'
+    }).then(function(r){return r.json()}).then(function(d){
+      if(d.error){alert('OAuth error: '+(d.error_description||d.error));return}
+      gscToken=d.access_token;gscRefresh=d.refresh_token||'';gscExpiry=Date.now()+(d.expires_in||3600)*1000;
+      localStorage.setItem('lumina_gsc_token',gscToken);
+      localStorage.setItem('lumina_gsc_refresh',gscRefresh);
+      localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));
+      gscUpdateUI();
+    }).catch(function(e){alert('Token exchange failed: '+e.message)});
+  }
+  gscUpdateUI();
+})();
+
+document.getElementById('btnGscConnect').addEventListener('click',function(){
+  var cid=GSC_CLIENT_ID||prompt('Google OAuth Client ID eingeben:\n\n(Create one at console.cloud.google.com → APIs → Credentials → OAuth 2.0 Client ID → Web application.\nSet redirect URI to: '+window.location.origin+window.location.pathname+')');
+  if(!cid)return;
+  var csec=prompt('Google OAuth Client Secret eingeben:');
+  if(!csec)return;
+  localStorage.setItem('lumina_gsc_client_id',cid);
+  localStorage.setItem('lumina_gsc_client_secret',csec);
+  GSC_CLIENT_ID=cid;
+  var authUrl='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(cid)+'&redirect_uri='+encodeURIComponent(window.location.origin+window.location.pathname)+'&response_type=code&scope='+encodeURIComponent(GSC_SCOPES)+'&access_type=offline&prompt=consent';
+  window.location.href=authUrl;
+});
+
+document.getElementById('btnGscDisconnect').addEventListener('click',function(){
+  gscToken='';gscRefresh='';gscExpiry=0;
+  localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_refresh');localStorage.removeItem('lumina_gsc_expiry');
+  localStorage.removeItem('lumina_gsc_client_id');localStorage.removeItem('lumina_gsc_client_secret');
+  document.getElementById('gscResults').style.display='none';
+  gscUpdateUI();
+});
+
+async function gscRefreshToken(){
+  if(!gscRefresh)return false;
+  var cid=localStorage.getItem('lumina_gsc_client_id')||'';
+  var csec=localStorage.getItem('lumina_gsc_client_secret')||'';
+  if(!cid||!csec)return false;
+  try{
+    var r=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:'refresh_token='+encodeURIComponent(gscRefresh)+'&client_id='+encodeURIComponent(cid)+'&client_secret='+encodeURIComponent(csec)+'&grant_type=refresh_token'
+    });
+    var d=await r.json();
+    if(d.access_token){gscToken=d.access_token;gscExpiry=Date.now()+(d.expires_in||3600)*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));return true}
+  }catch(e){}
+  return false;
+}
+
+async function gscFetch(url,body){
+  if(Date.now()>=gscExpiry){var ok=await gscRefreshToken();if(!ok){alert('Sitzung abgelaufen. Bitte GSC neu verbinden.');gscUpdateUI();return null}}
+  var opts={headers:{'Authorization':'Bearer '+gscToken,'Content-Type':'application/json'}};
+  if(body){opts.method='POST';opts.body=JSON.stringify(body)}
+  var r=await fetch(url,opts);
+  if(r.status===401){var ok2=await gscRefreshToken();if(!ok2){alert('Sitzung abgelaufen. Bitte GSC neu verbinden.');gscUpdateUI();return null}opts.headers['Authorization']='Bearer '+gscToken;r=await fetch(url,opts)}
+  return r.json();
+}
+
+async function gscLoadSites(){
+  var d=await gscFetch('https://www.googleapis.com/webmasters/v3/sites');
+  if(!d||!d.siteEntry)return;
+  var sel=document.getElementById('gscSite');sel.innerHTML='';
+  d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+}
+
+document.getElementById('btnGscLoad').addEventListener('click',async function(){
+  var site=document.getElementById('gscSite').value;if(!site)return;
+  var days=parseInt(document.getElementById('gscRange').value);
+  var end=new Date();end.setDate(end.getDate()-1);var start=new Date(end);start.setDate(start.getDate()-days);
+  var fmt=function(d){return d.toISOString().split('T')[0]};
+  this.disabled=true;this.textContent='Laden…';
+  document.getElementById('gscLoading').style.display='block';document.getElementById('gscResults').style.display='none';
+  try{
+    var d=await gscFetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(site)+'/searchAnalytics/query',{
+      startDate:fmt(start),endDate:fmt(end),dimensions:['query'],rowLimit:50,type:'web'
+    });
+    this.disabled=false;this.textContent='Daten laden';document.getElementById('gscLoading').style.display='none';
+    if(!d||!d.rows||!d.rows.length){document.getElementById('gscResults').innerHTML='<p style="color:var(--muted);font-size:12px;padding:12px;text-align:center">No data for this period.</p>';document.getElementById('gscResults').style.display='block';return}
+    // Metrics
+    var tc=0,ti=0;d.rows.forEach(function(r){tc+=r.clicks;ti+=r.impressions});
+    var avgCtr=ti>0?(tc/ti*100):0;var avgPos=0;d.rows.forEach(function(r){avgPos+=r.position});avgPos=d.rows.length?avgPos/d.rows.length:0;
+    document.getElementById('gscMetrics').innerHTML='<div class="metric"><div class="mh">Clicks</div><p style="color:var(--ok)">'+tc.toLocaleString()+'</p></div><div class="metric"><div class="mh">Impressions</div><p>'+ti.toLocaleString()+'</p></div><div class="metric"><div class="mh">Avg. CTR</div><p>'+avgCtr.toFixed(1)+'%</p></div><div class="metric"><div class="mh">Avg. Position</div><p>'+avgPos.toFixed(1)+'</p></div>';
+    // Table
+    var h='<table class="gsc-tbl"><thead><tr><th>Query</th><th>Clicks</th><th>Impr.</th><th>CTR</th><th>Position</th></tr></thead><tbody>';
+    d.rows.forEach(function(r){
+      h+='<tr><td style="font-weight:600;color:var(--text);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font)">'+esc(r.keys[0])+'</td>';
+      h+='<td style="color:var(--ok);font-weight:700">'+r.clicks+'</td><td>'+r.impressions.toLocaleString()+'</td>';
+      h+='<td>'+(r.ctr*100).toFixed(1)+'%</td><td>'+r.position.toFixed(1)+'</td></tr>';
+    });
+    h+='</tbody></table>';
+    document.getElementById('gscTable').innerHTML=h;
+    document.getElementById('gscResults').style.display='block';
+  }catch(e){this.disabled=false;this.textContent='Daten laden';document.getElementById('gscLoading').style.display='none';alert('GSC-Fehler: '+e.message)}
+});
+
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}
 
 .kw-input{display:flex;gap:8px;flex-wrap:wrap}.kw-input input{flex:1;min-width:200px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.kw-input input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}.kw-input select{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;color:var(--text);font-size:12px;font-family:var(--font)}

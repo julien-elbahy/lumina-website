@@ -1,0 +1,4 @@
+# www → non-www
+https://www.lumina-seo.com/* https://lumina-seo.com/:splat 301
+http://www.lumina-seo.com/* https://lumina-seo.com/:splat 301
+http://lumina-seo.com/* https://lumina-seo.com/:splat 301

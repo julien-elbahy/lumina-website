@@ -37,14 +37,14 @@
 /* Status */
 .sb{padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid;backdrop-filter:blur(12px)}.sb.ok{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.sb.er{background:var(--err-bg);border-color:var(--err-border);color:var(--err)}.sb.wn{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}
 /* Metrics */
-.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:14px}.mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center}.mc h4{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}.mc p{font-size:18px;font-weight:800;margin-top:1px}
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:14px}.mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center}.mc .mh{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}.mc p{font-size:18px;font-weight:800;margin-top:1px}
 /* Heading tree */
 .hi{margin-bottom:2px;padding:5px 10px;display:flex;align-items:baseline;gap:6px;border-radius:8px;transition:background .15s}.hi:hover{background:var(--accent-soft)}.ht{font-family:var(--mono);font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;min-width:24px;text-align:center;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-glow);flex-shrink:0}.hx{font-size:12px;color:var(--text2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* Issues */
 .issue{display:flex;gap:8px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:13px}.issue:last-child{border-bottom:none}.issue-i{width:18px;text-align:center;flex-shrink:0}.issue-t{flex:1;color:var(--text2);line-height:1.5}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
-.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
-.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box h3{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
 .tf{padding:24px;text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:32px}.tf a{color:var(--muted)}.tf a:hover{color:var(--accent)}
 
@@ -232,11 +232,11 @@
 <h2>Why heading structure matters</h2>
 <p>Search engines use headings (H1–H6) to understand page structure. A proper heading structure helps Google determine topic relevance and improves accessibility.</p>
 <h2 style="margin-top:28px">More tools</h2>
-<div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags for any URL.</p></a><a href="/tools/serp-preview/"><h4>SERP Preview</h4><p>Google snippet with pixel counter.</p></a><a href="/tools/og-preview/"><h4>OG Preview</h4><p>Preview social share cards.</p></a></div>
+<div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Analyze all SEO meta tags for any URL.</p></a><a href="/tools/serp-preview/"><h3>SERP Preview</h3><p>Google snippet with pixel counter.</p></a><a href="/tools/og-preview/"><h3>OG Preview</h3><p>Preview social share cards.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">How many H1 tags should a page have?<span class="arrow">+</span></div><div class="faq-a">Best practice is exactly one H1 per page. Google recommends a single H1 that describes the main topic.</div></div>
 <div class="faq-item"><div class="faq-q">What is a skipped heading level?<span class="arrow">+</span></div><div class="faq-a">Going from H1 directly to H3 (skipping H2) breaks the semantic hierarchy. Screen readers and search engines expect a logical progression.</div></div>
-<div class="cta-box"><h3>Highlight headings on any page</h3><p>Lumina shows color-coded heading badges directly on live pages and detects structural errors automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+<div class="cta-box"><div class="cta-t">Highlight headings on any page</div><p>Lumina shows color-coded heading badges directly on live pages and detects structural errors automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
@@ -253,6 +253,9 @@
 var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}})()
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
+
 
 
 
@@ -315,7 +318,7 @@ var warnCount=issues.filter(function(i){return i.icon==='⚠️'}).length;
 if(errCount)html+='<div class="sb er">❌ '+errCount+' error'+(errCount>1?'s':'')+' found</div>';
 else if(warnCount)html+='<div class="sb wn">⚠️ '+warnCount+' warning'+(warnCount>1?'s':'')+'</div>';
 else html+='<div class="sb ok">✅ Heading structure is perfect!</div>';
-html+='<div class="metrics">';for(var i=1;i<=6;i++){var c=counts['h'+i];html+='<div class="mc"><h4>H'+i+'</h4><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
+html+='<div class="metrics">';for(var i=1;i<=6;i++){var c=counts['h'+i];html+='<div class="mc"><div class="mh">H'+i+'</div><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
 html+='</div>';
 if(issues.length>1||issues[0].icon!=='✅'){html+='<div style="margin-bottom:14px">';issues.forEach(function(i){html+='<div class="issue"><div class="issue-i">'+i.icon+'</div><div class="issue-t">'+i.msg+'</div></div>'});html+='</div>'}
 if(headings.length){html+='<div style="max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:12px;padding:8px">';headings.forEach(function(h){html+='<div class="hi" style="margin-left:'+((h.l-1)*16)+'px"><span class="ht">H'+h.l+'</span><span class="hx">'+(h.t?esc(h.t):'<em style="color:var(--err)">(empty)</em>')+'</span></div>'});html+='</div>'}

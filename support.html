@@ -254,9 +254,9 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 <div class="contact-card">
 <h2>Other ways to reach us</h2>
 <div class="help-grid">
-<a href="#" onclick="window.location.href='mai'+'lto:'+'julien'+'.'+'elbahy'+'@'+'gm'+'ail.com';return false" class="help-item"><div class="icon">✉️</div><h4>Email</h4><p class="eml-text">…</p></a>
-<a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener" class="help-item"><div class="icon">💼</div><h4>LinkedIn</h4><p>Julien El-Bahy</p></a>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener" class="help-item"><div class="icon">⭐</div><h4>Rate Lumina</h4><p>Leave a review on CWS</p></a>
+<a href="#" onclick="window.location.href='mai'+'lto:'+'julien'+'.'+'elbahy'+'@'+'gm'+'ail.com';return false" class="help-item"><div class="icon">✉️</div><h4>Email</div><p class="eml-text">…</p></a>
+<a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener" class="help-item"><div class="icon">💼</div><h3>LinkedIn</h3><p>Julien El-Bahy</p></a>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener" class="help-item"><div class="icon">⭐</div><h3>Rate Lumina</h3><p>Leave a review on CWS</p></a>
 </div>
 </div>
 
@@ -356,6 +356,9 @@ var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dar
 <script>
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
+
 
 </script>
 </body>
