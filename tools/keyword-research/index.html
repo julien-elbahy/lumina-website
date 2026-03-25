@@ -195,6 +195,7 @@
 <a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
 </div>
 </div></div><a href="/de/tools/keyword-research/" class="lang-sw" title="Deutsch">DE</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
@@ -222,6 +223,7 @@
 <a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
 <div class="mm-cat">SERP & Keywords</div>
 <a href="/tools/serp-checker/">SERP Checker</a>
 <a href="/tools/keyword-research/">Keyword Research</a>
@@ -254,7 +256,8 @@
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
 <div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a></div>
 <div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/tools/word-counter/">Word Counter</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a></div>
+<a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a></div>
 <div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
 <div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div>
 </div></footer>
@@ -300,6 +303,8 @@ function buildSparkline(monthly){
 
 var kwIn=document.getElementById('kwIn'),btn=document.getElementById('btnGo');
 var allKws=[],sortCol='vol',sortDir='desc',filterText='';
+var googleDomains={'2040':'www.google.at','2276':'www.google.de','2756':'www.google.ch','2826':'www.google.co.uk','2840':'www.google.com','2250':'www.google.fr','2380':'www.google.it','2724':'www.google.es','2528':'www.google.nl','2616':'www.google.pl','2392':'www.google.co.jp','2036':'www.google.com.au','2124':'www.google.ca','2356':'www.google.co.in','2076':'www.google.com.br'};
+var currentGoogleDomain='www.google.com';
 
 btn.addEventListener('click',function(){go()});
 kwIn.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
@@ -308,6 +313,7 @@ document.getElementById('kwFilter').addEventListener('input',function(){filterTe
 function go(){
   var kw=kwIn.value.trim();if(!kw)return;
   var loc=document.getElementById('locSelect').value;
+  currentGoogleDomain=googleDomains[loc]||'www.google.com';
   var langMap={'2040':'de','2276':'de','2756':'de','2826':'en','2840':'en','2250':'fr','2380':'it','2724':'es','2528':'nl','2616':'pl','2392':'ja','2036':'en','2124':'en','2356':'en','2076':'pt'};
   var lang=langMap[loc]||'en';
   document.getElementById('loading').style.display='block';
@@ -373,7 +379,7 @@ function renderTable(){
     var compCls=item.comp>0.66?'err':item.comp>0.33?'warn':'ok';
     var kdCls=item.kd>=70?'err':item.kd>=40?'warn':'ok';
     h+='<tr>';
-    h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://www.google.com/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a></td>';
+    h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://'+currentGoogleDomain+'/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a></td>';
     h+='<td class="col-trend">'+buildSparkline(item.monthly)+'</td>';
     h+='<td class="col-vol">'+item.vol.toLocaleString()+'<div class="kw-vol-bar"><div class="kw-vol-fill" style="width:'+volPct+'%"></div></div></td>';
     h+='<td class="col-cpc">$'+item.cpc.toFixed(2)+'</td>';

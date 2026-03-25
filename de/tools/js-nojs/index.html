@@ -54,6 +54,17 @@
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
 .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:14px 0}.comp-col{text-align:center;padding:10px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}.comp-col h4{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.comp-col p{font-size:20px;font-weight:800}.comp-diff{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}.comp-label{font-weight:700;min-width:100px}.comp-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;min-width:60px}.comp-fill{height:100%;border-radius:3px}.comp-val{font-family:var(--mono);font-size:12px;text-align:right;min-width:40px}
+.score-hero{text-align:center;margin:14px 0 10px;padding:24px 16px;background:var(--bg);border:1px solid var(--border);border-radius:16px}
+.score-ring-wrap{position:relative;width:120px;height:120px;margin:0 auto 10px}
+.score-ring-wrap svg{transform:rotate(-90deg)}
+.score-ring-track{fill:none;stroke:var(--border);stroke-width:8}
+.score-ring-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .8s ease}
+.score-ring-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:32px;font-weight:800;line-height:1}
+.score-ring-text small{font-size:14px;font-weight:600}
+.score-label{font-size:14px;font-weight:800;margin-bottom:2px}.score-sublabel{font-size:12px;color:var(--muted)}
+.mc-toggle{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0;font-size:12px;color:var(--muted)}.mc-toggle label{cursor:pointer;display:flex;align-items:center;gap:6px;font-weight:600}.mc-switch{position:relative;width:36px;height:20px;display:inline-block}.mc-switch input{opacity:0;width:0;height:0}.mc-slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--border);border-radius:10px;cursor:pointer;transition:.2s}.mc-slider:before{content:'';position:absolute;height:16px;width:16px;left:2px;bottom:2px;background:var(--muted);border-radius:50%;transition:.2s}.mc-switch input:checked+.mc-slider{background:var(--accent)}.mc-switch input:checked+.mc-slider:before{transform:translateX(16px);background:#fff}
+.detail-toggle{cursor:pointer;font-size:12px;font-weight:700;color:var(--accent);text-align:center;padding:10px 0;border:none;background:none;width:100%;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px}.detail-toggle:hover{color:var(--accent-h)}.detail-toggle .arrow{transition:transform .3s}.detail-toggle.open .arrow{transform:rotate(180deg)}
+.detail-body{max-height:0;overflow:hidden;transition:max-height .4s ease}.detail-body.open{max-height:600px}
 @media(max-width:480px){.comp-grid{grid-template-columns:1fr 1fr}}
 .mm-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none}
 /* ── Mega Menu ── */
@@ -182,6 +193,7 @@
 <a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
 </div></div><a href="/tools/js-nojs/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
@@ -209,6 +221,7 @@
 <a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 <div class="mm-cat">SERP & Keywords</div>
 <a href="/de/tools/serp-checker/">SERP Checker</a>
 <a href="/de/tools/keyword-research/">Keyword Research</a>
@@ -236,7 +249,8 @@
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
 <div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/de/tools/serp-preview/">SERP Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/de/tools/serp-checker/">SERP Checker</a><a href="/de/tools/keyword-research/">Keyword Research</a><a href="/de/tools/serp-overlap/">SERP Overlap</a></div>
 <div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/de/tools/tech-stack/">Tech Stack Detector</a><a href="/de/tools/security-headers/">Security Headers</a><a href="/de/tools/pagespeed/">PageSpeed Insights</a><a href="/de/tools/redirect-checker/">Redirect Checker</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/de/tools/word-counter/">Word Counter</a><a href="/de/tools/image-seo-checker/">Image SEO Checker</a><a href="/de/tools/semantic-checker/">Semantic HTML</a><a href="/de/tools/js-nojs/">JS vs No-JS</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/de/tools/hreflang-checker/">hreflang Checker</a></div>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a></div>
 <div class="tf-col"><div class="tf-h">Unternehmen</div><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
 <div class="tf-col"><div class="tf-h">Rechtliches</div><a href="/de/impressum.html">Impressum</a><a href="/de/datenschutz.html">Datenschutz</a></div>
 </div></footer>
@@ -252,7 +266,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 var WORKER_DEEP='https://lumina-proxy.julien-elbahy.workers.dev/deep';
 var WORKER_FETCH='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
-var lastReport='';
+var lastReport='',lastNojs=null,lastJs=null;
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 btn.addEventListener('click',function(){go(urlIn.value)});
@@ -261,17 +275,16 @@ urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)}
 function go(url){
   url=(url||'').trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;urlIn.value=url;
   document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
-  btn.disabled=true;btn.textContent='Comparing…';
+  btn.disabled=true;btn.textContent='Vergleiche…';
   var results={};var done=0;
-  // Fetch both versions in parallel
   fetch(WORKER_FETCH+'?url='+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(d){results.nojs=d;done++;if(done>=2)compare()}).catch(function(){results.nojs={error:'Failed'};done++;if(done>=2)compare()});
   fetch(WORKER_DEEP+'?url='+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(d){results.js=d;done++;if(done>=2)compare()}).catch(function(){results.js={error:'Failed'};done++;if(done>=2)compare()});
   function compare(){
-    btn.disabled=false;btn.textContent='Compare JS / No-JS';document.getElementById('loading').style.display='none';
-    if(results.nojs.error&&results.js.error){document.getElementById('res').style.display='block';document.getElementById('compResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>Could not fetch page.</p></div>';return}
-    var nojs=parseContent(results.nojs.html||'');
-    var js=parseContent(results.js.html||'');
-    renderComparison(nojs,js);
+    btn.disabled=false;btn.textContent='JS / No-JS vergleichen';document.getElementById('loading').style.display='none';
+    if(results.nojs.error&&results.js.error){document.getElementById('res').style.display='block';document.getElementById('compResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>Seite konnte nicht geladen werden.</p></div>';return}
+    lastNojs=parseContent(results.nojs.html||'');
+    lastJs=parseContent(results.js.html||'');
+    renderComparison(lastNojs,lastJs);
   }
 }
 
@@ -284,35 +297,74 @@ function parseContent(html){
   var links=doc.querySelectorAll('a[href]').length;
   var imgs=doc.querySelectorAll('img').length;
   var schemas=doc.querySelectorAll('script[type="application/ld+json"]').length;
-  return {words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length};
+  var clone=doc.cloneNode(true);
+  clone.querySelectorAll('nav,header,footer,aside,[role="navigation"],[role="banner"],[role="contentinfo"],.nav,.navbar,.header,.footer,.sidebar,.menu,.cookie-banner,.cookie-consent').forEach(function(el){el.remove()});
+  var mainEl=clone.querySelector('main,article,[role="main"]');
+  var mcRoot=mainEl||clone.body;
+  var mcText=mcRoot?mcRoot.textContent||'':'';
+  var mcWords=mcText.split(/\s+/).filter(function(w){return w.length>0}).length;
+  var mcHeadings=mcRoot?mcRoot.querySelectorAll('h1,h2,h3,h4,h5,h6').length:0;
+  var mcLinks=mcRoot?mcRoot.querySelectorAll('a[href]').length:0;
+  var mcImgs=mcRoot?mcRoot.querySelectorAll('img').length:0;
+  return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs}}
+}
+
+function scoreColor(pct){return pct>=90?'var(--ok)':pct>=60?'var(--warn)':'var(--err)'}
+function scoreLabel(pct){return pct>=90?'Exzellent — KI-Crawler können auf deine Inhalte zugreifen':pct>=70?'Gut — die meisten Inhalte sind zugänglich':pct>=50?'Mäßig — erhebliche Inhalte benötigen JS':'Schlecht — die meisten Inhalte sind für KI-Crawler verborgen'}
+function buildRing(pct){
+  var r=52,c=2*Math.PI*r,offset=c-(pct/100)*c;
+  var col=scoreColor(pct);
+  return'<div class="score-ring-wrap"><svg width="120" height="120" viewBox="0 0 120 120"><circle class="score-ring-track" cx="60" cy="60" r="'+r+'"/><circle class="score-ring-fill" cx="60" cy="60" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+offset.toFixed(1)+'"/></svg><div class="score-ring-text" style="color:'+col+'">'+pct+'<small>%</small></div></div>'
 }
 
 function renderComparison(nojs,js){
-  var metrics=[
-    {label:'Words',nojs:nojs.words,js:js.words},
-    {label:'Headings',nojs:nojs.headings,js:js.headings},
-    {label:'Links',nojs:nojs.links,js:js.links},
-    {label:'Images',nojs:nojs.imgs,js:js.imgs},
-    {label:'Schema',nojs:nojs.schemas,js:js.schemas},
-    {label:'Characters',nojs:nojs.chars,js:js.chars},
-  ];
-  var html='<div class="comp-grid"><div class="comp-col" style="border-color:var(--err-border)"><h4>🚫 No-JS (AI Crawlers)</h4><p style="color:var(--err)">'+nojs.words+' words</p></div><div class="comp-col" style="border-color:var(--ok-border)"><h4>✅ With JS (Browsers)</h4><p style="color:var(--ok)">'+js.words+' words</p></div></div>';
-  var diff=js.words>0?Math.round(((js.words-nojs.words)/js.words)*100):0;
-  if(diff>5)html+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% of content requires JavaScript</p>';
-  else if(diff<=0)html+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Content is fully accessible without JavaScript</p>';
-  html+='<div class="sec-head">Detailed Comparison</div>';
-  lastReport='JS vs No-JS: '+urlIn.value+'\n\n';
-  metrics.forEach(function(m){
-    var max=Math.max(m.nojs,m.js,1);
-    var lost=m.js-m.nojs;
-    var col=lost>0?'var(--warn)':'var(--ok)';
-    html+='<div class="comp-diff"><span class="comp-label">'+m.label+'</span><div class="comp-bar"><div class="comp-fill" style="width:'+Math.round(m.nojs/max*100)+'%;background:var(--err)"></div></div><span class="comp-val">'+m.nojs+'</span><span class="comp-val" style="color:var(--ok)">'+m.js+'</span></div>';
-    lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' lost)':'')+'\n';
-  });
-  document.getElementById('compResults').innerHTML=html;
-  document.getElementById('res').style.display='block';
+  var mcOn=true;
+  render(mcOn);
+
+  function render(mainContent){
+    var nj=mainContent?nojs.mc:nojs;
+    var jw=mainContent?js.mc:js;
+    var njWords=mainContent?nj.words:nojs.words;
+    var jsWords=mainContent?jw.words:js.words;
+    var pct=jsWords>0?Math.min(100,Math.round((njWords/jsWords)*100)):njWords>0?100:0;
+    var metrics=[
+      {label:'Wörter',nojs:njWords,js:jsWords},
+      {label:'Headings',nojs:mainContent?nj.headings:nojs.headings,js:mainContent?jw.headings:js.headings},
+      {label:'Links',nojs:mainContent?nj.links:nojs.links,js:mainContent?jw.links:js.links},
+      {label:'Bilder',nojs:mainContent?nj.imgs:nojs.imgs,js:mainContent?jw.imgs:js.imgs},
+    ];
+    if(!mainContent){
+      metrics.push({label:'Schema',nojs:nojs.schemas,js:js.schemas});
+      metrics.push({label:'Zeichen',nojs:nojs.chars,js:js.chars});
+    }
+    var h='';
+    h+='<div class="score-hero">'+buildRing(pct);
+    h+='<div class="score-label">KI Content Lesbarkeit</div>';
+    h+='<div class="score-sublabel">'+scoreLabel(pct)+'</div></div>';
+    h+='<div class="mc-toggle"><label class="mc-switch"><input type="checkbox" id="mcToggle"'+(mainContent?' checked':'')+'><span class="mc-slider"></span></label><label for="mcToggle">Nur Hauptinhalt <span style="font-weight:400;color:var(--muted)">(Nav, Header, Footer ignorieren)</span></label></div>';
+    h+='<div class="comp-grid"><div class="comp-col" style="border-color:var(--err-border)"><h4>🚫 No-JS (KI-Crawler)</h4><p style="color:var(--err)">'+njWords.toLocaleString()+' Wörter</p></div><div class="comp-col" style="border-color:var(--ok-border)"><h4>✅ Mit JS (Browser)</h4><p style="color:var(--ok)">'+jsWords.toLocaleString()+' Wörter</p></div></div>';
+    var diff=jsWords>0?Math.round(((jsWords-njWords)/jsWords)*100):0;
+    if(diff>5)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% des '+(mainContent?'Hauptinhalts':'Inhalts')+' benötigt JavaScript</p>';
+    else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Hauptinhalt':'Inhalt')+' ist vollständig ohne JavaScript zugänglich</p>';
+    else h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Nur '+diff+'% Unterschied — Inhalt ist gut zugänglich</p>';
+    h+='<button class="detail-toggle" id="detailToggle">Detailvergleich <span class="arrow">▼</span></button>';
+    h+='<div class="detail-body" id="detailBody">';
+    metrics.forEach(function(m){
+      var max=Math.max(m.nojs,m.js,1);
+      h+='<div class="comp-diff"><span class="comp-label">'+m.label+'</span><div class="comp-bar"><div class="comp-fill" style="width:'+Math.round(m.nojs/max*100)+'%;background:var(--err)"></div></div><span class="comp-val">'+m.nojs.toLocaleString()+'</span><span class="comp-val" style="color:var(--ok)">'+m.js.toLocaleString()+'</span></div>';
+    });
+    h+='</div>';
+    document.getElementById('compResults').innerHTML=h;
+    document.getElementById('res').style.display='block';
+    document.getElementById('mcToggle').addEventListener('change',function(){render(this.checked)});
+    document.getElementById('detailToggle').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('detailBody').classList.toggle('open')});
+    lastReport='JS vs No-JS: '+urlIn.value+'\n';
+    lastReport+='Modus: '+(mainContent?'Nur Hauptinhalt':'Gesamte Seite')+'\n';
+    lastReport+='KI Content Lesbarkeit: '+pct+'%\n\n';
+    metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' fehlen)':'')+'\n'});
+  }
 }
-document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500)})});
+document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Report kopieren'},1500)})});
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
 </script>

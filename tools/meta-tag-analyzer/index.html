@@ -206,6 +206,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
 </div>
 </div></div><a href="/de/tools/meta-tag-analyzer/" class="lang-sw" title="Deutsch">DE</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
@@ -233,6 +234,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
 <a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
 <div class="mm-cat">SERP & Keywords</div>
 <a href="/tools/serp-checker/">SERP Checker</a>
 <a href="/tools/keyword-research/">Keyword Research</a>
@@ -294,7 +296,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
 <div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a></div>
 <div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/tools/word-counter/">Word Counter</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a></div>
+<a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a></div>
 <div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
 <div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div>
 </div></footer>
@@ -325,6 +328,8 @@ function badge(cls,txt){return' <span class="badge '+cls+'">'+txt+'</span>'}
 
 btnAnalyze.addEventListener('click',function(){analyze(urlInput.value)});
 urlInput.addEventListener('keydown',function(e){if(e.key==='Enter')analyze(urlInput.value)});
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});var panel=document.getElementById('p-'+btn.dataset.tab);if(panel)panel.classList.add('active')})});
 
 
 function fetchWithFallback(targetUrl){
