@@ -1,102 +1,382 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://lumina-seo.com/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/"/><lastmod>2026-03-23</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://lumina-seo.com/de/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/"/><lastmod>2026-03-23</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://lumina-seo.com/tools/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/"/><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/"/><lastmod>2026-03-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lumina-seo.com/tools/serp-preview/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-preview/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-preview/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/serp-preview/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-preview/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-preview/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/schema-validator/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/schema-validator/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/schema-validator/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/schema-validator/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/llms-txt-generator/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/llms-txt-generator/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/llms-txt-generator/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/llms-txt-generator/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/llms-txt-generator/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/llms-txt-generator/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/about.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/about.html"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ueber-uns.html"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lumina-seo.com/de/ueber-uns.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/about.html"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ueber-uns.html"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lumina-seo.com/support.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/support.html"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/kontakt.html"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lumina-seo.com/de/kontakt.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/support.html"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/kontakt.html"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lumina-seo.com/privacy-policy.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/privacy-policy.html"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/datenschutz.html"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://lumina-seo.com/de/datenschutz.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/privacy-policy.html"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/datenschutz.html"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://lumina-seo.com/tools/meta-tag-analyzer/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/meta-tag-analyzer/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/meta-tag-analyzer/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/meta-tag-analyzer/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/meta-tag-analyzer/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/meta-tag-analyzer/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/heading-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/heading-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/heading-checker/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/heading-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/heading-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/heading-checker/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/og-preview/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/og-preview/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/og-preview/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/og-preview/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/og-preview/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/og-preview/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/robots-txt-analyzer/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/robots-txt-analyzer/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/robots-txt-analyzer/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/robots-txt-analyzer/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/robots-txt-analyzer/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/robots-txt-analyzer/"/><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/redirect-checker/</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/http-headers/</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/link-checker/</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lumina-seo.com/tools/image-seo/</loc><lastmod>2026-03-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lumina-seo.com/tools/link-analyzer/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/link-analyzer/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/link-analyzer/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/link-analyzer/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://lumina-seo.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/"/>
+    <lastmod>2026-03-25</lastmod>
   </url>
   <url>
-    <loc>https://lumina-seo.com/de/tools/link-analyzer/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/link-analyzer/"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/link-analyzer/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/link-analyzer/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://lumina-seo.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/"/>
+    <lastmod>2026-03-25</lastmod>
   </url>
-
+  <url>
+    <loc>https://lumina-seo.com/tools/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/serp-preview/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-preview/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-preview/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-preview/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/serp-preview/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-preview/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-preview/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-preview/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/meta-tag-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/meta-tag-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/meta-tag-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/meta-tag-analyzer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/meta-tag-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/meta-tag-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/meta-tag-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/meta-tag-analyzer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/schema-validator/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/schema-validator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/schema-validator/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/schema-validator/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/schema-validator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/schema-validator/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/heading-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/heading-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/heading-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/heading-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/heading-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/heading-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/heading-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/heading-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/og-preview/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/og-preview/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/og-preview/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/og-preview/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/og-preview/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/og-preview/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/og-preview/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/og-preview/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/serp-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/serp-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/keyword-research/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/keyword-research/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/keyword-research/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/keyword-research/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/keyword-research/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/keyword-research/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/keyword-research/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/keyword-research/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/serp-overlap/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-overlap/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-overlap/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-overlap/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/serp-overlap/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-overlap/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-overlap/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-overlap/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
   <url>
     <loc>https://lumina-seo.com/tools/tech-stack/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/tech-stack/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/tech-stack/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/tech-stack/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-03-25</lastmod>
   </url>
   <url>
     <loc>https://lumina-seo.com/de/tools/tech-stack/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/tech-stack/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/tech-stack/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/tech-stack/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-03-25</lastmod>
   </url>
-
-  <url><loc>https://lumina-seo.com/tools/security-headers/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/security-headers/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/security-headers/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/security-headers/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/security-headers/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/security-headers/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/security-headers/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/security-headers/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/pagespeed/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/pagespeed/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/pagespeed/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/pagespeed/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/pagespeed/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/pagespeed/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/pagespeed/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/pagespeed/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/image-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/image-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/image-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/image-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/image-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/image-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/image-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/image-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/word-counter/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/word-counter/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/word-counter/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/word-counter/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/word-counter/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/word-counter/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/word-counter/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/word-counter/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/semantic-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/semantic-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/semantic-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/semantic-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/semantic-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/semantic-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/semantic-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/semantic-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/js-comparison/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/js-comparison/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/js-comparison/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/js-comparison/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/js-comparison/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/js-comparison/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/js-comparison/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/js-comparison/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/image-seo-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/image-seo-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/image-seo-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/image-seo-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/image-seo-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/image-seo-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/image-seo-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/image-seo-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/js-nojs/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/js-nojs/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/js-nojs/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/js-nojs/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/js-nojs/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/js-nojs/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/js-nojs/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/js-nojs/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/serp-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/serp-checker/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-checker/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-checker/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-checker/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/keyword-research/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/keyword-research/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/keyword-research/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/keyword-research/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/keyword-research/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/keyword-research/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/keyword-research/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/keyword-research/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <url><loc>https://lumina-seo.com/tools/serp-overlap/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-overlap/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/serp-overlap/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-overlap/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/tools/hreflang-checker/</loc><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/hreflang-checker/</loc><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/tools/ai-content-optimizer/</loc><priority>0.7</priority></url>
-  <url><loc>https://lumina-seo.com/de/tools/ki-content-optimierer/</loc><priority>0.7</priority></url>
+  <url>
+    <loc>https://lumina-seo.com/tools/security-headers/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/security-headers/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/security-headers/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/security-headers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/security-headers/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/pagespeed/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/pagespeed/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/pagespeed/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/pagespeed/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/pagespeed/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/pagespeed/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/pagespeed/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/pagespeed/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/redirect-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/redirect-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/redirect-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/redirect-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/redirect-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/redirect-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/redirect-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/redirect-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/link-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/link-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/link-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/link-analyzer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/link-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/link-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/link-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/link-analyzer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/word-counter/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/word-counter/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/word-counter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/word-counter/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/word-counter/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/word-counter/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/word-counter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/word-counter/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/image-seo-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/image-seo-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/image-seo-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/image-seo-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/image-seo-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/image-seo-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/image-seo-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/image-seo-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/semantic-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/semantic-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/semantic-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/semantic-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/semantic-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/semantic-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/semantic-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/semantic-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/js-nojs/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/js-nojs/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/js-nojs/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/js-nojs/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/js-nojs/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/js-nojs/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/js-nojs/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/js-nojs/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/robots-txt-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/robots-txt-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/robots-txt-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/robots-txt-analyzer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/robots-txt-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/robots-txt-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/robots-txt-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/robots-txt-analyzer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/llms-txt-generator/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/llms-txt-generator/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/llms-txt-generator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/llms-txt-generator/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/llms-txt-generator/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/llms-txt-generator/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/llms-txt-generator/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/llms-txt-generator/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/hreflang-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/hreflang-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/hreflang-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/hreflang-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/hreflang-checker/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/hreflang-checker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/hreflang-checker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/hreflang-checker/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/tools/ai-content-optimizer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/ai-content-optimizer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/ki-content-optimierer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/ai-content-optimizer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/ki-content-optimierer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/ai-content-optimizer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/ki-content-optimierer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/ai-content-optimizer/"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ueber-uns.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/about.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/ueber-uns.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ueber-uns.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/about.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/support.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/support.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/kontakt.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/support.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/kontakt.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/support.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/imprint.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/imprint.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/impressum.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/imprint.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/impressum.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/imprint.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/impressum.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/imprint.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/privacy-policy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/datenschutz.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/privacy-policy.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/datenschutz.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/datenschutz.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/privacy-policy.html"/>
+    <lastmod>2026-03-25</lastmod>
+  </url>
 </urlset>
