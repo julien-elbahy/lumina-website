@@ -9,6 +9,7 @@
 <title>Free Open Graph Preview – Social Share Checker | Lumina SEO</title>
 <meta name="description" content="Preview how your page looks when shared on Facebook, Twitter/X, and LinkedIn. Check Open Graph and Twitter Card tags. Free, no signup.">
 <meta name="keywords" content="open graph preview, OG tag checker, social share preview, Twitter card preview, Facebook share preview, LinkedIn preview, meta tag checker">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/tools/og-preview/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/og-preview/">
 <link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/og-preview/">
@@ -358,7 +359,20 @@ var params=new URLSearchParams(window.location.search);if(params.get('url')){doc
 @media(max-width:640px){}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 </style>
-<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
-<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div><script>
+(function(){
+  var c=localStorage.getItem('lumina_consent');
+  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
+  if(c==='denied')return;
+  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
+  document.getElementById('consentAccept').addEventListener('click',function(){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    localStorage.setItem('lumina_consent','granted');b.style.display='none';
+  });
+  document.getElementById('consentReject').addEventListener('click',function(){
+    localStorage.setItem('lumina_consent','denied');b.style.display='none';
+  });
+})();
+</script>
 </body>
 </html>

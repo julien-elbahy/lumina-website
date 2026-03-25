@@ -329,24 +329,19 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/de/#features">Features</a>
 <a href="/de/ueber-uns.html">Über uns</a>
 <a href="/de/kontakt.html">Kontakt</a>
-<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">SEO Analysis<span class="mm-arrow">+</span></div>
-<div class="mm-links">
+<div class="mm-cat">SEO Analysis</div>
 <a href="/de/tools/serp-preview/">Snippet Preview</a>
 <a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/de/tools/schema-validator/">Schema Validator</a>
 <a href="/de/tools/heading-checker/">Heading Checker</a>
 <a href="/de/tools/og-preview/">OG Preview</a>
-</div>
-<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">Technical SEO<span class="mm-arrow">+</span></div>
-<div class="mm-links">
+<div class="mm-cat">Technical SEO</div>
 <a href="/de/tools/tech-stack/">Tech Stack Detector</a>
 <a href="/de/tools/security-headers/">Security Headers</a>
 <a href="/de/tools/pagespeed/">PageSpeed Insights</a>
 <a href="/de/tools/redirect-checker/">Redirect Checker</a>
 <a href="/de/tools/link-analyzer/">Link Analyzer</a>
-</div>
-<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">Content &amp; GEO<span class="mm-arrow">+</span></div>
-<div class="mm-links">
+<div class="mm-cat">Content & GEO</div>
 <a href="/de/tools/word-counter/">Word Counter</a>
 <a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
 <a href="/de/tools/semantic-checker/">Semantic HTML</a>
@@ -355,13 +350,10 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
-</div>
-<div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">SERP &amp; Keywords<span class="mm-arrow">+</span></div>
-<div class="mm-links">
+<div class="mm-cat">SERP & Keywords</div>
 <a href="/de/tools/serp-checker/">SERP Checker</a>
 <a href="/de/tools/keyword-research/">Keyword Research</a>
 <a href="/de/tools/serp-overlap/">SERP Overlap</a>
-</div>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a>
 </div>
 
@@ -684,19 +676,5 @@ function snapBack(){g.style.scrollSnapType='x mandatory';g.style.scrollBehavior=
 demoUrl.value='lumina-seo.com';
 renderResults(LUMINA_DATA);
 </script>
-<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>
-(function(){
-  var c=localStorage.getItem('lumina_consent');
-  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
-  if(c==='denied')return;
-  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
-  document.getElementById('consentAccept').addEventListener('click',function(){
-    gtag('consent','update',{'analytics_storage':'granted'});
-    localStorage.setItem('lumina_consent','granted');b.style.display='none';
-  });
-  document.getElementById('consentReject').addEventListener('click',function(){
-    localStorage.setItem('lumina_consent','denied');b.style.display='none';
-  });
-})();
-</script><div class="lightbox" id="lb" onclick="closeLB()"><span class="lb-close" onclick="closeLB()">×</span><img id="lbImg" src="" alt="Screenshot"></div><script>function openLB(s){document.getElementById("lbImg").src=s;document.getElementById("lb").classList.add("open");document.body.style.overflow="hidden"}function closeLB(){document.getElementById("lb").classList.remove("open");document.body.style.overflow=""}document.addEventListener("keydown",function(e){if(e.key==="Escape")closeLB()})</script></body>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script><div class="lightbox" id="lb" onclick="closeLB()"><span class="lb-close" onclick="closeLB()">×</span><img id="lbImg" src="" alt="Screenshot"></div><script>function openLB(s){document.getElementById("lbImg").src=s;document.getElementById("lb").classList.add("open");document.body.style.overflow="hidden"}function closeLB(){document.getElementById("lb").classList.remove("open");document.body.style.overflow=""}document.addEventListener("keydown",function(e){if(e.key==="Escape")closeLB()})</script></body>
 </html>

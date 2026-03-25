@@ -8,6 +8,7 @@
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
 <title>Free hreflang Checker – Validate International SEO Tags | Lumina SEO</title>
 <meta name="description" content="Validate hreflang tags on any page. Check language/region annotations, verify reciprocal return links, detect missing self-references and x-default.">
+<meta name="robots" content="index, follow">
 
 <link rel="canonical" href="https://lumina-seo.com/tools/hreflang-checker/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/hreflang-checker/">
@@ -188,7 +189,7 @@
 <a href="/tools/tech-stack/">Tech Stack Detector</a>
 <a href="/tools/security-headers/">Security Headers</a>
 <a href="/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/tools/hreflang-checker/">Redirect Checker</a>
+<a href="/tools/redirect-checker/">Redirect Checker</a>
 <a href="/tools/link-analyzer/">Link Analyzer</a>
 </div>
 <div class="ts-col"><div class="ts-cat">Content & GEO</div>
@@ -217,7 +218,7 @@
 <a href="/tools/tech-stack/">Tech Stack Detector</a>
 <a href="/tools/security-headers/">Security Headers</a>
 <a href="/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/tools/hreflang-checker/">Redirect Checker</a>
+<a href="/tools/redirect-checker/">Redirect Checker</a>
 <a href="/tools/link-analyzer/">Link Analyzer</a>
 <div class="mm-cat">Content & GEO</div>
 <a href="/tools/word-counter/">Word Counter</a>
@@ -268,7 +269,7 @@
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
 <div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/tools/serp-preview/">Snippet Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a></div>
-<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/hreflang-checker/">Redirect Checker</a><a href="/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/tools/word-counter/">Word Counter</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
+<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/tools/word-counter/">Word Counter</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/tools/ai-content-optimizer/">AI Content Optimizer</a></div>
 <div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
@@ -424,7 +425,20 @@ var params=new URLSearchParams(window.location.search);if(params.get("url")){doc
 @media(max-width:640px){}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 </style>
-<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
-<script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div><script>
+(function(){
+  var c=localStorage.getItem('lumina_consent');
+  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
+  if(c==='denied')return;
+  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
+  document.getElementById('consentAccept').addEventListener('click',function(){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    localStorage.setItem('lumina_consent','granted');b.style.display='none';
+  });
+  document.getElementById('consentReject').addEventListener('click',function(){
+    localStorage.setItem('lumina_consent','denied');b.style.display='none';
+  });
+})();
+</script>
 </body>
 </html>
