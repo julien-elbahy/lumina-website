@@ -544,11 +544,10 @@ document.getElementById('btnMapText').addEventListener('click',function(){
   navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnMapText');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Text kopieren'},1500)});
 });
 
-// ── GSC Integration ──
-var GSC_CLIENT_ID=localStorage.getItem('lumina_gsc_client_id')||'';
+// ── GSC Integration (Implicit OAuth Flow) ──
+var GSC_CLIENT_ID='128725149604-7fjs4kr00b43bhq9jnsr0slr1fcd1fl9.apps.googleusercontent.com';
 var GSC_SCOPES='https://www.googleapis.com/auth/webmasters.readonly';
 var gscToken=localStorage.getItem('lumina_gsc_token')||'';
-var gscRefresh=localStorage.getItem('lumina_gsc_refresh')||'';
 var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
 
 function gscIsConnected(){return !!gscToken&&Date.now()<gscExpiry}
@@ -557,75 +556,45 @@ function gscUpdateUI(){
   var connected=gscIsConnected();
   document.getElementById('gscConnect').style.display=connected?'none':'block';
   document.getElementById('gscMain').style.display=connected?'block':'none';
-  document.getElementById('gscStatus').textContent=connected?'✓ Connected':'';
+  document.getElementById('gscStatus').textContent=connected?'✓ Verbunden':'';
   if(connected)gscLoadSites();
 }
 
-// Check for OAuth callback on page load
 (function(){
-  var params=new URLSearchParams(window.location.search);
-  var code=params.get('code');
-  if(code){
-    // Exchange code for tokens
-    var cid=localStorage.getItem('lumina_gsc_client_id')||'';
-    var csec=localStorage.getItem('lumina_gsc_client_secret')||'';
-    if(!cid||!csec){alert('OAuth-Zugangsdaten fehlen. Bitte neu verbinden.');return}
-    window.history.replaceState({},'',window.location.pathname);
-    fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:'code='+encodeURIComponent(code)+'&client_id='+encodeURIComponent(cid)+'&client_secret='+encodeURIComponent(csec)+'&redirect_uri='+encodeURIComponent(window.location.origin+window.location.pathname)+'&grant_type=authorization_code'
-    }).then(function(r){return r.json()}).then(function(d){
-      if(d.error){alert('OAuth error: '+(d.error_description||d.error));return}
-      gscToken=d.access_token;gscRefresh=d.refresh_token||'';gscExpiry=Date.now()+(d.expires_in||3600)*1000;
+  var hash=window.location.hash;
+  if(hash&&hash.indexOf('access_token')!==-1){
+    var params=new URLSearchParams(hash.substring(1));
+    var token=params.get('access_token');
+    var expires=parseInt(params.get('expires_in')||'3600');
+    if(token){
+      gscToken=token;gscExpiry=Date.now()+expires*1000;
       localStorage.setItem('lumina_gsc_token',gscToken);
-      localStorage.setItem('lumina_gsc_refresh',gscRefresh);
       localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));
-      gscUpdateUI();
-    }).catch(function(e){alert('Token exchange failed: '+e.message)});
+      window.history.replaceState({},'',window.location.pathname+window.location.search);
+    }
   }
   gscUpdateUI();
 })();
 
 document.getElementById('btnGscConnect').addEventListener('click',function(){
-  var cid=GSC_CLIENT_ID||prompt('Google OAuth Client ID eingeben:\n\n(Create one at console.cloud.google.com → APIs → Credentials → OAuth 2.0 Client ID → Web application.\nSet redirect URI to: '+window.location.origin+window.location.pathname+')');
-  if(!cid)return;
-  var csec=prompt('Google OAuth Client Secret eingeben:');
-  if(!csec)return;
-  localStorage.setItem('lumina_gsc_client_id',cid);
-  localStorage.setItem('lumina_gsc_client_secret',csec);
-  GSC_CLIENT_ID=cid;
-  var authUrl='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(cid)+'&redirect_uri='+encodeURIComponent(window.location.origin+window.location.pathname)+'&response_type=code&scope='+encodeURIComponent(GSC_SCOPES)+'&access_type=offline&prompt=consent';
+  var redirect=window.location.origin+window.location.pathname;
+  var authUrl='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
   window.location.href=authUrl;
 });
 
 document.getElementById('btnGscDisconnect').addEventListener('click',function(){
-  gscToken='';gscRefresh='';gscExpiry=0;
-  localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_refresh');localStorage.removeItem('lumina_gsc_expiry');
-  localStorage.removeItem('lumina_gsc_client_id');localStorage.removeItem('lumina_gsc_client_secret');
+  gscToken='';gscExpiry=0;
+  localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');
   document.getElementById('gscResults').style.display='none';
   gscUpdateUI();
 });
 
-async function gscRefreshToken(){
-  if(!gscRefresh)return false;
-  var cid=localStorage.getItem('lumina_gsc_client_id')||'';
-  var csec=localStorage.getItem('lumina_gsc_client_secret')||'';
-  if(!cid||!csec)return false;
-  try{
-    var r=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:'refresh_token='+encodeURIComponent(gscRefresh)+'&client_id='+encodeURIComponent(cid)+'&client_secret='+encodeURIComponent(csec)+'&grant_type=refresh_token'
-    });
-    var d=await r.json();
-    if(d.access_token){gscToken=d.access_token;gscExpiry=Date.now()+(d.expires_in||3600)*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));return true}
-  }catch(e){}
-  return false;
-}
-
 async function gscFetch(url,body){
-  if(Date.now()>=gscExpiry){var ok=await gscRefreshToken();if(!ok){alert('Sitzung abgelaufen. Bitte GSC neu verbinden.');gscUpdateUI();return null}}
+  if(!gscIsConnected()){document.getElementById('gscConnect').style.display='block';document.getElementById('gscMain').style.display='none';document.getElementById('gscStatus').textContent='Sitzung abgelaufen — bitte neu verbinden';return null}
   var opts={headers:{'Authorization':'Bearer '+gscToken,'Content-Type':'application/json'}};
   if(body){opts.method='POST';opts.body=JSON.stringify(body)}
   var r=await fetch(url,opts);
-  if(r.status===401){var ok2=await gscRefreshToken();if(!ok2){alert('Sitzung abgelaufen. Bitte GSC neu verbinden.');gscUpdateUI();return null}opts.headers['Authorization']='Bearer '+gscToken;r=await fetch(url,opts)}
+  if(r.status===401){gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');gscUpdateUI();return null}
   return r.json();
 }
 
