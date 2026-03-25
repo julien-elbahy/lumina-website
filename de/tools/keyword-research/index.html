@@ -71,6 +71,7 @@
 .kw-tbl .col-sel{width:28px;text-align:center;padding:4px}.kw-tbl .col-sel input{cursor:pointer;accent-color:var(--accent)}
 .map-tbl{width:100%;border-collapse:collapse;font-size:13px}.map-tbl th{text-align:left;padding:10px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);border-bottom:1px solid var(--border);background:var(--card)}.map-tbl td{padding:8px 12px;border-bottom:1px solid var(--border)}.map-tbl tr.main-kw{background:var(--accent-soft)}.map-tbl tr.main-kw td:first-child{font-weight:800;color:var(--accent)}.map-tbl .kw-type{font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:6px;border:1px solid}.map-tbl .kw-type.main{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.25)}.map-tbl .kw-type.sec{background:var(--card);color:var(--muted);border-color:var(--border)}.map-tbl tr{cursor:pointer;transition:background .15s}.map-tbl tr:hover{background:var(--accent-soft)}
 .gsc-tbl{width:100%;border-collapse:collapse;font-size:12px}.gsc-tbl th{text-align:left;padding:8px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}.gsc-tbl td{padding:6px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px}.gsc-tbl tr:hover td{background:var(--accent-soft)}
+.gsc-sel{background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);min-width:140px;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a09484'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;cursor:pointer}.gsc-sel:focus{outline:none;border-color:var(--accent)}.gsc-sel option{background:var(--bg2);color:var(--text);padding:6px}
 @media(max-width:480px){.kw-input{flex-direction:column}.api-key-row{flex-direction:column;align-items:stretch}}
 /* ── Mega Menu ── */
 .tools-dd{position:relative}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
@@ -238,15 +239,15 @@
 <div class="th"><div class="lb">Kostenloses Keyword Tool</div><h1>Keyword-Recherche</h1><p>Finde verwandte Keywords mit Suchvolumen, CPC und Wettbewerbsdaten. Verbinde die Google Search Console für echte Klick- und Rankingdaten.</p></div>
 <!-- GSC Connection Bar -->
 <div class="cd" id="gscBar" style="padding:12px 16px;margin-bottom:8px">
-<div id="gscConnect" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<div id="gscConnect" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
 <button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0;flex-shrink:0">🔗 GSC verbinden</button>
 <span style="font-size:12px;color:var(--muted);line-height:1.4">Echte Klicks, Impressionen &amp; Rankings aus der Google Search Console</span>
 </div>
 <div id="gscMain" style="display:none">
 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
 <span style="font-size:10px;color:var(--ok);font-weight:700;flex-shrink:0">✓ GSC</span>
-<select id="gscSite" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);min-width:160px"></select>
-<select id="gscRange" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px">
+<select id="gscSite" class="gsc-sel"></select>
+<select id="gscRange" class="gsc-sel">
 <option value="7">7 Tage</option><option value="28" selected>28 Tage</option><option value="90">90 Tage</option></select>
 <input type="text" id="gscUrl" placeholder="Nach URL filtern (optional)" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);flex:1;min-width:160px">
 <button class="exp-btn" id="btnGscDisconnect" style="margin:0;padding:5px 10px;font-size:10px;color:var(--err)">✕</button>
@@ -316,6 +317,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 
 
 var DFS_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/dfs';
+var AI_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/ai';
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function getDfsKey(){return document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';}
 function dfsPost(endpoint,data){
@@ -332,6 +334,17 @@ function dfsPost(endpoint,data){
     if(d.needsKey){throw new Error(d.error||'API key required')}
     return d;
   });
+}
+function aiPost(system,user){
+  return fetch(AI_WORKER,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:300})
+  }).then(function(r){return r.json()}).then(function(d){
+    try{var txt=d.choices[0].message.content.trim();
+      txt=txt.replace(/```json\s*/g,'').replace(/```/g,'').trim();
+      return JSON.parse(txt)}catch(e){return null}
+  }).catch(function(){return null});
 }
 
 function buildSparkline(monthly){
@@ -395,11 +408,19 @@ function go(){
   btn.disabled=true;btn.textContent='Suche läuft…';
   gscData={};
 
-  var basePayload={keyword:kw,location_code:parseInt(loc),language_code:lang,include_seed_keyword:true,limit:50,order_by:['keyword_info.search_volume,desc']};
-  var p1=dfsPost('dataforseo_labs/google/keyword_suggestions/live',[basePayload]).catch(function(){return{tasks:[]}});
-  var p2=dfsPost('dataforseo_labs/google/related_keywords/live',[{keyword:kw,location_code:parseInt(loc),language_code:lang,depth:2,limit:30,order_by:['keyword_info.search_volume,desc']}]).catch(function(){return{tasks:[]}});
+  // Call 1: Long-tail keyword suggestions (DFS)
+  var p1=dfsPost('dataforseo_labs/google/keyword_suggestions/live',[{keyword:kw,location_code:parseInt(loc),language_code:lang,include_seed_keyword:true,limit:50,order_by:['keyword_info.search_volume,desc']}]).catch(function(){return{tasks:[]}});
 
-  // If GSC connected, fetch GSC data in parallel
+  // Call 2: AI semantic synonyms → then volume check (DFS)
+  var p2=aiPost(
+    'You are an SEO keyword expert. Given a primary keyword, suggest 5-8 SEMANTIC ALTERNATIVES — words/phrases that mean the same thing but use different words. These are NOT long-tail variations.\n\nExample: "Badsanierung" → "Badrenovierung", "Badumbau", "Bad erneuern", "Badezimmer sanieren"\nExample: "SEO agency" → "SEO company", "SEO firm", "search engine optimization service"\n\nRespond ONLY with JSON: {"synonyms":["synonym1","synonym2",...]}',
+    'Primary keyword: "'+kw+'"'
+  ).then(function(ai){
+    if(!ai||!ai.synonyms||!ai.synonyms.length)return{tasks:[]};
+    return dfsPost('keywords_data/google_ads/search_volume/live',[{keywords:ai.synonyms.slice(0,10),location_code:parseInt(loc),language_code:lang}]).catch(function(){return{tasks:[]}});
+  }).catch(function(){return{tasks:[]}});
+
+  // Call 3: GSC data (if connected)
   var p3=gscIsConnected()?fetchGscQueries():Promise.resolve(null);
 
   Promise.all([p1,p2,p3]).then(function(results){
@@ -411,39 +432,35 @@ function go(){
       results[2].rows.forEach(function(r){
         gscData[r.keys[0].toLowerCase()]={clicks:r.clicks,impressions:r.impressions,ctr:r.ctr,position:r.position};
       });
-      // Auto-enable GSC columns
       columns.clicks.on=true;columns.position.on=true;
     }
 
     var items=[],seen={};
-    function addKw(keyword,ki,kp,source){
+    function addKw(keyword,vol,cpc,comp,monthly,kd,source){
       if(!keyword||seen[keyword.toLowerCase()])return;
       seen[keyword.toLowerCase()]=true;
       var g=gscData[keyword.toLowerCase()]||{};
-      items.push({keyword:keyword,vol:ki.search_volume||0,cpc:ki.cpc||0,comp:ki.competition||0,monthly:ki.monthly_searches||[],kd:kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,src:source,clicks:g.clicks||0,impressions:g.impressions||0,position:g.position||0,hasGsc:!!g.clicks||!!g.impressions});
+      items.push({keyword:keyword,vol:vol||0,cpc:cpc||0,comp:comp||0,monthly:monthly||[],kd:kd,src:source,clicks:g.clicks||0,impressions:g.impressions||0,position:g.position||0,hasGsc:!!g.clicks||!!g.impressions});
     }
-    function extractItems(data,source){
+    // Parse labs format (keyword_suggestions)
+    (function(data){
       var tasks=data.tasks||[];
       (tasks[0]&&tasks[0].result||[]).forEach(function(res){
         (res.items||[]).forEach(function(item){
           var kd=item.keyword_data||item;
           var ki=kd.keyword_info||{};
           var kp=kd.keyword_properties||item.keyword_properties||{};
-          addKw(kd.keyword||item.keyword||'',ki,kp,source);
-          // related_keywords endpoint nests actual keywords inside item.related_keywords[]
-          if(item.related_keywords&&Array.isArray(item.related_keywords)){
-            item.related_keywords.forEach(function(rel){
-              var rkd=rel.keyword_data||rel;
-              var rki=rkd.keyword_info||{};
-              var rkp=rkd.keyword_properties||rel.keyword_properties||{};
-              addKw(rkd.keyword||rel.keyword||'',rki,rkp,source);
-            });
-          }
+          addKw(kd.keyword||item.keyword||'',ki.search_volume,ki.cpc,ki.competition,ki.monthly_searches,kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,'suggestions');
         });
       });
-    }
-    extractItems(results[0],'suggestions');
-    extractItems(results[1],'related');
+    })(results[0]);
+    // Parse ads format (AI synonyms with volume)
+    (function(data){
+      var tasks=data.tasks||[];
+      (tasks[0]&&tasks[0].result||[]).forEach(function(r){
+        if(r.keyword&&(r.search_volume||0)>0)addKw(r.keyword,r.search_volume,r.cpc,r.competition,r.monthly_searches,null,'related');
+      });
+    })(results[1]);
 
     if(!items.length)throw new Error('Keine Keyword-Vorschläge gefunden');
     allKws=items.map(function(r){if(r.kd===null)r.kd=Math.round(Math.min(100,r.comp*70+(r.cpc||0)*3));return r});
@@ -478,9 +495,9 @@ function renderTable(){
   var fb='';
   if(relCount>0){
     fb='<div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap">';
-    fb+='<button class="fbtn'+(filterSrc===''?' active':'')+'" data-src="">Alle ('+allKws.length+')</button>';
-    if(sugCount>0)fb+='<button class="fbtn'+(filterSrc==='suggestions'?' active':'')+'" data-src="suggestions">Vorschläge ('+sugCount+')</button>';
-    if(relCount>0)fb+='<button class="fbtn'+(filterSrc==='related'?' active':'')+'" data-src="related">Verwandt ('+relCount+')</button>';
+    fb+='<button class="fbtn'+(filterSrc===''?' active':'')+'" data-src="">All ('+allKws.length+')</button>';
+    fb+='<button class="fbtn'+(filterSrc==='suggestions'?' active':'')+'" data-src="suggestions">Suggestions ('+sugCount+')</button>';
+    fb+='<button class="fbtn'+(filterSrc==='related'?' active':'')+'" data-src="related">Related ('+relCount+')</button>';
     fb+='</div>';
   }
   // Build visible columns
