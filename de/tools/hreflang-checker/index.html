@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="de" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Link Analyzer – Internal, External & Nofollow Checker | Lumina SEO</title>
-<meta name="description" content="Analyze all links on any page. Find internal, external, nofollow, sponsored, and ugc links. Internal link ranking, CSV export. Free, no signup.">
-<meta name="keywords" content="link analyzer, internal links checker, external links, nofollow checker, link audit tool, SEO link analysis, internal link ranking">
-<link rel="canonical" href="https://lumina-seo.com/tools/link-analyzer/">
-<link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/link-analyzer/">
-<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/link-analyzer/">
-<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/link-analyzer/">
+<title>Free hreflang Checker – Validate International SEO Tags | Lumina SEO</title>
+<meta name="description" content="Validate hreflang tags on any page. Check language/region annotations, verify reciprocal return links, detect missing self-references and x-default.">
+
+<link rel="canonical" href="https://lumina-seo.com/de/tools/hreflang-checker/">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/tools/hreflang-checker/">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/hreflang-checker/">
+<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/hreflang-checker/">
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://lumina-seo.com/tools/link-analyzer/">
-<meta property="og:title" content="Free Link Analyzer – Internal, External & Nofollow | Lumina SEO">
-<meta property="og:description" content="Analyze all links on any webpage. Internal/external classification, nofollow detection, internal link ranking, CSV export.">
+<meta property="og:url" content="https://lumina-seo.com/de/tools/hreflang-checker/">
+<meta property="og:title" content="Free hreflang Checker – Validate International SEO Tags | Lumina SEO">
+<meta property="og:description" content="Validate hreflang tags on any page. Check language/region annotations, verify reciprocal return links, detect missing self-references and x-default.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Link Analyzer","url":"https://lumina-seo.com/tools/link-analyzer/","description":"Free link analysis tool for SEO. Check internal, external, nofollow links and internal link ranking.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free hreflang Checker","url":"https://lumina-seo.com/tools/hreflang-checker/","description":"Validate hreflang tags for international SEO. Check return links and self-references.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -53,6 +53,7 @@
 .section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
+.chain-step{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}.chain-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;border:2px solid}.chain-num.r3{border-color:var(--warn);color:var(--warn)}.chain-num.r2{border-color:var(--ok);color:var(--ok)}.chain-num.err{border-color:var(--err);color:var(--err)}.chain-body{flex:1;min-width:0}.chain-url{font-family:var(--mono);font-size:12px;color:var(--text2);word-break:break-all}.chain-status{font-size:12px;margin-top:4px}.chain-arrow{text-align:center;color:var(--muted);font-size:14px;padding:4px 0}
 .mm-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none}
 /* ── Mega Menu ── */
 .tools-dd{position:relative}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
@@ -153,341 +154,247 @@
 <script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
 </head>
 <body>
-<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">SEO Analysis</div>
-<a href="/tools/serp-preview/">SERP Preview</a>
-<a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
-<a href="/tools/schema-validator/">Schema Validator</a>
-<a href="/tools/heading-checker/">Heading Checker</a>
-<a href="/tools/og-preview/">OG Preview</a>
+<a href="/de/tools/serp-preview/">SERP Preview</a>
+<a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
+<a href="/de/tools/schema-validator/">Schema Validator</a>
+<a href="/de/tools/heading-checker/">Heading Checker</a>
+<a href="/de/tools/og-preview/">OG Preview</a>
 <div class="ts-cat">SERP & Keywords</div>
-<a href="/tools/serp-checker/">SERP Checker</a>
-<a href="/tools/keyword-research/">Keyword Research</a>
-<a href="/tools/serp-overlap/">SERP Overlap</a>
+<a href="/de/tools/serp-checker/">SERP Checker</a>
+<a href="/de/tools/keyword-research/">Keyword Research</a>
+<a href="/de/tools/serp-overlap/">SERP Overlap</a>
 </div>
 <div class="ts-col"><div class="ts-cat">Technical SEO</div>
-<a href="/tools/tech-stack/">Tech Stack Detector</a>
-<a href="/tools/security-headers/">Security Headers</a>
-<a href="/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/tools/redirect-checker/">Redirect Checker</a>
-<a href="/tools/link-analyzer/">Link Analyzer</a>
+<a href="/de/tools/tech-stack/">Tech Stack Detector</a>
+<a href="/de/tools/security-headers/">Security Headers</a>
+<a href="/de/tools/pagespeed/">PageSpeed Insights</a>
+<a href="/de/tools/hreflang-checker/">Redirect Checker</a>
+<a href="/de/tools/link-analyzer/">Link Analyzer</a>
 </div>
 <div class="ts-col"><div class="ts-cat">Content & GEO</div>
-<a href="/tools/word-counter/">Word Counter</a>
-<a href="/tools/image-seo-checker/">Image SEO Checker</a>
-<a href="/tools/semantic-checker/">Semantic HTML</a>
-<a href="/tools/js-nojs/">JS vs No-JS</a>
-<a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
-<a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/word-counter/">Word Counter</a>
+<a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
+<a href="/de/tools/semantic-checker/">Semantic HTML</a>
+<a href="/de/tools/js-nojs/">JS vs No-JS</a>
+<a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
+<a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 </div>
-</div></div><a href="/de/tools/link-analyzer/" class="lang-sw" title="Deutsch">DE</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/hreflang-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/">Home</a>
-<a href="/#features">Features</a>
-<a href="/about.html">About</a>
-<a href="/support.html">Support</a>
+<a href="/de/#features">Features</a>
+<a href="/de/ueber-uns.html">Über uns</a>
+<a href="/de/kontakt.html">Kontakt</a>
 <div class="mm-cat">SEO Analysis</div>
-<a href="/tools/serp-preview/">SERP Preview</a>
-<a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
-<a href="/tools/schema-validator/">Schema Validator</a>
-<a href="/tools/heading-checker/">Heading Checker</a>
-<a href="/tools/og-preview/">OG Preview</a>
+<a href="/de/tools/serp-preview/">SERP Preview</a>
+<a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
+<a href="/de/tools/schema-validator/">Schema Validator</a>
+<a href="/de/tools/heading-checker/">Heading Checker</a>
+<a href="/de/tools/og-preview/">OG Preview</a>
 <div class="mm-cat">Technical SEO</div>
-<a href="/tools/tech-stack/">Tech Stack Detector</a>
-<a href="/tools/security-headers/">Security Headers</a>
-<a href="/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/tools/redirect-checker/">Redirect Checker</a>
-<a href="/tools/link-analyzer/">Link Analyzer</a>
+<a href="/de/tools/tech-stack/">Tech Stack Detector</a>
+<a href="/de/tools/security-headers/">Security Headers</a>
+<a href="/de/tools/pagespeed/">PageSpeed Insights</a>
+<a href="/de/tools/hreflang-checker/">Redirect Checker</a>
+<a href="/de/tools/link-analyzer/">Link Analyzer</a>
 <div class="mm-cat">Content & GEO</div>
-<a href="/tools/word-counter/">Word Counter</a>
-<a href="/tools/image-seo-checker/">Image SEO Checker</a>
-<a href="/tools/semantic-checker/">Semantic HTML</a>
-<a href="/tools/js-nojs/">JS vs No-JS</a>
-<a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
-<a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/word-counter/">Word Counter</a>
+<a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
+<a href="/de/tools/semantic-checker/">Semantic HTML</a>
+<a href="/de/tools/js-nojs/">JS vs No-JS</a>
+<a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
+<a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <div class="mm-cat">SERP & Keywords</div>
-<a href="/tools/serp-checker/">SERP Checker</a>
-<a href="/tools/keyword-research/">Keyword Research</a>
-<a href="/tools/serp-overlap/">SERP Overlap</a>
+<a href="/de/tools/serp-checker/">SERP Checker</a>
+<a href="/de/tools/keyword-research/">Keyword Research</a>
+<a href="/de/tools/serp-overlap/">SERP Overlap</a>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free SEO Tool</div><h1>Link Analyzer</h1><p>Extract and classify all links from any page. Internal, external, nofollow, sponsored — with internal link ranking and CSV export.</p></div>
+<div class="th"><div class="lb">Free SEO Tool</div><h1>hreflang Checker</h1><p>Validate hreflang tags on any page. Check language/region annotations, verify reciprocal return links, and detect common implementation issues.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Analyze Links</button>
-</div>
-<div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div><div class="skel w70"></div></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Check hreflang</button></div>
+<div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics">
-<div class="metric"><h4>Total</h4><p id="mTotal">0</p></div>
-<div class="metric"><h4>Internal</h4><p id="mInt">0</p></div>
-<div class="metric"><h4>External</h4><p id="mExt">0</p></div>
-<div class="metric"><h4>Nofollow</h4><p id="mNf">0</p></div>
+<div class="metrics" style="grid-template-columns:repeat(4,1fr)">
+<div class="metric"><h4>Languages</h4><p id="mLangs">0</p></div>
+<div class="metric"><h4>Self-ref</h4><p id="mSelf">—</p></div>
+<div class="metric"><h4>x-default</h4><p id="mDefault">—</p></div>
+<div class="metric"><h4>Issues</h4><p id="mIssues">0</p></div>
 </div>
-<div class="filters" id="filterBar"></div>
-<div class="link-list" id="linkList"></div>
-<div style="display:flex;gap:6px;margin-top:8px"><button class="exp-btn" id="btnCsv">📊 CSV Export</button><button class="exp-btn" id="btnCopy">📋 Copy All</button></div>
-<div class="section-head" style="margin-top:20px">🔗 Internal Link Ranking</div>
-<div id="ranking"></div>
+<div id="issuesList"></div>
+<div class="section-head" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">hreflang Tags</div>
+<div id="hlResults" class="list-scroll" style="max-height:500px;overflow-y:auto"></div>
+<div style="display:flex;gap:6px;margin-top:10px"><button class="exp-btn" id="btnReturn" disabled>🔗 Check Return Links</button><button class="exp-btn" id="btnCopy">📋 Copy</button></div>
+<div id="returnProgress" style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-family:var(--mono)"></div>
 </div>
 </div>
-<div class="content">
-<h2>How this tool works</h2>
-<p>Enter any URL and the tool fetches the page, extracts every <code>&lt;a href&gt;</code> link, and classifies it. Internal links point to the same domain, external links go elsewhere. Rel attributes like <code>nofollow</code>, <code>sponsored</code>, and <code>ugc</code> are detected automatically.</p>
-<p>The <strong>Internal Link Ranking</strong> shows which pages on the site receive the most internal links — a key factor for search engine crawl priority and PageRank distribution.</p>
+<div class="content"><h2>How it works</h2><p>Enter a URL and this tool fetches the page HTML to find all <code>&lt;link rel="alternate" hreflang="..."&gt;</code> tags. It validates language codes, checks for self-referencing tags, x-default, and lets you verify that alternate pages link back correctly (return link validation).</p>
+<h2 style="margin-top:28px">Common issues detected</h2>
+<p>• Missing self-referencing tag (the page should reference itself)<br>• Missing x-default (should specify a fallback language)<br>• Non-standard language codes (e.g. "uk" instead of "en-GB")<br>• Missing return links (alternate pages don't link back)<br>• HTTP/HTTPS mismatches between hreflang URLs</p>
 <h2 style="margin-top:28px">More tools</h2>
-<div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags for any URL.</p></a><a href="/tools/heading-checker/"><h4>Heading Checker</h4><p>H1-H6 hierarchy analysis.</p></a><a href="/tools/robots-txt-analyzer/"><h4>Robots.txt Analyzer</h4><p>Check AI & search crawler access.</p></a></div>
-<h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">What is the difference between internal and external links?<span class="arrow">+</span></div><div class="faq-a">Internal links point to pages on the same domain. External links point to other websites. Both are important for SEO — internal links distribute link equity, external links provide authority signals.</div></div>
-<div class="faq-item"><div class="faq-q">What does nofollow mean?<span class="arrow">+</span></div><div class="faq-a">A <code>rel="nofollow"</code> attribute tells search engines not to pass link equity (PageRank) through that link. <code>sponsored</code> marks paid links, <code>ugc</code> marks user-generated content links.</div></div>
-<div class="faq-item"><div class="faq-q">Why does internal link ranking matter?<span class="arrow">+</span></div><div class="faq-a">Pages with more internal links receive more crawl attention and link equity. The ranking shows which pages are prioritized by the site's internal linking structure — and which might be underlinked.</div></div>
-<div class="cta-box"><h3>Full link analysis on every page</h3><p>Lumina highlights broken links, shows internal link ranking, and checks nofollow — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h4>Meta Tag Analyzer</h4><p>Analyze all SEO meta tags.</p></a><a href="/de/tools/redirect-checker/"><h4>Redirect Checker</h4><p>Follow redirect chains.</p></a><a href="/de/tools/schema-validator/"><h4>Schema Validator</h4><p>Validate JSON-LD schema.</p></a></div>
+<div class="faq-item"><div class="faq-q">What is hreflang?<span class="arrow">+</span></div><div class="faq-a">hreflang is an HTML attribute that tells search engines which language and region a page targets. It helps prevent duplicate content issues for multilingual sites and ensures users see the right language version in search results.</div></div>
+<div class="faq-item"><div class="faq-q">Do I need a self-referencing hreflang tag?<span class="arrow">+</span></div><div class="faq-a">Yes. Google requires every page that uses hreflang to include a self-referencing tag pointing to itself. Without it, Google may ignore all hreflang annotations on that page.</div></div>
+<div class="faq-item"><div class="faq-q">What is x-default?<span class="arrow">+</span></div><div class="faq-a">x-default specifies the fallback URL for users whose language/region doesn't match any hreflang tag. It's strongly recommended for all multilingual implementations.</div></div>
+<div class="cta-box"><h3>hreflang validation on every page</h3><p>Lumina checks hreflang tags automatically with return link verification.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
-<div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a></div>
-<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/tools/word-counter/">Word Counter</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a></div>
-<div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
+<div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/de/tools/serp-preview/">SERP Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/de/tools/serp-checker/">SERP Checker</a><a href="/de/tools/keyword-research/">Keyword Research</a><a href="/de/tools/serp-overlap/">SERP Overlap</a></div>
+<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/de/tools/tech-stack/">Tech Stack Detector</a><a href="/de/tools/security-headers/">Security Headers</a><a href="/de/tools/pagespeed/">PageSpeed Insights</a><a href="/de/tools/hreflang-checker/">Redirect Checker</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/de/tools/word-counter/">Word Counter</a><a href="/de/tools/image-seo-checker/">Image SEO Checker</a><a href="/de/tools/semantic-checker/">Semantic HTML</a><a href="/de/tools/js-nojs/">JS vs No-JS</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a></div>
+<div class="tf-col"><div class="tf-h">Company</div><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
 <div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div>
 </div></footer>
 
 <script>
 (function(){var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
-var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'☀️':'🌙';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t)})}})()
+var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'\u2600\ufe0f':'\ud83c\udf19';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'\u2600\ufe0f':'\ud83c\udf19';localStorage.setItem('lumina_theme',_t)})}})()
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
 
-document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')})});
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
 
-var WORKER='https://lumina-proxy.julien-elbahy.workers.dev/deep';
-var WORKER_PRIMARY=WORKER;
-var WORKER_FALLBACK='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
-
-var urlIn=document.getElementById('urlIn');
-var btn=document.getElementById('btnGo');
-var loading=document.getElementById('loading');
-var res=document.getElementById('res');
-var allLinks=[];
-
-function cleanText(s){return(s||'').replace(/\\[nrt]/g,' ').replace(/[\n\r\t]+/g,' ').replace(/\s{2,}/g,' ').trim()}
-function cleanUrl(s){return(s||'').replace(/\\"/g,'').replace(/^"|"$/g,'')}
+var W='https://lumina-proxy.julien-elbahy.workers.dev';
+var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+var hlData=[],pageUrl='';
 
 btn.addEventListener('click',function(){go(urlIn.value)});
 urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)});
 
+function normalizeUrl(u){try{var o=new URL(u);return(o.origin+o.pathname).replace(/\/$/,'').toLowerCase()}catch(e){return u.replace(/\/$/,'').toLowerCase()}}
 
-function fetchWithFallback(targetUrl){
-  return fetch(WORKER_PRIMARY+'?url='+encodeURIComponent(targetUrl))
-    .then(function(r){return r.json()})
-    .then(function(data){
-      if(data.error&&data.error.indexOf('Browser Rendering')>=0){
-        return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
-      }
-      return data;
-    })
-    .catch(function(){
-      return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
-    });
-}
+var VALID_LANGS=/^(x-default|[a-z]{2,3}(-[a-zA-Z]{2,4})?)$/;
 
 function go(url){
   url=(url||'').trim();if(!url)return;
   if(!/^https?:\/\//i.test(url))url='https://'+url;
-  urlIn.value=url;
-  loading.style.display='block';res.style.display='none';
-  btn.disabled=true;btn.textContent='Analyzing…';
-  allLinks=[];
+  urlIn.value=url;pageUrl=url;
+  document.getElementById('loading').style.display='block';
+  document.getElementById('res').style.display='none';
+  btn.disabled=true;btn.textContent='Checking…';
+  document.getElementById('returnProgress').textContent='';
 
-  fetchWithFallback(url)
+  fetch(W+'/fetch?url='+encodeURIComponent(url))
+  .then(function(r){return r.json()})
   .then(function(data){
-    btn.disabled=false;btn.textContent='Analyze Links';loading.style.display='none';
-    if(data.error){showError(data.error);return}
-    if(!data.html||data.html.length<50){showError('Empty response. The site may block automated access.');return}
-    parseLinks(data.html,url);
+    btn.disabled=false;btn.textContent='Check hreflang';
+    document.getElementById('loading').style.display='none';
+    if(data.error)throw new Error(data.error);
+    var html=data.html||'';
+    var parser=new DOMParser();
+    var doc=parser.parseFromString(html,'text/html');
+    var links=doc.querySelectorAll('link[rel="alternate"][hreflang]');
+    hlData=[];
+    links.forEach(function(l){
+      var lang=l.getAttribute('hreflang')||'';
+      var href=l.getAttribute('href')||'';
+      if(href&&!/^https?:\/\//i.test(href)){try{href=new URL(href,url).href}catch(e){}}
+      hlData.push({lang:lang,href:href,status:null});
+    });
+
+    var currentNorm=normalizeUrl(data.url||url);
+    var hasSelf=hlData.some(function(h){return normalizeUrl(h.href)===currentNorm});
+    var hasDefault=hlData.some(function(h){return h.lang==='x-default'});
+    var issues=[];
+    if(hlData.length===0)issues.push({type:'err',text:'No hreflang tags found on this page.'});
+    if(hlData.length>0&&!hasSelf)issues.push({type:'warn',text:'Missing self-referencing hreflang tag. The page should reference itself.'});
+    if(hlData.length>0&&!hasDefault)issues.push({type:'warn',text:'No x-default tag found. Recommended for fallback language.'});
+    hlData.forEach(function(h){
+      if(!VALID_LANGS.test(h.lang))issues.push({type:'warn',text:'Non-standard language code: "'+h.lang+'"'});
+      if(h.href.startsWith('http:')&&url.startsWith('https:'))issues.push({type:'warn',text:'HTTP/HTTPS mismatch for '+h.lang+': URL uses http but page is https.'});
+    });
+
+    document.getElementById('mLangs').textContent=hlData.filter(function(h){return h.lang!=='x-default'}).length;
+    document.getElementById('mSelf').innerHTML=hasSelf?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--err)">✗</span>';
+    document.getElementById('mDefault').innerHTML=hasDefault?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--warn)">—</span>';
+    document.getElementById('mIssues').textContent=issues.length;
+    document.getElementById('mIssues').style.color=issues.length>0?'var(--err)':'var(--ok)';
+
+    var issHtml='';
+    issues.forEach(function(iss){
+      issHtml+='<div style="padding:6px 10px;margin-bottom:4px;border-radius:8px;font-size:12px;background:var(--'+(iss.type==='err'?'err':'warn')+'-bg);color:var(--'+(iss.type==='err'?'err':'warn')+');border:1px solid var(--'+(iss.type==='err'?'err':'warn')+'-border)">'+(iss.type==='err'?'❌':'⚠️')+' '+esc(iss.text)+'</div>';
+    });
+    document.getElementById('issuesList').innerHTML=issHtml;
+
+    var tbl='<table class="hl-tbl"><thead><tr><th>Lang</th><th>URL</th><th>Status</th></tr></thead><tbody>';
+    hlData.forEach(function(h){
+      var isSelf=normalizeUrl(h.href)===currentNorm;
+      var langValid=VALID_LANGS.test(h.lang);
+      tbl+='<tr><td><span class="badge '+(h.lang==='x-default'?'info':langValid?'ok':'warn')+'">'+esc(h.lang)+'</span></td>';
+      tbl+='<td style="font-family:var(--mono);font-size:11px;color:var(--muted);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+esc(h.href)+'"><a href="'+esc(h.href)+'" target="_blank" rel="noopener" style="color:var(--muted)">'+esc(h.href)+'</a></td>';
+      tbl+='<td id="hlst-'+esc(h.lang)+'">'+(isSelf?'<span class="badge info">Self ✓</span>':'<span class="badge" style="color:var(--muted);border-color:var(--border)">—</span>')+'</td></tr>';
+    });
+    tbl+='</tbody></table>';
+    document.getElementById('hlResults').innerHTML=hlData.length?tbl:'<p style="color:var(--muted);padding:12px;text-align:center">No hreflang tags found.</p>';
+    document.getElementById('btnReturn').disabled=hlData.filter(function(h){return normalizeUrl(h.href)!==currentNorm}).length===0;
+    document.getElementById('res').style.display='block';
   })
   .catch(function(e){
-    btn.disabled=false;btn.textContent='Analyze Links';loading.style.display='none';
-    showError('Could not fetch: '+e.message);
+    btn.disabled=false;btn.textContent='Check hreflang';
+    document.getElementById('loading').style.display='none';
+    document.getElementById('res').style.display='block';
+    document.getElementById('hlResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
   });
 }
 
-function showError(msg){
-  res.style.display='block';
-  document.getElementById('linkList').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(msg)+'</p></div>';
-  document.getElementById('ranking').innerHTML='';
-  document.getElementById('filterBar').innerHTML='';
-  document.getElementById('mTotal').textContent='0';
-  document.getElementById('mInt').textContent='0';
-  document.getElementById('mExt').textContent='0';
-  document.getElementById('mNf').textContent='0';
-}
-
-function parseLinks(html,pageUrl){
-  var doc=new DOMParser().parseFromString(html,'text/html');
-  var base;try{base=new URL(pageUrl)}catch(e){base={hostname:'',origin:''}}
-  var anchors=doc.querySelectorAll('a[href]');
-  var links=[];
-
-  anchors.forEach(function(a){
-    var href=cleanUrl(a.getAttribute('href')||'');
-    if(!href||href.startsWith('javascript:')||href.startsWith('#'))return;
-    var rel=(a.getAttribute('rel')||'').toLowerCase();
-    var text=cleanText(a.textContent).substring(0,120);
-    var isInternal=false;
-    var fullUrl=href;
-
-    // Resolve relative URLs
-    if(href.startsWith('//')){fullUrl='https:'+href}
-    else if(href.startsWith('/')){fullUrl=base.origin+href}
-    else if(!href.startsWith('http')){
-      if(href.startsWith('mailto:')||href.startsWith('tel:'))return;
-      fullUrl=base.origin+'/'+href;
-    }
-
-    // Classify
-    try{
-      var u=new URL(fullUrl);
-      var h1=base.hostname.replace('www.','');
-      var h2=u.hostname.replace('www.','');
-      isInternal=(h1===h2);
-    }catch(e){isInternal=true}
-
-    var hasNofollow=rel.indexOf('nofollow')!==-1;
-    var hasSponsored=rel.indexOf('sponsored')!==-1;
-    var hasUgc=rel.indexOf('ugc')!==-1;
-
-    links.push({
-      url:fullUrl,
-      text:text,
-      rel:rel,
-      isInternal:isInternal,
-      nofollow:hasNofollow,
-      sponsored:hasSponsored,
-      ugc:hasUgc
+document.getElementById('btnReturn').addEventListener('click',function(){
+  var currentNorm=normalizeUrl(pageUrl);
+  var targets=hlData.filter(function(h){return normalizeUrl(h.href)!==currentNorm});
+  if(!targets.length)return;
+  var btnR=document.getElementById('btnReturn');
+  btnR.disabled=true;btnR.textContent='⏳ Checking…';
+  var done=0,ok=0,fail=0,errs=0;
+  targets.forEach(function(h){
+    var el=document.getElementById('hlst-'+h.lang);
+    if(el)el.innerHTML='<span class="spinner-inline" style="display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite"></span>';
+    fetch(W+'/fetch?url='+encodeURIComponent(h.href))
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if(data.error)throw new Error(data.error);
+      var doc2=new DOMParser().parseFromString(data.html||'','text/html');
+      var returnLinks=doc2.querySelectorAll('link[rel="alternate"][hreflang]');
+      var hasReturn=false;
+      returnLinks.forEach(function(l){
+        var rHref=l.getAttribute('href')||'';
+        if(rHref&&!/^https?:\/\//i.test(rHref)){try{rHref=new URL(rHref,h.href).href}catch(e){}}
+        if(normalizeUrl(rHref)===currentNorm)hasReturn=true;
+      });
+      if(el)el.innerHTML=hasReturn?'<span class="badge ok">✓ Return</span>':'<span class="badge err">✗ No return</span>';
+      if(hasReturn)ok++;else fail++;
+    })
+    .catch(function(){
+      if(el)el.innerHTML='<span class="badge warn">⚠️ Error</span>';errs++;
+    })
+    .finally(function(){
+      done++;
+      document.getElementById('returnProgress').textContent=done+' / '+targets.length+' checked';
+      if(done===targets.length){
+        btnR.disabled=false;btnR.textContent='↻ Re-check Return Links';
+        document.getElementById('returnProgress').innerHTML=ok+' OK'+(fail?' · <span style="color:var(--err)">'+fail+' missing</span>':'')+(errs?' · '+errs+' errors':'');
+      }
     });
   });
-
-  allLinks=links;
-  var intC=links.filter(function(l){return l.isInternal}).length;
-  var extC=links.filter(function(l){return !l.isInternal}).length;
-  var nfC=links.filter(function(l){return l.nofollow}).length;
-
-  document.getElementById('mTotal').textContent=links.length;
-  document.getElementById('mInt').textContent=intC;
-  document.getElementById('mExt').textContent=extC;
-  document.getElementById('mNf').textContent=nfC;
-
-  // Build filters
-  var spC=links.filter(function(l){return l.sponsored}).length;
-  var ugcC=links.filter(function(l){return l.ugc}).length;
-  var noText=links.filter(function(l){return !l.text}).length;
-
-  var filterDefs=[
-    {key:'all',label:'All ('+links.length+')'},
-    {key:'int',label:'Internal ('+intC+')'},
-    {key:'ext',label:'External ('+extC+')'},
-    {key:'nf',label:'Nofollow ('+nfC+')'}
-  ];
-  if(spC>0)filterDefs.push({key:'sp',label:'Sponsored ('+spC+')'});
-  if(ugcC>0)filterDefs.push({key:'ugc',label:'UGC ('+ugcC+')'});
-  if(noText>0)filterDefs.push({key:'notxt',label:'No text ('+noText+')'});
-
-  var filterHtml='';
-  filterDefs.forEach(function(f){filterHtml+='<button class="fbtn'+(f.key==='all'?' active':'')+'" data-filter="'+f.key+'">'+f.label+'</button>'});
-  document.getElementById('filterBar').innerHTML=filterHtml;
-
-  document.querySelectorAll('.fbtn').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active')});
-      b.classList.add('active');
-      renderLinks(b.dataset.filter);
-    });
-  });
-
-  renderLinks('all');
-  renderRanking(links);
-  res.style.display='block';
-}
-
-function renderLinks(filter){
-  var filtered=allLinks;
-  if(filter==='int')filtered=allLinks.filter(function(l){return l.isInternal});
-  if(filter==='ext')filtered=allLinks.filter(function(l){return !l.isInternal});
-  if(filter==='nf')filtered=allLinks.filter(function(l){return l.nofollow});
-  if(filter==='sp')filtered=allLinks.filter(function(l){return l.sponsored});
-  if(filter==='ugc')filtered=allLinks.filter(function(l){return l.ugc});
-  if(filter==='notxt')filtered=allLinks.filter(function(l){return !l.text});
-
-  if(filtered.length===0){
-    document.getElementById('linkList').innerHTML='<div class="error-msg"><p>No links match this filter.</p></div>';
-    return;
-  }
-
-  var html='';
-  filtered.forEach(function(l){
-    var tags='';
-    tags+='<span class="rel-tag '+(l.isInternal?'int':'ext')+'">'+(l.isInternal?'INT':'EXT')+'</span>';
-    if(l.nofollow)tags+='<span class="rel-tag nofollow">nofollow</span>';
-    else tags+='<span class="rel-tag dofollow">dofollow</span>';
-    if(l.sponsored)tags+='<span class="rel-tag sponsored">sponsored</span>';
-    if(l.ugc)tags+='<span class="rel-tag ugc">ugc</span>';
-
-    html+='<div class="link-item">';
-    html+='<div><span class="link-text'+(l.text?'':' empty')+'">'+(l.text?esc(l.text):'(no anchor text)')+'</span> '+tags+'</div>';
-    html+='<div class="link-url">'+esc(l.url)+'</div>';
-    html+='</div>';
-  });
-  document.getElementById('linkList').innerHTML=html;
-}
-
-function renderRanking(links){
-  var freq={};
-  links.filter(function(l){return l.isInternal&&l.url}).forEach(function(l){
-    try{
-      var p=new URL(l.url).pathname.replace(/\/$/,'')||'/';
-      freq[p]=(freq[p]||0)+1;
-    }catch(e){}
-  });
-  var ranked=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
-  if(ranked.length===0){document.getElementById('ranking').innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px">No internal links found.</div>';return}
-  var max=ranked[0][1];
-  var html='';
-  ranked.forEach(function(r){
-    var pct=Math.round((r[1]/max)*100);
-    html+='<div class="ranking-item"><span class="ranking-url" title="'+esc(r[0])+'">'+esc(r[0])+'</span><span class="ranking-count">'+r[1]+'×</span></div>';
-    html+='<div class="ranking-bar"><div class="ranking-fill" style="width:'+pct+'%"></div></div>';
-  });
-  document.getElementById('ranking').innerHTML=html;
-}
-
-// CSV Export
-document.getElementById('btnCsv').addEventListener('click',function(){
-  var csv='URL,Anchor Text,Type,Rel\n';
-  allLinks.forEach(function(l){
-    csv+='"'+l.url.replace(/"/g,'""')+'","'+(l.text||'').replace(/"/g,'""')+'","'+(l.isInternal?'Internal':'External')+'","'+l.rel+'"\n';
-  });
-  var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='links.csv';a.click();
 });
 
-// Copy All
 document.getElementById('btnCopy').addEventListener('click',function(){
-  var txt=allLinks.map(function(l){return (l.isInternal?'INT':'EXT')+'\t'+l.url+'\t'+(l.text||'')+'\t'+l.rel}).join('\n');
-  navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy All'},1500);
-  });
+  var txt='hreflang tags for '+pageUrl+'\n';
+  hlData.forEach(function(h){txt+=h.lang+' → '+h.href+'\n'});
+  navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)});
 });
 
-// URL param support
-var params=new URLSearchParams(window.location.search);if(params.get("url")){urlIn.value=params.get("url");go(params.get("url"))}
+var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
 </script>
-<style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}
+.hl-tbl{width:100%;border-collapse:collapse;font-size:13px}.hl-tbl th{text-align:left;padding:8px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);border-bottom:1px solid var(--border)}.hl-tbl td{padding:7px 6px;border-bottom:1px solid var(--border);vertical-align:middle}.hl-tbl tr:hover td{background:var(--accent-soft)}.badge.info{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}@keyframes spin{to{transform:rotate(360deg)}}
+<style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}
 /* ── Mega Menu ── */
 
 .ts-col{min-width:0}

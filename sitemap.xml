@@ -95,4 +95,6 @@
 
   <url><loc>https://lumina-seo.com/tools/serp-overlap/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-overlap/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://lumina-seo.com/de/tools/serp-overlap/</loc><xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-overlap/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/serp-overlap/"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lumina-seo.com/tools/hreflang-checker/</loc><priority>0.7</priority></url>
+  <url><loc>https://lumina-seo.com/de/tools/hreflang-checker/</loc><priority>0.7</priority></url>
 </urlset>
