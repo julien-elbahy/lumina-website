@@ -211,7 +211,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/serp-overlap/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/serp-overlap/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -246,10 +246,10 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free SERP Tool</div><h1>SERP Overlap Checker</h1><p>Compare Google search results for two keywords. Find domains that rank for both — critical for understanding keyword cannibalization and topic clustering.</p></div>
+<div class="th"><div class="lb">Free SERP Tool</div><h1>SERP Overlap Checker</h1><p>Vergleiche Google-Suchergebnisse für zwei Keywords. Finde Domains, die für beide ranken — entscheidend für das Verständnis von Keyword-Kannibalisierung und Topic-Clustering.</p></div>
 <div class="cd">
 <div class="kw-input"><input type="text" id="kw1" placeholder="Keyword 1…" style="flex:1"><input type="text" id="kw2" placeholder="Keyword 2…" style="flex:1"></div>
-<div class="kw-input" style="margin-top:8px"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">Compare SERPs</button></div>
+<div class="kw-input" style="margin-top:8px"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">SERPs vergleichen</button></div>
 <div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ Was ist das?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Ohne Key: 5 kostenlose Suchen/Tag. Mit eigenem <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a>-Key: unbegrenzt.</div></div>
 <div class="quota-bar" id="quotaInfo">5 free queries per day (uses 2 queries)</div>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Fetching results for both keywords…</p></div>
@@ -262,14 +262,14 @@
 <div id="only1Results" class="list-scroll" style="max-height:200px"></div>
 <div class="sec-head">Only in Keyword 2</div>
 <div id="only2Results" class="list-scroll" style="max-height:200px"></div>
-<button class="exp-btn" id="btnCopy">📋 Copy Report</button>
+<button class="exp-btn" id="btnCopy">📋 Bericht kopieren</button>
 </div>
 </div>
-<div class="content"><h2>What is SERP Overlap?</h2><p>SERP Overlap measures how many domains rank for both keywords. High overlap (>60%) means Google considers the keywords very similar — they might cause keyword cannibalization. Low overlap means the keywords target different intents and should have separate pages.</p>
-<h2 style="margin-top:28px">More tools</h2>
+<div class="content"><h2>Was ist SERP Overlap?</h2><p>SERP Overlap misst, wie viele Domains für beide Keywords ranken. Hoher Overlap (>60%) bedeutet, Google betrachtet die Keywords als sehr ähnlich — sie könnten Keyword-Kannibalisierung verursachen. Niedriger Overlap bedeutet, die Keywords bedienen unterschiedliche Suchintentionen und sollten separate Seiten haben.</p>
+<h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/serp-checker/"><h3>SERP Checker</h3><p>Check Google rankings for a keyword.</p></a><a href="/de/tools/keyword-research/"><h3>Keyword Research</h3><p>Find related keywords & volume.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>Check AI & search crawler access.</p></a></div>
-<div class="faq-item"><div class="faq-q">Why does this use 2 queries?<span class="arrow">+</span></div><div class="faq-a">Each keyword requires a separate Google SERP lookup. The tool fetches both, then compares the domain lists locally. With the free tier (5/day), you can do 2 overlap comparisons.</div></div>
-<div class="cta-box"><div class="cta-t">SERP overlap in the extension</div><p>Lumina compares SERPs and detects cannibalization automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="faq-item"><div class="faq-q">Warum verwendet das Tool 2 Abfragen?<span class="arrow">+</span></div><div class="faq-a">Jedes Keyword erfordert eine separate Google-SERP-Abfrage. Das Tool ruft beide ab, dann vergleicht es die Domain-Listen lokal. Mit dem Free-Tier (5/Tag) kannst du 2 Overlap-Vergleiche machen.</div></div>
+<div class="cta-box"><div class="cta-t">SERP-Overlap in der Extension</div><p>Lumina compares SERPs and detects cannibalization automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -322,7 +322,7 @@ function go(){
   var loc=document.getElementById('locSelect').value;
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
-  btn.disabled=true;btn.textContent='Comparing…';
+  btn.disabled=true;btn.textContent='Wird verglichen…';
 
   var results={};var done=0;
   function check(){if(++done>=2)compare()}
@@ -401,7 +401,7 @@ function go(){
     document.getElementById('res').style.display='block';
   }
 }
-document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500)})});
+document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Bericht kopieren'},1500)})});
 
 </script>
 <style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}

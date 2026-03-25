@@ -201,7 +201,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/image-seo-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/image-seo-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -236,20 +236,20 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free SEO Tool</div><h1>Image SEO Checker</h1><p>Analyze all images on any page. Find missing ALT tags, check formats, detect lazy loading. JS-rendered content included via Browser Rendering.</p></div>
+<div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Image SEO Checker</h1><p>Analysiere alle Bilder einer Seite. Finde fehlende ALT-Tags, prüfe Formate, erkenne Lazy Loading. JS-gerenderte Inhalte via Browser Rendering inklusive.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Check Images</button></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Bilder prüfen</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">Total</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">No ALT</div><p id="mNoAlt">0</p></div><div class="metric"><div class="mh">Lazy</div><p id="mLazy">0</p></div><div class="metric"><div class="mh">Modern</div><p id="mModern">0</p></div></div>
+<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">Gesamt</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">Ohne ALT</div><p id="mNoAlt">0</p></div><div class="metric"><div class="mh">Lazy</div><p id="mLazy">0</p></div><div class="metric"><div class="mh">Modern</div><p id="mModern">0</p></div></div>
 <div id="imgResults"></div>
-<button class="exp-btn" id="btnCsv">📊 CSV Export</button>
+<button class="exp-btn" id="btnCsv">📊 CSV-Export</button>
 </div>
 </div>
-<div class="content"><h2>Why image SEO matters</h2><p>Images can account for 50%+ of page weight. Missing ALT tags hurt accessibility and SEO. Modern formats (WebP, AVIF) reduce size by 25-50%. Lazy loading defers off-screen images, improving Core Web Vitals.</p>
-<h2 style="margin-top:28px">More tools</h2>
+<div class="content"><h2>Warum Bilder-SEO wichtig ist</h2><p>Images can account for 50%+ of page weight. Missing ALT tags hurt accessibility and SEO. Modern formats (WebP, AVIF) reduce size by 25-50%. Lazy loading defers off-screen images, improving Core Web Vitals.</p>
+<h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/pagespeed/"><h3>PageSpeed</h3><p>Full Lighthouse audit.</p></a><a href="/de/tools/semantic-checker/"><h3>Semantic HTML</h3><p>HTML5 landmarks & accessibility.</p></a><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>H1-H6 hierarchy analysis.</p></a></div>
-<div class="cta-box"><div class="cta-t">Image analysis on every page</div><p>Lumina checks ALT tags, formats, lazy loading, and file sizes automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="cta-box"><div class="cta-t">Bildanalyse auf jeder Seite</div><p>Lumina checks ALT tags, formats, lazy loading, and file sizes automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -292,7 +292,7 @@ function go(url){
   url=(url||'').trim();if(!url)return;
   if(!/^https?:\/\//i.test(url))url='https://'+url;urlIn.value=url;
   document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
-  btn.disabled=true;btn.textContent='Checking…';
+  btn.disabled=true;btn.textContent='Wird geprüft…';
   fetchWithFallback(url).then(function(data){
     btn.disabled=false;btn.textContent='Check Images';document.getElementById('loading').style.display='none';
     if(data.error){document.getElementById('res').style.display='block';document.getElementById('imgResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(data.error)+'</p></div>';return}

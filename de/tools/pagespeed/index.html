@@ -203,7 +203,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/pagespeed/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/pagespeed/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -238,9 +238,9 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free Performance Tool</div><h1>PageSpeed Insights</h1><p>Get Google Lighthouse scores for any URL — Performance, Accessibility, Best Practices, SEO, and Core Web Vitals. Powered by the free Google PSI API.</p></div>
+<div class="th"><div class="lb">Free Performance Tool</div><h1>PageSpeed Insights</h1><p>Erhalte Google Lighthouse Scores für jede URL — Performance, Barrierefreiheit, Best Practices, SEO und Core Web Vitals. Betrieben von der kostenlosen Google PSI API.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Run Test</button></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Test starten</button></div>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Running Lighthouse audit… This may take 15-30 seconds.</p></div>
 <div id="res" style="display:none">
 <div class="psi-strategy"><button class="psi-tab active" data-s="mobile">📱 Mobile</button><button class="psi-tab" data-s="desktop">🖥 Desktop</button></div>
@@ -248,13 +248,13 @@
 <div id="psiDesktop" style="display:none"></div>
 </div>
 </div>
-<div class="content"><h2>What this tool checks</h2><p>This tool calls the Google PageSpeed Insights API directly from your browser — no proxy, no API key needed. Google runs a full Lighthouse audit and returns scores for Performance, Accessibility, Best Practices, and SEO, plus Core Web Vitals (FCP, LCP, TBT, CLS, Speed Index, TTI).</p>
-<h2 style="margin-top:28px">More tools</h2>
+<div class="content"><h2>Was dieses Tool prüft</h2><p>Dieses Tool ruft die Google PageSpeed Insights API direkt aus deinem Browser auf — kein Proxy, kein API-Key nötig. Google führt ein vollständiges Lighthouse-Audit durch und liefert Scores für Performance, Barrierefreiheit, Best Practices und SEO, plus Core Web Vitals (FCP, LCP, TBT, CLS, Speed Index, TTI).</p>
+<h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/security-headers/"><h3>Security Headers</h3><p>Check HTTP security headers.</p></a><a href="/de/tools/tech-stack/"><h3>Tech Stack</h3><p>Detect 467 technologies.</p></a><a href="/de/tools/redirect-checker/"><h3>Redirect Checker</h3><p>Follow redirect chains.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">Is this free?<span class="arrow">+</span></div><div class="faq-a">Yes. Google's PageSpeed Insights API is free and requires no API key. This tool calls it directly from your browser.</div></div>
-<div class="faq-item"><div class="faq-q">Why is my score different than in Chrome DevTools?<span class="arrow">+</span></div><div class="faq-a">PageSpeed Insights runs Lighthouse on Google's servers, while DevTools runs it on your machine. Network conditions and hardware differ, leading to slightly different results.</div></div>
-<div class="cta-box"><div class="cta-t">PageSpeed data in every audit</div><p>Lumina integrates PageSpeed Insights directly into the extension with one-click testing.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="faq-item"><div class="faq-q">Ist das kostenlos?<span class="arrow">+</span></div><div class="faq-a">Ja. Die Google PageSpeed Insights API ist kostenlos und braucht keinen API-Key. Das Tool ruft sie direkt aus deinem Browser auf.</div></div>
+<div class="faq-item"><div class="faq-q">Warum unterscheidet sich mein Score von Chrome DevTools?<span class="arrow">+</span></div><div class="faq-a">PageSpeed Insights führt Lighthouse auf Googles Servern aus, während DevTools es auf deinem Rechner ausführt. Netzwerkbedingungen und Hardware unterscheiden sich, was zu leicht unterschiedlichen Ergebnissen führt.</div></div>
+<div class="cta-box"><div class="cta-t">PageSpeed-Daten in jedem Audit</div><p>Lumina integriert PageSpeed Insights direkt in die Extension mit Ein-Klick-Tests.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -332,7 +332,7 @@ function renderPSI(targetId,data,strategy){
   };
   var html='<div class="psi-scores">';
   html+='<div class="psi-score"><div class="mh">Performance</div>'+ringChart(scores.performance,60)+'</div>';
-  html+='<div class="psi-score"><div class="mh">Accessibility</div>'+ringChart(scores.accessibility,60)+'</div>';
+  html+='<div class="psi-score"><div class="mh">Barrierefreiheit</div>'+ringChart(scores.accessibility,60)+'</div>';
   html+='<div class="psi-score"><div class="mh">Best Practices</div>'+ringChart(scores.bestPractices,60)+'</div>';
   html+='<div class="psi-score"><div class="mh">SEO</div>'+ringChart(scores.seo,60)+'</div>';
   html+='</div>';

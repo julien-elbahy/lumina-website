@@ -201,7 +201,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/redirect-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/redirect-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -236,27 +236,27 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free SEO Tool</div><h1>Redirect Checker</h1><p>Follow the complete redirect chain for any URL. See every hop with HTTP status codes, detect loops, and verify HTTP→HTTPS redirects.</p></div>
+<div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Redirect Checker</h1><p>Verfolge die komplette Redirect-Kette einer URL. Sieh jeden Hop mit HTTP-Statuscodes, erkenne Loops und verifiziere HTTP→HTTPS-Redirects.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Check Redirects</button></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Redirects prüfen</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
 <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
 <div class="metric"><div class="mh">Hops</div><p id="mHops">0</p></div>
-<div class="metric"><div class="mh">Final Status</div><p id="mStatus">—</p></div>
+<div class="metric"><div class="mh">Endstatus</div><p id="mStatus">—</p></div>
 <div class="metric"><div class="mh">HTTP→HTTPS</div><p id="mHttps">—</p></div>
 </div>
 <div id="chainResults"></div>
-<button class="exp-btn" id="btnCopy">📋 Copy Chain</button>
+<button class="exp-btn" id="btnCopy">📋 Kette kopieren</button>
 </div>
 </div>
-<div class="content"><h2>Why redirect chains matter</h2><p>Every redirect adds latency and can dilute link equity. Google follows up to 10 redirects but recommends keeping chains as short as possible. This tool shows the complete path a URL takes before reaching its final destination.</p>
-<h2 style="margin-top:28px">More tools</h2>
+<div class="content"><h2>Warum Redirect-Ketten wichtig sind</h2><p>Jeder Redirect erhöht die Latenz und kann Linkjuice verwässern. Google folgt bis zu 10 Redirects, empfiehlt aber, Ketten so kurz wie möglich zu halten. Dieses Tool zeigt den kompletten Pfad, den eine URL nimmt, bevor sie ihr endgültiges Ziel erreicht.</p>
+<h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/security-headers/"><h3>Security Headers</h3><p>Check HTTP security headers.</p></a><a href="/de/tools/link-analyzer/"><h3>Link Analyzer</h3><p>Internal/external link analysis.</p></a><a href="/de/tools/pagespeed/"><h3>PageSpeed</h3><p>Google Lighthouse scores.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">What is a 301 vs 302 redirect?<span class="arrow">+</span></div><div class="faq-a">301 is permanent (passes ~90-99% link equity). 302 is temporary (may not pass link equity). For SEO, use 301 for permanent URL changes.</div></div>
-<div class="faq-item"><div class="faq-q">How many redirects are too many?<span class="arrow">+</span></div><div class="faq-a">Ideally zero or one hop. Google follows up to 10, but each hop adds latency. More than 2-3 hops usually indicates a problem.</div></div>
-<div class="cta-box"><div class="cta-t">Redirect detection on every page</div><p>Lumina shows redirect status, HTTP headers, and X-Robots-Tag automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="faq-item"><div class="faq-q">Was ist der Unterschied zwischen 301 und 302 Redirect?<span class="arrow">+</span></div><div class="faq-a">301 is permanent (passes ~90-99% link equity). 302 is temporary (may not pass link equity). For SEO, use 301 for permanent URL changes.</div></div>
+<div class="faq-item"><div class="faq-q">Wie viele Redirects sind zu viele?<span class="arrow">+</span></div><div class="faq-a">Ideally zero or one hop. Google follows up to 10, but each hop adds latency. More than 2-3 hops usually indicates a problem.</div></div>
+<div class="cta-box"><div class="cta-t">Redirect-Erkennung auf jeder Seite</div><p>Lumina shows redirect status, HTTP headers, and X-Robots-Tag automatically.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -291,7 +291,7 @@ function go(url){
   urlIn.value=url;
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
-  btn.disabled=true;btn.textContent='Checking…';
+  btn.disabled=true;btn.textContent='Wird geprüft…';
 
   fetch(WORKER+'?url='+encodeURIComponent(url))
   .then(function(r){return r.json()})
@@ -315,7 +315,7 @@ function go(url){
   })
   .catch(function(e){btn.disabled=false;btn.textContent='Check Redirects';document.getElementById('loading').style.display='none';});
 }
-document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastChain).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Chain'},1500)})});
+document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastChain).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Kette kopieren'},1500)})});
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
 </script>

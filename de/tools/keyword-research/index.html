@@ -219,7 +219,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/keyword-research/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/keyword-research/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -280,7 +280,7 @@
 <div class="quota-bar" id="quotaInfo">5 kostenlose Suchen pro Tag</div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seeds</div><p id="mSeed" style="font-size:12px;word-break:break-word">—</p></div><div class="metric"><div class="mh">Avg. Volume</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Avg. CPC</div><p id="mAvgCpc">—</p></div></div>
+<div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seeds</div><p id="mSeed" style="font-size:12px;word-break:break-word">—</p></div><div class="metric"><div class="mh">Ø Volumen</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Ø CPC</div><p id="mAvgCpc">—</p></div></div>
 <!-- Column toggles -->
 <div id="colToggles" style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;align-items:center"><span style="font-size:10px;color:var(--muted);margin-right:4px">Columns:</span></div>
 <div class="kw-filter"><input type="text" id="kwFilter" placeholder="Keywords filtern…"><span class="count" id="kwCount"></span></div>
@@ -349,7 +349,7 @@ function dfsPost(endpoint,data){
       var q=document.getElementById('quotaInfo');
       if(q)q.textContent=d._lumina.ownKey?'Eigener API-Key (unbegrenzt)':'Kostenlose Suchen: '+Math.floor(d._lumina.remaining/2)+'/5 heute';
     }
-    if(d.needsKey){throw new Error(d.error||'API key required')}
+    if(d.needsKey){var e=new Error(d.error||'Tageslimit erreicht. Füge deinen eigenen DataForSEO Key hinzu für unbegrenzte Suchen.');e.isQuota=true;throw e}
     return d;
   });
 }
@@ -430,7 +430,7 @@ function go(){
   var locCode=parseInt(loc);
 
   // DFS Call 1: Long-tail suggestions for primary seed
-  var p1=dfsPost('dataforseo_labs/google/keyword_suggestions/live',[{keyword:seeds[0],location_code:locCode,language_code:lang,include_seed_keyword:true,limit:50,order_by:['keyword_info.search_volume,desc']}]).catch(function(){return{tasks:[]}});
+  var p1=dfsPost('dataforseo_labs/google/keyword_suggestions/live',[{keyword:seeds[0],location_code:locCode,language_code:lang,include_seed_keyword:true,limit:50,order_by:['keyword_info.search_volume,desc']}]).catch(function(e){if(e.isQuota)throw e;return{tasks:[]}});
 
   // DFS Call 2: AI synonyms for ALL seeds + extra seeds volume check
   var extraSeeds=seeds.slice(1);
@@ -443,8 +443,8 @@ function go(){
     if(ai&&ai.synonyms)volumeKws=volumeKws.concat(ai.synonyms);
     if(!volumeKws.length)return{tasks:[]};
     var unique=[],low={};volumeKws.forEach(function(k){var lk=k.toLowerCase();if(!low[lk]){low[lk]=true;unique.push(k)}});
-    return dfsPost('keywords_data/google_ads/search_volume/live',[{keywords:unique.slice(0,20),location_code:locCode,language_code:lang}]).catch(function(){return{tasks:[]}});
-  }).catch(function(){return{tasks:[]}});
+    return dfsPost('keywords_data/google_ads/search_volume/live',[{keywords:unique.slice(0,20),location_code:locCode,language_code:lang}]).catch(function(e){if(e.isQuota)throw e;return{tasks:[]}});
+  }).catch(function(e){if(e&&e.isQuota)throw e;return{tasks:[]}});
 
   // GSC data (if connected)
   var p3=gscIsConnected()?fetchGscQueries():Promise.resolve(null);
@@ -503,7 +503,12 @@ function go(){
     btn.disabled=false;btn.textContent='Keywords finden';
     document.getElementById('loading').style.display='none';
     document.getElementById('res').style.display='block';
-    document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
+    if(e.isQuota){
+      document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Tageslimit erreicht</p><p>Du hast alle 5 kostenlosen Suchen f\u00fcr heute verbraucht. Komm morgen wieder, oder f\u00fcge unten deinen eigenen <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API-Key hinzu f\u00fcr unbegrenzte Suchen.</p></div>';
+      var q=document.getElementById('quotaInfo');if(q)q.textContent='Kostenlose Suchen: 0/5 heute';
+    }else{
+      document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
+    }
   });
 }
 

@@ -188,7 +188,7 @@
 <a href="/de/tools/tech-stack/">Tech Stack Detector</a>
 <a href="/de/tools/security-headers/">Security Headers</a>
 <a href="/de/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/de/tools/hreflang-checker/">Redirect Checker</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/link-analyzer/">Link Analyzer</a>
 </div>
 <div class="ts-col"><div class="ts-cat">Content & GEO</div>
@@ -201,7 +201,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/hreflang-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/hreflang-checker/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/">Home</a>
 <a href="/de/#features">Features</a>
@@ -217,7 +217,7 @@
 <a href="/de/tools/tech-stack/">Tech Stack Detector</a>
 <a href="/de/tools/security-headers/">Security Headers</a>
 <a href="/de/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/de/tools/hreflang-checker/">Redirect Checker</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/link-analyzer/">Link Analyzer</a>
 <div class="mm-cat">Content & GEO</div>
 <a href="/de/tools/word-counter/">Word Counter</a>
@@ -232,43 +232,43 @@
 <a href="/de/tools/serp-checker/">SERP Checker</a>
 <a href="/de/tools/keyword-research/">Keyword Research</a>
 <a href="/de/tools/serp-overlap/">SERP Overlap</a>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Chrome Extension holen — Kostenlos</a>
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free SEO Tool</div><h1>hreflang Checker</h1><p>Validate hreflang tags on any page. Check language/region annotations, verify reciprocal return links, and detect common implementation issues.</p></div>
+<div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>hreflang Checker</h1><p>Validiere hreflang-Tags auf jeder Seite. Prüfe Sprach-/Regions-Annotationen, verifiziere Rück-Links und erkenne häufige Implementierungsfehler.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Check hreflang</button></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">hreflang prüfen</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)">
-<div class="metric"><div class="mh">Languages</div><p id="mLangs">0</p></div>
+<div class="metric"><div class="mh">Sprachen</div><p id="mLangs">0</p></div>
 <div class="metric"><div class="mh">Self-ref</div><p id="mSelf">—</p></div>
 <div class="metric"><div class="mh">x-default</div><p id="mDefault">—</p></div>
-<div class="metric"><div class="mh">Issues</div><p id="mIssues">0</p></div>
+<div class="metric"><div class="mh">Probleme</div><p id="mIssues">0</p></div>
 </div>
 <div id="issuesList"></div>
 <div class="section-head" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">hreflang Tags</div>
 <div id="hlResults" class="list-scroll" style="max-height:500px;overflow-y:auto"></div>
-<div style="display:flex;gap:6px;margin-top:10px"><button class="exp-btn" id="btnReturn" disabled>🔗 Check Return Links</button><button class="exp-btn" id="btnCopy">📋 Copy</button></div>
+<div style="display:flex;gap:6px;margin-top:10px"><button class="exp-btn" id="btnReturn" disabled>🔗 Return-Links prüfen</button><button class="exp-btn" id="btnCopy">📋 Kopieren</button></div>
 <div id="returnProgress" style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-family:var(--mono)"></div>
 </div>
 </div>
-<div class="content"><h2>How it works</h2><p>Enter a URL and this tool fetches the page HTML to find all <code>&lt;link rel="alternate" hreflang="..."&gt;</code> tags. It validates language codes, checks for self-referencing tags, x-default, and lets you verify that alternate pages link back correctly (return link validation).</p>
+<div class="content"><h2>So funktioniert es</h2><p>Gib eine URL ein und das Tool holt den HTML-Code der Seite, um alle <code>&lt;link rel="alternate" hreflang="..."&gt;</code> tags. It validates language codes, checks for self-referencing tags, x-default, and lets you verify that alternate pages link back correctly (return link validation).</p>
 <h2 style="margin-top:28px">Common issues detected</h2>
 <p>• Missing self-referencing tag (the page should reference itself)<br>• Missing x-default (should specify a fallback language)<br>• Non-standard language codes (e.g. "uk" instead of "en-GB")<br>• Missing return links (alternate pages don't link back)<br>• HTTP/HTTPS mismatches between hreflang URLs</p>
-<h2 style="margin-top:28px">More tools</h2>
-<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Analyze all SEO meta tags.</p></a><a href="/de/tools/redirect-checker/"><h3>Redirect Checker</h3><p>Follow redirect chains.</p></a><a href="/de/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate JSON-LD schema.</p></a></div>
-<div class="faq-item"><div class="faq-q">What is hreflang?<span class="arrow">+</span></div><div class="faq-a">hreflang is an HTML attribute that tells search engines which language and region a page targets. It helps prevent duplicate content issues for multilingual sites and ensures users see the right language version in search results.</div></div>
-<div class="faq-item"><div class="faq-q">Do I need a self-referencing hreflang tag?<span class="arrow">+</span></div><div class="faq-a">Yes. Google requires every page that uses hreflang to include a self-referencing tag pointing to itself. Without it, Google may ignore all hreflang annotations on that page.</div></div>
-<div class="faq-item"><div class="faq-q">What is x-default?<span class="arrow">+</span></div><div class="faq-a">x-default specifies the fallback URL for users whose language/region doesn't match any hreflang tag. It's strongly recommended for all multilingual implementations.</div></div>
-<div class="cta-box"><div class="cta-t">hreflang validation on every page</div><p>Lumina checks hreflang tags automatically with return link verification.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
+<h2 style="margin-top:28px">Weitere Tools</h2>
+<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags analysieren.</p></a><a href="/de/tools/redirect-checker/"><h3>Redirect Checker</h3><p>Redirect-Ketten verfolgen.</p></a><a href="/de/tools/schema-validator/"><h3>Schema Validator</h3><p>JSON-LD Schema validieren.</p></a></div>
+<div class="faq-item"><div class="faq-q">Was ist hreflang?<span class="arrow">+</span></div><div class="faq-a">hreflang ist ein HTML-Attribut, das Suchmaschinen mitteilt, welche Sprache und Region eine Seite anspricht. Es hilft, Duplicate-Content-Probleme bei mehrsprachigen Seiten zu vermeiden und stellt sicher, dass Nutzer die richtige Sprachversion in den Suchergebnissen sehen.</div></div>
+<div class="faq-item"><div class="faq-q">Brauche ich einen selbstreferenzierenden hreflang-Tag?<span class="arrow">+</span></div><div class="faq-a">Ja. Google verlangt, dass jede Seite mit hreflang einen selbstreferenzierenden Tag enthält, der auf sich selbst zeigt. Ohne diesen ignoriert Google möglicherweise alle hreflang-Annotationen auf der Seite.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist x-default?<span class="arrow">+</span></div><div class="faq-a">x-default gibt die Fallback-URL für Nutzer an, deren Sprache/Region keinem hreflang-Tag entspricht. Es wird für alle mehrsprachigen Implementierungen dringend empfohlen.</div></div>
+<div class="cta-box"><div class="cta-t">hreflang-Validierung auf jeder Seite</div><p>Lumina prüft hreflang-Tags automatisch mit Return-Link-Validierung.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
 <div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/de/tools/serp-preview/">Snippet Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/de/tools/serp-checker/">SERP Checker</a><a href="/de/tools/keyword-research/">Keyword Research</a><a href="/de/tools/serp-overlap/">SERP Overlap</a></div>
-<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/de/tools/tech-stack/">Tech Stack Detector</a><a href="/de/tools/security-headers/">Security Headers</a><a href="/de/tools/pagespeed/">PageSpeed Insights</a><a href="/de/tools/hreflang-checker/">Redirect Checker</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/de/tools/word-counter/">Word Counter</a><a href="/de/tools/image-seo-checker/">Image SEO Checker</a><a href="/de/tools/semantic-checker/">Semantic HTML</a><a href="/de/tools/js-nojs/">JS vs No-JS</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/de/tools/tech-stack/">Tech Stack Detector</a><a href="/de/tools/security-headers/">Security Headers</a><a href="/de/tools/pagespeed/">PageSpeed Insights</a><a href="/de/tools/hreflang-checker/">hreflang Checker</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/de/tools/word-counter/">Word Counter</a><a href="/de/tools/image-seo-checker/">Image SEO Checker</a><a href="/de/tools/semantic-checker/">Semantic HTML</a><a href="/de/tools/js-nojs/">JS vs No-JS</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a></div>
 <div class="tf-col"><div class="tf-h">Company</div><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
@@ -301,7 +301,7 @@ function go(url){
   urlIn.value=url;pageUrl=url;
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
-  btn.disabled=true;btn.textContent='Checking…';
+  btn.disabled=true;btn.textContent='Wird geprüft…';
   document.getElementById('returnProgress').textContent='';
 
   fetch(W+'/fetch?url='+encodeURIComponent(url))
@@ -372,7 +372,7 @@ document.getElementById('btnReturn').addEventListener('click',function(){
   var targets=hlData.filter(function(h){return normalizeUrl(h.href)!==currentNorm});
   if(!targets.length)return;
   var btnR=document.getElementById('btnReturn');
-  btnR.disabled=true;btnR.textContent='⏳ Checking…';
+  btnR.disabled=true;btnR.textContent='⏳ Wird geprüft…';
   var done=0,ok=0,fail=0,errs=0;
   targets.forEach(function(h){
     var el=document.getElementById('hlst-'+h.lang);
@@ -409,7 +409,7 @@ document.getElementById('btnReturn').addEventListener('click',function(){
 document.getElementById('btnCopy').addEventListener('click',function(){
   var txt='hreflang tags for '+pageUrl+'\n';
   hlData.forEach(function(h){txt+=h.lang+' → '+h.href+'\n'});
-  navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)});
+  navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Kopieren'},1500)});
 });
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
@@ -424,7 +424,7 @@ var params=new URLSearchParams(window.location.search);if(params.get("url")){doc
 @media(max-width:640px){}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 </style>
-<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div>
 <script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
 </body>
 </html>

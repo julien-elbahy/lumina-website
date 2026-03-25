@@ -200,7 +200,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><a href="/tools/link-analyzer/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><a href="/tools/link-analyzer/" class="lang-sw" title="English">EN</a><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -235,36 +235,36 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Link Analyzer</h1><p>Extract and classify all links from any page. Internal, external, nofollow, sponsored — with internal link ranking and CSV export.</p></div>
+<div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Link Analyzer</h1><p>Extrahiere und klassifiziere alle Links einer Seite. Intern, extern, nofollow, sponsored — mit internem Link-Ranking und CSV-Export.</p></div>
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Links analysieren</button>
 </div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div><div class="skel w70"></div></div>
 <div id="res" style="display:none">
 <div class="metrics">
-<div class="metric"><div class="mh">Total</div><p id="mTotal">0</p></div>
-<div class="metric"><div class="mh">Internal</div><p id="mInt">0</p></div>
-<div class="metric"><div class="mh">External</div><p id="mExt">0</p></div>
+<div class="metric"><div class="mh">Gesamt</div><p id="mTotal">0</p></div>
+<div class="metric"><div class="mh">Intern</div><p id="mInt">0</p></div>
+<div class="metric"><div class="mh">Extern</div><p id="mExt">0</p></div>
 <div class="metric"><div class="mh">Nofollow</div><p id="mNf">0</p></div>
 </div>
 <div class="filters" id="filterBar"></div>
 <div class="link-list" id="linkList"></div>
-<div style="display:flex;gap:6px;margin-top:8px"><button class="exp-btn" id="btnCsv">📊 CSV Export</button><button class="exp-btn" id="btnCopy">📋 Copy All</button></div>
-<div class="section-head" style="margin-top:20px">🔗 Internal Link Ranking</div>
+<div style="display:flex;gap:6px;margin-top:8px"><button class="exp-btn" id="btnCsv">📊 CSV-Export</button><button class="exp-btn" id="btnCopy">📋 Alles kopieren</button></div>
+<div class="section-head" style="margin-top:20px">🔗 Internes Link-Ranking</div>
 <div id="ranking"></div>
 </div>
 </div>
 <div class="content">
-<h2>How this tool works</h2>
+<h2>So funktioniert das Tool</h2>
 <p>Enter any URL and the tool fetches the page, extracts every <code>&lt;a href&gt;</code> link, and classifies it. Internal links point to the same domain, external links go elsewhere. Rel attributes like <code>nofollow</code>, <code>sponsored</code>, and <code>ugc</code> are detected automatically.</p>
-<p>The <strong>Internal Link Ranking</strong> shows which pages on the site receive the most internal links — a key factor for search engine crawl priority and PageRank distribution.</p>
-<h2 style="margin-top:28px">More tools</h2>
-<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Analyze all SEO meta tags for any URL.</p></a><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>H1-H6 hierarchy analysis.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>Check AI & search crawler access.</p></a></div>
+<p>The <strong>Internes Link-Ranking</strong> shows which pages on the site receive the most internal links — a key factor for search engine crawl priority and PageRank distribution.</p>
+<h2 style="margin-top:28px">Weitere Tools</h2>
+<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>H1-H6 hierarchy analysis.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>Check AI & search crawler access.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">What is the difference between internal and external links?<span class="arrow">+</span></div><div class="faq-a">Internal links point to pages on the same domain. External links point to other websites. Both are important for SEO — internal links distribute link equity, external links provide authority signals.</div></div>
-<div class="faq-item"><div class="faq-q">What does nofollow mean?<span class="arrow">+</span></div><div class="faq-a">A <code>rel="nofollow"</code> attribute tells search engines not to pass link equity (PageRank) through that link. <code>sponsored</code> marks paid links, <code>ugc</code> marks user-generated content links.</div></div>
-<div class="faq-item"><div class="faq-q">Why does internal link ranking matter?<span class="arrow">+</span></div><div class="faq-a">Pages with more internal links receive more crawl attention and link equity. The ranking shows which pages are prioritized by the site's internal linking structure — and which might be underlinked.</div></div>
-<div class="cta-box"><div class="cta-t">Full link analysis on every page</div><p>Lumina highlights broken links, shows internal link ranking, and checks nofollow — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="faq-item"><div class="faq-q">Was ist der Unterschied zwischen internen und externen Links?<span class="arrow">+</span></div><div class="faq-a">Interne Links verweisen auf Seiten derselben Domain. Externe Links verweisen auf andere Websites. Beide sind wichtig für SEO — interne Links verteilen Linkjuice, externe Links liefern Autoritätssignale.</div></div>
+<div class="faq-item"><div class="faq-q">Was bedeutet nofollow?<span class="arrow">+</span></div><div class="faq-a">A <code>rel="nofollow"</code> attribute tells search engines not to pass link equity (PageRank) through that link. <code>sponsored</code> marks paid links, <code>ugc</code> marks user-generated content links.</div></div>
+<div class="faq-item"><div class="faq-q">Warum ist das interne Linkranking wichtig?<span class="arrow">+</span></div><div class="faq-a">Seiten mit mehr internen Links erhalten mehr Crawl-Aufmerksamkeit und Linkjuice. Das Ranking zeigt, welche Seiten durch die interne Verlinkung priorisiert werden — und welche möglicherweise zu wenig verlinkt sind.</div></div>
+<div class="cta-box"><div class="cta-t">Link-Analyse auf jeder Seite</div><p>Lumina highlights broken links, shows internal link ranking, and checks nofollow — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -446,7 +446,7 @@ function renderLinks(filter){
   if(filter==='notxt')filtered=allLinks.filter(function(l){return !l.text});
 
   if(filtered.length===0){
-    document.getElementById('linkList').innerHTML='<div class="error-msg"><p>No links match this filter.</p></div>';
+    document.getElementById('linkList').innerHTML='<div class="error-msg"><p>Keine Links entsprechen diesem Filter.</p></div>';
     return;
   }
 
@@ -476,7 +476,7 @@ function renderRanking(links){
     }catch(e){}
   });
   var ranked=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
-  if(ranked.length===0){document.getElementById('ranking').innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px">No internal links found.</div>';return}
+  if(ranked.length===0){document.getElementById('ranking').innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px">Keine internen Links gefunden.</div>';return}
   var max=ranked[0][1];
   var html='';
   ranked.forEach(function(r){
@@ -501,7 +501,7 @@ document.getElementById('btnCsv').addEventListener('click',function(){
 document.getElementById('btnCopy').addEventListener('click',function(){
   var txt=allLinks.map(function(l){return (l.isInternal?'INT':'EXT')+'\t'+l.url+'\t'+(l.text||'')+'\t'+l.rel}).join('\n');
   navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy All'},1500);
+    var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Alles kopieren'},1500);
   });
 });
 
