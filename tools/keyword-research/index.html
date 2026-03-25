@@ -235,7 +235,26 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free Keyword Tool</div><h1>Keyword Research</h1><p>Find related keywords with search volume, CPC, and competition data. Powered by DataForSEO. 5 free queries per day.</p></div>
+<div class="th"><div class="lb">Free Keyword Tool</div><h1>Keyword Research</h1><p>Find related keywords with search volume, CPC, and competition data. Connect Google Search Console for real click and ranking data.</p></div>
+<!-- GSC Connection Bar -->
+<div class="cd" id="gscBar" style="padding:10px 14px;margin-bottom:8px">
+<div id="gscConnect" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 14px;margin:0">🔗 Connect GSC</button>
+<span style="font-size:11px;color:var(--muted)">See real clicks, impressions & rankings from Google Search Console</span>
+</div>
+<div id="gscMain" style="display:none">
+<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+<span style="font-size:10px;color:var(--ok);font-weight:700">✓ GSC</span>
+<select id="gscSite" style="background:var(--input-bg);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:10px;font-family:var(--mono);min-width:140px"></select>
+<select id="gscRange" style="background:var(--input-bg);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:10px">
+<option value="7">7 days</option><option value="28" selected>28 days</option><option value="90">90 days</option></select>
+<input type="text" id="gscUrl" placeholder="Filter by URL (optional)" style="background:var(--input-bg);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:10px;font-family:var(--mono);flex:1;min-width:140px">
+<button class="exp-btn" id="btnGscDisconnect" style="margin:0;padding:4px 8px;font-size:9px;color:var(--err)">✕</button>
+</div>
+</div>
+<div id="gscStatus" style="font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:4px"></div>
+</div>
+<!-- Search -->
 <div class="cd">
 <div class="kw-input"><input type="text" id="kwIn" placeholder="Enter seed keyword…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">Find Keywords</button></div>
 <div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ What's this?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Without a key, you get 5 free searches per day. With your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> key, searches are unlimited. To create a key: sign up at dataforseo.com → API Dashboard → copy your login:password → encode it at <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> as <code>login:password</code>.</div></div>
@@ -243,6 +262,8 @@
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seed</div><p id="mSeed" style="font-size:14px">—</p></div><div class="metric"><div class="mh">Avg. Volume</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Avg. CPC</div><p id="mAvgCpc">—</p></div></div>
+<!-- Column toggles -->
+<div id="colToggles" style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;align-items:center"><span style="font-size:10px;color:var(--muted);margin-right:4px">Columns:</span></div>
 <div class="kw-filter"><input type="text" id="kwFilter" placeholder="Filter keywords…"><span class="count" id="kwCount"></span></div>
 <div id="kwResults" class="list-scroll"></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
@@ -250,7 +271,8 @@
 <button class="exp-btn" id="btnMap" disabled>📋 Keyword Mapping</button>
 </div>
 </div>
-<!-- Mapping Table Modal -->
+</div>
+<!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
 <div class="cd" style="position:relative">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -267,36 +289,10 @@
 </div>
 </div>
 </div>
-<!-- GSC Section -->
-<div class="cd" id="gscSection" style="margin-top:8px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-<div style="font-size:14px;font-weight:800">📊 Google Search Console</div>
-<div id="gscStatus" style="font-size:10px;color:var(--muted);font-family:var(--mono)"></div>
-</div>
-<div id="gscConnect">
-<p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">Connect your Google Search Console to see real clicks, impressions, CTR, and position data for your keywords.</p>
-<button class="ab" id="btnGscConnect" style="font-size:12px;padding:10px 18px">🔗 Connect Google Search Console</button>
-<div style="font-size:10px;color:var(--muted);margin-top:6px">Requires Google OAuth. Your data stays in your browser — we never store tokens on our server.</div>
-</div>
-<div id="gscMain" style="display:none">
-<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center">
-<select id="gscSite" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);flex:1;min-width:180px"></select>
-<select id="gscRange" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px">
-<option value="7">Last 7 days</option><option value="28" selected>Last 28 days</option><option value="90">Last 90 days</option></select>
-<button class="exp-btn" id="btnGscLoad" style="margin:0;padding:6px 14px">Load Data</button>
-<button class="exp-btn" id="btnGscDisconnect" style="margin:0;padding:6px 10px;font-size:9px;color:var(--err)">Disconnect</button>
-</div>
-<div id="gscLoading" style="display:none"><div class="skel w90"></div><div class="skel w50"></div></div>
-<div id="gscResults" style="display:none">
-<div class="metrics" id="gscMetrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px"></div>
-<div id="gscTable" class="list-scroll" style="max-height:400px"></div>
-</div>
-</div>
-</div>
-<div class="content"><h2>How it works</h2><p>Enter a seed keyword and this tool finds related keywords from Google Ads data via the DataForSEO API. Results include monthly search volume, cost-per-click, and competition level.</p>
+<div class="content"><h2>How it works</h2><p>Enter a seed keyword and this tool finds related keywords from Google Ads data via the DataForSEO API. Results include monthly search volume, cost-per-click, and competition level. Connect your Google Search Console to enrich results with real click and ranking data.</p>
 <h2 style="margin-top:28px">More tools</h2>
 <div class="other-tools"><a href="/tools/serp-checker/"><h3>SERP Checker</h3><p>Check Google rankings.</p></a><a href="/tools/serp-overlap/"><h3>SERP Overlap</h3><p>Compare rankings for 2 keywords.</p></a><a href="/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Optimize titles & descriptions.</p></a></div>
-<div class="faq-item"><div class="faq-q">Where does the data come from?<span class="arrow">+</span></div><div class="faq-a">Keyword data comes from Google Ads via the DataForSEO API. Volume is the average monthly search count, CPC is the cost per click in USD, and competition is from 0 (low) to 1 (high).</div></div>
+<div class="faq-item"><div class="faq-q">Where does the data come from?<span class="arrow">+</span></div><div class="faq-a">Keyword data comes from Google Ads via the DataForSEO API. Volume is the average monthly search count, CPC is the cost per click in USD, and competition is from 0 (low) to 1 (high). GSC data comes directly from your Google Search Console account via OAuth.</div></div>
 <div class="cta-box"><div class="cta-t">Keyword data in every analysis</div><p>Lumina integrates keyword research directly into your SEO workflow.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 
@@ -346,14 +342,44 @@ function buildSparkline(monthly){
   var pts=vals.map(function(v,i){return(i/(vals.length-1)*W).toFixed(1)+','+(H-1-((v-mn)/rg*(H-2))).toFixed(1)});
   var col=vals[vals.length-1]>=vals[0]?'var(--ok)':'var(--err)';
   var tip=monthly.slice(-6).map(function(m){return m.year+'-'+String(m.month).padStart(2,'0')+': '+(m.search_volume||0).toLocaleString()}).join(' | ');
-  return'<svg width="'+W+'" height="'+H+'" style="cursor:help" title="'+esc(tip)+'"><polyline points="'+pts.join(' ')+'" fill="none" stroke="'+col+'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  return'<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="vertical-align:middle;cursor:help" title="'+esc(tip)+'"><polyline points="'+pts.join(' ')+'" fill="none" stroke="'+col+'" stroke-width="1.5" stroke-linecap="round"/></svg>';
 }
 
+// ── State ──
 var kwIn=document.getElementById('kwIn'),btn=document.getElementById('btnGo');
-var allKws=[],sortCol='vol',sortDir='desc',filterText='',filterSrc='';
 var googleDomains={'2040':'www.google.at','2276':'www.google.de','2756':'www.google.ch','2826':'www.google.co.uk','2840':'www.google.com','2250':'www.google.fr','2380':'www.google.it','2724':'www.google.es','2528':'www.google.nl','2616':'www.google.pl','2392':'www.google.co.jp','2036':'www.google.com.au','2124':'www.google.ca','2356':'www.google.co.in','2076':'www.google.com.br'};
 var currentGoogleDomain='www.google.com';
+var allKws=[],sortCol='vol',sortDir='desc',filterText='',filterSrc='';
+var selectedKws=new Set(),mainKw='';
+var gscData={}; // {keyword_lower: {clicks, impressions, ctr, position}}
 
+// ── Column Visibility ──
+var columns={
+  trend:{label:'Trend',on:true,gsc:false},
+  vol:{label:'Volume',on:true,gsc:false},
+  clicks:{label:'Clicks',on:false,gsc:true},
+  position:{label:'Position',on:false,gsc:true},
+  impressions:{label:'Impr.',on:false,gsc:true},
+  cpc:{label:'CPC',on:false,gsc:false},
+  comp:{label:'Comp',on:false,gsc:false},
+  kd:{label:'KD',on:false,gsc:false}
+};
+
+function renderColToggles(){
+  var h='<span style="font-size:10px;color:var(--muted);margin-right:4px">Columns:</span>';
+  Object.keys(columns).forEach(function(k){
+    var c=columns[k];
+    var hide=c.gsc&&!gscIsConnected();
+    if(hide)return;
+    h+='<button class="fbtn'+(c.on?' active':'')+'" data-col="'+k+'" style="font-size:9px;padding:4px 8px">'+c.label+'</button>';
+  });
+  document.getElementById('colToggles').innerHTML=h;
+  document.querySelectorAll('#colToggles .fbtn[data-col]').forEach(function(b){
+    b.addEventListener('click',function(){columns[b.dataset.col].on=!columns[b.dataset.col].on;renderColToggles();renderTable()});
+  });
+}
+
+// ── Search ──
 btn.addEventListener('click',function(){go()});
 kwIn.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 document.getElementById('kwFilter').addEventListener('input',function(){filterText=this.value.toLowerCase();renderTable()});
@@ -367,20 +393,35 @@ function go(){
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Researching…';
+  gscData={};
 
   var basePayload={keyword:kw,location_code:parseInt(loc),language_code:lang,include_seed_keyword:true,limit:50,order_by:['keyword_info.search_volume,desc']};
-
-  // Fetch both endpoints in parallel: suggestions (contains seed) + related (semantic)
   var p1=dfsPost('dataforseo_labs/google/keyword_suggestions/live',[basePayload]).catch(function(){return{tasks:[]}});
   var p2=dfsPost('dataforseo_labs/google/related_keywords/live',[{keyword:kw,location_code:parseInt(loc),language_code:lang,limit:30,order_by:['keyword_info.search_volume,desc']}]).catch(function(){return{tasks:[]}});
 
-  Promise.all([p1,p2]).then(function(results){
+  // If GSC connected, fetch GSC data in parallel
+  var p3=gscIsConnected()?fetchGscQueries():Promise.resolve(null);
+
+  Promise.all([p1,p2,p3]).then(function(results){
     btn.disabled=false;btn.textContent='Find Keywords';
     document.getElementById('loading').style.display='none';
 
-    var items=[];
-    var seen={};
+    // Process GSC data
+    if(results[2]&&results[2].rows){
+      results[2].rows.forEach(function(r){
+        gscData[r.keys[0].toLowerCase()]={clicks:r.clicks,impressions:r.impressions,ctr:r.ctr,position:r.position};
+      });
+      // Auto-enable GSC columns
+      columns.clicks.on=true;columns.position.on=true;
+    }
 
+    var items=[],seen={};
+    function addKw(keyword,ki,kp,source){
+      if(!keyword||seen[keyword.toLowerCase()])return;
+      seen[keyword.toLowerCase()]=true;
+      var g=gscData[keyword.toLowerCase()]||{};
+      items.push({keyword:keyword,vol:ki.search_volume||0,cpc:ki.cpc||0,comp:ki.competition||0,monthly:ki.monthly_searches||[],kd:kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,src:source,clicks:g.clicks||0,impressions:g.impressions||0,position:g.position||0,hasGsc:!!g.clicks||!!g.impressions});
+    }
     function extractItems(data,source){
       var tasks=data.tasks||[];
       (tasks[0]&&tasks[0].result||[]).forEach(function(res){
@@ -388,30 +429,43 @@ function go(){
           var kd=item.keyword_data||item;
           var ki=kd.keyword_info||{};
           var kp=kd.keyword_properties||item.keyword_properties||{};
-          var keyword=kd.keyword||item.keyword||'';
-          if(keyword&&!seen[keyword.toLowerCase()]){
-            seen[keyword.toLowerCase()]=true;
-            items.push({keyword:keyword,vol:ki.search_volume||0,cpc:ki.cpc||0,comp:ki.competition||0,monthly:ki.monthly_searches||[],kd:kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,src:source});
+          addKw(kd.keyword||item.keyword||'',ki,kp,source);
+          // related_keywords endpoint nests actual keywords inside item.related_keywords[]
+          if(item.related_keywords&&Array.isArray(item.related_keywords)){
+            item.related_keywords.forEach(function(rel){
+              var rkd=rel.keyword_data||rel;
+              var rki=rkd.keyword_info||{};
+              var rkp=rkd.keyword_properties||rel.keyword_properties||{};
+              addKw(rkd.keyword||rel.keyword||'',rki,rkp,source);
+            });
           }
         });
       });
     }
-
     extractItems(results[0],'suggestions');
     extractItems(results[1],'related');
 
+    // Add GSC-only keywords (exist in GSC but not in DFS results)
+    if(results[2]&&results[2].rows){
+      results[2].rows.forEach(function(r){
+        var kw=r.keys[0];
+        if(!seen[kw.toLowerCase()]){
+          seen[kw.toLowerCase()]=true;
+          items.push({keyword:kw,vol:0,cpc:0,comp:0,monthly:[],kd:null,src:'gsc',clicks:r.clicks||0,impressions:r.impressions||0,position:r.position||0,hasGsc:true});
+        }
+      });
+    }
+
     if(!items.length)throw new Error('No keyword suggestions found');
-    allKws=items.map(function(r){
-      if(r.kd===null)r.kd=Math.round(Math.min(100,r.comp*70+(r.cpc||0)*3));
-      return r;
-    });
+    allKws=items.map(function(r){if(r.kd===null)r.kd=Math.round(Math.min(100,r.comp*70+(r.cpc||0)*3));return r});
     document.getElementById('mCount').textContent=allKws.length;
     document.getElementById('mSeed').textContent=kw;
     var totalVol=0,totalCpc=0;allKws.forEach(function(i){totalVol+=i.vol;totalCpc+=i.cpc});
     document.getElementById('mAvgVol').textContent=allKws.length?Math.round(totalVol/allKws.length).toLocaleString():'—';
     document.getElementById('mAvgCpc').textContent=allKws.length?'$'+(totalCpc/allKws.length).toFixed(2):'—';
     sortCol='vol';sortDir='desc';filterText='';filterSrc='';document.getElementById('kwFilter').value='';
-    renderTable();
+    selectedKws.clear();mainKw='';
+    renderColToggles();renderTable();
     document.getElementById('res').style.display='block';
   }).catch(function(e){
     btn.disabled=false;btn.textContent='Find Keywords';
@@ -421,6 +475,7 @@ function go(){
   });
 }
 
+// ── Render Table ──
 function renderTable(){
   var items=allKws.slice();
   if(filterText)items=items.filter(function(i){return i.keyword.toLowerCase().indexOf(filterText)!==-1});
@@ -429,64 +484,88 @@ function renderTable(){
   var maxVol=0;items.forEach(function(i){if(i.vol>maxVol)maxVol=i.vol});
   var sugCount=allKws.filter(function(i){return i.src==='suggestions'}).length;
   var relCount=allKws.filter(function(i){return i.src==='related'}).length;
+  var gscOnlyCount=allKws.filter(function(i){return i.src==='gsc'}).length;
   document.getElementById('kwCount').textContent=items.length+(items.length!==allKws.length?' of '+allKws.length:'')+' keywords';
+  // Source filter
   var fb='';
-  if(relCount>0){
+  if(relCount>0||gscOnlyCount>0){
     fb='<div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap">';
     fb+='<button class="fbtn'+(filterSrc===''?' active':'')+'" data-src="">All ('+allKws.length+')</button>';
-    fb+='<button class="fbtn'+(filterSrc==='suggestions'?' active':'')+'" data-src="suggestions">Suggestions ('+sugCount+')</button>';
-    fb+='<button class="fbtn'+(filterSrc==='related'?' active':'')+'" data-src="related">Related ('+relCount+')</button>';
+    if(sugCount>0)fb+='<button class="fbtn'+(filterSrc==='suggestions'?' active':'')+'" data-src="suggestions">Suggestions ('+sugCount+')</button>';
+    if(relCount>0)fb+='<button class="fbtn'+(filterSrc==='related'?' active':'')+'" data-src="related">Related ('+relCount+')</button>';
+    if(gscOnlyCount>0)fb+='<button class="fbtn'+(filterSrc==='gsc'?' active':'')+'" data-src="gsc">GSC only ('+gscOnlyCount+')</button>';
     fb+='</div>';
   }
+  // Build visible columns
+  var visCols=[{key:'keyword',label:'Keyword',cls:'col-kw'}];
+  if(columns.trend.on)visCols.push({key:'trend',label:'Trend',cls:'col-trend'});
+  if(columns.vol.on)visCols.push({key:'vol',label:'Volume',cls:'col-vol'});
+  if(columns.clicks.on)visCols.push({key:'clicks',label:'Clicks',cls:'col-vol'});
+  if(columns.impressions.on)visCols.push({key:'impressions',label:'Impr.',cls:'col-vol'});
+  if(columns.position.on)visCols.push({key:'position',label:'Pos.',cls:'col-cpc'});
+  if(columns.cpc.on)visCols.push({key:'cpc',label:'CPC',cls:'col-cpc'});
+  if(columns.comp.on)visCols.push({key:'comp',label:'Comp',cls:'col-comp'});
+  if(columns.kd.on)visCols.push({key:'kd',label:'KD',cls:'col-kd'});
   var h=fb+'<table class="kw-tbl"><thead><tr><th class="col-sel"><input type="checkbox" id="selAll" title="Select all"></th>';
-  var cols=[{key:'keyword',label:'Keyword',cls:'col-kw'},{key:'trend',label:'Trend',cls:'col-trend'},{key:'vol',label:'Volume',cls:'col-vol'},{key:'cpc',label:'CPC',cls:'col-cpc h-cpc'},{key:'comp',label:'Comp',cls:'col-comp h-comp'},{key:'kd',label:'KD',cls:'col-kd'}];
-  cols.forEach(function(c){
+  visCols.forEach(function(c){
     var sorted=sortCol===c.key;var arrow=sorted?(sortDir==='asc'?'↑':'↓'):'↕';
-    var sc=c.key==='trend'?'':' data-sort="'+c.key+'"';
+    var sc=(c.key==='trend'||c.key==='keyword'&&false)?'':' data-sort="'+c.key+'"';
+    if(c.key==='keyword')sc=' data-sort="keyword"';
+    if(c.key==='trend')sc='';
     h+='<th class="'+c.cls+(sorted?' sorted':'')+'"'+sc+'>'+c.label+(c.key!=='trend'?' <span class="sort-arrow">'+arrow+'</span>':'')+'</th>';
   });
   h+='</tr></thead><tbody>';
-  items.forEach(function(item,idx){
+  items.forEach(function(item){
     var volPct=maxVol>0?Math.round(item.vol/maxVol*100):0;
     var compCls=item.comp>0.66?'err':item.comp>0.33?'warn':'ok';
     var kdCls=item.kd>=70?'err':item.kd>=40?'warn':'ok';
-    var relTag=item.src==='related'?' <span class="rel-tag ext" style="font-size:8px;padding:1px 4px">related</span>':'';
+    var relTag=item.src==='related'?' <span class="rel-tag ext" style="font-size:8px;padding:1px 4px">related</span>':item.src==='gsc'?' <span class="rel-tag dofollow" style="font-size:8px;padding:1px 4px">GSC</span>':'';
     var chk=selectedKws.has(item.keyword)?' checked':'';
-    h+='<tr>';
-    h+='<td class="col-sel"><input type="checkbox" data-kw="'+esc(item.keyword)+'"'+chk+'></td>';
+    h+='<tr><td class="col-sel"><input type="checkbox" data-kw="'+esc(item.keyword)+'"'+chk+'></td>';
     h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://'+currentGoogleDomain+'/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a>'+relTag+'</td>';
-    h+='<td class="col-trend">'+buildSparkline(item.monthly)+'</td>';
-    h+='<td class="col-vol">'+item.vol.toLocaleString()+'<div class="kw-vol-bar"><div class="kw-vol-fill" style="width:'+volPct+'%"></div></div></td>';
-    h+='<td class="col-cpc">$'+item.cpc.toFixed(2)+'</td>';
-    h+='<td class="col-comp"><span class="badge '+compCls+'">'+(item.comp*100).toFixed(0)+'%</span></td>';
-    h+='<td class="col-kd"><span class="badge '+kdCls+'">'+item.kd+'</span></td>';
+    if(columns.trend.on)h+='<td class="col-trend">'+buildSparkline(item.monthly)+'</td>';
+    if(columns.vol.on)h+='<td class="col-vol">'+item.vol.toLocaleString()+'<div class="kw-vol-bar"><div class="kw-vol-fill" style="width:'+volPct+'%"></div></div></td>';
+    if(columns.clicks.on)h+='<td class="col-vol" style="color:'+(item.clicks>0?'var(--ok)':'var(--muted)')+';font-weight:'+(item.clicks>0?'700':'400')+'">'+item.clicks+'</td>';
+    if(columns.impressions.on)h+='<td class="col-vol">'+item.impressions.toLocaleString()+'</td>';
+    if(columns.position.on)h+='<td class="col-cpc">'+(item.position>0?item.position.toFixed(1):'—')+'</td>';
+    if(columns.cpc.on)h+='<td class="col-cpc">$'+item.cpc.toFixed(2)+'</td>';
+    if(columns.comp.on)h+='<td class="col-comp"><span class="badge '+compCls+'">'+(item.comp*100).toFixed(0)+'%</span></td>';
+    if(columns.kd.on)h+='<td class="col-kd"><span class="badge '+kdCls+'">'+item.kd+'</span></td>';
     h+='</tr>';
   });
   h+='</tbody></table>';
   document.getElementById('kwResults').innerHTML=items.length?h:'<p style="color:var(--muted);padding:12px">No keywords match your filter.</p>';
+  // Event handlers
   document.querySelectorAll('.kw-tbl th[data-sort]').forEach(function(th){
     th.addEventListener('click',function(){var k=th.dataset.sort;if(sortCol===k)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=k;sortDir=k==='keyword'?'asc':'desc'}renderTable()});
   });
   document.querySelectorAll('.fbtn[data-src]').forEach(function(b){
     b.addEventListener('click',function(){filterSrc=b.dataset.src;renderTable()});
   });
-  // Checkbox handlers
   document.querySelectorAll('.kw-tbl input[data-kw]').forEach(function(cb){
     cb.addEventListener('change',function(){if(this.checked)selectedKws.add(this.dataset.kw);else selectedKws.delete(this.dataset.kw);updateMapBtn()});
   });
   var sa=document.getElementById('selAll');
-  if(sa)sa.addEventListener('change',function(){var cbs=document.querySelectorAll('.kw-tbl input[data-kw]');cbs.forEach(function(cb){cb.checked=sa.checked;if(sa.checked)selectedKws.add(cb.dataset.kw);else selectedKws.delete(cb.dataset.kw)});updateMapBtn()});
+  if(sa)sa.addEventListener('change',function(){document.querySelectorAll('.kw-tbl input[data-kw]').forEach(function(cb){cb.checked=sa.checked;if(sa.checked)selectedKws.add(cb.dataset.kw);else selectedKws.delete(cb.dataset.kw)});updateMapBtn()});
 }
-var selectedKws=new Set(),mainKw='';
 function updateMapBtn(){document.getElementById('btnMap').disabled=selectedKws.size<1}
 
+// ── CSV Export ──
 document.getElementById('btnCsv').addEventListener('click',function(){
-  var csv='Keyword,Volume,CPC,Competition,Difficulty,Source\n';
-  allKws.forEach(function(i){csv+='"'+(i.keyword||'').replace(/"/g,'""')+'",'+i.vol+','+i.cpc.toFixed(2)+','+i.comp.toFixed(3)+','+i.kd+','+(i.src||'suggestions')+'\n'});
+  var cols=['Keyword','Volume'];
+  if(columns.clicks.on||gscIsConnected())cols.push('Clicks','Impressions','Position');
+  cols.push('CPC','Competition','Difficulty','Source');
+  var csv=cols.join(',')+'\n';
+  allKws.forEach(function(i){
+    var row=['"'+(i.keyword||'').replace(/"/g,'""')+'"',i.vol];
+    if(columns.clicks.on||gscIsConnected())row.push(i.clicks,i.impressions,i.position?i.position.toFixed(1):'');
+    row.push(i.cpc.toFixed(2),i.comp.toFixed(3),i.kd,i.src||'suggestions');
+    csv+=row.join(',')+'\n';
+  });
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='keywords.csv';a.click();
 });
 
-// ── Keyword Mapping Table ──
+// ── Keyword Mapping ──
 document.getElementById('btnMap').addEventListener('click',function(){
   if(selectedKws.size<1)return;
   var sel=allKws.filter(function(i){return selectedKws.has(i.keyword)});
@@ -498,101 +577,103 @@ document.getElementById('btnMap').addEventListener('click',function(){
 });
 
 function renderMapTable(sel){
-  var h='<table class="map-tbl"><thead><tr><th>Type</th><th>Keyword</th><th>Volume</th><th>KD</th></tr></thead><tbody>';
-  // Main keyword first
+  // Build columns based on visibility
+  var mapCols=[{key:'type',label:'Type'},{key:'keyword',label:'Keyword'},{key:'vol',label:'Volume'}];
+  if(columns.clicks.on)mapCols.push({key:'clicks',label:'Clicks'});
+  if(columns.position.on)mapCols.push({key:'position',label:'Pos.'});
+  if(columns.impressions.on)mapCols.push({key:'impressions',label:'Impr.'});
+  if(columns.kd.on)mapCols.push({key:'kd',label:'KD'});
+  var h='<table class="map-tbl"><thead><tr>';
+  mapCols.forEach(function(c){h+='<th>'+c.label+'</th>'});
+  h+='</tr></thead><tbody>';
   var main=sel.find(function(i){return i.keyword===mainKw});
   var rest=sel.filter(function(i){return i.keyword!==mainKw});
-  if(main){
-    var kdCls=main.kd>=70?'err':main.kd>=40?'warn':'ok';
-    h+='<tr class="main-kw" data-kw="'+esc(main.keyword)+'"><td><span class="kw-type main">Main</span></td><td>'+esc(main.keyword)+'</td><td style="font-family:var(--mono)">'+main.vol.toLocaleString()+'</td><td><span class="badge '+kdCls+'">'+main.kd+'</span></td></tr>';
-  }
-  rest.forEach(function(item){
+  function mapRow(item,isMain){
     var kdCls=item.kd>=70?'err':item.kd>=40?'warn':'ok';
-    h+='<tr data-kw="'+esc(item.keyword)+'"><td><span class="kw-type sec">Secondary</span></td><td>'+esc(item.keyword)+'</td><td style="font-family:var(--mono)">'+item.vol.toLocaleString()+'</td><td><span class="badge '+kdCls+'">'+item.kd+'</span></td></tr>';
-  });
+    h+='<tr class="'+(isMain?'main-kw':'')+'" data-kw="'+esc(item.keyword)+'">';
+    mapCols.forEach(function(c){
+      if(c.key==='type')h+='<td><span class="kw-type '+(isMain?'main':'sec')+'">'+(isMain?'Main':'Secondary')+'</span></td>';
+      else if(c.key==='keyword')h+='<td>'+esc(item.keyword)+'</td>';
+      else if(c.key==='vol')h+='<td style="font-family:var(--mono)">'+item.vol.toLocaleString()+'</td>';
+      else if(c.key==='clicks')h+='<td style="font-family:var(--mono);color:'+(item.clicks>0?'var(--ok)':'var(--muted)')+'">'+item.clicks+'</td>';
+      else if(c.key==='position')h+='<td style="font-family:var(--mono)">'+(item.position>0?item.position.toFixed(1):'—')+'</td>';
+      else if(c.key==='impressions')h+='<td style="font-family:var(--mono)">'+item.impressions.toLocaleString()+'</td>';
+      else if(c.key==='kd')h+='<td><span class="badge '+kdCls+'">'+item.kd+'</span></td>';
+    });
+    h+='</tr>';
+  }
+  if(main)mapRow(main,true);
+  rest.forEach(function(item){mapRow(item,false)});
   h+='</tbody></table>';
   document.getElementById('mapTable').innerHTML=h;
-  // Click to toggle main
   document.querySelectorAll('.map-tbl tr[data-kw]').forEach(function(tr){
     tr.addEventListener('click',function(){mainKw=tr.dataset.kw;renderMapTable(sel)});
   });
 }
 
 function roundedRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath()}
-
 function mapToCanvas(cb){
-  var el=document.getElementById('mapTable');
-  var isDark=document.documentElement.getAttribute('data-theme')==='dark';
-  var bgColor=isDark?'#1c1914':'#faf8f5';
+  var el=document.getElementById('mapTable');var isDark=document.documentElement.getAttribute('data-theme')==='dark';var bgColor=isDark?'#1c1914':'#faf8f5';
   html2canvas(el,{backgroundColor:bgColor,scale:2}).then(function(c){
-    var hasSh=document.getElementById('mapShadow').checked;
-    var rad=14,pad=hasSh?48:0;
-    var nc=document.createElement('canvas');nc.width=c.width+pad*2;nc.height=c.height+pad*2;
-    var ctx=nc.getContext('2d');
+    var hasSh=document.getElementById('mapShadow').checked;var rad=14,pad=hasSh?48:0;
+    var nc=document.createElement('canvas');nc.width=c.width+pad*2;nc.height=c.height+pad*2;var ctx=nc.getContext('2d');
     if(hasSh){ctx.shadowColor='rgba(0,0,0,.25)';ctx.shadowBlur=28;ctx.shadowOffsetY=6;roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.fillStyle=bgColor;ctx.fill();ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0}
-    ctx.save();roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.clip();ctx.drawImage(c,pad,pad);ctx.restore();
-    cb(nc);
+    ctx.save();roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.clip();ctx.drawImage(c,pad,pad);ctx.restore();cb(nc);
   }).catch(function(e){alert('Export error: '+e.message)});
 }
 document.getElementById('btnMapSave').addEventListener('click',function(){mapToCanvas(function(c){var a=document.createElement('a');a.download='keyword-mapping.png';a.href=c.toDataURL('image/png');a.click()})});
 document.getElementById('btnMapCopy').addEventListener('click',function(){var b=this;b.textContent='⏳…';mapToCanvas(function(c){c.toBlob(function(bl){navigator.clipboard.write([new ClipboardItem({'image/png':bl})]).then(function(){b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📷 Copy Image'},1500)}).catch(function(){b.textContent='📷 Copy Image';alert('Could not copy. Try Save.')})})})});
 document.getElementById('btnMapText').addEventListener('click',function(){
-  var sel=allKws.filter(function(i){return selectedKws.has(i.keyword)});
-  sel.sort(function(a,b){return b.vol-a.vol});
-  var txt='Keyword Mapping\n\nMain Keyword: '+mainKw+'\n\n';
-  txt+='Keyword\tVolume\tKD\tType\n';
-  sel.forEach(function(i){txt+=i.keyword+'\t'+i.vol+'\t'+i.kd+'\t'+(i.keyword===mainKw?'Main':'Secondary')+'\n'});
+  var sel=allKws.filter(function(i){return selectedKws.has(i.keyword)});sel.sort(function(a,b){return b.vol-a.vol});
+  var txt='Keyword Mapping\n\nMain Keyword: '+mainKw+'\n\nKeyword\tVolume';
+  if(columns.clicks.on)txt+='\tClicks';if(columns.position.on)txt+='\tPosition';if(columns.kd.on)txt+='\tKD';
+  txt+='\tType\n';
+  sel.forEach(function(i){
+    txt+=i.keyword+'\t'+i.vol;
+    if(columns.clicks.on)txt+='\t'+i.clicks;if(columns.position.on)txt+='\t'+(i.position>0?i.position.toFixed(1):'—');if(columns.kd.on)txt+='\t'+i.kd;
+    txt+='\t'+(i.keyword===mainKw?'Main':'Secondary')+'\n';
+  });
   navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnMapText');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Text'},1500)});
 });
 
-// ── GSC Integration (Implicit OAuth Flow) ──
+// ── GSC Integration (Implicit OAuth) ──
 var GSC_CLIENT_ID='128725149604-7fjs4kr00b43bhq9jnsr0slr1fcd1fl9.apps.googleusercontent.com';
 var GSC_SCOPES='https://www.googleapis.com/auth/webmasters.readonly';
 var gscToken=localStorage.getItem('lumina_gsc_token')||'';
 var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
 
 function gscIsConnected(){return !!gscToken&&Date.now()<gscExpiry}
-
 function gscUpdateUI(){
   var connected=gscIsConnected();
   document.getElementById('gscConnect').style.display=connected?'none':'block';
   document.getElementById('gscMain').style.display=connected?'block':'none';
-  document.getElementById('gscStatus').textContent=connected?'✓ Connected':'';
+  document.getElementById('gscStatus').textContent='';
   if(connected)gscLoadSites();
+  renderColToggles();
 }
 
-// Check for OAuth token in URL hash on page load (implicit flow returns #access_token=...)
 (function(){
   var hash=window.location.hash;
   if(hash&&hash.indexOf('access_token')!==-1){
     var params=new URLSearchParams(hash.substring(1));
-    var token=params.get('access_token');
-    var expires=parseInt(params.get('expires_in')||'3600');
-    if(token){
-      gscToken=token;gscExpiry=Date.now()+expires*1000;
-      localStorage.setItem('lumina_gsc_token',gscToken);
-      localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));
-      window.history.replaceState({},'',window.location.pathname+window.location.search);
-    }
+    var token=params.get('access_token');var expires=parseInt(params.get('expires_in')||'3600');
+    if(token){gscToken=token;gscExpiry=Date.now()+expires*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));window.history.replaceState({},'',window.location.pathname+window.location.search)}
   }
   gscUpdateUI();
 })();
 
 document.getElementById('btnGscConnect').addEventListener('click',function(){
   var redirect=window.location.origin+window.location.pathname;
-  var authUrl='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
-  window.location.href=authUrl;
+  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
 });
-
 document.getElementById('btnGscDisconnect').addEventListener('click',function(){
-  gscToken='';gscExpiry=0;
-  localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');
-  document.getElementById('gscResults').style.display='none';
+  gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');
+  columns.clicks.on=false;columns.position.on=false;columns.impressions.on=false;
   gscUpdateUI();
 });
 
-async function gscFetch(url,body){
-  if(!gscIsConnected()){document.getElementById('gscConnect').style.display='block';document.getElementById('gscMain').style.display='none';document.getElementById('gscStatus').textContent='Session expired — please reconnect';return null}
+async function gscApiFetch(url,body){
+  if(!gscIsConnected())return null;
   var opts={headers:{'Authorization':'Bearer '+gscToken,'Content-Type':'application/json'}};
   if(body){opts.method='POST';opts.body=JSON.stringify(body)}
   var r=await fetch(url,opts);
@@ -601,41 +682,31 @@ async function gscFetch(url,body){
 }
 
 async function gscLoadSites(){
-  var d=await gscFetch('https://www.googleapis.com/webmasters/v3/sites');
+  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites');
   if(!d||!d.siteEntry)return;
   var sel=document.getElementById('gscSite');sel.innerHTML='';
   d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
 }
 
-document.getElementById('btnGscLoad').addEventListener('click',async function(){
-  var site=document.getElementById('gscSite').value;if(!site)return;
+async function fetchGscQueries(){
+  var site=document.getElementById('gscSite').value;if(!site)return null;
   var days=parseInt(document.getElementById('gscRange').value);
   var end=new Date();end.setDate(end.getDate()-1);var start=new Date(end);start.setDate(start.getDate()-days);
   var fmt=function(d){return d.toISOString().split('T')[0]};
-  this.disabled=true;this.textContent='Loading…';
-  document.getElementById('gscLoading').style.display='block';document.getElementById('gscResults').style.display='none';
-  try{
-    var d=await gscFetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(site)+'/searchAnalytics/query',{
-      startDate:fmt(start),endDate:fmt(end),dimensions:['query'],rowLimit:50,type:'web'
-    });
-    this.disabled=false;this.textContent='Load Data';document.getElementById('gscLoading').style.display='none';
-    if(!d||!d.rows||!d.rows.length){document.getElementById('gscResults').innerHTML='<p style="color:var(--muted);font-size:12px;padding:12px;text-align:center">No data for this period.</p>';document.getElementById('gscResults').style.display='block';return}
-    // Metrics
-    var tc=0,ti=0;d.rows.forEach(function(r){tc+=r.clicks;ti+=r.impressions});
-    var avgCtr=ti>0?(tc/ti*100):0;var avgPos=0;d.rows.forEach(function(r){avgPos+=r.position});avgPos=d.rows.length?avgPos/d.rows.length:0;
-    document.getElementById('gscMetrics').innerHTML='<div class="metric"><div class="mh">Clicks</div><p style="color:var(--ok)">'+tc.toLocaleString()+'</p></div><div class="metric"><div class="mh">Impressions</div><p>'+ti.toLocaleString()+'</p></div><div class="metric"><div class="mh">Avg. CTR</div><p>'+avgCtr.toFixed(1)+'%</p></div><div class="metric"><div class="mh">Avg. Position</div><p>'+avgPos.toFixed(1)+'</p></div>';
-    // Table
-    var h='<table class="gsc-tbl"><thead><tr><th>Query</th><th>Clicks</th><th>Impr.</th><th>CTR</th><th>Position</th></tr></thead><tbody>';
-    d.rows.forEach(function(r){
-      h+='<tr><td style="font-weight:600;color:var(--text);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font)">'+esc(r.keys[0])+'</td>';
-      h+='<td style="color:var(--ok);font-weight:700">'+r.clicks+'</td><td>'+r.impressions.toLocaleString()+'</td>';
-      h+='<td>'+(r.ctr*100).toFixed(1)+'%</td><td>'+r.position.toFixed(1)+'</td></tr>';
-    });
-    h+='</tbody></table>';
-    document.getElementById('gscTable').innerHTML=h;
-    document.getElementById('gscResults').style.display='block';
-  }catch(e){this.disabled=false;this.textContent='Load Data';document.getElementById('gscLoading').style.display='none';alert('GSC error: '+e.message)}
-});
+  var body={startDate:fmt(start),endDate:fmt(end),dimensions:['query'],rowLimit:500,type:'web'};
+  var urlFilter=document.getElementById('gscUrl').value.trim();
+  if(urlFilter){body.dimensionFilterGroups=[{filters:[{dimension:'page',operator:'contains',expression:urlFilter}]}]}
+  document.getElementById('gscStatus').textContent='Loading GSC data…';
+  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(site)+'/searchAnalytics/query',body);
+  document.getElementById('gscStatus').textContent=d&&d.rows?d.rows.length+' GSC queries loaded':'';
+  return d;
+}
+
+// Init column toggles
+renderColToggles();
+
+var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
+
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
