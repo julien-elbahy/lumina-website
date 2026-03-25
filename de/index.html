@@ -104,7 +104,7 @@ footer{border-color:rgba(160,135,105,.12)}
 [data-theme="light"] .showcase-bar{background:rgba(245,242,238,.6);border-color:rgba(140,120,90,.08)}
 [data-theme="light"] .showcase-bar .tab-label{color:#8a7e72}.showcase-bar .tab-label strong{color:#c87a30}
 /* ── Nav ── */
-.tn{transition:background .3s ease,border-color .3s ease;position:relative;z-index:400;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px;color:var(--text)}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
+.tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px;color:var(--text)}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
 /* ── Tools Dropdown ── */
 .tools-dd{position:relative}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
 /* ── Burger + Mobile Menu ── */
@@ -277,7 +277,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <body>
 <nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">SEO Analysis</div>
-<a href="/de/tools/serp-preview/">SERP Preview</a>
+<a href="/de/tools/serp-preview/">Snippet Preview</a>
 <a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/de/tools/schema-validator/">Schema Validator</a>
 <a href="/de/tools/heading-checker/">Heading Checker</a>
@@ -312,7 +312,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/de/kontakt.html">Kontakt</a>
 <div class="mm-cat" onclick="var w=this.classList.contains('open');document.querySelectorAll('.mm-cat').forEach(function(c){c.classList.remove('open')});if(!w)this.classList.add('open')">SEO Analysis<span class="mm-arrow">+</span></div>
 <div class="mm-links">
-<a href="/de/tools/serp-preview/">SERP Preview</a>
+<a href="/de/tools/serp-preview/">Snippet Preview</a>
 <a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/de/tools/schema-validator/">Schema Validator</a>
 <a href="/de/tools/heading-checker/">Heading Checker</a>
@@ -418,7 +418,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
 <section id="compare" style="background:var(--dark2);" aria-labelledby="cmp-t"><div class="container"><div class="section-label fade-in">Lumina im Vergleich</div><h2 class="section-title fade-in" id="cmp-t">Mehr Features. Null Kosten.</h2><p class="section-desc fade-in">Lumina vereint Features, die normalerweise mehrere kostenpflichtige Tools erfordern – in einer kostenlosen Extension.</p><div class="compare-wrap fade-in"><table class="compare-table"><thead><tr><th>Feature</th><th class="col-lumina">Lumina</th><th>Andere SEO Extensions</th></tr></thead><tbody>
 <tr><td>On-page SEO Audit</td><td class="check">✓</td><td class="partial">teilweise</td></tr>
-<tr><td>Live SERP Preview</td><td class="check">✓</td><td class="cross">—</td></tr>
+<tr><td>Live Snippet Preview</td><td class="check">✓</td><td class="cross">—</td></tr>
 <tr><td>Schema Deep Validation</td><td class="check">✓</td><td class="cross">selten</td></tr>
 <tr><td>AI-Crawler-Check (robots.txt)</td><td class="check">✓</td><td class="cross">selten</td></tr>
 <tr><td>llms.txt Checker</td><td class="check">✓</td><td class="cross">—</td></tr>
@@ -463,7 +463,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
-<div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/de/tools/serp-preview/">SERP Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/de/tools/serp-checker/">SERP Checker</a><a href="/de/tools/keyword-research/">Keyword Research</a><a href="/de/tools/serp-overlap/">SERP Overlap</a></div>
+<div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/de/tools/serp-preview/">Snippet Preview</a><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/de/tools/schema-validator/">Schema Validator</a><a href="/de/tools/heading-checker/">Heading Checker</a><a href="/de/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/de/tools/serp-checker/">SERP Checker</a><a href="/de/tools/keyword-research/">Keyword Research</a><a href="/de/tools/serp-overlap/">SERP Overlap</a></div>
 <div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/de/tools/tech-stack/">Tech Stack Detector</a><a href="/de/tools/security-headers/">Security Headers</a><a href="/de/tools/pagespeed/">PageSpeed Insights</a><a href="/de/tools/redirect-checker/">Redirect Checker</a><a href="/de/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/de/tools/word-counter/">Word Counter</a><a href="/de/tools/image-seo-checker/">Image SEO Checker</a><a href="/de/tools/semantic-checker/">Semantic HTML</a><a href="/de/tools/js-nojs/">JS vs No-JS</a><a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a></div>

@@ -50,7 +50,7 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 [data-theme="light"] .btn-cws{color:#fff!important}
 .tf{padding:32px 24px;border-top:1px solid var(--border,rgba(255,255,255,.06));font-size:12px;color:var(--gray,#888)}.tf a{color:var(--gray,#888);display:block;padding:2px 0}.tf a:hover{color:var(--accent,#d4843a)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--white,#f5f5f5);margin-bottom:8px}.tf p{line-height:1.6}@media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}}
 /* ── Nav ── */
-.tn{transition:background .3s ease,border-color .3s ease;position:relative;z-index:400;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px;color:var(--text)}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
+.tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:16px;color:var(--text)}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-left:4px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
 /* ── Tools Dropdown ── */
 .tools-dd{position:relative}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
 /* ── Burger + Mobile Menu ── */
@@ -161,7 +161,7 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 <body>
 <nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">SEO Analysis</div>
-<a href="/tools/serp-preview/">SERP Preview</a>
+<a href="/tools/serp-preview/">Snippet Preview</a>
 <a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/tools/schema-validator/">Schema Validator</a>
 <a href="/tools/heading-checker/">Heading Checker</a>
@@ -195,7 +195,7 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 <a href="/about.html">About</a>
 <a href="/support.html">Support</a>
 <div class="mm-cat">SEO Analysis</div>
-<a href="/tools/serp-preview/">SERP Preview</a>
+<a href="/tools/serp-preview/">Snippet Preview</a>
 <a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/tools/schema-validator/">Schema Validator</a>
 <a href="/tools/heading-checker/">Heading Checker</a>
@@ -264,7 +264,7 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
-<div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/tools/serp-preview/">SERP Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a></div>
+<div class="tf-col"><div class="tf-h">SEO Analysis</div><a href="/tools/serp-preview/">Snippet Preview</a><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/og-preview/">OG Preview</a><div class="tf-h" style="margin-top:12px">SERP &amp; Keywords</div><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a></div>
 <div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/link-analyzer/">Link Analyzer</a><div class="tf-h" style="margin-top:12px">Content &amp; GEO</div><a href="/tools/word-counter/">Word Counter</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/tools/ai-content-optimizer/">AI Content Optimizer</a></div>
