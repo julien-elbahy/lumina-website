@@ -63,6 +63,14 @@
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
+/* Side-by-side comparison table */
+.cmp-table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}.cmp-table th{padding:8px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border);text-align:left}.cmp-table th:first-child{text-align:center;width:32px}.cmp-table td{padding:7px 6px;border-bottom:1px solid var(--border);vertical-align:top;max-width:200px}.cmp-table td:first-child{text-align:center;font-weight:800;color:var(--muted);font-size:13px;vertical-align:middle}
+.cmp-table td.match-exact{background:var(--ok-bg)}.cmp-table td.match-other{background:var(--warn-bg)}.cmp-table td.match-none{background:transparent}
+.cmp-domain{font-weight:700;color:var(--text);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.cmp-path{font-family:var(--mono);font-size:10px;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmp-domain a{color:inherit;text-decoration:none}.cmp-domain a:hover{color:var(--accent)}
+.cmp-legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin:8px 0;flex-wrap:wrap}.cmp-legend-dot{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:4px}
+/* Score cards */
+.score-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.score-card{text-align:center;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card)}.score-card .sc-num{font-size:28px;font-weight:800;color:var(--accent)}.score-card .sc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:2px}.score-card .sc-desc{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
@@ -266,17 +274,10 @@
 <script>(function(){var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null}};var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Using your API key (unlimited)';else if(q.remaining!=null)el.textContent='Free queries: '+q.remaining+'/'+q.limit+' remaining today'}})();if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));if(window.luminaQuota)luminaQuota.createBar('serp-overlap',document.getElementById('quotaInfo')?.parentElement)</script>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Fetching results for both keywords…</p></div>
 <div id="res" style="display:none">
+<div id="scoreCards"></div>
+<div id="overlapRec"></div>
 <div id="vennDiagram"></div>
-<div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Overlap</div><p id="mOverlap">0</p></div><div class="metric"><div class="mh">Only KW1</div><p id="mOnly1">0</p></div><div class="metric"><div class="mh">Only KW2</div><p id="mOnly2">0</p></div><div class="metric"><div class="mh">Overlap %</div><p id="mPct">0%</p></div></div>
-<div id="cannibalScore"></div>
-<div id="overlapRecs"></div>
-<div class="domain-input"><label>Highlight domain:</label><input type="text" id="domainIn" placeholder="yourdomain.com"></div>
-<div class="sec-head">Overlapping Domains</div>
-<div id="overlapResults" class="list-scroll"></div>
-<div class="sec-head">Only in Keyword 1</div>
-<div id="only1Results" class="list-scroll" style="max-height:200px"></div>
-<div class="sec-head">Only in Keyword 2</div>
-<div id="only2Results" class="list-scroll" style="max-height:200px"></div>
+<div id="comparisonTable"></div>
 <div class="serp-toolbar"><button class="act-btn" id="btnCopy">📋 Copy Report</button><button class="act-btn" id="btnExportCsv">📥 Export CSV</button></div>
 <div class="cross-links" id="crossLinks"></div>
 </div>
@@ -336,12 +337,10 @@ var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString()
 
 var LANG_MAP={'2040':'de','2276':'de','2756':'de','2826':'en','2840':'en','2250':'fr','2380':'it','2724':'es','2528':'nl','2616':'pl','2392':'ja','2036':'en','2124':'en','2356':'en','2076':'pt'};
 var kw1=document.getElementById('kw1'),kw2=document.getElementById('kw2'),btn=document.getElementById('btnGo');
-var lastReport='',lastOverlap=[],lastOnly1=[],lastOnly2=[],lastK1='',lastK2='';
+var lastReport='',lastCsvData=null,lastK1='',lastK2='';
 
 btn.addEventListener('click',function(){go()});
 kw2.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
-document.getElementById('domainIn').addEventListener('input',function(){highlightDomain(this.value.trim())});
-function highlightDomain(domain){document.querySelectorAll('.serp-item').forEach(function(el){var t=el.querySelector('.serp-title');if(t&&domain&&t.textContent.toLowerCase().indexOf(domain.toLowerCase())>=0)el.classList.add('highlighted');else el.classList.remove('highlighted')})}
 
 function drawVenn(pct,n1,n2,nOverlap,k1Label,k2Label){
   var sep=pct>=60?60:pct>=30?80:110;
@@ -384,86 +383,105 @@ function go(){
     document.getElementById('loading').style.display='none';
 
     var items1=results[0]||[],items2=results[1]||[];
-    function getDomain(url){try{return new URL(url).hostname.replace('www.','')}catch(e){return url}}
+    function getDomain(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}}
+    function getPath(url,domain){try{var p=url.replace(/^https?:\/\/(www\.)?/,'').substring(domain.length);return p.length>35?p.substring(0,33)+'…':p}catch(e){return''}}
+
+    /* Build position-indexed arrays */
+    var r1=[],r2=[];
+    items1.forEach(function(i){r1.push({pos:i.rank_group,domain:getDomain(i.url),url:i.url,title:i.title})});
+    items2.forEach(function(i){r2.push({pos:i.rank_group,domain:getDomain(i.url),url:i.url,title:i.title})});
+
     var domains1={},domains2={};
-    items1.forEach(function(i){var d=getDomain(i.url);domains1[d]={title:i.title,url:i.url,rank:i.rank_group}});
-    items2.forEach(function(i){var d=getDomain(i.url);domains2[d]={title:i.title,url:i.url,rank:i.rank_group}});
+    r1.forEach(function(r){if(!domains1[r.domain])domains1[r.domain]=r});
+    r2.forEach(function(r){if(!domains2[r.domain])domains2[r.domain]=r});
 
-    var overlap=[],only1=[],only2=[];
-    for(var d in domains1){
-      if(domains2[d]){var sameUrl=domains1[d].url===domains2[d].url;overlap.push({domain:d,rank1:domains1[d].rank,rank2:domains2[d].rank,url1:domains1[d].url,url2:domains2[d].url,sameUrl:sameUrl})}
-      else only1.push({domain:d,rank:domains1[d].rank,url:domains1[d].url})}
-    for(var d in domains2){if(!domains1[d])only2.push({domain:d,rank:domains2[d].rank,url:domains2[d].url})}
-    lastOverlap=overlap;lastOnly1=only1;lastOnly2=only2;
+    var set1=Object.keys(domains1),set2=Object.keys(domains2);
+    var shared=set1.filter(function(d){return domains2[d]});
+    var allUnique=set1.concat(set2.filter(function(d){return !domains1[d]}));
 
-    var minLen=Math.min(Object.keys(domains1).length,Object.keys(domains2).length);
-    var pct=minLen>0?Math.round(overlap.length/minLen*100):0;
+    /* Overlap Score */
+    var overlapScore=allUnique.length>0?Math.round(shared.length/allUnique.length*100):0;
+
+    /* Relevance Score (weighted by position) */
+    var maxWeight=0,weightedOverlap=0;
+    for(var i=1;i<=10;i++)maxWeight+=(11-i);
+    shared.forEach(function(d){
+      var p1=domains1[d]?domains1[d].pos:11;
+      var p2=domains2[d]?domains2[d].pos:11;
+      weightedOverlap+=(11-Math.min((p1+p2)/2,10));
+    });
+    var relevanceScore=maxWeight>0?Math.round(weightedOverlap/maxWeight*100):0;
+
+    /* Score Cards */
+    var scCol=overlapScore>=60?'var(--ok)':overlapScore>=30?'var(--warn)':'var(--err)';
+    var scHtml='<div class="score-cards"><div class="score-card"><div class="sc-num" style="color:'+scCol+'">'+overlapScore+'%</div><div class="sc-label">Overlap Score</div><div class="sc-desc">Domains ranking for both keywords</div></div>';
+    scHtml+='<div class="score-card"><div class="sc-num" style="color:var(--accent)">'+relevanceScore+'%</div><div class="sc-label">Relevance Score</div><div class="sc-desc">Weighted by position — top 3 count more</div></div></div>';
+    document.getElementById('scoreCards').innerHTML=scHtml;
+
+    /* Recommendation */
+    var rec,recCls;
+    if(overlapScore>=60){rec='✅ High overlap — one page can likely target both keywords.';recCls='ok'}
+    else if(overlapScore>=30){rec='⚠️ Moderate overlap — consider testing with one page first, split if needed.';recCls='warn'}
+    else{rec='❌ Low overlap — create separate pages for each keyword.';recCls='err'}
+    document.getElementById('overlapRec').innerHTML='<div style="padding:10px 14px;margin:10px 0;border-radius:10px;font-size:13px;font-weight:700;background:var(--'+recCls+'-bg);border:1px solid var(--'+recCls+'-border);color:var(--'+recCls+')">'+rec+'</div>';
 
     /* Venn diagram */
-    document.getElementById('vennDiagram').innerHTML=drawVenn(pct,only1.length,only2.length,overlap.length,k1,k2);
+    var only1Count=set1.length-shared.length,only2Count=set2.length-shared.length;
+    document.getElementById('vennDiagram').innerHTML=drawVenn(overlapScore,only1Count,only2Count,shared.length,k1,k2);
 
-    document.getElementById('mOverlap').textContent=overlap.length;
-    document.getElementById('mOnly1').textContent=only1.length;
-    document.getElementById('mOnly2').textContent=only2.length;
-    document.getElementById('mPct').textContent=pct+'%';
-    document.getElementById('mPct').style.color=pct>=60?'var(--err)':pct>=30?'var(--warn)':'var(--ok)';
-
-    /* Cannibalization score */
-    var csLevel=pct>=60?'high':pct>=30?'moderate':'low';
-    var csColor=pct>=60?'var(--err)':pct>=30?'var(--warn)':'var(--ok)';
-    var csLabel=pct>=60?'High Cannibalization Risk':pct>=30?'Moderate Similarity':'Distinct Intent';
-    var csHtml='<div class="cannibal-score '+csLevel+'"><div class="cs-num" style="color:'+csColor+'">'+pct+'%</div><h3>'+csLabel+'</h3><p>Based on domain overlap in top 10 results</p></div>';
-    document.getElementById('cannibalScore').innerHTML=csHtml;
-
-    /* Recommendations */
-    var recs='<div class="overlap-recs"><h4>Recommendation</h4>';
-    if(pct>=60){
-      recs+='<div class="rec-item"><span class="rec-icon">🔴</span><span class="rec-text"><strong>Consider merging these pages.</strong> Google shows very similar results — having two separate pages likely splits your ranking signals.</span></div>';
-      recs+='<div class="rec-item"><span class="rec-icon">🎯</span><span class="rec-text">Pick one primary keyword and redirect the weaker page (301) to the stronger one.</span></div>';
-      var sameUrlCount=overlap.filter(function(o){return o.sameUrl}).length;
-      if(sameUrlCount>0)recs+='<div class="rec-item"><span class="rec-icon">✅</span><span class="rec-text">'+sameUrlCount+' domain'+(sameUrlCount>1?'s':'')+' rank with the same URL for both keywords — these are well-optimized.</span></div>';
-    } else if(pct>=30){
-      recs+='<div class="rec-item"><span class="rec-icon">🟡</span><span class="rec-text"><strong>Related topics, keep separate pages</strong> but add strong internal links between them.</span></div>';
-      recs+='<div class="rec-item"><span class="rec-icon">🔗</span><span class="rec-text">Ensure each page clearly targets its own keyword with distinct H1 and content angle.</span></div>';
-    } else {
-      recs+='<div class="rec-item"><span class="rec-icon">🟢</span><span class="rec-text"><strong>Different search intents confirmed.</strong> Keep these as separate, focused pages.</span></div>';
-      recs+='<div class="rec-item"><span class="rec-icon">📝</span><span class="rec-text">Each keyword deserves its own dedicated content strategy.</span></div>';
+    /* Side-by-side comparison table */
+    var tbl='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px">Top 10 Comparison</div>';
+    tbl+='<div style="overflow-x:auto"><table class="cmp-table"><thead><tr><th>#</th><th>'+esc(k1)+'</th><th>'+esc(k2)+'</th></tr></thead><tbody>';
+    for(var pos=1;pos<=10;pos++){
+      var d1=r1.find(function(r){return r.pos===pos});
+      var d2=r2.find(function(r){return r.pos===pos});
+      var isMatch=d1&&d2&&d1.domain===d2.domain;
+      var d1InOther=d1&&domains2[d1.domain];
+      var d2InOther=d2&&domains1[d2.domain];
+      tbl+='<tr><td>'+pos+'</td>';
+      if(d1){
+        var cls1=isMatch?'match-exact':d1InOther?'match-other':'match-none';
+        tbl+='<td class="'+cls1+'"><span class="cmp-domain"><a href="'+esc(d1.url)+'" target="_blank" rel="noopener" title="'+esc(d1.url)+'">'+esc(d1.domain)+'</a></span><span class="cmp-path">'+esc(getPath(d1.url,d1.domain))+'</span></td>';
+      } else tbl+='<td style="color:var(--muted)">—</td>';
+      if(d2){
+        var cls2=isMatch?'match-exact':d2InOther?'match-other':'match-none';
+        tbl+='<td class="'+cls2+'"><span class="cmp-domain"><a href="'+esc(d2.url)+'" target="_blank" rel="noopener" title="'+esc(d2.url)+'">'+esc(d2.domain)+'</a></span><span class="cmp-path">'+esc(getPath(d2.url,d2.domain))+'</span></td>';
+      } else tbl+='<td style="color:var(--muted)">—</td>';
+      tbl+='</tr>';
     }
-    recs+='</div>';
-    document.getElementById('overlapRecs').innerHTML=recs;
-
-    /* Overlap list with rank comparison */
-    var html='';
-    overlap.sort(function(a,b){return a.rank1-b.rank1});
-    overlap.forEach(function(o){
-      var diff=o.rank1-o.rank2;var arrow=diff===0?'<span class="rank-arrow same">=</span>':diff<0?'<span class="rank-arrow up">↑'+(Math.abs(diff))+'</span>':'<span class="rank-arrow down">↓'+diff+'</span>';
-      var urlBdg=o.sameUrl?'<span class="url-badge same">Same URL</span>':'<span class="url-badge diff">Different URLs</span>';
-      html+='<div class="serp-item"><div class="rank-compare"><span class="rank-num">#'+o.rank1+'</span><span style="color:var(--muted)">/</span><span class="rank-num">#'+o.rank2+'</span>'+arrow+'</div><div class="serp-body"><div class="serp-title">'+esc(o.domain)+urlBdg+'</div><div class="serp-url">KW1: '+esc(o.url1)+'</div>'+(o.sameUrl?'':'<div class="serp-url">KW2: '+esc(o.url2)+'</div>')+'</div></div>';
-    });
-    document.getElementById('overlapResults').innerHTML=html||'<p style="color:var(--muted);padding:12px">No overlapping domains.</p>';
-
-    document.getElementById('only1Results').innerHTML=only1.map(function(o){return '<div class="kw-item"><span class="kw-word">#'+o.rank+' '+esc(o.domain)+'</span><span class="kw-vol" style="font-size:11px">'+esc(o.url.substring(0,40))+'</span></div>'}).join('')||'<p style="color:var(--muted);padding:8px">—</p>';
-    document.getElementById('only2Results').innerHTML=only2.map(function(o){return '<div class="kw-item"><span class="kw-word">#'+o.rank+' '+esc(o.domain)+'</span><span class="kw-vol" style="font-size:11px">'+esc(o.url.substring(0,40))+'</span></div>'}).join('')||'<p style="color:var(--muted);padding:8px">—</p>';
+    tbl+='</tbody></table></div>';
+    tbl+='<div class="cmp-legend"><span><span class="cmp-legend-dot" style="background:var(--ok-bg);border:1px solid var(--ok-border)"></span> Same position</span>';
+    tbl+='<span><span class="cmp-legend-dot" style="background:var(--warn-bg);border:1px solid var(--warn-border)"></span> Also ranks for other keyword</span></div>';
+    document.getElementById('comparisonTable').innerHTML=tbl;
 
     /* Cross-tool links */
     document.getElementById('crossLinks').innerHTML='<a href="/tools/keyword-research/?kw='+encodeURIComponent(k1)+'">🔑 Research "'+esc(k1)+'"</a><a href="/tools/keyword-research/?kw='+encodeURIComponent(k2)+'">🔑 Research "'+esc(k2)+'"</a><a href="/tools/serp-checker/?kw='+encodeURIComponent(k1)+'">📊 SERP "'+esc(k1)+'"</a>';
 
     /* Report */
-    lastReport='SERP Overlap: "'+k1+'" vs "'+k2+'"\nOverlap: '+overlap.length+' ('+pct+'%)\nCannibalization: '+csLabel+'\n\nOverlapping:\n';
-    overlap.forEach(function(o){lastReport+='  '+o.domain+' (#'+o.rank1+' / #'+o.rank2+')'+(o.sameUrl?' [same URL]':' [diff URLs]')+'\n'});
-    lastReport+='\nOnly "'+k1+'":\n';only1.forEach(function(o){lastReport+='  #'+o.rank+' '+o.domain+'\n'});
-    lastReport+='\nOnly "'+k2+'":\n';only2.forEach(function(o){lastReport+='  #'+o.rank+' '+o.domain+'\n'});
+    lastReport='SERP Overlap: "'+k1+'" vs "'+k2+'"\nOverlap Score: '+overlapScore+'%\nRelevance Score: '+relevanceScore+'%\n'+rec+'\n\nTop 10 Comparison:\n';
+    lastReport+='#  | '+k1+' | '+k2+'\n';
+    for(var p=1;p<=10;p++){
+      var d1=r1.find(function(r){return r.pos===p});
+      var d2=r2.find(function(r){return r.pos===p});
+      lastReport+=p+'  | '+(d1?d1.domain:'—')+' | '+(d2?d2.domain:'—')+'\n';
+    }
+    lastReport+='\nShared domains ('+shared.length+'):\n';
+    shared.forEach(function(d){lastReport+='  '+d+' (#'+domains1[d].pos+' / #'+domains2[d].pos+')\n'});
+    lastCsvData={r1:r1,r2:r2,shared:shared,domains1:domains1,domains2:domains2,k1:k1,k2:k2};
 
     document.getElementById('res').style.display='block';
-    var d=document.getElementById('domainIn').value.trim();if(d)highlightDomain(d);
   }
 }
 document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500)})});
 document.getElementById('btnExportCsv').addEventListener('click',function(){
-  var csv='Type,Domain,Rank KW1,Rank KW2,URL KW1,URL KW2,Same URL\n';
-  lastOverlap.forEach(function(o){csv+='Overlap,"'+o.domain+'",'+o.rank1+','+o.rank2+',"'+o.url1+'","'+o.url2+'",'+(o.sameUrl?'Yes':'No')+'\n'});
-  lastOnly1.forEach(function(o){csv+='Only KW1,"'+o.domain+'",'+o.rank+',,"'+o.url+'",\n'});
-  lastOnly2.forEach(function(o){csv+='Only KW2,"'+o.domain+'",,'+o.rank+',,"'+o.url+'"\n'});
+  if(!lastCsvData)return;var d=lastCsvData;
+  var csv='Position,"'+d.k1+' Domain","'+d.k1+' URL","'+d.k2+' Domain","'+d.k2+' URL",Match\n';
+  for(var p=1;p<=10;p++){
+    var d1=d.r1.find(function(r){return r.pos===p});
+    var d2=d.r2.find(function(r){return r.pos===p});
+    var match=d1&&d2&&d1.domain===d2.domain?'Exact':d1&&d.domains2[d1.domain]?'In both':'';
+    csv+=p+',"'+(d1?d1.domain:'')+'","'+(d1?d1.url:'')+'","'+(d2?d2.domain:'')+'","'+(d2?d2.url:'')+'","'+match+'"\n';
+  }
   var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='serp-overlap-'+lastK1.replace(/\s+/g,'-')+'-vs-'+lastK2.replace(/\s+/g,'-')+'.csv';a.click()
 });
 
