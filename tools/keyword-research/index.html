@@ -285,8 +285,6 @@
 <div class="cd">
 <div class="kw-input"><input type="text" id="kwIn" placeholder="Enter seed keywords, comma-separated (max 10)…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">Find Keywords</button></div>
 <div class="neg-kw-row"><label>🚫 Negative keywords:</label><input type="text" id="negKwIn" placeholder="Exclude keywords containing these words, comma-separated…"><span class="neg-kw-count" id="negKwCount"></span></div>
-<div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ What's this?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Without a key, you get 5 free searches per day. With your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> key, searches are unlimited. To create a key: sign up at dataforseo.com → API Dashboard → copy your login:password → encode it at <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> as <code>login:password</code>.</div></div>
-<div class="quota-bar" id="quotaInfo">5 free queries per day</div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seeds</div><p id="mSeed" style="font-size:12px;word-break:break-word">—</p></div><div class="metric"><div class="mh">Avg. Volume</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Avg. CPC</div><p id="mAvgCpc">—</p></div></div>
@@ -302,6 +300,12 @@
 </div>
 </div>
 </div>
+<!-- API Key & Quota -->
+<div style="display:flex;align-items:center;gap:8px;margin-top:4px;margin-bottom:8px;flex-wrap:wrap;padding:0 4px">
+<div class="quota-bar" id="quotaInfo" style="margin:0;text-align:left">5 free queries per day</div>
+<span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap;margin-left:auto" onclick="document.getElementById('dfsKeyWrap').style.display=document.getElementById('dfsKeyWrap').style.display==='none'?'flex':'none'">🔑 Own API key</span>
+</div>
+<div id="dfsKeyWrap" class="api-key-row" style="display:none;margin-top:0;margin-bottom:8px"><label>DataForSEO Key:</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ What's this?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Without a key, you get 5 free searches per day. With your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> key, searches are unlimited. To create a key: sign up at dataforseo.com → API Dashboard → copy your login:password → encode it at <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> as <code>login:password</code>.</div></div>
 <!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
 <div class="cd" style="position:relative">
