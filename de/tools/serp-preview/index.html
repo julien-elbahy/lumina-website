@@ -6,9 +6,9 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<title>Free Google Snippet Preview Tool with Pixel Counter | Lumina SEO</title>
-<meta name="description" content="Preview how your title and meta description look in Google search results. Pixel-width counter, desktop & mobile toggle. Free, no signup.">
-<meta name="keywords" content="SERP preview tool, SERP simulator, Google snippet preview, title tag checker, meta description preview, pixel width checker, free SEO tool">
+<title>Kostenloses Google-Snippet-Preview-Tool mit Pixelzähler | Lumina SEO</title>
+<meta name="description" content="Vorschau, wie Titel und Meta-Description in Google-Suchergebnissen aussehen. Pixelbreiten-Zähler, Desktop- & Mobil-Ansicht. Kostenlos, ohne Anmeldung.">
+<meta name="keywords" content="SERP-Preview-Tool, SERP-Simulator, Google-Snippet-Vorschau, Title-Tag-Checker, Meta-Description-Vorschau, Pixelbreiten-Checker, kostenloses SEO-Tool">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/serp-preview/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/serp-preview/">
 <link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/serp-preview/">
@@ -17,13 +17,13 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/de/tools/serp-preview/">
-<meta property="og:title" content="Free Google Snippet Preview Tool with Pixel Counter | Lumina SEO">
-<meta property="og:description" content="Preview your Google search snippet in real-time. Pixel-width counter, desktop/mobile toggle, keyword highlighting. 100% free.">
+<meta property="og:title" content="Kostenloses Google-Snippet-Preview-Tool mit Pixelzähler | Lumina SEO">
+<meta property="og:description" content="Google-Snippet in Echtzeit vorschauen. Pixelbreiten-Zähler, Desktop/Mobil-Ansicht, Keyword-Hervorhebung. 100 % kostenlos.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Snippet Preview Tool","url":"https://lumina-seo.com/tools/serp-preview/","description":"Free Google SERP simulator with pixel-width measurement.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Snippet-Preview-Tool","url":"https://lumina-seo.com/de/tools/serp-preview/","description":"Kostenloser Google-SERP-Simulator mit Pixelbreiten-Messung.","applicationCategory":"SEO Tool","operatingSystem":"Web","inLanguage":"de","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -61,6 +61,12 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .serp-desc{font-size:14px;line-height:1.58;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}.serp.lt .serp-desc{color:#4d5156}.serp.dk .serp-desc{color:#bdc1c6}.serp-desc mark{background:transparent;font-weight:700;color:inherit}
 .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px}.act-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .2s;font-family:var(--font);letter-spacing:.2px;white-space:nowrap}.act-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.act-btn:disabled{opacity:.4;cursor:default}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+/* AI Suggestions */
+.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
+.ai-results{margin-top:12px}.ai-opt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;transition:border-color .2s}.ai-opt:hover{border-color:var(--accent)}.ai-opt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}.ai-opt-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.ai-opt-text{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:4px;word-break:break-word}.ai-opt-btns{display:flex;gap:4px}.ai-opt-btn{background:var(--accent-soft);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s}.ai-opt-btn.apply{color:var(--accent)}.ai-opt-btn.apply:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.ai-opt-btn.copy{color:var(--muted)}.ai-opt-btn.copy:hover{color:var(--text);border-color:var(--text)}
+.ai-quota{font-size:11px;color:var(--muted);margin-top:4px;text-align:center}
+.kw-chip{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--card);color:var(--text2);margin:3px}.kw-chip:hover{border-color:var(--accent)}.kw-chip.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.kw-chip.secondary{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}.kw-chip .kw-vol{font-size:10px;font-weight:400;opacity:.7;margin-left:2px}
+.px-wrap{display:flex;align-items:center;gap:8px;margin-top:3px}.px-track{flex:1;height:3px;background:var(--border);border-radius:3px;overflow:hidden}.px-fill{height:100%;border-radius:3px;transition:width .3s}.px-info{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
@@ -240,22 +246,35 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 </div>
 
 <div class="container">
-<div class="tool-header"><div class="label">Kostenloses SEO-Tool</div><h1>Google Snippet Preview</h1><p>See how your title and description appear in Google search results. Pixel measurement, desktop/mobile, keyword highlighting.</p></div>
+<div class="tool-header"><div class="label">Kostenloses SEO-Tool</div><h1>Google Snippet Preview</h1><p>Sieh, wie dein Titel und deine Beschreibung in den Google-Suchergebnissen erscheinen. Pixelmessung, Desktop/Mobil, Keyword-Hervorhebung.</p></div>
 <div class="card">
-<div class="input-row"><div class="grow"><label>Page URL</label><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com/"></div><button class="act-btn" id="btnFetch" style="padding:10px 14px;margin-bottom:1px">Von URL laden</button></div>
+<div class="input-row"><div class="grow"><label>Seiten-URL</label><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com/"></div><button class="act-btn" id="btnFetch" style="padding:10px 14px;margin-bottom:1px">Von URL laden</button></div>
 <input type="hidden" id="nameIn" value="Lumina SEO">
-<div style="margin-top:10px"><label>Title Tag</label><input type="text" id="titleIn" placeholder="Your page title" maxlength="200"><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="titleBar"></div></div><span class="px-label"><span id="titleChars">0</span> chars · <span id="titlePx">0</span>px <span id="titleSt"></span></span></div></div>
-<div style="margin-top:10px"><label>Meta Description</label><textarea id="descIn" placeholder="Your meta description" maxlength="500" rows="2"></textarea><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="descBar"></div></div><span class="px-label"><span id="descChars">0</span> chars · <span id="descPx">0</span>px <span id="descSt"></span></span></div></div>
-<div style="margin-top:10px"><label>Highlight Keywords</label><input type="text" id="kwIn" placeholder="e.g. serp preview tool"></div>
-<div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobile</button><button class="tgl active" data-serp="light">☀️ Light</button><button class="tgl" data-serp="dark">🌙 Dark</button><label class="tgl chk"><input type="checkbox" id="shd"> Shadow</label></div>
-<div class="serp-wrap"><div class="serp lt" id="serpEl"><div class="serp-head"><div class="serp-fav"><img id="serpFav" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" onerror="this.style.display='none'" alt=""></div><div class="serp-info"><div class="serp-name-row"><div class="serp-name" id="serpName">Lumina SEO</div><div class="serp-dots">⋮</div></div><div class="serp-urltext"><span id="serpHost">lumina-seo.com</span><span id="serpPath"></span></div></div></div><div class="serp-title" id="serpT">Your title tag will appear here</div><div class="serp-desc" id="serpD">Your meta description will appear here.</div></div></div>
-<div class="actions"><button class="act-btn" id="bCT">Titel kopieren</button><button class="act-btn" id="bCD">Beschreibung kopieren</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Save Image</button><button class="act-btn" id="bCI">📷 Copy Image</button><button class="act-btn" id="bR">↻ Reset</button></div>
+<div style="margin-top:10px"><label>Title-Tag</label><input type="text" id="titleIn" placeholder="Dein Seitentitel" maxlength="200"><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="titleBar"></div></div><span class="px-label"><span id="titleChars">0</span> Zeichen · <span id="titlePx">0</span>px <span id="titleSt"></span></span></div></div>
+<div style="margin-top:10px"><label>Meta-Description</label><textarea id="descIn" placeholder="Deine Meta-Description" maxlength="500" rows="2"></textarea><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="descBar"></div></div><span class="px-label"><span id="descChars">0</span> Zeichen · <span id="descPx">0</span>px <span id="descSt"></span></span></div></div>
+<div style="margin-top:10px"><label>Keywords hervorheben</label><input type="text" id="kwIn" placeholder="z.B. SERP Preview Tool"></div>
+<div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobil</button><button class="tgl active" data-serp="light">☀️ Hell</button><button class="tgl" data-serp="dark">🌙 Dunkel</button><label class="tgl chk"><input type="checkbox" id="shd"> Schatten</label></div>
+<div class="serp-wrap"><div class="serp lt" id="serpEl"><div class="serp-head"><div class="serp-fav"><img id="serpFav" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" onerror="this.style.display='none'" alt=""></div><div class="serp-info"><div class="serp-name-row"><div class="serp-name" id="serpName">Lumina SEO</div><div class="serp-dots">⋮</div></div><div class="serp-urltext"><span id="serpHost">lumina-seo.com</span><span id="serpPath"></span></div></div></div><div class="serp-title" id="serpT">Dein Title-Tag erscheint hier</div><div class="serp-desc" id="serpD">Deine Meta-Description erscheint hier.</div></div></div>
+<div class="actions"><button class="act-btn" id="bCT">Titel kopieren</button><button class="act-btn" id="bCD">Beschreibung kopieren</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Bild speichern</button><button class="act-btn" id="bCI">📷 Bild kopieren</button><button class="act-btn" id="bR">↻ Zurücksetzen</button><button class="ai-btn" id="btnAiToggle">✨ AI-Vorschlag</button></div>
+<div id="aiPanel" style="display:none;margin-top:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px">
+<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+<div style="flex:1;min-width:140px"><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;display:block">Haupt-Keyword</label><input type="text" id="aiKwPrimary" placeholder="z.B. Badsanierung Wien" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"></div>
+<div style="flex:1;min-width:140px"><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;display:block">Neben-Keywords</label><input type="text" id="aiKwSecondary" placeholder="z.B. Badrenovierung, Fixpreis" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"></div>
+</div>
+<div id="aiKwChips" style="display:none;margin-bottom:8px"></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:10px;padding:6px 12px">🔍 Auto-Erkennung</button>
+<button class="ai-btn" id="btnAiGenerate" style="font-size:10px;padding:6px 12px">✨ Generieren</button>
+</div>
+<div id="aiQuota" class="ai-quota"></div>
+</div>
+<div id="aiResults" class="ai-results"></div>
 </div>
 <div class="content" style="margin-top:32px">
-<h2>So verwendest du es</h2><p>Enter your URL, title, and description. The preview updates as you type. The pixel counter shows if Google will truncate your snippet. Use <strong>Von URL laden</strong> to pull current values from any live page.</p>
-<h2>Optimale Längen</h2><p>Google truncates by pixel width. Keep titles under ~60 chars (~580px) and descriptions under ~155 chars (~920px). Wide characters (W, M) take more space than narrow ones (i, l).</p>
+<h2>So verwendest du es</h2><p>Gib deine URL, deinen Titel und deine Beschreibung ein. Die Vorschau aktualisiert sich beim Tippen. Der Pixelzähler zeigt, ob Google dein Snippet abschneidet. Nutze <strong>Von URL laden</strong>, um aktuelle Werte von jeder Live-Seite zu holen.</p>
+<h2>Optimale Längen</h2><p>Google kürzt nach Pixelbreite. Halte Titel unter ~60 Zeichen (~580px) und Beschreibungen unter ~155 Zeichen (~920px). Breite Zeichen (W, M) brauchen mehr Platz als schmale (i, l).</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
-<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate JSON-LD against Google fields.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides.</p></a></div>
+<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/schema-validator/"><h3>Schema Validator</h3><p>JSON-LD gegen Google-Pflichtfelder validieren.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>AI-Crawler-Guides für deine Seite erstellen.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Was ist ein SERP-Preview-Tool?<span class="arrow">+</span></div><div class="faq-a">Es simuliert, wie deine Seite in den Google-Suchergebnissen erscheint — Titel, URL, Beschreibung — und hilft dir, die Klickrate zu optimieren.</div></div>
 <div class="faq-item"><div class="faq-q">Warum ist die Pixelbreite wichtig?<span class="arrow">+</span></div><div class="faq-a">Google kürzt basierend auf Pixelbreite, nicht Zeichenanzahl. Breite Zeichen werden früher abgeschnitten. Dieses Tool misst echte Pixel.</div></div>
@@ -302,8 +321,8 @@ var tp=mp(t,tf()),mt=mtP();tC.textContent=t.length;tPx.textContent=tp;uB(tB,tp,m
 tSt.innerHTML=tp>mt?'<span class="err">\u26a0</span>':tp>mt*.85?'<span class="warn">~</span>':t?'<span class="ok">\u2713</span>':'';
 var dp=mp(d,df()),mx=mdP();dC.textContent=d.length;dPx.textContent=dp;uB(dB,dp,mx);
 dSt.innerHTML=dp>mx?'<span class="err">\u26a0</span>':dp>mx*.85?'<span class="warn">~</span>':d?'<span class="ok">\u2713</span>':'';
-sT.textContent=trW(t,tf(),mt)||'Your title tag will appear here';
-sD.innerHTML=bK(trW(d,df(),mx))||'Your meta description will appear here.';
+sT.textContent=trW(t,tf(),mt)||'Dein Title-Tag erscheint hier';
+sD.innerHTML=bK(trW(d,df(),mx))||'Deine Meta-Description erscheint hier.';
 var nm=nI.value.trim();
 try{var o=new URL(u);sN.textContent=nm||o.hostname;sH.textContent=o.hostname;sP.textContent=o.pathname!=='/'?' \u203a '+o.pathname.replace(/^\//,'').replace(/\//g,' \u203a '):'';sF.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(o.hostname)+'&sz=32';sF.style.display=''}catch(e){sN.textContent=nm||u;sH.textContent=u;sP.textContent='';sF.style.display='none'}
 sE.style.boxShadow=shd.checked?'0 8px 32px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.15)':'none'}
@@ -322,14 +341,151 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 tI.value='Lumina \u2013 Free All-in-One SEO & GEO Chrome Extension';
 dI.value='Free Chrome extension for SEO & GEO. On-page audits, AI crawler checks, schema validation, GSC & GA4 dashboards, keyword research \u2014 all in one click.';
 upd();
+
+/* ── AI Title & Description Vorschläge (mit Keyword-Erkennung) ── */
+var WORKER_BASE='https://lumina-proxy.julien-elbahy.workers.dev';
+var _spAiKeywords=[];
+
+function spPxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col=px>max?'var(--err)':px>warn?'var(--warn)':px<max*0.4?'var(--warn)':'var(--ok)';var lbl=px>max?'abgeschnitten':px>warn?'riskant':px<max*0.4?'zu kurz':'gut';return'<div class="px-wrap"><div class="px-track"><div class="px-fill" style="width:'+pct+'%;background:'+col+'"></div></div><span class="px-info">'+px+'/'+max+'px — '+lbl+'</span></div>'}
+function spAiOpt(label,text,isTitle,idx){
+  var font=isTitle?tf():'14px Arial';var max=isTitle?mtP():mdP();var warn=isTitle?max*0.9:max*0.89;
+  var px=mp(text,font);var maxC=isTitle?60:155;
+  var h='<div class="ai-opt"><div class="ai-opt-header"><span class="ai-opt-label">'+label+' <span class="badge '+(text.length<=maxC?'ok':'warn')+'">'+text.length+' Zeichen</span></span>';
+  h+='<div class="ai-opt-btns"><button class="ai-opt-btn apply" data-ai-type="'+(isTitle?'title':'desc')+'" data-ai-idx="'+idx+'">Anwenden</button>';
+  h+='<button class="ai-opt-btn copy" onclick="navigator.clipboard.writeText(this.closest(\'.ai-opt\').querySelector(\'.ai-opt-text\').textContent).then(function(){event.target.textContent=\'\\u2713\'});setTimeout(function(){event.target.textContent=\'Kopieren\'},1500)">Kopieren</button></div></div>';
+  h+='<div class="ai-opt-text">'+esc(text)+'</div>';
+  h+=spPxBar(px,max,warn);
+  h+='</div>';
+  return h;
+}
+function spRenderChips(){
+  var container=document.getElementById('aiKwChips');
+  if(!_spAiKeywords.length){container.style.display='none';return}
+  var primary=document.getElementById('aiKwPrimary').value.trim().toLowerCase();
+  var secRaw=document.getElementById('aiKwSecondary').value.trim().toLowerCase();
+  var secondaries=secRaw?secRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
+  var h='';
+  _spAiKeywords.forEach(function(kw){
+    var k=kw.keyword.toLowerCase();var isPri=k===primary;var isSec=secondaries.indexOf(k)!==-1;
+    var cls=isPri?'primary':isSec?'secondary':'';
+    var vol=kw.vol!==undefined?' <span class="kw-vol">'+kw.vol.toLocaleString()+'/Mo.</span>':'';
+    h+='<span class="kw-chip '+cls+'" data-kw="'+esc(kw.keyword)+'">'+esc(kw.keyword)+vol+'</span>';
+  });
+  container.innerHTML=h;container.style.display='block';
+  container.querySelectorAll('.kw-chip').forEach(function(chip){chip.addEventListener('click',function(){
+    var kw=chip.getAttribute('data-kw'),pri=document.getElementById('aiKwPrimary'),sec=document.getElementById('aiKwSecondary');
+    if(pri.value.trim().toLowerCase()===kw.toLowerCase()){pri.value='';var s=sec.value?sec.value.split(',').map(function(x){return x.trim()}).filter(Boolean):[];if(s.indexOf(kw)===-1)s.push(kw);sec.value=s.join(', ')}
+    else if(sec.value.toLowerCase().indexOf(kw.toLowerCase())!==-1){sec.value=sec.value.split(',').map(function(x){return x.trim()}).filter(function(x){return x.toLowerCase()!==kw.toLowerCase()}).join(', ')}
+    else{if(pri.value.trim()){var s=sec.value?sec.value.split(',').map(function(x){return x.trim()}).filter(Boolean):[];if(s.indexOf(pri.value.trim())===-1)s.push(pri.value.trim());sec.value=s.join(', ')}pri.value=kw}
+    spRenderChips();
+  })});
+}
+
+document.getElementById('btnAiToggle').addEventListener('click',function(){
+  var p=document.getElementById('aiPanel');p.style.display=p.style.display==='none'?'block':'none';
+});
+
+document.getElementById('btnAiDetect').addEventListener('click',function(){
+  var url=uI.value.trim(),title=tI.value.trim(),desc=dI.value.trim();
+  if(!url&&!title){alert('Gib zuerst eine URL oder einen Titel ein.');return}
+  var btn=this;btn.disabled=true;btn.textContent='⏳ Erkennung…';
+  var context='TITLE: '+(title||'')+'\nDESCRIPTION: '+(desc||'');
+  var fetchPromise;
+  if(url){
+    if(!/^https?:\/\//i.test(url))url='https://'+url;
+    fetchPromise=fetch(WORKER_BASE+'/fetch?url='+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(data){
+      if(data.error||!data.html)return context;
+      var doc=new DOMParser().parseFromString(data.html,'text/html');
+      var h1=doc.querySelector('h1');var headings=[];doc.querySelectorAll('h1,h2,h3').forEach(function(h){headings.push(h.tagName+': '+h.textContent.trim().substring(0,80))});
+      var bodyText=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim().substring(0,1500);
+      return'TITLE: '+(title||doc.querySelector('title')?.textContent?.trim()||'')+'\nMETA: '+(desc||'')+'\nH1: '+(h1?h1.textContent.trim():'')+'\nHEADINGS:\n'+headings.join('\n')+'\nCONTENT:\n'+bodyText;
+    }).catch(function(){return context});
+  } else {fetchPromise=Promise.resolve(context)}
+
+  fetchPromise.then(function(ctx){
+    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      messages:[{role:'user',content:ctx}],
+      system:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail\n- Include 3-5 semantic synonyms/alternatives\n- Order by likely importance\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}',
+      max_tokens:300
+    })});
+  })
+  .then(function(r){return r.json()})
+  .then(function(data){
+    if(data.error)throw new Error(data.error);
+    if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI-Abfragen heute verbleibend'}
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var kws=JSON.parse(raw).keywords||[];
+    if(!kws.length)throw new Error('Keine Keywords erkannt');
+    document.getElementById('aiKwPrimary').value=kws[0];
+    if(kws.length>1)document.getElementById('aiKwSecondary').value=kws.slice(1,4).join(', ');
+    _spAiKeywords=kws.map(function(k){return{keyword:k}});
+    spRenderChips();
+    btn.textContent='⏳ Suchvolumen…';
+    var lang=(title+' '+desc).match(/[äöüß]/i)?'de':'en';
+    var loc=lang==='de'?2040:2840;
+    return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
+  })
+  .then(function(r){return r?r.json():null})
+  .then(function(data){
+    if(!data||data.error)return;
+    try{(data.tasks||[]).forEach(function(t){(t.result||[]).forEach(function(r){_spAiKeywords.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})});
+    _spAiKeywords.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
+    if(_spAiKeywords[0]){document.getElementById('aiKwPrimary').value=_spAiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_spAiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
+    spRenderChips()}catch(e){}
+  })
+  .catch(function(e){document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(e.message)+'</p>';document.getElementById('aiKwChips').style.display='block'})
+  .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-Erkennung'});
+});
+
+document.getElementById('btnAiGenerate').addEventListener('click',function(){
+  var title=tI.value.trim(),desc=dI.value.trim(),url=uI.value.trim();
+  var primary=document.getElementById('aiKwPrimary').value.trim();
+  var secondary=document.getElementById('aiKwSecondary').value.trim();
+  if(!primary){alert('Gib zuerst ein Haupt-Keyword ein oder nutze die Auto-Erkennung.');return}
+  var btn=this;btn.disabled=true;btn.textContent='⏳ Generiere…';
+  var out=document.getElementById('aiResults');
+  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
+  var prompt='You are a senior SEO specialist. Generate optimized meta title and description.\n\n'+
+    (url?'Page URL: '+url+'\n':'')+
+    'Primary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+
+    'Current title: '+(title||'(none)')+'\n'+
+    'Current description: '+(desc||'(none)')+'\n\n'+
+    'RULES:\n- Detect the language of the current title/description and WRITE IN THE SAME LANGUAGE\n'+
+    '- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" early. Compelling modifiers.\n'+
+    '- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", value proposition + CTA.\n'+
+    '- Each option takes a different angle\n\nBEFORE OUTPUTTING: Count chars. Title ≤55, description ≤150.\n\nRespond ONLY with JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
+  .then(function(r){return r.json()})
+  .then(function(data){
+    if(data.error)throw new Error(data.error);
+    if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI-Abfragen heute verbleibend'}
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var r=JSON.parse(raw);window._aiResults=r;
+    var h='';
+    h+=spAiOpt('Title — Option A',r.title1||'',true,1);
+    h+=spAiOpt('Title — Option B',r.title2||'',true,2);
+    h+=spAiOpt('Description — Option A',r.desc1||'',false,1);
+    h+=spAiOpt('Description — Option B',r.desc2||'',false,2);
+    out.innerHTML=h;
+    out.querySelectorAll('.ai-opt-btn.apply').forEach(function(b){b.addEventListener('click',function(){
+      var type=b.getAttribute('data-ai-type'),idx=b.getAttribute('data-ai-idx');
+      var r=window._aiResults;
+      if(type==='title')tI.value=idx==='1'?r.title1:r.title2;
+      else dI.value=idx==='1'?r.desc1:r.desc2;
+      upd();b.textContent='✓ Angewendet';setTimeout(function(){b.textContent='Anwenden'},1500);
+    })});
+  })
+  .catch(function(e){out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">❌ '+esc(e.message)+'</p>'})
+  .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
+});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 function roundedRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath()}
 function loadFavB64(cb){var src=sF.src;if(!src||src.startsWith('data:'))return cb();fetch(src,{mode:'cors'}).then(function(r){if(!r.ok)throw new Error('not ok');return r.blob()}).then(function(b){var rd=new FileReader();rd.onload=function(){sF._origSrc=src;sF.src=rd.result;setTimeout(cb,100)};rd.readAsDataURL(b)}).catch(function(){sF._origSrc=src;sF.src='data:image/svg+xml,%3Csvg viewBox=%270 0 28 28%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Crect width=%2728%27 height=%2728%27 rx=%2714%27 fill=%27%23e0e0e0%27/%3E%3Ctext x=%2714%27 y=%2719%27 text-anchor=%27middle%27 font-size=%2714%27 fill=%27%23888%27%3E'+encodeURIComponent((sN.textContent||'?').charAt(0).toUpperCase())+'%3C/text%3E%3C/svg%3E';setTimeout(cb,100)})}
-function s2c(cb){var e=sE,b1=document.getElementById('bSI'),b2=document.getElementById('bCI');b1.disabled=b2.disabled=true;b1.textContent='⏳…';b2.textContent='⏳…';var origShadow=e.style.boxShadow;e.style.boxShadow='none';e.style.padding='24px';loadFavB64(function(){html2canvas(e,{backgroundColor:sE.classList.contains('dk')?'#202124':'#fff',scale:2,useCORS:true}).then(function(c){e.style.padding='18px 22px';e.style.boxShadow=origShadow;if(sF._origSrc){sF.src=sF._origSrc;delete sF._origSrc}b1.disabled=b2.disabled=false;b1.textContent='💾 Save Image';b2.textContent='📷 Bild kopieren';var rad=24,hasSh=shd.checked,pad=hasSh?60:0;var nc=document.createElement('canvas');nc.width=c.width+pad*2;nc.height=c.height+pad*2;var ctx=nc.getContext('2d');if(hasSh){ctx.shadowColor='rgba(0,0,0,.3)';ctx.shadowBlur=32;ctx.shadowOffsetX=0;ctx.shadowOffsetY=8;roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.fillStyle=sE.classList.contains('dk')?'#202124':'#fff';ctx.fill();ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0}ctx.save();roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.clip();ctx.drawImage(c,pad,pad);ctx.restore();cb(nc)}).catch(function(er){e.style.padding='18px 22px';e.style.boxShadow=origShadow;if(sF._origSrc){sF.src=sF._origSrc;delete sF._origSrc}b1.disabled=b2.disabled=false;b1.textContent='💾 Save Image';b2.textContent='📷 Bild kopieren';alert('Error: '+er.message)})})}
+function s2c(cb){var e=sE,b1=document.getElementById('bSI'),b2=document.getElementById('bCI');b1.disabled=b2.disabled=true;b1.textContent='⏳…';b2.textContent='⏳…';var origShadow=e.style.boxShadow;e.style.boxShadow='none';e.style.padding='24px';loadFavB64(function(){html2canvas(e,{backgroundColor:sE.classList.contains('dk')?'#202124':'#fff',scale:2,useCORS:true}).then(function(c){e.style.padding='18px 22px';e.style.boxShadow=origShadow;if(sF._origSrc){sF.src=sF._origSrc;delete sF._origSrc}b1.disabled=b2.disabled=false;b1.textContent='💾 Bild speichern';b2.textContent='📷 Bild kopieren';var rad=24,hasSh=shd.checked,pad=hasSh?60:0;var nc=document.createElement('canvas');nc.width=c.width+pad*2;nc.height=c.height+pad*2;var ctx=nc.getContext('2d');if(hasSh){ctx.shadowColor='rgba(0,0,0,.3)';ctx.shadowBlur=32;ctx.shadowOffsetX=0;ctx.shadowOffsetY=8;roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.fillStyle=sE.classList.contains('dk')?'#202124':'#fff';ctx.fill();ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.shadowOffsetY=0}ctx.save();roundedRect(ctx,pad,pad,c.width,c.height,rad);ctx.clip();ctx.drawImage(c,pad,pad);ctx.restore();cb(nc)}).catch(function(er){e.style.padding='18px 22px';e.style.boxShadow=origShadow;if(sF._origSrc){sF.src=sF._origSrc;delete sF._origSrc}b1.disabled=b2.disabled=false;b1.textContent='💾 Bild speichern';b2.textContent='📷 Bild kopieren';alert('Fehler: '+er.message)})})}
 document.getElementById('bSI').addEventListener('click',function(){s2c(function(c){var a=document.createElement('a');a.download='serp-preview.png';a.href=c.toDataURL('image/png');a.click()})});
-document.getElementById('bCI').addEventListener('click',function(){s2c(function(c){c.toBlob(function(b){navigator.clipboard.write([new ClipboardItem({'image/png':b})]).then(function(){var btn=document.getElementById('bCI');btn.textContent='\u2713 Kopiert!';setTimeout(function(){btn.textContent='📷 Bild kopieren'},1500)}).catch(function(){alert('Could not copy. Try Save.')})})})});
+document.getElementById('bCI').addEventListener('click',function(){s2c(function(c){c.toBlob(function(b){navigator.clipboard.write([new ClipboardItem({'image/png':b})]).then(function(){var btn=document.getElementById('bCI');btn.textContent='\u2713 Kopiert!';setTimeout(function(){btn.textContent='📷 Bild kopieren'},1500)}).catch(function(){alert('Konnte nicht kopiert werden. Versuche Speichern.')})})})});
 </script>
 <style id="consent-css">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6;font-family:var(--font)}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px;flex-shrink:0}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.accept:hover{transform:translateY(-1px)}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}.consent-btn.reject:hover{color:var(--text);border-color:var(--accent)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.consent-btn{padding:12px 16px;font-size:14px}}
 /* ── Mega Menu ── */

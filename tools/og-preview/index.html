@@ -241,7 +241,7 @@
 <div class="ct">
 <div class="th"><div class="lb">Free SEO Tool</div><h1>Open Graph Preview</h1><p>See how your page looks when shared on Facebook, Twitter/X, and LinkedIn. Check all OG and Twitter Card tags.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Preview Social Cards</button>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Preview Social Cards</button>
 </div>
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none"></div>
@@ -339,12 +339,15 @@ if(desc)html+='<div class="desc">'+esc(desc)+'</div>';html+='</div></div></div>'
 // All tags
 html+='<div class="tp" id="t-tags"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border)">Open Graph</div>';
 ['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(k){var v=og[k];html+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Not set</em>',v?bdg('ok','SET'):bdg('wn','MISSING'))});
+html+='<div id="ogImgInfo" style="margin:8px 0"></div>';
 html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border)">Twitter Card</div>';
 ['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(k){var v=tw[k];html+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Not set</em>',v?bdg('ok','SET'):bdg('wn','MISSING'))});
 html+='</div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
 // Tab switching
 document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tp').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('t-'+b.getAttribute('data-t')).classList.add('active')})});
+// Image dimension check
+if(img){var _img=new Image();_img.onload=function(){var w=_img.naturalWidth,h=_img.naturalHeight;var ideal=w>=1200&&h>=630;var ratio=w&&h?(w/h).toFixed(2):'?';var el=document.getElementById('ogImgInfo');if(el)el.innerHTML='<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:'+(ideal?'var(--ok-bg)':'var(--warn-bg)')+';border:1px solid '+(ideal?'var(--ok-border)':'var(--warn-border)')+';border-radius:8px;font-size:12px;color:'+(ideal?'var(--ok)':'var(--warn)')+'"><strong>'+w+' × '+h+'px</strong> <span style="color:var(--muted)">(ratio '+ratio+')</span> '+(ideal?'✓ Optimal size':'⚠ Recommended: 1200×630px')+'</div>'};_img.onerror=function(){var el=document.getElementById('ogImgInfo');if(el)el.innerHTML='<div style="padding:8px 12px;background:var(--err-bg);border:1px solid var(--err-border);border-radius:8px;font-size:12px;color:var(--err)">❌ Image could not be loaded — check the URL</div>'};_img.src=img}
 }).catch(function(e){document.getElementById('res').innerHTML='<p style="color:var(--err);text-align:center;padding:20px">❌ '+esc(e.message)+'</p>';document.getElementById('res').style.display='block'
 }).finally(function(){btn.disabled=false;btn.textContent='Preview Social Cards';document.getElementById('loading').style.display='none'})}
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');go(params.get('url'))}

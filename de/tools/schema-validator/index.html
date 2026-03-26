@@ -6,9 +6,9 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<title>Free Schema JSON-LD Validator – Data Checker | Lumina SEO</title>
-<meta name="description" content="Validate your JSON-LD structured data for free. Checks Google required fields, date formats, URL validity, and nested objects. No signup needed.">
-<meta name="keywords" content="JSON-LD validator, schema markup checker, structured data validator, schema.org tester, Google rich results checker, free schema tool">
+<title>Kostenloser Schema-JSON-LD-Validator – Strukturierte Daten prüfen | Lumina SEO</title>
+<meta name="description" content="JSON-LD strukturierte Daten kostenlos validieren. Prüft Google-Pflichtfelder, Datumsformate, URL-Gültigkeit und verschachtelte Objekte. Ohne Anmeldung.">
+<meta name="keywords" content="JSON-LD Validator, Schema-Markup-Checker, strukturierte Daten validieren, Schema.org Tester, Google Rich Results Checker, kostenloses Schema-Tool">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/schema-validator/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/schema-validator/">
@@ -17,13 +17,13 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/de/tools/schema-validator/">
-<meta property="og:title" content="Free Schema JSON-LD Validator | Lumina SEO">
-<meta property="og:description" content="Validate structured data against Google required fields. Deep checks for dates, URLs, and nested objects.">
+<meta property="og:title" content="Kostenloser Schema-JSON-LD-Validator | Lumina SEO">
+<meta property="og:description" content="Strukturierte Daten gegen Google-Pflichtfelder validieren. Tiefenprüfung für Datumsangaben, URLs und verschachtelte Objekte.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Schema JSON-LD Validator","url":"https://lumina-seo.com/tools/schema-validator/","description":"Free JSON-LD validator with Google required fields check.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Schema-JSON-LD-Validator","url":"https://lumina-seo.com/de/tools/schema-validator/","description":"Kostenloser JSON-LD-Validator mit Prüfung der Google-Pflichtfelder.","applicationCategory":"SEO Tool","operatingSystem":"Web","inLanguage":"de","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -242,15 +242,15 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 <div class="ct">
 <div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Schema JSON-LD Validator</h1><p>JSON-LD einfügen oder von einer URL abrufen. Validiert gegen Googles Pflichtfelder, prüft Datumsangaben, URLs und verschachtelte Objekte.</p></div>
 <div class="cd">
-<label>Fetch Schema from URL</label>
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnFetchUrl">Laden & Validieren</button></div>
-<label>Or Paste JSON-LD</label>
-<textarea id="inputSchema" placeholder='Paste your JSON-LD here, e.g.:
+<label>Schema von URL abrufen</label>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnFetchUrl">Laden & Validieren</button></div>
+<label>Oder JSON-LD einfügen</label>
+<textarea id="inputSchema" placeholder='JSON-LD hier einfügen, z.B.:
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "My Article Title",
-  "author": { "@type": "Person", "name": "John" }
+  "headline": "Mein Artikel-Titel",
+  "author": { "@type": "Person", "name": "Max" }
 }' style="font-family:var(--mono);font-size:12px;min-height:180px"></textarea>
 <div class="btns">
 <button class="btn primary" id="btnValidate">Validieren</button>
@@ -262,13 +262,13 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 </div>
 <div class="content">
 <h2>So funktioniert der Validator</h2>
-<p>This tool parses JSON-LD and checks against Google's documentation — required fields for 15 schema types, ISO 8601 dates, URL formats, and nested objects.</p>
+<p>Dieses Tool parst JSON-LD und prüft gegen Googles Dokumentation — Pflichtfelder für 15 Schema-Typen, ISO-8601-Datumsangaben, URL-Formate und verschachtelte Objekte.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
-<div class="other-tools"><a href="/de/tools/serp-preview/"><h3>Snippet Preview</h3><p>Google-Snippet-Vorschau mit Pixelzähler.</p></a><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides.</p></a></div>
+<div class="other-tools"><a href="/de/tools/serp-preview/"><h3>Snippet Preview</h3><p>Google-Snippet-Vorschau mit Pixelzähler.</p></a><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>AI-Crawler-Guides für deine Seite erstellen.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Welche Schema-Typen werden unterstützt?<span class="arrow">+</span></div><div class="faq-a">Article, NewsArticle, BlogPosting, Product, FAQPage, LocalBusiness, Organization, Person, BreadcrumbList, Event, Recipe, HowTo, VideoObject, WebSite und Review.</div></div>
-<div class="faq-item"><div class="faq-q">Kann ich von einer Live-URL validieren?<span class="arrow">+</span></div><div class="faq-a">Ja! Verwende "Fetch & Validate", um alle JSON-LD-Blöcke von einer beliebigen URL abzurufen und zu validieren.</div></div>
-<div class="cta-box"><div class="cta-t">Schema-Validierung auf jeder Seite</div><p>Lumina cross-checks schema data against actual page content — prices, dates, FAQs, addresses.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="faq-item"><div class="faq-q">Kann ich von einer Live-URL validieren?<span class="arrow">+</span></div><div class="faq-a">Ja! Verwende "Laden & Validieren", um alle JSON-LD-Blöcke von einer beliebigen URL abzurufen und zu validieren.</div></div>
+<div class="cta-box"><div class="cta-t">Schema-Validierung auf jeder Seite</div><p>Lumina gleicht Schema-Daten mit dem tatsächlichen Seiteninhalt ab — Preise, Daten, FAQs, Adressen.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
@@ -328,21 +328,21 @@ function fetchWithFallback(targetUrl){
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function validate(json){
 var issues=[],type=json['@type']||'Unknown',spec=REQUIRED_FIELDS[type];
-if(!spec){issues.push({level:'warn',msg:'Unknown schema type: <strong>'+esc(type)+'</strong>'});return{type:type,issues:issues}}
-spec.required.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'error',msg:'Missing required: <strong>'+f+'</strong>'})});
-spec.recommended.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'warn',msg:'Missing recommended: <strong>'+f+'</strong>'})});
-['datePublished','dateModified','startDate','endDate','uploadDate'].forEach(function(f){if(json[f]&&!/^\d{4}-\d{2}-\d{2}/.test(json[f]))issues.push({level:'error',msg:'<strong>'+f+'</strong>: not ISO 8601 (YYYY-MM-DD)'})});
-['url','image','thumbnailUrl','contentUrl','logo'].forEach(function(f){var v=json[f];if(typeof v==='object'&&v)v=v.url||v['@id'];if(typeof v==='string'&&v&&!/^https?:\/\//.test(v))issues.push({level:'warn',msg:'<strong>'+f+'</strong>: should be absolute URL'})});
-if(json.author){if(typeof json.author==='string')issues.push({level:'warn',msg:'<strong>author</strong> should be an object, not string'});else if(typeof json.author==='object'&&!json.author.name)issues.push({level:'error',msg:'<strong>author.name</strong> missing'})}
-if(json.publisher&&typeof json.publisher==='object'&&!json.publisher.name)issues.push({level:'error',msg:'<strong>publisher.name</strong> missing'});
-if(type==='FAQPage'&&Array.isArray(json.mainEntity)){json.mainEntity.forEach(function(q,i){if(!q.name&&!q.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': missing <strong>name</strong>'});if(!q.acceptedAnswer)issues.push({level:'error',msg:'FAQ #'+(i+1)+': missing <strong>acceptedAnswer</strong>'});else if(!q.acceptedAnswer.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': missing <strong>acceptedAnswer.text</strong>'})})}
-if(type==='Product'&&json.offers){var offers=Array.isArray(json.offers)?json.offers:[json.offers];offers.forEach(function(o,i){if(!o.price&&o.price!==0)issues.push({level:'warn',msg:'Offer #'+(i+1)+': missing <strong>price</strong>'});if(!o.priceCurrency)issues.push({level:'warn',msg:'Offer #'+(i+1)+': missing <strong>priceCurrency</strong>'})})}
-if(!issues.length)issues.push({level:'ok',msg:'All required and recommended fields present. Schema looks good!'});
+if(!spec){issues.push({level:'warn',msg:'Unbekannter Schema-Typ: <strong>'+esc(type)+'</strong>'});return{type:type,issues:issues}}
+spec.required.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'error',msg:'Pflichtfeld fehlt: <strong>'+f+'</strong>'})});
+spec.recommended.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'warn',msg:'Empfohlenes Feld fehlt: <strong>'+f+'</strong>'})});
+['datePublished','dateModified','startDate','endDate','uploadDate'].forEach(function(f){if(json[f]&&!/^\d{4}-\d{2}-\d{2}/.test(json[f]))issues.push({level:'error',msg:'<strong>'+f+'</strong>: kein ISO 8601 (JJJJ-MM-TT)'})});
+['url','image','thumbnailUrl','contentUrl','logo'].forEach(function(f){var v=json[f];if(typeof v==='object'&&v)v=v.url||v['@id'];if(typeof v==='string'&&v&&!/^https?:\/\//.test(v))issues.push({level:'warn',msg:'<strong>'+f+'</strong>: sollte eine absolute URL sein'})});
+if(json.author){if(typeof json.author==='string')issues.push({level:'warn',msg:'<strong>author</strong> sollte ein Objekt sein, kein String'});else if(typeof json.author==='object'&&!json.author.name)issues.push({level:'error',msg:'<strong>author.name</strong> fehlt'})}
+if(json.publisher&&typeof json.publisher==='object'&&!json.publisher.name)issues.push({level:'error',msg:'<strong>publisher.name</strong> fehlt'});
+if(type==='FAQPage'&&Array.isArray(json.mainEntity)){json.mainEntity.forEach(function(q,i){if(!q.name&&!q.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>name</strong> fehlt'});if(!q.acceptedAnswer)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>acceptedAnswer</strong> fehlt'});else if(!q.acceptedAnswer.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>acceptedAnswer.text</strong> fehlt'})})}
+if(type==='Product'&&json.offers){var offers=Array.isArray(json.offers)?json.offers:[json.offers];offers.forEach(function(o,i){if(!o.price&&o.price!==0)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>price</strong> fehlt'});if(!o.priceCurrency)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>priceCurrency</strong> fehlt'})})}
+if(!issues.length)issues.push({level:'ok',msg:'Alle Pflicht- und empfohlenen Felder vorhanden. Schema sieht gut aus!'});
 return{type:type,issues:issues}}
 function renderValidation(schemas){
 var res=document.getElementById('res');res.style.display='block';var html='';
 schemas.forEach(function(s){var r=validate(s);var errs=r.issues.filter(function(i){return i.level==='error'}).length;var warns=r.issues.filter(function(i){return i.level==='warn'}).length;
-var bc=errs?'er':warns?'wn':'ok';var bt=errs?errs+' error'+(errs>1?'s':''):warns?warns+' warning'+(warns>1?'s':''):'Valid';
+var bc=errs?'er':warns?'wn':'ok';var bt=errs?errs+' Fehler':warns?warns+' Warnung'+(warns>1?'en':''):'Gültig';
 html+='<div class="rh"><span class="badge '+bc+'">'+bt+'</span><span class="tn-name">'+esc(r.type)+'</span></div>';
 r.issues.forEach(function(i){var ic=i.level==='error'?'❌':i.level==='warn'?'⚠️':'✅';html+='<div class="ci"><div class="ci-i">'+ic+'</div><div class="ci-t">'+i.msg+'</div></div>'});
 html+='<div style="margin-bottom:16px"></div>'});
@@ -372,10 +372,10 @@ else if(Array.isArray(j))j.forEach(function(it){allSchemas.push(it)});
 else allSchemas.push(j)}catch(e){}});
 document.getElementById('inputSchema').value=rawParts.join('\n\n');
 renderValidation(allSchemas)})
-.catch(function(e){document.getElementById('res').style.display='block';document.getElementById('res').innerHTML='<div class="ci"><div class="ci-i">❌</div><div class="ci-t">Could not fetch: '+esc(e.message)+'</div></div>'})
+.catch(function(e){document.getElementById('res').style.display='block';document.getElementById('res').innerHTML='<div class="ci"><div class="ci-i">❌</div><div class="ci-t">Konnte nicht abgerufen werden: '+esc(e.message)+'</div></div>'})
 .finally(function(){btn.textContent='Laden & Validieren';btn.disabled=false})});
-document.getElementById('btnPrettify').addEventListener('click',function(){var ta=document.getElementById('inputSchema');try{ta.value=JSON.stringify(JSON.parse(ta.value),null,2)}catch(e){alert('Invalid JSON: '+e.message)}});
-document.getElementById('btnExample').addEventListener('click',function(){document.getElementById('inputSchema').value=JSON.stringify({"@context":"https://schema.org","@type":"Article","headline":"How to Optimize for AI Search","author":{"@type":"Person","name":"Julien El-Bahy"},"datePublished":"2026-03-20","image":"https://example.com/image.jpg","publisher":{"@type":"Organization","name":"Lumina SEO","logo":{"@type":"ImageObject","url":"https://lumina-seo.com/icon128.png"}}},null,2)});
+document.getElementById('btnPrettify').addEventListener('click',function(){var ta=document.getElementById('inputSchema');try{ta.value=JSON.stringify(JSON.parse(ta.value),null,2)}catch(e){alert('Ungültiges JSON: '+e.message)}});
+document.getElementById('btnExample').addEventListener('click',function(){document.getElementById('inputSchema').value=JSON.stringify({"@context":"https://schema.org","@type":"Article","headline":"Wie man für AI-Suche optimiert","author":{"@type":"Person","name":"Julien El-Bahy"},"datePublished":"2026-03-20","image":"https://example.com/image.jpg","publisher":{"@type":"Organization","name":"Lumina SEO","logo":{"@type":"ImageObject","url":"https://lumina-seo.com/icon128.png"}}},null,2)});
 document.getElementById('btnClear').addEventListener('click',function(){document.getElementById('inputSchema').value='';document.getElementById('res').style.display='none'});
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');document.getElementById('btnFetchUrl').click()}
 

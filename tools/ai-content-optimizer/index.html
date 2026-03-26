@@ -61,6 +61,27 @@
 @media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
 .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;border:1px solid}.badge.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.badge.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.badge.err{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* AI */
+.ai-textarea{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);font-family:var(--font);font-size:13px;resize:vertical;min-height:120px;line-height:1.6;transition:border-color .2s}.ai-textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.ai-kw-row{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}.ai-kw-row input{flex:1;min-width:160px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-family:var(--font);font-size:13px}.ai-kw-row input:focus{outline:none;border-color:var(--accent)}
+.api-key-row{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:12px;color:var(--muted)}.api-key-row input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--mono);font-size:11px}.api-key-row input:focus{outline:none;border-color:var(--accent)}
+.quota-bar{font-size:11px;color:var(--muted);padding:4px 0}
+.btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.btn-sm{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}.btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-sm:disabled{opacity:.4;cursor:default}
+.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
+.density-bar{margin-top:8px}.density-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}.density-label{font-size:11px;color:var(--text2);min-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}.density-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.density-fill{height:100%;border-radius:3px;transition:width .3s}.density-val{font-size:10px;color:var(--muted);min-width:32px;text-align:right;font-family:var(--mono)}
+/* Keyword chips */
+.kw-chip{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--card);color:var(--text2);margin:3px}.kw-chip:hover{border-color:var(--accent)}.kw-chip.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.kw-chip.secondary{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}.kw-chip .kw-vol{font-size:10px;font-weight:400;opacity:.7;margin-left:2px}
+.kw-chip.kw-high{border-color:var(--err-border);background:var(--err-bg)}.kw-chip.kw-high:not(.primary):not(.secondary){color:var(--err)}
+.kw-chip.kw-med{border-color:var(--warn-border);background:var(--warn-bg)}.kw-chip.kw-med:not(.primary):not(.secondary){color:var(--warn)}
+/* AI Result cards */
+.ai-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;backdrop-filter:blur(var(--blur))}.ai-card h4{font-size:13px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.ai-score{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;font-size:20px;font-weight:800;border:3px solid}.ai-score.good{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}.ai-score.mid{color:var(--warn);border-color:var(--warn);background:var(--warn-bg)}.ai-score.bad{color:var(--err);border-color:var(--err);background:var(--err-bg)}
+.ai-diff{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px}.ai-diff-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--accent);margin-bottom:6px}.ai-diff-before{font-size:13px;color:var(--muted);text-decoration:line-through;margin-bottom:4px;line-height:1.5}.ai-diff-after{font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.5;font-weight:500}.ai-diff-reason{font-size:11px;color:var(--muted);line-height:1.5;padding-top:4px;border-top:1px dashed var(--border)}
+/* Pixel bar */
+.px-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}.px-track{flex:1;height:4px;background:var(--border);border-radius:3px;overflow:hidden}.px-fill{height:100%;border-radius:3px;transition:width .3s}.px-info{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
+.meta-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;position:relative}.meta-card .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}.meta-card p{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:4px}.copy-btn{position:absolute;top:10px;right:10px;background:var(--accent-soft);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--accent);cursor:pointer;font-family:var(--font)}.copy-btn:hover{background:var(--accent);color:#fff}
+/* GSC */
+.gsc-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.gsc-sel{background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);min-width:120px;-webkit-appearance:none;appearance:none;cursor:pointer}.gsc-sel:focus{outline:none;border-color:var(--accent)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -197,16 +218,40 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">AI-Powered SEO Tool</div><h1>AI Content Optimizer</h1><p>Paste your content and target keyword. Get instant SEO scoring plus AI-powered optimization suggestions and meta tag generation. 10 free AI queries per day.</p></div>
+<div class="th"><div class="lb">AI-Powered SEO Tool</div><h1>AI Content Optimizer</h1><p>Paste your content or fetch from a URL. Auto-detect keywords with search volume, connect Google Search Console for real ranking data, then get AI-powered optimization. 10 free AI queries per day.</p></div>
+<div class="cd" style="padding:12px 16px;margin-bottom:8px">
+<div id="gscConnect" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0">🔗 Connect GSC</button>
+<span style="font-size:12px;color:var(--muted);line-height:1.4">See real clicks, impressions &amp; rankings from Google Search Console — data flows directly into AI optimization.</span>
+</div>
+<div id="gscMain" style="display:none">
+<div class="gsc-bar">
+<span style="font-size:10px;color:var(--ok);font-weight:700;flex-shrink:0">✓ GSC</span>
+<select id="gscSite" class="gsc-sel"></select>
+<select id="gscRange" class="gsc-sel">
+<option value="28">Last 28 days</option><option value="7">Last 7 days</option><option value="90">Last 90 days</option>
+</select>
+<button class="btn-sm" id="btnGscLoad" style="font-size:10px;padding:5px 10px">Load data</button>
+<button class="btn-sm" id="btnGscDisconnect" style="font-size:10px;padding:5px 10px;color:var(--muted)">Disconnect</button>
+</div>
+<div id="gscStatus" style="font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:4px"></div>
+</div>
+</div>
 <div class="cd">
+<div class="url-bar" style="margin-bottom:10px"><input type="text" id="urlIn" placeholder="https://example.com — Fetch content from URL" spellcheck="false"><button class="ab" id="btnFetchUrl" style="padding:10px 18px;font-size:12px">Fetch from URL</button></div>
 <textarea class="ai-textarea" id="contentIn" placeholder="Paste your content here… (article text, landing page copy, blog post, etc.)"></textarea>
-<div class="ai-kw-row"><input type="text" id="kwIn" placeholder="Target keyword (e.g. Badsanierung Wien)"><input type="text" id="urlIn" placeholder="Page URL (optional — for context)"></div>
+<div class="ai-kw-row">
+<input type="text" id="kwPrimary" placeholder="Primary keyword (e.g. Badsanierung Wien)">
+<input type="text" id="kwSecondary" placeholder="Secondary keywords (e.g. Badrenovierung, Fixpreis)">
+</div>
+<div id="kwChips" style="display:none;margin-bottom:8px"></div>
 <div class="api-key-row"><label>OpenAI Key (optional):</label><input type="text" id="oaiKey" placeholder="sk-…"></div>
 <div class="quota-bar" id="quotaInfo">10 free AI queries per day</div>
 <div class="btn-row">
 <button class="ab" id="btnAnalyze">Analyze Content</button>
-<button class="btn-sm" id="btnMeta" disabled>✨ Generate Meta Tags</button>
-<button class="btn-sm" id="btnAi" disabled>🤖 AI Suggestions</button>
+<button class="ai-btn" id="btnDetectKw" style="background:var(--card);color:var(--accent);border:1px solid var(--border)">🔍 Auto-detect keywords</button>
+<button class="ai-btn" id="btnOptimize" disabled>✨ AI Optimize</button>
+<button class="btn-sm" id="btnMeta" disabled>📝 Generate Meta Tags</button>
 </div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
@@ -219,14 +264,8 @@
 </div>
 <div class="density-bar" id="densityBars"></div>
 </div>
-<div id="aiRes" style="display:none">
-<div class="ai-section"><h3><span class="ai-icon">🤖</span> AI Optimization Suggestions</h3><div class="ai-suggestions" id="aiSuggestions"></div></div>
-</div>
-<div id="metaRes" style="display:none">
-<div class="ai-section"><h3><span class="ai-icon">✨</span> Generated Meta Tags</h3>
-<div class="meta-gen" id="metaOutput"></div>
-</div>
-</div>
+<div id="aiRes" style="display:none"></div>
+<div id="metaRes" style="display:none"></div>
 </div>
 
 <div class="content">
@@ -256,10 +295,128 @@ var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobile
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
 document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
 
-// ── AI Content Optimizer Logic ──
+// ── AI Content Optimizer Logic (v3 — with GSC) ──
 var WORKER='https://lumina-proxy.julien-elbahy.workers.dev';
 var analysisData=null;
+var _kwData=[];
+var _gscRows=null;
 
+/* ── GSC OAuth (same pattern as Keyword Research) ── */
+var GSC_CLIENT_ID='128725149604-7fjs4kr00b43bhq9jnsr0slr1fcd1fl9.apps.googleusercontent.com';
+var GSC_SCOPES='https://www.googleapis.com/auth/webmasters.readonly';
+var gscToken=localStorage.getItem('lumina_gsc_token')||'';
+var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+
+function gscIsConnected(){return !!gscToken&&Date.now()<gscExpiry}
+function gscUpdateUI(){
+  var c=gscIsConnected();
+  document.getElementById('gscConnect').style.display=c?'none':'block';
+  document.getElementById('gscMain').style.display=c?'block':'none';
+  if(c)gscLoadSites();
+}
+(function(){
+  var hash=window.location.hash;
+  if(hash&&hash.indexOf('access_token')!==-1){
+    var params=new URLSearchParams(hash.substring(1));
+    var token=params.get('access_token');var expires=parseInt(params.get('expires_in')||'3600');
+    if(token){gscToken=token;gscExpiry=Date.now()+expires*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));window.history.replaceState({},'',window.location.pathname+window.location.search)}
+  }
+  gscUpdateUI();
+})();
+document.getElementById('btnGscConnect').addEventListener('click',function(){
+  var redirect=window.location.origin+window.location.pathname;
+  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
+});
+document.getElementById('btnGscDisconnect').addEventListener('click',function(){
+  gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');
+  _gscRows=null;gscUpdateUI();
+});
+async function gscApiFetch(url,body){
+  if(!gscIsConnected())return null;
+  var opts={headers:{'Authorization':'Bearer '+gscToken,'Content-Type':'application/json'}};
+  if(body){opts.method='POST';opts.body=JSON.stringify(body)}
+  var r=await fetch(url,opts);
+  if(r.status===401){gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');gscUpdateUI();return null}
+  return r.json();
+}
+async function gscLoadSites(){
+  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites');
+  if(!d||!d.siteEntry)return;
+  var sel=document.getElementById('gscSite');sel.innerHTML='';
+  d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+}
+document.getElementById('btnGscLoad').addEventListener('click',async function(){
+  var site=document.getElementById('gscSite').value;if(!site)return;
+  var days=parseInt(document.getElementById('gscRange').value);
+  var end=new Date();end.setDate(end.getDate()-1);var start=new Date(end);start.setDate(start.getDate()-days);
+  var fmt=function(d){return d.toISOString().split('T')[0]};
+  var body={startDate:fmt(start),endDate:fmt(end),dimensions:['query'],rowLimit:500,type:'web'};
+  var url=document.getElementById('urlIn').value.trim();
+  if(url){body.dimensionFilterGroups=[{filters:[{dimension:'page',operator:'contains',expression:url.replace(/^https?:\/\//,'')}]}]}
+  document.getElementById('gscStatus').textContent='Loading GSC data…';
+  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(site)+'/searchAnalytics/query',body);
+  if(!d||!d.rows){_gscRows=null;document.getElementById('gscStatus').textContent='No GSC data found.';return}
+  _gscRows=d.rows.map(function(r){return{query:r.keys[0],clicks:r.clicks,impressions:r.impressions,ctr:r.ctr,position:r.position}});
+  _gscRows.sort(function(a,b){return b.impressions-a.impressions});
+  document.getElementById('gscStatus').textContent='✓ '+_gscRows.length+' queries — fetching search volumes…';
+  // Cross-reference top GSC keywords with DFS for search volume
+  var topKws=_gscRows.slice(0,40).map(function(r){return r.query});
+  var text=document.getElementById('contentIn').value;
+  var lang=text.match(/[äöüß]/i)?'de':'en';var loc=lang==='de'?2040:2840;
+  try{
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{keywords:topKws,language_code:lang,location_code:loc}])});
+    var dfsData=await dfsResp.json();
+    if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_gscRows.forEach(function(g){if(g.query.toLowerCase()===r.keyword.toLowerCase()){g.vol=r.search_volume||0}})})})}
+  }catch(e){}
+  // Compute priority score and classify
+  _gscRows.forEach(function(r){
+    var vol=r.vol||0;var pos=r.position;var ctr=r.ctr*100;
+    // Priority: high volume + close to page 1 + low CTR = biggest opportunity
+    var score=0;
+    if(vol>=1000)score+=3;else if(vol>=100)score+=2;else if(vol>=10)score+=1;
+    if(pos<=10)score+=3;else if(pos<=20)score+=2;else if(pos<=30)score+=1;
+    if(pos<=10&&ctr<3)score+=2; // On page 1 but low CTR = title/desc problem
+    if(pos>10&&pos<=20)score+=1; // Striking distance
+    r.priority=score>=5?'high':score>=3?'medium':'low';
+    r.prioScore=score;
+  });
+  _gscRows.sort(function(a,b){return b.prioScore-a.prioScore});
+  // Show as chips + populate keyword fields
+  var high=_gscRows.filter(function(r){return r.priority==='high'});
+  var medium=_gscRows.filter(function(r){return r.priority==='medium'});
+  if(high.length&&!document.getElementById('kwPrimary').value.trim()){
+    document.getElementById('kwPrimary').value=high[0].query;
+    if(high.length>1)document.getElementById('kwSecondary').value=high.slice(1,4).map(function(r){return r.query}).join(', ');
+  }
+  // Merge into _kwData for chip rendering
+  _kwData=_gscRows.filter(function(r){return r.prioScore>=2}).slice(0,15).map(function(r){return{keyword:r.query,vol:r.vol||0,gsc:true,position:r.position,ctr:r.ctr,priority:r.priority}});
+  renderChips();
+  var hc=high.length,mc=medium.length;
+  document.getElementById('gscStatus').textContent='✓ '+_gscRows.length+' queries | '+hc+' high priority'+( mc?' | '+mc+' medium':'') +' — keywords set from GSC data';
+});
+
+function gscContextForPrompt(){
+  if(!_gscRows||!_gscRows.length)return'';
+  var high=_gscRows.filter(function(r){return r.priority==='high'});
+  var medium=_gscRows.filter(function(r){return r.priority==='medium'});
+  var lines=['GSC + SEARCH VOLUME DATA ('+document.getElementById('gscRange').value+' days):'];
+  if(high.length){
+    lines.push('');lines.push('🔴 HIGH PRIORITY (optimize aggressively):');
+    high.slice(0,10).forEach(function(r){lines.push('"'+r.query+'" — Position '+r.position.toFixed(1)+', CTR '+(r.ctr*100).toFixed(1)+'%, '+(r.vol||'?')+'/mo volume, '+r.impressions+' impressions')});
+  }
+  if(medium.length){
+    lines.push('');lines.push('🟡 MEDIUM PRIORITY (strengthen content):');
+    medium.slice(0,10).forEach(function(r){lines.push('"'+r.query+'" — Position '+r.position.toFixed(1)+', CTR '+(r.ctr*100).toFixed(1)+'%, '+(r.vol||'?')+'/mo volume')});
+  }
+  var low=_gscRows.filter(function(r){return r.priority==='low'&&r.impressions>=10}).slice(0,5);
+  if(low.length){
+    lines.push('');lines.push('⚪ LOW PRIORITY (monitor only):');
+    low.forEach(function(r){lines.push('"'+r.query+'" — Position '+r.position.toFixed(1)+', '+(r.vol||'?')+'/mo')});
+  }
+  return'\n\n'+lines.join('\n')+'\n';
+}
+
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function countWords(t){return t.trim().split(/\s+/).filter(function(w){return w.length>0}).length}
 function countSentences(t){var m=t.match(/[.!?]+[\s\n]+|[.!?]+$/g);return m?m.length:t.trim().length>0?1:0}
 function countSyllables(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(w.length<=3)return 1;w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'');w=w.replace(/^y/,'');var m=w.match(/[aeiouy]{1,2}/g);return m?m.length:1}
@@ -267,9 +424,42 @@ function fleschKincaid(text){var words=text.trim().split(/\s+/).filter(function(
 function kwDensity(text,kw){if(!kw)return{pct:0,count:0};var lower=text.toLowerCase();var kwLower=kw.toLowerCase().trim();var words=lower.split(/\s+/);var totalWords=words.length;if(totalWords===0)return{pct:0,count:0};var escaped=kwLower.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var re=new RegExp('\\b'+escaped+'\\b','gi');var matches=lower.match(re);var count=matches?matches.length:0;var kwWords=kwLower.split(/\s+/).length;var pct=(count*kwWords/totalWords)*100;return{pct:pct,count:count}}
 function calcScore(wordCount,density,readability){var score=0;if(wordCount>=300)score+=20;else if(wordCount>=150)score+=12;else score+=5;if(wordCount>=600)score+=5;if(wordCount>=1000)score+=5;if(density>=0.5&&density<=3)score+=30;else if(density>3&&density<=5)score+=15;else if(density>0&&density<0.5)score+=10;else score+=0;if(readability>=60)score+=20;else if(readability>=40)score+=12;else score+=5;var sentCount=countSentences(document.getElementById('contentIn').value);var avgSentLen=wordCount/(sentCount||1);if(avgSentLen>=10&&avgSentLen<=25)score+=10;else score+=4;score+=10;return Math.min(100,score)}
 
+/* Pixel measurement */
+var _mc=null;
+function pxMeasure(text,font){if(!_mc){_mc=document.createElement('canvas').getContext('2d')}_mc.font=font;return Math.round(_mc.measureText(text).width)}
+function pxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col=px>max?'var(--err)':px>warn?'var(--warn)':px<max*0.4?'var(--warn)':'var(--ok)';var lbl=px>max?'truncated':px>warn?'risky':px<max*0.4?'too short':'good';return'<div class="px-wrap"><div class="px-track"><div class="px-fill" style="width:'+pct+'%;background:'+col+'"></div></div><span class="px-info">'+px+'/'+max+'px — '+lbl+'</span></div>'}
+
+function updateQuota(data){if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('quotaInfo').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}}
+
+async function aiCall(body){
+  var key=document.getElementById('oaiKey').value.trim();
+  var headers={'Content-Type':'application/json'};
+  if(key)headers['X-OAI-Key']=key;
+  var resp=await fetch(WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify(body)});
+  var data=await resp.json();
+  if(data.error)throw new Error(data.error);
+  updateQuota(data);
+  return data;
+}
+
+/* ── Fetch from URL ── */
+document.getElementById('btnFetchUrl').addEventListener('click',function(){
+  var url=document.getElementById('urlIn').value.trim();
+  if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
+  document.getElementById('urlIn').value=url;
+  var btn=this;btn.disabled=true;btn.textContent='Fetching…';
+  fetch(WORKER+'/fetch?url='+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(data){
+    if(data.error||!data.html)throw new Error(data.error||'Empty response');
+    var doc=new DOMParser().parseFromString(data.html,'text/html');
+    var body=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim();
+    if(body.length>50)document.getElementById('contentIn').value=body.substring(0,8000);
+  }).catch(function(e){alert('Could not fetch: '+e.message)}).finally(function(){btn.disabled=false;btn.textContent='Fetch from URL'});
+});
+
+/* ── Client-side Analysis ── */
 function runAnalysis(){
   var text=document.getElementById('contentIn').value.trim();
-  var kw=document.getElementById('kwIn').value.trim();
+  var kw=document.getElementById('kwPrimary').value.trim();
   if(!text){alert('Please paste some content to analyze.');return}
   var wc=countWords(text);var sc=countSentences(text);var read=fleschKincaid(text);
   var dens=kwDensity(text,kw);var score=calcScore(wc,dens.pct,read);
@@ -281,83 +471,197 @@ function runAnalysis(){
   document.getElementById('mDens').style.color=kw?(dens.pct>=0.5&&dens.pct<=3?'var(--ok)':dens.pct>3&&dens.pct<=5?'var(--warn)':'var(--err)'):'var(--text)';
   document.getElementById('mScore').textContent=score+'/100';
   document.getElementById('mScore').style.color=score>=70?'var(--ok)':score>=40?'var(--warn)':'var(--err)';
-  // Density bars
   var bars='';
-  if(kw){
-    var words=text.toLowerCase().split(/\s+/);
-    var freq={};words.forEach(function(w){w=w.replace(/[^a-zäöüß0-9-]/gi,'');if(w.length>2)freq[w]=(freq[w]||0)+1});
-    var sorted=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,8);
-    var maxFreq=sorted.length?sorted[0][1]:1;
-    // Add keyword as first entry if not in top 8
-    var kwEntry=kw.toLowerCase();
-    var kwInTop=sorted.some(function(e){return e[0]===kwEntry});
-    if(!kwInTop&&dens.count>0)sorted.unshift([kwEntry,dens.count]);
-    sorted.forEach(function(e){
-      var pct=(e[1]/maxFreq)*100;
-      var isKw=e[0]===kwEntry;
-      var color=isKw?'var(--accent)':'var(--border-h)';
-      bars+='<div class="density-row"><span class="density-label"'+(isKw?' style="color:var(--accent)"':'')+'>'+e[0]+'</span><div class="density-track"><div class="density-fill" style="width:'+pct+'%;background:'+color+'"></div></div><span class="density-val">'+e[1]+'×</span></div>';
-    });
-  }
+  if(kw){var words=text.toLowerCase().split(/\s+/);var freq={};words.forEach(function(w){w=w.replace(/[^a-zäöüß0-9-]/gi,'');if(w.length>2)freq[w]=(freq[w]||0)+1});var sorted=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,8);var maxFreq=sorted.length?sorted[0][1]:1;var kwEntry=kw.toLowerCase();if(!sorted.some(function(e){return e[0]===kwEntry})&&dens.count>0)sorted.unshift([kwEntry,dens.count]);sorted.forEach(function(e){var pct=(e[1]/maxFreq)*100;var isKw=e[0]===kwEntry;bars+='<div class="density-row"><span class="density-label"'+(isKw?' style="color:var(--accent)"':'')+'>'+e[0]+'</span><div class="density-track"><div class="density-fill" style="width:'+pct+'%;background:'+(isKw?'var(--accent)':'var(--border-h)')+'"></div></div><span class="density-val">'+e[1]+'×</span></div>'})}
   document.getElementById('densityBars').innerHTML=bars;
   document.getElementById('res').style.display='block';
+  document.getElementById('btnOptimize').disabled=false;
   document.getElementById('btnMeta').disabled=false;
-  document.getElementById('btnAi').disabled=false;
-  analysisData={text:text,kw:kw,wc:wc,sc:sc,read:read,dens:dens,score:score};
+  analysisData={text:text,kw:kw,sec:document.getElementById('kwSecondary').value.trim(),wc:wc,sc:sc,read:read,dens:dens,score:score,url:document.getElementById('urlIn').value.trim()};
 }
 
-async function aiCall(messages){
-  var key=document.getElementById('oaiKey').value.trim();
-  var headers={'Content-Type':'application/json'};
-  if(key)headers['X-OAI-Key']=key;
-  var resp=await fetch(WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify({messages:messages,max_tokens:800})});
-  var data=await resp.json();
-  if(data.error){throw new Error(data.error)}
-  if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('quotaInfo').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
-  return data.choices[0].message.content;
+/* ── Keyword chip rendering ── */
+function renderChips(){
+  var container=document.getElementById('kwChips');
+  if(!_kwData.length){container.style.display='none';return}
+  var primary=document.getElementById('kwPrimary').value.trim().toLowerCase();
+  var secRaw=document.getElementById('kwSecondary').value.trim().toLowerCase();
+  var secondaries=secRaw?secRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
+  var hasGsc=_kwData.some(function(k){return k.gsc});
+  var h='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px">'+(hasGsc?'GSC keywords with search volume — click to set as primary/secondary':'Detected keywords — click to set as primary, click again for secondary')+'</div>';
+  _kwData.forEach(function(kw){
+    var k=kw.keyword.toLowerCase();var isPri=k===primary;var isSec=secondaries.indexOf(k)!==-1;
+    var vol=kw.vol!==undefined?' <span class="kw-vol">'+kw.vol.toLocaleString()+'/mo</span>':'';
+    var gscInfo=kw.gsc?' <span class="kw-vol">P'+kw.position.toFixed(0)+'</span>':'';
+    var prioCls=kw.priority==='high'?' kw-high':kw.priority==='medium'?' kw-med':'';
+    h+='<span class="kw-chip '+(isPri?'primary':isSec?'secondary':'')+prioCls+'" data-kw="'+esc(kw.keyword)+'">'+esc(kw.keyword)+vol+gscInfo+'</span>';
+  });
+  container.innerHTML=h;container.style.display='block';
+  container.querySelectorAll('.kw-chip').forEach(function(chip){chip.addEventListener('click',function(){
+    var kw=chip.getAttribute('data-kw'),pri=document.getElementById('kwPrimary'),sec=document.getElementById('kwSecondary');
+    if(pri.value.trim().toLowerCase()===kw.toLowerCase()){pri.value='';var s=sec.value?sec.value.split(',').map(function(x){return x.trim()}).filter(Boolean):[];if(s.indexOf(kw)===-1)s.push(kw);sec.value=s.join(', ')}
+    else if(sec.value.toLowerCase().indexOf(kw.toLowerCase())!==-1){sec.value=sec.value.split(',').map(function(x){return x.trim()}).filter(function(x){return x.toLowerCase()!==kw.toLowerCase()}).join(', ')}
+    else{if(pri.value.trim()){var s=sec.value?sec.value.split(',').map(function(x){return x.trim()}).filter(Boolean):[];if(s.indexOf(pri.value.trim())===-1)s.push(pri.value.trim());sec.value=s.join(', ')}pri.value=kw}
+    renderChips();
+  })});
 }
 
-async function runAiSuggestions(){
-  if(!analysisData){alert('Run analysis first.');return}
-  document.getElementById('btnAi').disabled=true;document.getElementById('btnAi').textContent='⏳ Analyzing…';
-  document.getElementById('aiRes').style.display='block';document.getElementById('aiSuggestions').innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
+/* ── Auto-detect keywords: AI → DFS volume ── */
+document.getElementById('btnDetectKw').addEventListener('click',async function(){
+  var text=document.getElementById('contentIn').value.trim();
+  if(!text){alert('Please paste content first.');return}
+  var btn=this;btn.disabled=true;btn.textContent='⏳ Detecting…';
   try{
-    var contentSnippet=analysisData.text.substring(0,1500);
-    var prompt='You are an SEO expert. Analyze this content for the target keyword "'+analysisData.kw+'".\n\nContent (first 1500 chars):\n'+contentSnippet+'\n\nStats: '+analysisData.wc+' words, keyword density '+analysisData.dens.pct.toFixed(1)+'% ('+analysisData.dens.count+' occurrences), readability score '+analysisData.read+'/100, overall score '+analysisData.score+'/100.\n\nProvide 5-7 specific, actionable SEO optimization suggestions. Format as HTML with <ul><li> tags. Focus on: keyword placement, content structure, semantic relevance, readability, and content gaps. Be concise and specific.';
-    var result=await aiCall([{role:'user',content:prompt}]);
-    document.getElementById('aiSuggestions').innerHTML=result;
-  }catch(err){document.getElementById('aiSuggestions').innerHTML='<p style="color:var(--err)">Error: '+err.message+'</p>'}
-  document.getElementById('btnAi').disabled=false;document.getElementById('btnAi').textContent='🤖 AI Suggestions';
-}
+    var snippet=text.substring(0,2000);
+    var data=await aiCall({messages:[{role:'user',content:'CONTENT:\n'+snippet}],system:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}',max_tokens:300});
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var kws=JSON.parse(raw).keywords||[];
+    if(!kws.length)throw new Error('No keywords detected');
+    document.getElementById('kwPrimary').value=kws[0];
+    if(kws.length>1)document.getElementById('kwSecondary').value=kws.slice(1,4).join(', ');
+    _kwData=kws.map(function(k){return{keyword:k}});
+    renderChips();
+    // DFS volumes
+    btn.textContent='⏳ Getting volumes…';
+    var lang=text.match(/[äöüß]/i)?'de':'en';var loc=lang==='de'?2040:2840;
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
+    var dfsData=await dfsResp.json();
+    if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_kwData.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})})}
+    _kwData.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
+    if(_kwData[0]){document.getElementById('kwPrimary').value=_kwData[0].keyword;document.getElementById('kwSecondary').value=_kwData.slice(1,4).map(function(k){return k.keyword}).join(', ')}
+    renderChips();
+  }catch(e){document.getElementById('kwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p>';document.getElementById('kwChips').style.display='block'}
+  finally{btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'}
+});
 
-async function runMetaGen(){
-  if(!analysisData){alert('Run analysis first.');return}
-  document.getElementById('btnMeta').disabled=true;document.getElementById('btnMeta').textContent='⏳ Generating…';
-  document.getElementById('metaRes').style.display='block';document.getElementById('metaOutput').innerHTML='<div class="skel w90"></div><div class="skel w70"></div>';
+/* ── AI Optimize (Extension-quality prompt) ── */
+document.getElementById('btnOptimize').addEventListener('click',async function(){
+  var text=document.getElementById('contentIn').value.trim();
+  var primary=document.getElementById('kwPrimary').value.trim();
+  if(!text){alert('Paste content first.');return}
+  if(!primary){alert('Enter or detect a primary keyword first.');return}
+  var secondary=document.getElementById('kwSecondary').value.trim();
+  var url=document.getElementById('urlIn').value.trim();
+  var btn=this;btn.disabled=true;btn.textContent='⏳ Optimizing…';
+  var out=document.getElementById('aiRes');out.style.display='block';
+  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w90"></div><div class="skel w70"></div>';
+  var lang=text.match(/[äöüß]/i)?'de':'en';
+  var gscCtx=gscContextForPrompt();
   try{
-    var contentSnippet=analysisData.text.substring(0,1200);
-    var urlCtx=document.getElementById('urlIn').value.trim();
-    var prompt='You are an SEO expert. Generate optimized meta tags for the following content.\n\nTarget keyword: "'+analysisData.kw+'"\n'+(urlCtx?'Page URL: '+urlCtx+'\n':'')+'Content (first 1200 chars):\n'+contentSnippet+'\n\nRespond with ONLY valid JSON (no markdown, no backticks): {"title1":"...","title2":"...","desc1":"...","desc2":"..."}\n\nRules:\n- title1 and title2: Two meta title options, max 60 characters each, include target keyword early\n- desc1 and desc2: Two meta description options, max 155 characters each, include target keyword, add a CTA\n- Be compelling and click-worthy';
-    var result=await aiCall([{role:'user',content:prompt}]);
-    var clean=result.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(clean);
+    var data=await aiCall({messages:[{role:'user',content:'URL: '+(url||'(none)')+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+'Content (first 4000 chars):\n'+text.substring(0,4000)+gscCtx}],
+    system:'You are a senior SEO consultant performing a data-driven content optimization. The page language is "'+lang+'". WRITE ALL OPTIMIZED TEXT IN THE SAME LANGUAGE AS THE ORIGINAL.\n\n'+
+      'Primary target keyword: "'+primary+'".\n'+
+      (secondary?'Secondary keywords: '+secondary+'\n':'')+
+      'OPTIMIZATION RULES (apply strictly):\n'+
+      '1. SEMANTIC KEYWORD MATCHING (CRITICAL): Google uses BERT/MUM and understands semantic meaning. A keyword does NOT need to appear as an exact phrase. Partial matches, reordered words, and semantic equivalents COUNT as covered. Only flag a keyword as "weak" or "missing" if its MEANING is genuinely absent from that element.\n'+
+      '2. TITLE TAG: Must contain the primary keyword concept (not necessarily exact match). Use compelling modifiers. STRICT LIMIT: max 50-55 characters (Google truncates at ~580px which is roughly 50-55 chars). Shorter is better. Count carefully before outputting. Add brand at end ONLY if total stays under 50 chars.\n'+
+      '3. META DESCRIPTION: Must address the primary search intent. Include value proposition + CTA. STRICT LIMIT: 135-150 characters (Google truncates at ~920px). Count every character. Never exceed 150. Aim for 140.\n'+
+      '4. HEADING STRUCTURE: H1 must reflect the primary topic. H2s should cover main aspects. Never skip heading levels.\n'+
+      '5. CONTENT QUALITY: Short sentences (15-20 words avg). Bullet points for lists. Define key entities clearly.\n'+
+      (gscCtx?'6. GSC-DRIVEN: The GSC data below is pre-analyzed with search volumes. Keywords marked HIGH PRIORITY have the biggest ranking opportunity — optimize title, description, and content specifically for these. Position 4-20 with high volume = strengthen content. Position 1-3 = don\'t change aggressively. Low CTR on page 1 = title/description problem.\n':'6. CONTENT GAPS: If related keywords are genuinely missing from the page meaning, suggest a new section.\n')+
+      '7. NO INTERNAL LINK SUGGESTIONS — do not suggest internal links as you cannot verify which pages exist.\n\n'+
+      'EXAMPLES OF GOOD TITLE OPTIMIZATIONS:\n'+
+      '✓ "Badsanierung Wien – Fixpreis & Festtermin" (43 chars — keyword early, compelling modifiers)\n'+
+      '✓ "SEO Audit: 7 Checks für bessere Rankings" (43 chars — number, clear benefit)\n'+
+      '✓ "Bathroom Renovation in 1 Day | bazuba" (40 chars — USP + brand fits)\n\n'+
+      'EXAMPLES OF BAD TITLES (DO NOT PRODUCE THESE):\n'+
+      '✗ "Badsanierung & Badrenovierung aus einer Hand – Ihr Experte für Komplettsanierungen" (too long — 84 chars, will be truncated)\n'+
+      '✗ "Best Bathroom Renovation Services Company Near You 2026" (generic, keyword-stuffed)\n'+
+      '✗ "Home | bazuba" (too vague, wastes the entire title tag)\n\n'+
+      'EXAMPLES OF GOOD DESCRIPTIONS:\n'+
+      '✓ "Badsanierung in nur 1 Tag. ✓ Fixpreis ✓ Kein Staub ✓ 100.000+ zufriedene Kunden. Jetzt Festpreis anfragen." (109 chars — benefits, proof, CTA)\n'+
+      '✓ "Complete bathroom renovation with fixed pricing. No dust, no mess. Get your free quote today." (93 chars — clear, concise)\n\n'+
+      'EXAMPLES OF BAD DESCRIPTIONS:\n'+
+      '✗ "Wir sind Ihr kompetenter Partner für Badsanierung und Badrenovierung aus einer Hand mit über 20 Jahren Erfahrung und mehr als 100.000 zufriedenen Kunden in ganz Österreich, Deutschland und der Schweiz." (too long — 199 chars)\n'+
+      '✗ "Welcome to our website. Click here to learn more about our services." (generic, no keywords, no value)\n\n'+
+      'IMPORTANT: Provide optimizations for EVERY element that needs improvement — title, description, H1, all weak H2s, and any paragraphs where keyword placement or readability can be improved. Typically 5-15 optimizations depending on content length and quality. Return concrete, ready-to-use text rewrites. The "before" field must be the EXACT original text. Keep the original tone and voice.\n'+
+      'BEFORE OUTPUTTING: Count the characters of any title optimization (must be ≤55 chars) and any description optimization (must be ≤150 chars). Shorten if they exceed these limits.\n\n'+
+      'Respond ONLY with valid JSON:\n'+
+      '{"score_before":0-100,"score_after":0-100,"summary":"1 sentence what was improved",'+
+      '"keywords":{"covered":["keywords semantically well-represented"],"weak":["keywords whose MEANING is present but weakly"],"missing":["keywords whose MEANING is genuinely absent"],'+
+      '"primary":"detected main keyword","density":"X.X%","inTitle":true/false,"inH1":true/false,"inDesc":true/false,"inFirst100Words":true/false},'+
+      '"optimizations":[{"type":"title|description|h1|h2|paragraph|new_section",'+
+      '"before":"EXACT original text (empty string for new_section)",'+
+      '"after":"optimized replacement text",'+
+      '"reason":"specific explanation: which keyword concept, what volume, why this change improves ranking"}],'+
+      '"readability":{"level":"grade level","avgSentenceLength":0,"suggestion":"specific actionable improvement"}}',
+    max_tokens:2000});
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var r=JSON.parse(raw);
     var h='';
-    [['title1','Meta Title — Option 1'],['title2','Meta Title — Option 2'],['desc1','Meta Description — Option 1'],['desc2','Meta Description — Option 2']].forEach(function(pair){
-      var key=pair[0],label=pair[1],val=parsed[key]||'';
-      var isTitle=key.startsWith('title');
-      var maxLen=isTitle?60:155;
-      var lenClass=val.length<=maxLen?'ok':val.length<=maxLen+10?'warn':'err';
-      h+='<div class="meta-card"><div class="mh">'+label+' <span class="badge '+lenClass+'">'+val.length+'/'+maxLen+'</span></div><p>'+val+'</p><button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector(\'p\').textContent);this.textContent=\'✓\'">Copy</button></div>';
+    // Score before → after
+    var sclB=(r.score_before||0)>=75?'good':(r.score_before||0)>=50?'mid':'bad';
+    var sclA=(r.score_after||0)>=75?'good':(r.score_after||0)>=50?'mid':'bad';
+    h+='<div class="ai-card" style="text-align:center"><div style="display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:6px"><div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Before</div><span class="ai-score '+sclB+'">'+(r.score_before||'?')+'</span></div><div style="font-size:20px;color:var(--muted)">→</div><div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">After</div><span class="ai-score '+sclA+'">'+(r.score_after||'?')+'</span></div></div><p style="font-size:13px;color:var(--text);margin:4px 0 0">'+esc(r.summary||'')+'</p></div>';
+    // Keyword coverage
+    if(r.keywords){var kws=r.keywords;
+      h+='<div class="ai-card"><h4>Keyword Coverage</h4>';
+      h+='<p style="font-size:13px;margin:0 0 6px"><strong>Primary:</strong> '+esc(kws.primary||'—')+(kws.density?' · <strong>Density:</strong> '+esc(kws.density):'')+'</p>';
+      h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0">';
+      h+='<span class="badge '+(kws.inTitle?'ok':'err')+'">Title: '+(kws.inTitle?'✓':'✕')+'</span>';
+      h+='<span class="badge '+(kws.inH1?'ok':'err')+'">H1: '+(kws.inH1?'✓':'✕')+'</span>';
+      h+='<span class="badge '+(kws.inDesc?'ok':'err')+'">Description: '+(kws.inDesc?'✓':'✕')+'</span>';
+      h+='<span class="badge '+(kws.inFirst100Words?'ok':'err')+'">First 100 words: '+(kws.inFirst100Words?'✓':'✕')+'</span></div>';
+      if(kws.covered&&kws.covered.length)h+='<p style="font-size:12px;margin:4px 0"><strong style="color:var(--ok)">✓ Well covered:</strong> '+kws.covered.map(function(k){return'<span class="badge ok" style="margin:1px">'+esc(k)+'</span>'}).join(' ')+'</p>';
+      if(kws.weak&&kws.weak.length)h+='<p style="font-size:12px;margin:4px 0"><strong style="color:var(--warn)">◐ Weak:</strong> '+kws.weak.map(function(k){return'<span class="badge warn" style="margin:1px">'+esc(k)+'</span>'}).join(' ')+'</p>';
+      if(kws.missing&&kws.missing.length)h+='<p style="font-size:12px;margin:4px 0"><strong style="color:var(--err)">✕ Missing:</strong> '+kws.missing.map(function(k){return'<span class="badge err" style="margin:1px">'+esc(k)+'</span>'}).join(' ')+'</p>';
+      h+='</div>';
+    }
+    // Optimizations with before/after + pixel bars for title/desc
+    var opts=r.optimizations||[];
+    if(opts.length){
+      var typeLabels={title:'🏷️ Title',description:'📝 Description',h1:'📌 H1',h2:'📌 H2',paragraph:'📄 Paragraph',new_section:'🆕 New Section'};
+      h+='<div class="ai-card"><h4>✏️ Optimizations ('+opts.length+')</h4>';
+      opts.forEach(function(o){
+        h+='<div class="ai-diff"><div class="ai-diff-label">'+(typeLabels[o.type]||o.type)+'</div>';
+        if(o.before)h+='<div class="ai-diff-before">'+esc(o.before)+'</div>';
+        h+='<div class="ai-diff-after">'+esc(o.after)+'</div>';
+        if(o.type==='title'){var px=pxMeasure(o.after,'20px Arial');h+=pxBar(px,580,520)+'<span style="font-size:10px;color:var(--muted)">'+o.after.length+' chars</span>'}
+        if(o.type==='description'){var px=pxMeasure(o.after,'14px Arial');h+=pxBar(px,920,820)+'<span style="font-size:10px;color:var(--muted)">'+o.after.length+' chars</span>'}
+        if(o.reason)h+='<div class="ai-diff-reason">💡 '+esc(o.reason)+'</div>';
+        h+='</div>';
+      });
+      h+='<button class="exp-btn" onclick="var opts=window._lastOpts||[];var lines=[];opts.forEach(function(c){lines.push(\'--- \'+c.type.toUpperCase()+\' ---\');if(c.before)lines.push(\'BEFORE: \'+c.before);lines.push(\'AFTER: \'+c.after);if(c.reason)lines.push(\'REASON: \'+c.reason);lines.push(\'\')});navigator.clipboard.writeText(lines.join(\'\\n\'));this.textContent=\'✓ Copied!\';setTimeout(function(){event.target.textContent=\'📋 Copy all changes\'},1500)">📋 Copy all changes</button>';
+      h+='</div>';
+      window._lastOpts=opts;
+    }
+    // Readability
+    if(r.readability){h+='<div class="ai-card"><h4>Readability</h4><p style="font-size:13px"><strong>Level:</strong> '+esc(r.readability.level||'')+'</p><p style="font-size:12px;color:var(--muted)">'+esc(r.readability.suggestion||'')+'</p></div>'}
+    out.innerHTML=h;
+  }catch(e){out.innerHTML='<p style="color:var(--err);padding:16px">❌ '+esc(e.message)+'</p>'}
+  finally{btn.disabled=false;btn.textContent='✨ AI Optimize'}
+});
+
+/* ── Generate Meta Tags (with pixel bars) ── */
+document.getElementById('btnMeta').addEventListener('click',async function(){
+  var text=document.getElementById('contentIn').value.trim();
+  var primary=document.getElementById('kwPrimary').value.trim();
+  if(!text){alert('Paste content first.');return}
+  if(!primary){alert('Enter or detect a primary keyword first.');return}
+  var url=document.getElementById('urlIn').value.trim();
+  var btn=this;btn.disabled=true;btn.textContent='⏳ Generating…';
+  var out=document.getElementById('metaRes');out.style.display='block';
+  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div>';
+  try{
+    var data=await aiCall({messages:[{role:'user',content:'Target keyword: "'+primary+'"\n'+(url?'URL: '+url+'\n':'')+'Content (first 1500 chars):\n'+text.substring(0,1500)+'\n\nRespond with ONLY valid JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}\n\nRules:\n- Detect language from content. WRITE IN SAME LANGUAGE.\n- title1, title2: STRICT MAX 55 chars, keyword early, compelling\n- desc1, desc2: STRICT MAX 150 chars, keyword + CTA\n- Count chars before outputting'}],max_tokens:500});
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var parsed=JSON.parse(raw);
+    var h='<div class="ai-card"><h4>📝 Generated Meta Tags</h4>';
+    [['title1','Title — Option A',true],['title2','Title — Option B',true],['desc1','Description — Option A',false],['desc2','Description — Option B',false]].forEach(function(pair){
+      var val=parsed[pair[0]]||'';var isTitle=pair[2];
+      var px=pxMeasure(val,isTitle?'20px Arial':'14px Arial');
+      var maxPx=isTitle?580:920;var warnPx=isTitle?520:820;
+      h+='<div class="meta-card"><div class="mh">'+pair[1]+' <span class="badge '+(val.length<=(isTitle?55:150)?'ok':'warn')+'">'+val.length+' chars</span></div><p>'+esc(val)+'</p>'+pxBar(px,maxPx,warnPx)+'<button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector(\'p\').textContent);this.textContent=\'✓ Copied\';setTimeout(function(){event.target.textContent=\'Copy\'},1500)">Copy</button></div>';
     });
-    document.getElementById('metaOutput').innerHTML=h;
-  }catch(err){document.getElementById('metaOutput').innerHTML='<p style="color:var(--err)">Error: '+err.message+'. Make sure you entered a target keyword.</p>'}
-  document.getElementById('btnMeta').disabled=false;document.getElementById('btnMeta').textContent='✨ Generate Meta Tags';
-}
+    h+='</div>';
+    out.innerHTML=h;
+  }catch(e){out.innerHTML='<p style="color:var(--err);padding:16px">❌ '+esc(e.message)+'</p>'}
+  finally{btn.disabled=false;btn.textContent='📝 Generate Meta Tags'}
+});
 
 document.getElementById('btnAnalyze').addEventListener('click',runAnalysis);
-document.getElementById('btnAi').addEventListener('click',runAiSuggestions);
-document.getElementById('btnMeta').addEventListener('click',runMetaGen);
 document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)runAnalysis()});
+document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnFetchUrl').click()});
 </script>
 <style>.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div><script>
