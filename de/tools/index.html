@@ -183,6 +183,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .tc-text p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
 .tc-arrow{font-size:18px;color:var(--muted);flex-shrink:0;transition:all .2s}
 .tool-card:hover .tc-arrow{color:var(--accent);transform:translateX(4px)}
+.tc-badge{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:2px 7px;border-radius:6px;flex-shrink:0;line-height:1.4}.tc-badge.popular{background:rgba(80,224,144,.12);color:var(--ok)}.tc-badge.new{background:rgba(124,58,237,.15);color:#a855f7}
 [data-theme="light"] .tool-card{background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(100,70,30,.05)}
 [data-theme="light"] .tool-card:hover{box-shadow:0 6px 28px rgba(200,122,48,.10)}
 [data-theme="light"] .tc-icon{background:rgba(200,122,48,.07)}
@@ -268,8 +269,8 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 
 <div class="tg-cat">SEO Analysis</div>
 <div class="tools-grid">
-<a href="/de/tools/serp-preview/" class="tool-card"><div class="tc-icon">🔍</div><div class="tc-text"><h3>Snippet Preview</h3><p>Vorschau deines Google-Snippets mit Pixelbreiten-Zähler, Desktop/Mobile-Umschaltung und Keyword-Hervorhebung.</p></div><span class="tc-arrow">→</span></a>
-<a href="/de/tools/meta-tag-analyzer/" class="tool-card"><div class="tc-icon">🏷️</div><div class="tc-text"><h3>Meta Tag Analyzer</h3><p>Complete audit of title, description, canonical, robots, OG tags, and more with actionable recommendations.</p></div><span class="tc-arrow">→</span></a>
+<a href="/de/tools/serp-preview/" class="tool-card"><div class="tc-icon">🔍</div><div class="tc-text"><h3>Snippet Preview</h3><p>Vorschau deines Google-Snippets mit Pixelbreiten-Zähler, Desktop/Mobile-Umschaltung und Keyword-Hervorhebung.</p></div><span class="tc-badge popular">Beliebt</span><span class="tc-arrow">→</span></a>
+<a href="/de/tools/meta-tag-analyzer/" class="tool-card"><div class="tc-icon">🏷️</div><div class="tc-text"><h3>Meta Tag Analyzer</h3><p>Complete audit of title, description, canonical, robots, OG tags, and more with actionable recommendations.</p></div><span class="tc-badge popular">Beliebt</span><span class="tc-arrow">→</span></a>
 <a href="/de/tools/schema-validator/" class="tool-card"><div class="tc-icon">📋</div><div class="tc-text"><h3>Schema Validator</h3><p>Extrahiere und validiere JSON-LD Structured Data mit tiefgehenden Content-Checks über die Syntax hinaus.</p></div><span class="tc-arrow">→</span></a>
 <a href="/de/tools/heading-checker/" class="tool-card"><div class="tc-icon">📝</div><div class="tc-text"><h3>Heading Checker</h3><p>Visualisiere deine H1–H6-Hierarchie, erkenne Fehler und prüfe die Heading-Struktur nach SEO-Best-Practices.</p></div><span class="tc-arrow">→</span></a>
 <a href="/de/tools/og-preview/" class="tool-card"><div class="tc-icon">🖼️</div><div class="tc-text"><h3>OG Preview</h3><p>Sieh, wie deine Seite beim Teilen auf Facebook, Twitter und LinkedIn aussieht — mit Open-Graph-Vorschau.</p></div><span class="tc-arrow">→</span></a>
@@ -277,7 +278,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div class="tg-cat">SERP & Keywords</div>
 <div class="tools-grid">
 <a href="/de/tools/serp-checker/" class="tool-card"><div class="tc-icon">📊</div><div class="tc-text"><h3>SERP Checker</h3><p>Prüfe Live-Google-Suchergebnisse für jedes Keyword. Sieh Titel, Beschreibungen, URLs und SERP-Features.</p></div><span class="tc-arrow">→</span></a>
-<a href="/de/tools/keyword-research/" class="tool-card"><div class="tc-icon">🔑</div><div class="tc-text"><h3>Keyword Research</h3><p>Get search volume, CPC, competition data, and related keyword suggestions powered by DataForSEO.</p></div><span class="tc-arrow">→</span></a>
+<a href="/de/tools/keyword-research/" class="tool-card"><div class="tc-icon">🔑</div><div class="tc-text"><h3>Keyword Research</h3><p>Get search volume, CPC, competition data, and related keyword suggestions powered by DataForSEO.</p></div><span class="tc-badge popular">Beliebt</span><span class="tc-arrow">→</span></a>
 <a href="/de/tools/serp-overlap/" class="tool-card"><div class="tc-icon">🔀</div><div class="tc-text"><h3>SERP Overlap</h3><p>Vergleiche SERP-Ergebnisse zweier Keywords, um Content-Gaps und Kannibalisierung zu finden.</p></div><span class="tc-arrow">→</span></a>
 </div>
 <div class="tg-cat">Technical SEO</div>
@@ -297,7 +298,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <a href="/de/tools/robots-txt-analyzer/" class="tool-card"><div class="tc-icon">🤖</div><div class="tc-text"><h3>Robots.txt Analyzer</h3><p>Parse und validiere robots.txt mit Syntax-Highlighting, Bot-spezifischen Regeln und Sitemap-Erkennung.</p></div><span class="tc-arrow">→</span></a>
 <a href="/de/tools/llms-txt-generator/" class="tool-card"><div class="tc-icon">📄</div><div class="tc-text"><h3>llms.txt Generator</h3><p>Erstelle und validiere llms.txt-Dateien, die AI-Crawlern zeigen, wie sie deinen Content indexieren und zitieren sollen.</p></div><span class="tc-arrow">→</span></a>
 <a href="/de/tools/hreflang-checker/" class="tool-card"><div class="tc-icon">🌐</div><div class="tc-text"><h3>hreflang Checker</h3><p>hreflang-Tags für internationales SEO validieren. Return-Links, Selbstreferenzen und x-default prüfen.</p></div><span class="tc-arrow">→</span></a>
-<a href="/de/tools/ki-content-optimierer/" class="tool-card"><div class="tc-icon">✨</div><div class="tc-text"><h3>KI Content Optimierer</h3><p>Inhalte mit KI-gestützter Analyse für SEO optimieren. Keyword-Dichte, Lesbarkeit und Meta-Tag-Generierung.</p></div><span class="tc-arrow">→</span></a>
+<a href="/de/tools/ki-content-optimierer/" class="tool-card"><div class="tc-icon">✨</div><div class="tc-text"><h3>KI Content Optimierer</h3><p>Inhalte mit KI-gestützter Analyse für SEO optimieren. Keyword-Dichte, Lesbarkeit und Meta-Tag-Generierung.</p></div><span class="tc-badge new">Neu</span><span class="tc-arrow">→</span></a>
 </div>
 
 
