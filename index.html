@@ -87,7 +87,43 @@ footer{padding:40px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 .demo-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:5px;vertical-align:middle;border:1px solid}.demo-badge.ok{background:rgba(80,224,144,.08);color:#50e090;border-color:rgba(80,224,144,.18)}.demo-badge.warn{background:rgba(244,196,74,.07);color:#f4c44a;border-color:rgba(244,196,74,.17)}.demo-badge.err{background:rgba(244,120,120,.07);color:#f47878;border-color:rgba(244,120,120,.17)}
 .demo-section-title{font-size:9.5px;font-weight:700;color:#918474;text-transform:uppercase;letter-spacing:.8px;margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid rgba(255,240,215,.08)}.demo-section-title:first-child{margin-top:0}
 .demo-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.demo-stat{background:rgba(255,245,225,.04);border:1px solid rgba(255,240,215,.08);border-radius:12px;padding:10px 8px;text-align:center;backdrop-filter:blur(12px)}.demo-stat .num{font-size:20px;font-weight:800;color:#f2eade}.demo-stat .desc{font-size:9px;color:#918474;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
-.demo-heading-item{margin-bottom:2px;padding:4px 8px;display:flex;align-items:baseline;gap:6px;border-radius:8px;transition:background .15s}.demo-heading-item:hover{background:rgba(236,165,80,.08)}.demo-heading-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;min-width:24px;text-align:center;color:#eca550;background:rgba(236,165,80,.08);border:1px solid rgba(236,165,80,.15)}.demo-heading-text{font-size:12px;color:#ccc0ae;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.demo-heading-item{margin-bottom:2px;padding:4px 8px;display:flex;align-items:center;gap:6px;border-radius:8px;transition:background .15s}.demo-heading-item:hover{background:rgba(236,165,80,.08)}.demo-heading-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;min-width:24px;text-align:center;flex-shrink:0}
+.demo-heading-tag.h1{color:#dc2626;background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.2)}
+.demo-heading-tag.h2{color:#2563eb;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2)}
+.demo-heading-tag.h3{color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.2)}
+.demo-heading-tag.h4{color:#d97706;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.2)}
+.demo-heading-tag.h5{color:#7c3aed;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2)}
+.demo-heading-tag.h6{color:#9ca3af;background:rgba(156,163,175,.1);border:1px solid rgba(156,163,175,.2)}
+.demo-heading-text{font-size:12px;color:#ccc0ae;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Score ring */
+.demo-score-wrap{display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:12px;background:rgba(255,245,225,.04);border:1px solid rgba(255,240,215,.08);border-radius:12px}.demo-score-ring{position:relative;width:60px;height:60px;flex-shrink:0}.demo-score-ring svg{transform:rotate(-90deg)}.demo-score-ring circle{fill:none;stroke-width:5}.demo-score-ring .bg{stroke:rgba(255,240,215,.08)}.demo-score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset 1.2s ease}.demo-score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}.demo-score-info h4{font-size:14px;font-weight:800;color:#f2eade;margin:0 0 2px}.demo-score-info p{font-size:11px;color:#918474;margin:0}
+/* Issues summary */
+.demo-issues{margin-bottom:10px}.demo-issue-item{display:flex;gap:8px;padding:5px 0;font-size:11px;align-items:center}.demo-issue-item .ii{width:14px;text-align:center;flex-shrink:0}.demo-issue-item .it{flex:1;color:#ccc0ae}.demo-issue-item a{color:#eca550;font-weight:600;margin-left:6px;white-space:nowrap;font-size:10px}
+/* AI/GEO tab */
+.demo-crawler-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px dashed rgba(255,240,215,.06);font-size:12px}.demo-crawler-row:last-child{border-bottom:none}.demo-crawler-name{flex:1;color:#ccc0ae;font-weight:600}.demo-crawler-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.demo-crawler-status.allowed{background:rgba(80,224,144,.08);color:#50e090;border:1px solid rgba(80,224,144,.18)}
+.demo-crawler-status.blocked{background:rgba(244,120,120,.07);color:#f47878;border:1px solid rgba(244,120,120,.17)}
+/* Content stats */
+.demo-content-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+/* Deep link */
+.demo-deep-link{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:#eca550;font-weight:600;margin-top:8px;transition:color .2s}.demo-deep-link:hover{color:#f4ba6e}
+/* Light mode overrides */
+[data-theme="light"] .showcase-frame{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.12);box-shadow:0 8px 36px rgba(100,70,30,.08)}
+[data-theme="light"] .showcase-bar{background:rgba(255,255,255,.6);border-color:rgba(140,120,90,.08)}
+[data-theme="light"] .showcase-bar .tab-label{color:#6e6256}[data-theme="light"] .showcase-bar .tab-label strong{color:#c87a30}
+[data-theme="light"] .demo-url-bar{border-color:rgba(140,120,90,.08)}[data-theme="light"] .demo-input{background:rgba(255,255,255,.7);border-color:rgba(140,120,90,.12);color:#0d0906}[data-theme="light"] .demo-input::placeholder{color:#6e6256}[data-theme="light"] .demo-input:focus{border-color:#c87a30;box-shadow:0 0 0 3px rgba(200,122,48,.15)}
+[data-theme="light"] #demoTabs{background:rgba(255,255,255,.4);border-color:rgba(140,120,90,.06)}[data-theme="light"] #demoTabs button{color:#6e6256}[data-theme="light"] #demoTabs button.active{background:linear-gradient(135deg,#c87a30,#b06820);color:#fff}[data-theme="light"] #demoTabs button:hover:not(.active){color:#c87a30;background:rgba(200,122,48,.08)}
+[data-theme="light"] .demo-results{scrollbar-color:rgba(140,120,90,.10) transparent}
+[data-theme="light"] .demo-row{border-color:rgba(140,120,90,.08)}[data-theme="light"] .demo-info .lbl{color:#6e6256}[data-theme="light"] .demo-info .val{color:#2c241c}[data-theme="light"] .demo-info .val.mono{color:#6e6256}
+[data-theme="light"] .demo-stat{background:rgba(255,255,255,.6);border-color:rgba(140,120,90,.08)}[data-theme="light"] .demo-stat .num{color:#0d0906}[data-theme="light"] .demo-stat .desc{color:#6e6256}
+[data-theme="light"] .demo-heading-text{color:#2c241c}
+[data-theme="light"] .demo-og-preview{background:rgba(255,255,255,.6);border-color:rgba(140,120,90,.08)}[data-theme="light"] .demo-og-body .og-title{color:#0d0906}[data-theme="light"] .demo-og-body .og-site,[data-theme="light"] .demo-og-body .og-desc{color:#6e6256}
+[data-theme="light"] .demo-section-title{color:#6e6256;border-color:rgba(140,120,90,.08)}
+[data-theme="light"] .demo-skel{background:rgba(140,120,90,.08)}
+[data-theme="light"] .demo-cta-bar{background:rgba(255,255,255,.3);border-color:rgba(140,120,90,.06)}[data-theme="light"] .demo-cta-bar span{color:#6e6256}[data-theme="light"] .demo-cta-bar a{color:#c87a30}
+[data-theme="light"] .demo-score-wrap{background:rgba(255,255,255,.6);border-color:rgba(140,120,90,.08)}[data-theme="light"] .demo-score-ring .bg{stroke:rgba(140,120,90,.1)}[data-theme="light"] .demo-score-info h4{color:#0d0906}
+[data-theme="light"] .demo-issue-item .it{color:#2c241c}
+[data-theme="light"] .demo-crawler-row{border-color:rgba(140,120,90,.08)}[data-theme="light"] .demo-crawler-name{color:#2c241c}
 .demo-og-preview{background:rgba(255,245,225,.04);border:1px solid rgba(255,240,215,.08);border-radius:12px;overflow:hidden;margin:8px 0}.demo-og-img{width:100%;height:140px;object-fit:cover;display:block;background:rgba(0,0,0,.2)}.demo-og-body{padding:10px 12px}.demo-og-body .og-site{font-size:10px;color:#918474}.demo-og-body .og-title{font-size:13px;font-weight:700;color:#f2eade;margin-top:2px}.demo-og-body .og-desc{font-size:11px;color:#918474;margin-top:3px;line-height:1.5}
 .demo-skel-wrap{display:flex;flex-direction:column;gap:12px;padding:8px 0}.demo-skel{height:12px;background:rgba(255,240,215,.06);border-radius:6px;animation:shimmer 1.5s infinite}.demo-skel.w30{width:30%}.demo-skel.w50{width:50%}.demo-skel.w70{width:70%}.demo-skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
 .demo-cta-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,245,225,.03);border-top:1px solid rgba(255,240,215,.06);font-size:12px;flex-wrap:wrap;gap:8px}.demo-cta-bar span{color:#918474}.demo-cta-bar a{color:#eca550;font-weight:700;transition:color .2s}.demo-cta-bar a:hover{color:#f4ba6e}
@@ -373,8 +409,8 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="hero-right">
 <div class="showcase"><div class="showcase-frame"><div class="showcase-bar"><span class="dot d-r"></span><span class="dot d-y"></span><span class="dot d-g"></span><span class="tab-label"><strong>Lumina</strong> SEO & GEO</span></div>
 <div class="demo-url-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" class="demo-input" id="demoUrl" placeholder="Enter any URL to analyze…" spellcheck="false"><button class="demo-btn-go" id="demoGo">Analyze</button></div>
-<div class="showcase-tabs" id="demoTabs"><button class="active" data-panel="seo">SEO</button><button data-panel="headings">Headings</button><button data-panel="links">Links &amp; Images</button><button data-panel="social">Social</button><button data-panel="tech">Technical</button></div>
-<div class="demo-results" id="demoResults"><div id="demoLoading"><div class="demo-skel-wrap"><div class="demo-skel w30"></div><div class="demo-skel w90"></div><div class="demo-skel w30"></div><div class="demo-skel w70"></div><div class="demo-skel w30"></div><div class="demo-skel w50"></div><div class="demo-skel w30"></div><div class="demo-skel w90"></div></div></div><div class="demo-panel" id="panel-seo"></div><div class="demo-panel" id="panel-headings"></div><div class="demo-panel" id="panel-links"></div><div class="demo-panel" id="panel-social"></div><div class="demo-panel" id="panel-tech"></div></div>
+<div class="showcase-tabs" id="demoTabs"><button class="active" data-panel="seo">SEO</button><button data-panel="headings">Headings</button><button data-panel="links">Links &amp; Images</button><button data-panel="social">Social</button><button data-panel="tech">Technical</button><button data-panel="geo">AI / GEO</button></div>
+<div class="demo-results" id="demoResults"><div id="demoLoading"><div class="demo-skel-wrap"><div class="demo-skel w30"></div><div class="demo-skel w90"></div><div class="demo-skel w30"></div><div class="demo-skel w70"></div><div class="demo-skel w30"></div><div class="demo-skel w50"></div><div class="demo-skel w30"></div><div class="demo-skel w90"></div></div></div><div class="demo-panel" id="panel-seo"></div><div class="demo-panel" id="panel-headings"></div><div class="demo-panel" id="panel-links"></div><div class="demo-panel" id="panel-social"></div><div class="demo-panel" id="panel-tech"></div><div class="demo-panel" id="panel-geo"></div></div>
 <div class="demo-cta-bar"><span>This is just a preview — the extension does much more.</span><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Get full analysis with Lumina →</a></div>
 </div></div>
 </div>
@@ -509,7 +545,7 @@ var obs=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isInters
 document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});q.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();q.click()}})});
 
 /* ── Live Demo Analyzer ── */
-var LUMINA_DATA={url:'https://lumina-seo.com',title:'Lumina \u2013 Free All-in-One SEO & GEO Chrome Extension',desc:'Free Chrome extension for SEO & GEO. On-page audits, AI crawler checks, schema validation, GSC & GA4 dashboards \u2014 all in one click.',canonical:'https://lumina-seo.com/',robots:'index, follow',favicon:'/favicon.png',viewport:'width=device-width, initial-scale=1.0',charset:'UTF-8',lang:'en',headings:[{level:1,text:'The SEO toolkit built for the AI era'},{level:2,text:'Works instantly on any page'},{level:2,text:'Built for the AI search era'},{level:2,text:'Power features \u2014 free to unlock'},{level:2,text:'More features. Zero cost.'},{level:2,text:'Got questions?'},{level:3,text:'On-Page SEO Audit'},{level:3,text:'Indexation Alarm'},{level:3,text:'Heading Structure'},{level:3,text:'Link Analysis'},{level:3,text:'Crawling & Indexing'},{level:3,text:'Schema Validation'},{level:3,text:'Image SEO'},{level:3,text:'JS vs No-JS Comparison'},{level:3,text:'Social & Open Graph'},{level:3,text:'Full-Page Screenshots'},{level:3,text:'Local Search Simulation'},{level:3,text:'Keyboard Shortcuts'},{level:3,text:'AI Crawler Access Check'},{level:3,text:'llms.txt Checker'},{level:3,text:'AI Traffic Dashboard'},{level:3,text:'Google Search Console'},{level:3,text:'Google Analytics 4'},{level:3,text:'Keyword Research & SERP'},{level:3,text:'AI-Powered SEO Tools'}],hCounts:{h1:1,h2:5,h3:19,h4:0,h5:0,h6:0},links:{total:21,internal:13,external:8,nofollow:0},images:{total:1,missingAlt:0},og:{'og:title':'Lumina \u2013 The Free SEO & GEO Chrome Extension','og:description':'All-in-one SEO toolkit: on-page audits, AI crawler checks, schema validation, GSC & GA4 dashboards \u2014 directly in your browser. No account needed.','og:image':'https://lumina-seo.com/og-image.png','og:url':'https://lumina-seo.com/','og:type':'website','og:site_name':'Lumina SEO'},twitter:{'twitter:card':'summary_large_image','twitter:title':'Lumina \u2013 Free SEO & GEO Chrome Extension','twitter:description':'Audit any page, check AI crawlers, validate schema, track GSC & GA4 \u2014 all from one extension.','twitter:image':'https://lumina-seo.com/og-image.png','twitter:site':''},schemas:['SoftwareApplication','FAQPage'],hreflangs:[{lang:'en',href:'https://lumina-seo.com/'},{lang:'de',href:'https://lumina-seo.com/de/'},{lang:'x-default',href:'https://lumina-seo.com/'}],httpStatus:200};
+var LUMINA_DATA={url:'https://lumina-seo.com',title:'Lumina \u2013 Free All-in-One SEO & GEO Chrome Extension',desc:'Free Chrome extension for SEO & GEO. On-page audits, AI crawler checks, schema validation, GSC & GA4 dashboards \u2014 all in one click.',canonical:'https://lumina-seo.com/',robots:'index, follow',favicon:'/favicon.png',viewport:'width=device-width, initial-scale=1.0',charset:'UTF-8',lang:'en',headings:[{level:1,text:'The SEO toolkit built for the AI era'},{level:2,text:'Works instantly on any page'},{level:2,text:'Built for the AI search era'},{level:2,text:'Power features \u2014 free to unlock'},{level:2,text:'More features. Zero cost.'},{level:2,text:'Got questions?'},{level:3,text:'On-Page SEO Audit'},{level:3,text:'Indexation Alarm'},{level:3,text:'Heading Structure'},{level:3,text:'Link Analysis'},{level:3,text:'Crawling & Indexing'},{level:3,text:'Schema Validation'},{level:3,text:'Image SEO'},{level:3,text:'JS vs No-JS Comparison'},{level:3,text:'Social & Open Graph'},{level:3,text:'Full-Page Screenshots'},{level:3,text:'Local Search Simulation'},{level:3,text:'Keyboard Shortcuts'},{level:3,text:'AI Crawler Access Check'},{level:3,text:'llms.txt Checker'},{level:3,text:'AI Traffic Dashboard'},{level:3,text:'Google Search Console'},{level:3,text:'Google Analytics 4'},{level:3,text:'Keyword Research & SERP'},{level:3,text:'AI-Powered SEO Tools'}],hCounts:{h1:1,h2:5,h3:19,h4:0,h5:0,h6:0},links:{total:21,internal:13,external:8,nofollow:0},images:{total:1,missingAlt:0},og:{'og:title':'Lumina \u2013 The Free SEO & GEO Chrome Extension','og:description':'All-in-one SEO toolkit: on-page audits, AI crawler checks, schema validation, GSC & GA4 dashboards \u2014 directly in your browser. No account needed.','og:image':'https://lumina-seo.com/og-image.png','og:url':'https://lumina-seo.com/','og:type':'website','og:site_name':'Lumina SEO'},twitter:{'twitter:card':'summary_large_image','twitter:title':'Lumina \u2013 Free SEO & GEO Chrome Extension','twitter:description':'Audit any page, check AI crawlers, validate schema, track GSC & GA4 \u2014 all from one extension.','twitter:image':'https://lumina-seo.com/og-image.png','twitter:site':''},schemas:['SoftwareApplication','FAQPage'],hreflangs:[{lang:'en',href:'https://lumina-seo.com/'},{lang:'de',href:'https://lumina-seo.com/de/'},{lang:'x-default',href:'https://lumina-seo.com/'}],httpStatus:200,_bodyText:'The SEO toolkit built for the AI era. Works instantly on any page. Built for the AI search era. Power features free to unlock. On-page audits AI crawler checks schema validation GSC GA4 dashboards. Lumina is a free Chrome extension that gives you a complete SEO and GEO analysis of any webpage with a single click. No account needed no tracking no limits. Over 40 built-in checks covering on-page SEO heading structure link analysis schema validation Open Graph social cards and much more. AI crawler access checking for GPTBot ClaudeBot PerplexityBot and others. Google Search Console and Analytics dashboards built right into the extension.',_robotsTxt:'User-agent: *\nAllow: /\nSitemap: https://lumina-seo.com/sitemap.xml',_llmsTxt:''};
 
 var WORKER_URL='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 
@@ -546,19 +582,78 @@ function parseHTML(html,url,status){
   var schemas=[];
   doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{var j=JSON.parse(s.textContent);if(j['@graph']&&Array.isArray(j['@graph']))j['@graph'].forEach(function(item){schemas.push(item['@type']||'Unknown')});else if(Array.isArray(j))j.forEach(function(item){schemas.push(item['@type']||'Unknown')});else schemas.push(j['@type']||'Unknown')}catch(e){}});
   var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(l){hreflangs.push({lang:l.getAttribute('hreflang'),href:l.getAttribute('href')})});
-  return{url:url,title:title,desc:desc,canonical:canonical,robots:robots,favicon:favicon,viewport:viewport,charset:charset,lang:langAttr,headings:headings,hCounts:hCounts,links:{total:links.length,internal:internal,external:external,nofollow:nofollow},images:{total:totalImgs,missingAlt:missingAlt},og:og,twitter:tw,schemas:schemas,hreflangs:hreflangs,httpStatus:status||null}
+  var bodyText=doc.body?doc.body.textContent:'';
+  return{url:url,title:title,desc:desc,canonical:canonical,robots:robots,favicon:favicon,viewport:viewport,charset:charset,lang:langAttr,headings:headings,hCounts:hCounts,links:{total:links.length,internal:internal,external:external,nofollow:nofollow},images:{total:totalImgs,missingAlt:missingAlt},og:og,twitter:tw,schemas:schemas,hreflangs:hreflangs,httpStatus:status||null,_bodyText:bodyText}
 }
 
 function row(icon,label,value){return'<div class="demo-row"><div class="demo-icon">'+icon+'</div><div class="demo-info"><div class="lbl">'+label+'</div><div class="val">'+value+'</div></div></div>'}
 function badge(cls,text){return' <span class="demo-badge '+cls+'">'+text+'</span>'}
 
+function calcScore(d){
+  var s=0;
+  if(d.title&&d.title.length>0)s+=15;if(d.title.length>0&&d.title.length<=60)s+=5;
+  if(d.desc&&d.desc.length>=70)s+=10;if(d.desc.length>=70&&d.desc.length<=160)s+=5;
+  var h1s=d.headings.filter(function(x){return x.level===1});if(h1s.length===1)s+=10;
+  if(d.canonical)s+=8;
+  if(!d.robots||d.robots.toLowerCase().indexOf('noindex')===-1)s+=5;
+  if(d.og['og:title'])s+=6;if(d.og['og:image'])s+=6;if(d.og['og:description'])s+=4;
+  if(d.twitter['twitter:card'])s+=4;
+  if(d.schemas.length>0)s+=8;
+  if(d.hreflangs.length>0)s+=4;
+  if(d.viewport)s+=4;if(d.charset)s+=2;if(d.lang)s+=2;
+  if(d.httpStatus&&d.httpStatus>=200&&d.httpStatus<400)s+=4;
+  if(d.images&&d.images.missingAlt===0&&d.images.total>0)s+=3;
+  return Math.min(100,s);
+}
+function demoScoreRing(score){
+  var r=27,c=2*Math.PI*r;
+  var col=score>=80?'#50e090':score>=50?'#f4c44a':'#f47878';
+  var label=score>=80?'Great SEO setup':score>=50?'Needs improvement':'Needs attention';
+  return '<div class="demo-score-wrap"><div class="demo-score-ring"><svg width="60" height="60"><circle class="bg" cx="30" cy="30" r="'+r+'"/><circle class="fg" cx="30" cy="30" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c+'" stroke-dashoffset="'+c+'" id="demoScoreFg"/></svg><div class="demo-score-val" style="color:'+col+'" id="demoScoreNum">0</div></div><div class="demo-score-info"><h4>'+label+'</h4><p>On-page SEO analysis</p></div></div>';
+}
+function animateScore(target){
+  var fg=document.getElementById('demoScoreFg');var num=document.getElementById('demoScoreNum');
+  if(!fg||!num)return;
+  var r=27,c=2*Math.PI*r;var current=0;
+  var step=function(){
+    current+=Math.ceil((target-current)/8)||1;if(current>target)current=target;
+    num.textContent=current;fg.setAttribute('stroke-dashoffset',c-(current/100)*c);
+    if(current<target)requestAnimationFrame(step);
+  };
+  setTimeout(function(){requestAnimationFrame(step)},200);
+}
+function collectIssues(d){
+  var issues=[];
+  if(!d.title||d.title.length===0)issues.push({i:'❌',m:'Missing title tag',link:'/tools/serp-preview/?url='+encodeURIComponent(d.url),lt:'Fix →'});
+  else if(d.title.length>60)issues.push({i:'⚠️',m:'Title too long ('+d.title.length+' chars)',link:'/tools/serp-preview/?url='+encodeURIComponent(d.url),lt:'Optimize →'});
+  if(!d.desc||d.desc.length===0)issues.push({i:'❌',m:'Missing meta description',link:'/tools/meta-tag-analyzer/?url='+encodeURIComponent(d.url),lt:'Fix →'});
+  else if(d.desc.length<70)issues.push({i:'⚠️',m:'Meta description too short ('+d.desc.length+')',link:'/tools/meta-tag-analyzer/?url='+encodeURIComponent(d.url),lt:'Optimize →'});
+  var h1s=d.headings.filter(function(x){return x.level===1});
+  if(h1s.length===0)issues.push({i:'❌',m:'Missing H1 tag',link:'/tools/heading-checker/?url='+encodeURIComponent(d.url),lt:'Check →'});
+  else if(h1s.length>1)issues.push({i:'⚠️',m:h1s.length+' H1 tags found (should be 1)',link:'/tools/heading-checker/?url='+encodeURIComponent(d.url),lt:'Check →'});
+  if(!d.canonical)issues.push({i:'⚠️',m:'No canonical URL set'});
+  if(!d.og['og:image'])issues.push({i:'⚠️',m:'Missing og:image',link:'/tools/og-preview/?url='+encodeURIComponent(d.url),lt:'Fix →'});
+  if(!d.og['og:title'])issues.push({i:'⚠️',m:'Missing og:title',link:'/tools/og-preview/?url='+encodeURIComponent(d.url),lt:'Fix →'});
+  if(d.schemas.length===0)issues.push({i:'⚠️',m:'No structured data found',link:'/tools/schema-validator/?url='+encodeURIComponent(d.url),lt:'Generate →'});
+  if(d.images&&d.images.missingAlt>0)issues.push({i:'⚠️',m:d.images.missingAlt+' images missing ALT text',link:'/tools/image-seo-checker/?url='+encodeURIComponent(d.url),lt:'Check →'});
+  return issues;
+}
 function renderResults(d){
-  hideLoading();renderSEO(d);renderHeadings(d);renderLinks(d);renderSocial(d);renderTech(d);
+  hideLoading();
+  /* Compute word count + reading time */
+  d._wordCount=0;d._readTime='';
+  if(d._bodyText){var words=d._bodyText.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().split(/\s+/);d._wordCount=words.length;d._readTime=Math.max(1,Math.ceil(d._wordCount/200))+' min'}
+  d._score=calcScore(d);d._issues=collectIssues(d);
+  renderSEO(d);renderHeadings(d);renderLinks(d);renderSocial(d);renderTech(d);renderGeo(d);
   document.querySelectorAll('#demoTabs button')[0].click();
+  animateScore(d._score);
 }
 
 function renderSEO(d){
-  var h='';var tl=d.title.length;
+  var h=demoScoreRing(d._score);
+  /* Issues summary */
+  if(d._issues.length>0){h+='<div class="demo-issues">';d._issues.slice(0,5).forEach(function(iss){h+='<div class="demo-issue-item"><span class="ii">'+iss.i+'</span><span class="it">'+iss.m+'</span>'+(iss.link?'<a href="'+iss.link+'">'+iss.lt+'</a>':'')+'</div>'});h+='</div>'}
+  var tl=d.title.length;
   if(tl===0)h+=row('❌','Title'+badge('err','Missing'),'<em style="color:var(--red)">No title tag found</em>');
   else if(tl<=60)h+=row('✅','Title'+badge('ok',tl+' chars'),esc(d.title));
   else h+=row('⚠️','Title'+badge('warn',tl+' chars – may truncate'),esc(d.title));
@@ -576,6 +671,7 @@ function renderSEO(d){
   if(d.robots){var isIdx=d.robots.toLowerCase().indexOf('noindex')===-1;h+=row(isIdx?'✅':'❌','Robots Meta',esc(d.robots))}
   else h+=row('✅','Robots Meta','<em style="color:var(--gray)">Not set (defaults to index, follow)</em>');
   if(d.httpStatus){var sOk=d.httpStatus>=200&&d.httpStatus<400;h+=row(sOk?'✅':'❌','HTTP Status'+badge(sOk?'ok':'err',d.httpStatus),'Status code '+d.httpStatus)}
+  h+='<a class="demo-deep-link" href="/tools/meta-tag-analyzer/?url='+encodeURIComponent(d.url)+'">🔍 Full meta tag analysis →</a>';
   document.getElementById('panel-seo').innerHTML=h;
 }
 
@@ -584,7 +680,8 @@ function renderHeadings(d){
   for(var i=1;i<=6;i++){var c=d.hCounts['h'+i];h+='<div class="demo-stat"><div class="num"'+(i===1&&c!==1?' style="color:'+(c===0?'var(--red)':'var(--yellow)')+'"':'')+'>'+c+'</div><div class="desc">H'+i+'</div></div>'}
   h+='</div>';var shown=d.headings.slice(0,25);
   if(shown.length===0)h+='<div class="demo-error"><p>No headings found on this page.</p></div>';
-  else{shown.forEach(function(x){var indent=(x.level-1)*16;h+='<div class="demo-heading-item" style="padding-left:'+indent+'px"><span class="demo-heading-tag h'+x.level+'">H'+x.level+'</span><span class="demo-heading-text">'+esc(x.text)+'</span></div>'});if(d.headings.length>25)h+='<div style="padding:8px 0;font-size:12px;color:var(--gray)">… and '+(d.headings.length-25)+' more</div>'}
+  else{shown.forEach(function(x){var indent=(x.level-1)*16;h+='<div class="demo-heading-item" style="padding-left:'+indent+'px"><span class="demo-heading-tag h'+x.level+'">H'+x.level+'</span><span class="demo-heading-text">'+esc(x.text)+'</span></div>'});if(d.headings.length>25)h+='<div style="padding:8px 0;font-size:12px;color:#918474">… and '+(d.headings.length-25)+' more</div>'}
+  h+='<a class="demo-deep-link" href="/tools/heading-checker/?url='+encodeURIComponent(d.url)+'">📑 Full heading analysis →</a>';
   document.getElementById('panel-headings').innerHTML=h;
 }
 
@@ -598,6 +695,13 @@ function renderLinks(d){
   h+='<div class="demo-stat"><div class="num">'+d.images.total+'</div><div class="desc">Total</div></div>';
   h+='<div class="demo-stat"><div class="num" style="color:'+(d.images.missingAlt>0?'var(--yellow)':'var(--green)')+'">'+d.images.missingAlt+'</div><div class="desc">Missing ALT</div></div>';
   h+='<div class="demo-stat"><div class="num">'+(d.images.total-d.images.missingAlt)+'</div><div class="desc">With ALT</div></div></div>';
+  /* Content stats */
+  if(d._wordCount){h+='<div class="demo-section-title">Content</div><div class="demo-content-stats">';
+  h+='<div class="demo-stat"><div class="num">'+d._wordCount.toLocaleString()+'</div><div class="desc">Words</div></div>';
+  h+='<div class="demo-stat"><div class="num">'+d._readTime+'</div><div class="desc">Read time</div></div>';
+  h+='<div class="demo-stat"><div class="num">'+d.headings.length+'</div><div class="desc">Headings</div></div>';
+  h+='<div class="demo-stat"><div class="num">'+d.links.total+'</div><div class="desc">Links</div></div></div>'}
+  h+='<a class="demo-deep-link" href="/tools/link-analyzer/?url='+encodeURIComponent(d.url)+'">🔗 Full link analysis →</a>';
   document.getElementById('panel-links').innerHTML=h;
 }
 
@@ -608,22 +712,50 @@ function renderSocial(d){
   ['og:title','og:description','og:image','og:url','og:type'].forEach(function(k){var v=d.og[k];h+=row(v?'✅':'⚠️',k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--yellow)">Not set</em>')});
   h+='<div class="demo-section-title">Twitter Card</div>';
   ['twitter:card','twitter:title','twitter:description','twitter:image'].forEach(function(k){var v=d.twitter[k];h+=row(v?'✅':'⚠️',k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--yellow)">Not set</em>')});
+  h+='<a class="demo-deep-link" href="/tools/og-preview/?url='+encodeURIComponent(d.url)+'">📱 Full social preview →</a>';
   document.getElementById('panel-social').innerHTML=h;
 }
 
 function renderTech(d){
   var h='<div class="demo-section-title">Schema / JSON-LD</div>';
-  if(d.schemas.length>0)d.schemas.forEach(function(t){h+=row('✅','Schema Type','<span class="val mono">'+esc(Array.isArray(t)?t.join(', '):String(t))+'</span>')});
-  else h+=row('⚠️','Schema','<em style="color:var(--yellow)">No JSON-LD found</em>');
+  if(d.schemas.length>0){
+    var KNOWN_RICH={'Article':'headline, author, datePublished, image','Product':'name, image, offers','FAQPage':'mainEntity','LocalBusiness':'name, address','Event':'name, startDate, location','Recipe':'name, image','VideoObject':'name, uploadDate, thumbnailUrl','BreadcrumbList':'itemListElement','HowTo':'name, step','SoftwareApplication':'name, offers','WebSite':'name, url','Review':'reviewRating, author','Course':'name, description, provider','JobPosting':'title, description, datePosted'};
+    d.schemas.forEach(function(t){var tn=Array.isArray(t)?t[0]:String(t);var rich=KNOWN_RICH[tn];h+=row('✅',esc(tn)+(rich?badge('ok','Rich Result eligible'):''),'<span class="val mono">'+esc(tn)+'</span>'+(rich?' <span style="font-size:10px;color:#918474">Required: '+rich+'</span>':''))});
+  } else h+=row('⚠️','Schema','<em style="color:var(--yellow)">No JSON-LD found</em>'+badge('warn','No Rich Results'));
+  h+='<a class="demo-deep-link" href="/tools/schema-validator/?url='+encodeURIComponent(d.url)+'">✅ Validate schema in detail →</a>';
   h+='<div class="demo-section-title">hreflang</div>';
   if(d.hreflangs.length>0)d.hreflangs.forEach(function(l){h+=row('✅',esc(l.lang),'<span class="val mono">'+esc(l.href)+'</span>')});
-  else h+=row('ℹ️','hreflang','<em style="color:var(--gray)">None found</em>');
+  else h+=row('ℹ️','hreflang','<em style="color:#918474">None found</em>');
   h+='<div class="demo-section-title">Page Info</div>';
   if(d.lang)h+=row('✅','Language',esc(d.lang));else h+=row('⚠️','Language','<em style="color:var(--yellow)">No lang attribute</em>');
   if(d.charset)h+=row('✅','Charset',esc(d.charset.toUpperCase()));
   if(d.viewport)h+=row('✅','Viewport','<span class="val mono">'+esc(d.viewport)+'</span>');else h+=row('⚠️','Viewport','<em style="color:var(--yellow)">Not set</em>');
   if(d.favicon)h+=row('✅','Favicon','<span class="val mono">'+esc(d.favicon)+'</span>');else h+=row('⚠️','Favicon','<em style="color:var(--yellow)">Not found</em>');
   document.getElementById('panel-tech').innerHTML=h;
+}
+
+function renderGeo(d){
+  var h='<div class="demo-section-title">AI Crawler Access</div>';
+  var AI_CRAWLERS=['GPTBot','ClaudeBot','PerplexityBot','Google-Extended','ChatGPT-User','OAI-SearchBot','Applebot-Extended','CCBot','Bytespider','Meta-ExternalAgent'];
+  if(d._robotsTxt){
+    var rtxt=d._robotsTxt.toLowerCase();
+    AI_CRAWLERS.forEach(function(bot){
+      var blocked=rtxt.indexOf('user-agent: '+bot.toLowerCase())!==-1&&rtxt.indexOf('disallow: /')!==-1;
+      /* Simple heuristic: check if bot appears with a disallow */
+      var botSection=rtxt.indexOf('user-agent: '+bot.toLowerCase());
+      if(botSection!==-1){var after=rtxt.substring(botSection,botSection+200);blocked=after.indexOf('disallow: /')!==-1&&after.indexOf('allow: /')===-1}
+      var wildcard=rtxt.indexOf('user-agent: *');
+      if(wildcard!==-1&&botSection===-1){var wAfter=rtxt.substring(wildcard,wildcard+200);if(wAfter.indexOf('disallow: /')!==-1)blocked=true}
+      h+='<div class="demo-crawler-row"><span class="demo-crawler-name">'+bot+'</span><span class="demo-crawler-status '+(blocked?'blocked':'allowed')+'">'+(blocked?'Blocked':'Allowed')+'</span></div>';
+    });
+  } else {
+    AI_CRAWLERS.forEach(function(bot){h+='<div class="demo-crawler-row"><span class="demo-crawler-name">'+bot+'</span><span class="demo-crawler-status allowed">Allowed</span></div>'});
+    h+='<div style="font-size:11px;color:#918474;margin-top:8px;font-style:italic">No robots.txt found — all crawlers allowed by default.</div>';
+  }
+  h+='<div class="demo-section-title">llms.txt</div>';
+  h+=row(d._llmsTxt?'✅':'⚠️','llms.txt',d._llmsTxt?'<span class="val mono">Found ('+d._llmsTxt.length+' bytes)</span>':'<em style="color:#f4c44a">Not found</em>'+badge('warn','Missing'));
+  h+='<a class="demo-deep-link" href="/tools/llms-txt-generator/?url='+encodeURIComponent(d.url)+'">📝 Generate llms.txt →</a>';
+  document.getElementById('panel-geo').innerHTML=h;
 }
 
 /* Tab switching */
@@ -658,9 +790,18 @@ function analyzeSite(url){
   demoUrl.value=host;
   if(host==='lumina-seo.com'){renderResults(LUMINA_DATA);return}
   showLoading();
-  fetchPage(url)
-  .then(function(data){var result=parseHTML(data.html,url,data.status);renderResults(result)})
-  .catch(function(){showError('Could not fetch this URL. The site may block access. Try another one.')})
+  var origin;try{origin=new URL(url).origin}catch(e){origin=url}
+  /* Fetch page + robots.txt + llms.txt in parallel */
+  Promise.all([
+    fetchPage(url),
+    fetch(WORKER_URL+'?url='+encodeURIComponent(origin+'/robots.txt')).then(function(r){return r.json()}).then(function(d){return d.html||''}).catch(function(){return''}),
+    fetch(WORKER_URL+'?url='+encodeURIComponent(origin+'/llms.txt')).then(function(r){return r.json()}).then(function(d){return d.status===200&&d.html&&d.html.length>10?d.html:''}).catch(function(){return''})
+  ]).then(function(results){
+    var result=parseHTML(results[0].html,url,results[0].status);
+    result._robotsTxt=results[1];
+    result._llmsTxt=results[2];
+    renderResults(result);
+  }).catch(function(){showError('Could not fetch this URL. The site may block access. Try another one.')})
 }
 
 
