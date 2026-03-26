@@ -7,13 +7,16 @@ var T={
   oaiLabel:'OpenAI API Key',
   oaiHelp:isDE?'Für KI-Funktionen (Title-Generator, Schema-Generator, AI Fix). Der Key bleibt in deinem Browser.':'Used by AI features (title generator, schema generator, AI fix). Key stays in your browser.',
   oaiPlaceholder:'sk-...',
-  dfsLabel:'DataForSEO API Key',
-  dfsHelp:isDE?'Für Keyword Research, SERP Checker, SERP Overlap. Base64-kodiert (login:password).':'Used by Keyword Research, SERP Checker, SERP Overlap. Base64 encoded (login:password).',
-  dfsPlaceholder:'Base64 encoded login:password',
+  dfsLabel:'DataForSEO',
+  dfsHelp:isDE?'Für Keyword Research, SERP Checker, SERP Overlap. Daten werden sicher in deinem Browser gespeichert.':'Used by Keyword Research, SERP Checker, SERP Overlap. Credentials stay in your browser.',
+  dfsUser:isDE?'Benutzername':'Username',
+  dfsPass:isDE?'Passwort':'Password',
   gscLabel:'Google Search Console',
   gscConnected:isDE?'Verbunden':'Connected',
   gscNot:isDE?'Nicht verbunden':'Not connected',
-  gscNote:isDE?'Verbinde dich über das Keyword Research oder AI Content Optimizer Tool.':'Connect via the Keyword Research or AI Content Optimizer tool.',
+  gscConnect:isDE?'Mit Google verbinden':'Connect with Google',
+  gscDisconnect:isDE?'Trennen':'Disconnect',
+  gscHelp:isDE?'Für Keyword-Daten mit echten Klicks, Impressionen und Positionen aus deiner Search Console.':'For keyword data with real clicks, impressions, and positions from your Search Console.',
   save:isDE?'Speichern':'Save',
   del:isDE?'Löschen':'Delete',
   saved:isDE?'Gespeichert':'Saved',
@@ -37,8 +40,8 @@ function createModal(){
     '<div class="ls-header"><h2>⚙️ '+T.title+'</h2><button class="ls-close" id="lsClose">&times;</button></div>'+
     '<div class="ls-body">'+
     keyRow('oai',T.oaiLabel,T.oaiPlaceholder,T.oaiHelp,LS.oai)+
-    keyRow('dfs',T.dfsLabel,T.dfsPlaceholder,T.dfsHelp,LS.dfs)+
-    '<div class="ls-section"><div class="ls-row-header"><span class="ls-label">'+T.gscLabel+'</span><span class="ls-badge" id="lsGscBadge"></span></div><p class="ls-help">'+T.gscNote+'</p></div>'+
+    dfsRow()+
+    gscRow()+
     '</div></div>';
 
   var style=document.createElement('style');
@@ -64,15 +67,8 @@ function createModal(){
 
   // Wire up key rows
   wireKey('oai',LS.oai);
-  wireKey('dfs',LS.dfs);
-
-  // GSC status
-  var gscToken=localStorage.getItem('lumina_gsc_token');
-  var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
-  var gscOk=!!gscToken&&Date.now()<gscExpiry;
-  var gscBadge=overlay.querySelector('#lsGscBadge');
-  gscBadge.textContent=gscOk?T.gscConnected:T.gscNot;
-  gscBadge.className='ls-badge '+(gscOk?'on':'off');
+  wireDfs();
+  wireGsc();
 
   modal=overlay;
 }
@@ -139,6 +135,98 @@ function wireKey(id,lsKey){
     status.textContent=T.deletedOk;status.style.color='var(--muted)';
     setTimeout(function(){status.textContent=''},2000);
   });
+}
+
+function dfsRow(){
+  var saved=localStorage.getItem(LS.dfs);
+  var badgeCls=saved?'on':'off';
+  var badgeTxt=saved?T.saved:T.notSet;
+  return '<div class="ls-section">'+
+    '<div class="ls-row-header"><span class="ls-label">'+T.dfsLabel+'</span><span class="ls-badge '+badgeCls+'" id="lsBadge_dfs">'+badgeTxt+'</span></div>'+
+    '<div class="ls-input-wrap"><input type="text" id="lsDfsUser" placeholder="'+T.dfsUser+'" style="flex:1"></div>'+
+    '<div class="ls-input-wrap"><input type="password" id="lsDfsPass" placeholder="'+T.dfsPass+'" style="flex:1"><button class="ls-eye" id="lsEye_dfs" title="'+T.show+'">👁</button></div>'+
+    '<div class="ls-btns"><button class="ls-btn ls-btn-save" id="lsSave_dfs">'+T.save+'</button><button class="ls-btn ls-btn-del" id="lsDel_dfs">'+T.del+'</button></div>'+
+    '<div class="ls-status" id="lsStatus_dfs"></div>'+
+    '<p class="ls-help">'+T.dfsHelp+'</p></div>';
+}
+
+function wireDfs(){
+  var userIn=document.getElementById('lsDfsUser');
+  var passIn=document.getElementById('lsDfsPass');
+  var eye=document.getElementById('lsEye_dfs');
+  var save=document.getElementById('lsSave_dfs');
+  var del=document.getElementById('lsDel_dfs');
+  var badge=document.getElementById('lsBadge_dfs');
+  var status=document.getElementById('lsStatus_dfs');
+  var saved=localStorage.getItem(LS.dfs);
+
+  if(saved){
+    try{var decoded=atob(saved);var parts=decoded.split(':');userIn.value=parts[0]||'';passIn.value='••••••••';passIn._isDots=true}catch(e){userIn.value='';passIn.value=''}
+  }
+
+  eye.addEventListener('click',function(){
+    if(passIn.type==='password'){passIn.type='text';if(passIn._isDots&&saved){try{passIn.value=atob(saved).split(':').slice(1).join(':')}catch(e){}}eye.title=T.hide}
+    else{passIn.type='password';eye.title=T.show}
+  });
+
+  save.addEventListener('click',function(){
+    var u=userIn.value.trim(),p=passIn._isDots&&saved?atob(saved).split(':').slice(1).join(':'):passIn.value;
+    if(!u||!p)return;
+    var encoded=btoa(u+':'+p);
+    localStorage.setItem(LS.dfs,encoded);
+    saved=encoded;
+    passIn.type='password';passIn.value='••••••••';passIn._isDots=true;
+    badge.textContent=T.saved;badge.className='ls-badge on';
+    status.textContent=T.savedOk;status.style.color='var(--ok)';
+    setTimeout(function(){status.textContent=''},2000);
+  });
+
+  del.addEventListener('click',function(){
+    localStorage.removeItem(LS.dfs);saved=null;
+    userIn.value='';passIn.value='';passIn._isDots=false;passIn.type='password';
+    badge.textContent=T.notSet;badge.className='ls-badge off';
+    status.textContent=T.deletedOk;status.style.color='var(--muted)';
+    setTimeout(function(){status.textContent=''},2000);
+  });
+}
+
+var GSC_CLIENT_ID='128725149604-7fjs4kr00b43bhq9jnsr0slr1fcd1fl9.apps.googleusercontent.com';
+var GSC_SCOPES='https://www.googleapis.com/auth/webmasters.readonly';
+
+function gscRow(){
+  var gscToken=localStorage.getItem('lumina_gsc_token');
+  var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+  var connected=!!gscToken&&Date.now()<gscExpiry;
+  return '<div class="ls-section">'+
+    '<div class="ls-row-header"><span class="ls-label">'+T.gscLabel+'</span><span class="ls-badge '+(connected?'on':'off')+'" id="lsGscBadge">'+(connected?T.gscConnected:T.gscNot)+'</span></div>'+
+    '<div class="ls-btns" id="lsGscBtns">'+
+    (connected?'<button class="ls-btn ls-btn-del" id="lsGscDisconnect">'+T.gscDisconnect+'</button>':'<button class="ls-btn ls-btn-save" id="lsGscConnect">'+T.gscConnect+'</button>')+
+    '</div>'+
+    '<p class="ls-help">'+T.gscHelp+'</p></div>';
+}
+
+function wireGsc(){
+  var connectBtn=document.getElementById('lsGscConnect');
+  var disconnectBtn=document.getElementById('lsGscDisconnect');
+
+  if(connectBtn){
+    connectBtn.addEventListener('click',function(){
+      var redirect=window.location.origin+window.location.pathname;
+      window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
+    });
+  }
+
+  if(disconnectBtn){
+    disconnectBtn.addEventListener('click',function(){
+      localStorage.removeItem('lumina_gsc_token');
+      localStorage.removeItem('lumina_gsc_expiry');
+      var badge=document.getElementById('lsGscBadge');
+      badge.textContent=T.gscNot;badge.className='ls-badge off';
+      var btns=document.getElementById('lsGscBtns');
+      btns.innerHTML='<button class="ls-btn ls-btn-save" id="lsGscConnect">'+T.gscConnect+'</button>';
+      wireGsc();
+    });
+  }
 }
 
 function escHandler(e){if(e.key==='Escape')closeModal()}
