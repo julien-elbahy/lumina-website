@@ -244,6 +244,7 @@
 <div class="api-key-row"><label>OpenAI Key (optional):</label><input type="text" id="oaiKey" placeholder="sk-…"></div>
 <div class="quota-bar" id="quotaInfo">10 kostenlose KI-Abfragen pro Tag</div>
 <div id="settingsHintAi"></div>
+<div id="lq_content-optimizer"></div>
 <div class="btn-row">
 <button class="ab" id="btnAnalyze">Inhalt analysieren</button>
 <button class="ai-btn" id="btnDetectKw" style="background:var(--card);color:var(--accent);border:1px solid var(--border)">🔍 Keywords erkennen</button>
@@ -372,7 +373,7 @@ document.getElementById('btnGscLoad').addEventListener('click',async function(){
   var text=document.getElementById('contentIn').value;
   var lang=text.match(/[äöüß]/i)?'de':'en';var loc=lang==='de'?2040:2840;
   try{
-    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{keywords:topKws,language_code:lang,location_code:loc}])});
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:topKws,language_code:lang,location_code:loc}])});
     var dfsData=await dfsResp.json();
     if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_gscRows.forEach(function(g){if(g.query.toLowerCase()===r.keyword.toLowerCase()){g.vol=r.search_volume||0}})})})}
   }catch(e){}
@@ -433,13 +434,14 @@ function pxMeasure(text,font){if(!_mc){_mc=document.createElement('canvas').getC
 function pxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col=px>max?'var(--err)':px>warn?'var(--warn)':px<max*0.4?'var(--warn)':'var(--ok)';var lbl=px>max?'abgeschnitten':px>warn?'riskant':px<max*0.4?'zu kurz':'gut';return'<div class="px-wrap"><div class="px-track"><div class="px-fill" style="width:'+pct+'%;background:'+col+'"></div></div><span class="px-info">'+px+'/'+max+'px — '+lbl+'</span></div>'}
 
 var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null},set:function(t,r,l,o){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');d[t]={remaining:r,limit:l,date:this._d(),ownKey:!!o};localStorage.setItem(this._k,JSON.stringify(d))}catch(e){}},update:function(t,data){if(!data||!data._lumina)return;if(data._lumina.ownKey)this.set(t,null,null,true);else if(data._lumina.remaining!=='unlimited')this.set(t,data._lumina.remaining,data._lumina.limit,false)}};
-function updateQuota(data){if(data._lumina){luminaQuota.update('ai',data);if(data._lumina.ownKey){document.getElementById('quotaInfo').textContent='Eigener API-Key (unbegrenzt)'}else if(data._lumina.remaining!=='unlimited'){document.getElementById('quotaInfo').textContent=data._lumina.remaining+'/'+data._lumina.limit+' KI-Abfragen heute verbleibend'}}}
+function updateQuota(data){if(data._lumina){luminaQuota.update('ai',data);if(window.luminaQuota)window.luminaQuota.update('content-optimizer',data);if(data._lumina.ownKey){document.getElementById('quotaInfo').textContent='Eigener API-Key (unbegrenzt)'}else if(data._lumina.remaining!=='unlimited'){document.getElementById('quotaInfo').textContent=data._lumina.remaining+'/'+data._lumina.limit+' KI-Abfragen heute verbleibend'}}}
 (function(){var q=luminaQuota.get('ai'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent=q.remaining+'/'+q.limit+' KI-Abfragen heute verbleibend'}})();
 if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));}
+if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.getElementById('lq_content-optimizer')?.parentElement||document.querySelector('.cd'));
 
 async function aiCall(body){
   var key=document.getElementById('oaiKey').value.trim()||localStorage.getItem('lumina_key_openai')||'';
-  var headers={'Content-Type':'application/json'};
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'};
   if(key)headers['X-OAI-Key']=key;
   var resp=await fetch(WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify(body)});
   var data=await resp.json();
@@ -525,7 +527,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
     renderChips();
     btn.textContent='⏳ Suchvolumen…';
     var lang=text.match(/[äöüß]/i)?'de':'en';var loc=lang==='de'?2040:2840;
-    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
     var dfsData=await dfsResp.json();
     if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_kwData.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})})}
     _kwData.sort(function(a,b){return(b.vol||0)-(a.vol||0)});

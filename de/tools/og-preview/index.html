@@ -423,9 +423,10 @@ html+='<div class="og-toolbar"><button class="act-btn" id="btnCopyHtml">📋 Als
 /* Cross-tool links */
 html+='<div class="cross-links"><a href="/de/tools/meta-tag-analyzer/?url='+encodeURIComponent(url)+'">🔍 Volle Meta-Analyse</a><a href="/de/tools/serp-preview/?url='+encodeURIComponent(url)+'">📱 Snippet Preview</a><a href="/de/tools/schema-validator/?url='+encodeURIComponent(url)+'">✅ Schema-Validierung</a></div>';
 /* AI section */
-html+='<div class="ai-section"><h3><span class="ai-badge">AI-Powered</span> OG Tag Generator</h3><p>Optimierte Open Graph und Twitter Card Tags für diese Seite generieren.</p><button class="act-btn" id="btnAiOg" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">✨ Optimierte Tags generieren</button><div id="aiOgResult" style="display:none;margin-top:12px"></div></div>';
+html+='<div class="ai-section"><h3><span class="ai-badge">AI-Powered</span> OG Tag Generator</h3><p>Optimierte Open Graph und Twitter Card Tags für diese Seite generieren.</p><button class="act-btn" id="btnAiOg" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">✨ Optimierte Tags generieren</button><div id="lq_og-preview"></div><div id="aiOgResult" style="display:none;margin-top:12px"></div></div>';
 
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
+if(window.luminaQuota)luminaQuota.createBar('og-preview',document.getElementById('lq_og-preview')?.parentElement||document.querySelector('.cd'));
 /* Tab switching */
 document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tp').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('t-'+b.getAttribute('data-t')).classList.add('active')})});
 /* Bildgrößen-Check */
@@ -461,11 +462,12 @@ function aiGenerateOg(){
   var existing='Current tags:\n';
   ['og:title','og:description','og:image','og:url','og:type','og:site_name'].forEach(function(k){existing+=k+': '+((_lastOg[k])||'(not set)')+'\n'});
   ['twitter:card','twitter:title','twitter:image'].forEach(function(k){existing+=k+': '+((_lastTw[k])||'(not set)')+'\n'});
-  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'og-preview'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
     messages:[{role:'system',content:'You are a social media SEO expert specializing in Open Graph and Twitter Card optimization.\n\nGenerate optimized meta tags that maximize click-through rates on social platforms.\n\nRules:\n1. og:title: Under 60 chars, compelling, includes key benefit or keyword\n2. og:description: Under 155 chars, includes CTA or value proposition\n3. twitter:card should be "summary_large_image" for visual content\n4. Keep the page language — if content is German, write German tags\n5. Output as ready-to-paste HTML meta tags\n6. Include all essential OG + Twitter Card tags\n7. If existing tags are good, suggest small improvements\n8. Add og:type, og:site_name, og:locale where missing\n\nFormat: First output the HTML meta tags, then a brief explanation of your choices.'},{role:'user',content:'URL: '+_lastUrl+'\nPage title: '+_lastTitle+'\nPage description: '+_lastDesc+'\n\n'+existing}],
     max_tokens:1000
   })}).then(function(r){return r.json()}).then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    if(window.luminaQuota)window.luminaQuota.update('og-preview',data);
     rd.innerHTML='<div class="ai-result">'+esc(data.choices[0].message.content)+'</div>';rd.style.display='block';
   }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px">❌ '+esc(e.message)+'</div>';rd.style.display='block'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Optimierte Tags generieren'});

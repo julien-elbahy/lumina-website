@@ -371,6 +371,7 @@ function dfsPost(endpoint,data){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
   if(key)headers['X-DFS-Key']=key;
+  headers['X-Lumina-Tool']='keyword-research';
   return fetch(DFS_WORKER+'?endpoint='+encodeURIComponent(endpoint),{
     method:'POST',headers:headers,body:JSON.stringify(data)
   }).then(function(r){return r.json()}).then(function(d){
@@ -378,6 +379,7 @@ function dfsPost(endpoint,data){
       var q=document.getElementById('quotaInfo');
       if(q)q.textContent=d._lumina.ownKey?'Using your API key (unlimited)':'Free queries: '+Math.floor(d._lumina.remaining/2)+'/5 today';
       luminaQuota.update('dfs',d);
+      if(window.luminaQuota)window.luminaQuota.update('keyword-research',d);
     }
     if(d.needsKey){var e=new Error(d.error||'Daily limit reached. Add your own DataForSEO key for unlimited access.');e.isQuota=true;throw e}
     return d;
@@ -386,7 +388,7 @@ function dfsPost(endpoint,data){
 function aiPost(system,user){
   return fetch(AI_WORKER,{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json','X-Lumina-Tool':'keyword-research'},
     body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:300})
   }).then(function(r){return r.json()}).then(function(d){
     try{var txt=d.choices[0].message.content.trim();
@@ -882,6 +884,7 @@ async function fetchGscQueries(){
 renderColToggles();
 (function(){var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Using your API key (unlimited)';else if(q.remaining!=null)el.textContent='Free queries: '+Math.floor(q.remaining/2)+'/5 today'}})();
 if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
+if(window.luminaQuota)luminaQuota.createBar('keyword-research',document.getElementById('quotaInfo')?.parentElement);
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
 
@@ -910,7 +913,7 @@ document.getElementById('btnCluster').addEventListener('click',function(){
   btn.disabled=true;btn.textContent='🧩 Clustering…';
   var kwList=kws.slice(0,60).map(function(k){return k.keyword+' (vol:'+k.vol+')'}).join('\n');
   var oaiKey=localStorage.getItem('lumina_key_openai')||'';
-  var headers={'Content-Type':'application/json'};
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':'keyword-research'};
   if(oaiKey)headers['X-OAI-Key']=oaiKey;
   var clusterLoc=countryNames[document.getElementById('locSelect').value]||'';
   fetch(AI_WORKER,{method:'POST',headers:headers,body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'You are a senior SEO content strategist. Group these keywords into 3-7 topical clusters optimized for content planning.\n\nRules:\n- Each cluster = one potential page/article on a website\n- Cluster name should be a clear, descriptive topic label (not a keyword)\n- Group by TOPIC SIMILARITY and SEARCH INTENT, not just word overlap\n- High-volume keywords should anchor their cluster\n- Consider the user journey: awareness → consideration → decision\n- Keywords with the same intent AND topic belong together\n- Each cluster should include a suggested content_type: "pillar_page", "blog_post", "landing_page", "faq_page", or "comparison_page"\n\nRespond ONLY with valid JSON:\n{"clusters":[{"name":"Topic Name","content_type":"blog_post","keywords":["kw1","kw2"]}]}'},{role:'user',content:'Market: '+clusterLoc+'\n\nKeywords:\n'+kwList}],max_tokens:1000})

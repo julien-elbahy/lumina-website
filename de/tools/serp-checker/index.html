@@ -253,7 +253,7 @@
 <div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ Was ist das?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Ohne Key: 5 kostenlose Suchen/Tag. Mit eigenem <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a>-Key: unbegrenzt.</div></div>
 <div class="quota-bar" id="quotaInfo">5 kostenlose Abfragen pro Tag</div>
 <div id="settingsHintDfs"></div>
-<script>(function(){var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null}};var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent='Verbleibend: '+q.remaining+'/'+q.limit+' heute'}})();if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'))</script>
+<script>(function(){var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null}};var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent='Verbleibend: '+q.remaining+'/'+q.limit+' heute'}})();if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));if(window.luminaQuota)luminaQuota.createBar('serp-checker',document.getElementById('quotaInfo')?.parentElement)</script>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Ergebnisse</div><p id="mResults">0</p></div><div class="metric"><div class="mh">Keyword</div><p id="mKw" style="font-size:14px">—</p></div><div class="metric"><div class="mh">Volume</div><p id="mVol">—</p></div><div class="metric"><div class="mh">CPC</div><p id="mCpc">—</p></div></div>
@@ -302,12 +302,14 @@ function dfsPost(endpoint,data){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
   if(key)headers['X-DFS-Key']=key;
+  headers['X-Lumina-Tool']='serp-checker';
   return fetch(DFS_WORKER+'?endpoint='+encodeURIComponent(endpoint),{
     method:'POST',headers:headers,body:JSON.stringify(data)
   }).then(function(r){return r.json()}).then(function(d){
 var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null},set:function(t,r,l,o){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');d[t]={remaining:r,limit:l,date:this._d(),ownKey:!!o};localStorage.setItem(this._k,JSON.stringify(d))}catch(e){}},update:function(t,data){if(!data||!data._lumina)return;if(data._lumina.ownKey)this.set(t,null,null,true);else if(data._lumina.remaining!=='unlimited')this.set(t,data._lumina.remaining,data._lumina.limit,false)}};
     if(d._lumina){
       luminaQuota.update('dfs',d);
+      if(window.luminaQuota)window.luminaQuota.update('serp-checker',d);
       var q=document.getElementById('quotaInfo');
       if(q)q.textContent=d._lumina.ownKey?'Eigener API-Key (unbegrenzt)':'Verbleibend: '+d._lumina.remaining+'/'+d._lumina.limit+' heute';
     }

@@ -396,8 +396,9 @@ else html+='<p style="color:var(--muted);text-align:center;padding:20px">No head
 /* Cross-tool links */
 html+='<div class="cross-links"><a href="/tools/meta-tag-analyzer/?url='+encodeURIComponent(url)+'">🔍 Full Meta Analysis</a><a href="/tools/serp-preview/?url='+encodeURIComponent(url)+'">📱 Snippet Preview</a><a href="/tools/schema-validator/?url='+encodeURIComponent(url)+'">✅ Schema Validation</a><a href="/tools/semantic-checker/?url='+encodeURIComponent(url)+'">🏷️ Semantic HTML</a></div>';
 /* AI section */
-html+='<div class="ai-section"><h3><span class="ai-badge">AI-Powered</span> Heading Optimizer</h3><p>Get AI suggestions to improve your heading structure for SEO and readability.</p><button class="act-btn" id="btnAiHeadings" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">✨ Optimize Headings with AI</button><div id="aiResult" style="display:none;margin-top:12px"></div></div>';
+html+='<div class="ai-section"><h3><span class="ai-badge">AI-Powered</span> Heading Optimizer</h3><p>Get AI suggestions to improve your heading structure for SEO and readability.</p><button class="act-btn" id="btnAiHeadings" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">✨ Optimize Headings with AI</button><div id="lq_heading-checker"></div><div id="aiResult" style="display:none;margin-top:12px"></div></div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
+if(window.luminaQuota)luminaQuota.createBar('heading-checker',document.getElementById('lq_heading-checker')?.parentElement||document.querySelector('.cd'));
 /* Bind events */
 document.getElementById('btnCopyOutline').addEventListener('click',function(){
   var txt=headings.map(function(h){return '  '.repeat(h.l-1)+'H'+h.l+': '+h.t}).join('\n');
@@ -442,11 +443,12 @@ function aiOptimize(){
   var rd=document.getElementById('aiResult');rd.style.display='none';
   var kw=document.getElementById('kwInput').value.trim();
   var outline=_lastHeadings.map(function(h){return 'H'+h.l+': '+h.t}).join('\n');
-  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'heading-checker'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
     messages:[{role:'system',content:'You are an expert SEO content strategist specializing in heading structure optimization.\n\nYour task: Analyze the heading structure and suggest improvements.\n\nRules:\n1. Evaluate the current H1 — is it compelling, keyword-rich, and within 60 chars?\n2. Check H2-H3 hierarchy — are there gaps in topic coverage?\n3. Suggest specific rewrites for weak headings\n4. Suggest missing H2/H3 sections that competitors would cover\n5. Ensure headings follow a logical narrative flow\n6. Keep the page language — if headings are in German, respond in German\n7. Format your response clearly with sections: SCORE, ISSUES, SUGGESTED IMPROVEMENTS, MISSING SECTIONS\n8. Be specific — give exact heading text suggestions, not vague advice'},{role:'user',content:'URL: '+_lastUrl+'\nPage title: '+_lastTitle+'\n'+(kw?'Target keyword: '+kw+'\n':'')+'Current heading structure:\n'+outline+'\n\nContent excerpt:\n'+_lastBodyText.substring(0,1500)}],
     max_tokens:1500
   })}).then(function(r){return r.json()}).then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    if(window.luminaQuota)window.luminaQuota.update('heading-checker',data);
     var text=data.choices[0].message.content;
     rd.innerHTML='<div class="ai-result">'+esc(text)+'</div>';rd.style.display='block';
   }).catch(function(e){rd.innerHTML='<div class="sb er">❌ '+esc(e.message)+'</div>';rd.style.display='block'})
