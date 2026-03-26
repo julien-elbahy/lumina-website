@@ -63,7 +63,6 @@
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .ai-textarea{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);font-family:var(--font);font-size:13px;resize:vertical;min-height:120px;line-height:1.6;transition:border-color .2s}.ai-textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .ai-kw-row{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}.ai-kw-row input{flex:1;min-width:160px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-family:var(--font);font-size:13px}.ai-kw-row input:focus{outline:none;border-color:var(--accent)}
-.api-key-row{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:12px;color:var(--muted)}.api-key-row input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--mono);font-size:11px}.api-key-row input:focus{outline:none;border-color:var(--accent)}
 .quota-bar{font-size:11px;color:var(--muted);padding:4px 0}
 .btn-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.btn-sm{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}.btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-sm:disabled{opacity:.4;cursor:default}
 .ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
@@ -99,7 +98,6 @@
 /* Tool-specific */
 .ai-textarea{width:100%;min-height:200px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text);font-family:var(--font);font-size:14px;line-height:1.7;resize:vertical;transition:all .2s}.ai-textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .ai-kw-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.ai-kw-row input{flex:1;min-width:180px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.ai-kw-row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-.api-key-row{display:flex;gap:8px;margin-top:8px;align-items:center;font-size:12px}.api-key-row input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:var(--mono);font-size:11px}.api-key-row label{color:var(--muted);white-space:nowrap;font-size:11px}
 .quota-bar{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:var(--mono)}
 .btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.btn-sm{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}.btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-sm:disabled{opacity:.4;cursor:default;transform:none}
 .score-ring{width:80px;height:80px;margin:0 auto 8px}
@@ -142,7 +140,7 @@
 [data-theme="light"] .ai-textarea:focus{background:#fff}
 [data-theme="light"] .ai-section{background:rgba(255,255,255,.7);border-color:rgba(140,120,90,.10)}
 [data-theme="light"] .meta-card{background:rgba(255,255,255,.9);border-color:rgba(140,120,90,.10)}
-@media(max-width:480px){.ai-kw-row{flex-direction:column}.btn-row{flex-direction:column}.api-key-row{flex-direction:column;align-items:stretch}}
+@media(max-width:480px){.ai-kw-row{flex-direction:column}.btn-row{flex-direction:column}}
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
@@ -241,7 +239,7 @@
 <input type="text" id="kwSecondary" placeholder="Neben-Keywords (z.B. Badrenovierung, Fixpreis)">
 </div>
 <div id="kwChips" style="display:none;margin-bottom:8px"></div>
-<div class="api-key-row"><label>OpenAI Key (optional):</label><input type="text" id="oaiKey" placeholder="sk-…"></div>
+
 <div class="quota-bar" id="quotaInfo">10 kostenlose KI-Abfragen pro Tag</div>
 <div id="settingsHintAi"></div>
 <div id="lq_content-optimizer"></div>
@@ -440,7 +438,7 @@ if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById
 if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.getElementById('lq_content-optimizer')?.parentElement||document.querySelector('.cd'));
 
 async function aiCall(body){
-  var key=document.getElementById('oaiKey').value.trim()||localStorage.getItem('lumina_key_openai')||'';
+  var key=localStorage.getItem('lumina_key_openai')||'';
   var headers={'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'};
   if(key)headers['X-OAI-Key']=key;
   var resp=await fetch(WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify(body)});
