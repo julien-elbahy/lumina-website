@@ -94,6 +94,9 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 .kw-tbl tbody tr{cursor:pointer}.kw-tbl tr.kw-selected>td{background:var(--accent-soft)!important}.kw-tbl tr.kw-selected>td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
 .kw-tbl .col-ex{width:24px;text-align:center;padding:2px;opacity:0;transition:opacity .15s}.kw-tbl tr:hover .col-ex{opacity:1}.col-ex-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px 4px;border-radius:4px;transition:all .15s;line-height:1}.col-ex-btn:hover{color:var(--err);background:var(--err-bg)}
 .kw-hint{font-size:11px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:6px}.kw-hint .hint-icon{color:var(--accent);font-size:13px}
+.intent-tag{display:inline-block;font-size:8px;font-weight:700;padding:2px 5px;border-radius:4px;text-transform:uppercase;letter-spacing:.3px;border:1px solid;white-space:nowrap;vertical-align:middle;margin-left:4px}.intent-tag.info{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}.intent-tag.comm{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.intent-tag.trans{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.intent-tag.nav{background:rgba(180,130,255,.08);color:#b482ff;border-color:rgba(180,130,255,.2)}
+.serp-feat{display:inline-flex;gap:2px;flex-wrap:wrap;vertical-align:middle}.serp-feat-tag{font-size:7px;font-weight:700;padding:1px 4px;border-radius:3px;background:var(--card);border:1px solid var(--border);color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.2px}
+.cluster-section{margin-top:16px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px}.cluster-group{margin-bottom:12px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px}.cluster-group h4{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px;display:flex;align-items:center;gap:6px}.cluster-group .cluster-kws{display:flex;flex-wrap:wrap;gap:4px}.cluster-kw{font-size:11px;padding:3px 8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text2);cursor:pointer;transition:all .15s}.cluster-kw:hover{border-color:var(--accent);color:var(--accent)}
 .exclude-bar{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:8px;padding:6px 10px;background:var(--err-bg);border:1px solid var(--err-border);border-radius:8px}.exclude-bar button{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;color:var(--text2);font-family:var(--font);transition:all .15s}.exclude-bar button:hover{border-color:var(--accent);color:var(--accent)}
 .gsc-country{font-size:10px;color:var(--muted);font-weight:600;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:2px 8px;white-space:nowrap}
 .neg-kw-row{display:flex;gap:8px;margin-top:6px;align-items:center}.neg-kw-row input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:var(--mono);font-size:11px;transition:all .2s}.neg-kw-row input:focus{outline:none;border-color:var(--err);box-shadow:0 0 0 3px var(--err-bg)}.neg-kw-row label{color:var(--muted);white-space:nowrap;font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px}.neg-kw-count{font-size:10px;color:var(--err);font-weight:700;font-family:var(--mono)}
@@ -299,17 +302,20 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center">
 <button class="exp-btn" id="btnCsv">📊 CSV Export</button>
 <button class="exp-btn" id="btnMap">📋 Keyword Mapping</button>
+<button class="exp-btn" id="btnCopyKws" style="display:none">📋 Copy Selected</button>
+<button class="exp-btn" id="btnCluster">🧩 AI Clustering</button>
 <span id="kwHint" class="kw-hint" style="display:none;margin:0">💡 Click rows to select — or map all at once</span>
 </div>
+<div id="clusterWrap" style="display:none"></div>
 </div>
 </div>
 <!-- API Key & Quota -->
 <div style="display:flex;align-items:center;gap:8px;margin-top:4px;margin-bottom:8px;flex-wrap:wrap;padding:0 4px">
 <div class="quota-bar" id="quotaInfo" style="margin:0;text-align:left">5 free queries per day</div>
-<span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap;margin-left:auto" onclick="document.getElementById('dfsKeyWrap').style.display=document.getElementById('dfsKeyWrap').style.display==='none'?'flex':'none'">🔑 Own API key</span>
+<span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap;margin-left:auto" onclick="if(window.luminaSettings)luminaSettings.open();else{document.getElementById('dfsKeyWrap').style.display=document.getElementById('dfsKeyWrap').style.display==='none'?'flex':'none'}">⚙️ API Settings</span>
 </div>
 <div id="settingsHintDfs"></div>
-<div id="dfsKeyWrap" class="api-key-row" style="display:none;margin-top:0;margin-bottom:8px"><label>DataForSEO Key:</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ What's this?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Without a key, you get 5 free searches per day. With your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> key, searches are unlimited. To create a key: sign up at dataforseo.com → API Dashboard → copy your login:password → encode it at <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> as <code>login:password</code>.</div></div>
+<div id="dfsKeyWrap" class="api-key-row" style="display:none;margin-top:0;margin-bottom:8px"><label>DataForSEO Key:</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"></div>
 <!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
 <div class="cd" style="position:relative">
@@ -405,6 +411,7 @@ var kwIn=document.getElementById('kwIn'),btn=document.getElementById('btnGo');
 var googleDomains={'2040':'www.google.at','2276':'www.google.de','2756':'www.google.ch','2826':'www.google.co.uk','2840':'www.google.com','2250':'www.google.fr','2380':'www.google.it','2724':'www.google.es','2528':'www.google.nl','2616':'www.google.pl','2392':'www.google.co.jp','2036':'www.google.com.au','2124':'www.google.ca','2356':'www.google.co.in','2076':'www.google.com.br'};
 var currentGoogleDomain='www.google.com';
 var allKws=[],sortCol='vol',sortDir='desc',filterText='',filterSrc='';
+var intentOrder={'transactional':3,'commercial':2,'informational':1,'navigational':0};
 var selectedKws=new Set(),mainKw='';
 var excludedKws=new Set();
 var negativeKws=[];
@@ -416,12 +423,14 @@ var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString()
 var columns={
   trend:{label:'Trend',on:true,gsc:false},
   vol:{label:'Volume',on:true,gsc:false},
+  intent:{label:'Intent',on:true,gsc:false},
   clicks:{label:'Clicks',on:false,gsc:true},
   position:{label:'Position',on:false,gsc:true},
   impressions:{label:'Impr.',on:false,gsc:true},
   cpc:{label:'CPC',on:false,gsc:false},
   comp:{label:'Comp',on:false,gsc:false},
-  kd:{label:'KD',on:false,gsc:false}
+  kd:{label:'KD',on:false,gsc:false},
+  serp:{label:'SERP',on:false,gsc:false}
 };
 
 function renderColToggles(){
@@ -484,9 +493,10 @@ function go(){
   // DFS Call 2: AI synonyms for ALL seeds + extra seeds volume check
   var extraSeeds=seeds.slice(1);
   var seedList=seeds.map(function(s){return'"'+s+'"'}).join(', ');
+  var countryLabel=countryNames[loc]||'';
   var p2=aiPost(
-    'You are an SEO keyword expert. Given one or more primary keywords, suggest 5-8 SEMANTIC ALTERNATIVES for each — words/phrases that mean the same thing but use different words. These are NOT long-tail variations.\n\nExample: "Badsanierung" → "Badrenovierung", "Badumbau", "Bad erneuern", "Badezimmer sanieren"\nExample: "SEO agency" → "SEO company", "SEO firm", "search engine optimization service"\n\nRespond ONLY with JSON: {"synonyms":["synonym1","synonym2",...]}',
-    'Primary keywords: '+seedList
+    'You are an SEO keyword research expert specializing in the '+countryLabel+' market (language: '+lang+'). Given primary keywords, suggest 5-8 SEMANTIC ALTERNATIVES for each.\n\nRules:\n- Use the SAME LANGUAGE as the input keywords\n- Suggest words/phrases that mean the same thing but use different wording (synonyms, rephrasing)\n- Do NOT suggest long-tail variations or modifiers\n- Consider how real users in '+countryLabel+' would search\n- Include both formal and colloquial alternatives\n\nExamples:\n- "Badsanierung" → "Badrenovierung", "Badumbau", "Bad erneuern", "Badezimmer sanieren"\n- "SEO agency" → "SEO company", "SEO firm", "search engine optimization service"\n\nRespond ONLY with JSON: {"synonyms":["synonym1","synonym2",...]}',
+    'Primary keywords: '+seedList+'\nMarket: '+countryLabel+' ('+lang+')'
   ).then(function(ai){
     var volumeKws=extraSeeds.slice();
     if(ai&&ai.synonyms)volumeKws=volumeKws.concat(ai.synonyms);
@@ -512,11 +522,11 @@ function go(){
     }
 
     var items=[],seen={};
-    function addKw(keyword,vol,cpc,comp,monthly,kd,source){
+    function addKw(keyword,vol,cpc,comp,monthly,kd,source,intent,serpFeats){
       if(!keyword||seen[keyword.toLowerCase()])return;
       seen[keyword.toLowerCase()]=true;
       var g=gscData[keyword.toLowerCase()]||{};
-      items.push({keyword:keyword,vol:vol||0,cpc:cpc||0,comp:comp||0,monthly:monthly||[],kd:kd,src:source,clicks:g.clicks||0,impressions:g.impressions||0,position:g.position||0,hasGsc:!!g.clicks||!!g.impressions});
+      items.push({keyword:keyword,vol:vol||0,cpc:cpc||0,comp:comp||0,monthly:monthly||[],kd:kd,src:source,clicks:g.clicks||0,impressions:g.impressions||0,position:g.position||0,hasGsc:!!g.clicks||!!g.impressions,intent:intent||'',serpFeats:serpFeats||[]});
     }
     // Parse labs format (keyword_suggestions for seed #1)
     (function(data){
@@ -526,7 +536,12 @@ function go(){
           var kd=item.keyword_data||item;
           var ki=kd.keyword_info||{};
           var kp=kd.keyword_properties||item.keyword_properties||{};
-          addKw(kd.keyword||item.keyword||'',ki.search_volume,ki.cpc,ki.competition,ki.monthly_searches,kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,'suggestions');
+          var si=kd.search_intent_info||item.search_intent_info||{};
+          var intent=si.main_intent||'';
+          var sf=kd.serp_info||item.serp_info||{};
+          var serpFeats=[];
+          if(sf.serp_item_types)(sf.serp_item_types||[]).forEach(function(t){if(serpFeats.indexOf(t)===-1)serpFeats.push(t)});
+          addKw(kd.keyword||item.keyword||'',ki.search_volume,ki.cpc,ki.competition,ki.monthly_searches,kp.keyword_difficulty!=null?Math.round(kp.keyword_difficulty):null,'suggestions',intent,serpFeats);
         });
       });
     })(results[0]);
@@ -555,7 +570,7 @@ function go(){
     document.getElementById('loading').style.display='none';
     document.getElementById('res').style.display='block';
     if(e.isQuota){
-      document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Daily limit reached</p><p>You\'ve used all 5 free searches for today. Come back tomorrow, or add your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API key below for unlimited searches.</p></div>';
+      document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Daily limit reached</p><p>You\'ve used all 5 free searches for today. Come back tomorrow, or add your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited searches.</p></div>';
       var q=document.getElementById('quotaInfo');if(q)q.textContent='Free queries: 0/5 today';
       if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
     }else{
@@ -571,7 +586,7 @@ function renderTable(){
   if(negativeKws.length)items=items.filter(function(i){var lk=i.keyword.toLowerCase();return !negativeKws.some(function(n){return lk.indexOf(n)!==-1})});
   if(filterText)items=items.filter(function(i){return i.keyword.toLowerCase().indexOf(filterText)!==-1});
   if(filterSrc)items=items.filter(function(i){return i.src===filterSrc});
-  items.sort(function(a,b){var va=a[sortCol],vb=b[sortCol];if(sortCol==='keyword')return sortDir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));return sortDir==='asc'?va-vb:vb-va});
+  items.sort(function(a,b){var va=a[sortCol],vb=b[sortCol];if(sortCol==='keyword')return sortDir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));if(sortCol==='intent'){var ia=intentOrder[a.intent]||0,ib=intentOrder[b.intent]||0;return sortDir==='asc'?ia-ib:ib-ia}return sortDir==='asc'?va-vb:vb-va});
   var maxVol=0;items.forEach(function(i){if(i.vol>maxVol)maxVol=i.vol});
   var activeKws=allKws.filter(function(i){return !excludedKws.has(i.keyword)});
   if(negativeKws.length)activeKws=activeKws.filter(function(i){var lk=i.keyword.toLowerCase();return !negativeKws.some(function(n){return lk.indexOf(n)!==-1})});
@@ -591,12 +606,14 @@ function renderTable(){
   var visCols=[{key:'keyword',label:'Keyword',cls:'col-kw'}];
   if(columns.trend.on)visCols.push({key:'trend',label:'Trend',cls:'col-trend'});
   if(columns.vol.on)visCols.push({key:'vol',label:'Volume',cls:'col-vol'});
+  if(columns.intent.on)visCols.push({key:'intent',label:'Intent',cls:'col-intent'});
   if(columns.clicks.on&&gscIsConnected())visCols.push({key:'clicks',label:'Clicks',cls:'col-vol'});
   if(columns.impressions.on&&gscIsConnected())visCols.push({key:'impressions',label:'Impr.',cls:'col-vol'});
   if(columns.position.on&&gscIsConnected())visCols.push({key:'position',label:'Pos.',cls:'col-cpc'});
   if(columns.cpc.on)visCols.push({key:'cpc',label:'CPC',cls:'col-cpc'});
   if(columns.comp.on)visCols.push({key:'comp',label:'Comp',cls:'col-comp'});
   if(columns.kd.on)visCols.push({key:'kd',label:'KD',cls:'col-kd'});
+  if(columns.serp.on)visCols.push({key:'serp',label:'SERP Features',cls:'col-serp'});
   var h=fb+'<table class="kw-tbl"><thead><tr><th class="col-sel"><input type="checkbox" id="selAll" title="Select all"></th>';
   visCols.forEach(function(c){
     var sorted=sortCol===c.key;var arrow=sorted?(sortDir==='asc'?'↑':'↓'):'↕';
@@ -615,15 +632,17 @@ function renderTable(){
     var chk=selectedKws.has(item.keyword)?' checked':'';
     var selCls=selectedKws.has(item.keyword)?' class="kw-selected"':'';
     h+='<tr data-kw-row="'+esc(item.keyword)+'"'+selCls+'><td class="col-sel"><input type="checkbox" data-kw="'+esc(item.keyword)+'"'+chk+'></td>';
-    h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://'+currentGoogleDomain+'/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a>'+relTag+'</td>';
+    h+='<td class="col-kw" title="'+esc(item.keyword)+'"><a href="https://'+currentGoogleDomain+'/search?q='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">'+esc(item.keyword)+'</a>'+relTag+' <a href="/tools/serp-preview/?keyword='+encodeURIComponent(item.keyword)+'" target="_blank" rel="noopener" title="Open in Snippet Preview" style="opacity:.3;transition:opacity .2s;font-size:10px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.3">🔍</a></td>';
     if(columns.trend.on)h+='<td class="col-trend">'+buildSparkline(item.monthly)+'</td>';
     if(columns.vol.on)h+='<td class="col-vol">'+item.vol.toLocaleString()+'<div class="kw-vol-bar"><div class="kw-vol-fill" style="width:'+volPct+'%"></div></div></td>';
+    if(columns.intent.on){var ic=item.intent||'';var icCls=ic==='informational'?'info':ic==='commercial'?'comm':ic==='transactional'?'trans':ic==='navigational'?'nav':'';var icLabel=ic==='informational'?'Info':ic==='commercial'?'Comm':ic==='transactional'?'Trans':ic==='navigational'?'Nav':'—';h+='<td class="col-intent">'+(icCls?'<span class="intent-tag '+icCls+'">'+icLabel+'</span>':'<span style="color:var(--muted)">—</span>')+'</td>';}
     if(columns.clicks.on&&gscIsConnected())h+='<td class="col-vol" style="color:'+(item.clicks>0?'var(--ok)':'var(--muted)')+';font-weight:'+(item.clicks>0?'700':'400')+'">'+item.clicks+'</td>';
     if(columns.impressions.on&&gscIsConnected())h+='<td class="col-vol">'+item.impressions.toLocaleString()+'</td>';
     if(columns.position.on&&gscIsConnected())h+='<td class="col-cpc">'+(item.position>0?item.position.toFixed(1):'—')+'</td>';
     if(columns.cpc.on)h+='<td class="col-cpc">$'+item.cpc.toFixed(2)+'</td>';
     if(columns.comp.on)h+='<td class="col-comp"><span class="badge '+compCls+'">'+(item.comp*100).toFixed(0)+'%</span></td>';
     if(columns.kd.on)h+='<td class="col-kd"><span class="badge '+kdCls+'">'+item.kd+'</span></td>';
+    if(columns.serp.on){var sf=item.serpFeats||[];var sfMap={'featured_snippet':'FS','people_also_ask':'PAA','local_pack':'Local','knowledge_panel':'KP','video':'Video','images':'Img','shopping':'Shop','top_stories':'News','site_links':'Links','twitter':'X','carousel':'Carousel'};h+='<td class="col-serp"><span class="serp-feat">';if(sf.length){sf.slice(0,4).forEach(function(s){var label=sfMap[s]||s.replace(/_/g,' ').substring(0,6);h+='<span class="serp-feat-tag">'+esc(label)+'</span>'})}else{h+='<span style="color:var(--muted);font-size:11px">—</span>'}h+='</span></td>';}
     h+='<td class="col-ex"><button class="col-ex-btn" data-ex="'+esc(item.keyword)+'" title="Exclude keyword">✕</button></td>';
     h+='</tr>';
   });
@@ -686,16 +705,16 @@ function updateExcludeBar(){
 
 // ── CSV Export ──
 document.getElementById('btnCsv').addEventListener('click',function(){
-  var cols=['Keyword','Volume'];
+  var cols=['Keyword','Volume','Intent'];
   if(columns.clicks.on||gscIsConnected())cols.push('Clicks','Impressions','Position');
-  cols.push('CPC','Competition','Difficulty','Source');
+  cols.push('CPC','Competition','Difficulty','Source','SERP Features');
   var csv=cols.join(',')+'\n';
   var csvKws=allKws.filter(function(i){return !excludedKws.has(i.keyword)});
   if(negativeKws.length)csvKws=csvKws.filter(function(i){var lk=i.keyword.toLowerCase();return !negativeKws.some(function(n){return lk.indexOf(n)!==-1})});
   csvKws.forEach(function(i){
-    var row=['"'+(i.keyword||'').replace(/"/g,'""')+'"',i.vol];
+    var row=['"'+(i.keyword||'').replace(/"/g,'""')+'"',i.vol,i.intent||''];
     if(columns.clicks.on||gscIsConnected())row.push(i.clicks,i.impressions,i.position?i.position.toFixed(1):'');
-    row.push(i.cpc.toFixed(2),i.comp.toFixed(3),i.kd,i.src||'suggestions');
+    row.push(i.cpc.toFixed(2),i.comp.toFixed(3),i.kd,i.src||'suggestions','"'+(i.serpFeats||[]).join(', ')+'"');
     csv+=row.join(',')+'\n';
   });
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='keywords.csv';a.click();
@@ -865,6 +884,102 @@ renderColToggles();
 if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
+
+// ── Copy Selected Keywords ──
+document.getElementById('btnCopyKws').addEventListener('click',function(){
+  var kws=[];selectedKws.forEach(function(k){kws.push(k)});
+  if(!kws.length)return;
+  navigator.clipboard.writeText(kws.join('\n')).then(function(){
+    var b=document.getElementById('btnCopyKws');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Selected'},1500);
+  });
+});
+function updateCopyBtn(){
+  var b=document.getElementById('btnCopyKws');
+  b.style.display=selectedKws.size>0?'inline-flex':'none';
+  if(selectedKws.size>0)b.textContent='📋 Copy '+selectedKws.size+' Selected';
+}
+var origUpdateMapBtn=updateMapBtn;
+updateMapBtn=function(){origUpdateMapBtn();updateCopyBtn()};
+
+// ── AI Keyword Clustering ──
+document.getElementById('btnCluster').addEventListener('click',function(){
+  var btn=this;
+  var kws=allKws.filter(function(i){return !excludedKws.has(i.keyword)});
+  if(negativeKws.length)kws=kws.filter(function(i){var lk=i.keyword.toLowerCase();return !negativeKws.some(function(n){return lk.indexOf(n)!==-1})});
+  if(kws.length<3){alert('Need at least 3 keywords to cluster.');return}
+  btn.disabled=true;btn.textContent='🧩 Clustering…';
+  var kwList=kws.slice(0,60).map(function(k){return k.keyword+' (vol:'+k.vol+')'}).join('\n');
+  var oaiKey=localStorage.getItem('lumina_key_openai')||'';
+  var headers={'Content-Type':'application/json'};
+  if(oaiKey)headers['X-OAI-Key']=oaiKey;
+  var clusterLoc=countryNames[document.getElementById('locSelect').value]||'';
+  fetch(AI_WORKER,{method:'POST',headers:headers,body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'You are a senior SEO content strategist. Group these keywords into 3-7 topical clusters optimized for content planning.\n\nRules:\n- Each cluster = one potential page/article on a website\n- Cluster name should be a clear, descriptive topic label (not a keyword)\n- Group by TOPIC SIMILARITY and SEARCH INTENT, not just word overlap\n- High-volume keywords should anchor their cluster\n- Consider the user journey: awareness → consideration → decision\n- Keywords with the same intent AND topic belong together\n- Each cluster should include a suggested content_type: "pillar_page", "blog_post", "landing_page", "faq_page", or "comparison_page"\n\nRespond ONLY with valid JSON:\n{"clusters":[{"name":"Topic Name","content_type":"blog_post","keywords":["kw1","kw2"]}]}'},{role:'user',content:'Market: '+clusterLoc+'\n\nKeywords:\n'+kwList}],max_tokens:1000})
+  }).then(function(r){return r.json()}).then(function(d){
+    btn.disabled=false;btn.textContent='🧩 AI Clustering';
+    try{
+      var txt=d.choices[0].message.content.trim().replace(/```json\s*/g,'').replace(/```/g,'').trim();
+      var result=JSON.parse(txt);
+      if(!result.clusters||!result.clusters.length)throw new Error('No clusters');
+      var h='<div class="cluster-section"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="font-size:16px;font-weight:800;margin:0">🧩 Keyword Clusters</h3><button class="exp-btn" onclick="document.getElementById(\'clusterWrap\').style.display=\'none\'" style="margin:0;padding:4px 10px">✕ Close</button></div>';
+      var ctLabels={'pillar_page':'📄 Pillar Page','blog_post':'✏️ Blog Post','landing_page':'🎯 Landing Page','faq_page':'❓ FAQ Page','comparison_page':'⚖️ Comparison'};
+      result.clusters.forEach(function(c,ci){
+        var ctLabel=ctLabels[c.content_type]||c.content_type||'';
+        h+='<div class="cluster-group"><h4><span style="background:var(--accent);color:#fff;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px">'+(ci+1)+'</span> '+esc(c.name)+' <span style="font-size:11px;color:var(--muted);font-weight:400">('+c.keywords.length+')</span>'+(ctLabel?' <span style="font-size:9px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 6px;color:var(--muted);font-weight:600;margin-left:4px">'+ctLabel+'</span>':'')+'</h4><div class="cluster-kws">';
+        c.keywords.forEach(function(k){
+          h+='<span class="cluster-kw" onclick="document.getElementById(\'kwFilter\').value=\''+esc(k).replace(/'/g,"\\'")+'\';filterText=\''+k.toLowerCase().replace(/'/g,"\\'")+'\';renderTable()">'+esc(k)+'</span>';
+        });
+        h+='</div></div>';
+      });
+      h+='</div>';
+      document.getElementById('clusterWrap').innerHTML=h;
+      document.getElementById('clusterWrap').style.display='block';
+      document.getElementById('clusterWrap').scrollIntoView({behavior:'smooth',block:'start'});
+    }catch(e){alert('Clustering failed: '+e.message)}
+  }).catch(function(e){btn.disabled=false;btn.textContent='🧩 AI Clustering';alert('Clustering error: '+e.message)});
+});
+
+// ── Save/Restore last results ──
+function saveResults(){
+  if(!allKws.length)return;
+  try{
+    var data={keywords:allKws.slice(0,100),seed:document.getElementById('kwIn').value,loc:document.getElementById('locSelect').value,ts:Date.now()};
+    localStorage.setItem('lumina_kw_cache',JSON.stringify(data));
+  }catch(e){}
+}
+function restoreResults(){
+  try{
+    var raw=localStorage.getItem('lumina_kw_cache');if(!raw)return;
+    var data=JSON.parse(raw);
+    if(Date.now()-data.ts>86400000)return; // expire after 24h
+    if(!data.keywords||!data.keywords.length)return;
+    allKws=data.keywords;
+    document.getElementById('kwIn').value=data.seed||'';
+    if(data.loc)document.getElementById('locSelect').value=data.loc;
+    document.getElementById('mCount').textContent=allKws.length;
+    document.getElementById('mSeed').textContent=data.seed||'';
+    var totalVol=0,totalCpc=0;allKws.forEach(function(i){totalVol+=i.vol;totalCpc+=i.cpc});
+    document.getElementById('mAvgVol').textContent=allKws.length?Math.round(totalVol/allKws.length).toLocaleString():'—';
+    document.getElementById('mAvgCpc').textContent=allKws.length?'$'+(totalCpc/allKws.length).toFixed(2):'—';
+    renderColToggles();renderTable();
+    document.getElementById('res').style.display='block';
+    document.getElementById('kwHint').style.display='inline-flex';
+  }catch(e){}
+}
+// Hook into go() to save after results
+var origGo=go;
+go=function(){
+  var raw=kwIn.value.trim();if(!raw)return;
+  origGo.apply(this,arguments);
+  // Save after results arrive (slight delay)
+  setTimeout(function(){if(allKws.length)saveResults()},6000);
+};
+restoreResults();
+
+// ── Intent sort support ──
+var intentOrder={'transactional':3,'commercial':2,'informational':1,'navigational':0};
+
+// Override sort for intent column
+var origSort=renderTable;
 
 
 </script>
