@@ -456,7 +456,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </div></section>
 
 <section id="geo" class="geo-section" aria-labelledby="geo-t"><div class="container"><div class="section-label fade-in">Generative Engine Optimization</div><h2 class="section-title fade-in" id="geo-t">Built for the AI search era</h2><p class="section-desc fade-in">Lumina is one of the first SEO extensions with dedicated GEO features. Understand how AI engines see your content — and optimize for them.</p><div class="instant-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr));">
-<div class="instant-card fade-in" style="border-color:rgba(212,132,58,.2);"><div class="ic-icon">🤖</div><h3>AI Crawler Access Check</h3><p>See which AI bots (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, DeepSeekBot) are allowed or blocked via robots.txt — with live server verification.</p></div>
+<div class="instant-card fade-in" style="border-color:rgba(212,132,58,.2);"><div class="ic-icon">🤖</div><h3>AI Crawler Access Check</h3><p>See which AI bots (Google-Agent, GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are allowed or blocked via robots.txt — with live server verification.</p></div>
 <div class="instant-card fade-in" style="border-color:rgba(212,132,58,.2);"><div class="ic-icon">📋</div><h3>llms.txt Checker</h3><p>Verifies if the site has an llms.txt file that guides AI crawlers on what content to index and how to cite the site. Checks both llms.txt and llms-full.txt.</p></div>
 <div class="instant-card fade-in" style="border-color:rgba(212,132,58,.2);"><div class="ic-icon">📈</div><h3>AI Traffic Dashboard</h3><p>See how much traffic comes from ChatGPT, Perplexity, Claude, Gemini, and Copilot — with per-platform breakdown, trend chart, and conversion comparison. Requires GA4.</p></div>
 </div></div></section>
@@ -736,7 +736,7 @@ function renderTech(d){
 
 function renderGeo(d){
   var h='<div class="demo-section-title">AI Crawler Access</div>';
-  var AI_CRAWLERS=['GPTBot','ClaudeBot','PerplexityBot','Google-Extended','ChatGPT-User','OAI-SearchBot','Applebot-Extended','CCBot','Bytespider','Meta-ExternalAgent'];
+  var AI_CRAWLERS=['Google-Agent','GPTBot','ClaudeBot','PerplexityBot','Google-Extended','ChatGPT-User','OAI-SearchBot','Applebot-Extended','CCBot','Bytespider','Meta-ExternalAgent'];
   if(d._robotsTxt){
     var rtxt=d._robotsTxt.toLowerCase();
     AI_CRAWLERS.forEach(function(bot){
