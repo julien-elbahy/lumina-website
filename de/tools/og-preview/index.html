@@ -58,6 +58,24 @@
 /* Preview cards */
 .preview-fb{border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:524px;margin:0 auto}.preview-fb img{width:100%;height:274px;object-fit:cover;display:block;background:var(--bg2)}.preview-fb .body{padding:12px;background:var(--card)}.preview-fb .site{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}.preview-fb .title{font-size:16px;font-weight:700;color:var(--text);margin:2px 0}.preview-fb .desc{font-size:13px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .preview-tw{border:1px solid var(--border);border-radius:16px;overflow:hidden;max-width:504px;margin:0 auto}.preview-tw img{width:100%;height:252px;object-fit:cover;display:block;background:var(--bg2)}.preview-tw .body{padding:12px;background:var(--card)}.preview-tw .title{font-size:15px;font-weight:700;color:var(--text)}.preview-tw .desc{font-size:13px;color:var(--muted);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.preview-tw .url{font-size:12px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:4px}
+/* WhatsApp preview */
+.preview-wa{max-width:400px;margin:0 auto;background:#e5ddd5;border-radius:12px;padding:12px}.preview-wa .bubble{background:#fff;border-radius:0 8px 8px 8px;padding:4px;box-shadow:0 1px 2px rgba(0,0,0,.1)}.preview-wa .bubble img{width:100%;height:160px;object-fit:cover;border-radius:6px 6px 0 0}.preview-wa .bubble .body{padding:6px 8px}.preview-wa .bubble .site{font-size:10px;color:#128c7e;font-weight:700;text-transform:uppercase}.preview-wa .bubble .title{font-size:13px;font-weight:700;color:#303030;margin:2px 0;line-height:1.3}.preview-wa .bubble .desc{font-size:11px;color:#667781;line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.preview-wa .link{font-size:11px;color:#128c7e;margin-top:6px;word-break:break-all}
+[data-theme="dark"] .preview-wa{background:#0b141a}[data-theme="dark"] .preview-wa .bubble{background:#1f2c34}[data-theme="dark"] .preview-wa .bubble .title{color:#e9edef}[data-theme="dark"] .preview-wa .bubble .desc{color:#8696a0}[data-theme="dark"] .preview-wa .link{color:#53bdeb}
+/* Discord preview */
+.preview-dc{max-width:520px;margin:0 auto;background:#2b2d31;border-radius:4px;padding:16px;display:flex;gap:12px}.preview-dc .dc-bar{width:4px;border-radius:4px;background:#5865f2;flex-shrink:0}.preview-dc .dc-body{flex:1;min-width:0}.preview-dc .dc-site{font-size:11px;color:#b5bac1;margin-bottom:4px}.preview-dc .dc-title{font-size:15px;font-weight:700;color:#00a8fc;margin-bottom:4px;line-height:1.3}.preview-dc .dc-desc{font-size:13px;color:#dbdee1;line-height:1.4;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.preview-dc img{max-width:100%;max-height:200px;border-radius:4px;object-fit:cover}
+/* Score ring */
+.score-wrap{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px}.score-ring{position:relative;width:70px;height:70px;flex-shrink:0}.score-ring svg{transform:rotate(-90deg)}.score-ring circle{fill:none;stroke-width:5}.score-ring .bg{stroke:var(--border)}.score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset .8s ease}.score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800}.score-info{flex:1}.score-info h3{font-size:16px;font-weight:800;margin-bottom:2px}.score-info p{font-size:12px;color:var(--muted)}
+/* Toolbar */
+.og-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;align-items:center}.og-toolbar .act-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;font-family:var(--font)}.og-toolbar .act-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+/* Issues */
+.og-issues{margin-bottom:14px}.og-issue{display:flex;gap:8px;padding:6px 0;border-bottom:1px dashed var(--border);font-size:12px}.og-issue:last-child{border-bottom:none}.og-issue-i{width:16px;text-align:center;flex-shrink:0}.og-issue-t{flex:1;color:var(--text2);line-height:1.5}
+/* Char bar */
+.char-bar{height:4px;border-radius:2px;background:var(--border);margin-top:4px;position:relative}.char-bar .fill{height:100%;border-radius:2px;transition:width .3s}
+/* AI section */
+.ai-section{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(236,165,80,.06));border:1px solid rgba(139,92,246,.2);border-radius:16px;padding:20px;margin-top:16px}.ai-section h3{font-size:14px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}.ai-section .ai-badge{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}.ai-section p{font-size:12px;color:var(--muted);margin-bottom:12px}
+.ai-result{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:var(--text2);white-space:pre-wrap;max-height:400px;overflow-y:auto}
+/* Cross-tool links */
+.cross-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cross-links a{display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);transition:all .2s}.cross-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 /* Row */
 .row{margin-bottom:8px}.lbl{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--muted);letter-spacing:.7px;margin-bottom:2px;display:flex;align-items:center;gap:5px}.val{font-size:13px;font-weight:500;color:var(--text2);line-height:1.5;word-break:break-word}.val.mono{font-family:var(--mono);font-size:11px}.badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:5px;font-weight:700;border:1px solid;margin-left:4px}.badge.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.badge.wn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.badge.er{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
@@ -241,7 +259,7 @@
 <div class="ct">
 <div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Open Graph Preview</h1><p>Sieh, wie deine Seite beim Teilen auf Facebook, Twitter/X und LinkedIn aussieht. Prüfe alle OG- und Twitter-Card-Tags.</p></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Social Cards anzeigen</button>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Social Cards Vorschau</button>
 </div>
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none"></div>
@@ -308,51 +326,151 @@ function fetchWithFallback(targetUrl){
     });
 }
 
+var WORKER_AI='https://lumina-proxy.julien-elbahy.workers.dev';
+var _lastOg={},_lastTw={},_lastUrl='',_lastTitle='',_lastDesc='';
+
+function scoreRing(score,size){
+  var r=(size-6)/2,c=2*Math.PI*r,off=c-(score/100)*c;
+  var col=score>=80?'var(--ok)':score>=50?'var(--warn)':'var(--err)';
+  var label=score>=80?'Gutes Social Setup':score>=50?'Verbesserungsbedarf':'Schlechtes Social Setup';
+  return '<div class="score-wrap"><div class="score-ring" style="width:'+size+'px;height:'+size+'px"><svg width="'+size+'" height="'+size+'"><circle class="bg" cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'"/><circle class="fg" cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'"/></svg><div class="score-val" style="color:'+col+'">'+score+'</div></div><div class="score-info"><h3>'+label+'</h3><p>Open Graph & Twitter Card Vollständigkeit</p></div></div>';
+}
+
+function charBar(len,max,warn){
+  var pct=Math.min(100,len/max*100);var col=len>max?'var(--err)':len>warn?'var(--warn)':'var(--ok)';
+  return '<div class="char-bar"><div class="fill" style="width:'+pct+'%;background:'+col+'"></div></div><span style="font-size:10px;color:var(--muted)">'+len+'/'+max+' Zeichen'+(len>max?' — zu lang':'')+'</span>';
+}
+
 function go(url){
 url=url.trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
-document.getElementById('urlIn').value=url;
-var btn=document.getElementById('btnGo');btn.disabled=true;btn.textContent='Laden…';
+document.getElementById('urlIn').value=url;_lastUrl=url;
+var btn=document.getElementById('btnGo');btn.disabled=true;btn.textContent='Lade…';
 document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
 fetchWithFallback(url)
 .then(function(data){
 if(data.error)throw new Error(data.error);
 var doc=new DOMParser().parseFromString(data.html,'text/html');var base;try{base=new URL(url)}catch(e){base={hostname:''}}
 var g=function(s,a){var el=doc.querySelector(s);return el?(a?el.getAttribute(a)||'':el.textContent.trim()):''};
-var og={};['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(p){og[p]=g('meta[property="'+p+'"]','content')});
-var tw={};['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(n){tw[n]=g('meta[name="'+n+'"]','content')});
+var og={};['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale','og:image:width','og:image:height','og:image:alt','og:video','article:author','article:published_time','article:modified_time','article:section','article:tag'].forEach(function(p){og[p]=g('meta[property="'+p+'"]','content')});
+var tw={};['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator','twitter:image:alt'].forEach(function(n){tw[n]=g('meta[name="'+n+'"]','content')});
+_lastOg=og;_lastTw=tw;
 var title=og['og:title']||g('title');var desc=og['og:description']||g('meta[name="description"]','content');var img=og['og:image'];var site=og['og:site_name']||base.hostname;
+_lastTitle=title;_lastDesc=desc;
 var twTitle=tw['twitter:title']||title;var twDesc=tw['twitter:description']||desc;var twImg=tw['twitter:image']||img;var twCard=tw['twitter:card']||'summary';
-var html='<div class="tabs"><button class="tab active" data-t="fb">Facebook</button><button class="tab" data-t="tw">Twitter / X</button><button class="tab" data-t="li">LinkedIn</button><button class="tab" data-t="tags">Alle Tags</button></div>';
-// Facebook
+
+/* Score */
+var score=0,issues=[];
+if(og['og:title']){score+=20;if(og['og:title'].length>90)issues.push({i:'⚠️',m:'og:title is '+og['og:title'].length+' chars — keep under 60 for best display'})}else{issues.push({i:'❌',m:'og:title missing — critical for social sharing'})}
+if(og['og:description']){score+=15;if(og['og:description'].length>200)issues.push({i:'⚠️',m:'og:description is '+og['og:description'].length+' chars — keep under 155'})}else{issues.push({i:'⚠️',m:'og:description missing — platforms will guess from page content'})}
+if(og['og:image']){score+=25;if(!/^https:\/\//.test(og['og:image']))issues.push({i:'⚠️',m:'og:image should use HTTPS'})}else{issues.push({i:'❌',m:'og:image missing — no preview image on social platforms'})}
+if(og['og:url'])score+=10;else issues.push({i:'⚠️',m:'og:url missing — set canonical URL for sharing'});
+if(og['og:type'])score+=5;else issues.push({i:'💡',m:'og:type not set — defaults to "website"'});
+if(og['og:site_name'])score+=5;else issues.push({i:'💡',m:'og:site_name not set — add your brand name'});
+if(tw['twitter:card'])score+=10;else issues.push({i:'⚠️',m:'twitter:card missing — add "summary_large_image" for best display'});
+if(tw['twitter:title']||og['og:title'])score+=5;
+if(tw['twitter:image']||og['og:image'])score+=5;
+score=Math.min(100,score);
+if(!issues.length)issues.push({i:'✅',m:'All essential social tags are set!'});
+
+var html=scoreRing(score,70);
+/* Issues */
+if(issues.some(function(x){return x.i!=='✅'})){html+='<div class="og-issues">';issues.forEach(function(x){html+='<div class="og-issue"><div class="og-issue-i">'+x.i+'</div><div class="og-issue-t">'+x.m+'</div></div>'});html+='</div>'}
+
+html+='<div class="tabs"><button class="tab active" data-t="fb">Facebook</button><button class="tab" data-t="tw">Twitter / X</button><button class="tab" data-t="li">LinkedIn</button><button class="tab" data-t="wa">WhatsApp</button><button class="tab" data-t="dc">Discord</button><button class="tab" data-t="tags">Alle Tags</button></div>';
+/* Facebook */
 html+='<div class="tp active" id="t-fb"><div class="preview-fb">';
 if(img)html+='<img src="'+esc(img)+'" onerror="this.style.display=\'none\'" alt="">';
 html+='<div class="body"><div class="site">'+esc(site)+'</div><div class="title">'+esc(title||'Kein Titel')+'</div>';
 if(desc)html+='<div class="desc">'+esc(desc)+'</div>';html+='</div></div></div>';
-// Twitter
+/* Twitter */
 html+='<div class="tp" id="t-tw"><div class="preview-tw">';
 if(twImg&&twCard==='summary_large_image')html+='<img src="'+esc(twImg)+'" onerror="this.style.display=\'none\'" alt="">';
 html+='<div class="body"><div class="title">'+esc(twTitle||'Kein Titel')+'</div>';
 if(twDesc)html+='<div class="desc">'+esc(twDesc)+'</div>';
 html+='<div class="url">🔗 '+esc(base.hostname)+'</div></div></div></div>';
-// LinkedIn (same as FB)
+/* LinkedIn */
 html+='<div class="tp" id="t-li"><div class="preview-fb">';
 if(img)html+='<img src="'+esc(img)+'" onerror="this.style.display=\'none\'" alt="">';
 html+='<div class="body"><div class="site">'+esc(site)+'</div><div class="title">'+esc(title||'Kein Titel')+'</div>';
 if(desc)html+='<div class="desc">'+esc(desc)+'</div>';html+='</div></div></div>';
-// All tags
+/* WhatsApp */
+html+='<div class="tp" id="t-wa"><div class="preview-wa"><div class="bubble">';
+if(img)html+='<img src="'+esc(img)+'" onerror="this.style.display=\'none\'" alt="">';
+html+='<div class="body"><div class="site">'+esc(site)+'</div><div class="title">'+esc(title||'Kein Titel')+'</div>';
+if(desc)html+='<div class="desc">'+esc(desc)+'</div>';
+html+='</div></div><div class="link">'+esc(url)+'</div></div></div>';
+/* Discord */
+html+='<div class="tp" id="t-dc"><div class="preview-dc"><div class="dc-bar"></div><div class="dc-body"><div class="dc-site">'+esc(site)+'</div><div class="dc-title">'+esc(title||'Kein Titel')+'</div>';
+if(desc)html+='<div class="dc-desc">'+esc(desc)+'</div>';
+if(img)html+='<img src="'+esc(img)+'" onerror="this.style.display=\'none\'" alt="">';
+html+='</div></div></div>';
+/* All tags */
 html+='<div class="tp" id="t-tags"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border)">Open Graph</div>';
-['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(k){var v=og[k];html+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Nicht gesetzt</em>',v?bdg('ok','GESETZT'):bdg('wn','FEHLT'))});
+['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(k){var v=og[k];
+var extra='';if(k==='og:title'&&v)extra=charBar(v.length,60,50);if(k==='og:description'&&v)extra=charBar(v.length,155,120);
+html+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v)+(extra?'<div>'+extra+'</div>':''):'<em style="color:var(--warn)">Nicht gesetzt</em>',v?bdg('ok','GESETZT'):bdg('wn','FEHLT'))});
 html+='<div id="ogImgInfo" style="margin:8px 0"></div>';
+/* Article tags if present */
+var artTags=['article:author','article:published_time','article:modified_time','article:section','article:tag'];
+var hasArt=artTags.some(function(k){return og[k]});
+if(hasArt){html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border)">Article Tags</div>';
+artTags.forEach(function(k){var v=og[k];if(v)html+=row(k,esc(v),bdg('ok','GESETZT'))})}
 html+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border)">Twitter Card</div>';
 ['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(k){var v=tw[k];html+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Nicht gesetzt</em>',v?bdg('ok','GESETZT'):bdg('wn','FEHLT'))});
 html+='</div>';
+/* Toolbar */
+html+='<div class="og-toolbar"><button class="act-btn" id="btnCopyHtml">📋 Als HTML kopieren</button><button class="act-btn" id="btnCopyReport">📊 Bericht kopieren</button></div>';
+/* Cross-tool links */
+html+='<div class="cross-links"><a href="/de/tools/meta-tag-analyzer/?url='+encodeURIComponent(url)+'">🔍 Volle Meta-Analyse</a><a href="/de/tools/serp-preview/?url='+encodeURIComponent(url)+'">📱 Snippet Preview</a><a href="/de/tools/schema-validator/?url='+encodeURIComponent(url)+'">✅ Schema-Validierung</a></div>';
+/* AI section */
+html+='<div class="ai-section"><h3><span class="ai-badge">AI-Powered</span> OG Tag Generator</h3><p>Optimierte Open Graph und Twitter Card Tags für diese Seite generieren.</p><button class="act-btn" id="btnAiOg" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">✨ Optimierte Tags generieren</button><div id="aiOgResult" style="display:none;margin-top:12px"></div></div>';
+
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
-// Tab switching
+/* Tab switching */
 document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tp').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('t-'+b.getAttribute('data-t')).classList.add('active')})});
-// Bildgrößen-Check
+/* Bildgrößen-Check */
 if(img){var _img=new Image();_img.onload=function(){var w=_img.naturalWidth,h=_img.naturalHeight;var ideal=w>=1200&&h>=630;var ratio=w&&h?(w/h).toFixed(2):'?';var el=document.getElementById('ogImgInfo');if(el)el.innerHTML='<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:'+(ideal?'var(--ok-bg)':'var(--warn-bg)')+';border:1px solid '+(ideal?'var(--ok-border)':'var(--warn-border)')+';border-radius:8px;font-size:12px;color:'+(ideal?'var(--ok)':'var(--warn)')+'"><strong>'+w+' × '+h+'px</strong> <span style="color:var(--muted)">(Verhältnis '+ratio+')</span> '+(ideal?'✓ Optimale Größe':'⚠ Empfohlen: 1200×630px')+'</div>'};_img.onerror=function(){var el=document.getElementById('ogImgInfo');if(el)el.innerHTML='<div style="padding:8px 12px;background:var(--err-bg);border:1px solid var(--err-border);border-radius:8px;font-size:12px;color:var(--err)">❌ Bild konnte nicht geladen werden — URL prüfen</div>'};_img.src=img}
+/* Bind toolbar */
+document.getElementById('btnCopyHtml').addEventListener('click',function(){
+  var meta='';
+  if(og['og:title'])meta+='<meta property="og:title" content="'+og['og:title']+'">\n';
+  if(og['og:description'])meta+='<meta property="og:description" content="'+og['og:description']+'">\n';
+  if(og['og:image'])meta+='<meta property="og:image" content="'+og['og:image']+'">\n';
+  if(og['og:url'])meta+='<meta property="og:url" content="'+og['og:url']+'">\n';
+  if(og['og:type'])meta+='<meta property="og:type" content="'+og['og:type']+'">\n';
+  if(og['og:site_name'])meta+='<meta property="og:site_name" content="'+og['og:site_name']+'">\n';
+  if(tw['twitter:card'])meta+='<meta name="twitter:card" content="'+tw['twitter:card']+'">\n';
+  if(tw['twitter:title'])meta+='<meta name="twitter:title" content="'+tw['twitter:title']+'">\n';
+  if(tw['twitter:description'])meta+='<meta name="twitter:description" content="'+tw['twitter:description']+'">\n';
+  if(tw['twitter:image'])meta+='<meta name="twitter:image" content="'+tw['twitter:image']+'">\n';
+  if(tw['twitter:site'])meta+='<meta name="twitter:site" content="'+tw['twitter:site']+'">\n';
+  navigator.clipboard.writeText(meta).then(function(){var b=document.getElementById('btnCopyHtml');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Als HTML kopieren'},1500)})});
+document.getElementById('btnCopyReport').addEventListener('click',function(){
+  var rpt='OG Report: '+url+'\nScore: '+score+'/100\n\n';
+  ['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(k){rpt+=k+': '+(og[k]||'(not set)')+'\n'});
+  rpt+='\n';['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(k){rpt+=k+': '+(tw[k]||'(not set)')+'\n'});
+  rpt+='\nIssues:\n';issues.forEach(function(x){rpt+=x.i+' '+x.m+'\n'});
+  navigator.clipboard.writeText(rpt).then(function(){var b=document.getElementById('btnCopyReport');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📊 Bericht kopieren'},1500)})});
+document.getElementById('btnAiOg').addEventListener('click',function(){aiGenerateOg()});
 }).catch(function(e){document.getElementById('res').innerHTML='<p style="color:var(--err);text-align:center;padding:20px">❌ '+esc(e.message)+'</p>';document.getElementById('res').style.display='block'
-}).finally(function(){btn.disabled=false;btn.textContent='Social Cards anzeigen';document.getElementById('loading').style.display='none'})}
+}).finally(function(){btn.disabled=false;btn.textContent='Social Cards Vorschau';document.getElementById('loading').style.display='none'})}
+
+function aiGenerateOg(){
+  var btn=document.getElementById('btnAiOg');btn.disabled=true;btn.textContent='⏳ Generiere…';
+  var rd=document.getElementById('aiOgResult');rd.style.display='none';
+  var existing='Current tags:\n';
+  ['og:title','og:description','og:image','og:url','og:type','og:site_name'].forEach(function(k){existing+=k+': '+((_lastOg[k])||'(not set)')+'\n'});
+  ['twitter:card','twitter:title','twitter:image'].forEach(function(k){existing+=k+': '+((_lastTw[k])||'(not set)')+'\n'});
+  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+    messages:[{role:'system',content:'You are a social media SEO expert specializing in Open Graph and Twitter Card optimization.\n\nGenerate optimized meta tags that maximize click-through rates on social platforms.\n\nRules:\n1. og:title: Under 60 chars, compelling, includes key benefit or keyword\n2. og:description: Under 155 chars, includes CTA or value proposition\n3. twitter:card should be "summary_large_image" for visual content\n4. Keep the page language — if content is German, write German tags\n5. Output as ready-to-paste HTML meta tags\n6. Include all essential OG + Twitter Card tags\n7. If existing tags are good, suggest small improvements\n8. Add og:type, og:site_name, og:locale where missing\n\nFormat: First output the HTML meta tags, then a brief explanation of your choices.'},{role:'user',content:'URL: '+_lastUrl+'\nPage title: '+_lastTitle+'\nPage description: '+_lastDesc+'\n\n'+existing}],
+    max_tokens:1000
+  })}).then(function(r){return r.json()}).then(function(data){
+    if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    rd.innerHTML='<div class="ai-result">'+esc(data.choices[0].message.content)+'</div>';rd.style.display='block';
+  }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px">❌ '+esc(e.message)+'</div>';rd.style.display='block'})
+  .finally(function(){btn.disabled=false;btn.textContent='✨ Optimierte Tags generieren'});
+}
+
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');go(params.get('url'))}
 
 </script>
