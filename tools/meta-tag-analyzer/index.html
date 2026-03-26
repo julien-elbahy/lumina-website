@@ -725,7 +725,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   var headings=d.headings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
 
   fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-    messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
+    messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- Include 3-5 semantic synonyms (different wording, same meaning)\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential (most important first)\n- Consider what real users would type into Google to find this page\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nLANGUAGE: '+(d.lang||'en')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
     max_tokens:300
   })})
   .then(function(r){return r.json()})
@@ -781,7 +781,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
   var h1s=d.headings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join(', ');
   var lang=d.lang||'en';
-  var prompt='You are a senior SEO specialist. Generate optimized meta title and description for a webpage.\n\n'+
+  var prompt='You are a senior SEO copywriter specializing in high-CTR meta tags.\n\n'+
     'Page URL: '+d.url+'\n'+
     'Primary keyword: "'+primary+'"\n'+
     (secondary?'Secondary keywords: '+secondary+'\n':'')+
@@ -792,11 +792,13 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     'Page content (first 1500 chars):\n'+d.bodyText+'\n\n'+
     'RULES:\n'+
     '- WRITE IN THE SAME LANGUAGE AS THE PAGE (language: '+lang+')\n'+
-    '- title1, title2: Two meta title options. STRICT MAX: 55 characters each. Place "'+primary+'" as early as possible. Use compelling modifiers (numbers, benefits, power words).\n'+
-    '- desc1, desc2: Two meta description options. STRICT MAX: 150 characters each. Include "'+primary+'", add value proposition + CTA.\n'+
-    '- Each option must take a meaningfully different angle\n'+
-    '- Be compelling and click-worthy — these are mini-ads in search results\n\n'+
-    'BEFORE OUTPUTTING: Count every character. Title ≤55, description ≤150. Shorten if needed.\n\n'+
+    '- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" in the first half. Use power words (Free, Best, Guide, Easy, Fast, Proven, Top).\n'+
+    '- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", highlight unique value, end with a soft CTA.\n'+
+    '- Option A: benefit-focused (what the user gains)\n- Option B: curiosity/urgency-focused (why act now)\n'+
+    '- Use numbers, brackets [2025], or parentheses where natural\n'+
+    '- Avoid generic filler — every word must earn its place\n'+
+    '- These are mini-ads competing for clicks against 9 other results\n\n'+
+    'BEFORE OUTPUTTING: Count every character carefully. Title ≤55, description ≤150. If over limit, rewrite shorter.\n\n'+
     'Respond with ONLY valid JSON (no markdown):\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
 
   fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
