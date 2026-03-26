@@ -249,6 +249,9 @@
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Which AI crawlers should I check?<span class="arrow">+</span></div><div class="faq-a">GPTBot (OpenAI), ClaudeBot (Anthropic), PerplexityBot, Google-Extended (Gemini), Bytespider (TikTok), CCBot, and cohere-ai.</div></div>
 <div class="faq-item"><div class="faq-q">Does blocking remove training data?<span class="arrow">+</span></div><div class="faq-a">No. robots.txt only prevents future crawling. Contact the AI provider directly to request data removal.</div></div>
+<div class="faq-item"><div class="faq-q">What is a robots.txt file?<span class="arrow">+</span></div><div class="faq-a">robots.txt is a text file at your site's root (example.com/robots.txt) that tells web crawlers which pages they can or cannot access. It uses directives like Allow and Disallow to control crawling behavior.</div></div>
+<div class="faq-item"><div class="faq-q">Can robots.txt block AI crawlers?<span class="arrow">+</span></div><div class="faq-a">Yes. You can add User-agent rules for specific AI crawlers like GPTBot, ClaudeBot, or Google-Extended and set Disallow: / to block them from crawling your site for training data.</div></div>
+<div class="faq-item"><div class="faq-q">What happens without a robots.txt?<span class="arrow">+</span></div><div class="faq-a">Without a robots.txt file, all crawlers (including AI bots) assume they have permission to access every page on your site. Adding one gives you explicit control over crawler behavior.</div></div>
 <div class="cta-box"><div class="cta-t">AI crawler check on every page</div><p>Lumina shows robots.txt rules, X-Robots-Tag, and AI traffic sources — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 <footer class="tf"><div class="tf-inner">
