@@ -363,6 +363,7 @@ function dfsPost(endpoint,data){
     if(d._lumina){
       var q=document.getElementById('quotaInfo');
       if(q)q.textContent=d._lumina.ownKey?'Using your API key (unlimited)':'Free queries: '+Math.floor(d._lumina.remaining/2)+'/5 today';
+      luminaQuota.update('dfs',d);
     }
     if(d.needsKey){var e=new Error(d.error||'Daily limit reached. Add your own DataForSEO key for unlimited access.');e.isQuota=true;throw e}
     return d;
@@ -400,7 +401,8 @@ var selectedKws=new Set(),mainKw='';
 var excludedKws=new Set();
 var negativeKws=[];
 var countryNames={'2040':'Austria','2276':'Germany','2756':'Switzerland','2826':'United Kingdom','2840':'United States','2250':'France','2380':'Italy','2724':'Spain','2528':'Netherlands','2616':'Poland','2392':'Japan','2036':'Australia','2124':'Canada','2356':'India','2076':'Brazil'};
-var gscData={}; // {keyword_lower: {clicks, impressions, ctr, position}}
+var gscData={};
+var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null},set:function(t,r,l,o){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');d[t]={remaining:r,limit:l,date:this._d(),ownKey:!!o};localStorage.setItem(this._k,JSON.stringify(d))}catch(e){}},update:function(t,data){if(!data||!data._lumina)return;if(data._lumina.ownKey)this.set(t,null,null,true);else if(data._lumina.remaining!=='unlimited')this.set(t,data._lumina.remaining,data._lumina.limit,false)}}; // {keyword_lower: {clicks, impressions, ctr, position}}
 
 // ── Column Visibility ──
 var columns={
@@ -841,6 +843,7 @@ async function fetchGscQueries(){
 
 // Init column toggles
 renderColToggles();
+(function(){var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Using your API key (unlimited)';else if(q.remaining!=null)el.textContent='Free queries: '+Math.floor(q.remaining/2)+'/5 today'}})();
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
 
