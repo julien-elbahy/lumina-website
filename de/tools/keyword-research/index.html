@@ -371,6 +371,7 @@ function dfsPost(endpoint,data){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
   if(key)headers['X-DFS-Key']=key;
+  headers['X-Lumina-Tool']='keyword-research';
   return fetch(DFS_WORKER+'?endpoint='+encodeURIComponent(endpoint),{
     method:'POST',headers:headers,body:JSON.stringify(data)
   }).then(function(r){return r.json()}).then(function(d){
@@ -378,6 +379,7 @@ function dfsPost(endpoint,data){
       var q=document.getElementById('quotaInfo');
       if(q)q.textContent=d._lumina.ownKey?'Eigener API-Key (unbegrenzt)':'Kostenlose Suchen: '+Math.floor(d._lumina.remaining/2)+'/5 heute';
       luminaQuota.update('dfs',d);
+      if(window.luminaQuota)window.luminaQuota.update('keyword-research',d);
     }
     if(d.needsKey){var e=new Error(d.error||'Tageslimit erreicht. Füge deinen eigenen DataForSEO Key hinzu für unbegrenzte Suchen.');e.isQuota=true;throw e}
     return d;
@@ -386,7 +388,7 @@ function dfsPost(endpoint,data){
 function aiPost(system,user){
   return fetch(AI_WORKER,{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json','X-Lumina-Tool':'keyword-research'},
     body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:300})
   }).then(function(r){return r.json()}).then(function(d){
     try{var txt=d.choices[0].message.content.trim();
@@ -880,6 +882,7 @@ async function fetchGscQueries(){
 renderColToggles();
 (function(){var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent='Kostenlose Suchen: '+Math.floor(q.remaining/2)+'/5 heute'}})();
 if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
+if(window.luminaQuota)luminaQuota.createBar('keyword-research',document.getElementById('quotaInfo')?.parentElement);
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
 
@@ -908,7 +911,7 @@ document.getElementById('btnCluster').addEventListener('click',function(){
   btn.disabled=true;btn.textContent='\uD83E\uDDE9 Clustering l\u00e4uft\u2026';
   var kwList=kws.slice(0,60).map(function(k){return k.keyword+' (vol:'+k.vol+')'}).join('\n');
   var oaiKey=localStorage.getItem('lumina_key_openai')||'';
-  var headers={'Content-Type':'application/json'};
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':'keyword-research'};
   if(oaiKey)headers['X-OAI-Key']=oaiKey;
   fetch(AI_WORKER,{method:'POST',headers:headers,body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'You are an SEO expert. Group these keywords into 3-7 topical clusters. Each cluster should have a descriptive name and the keywords that belong to it. Respond ONLY with JSON: {"clusters":[{"name":"cluster name","keywords":["kw1","kw2"]}]}'},{role:'user',content:kwList}],max_tokens:800})
   }).then(function(r){return r.json()}).then(function(d){

@@ -335,6 +335,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <div id="aiResults" class="ai-results"></div>
 </div>
 <div id="settingsHintAi"></div>
+<div id="lq_meta-analyzer"></div>
 <div id="crossLinks" style="display:none;margin-top:20px"></div>
 </div>
 <div style="margin-top:32px">
@@ -539,6 +540,7 @@ function renderAll(d){
   _lastAnalysis=d;
   document.getElementById('aiSection').style.display='block';
   if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
+  if(window.luminaQuota)luminaQuota.createBar('meta-analyzer',document.getElementById('lq_meta-analyzer')?.parentElement||document.querySelector('.cd'));
   document.getElementById('aiResults').innerHTML='';
 }
 
@@ -659,6 +661,7 @@ function aiRenderOption(label,text,isTitle){
 }
 
 function aiUpdateQuota(data){
+  if(window.luminaQuota)window.luminaQuota.update('meta-analyzer',data);
   if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI-Abfragen heute verbleibend'}
 }
 
@@ -719,7 +722,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   var h1s=d.headings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join('\n');
   var headings=d.headings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
 
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'meta-analyzer'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
     messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- Include 3-5 semantic synonyms (different wording, same meaning)\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential (most important first)\n- Consider what real users would type into Google to find this page\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nLANGUAGE: '+(d.lang||'en')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
     max_tokens:300
   })})
@@ -738,7 +741,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     btn.textContent='⏳ Suchvolumen laden…';
     var ll=aiGetLangLocation(d.lang);
     return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'meta-analyzer'},
       body:JSON.stringify([{keywords:kws.slice(0,20),language_code:ll.lc,location_code:ll.loc}])
     });
   })
@@ -792,7 +795,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     'BEFORE OUTPUTTING: Count every character carefully. Title ≤55, description ≤150. If over limit, rewrite shorter.\n\n'+
     'Respond with ONLY valid JSON (no markdown):\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
 
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'meta-analyzer'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(data.error);

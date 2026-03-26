@@ -281,6 +281,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div id="aiResults" class="ai-results"></div>
 </div>
 <div id="settingsHintAi"></div>
+<div id="lq_serp-preview"></div>
 <div class="content" style="margin-top:32px">
 <h2>So verwendest du es</h2><p>Gib deine URL, deinen Titel und deine Beschreibung ein. Die Vorschau aktualisiert sich beim Tippen. Der Pixelzähler zeigt, ob Google dein Snippet abschneidet. Nutze <strong>Von URL laden</strong>, um aktuelle Werte von jeder Live-Seite zu holen.</p>
 <h2>Optimale Längen</h2><p>Google kürzt nach Pixelbreite. Halte Titel unter ~60 Zeichen (~580px) und Beschreibungen unter ~155 Zeichen (~920px). Breite Zeichen (W, M) brauchen mehr Platz als schmale (i, l).</p>
@@ -420,7 +421,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   } else {fetchPromise=Promise.resolve(context)}
 
   fetchPromise.then(function(ctx){
-    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'serp-preview'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
       messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- Include 3-5 semantic synonyms/alternatives (different words, same meaning)\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential (most important first)\n- Consider what users would actually type into Google\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:ctx}],
       max_tokens:300
     })});
@@ -428,6 +429,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    if(window.luminaQuota)window.luminaQuota.update('serp-preview',data);
     if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI-Abfragen heute verbleibend'}
     var raw=data.choices&&data.choices[0]?data.choices[0].message.content.replace(/```json|```/g,'').trim():'';
     if(!raw)throw new Error('Leere AI-Antwort');
@@ -440,7 +442,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     btn.textContent='⏳ Suchvolumen…';
     var lang=(title+' '+desc).match(/[äöüß]/i)?'de':'en';
     var loc=lang==='de'?2040:2840;
-    return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_dataforseo');if(k)h['X-DFS-Key']=k;return h})(),body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
+    return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'serp-preview'};var k=localStorage.getItem('lumina_key_dataforseo');if(k)h['X-DFS-Key']=k;return h})(),body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
   })
   .then(function(r){return r?r.json():null})
   .then(function(data){
@@ -473,10 +475,11 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     '- Option A: benefit-focused (what the user gains)\n- Option B: curiosity/urgency-focused (why act now)\n'+
     '- Use numbers, brackets [2025], or parentheses where natural\n'+
     '- Avoid generic filler — every word must earn its place\n\nBEFORE OUTPUTTING: Count every character carefully. Title ≤55, description ≤150. If over limit, rewrite shorter.\n\nRespond ONLY with JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'serp-preview'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    if(window.luminaQuota)window.luminaQuota.update('serp-preview',data);
     if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI-Abfragen heute verbleibend'}
     var raw=data.choices&&data.choices[0]?data.choices[0].message.content.replace(/```json|```/g,'').trim():'';
     if(!raw)throw new Error('Leere AI-Antwort');
@@ -500,6 +503,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
+if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.getElementById('lq_serp-preview')?.parentElement||document.querySelector('.cd'));
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>

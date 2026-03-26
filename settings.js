@@ -238,6 +238,60 @@ function closeModal(){
   document.removeEventListener('keydown',escHandler);
 }
 
+// ── Global Quota Tracker ──
+// Persists per-tool quota in localStorage so it survives page reloads
+var QUOTA_KEY='lumina_quota_v2';
+function _qToday(){return new Date().toISOString().split('T')[0]}
+function _qLoad(){try{return JSON.parse(localStorage.getItem(QUOTA_KEY)||'{}')}catch(e){return{}}}
+function _qSave(d){try{localStorage.setItem(QUOTA_KEY,JSON.stringify(d))}catch(e){}}
+
+window.luminaQuota={
+  // Update quota after API response: luminaQuota.update('keyword-research', data)
+  update:function(tool,data){
+    if(!data||!data._lumina)return;
+    var all=_qLoad();
+    all[tool]={
+      remaining:data._lumina.remaining,
+      limit:data._lumina.limit,
+      ownKey:!!data._lumina.ownKey,
+      date:_qToday()
+    };
+    _qSave(all);
+    this._render(tool);
+  },
+  // Get stored quota for a tool
+  get:function(tool){
+    var all=_qLoad();
+    var d=all[tool];
+    if(d&&d.date===_qToday())return d;
+    return null;
+  },
+  // Render the quota bar for a tool (creates element if needed)
+  _render:function(tool){
+    var el=document.getElementById('lq_'+tool);
+    if(!el)return;
+    var d=this.get(tool);
+    if(!d){el.textContent='';return}
+    if(d.ownKey){el.textContent=isDE?'Eigener API-Key (unbegrenzt)':'Using your API key (unlimited)';el.style.color='var(--ok)';return}
+    var r=d.remaining!=null?d.remaining:'?';
+    var l=d.limit||'?';
+    el.textContent=(isDE?'Kontingent: ':'Quota: ')+r+'/'+l+(isDE?' heute verbleibend':' remaining today');
+    el.style.color=r<=1?'var(--err)':r<=Math.ceil(l/3)?'var(--warn)':'var(--muted)';
+  },
+  // Create a quota display element and attach to a container
+  createBar:function(tool,container){
+    if(!container)return null;
+    var el=document.createElement('div');
+    el.id='lq_'+tool;
+    el.style.cssText='font-size:11px;text-align:center;margin-top:6px;font-family:var(--mono);min-height:16px;transition:color .3s';
+    container.appendChild(el);
+    // Load stored quota on page load
+    var d=this.get(tool);
+    if(d)this._render(tool);
+    return el;
+  }
+};
+
 // Public API
 window.luminaSettings={
   open:function(){createModal()},

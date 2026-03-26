@@ -288,6 +288,7 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 </div>
 </div>
 <div id="settingsHintAi"></div>
+<div id="lq_schema-validator"></div>
 <div class="content">
 <h2>So funktioniert der Validator</h2>
 <p>Dieses Tool parst JSON-LD-Strukturdaten und validiert sie gegen Googles Search-Dokumentation. Es prüft Pflicht- und empfohlene Felder für 15 Schema-Typen, verifiziert ISO-8601-Datumsformate, validiert URL-Strukturen und inspiziert verschachtelte Objekte wie author und publisher.</p>
@@ -527,11 +528,12 @@ function addAiFix(schemas){
     var typeSpec=REQUIRED_FIELDS[resolvedType];
     var typeContext=typeSpec?'\n\nGoogle Required fields for '+schemaType+': '+typeSpec.required.join(', ')+'\nGoogle Recommended fields: '+typeSpec.recommended.join(', '):'';
     var nestedContext=NESTED_REQUIRED[resolvedType]?'\nNested required: '+JSON.stringify(NESTED_REQUIRED[resolvedType]):'';
-    fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+    fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'schema-validator'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
       messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert. Your goal: make the schema pass Google\'s Rich Results Test.\n\nPROCESS:\n1. Analyze each issue listed below\n2. Fix each issue while keeping ALL existing valid data intact\n3. Self-validate: check your output has all required fields\n\nFIX RULES:\n- @context must be "https://schema.org"\n- author → {"@type":"Person","name":"..."} (never a plain string)\n- publisher → {"@type":"Organization","name":"...","logo":{"@type":"ImageObject","url":"..."}}\n- Dates → ISO 8601 with time: YYYY-MM-DDTHH:MM:SS+00:00\n- URLs → absolute https:// URLs\n- image → must be present for Article, Product, Recipe, Event\n- availability → use full schema.org URL (https://schema.org/InStock)\n- If schema has @graph, fix each object within the graph\n- Add missing required AND recommended fields where data can be inferred\n- Never invent data that cannot be inferred from the existing schema\n'+typeContext+nestedContext+'\n\nOutput ONLY valid JSON-LD. No markdown fences, no explanation.'},{role:'user',content:'JSON-LD with issues:\n'+raw+'\n\nValidation issues found:\n'+issuesList.join('\n')}],
       max_tokens:2000
     })}).then(function(r){return r.json()}).then(function(data){
       if(data.error)throw new Error(data.error);
+      if(window.luminaQuota)window.luminaQuota.update('schema-validator',data);
       var fixed=data.choices[0].message.content.replace(/```json|```/g,'').trim();
       try{JSON.parse(fixed)}catch(e){throw new Error('AI returned invalid JSON')}
       document.getElementById('inputSchema').value=JSON.stringify(JSON.parse(fixed),null,2);
@@ -545,6 +547,7 @@ function addAiFix(schemas){
 var _origRenderValidation=renderValidation;
 renderValidation=function(schemas){_origRenderValidation(schemas);addAiFix(schemas)};
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
+if(window.luminaQuota)luminaQuota.createBar('schema-validator',document.getElementById('lq_schema-validator')?.parentElement||document.querySelector('.cd'));
 
 /* ── AI Schema Generator ── */
 document.getElementById('btnAiGenSchema').addEventListener('click',function(){
@@ -591,12 +594,13 @@ document.getElementById('btnAiGenSchema').addEventListener('click',function(){
       '\nSchema type: '+(schemaType==='auto'?'Auto-detect the BEST type(s) for this page. Consider using @graph with multiple schemas if appropriate (e.g. Article + FAQPage + BreadcrumbList).':'Generate '+schemaType)+
       reqContext;
 
-    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'schema-validator'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
       messages:[{role:'system',content:'You are a Schema.org structured data expert focused on Google Rich Results eligibility.\n\nYour process:\n1. Analyze the page content to identify what schema types are appropriate\n2. Generate production-ready JSON-LD that WILL pass Google\'s Rich Results Test\n3. Self-validate: ensure ALL required fields per Google docs are present\n\nRules:\n- Use REAL data from the page — never use placeholders like "John Doe" or "example.com"\n- Include ALL required fields per Google structured data documentation\n- Include recommended fields where data is available on the page\n- author: always {"@type":"Person","name":"..."} (object, not string)\n- publisher: always {"@type":"Organization","name":"...","logo":{"@type":"ImageObject","url":"..."}}\n- Dates: ISO 8601 with time (YYYY-MM-DDTHH:MM:SS+00:00)\n- URLs: absolute https:// URLs\n- availability: full schema.org URL (https://schema.org/InStock)\n- If FAQ elements are detected, include FAQPage schema\n- If breadcrumbs are detected, include BreadcrumbList schema\n- When multiple schemas fit, use @graph array\n- If improving existing schema: keep all valid data, add missing fields, fix format issues\n\nOutput ONLY valid JSON-LD. No markdown fences, no explanation, no comments.'},{role:'user',content:prompt}],
       max_tokens:2500
     })});
   }).then(function(r){return r.json()}).then(function(data){
     if(data.error)throw new Error(data.error);
+    if(window.luminaQuota)window.luminaQuota.update('schema-validator',data);
     if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiGenQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     try{var parsed=JSON.parse(raw);raw=JSON.stringify(parsed,null,2)}catch(e){}
