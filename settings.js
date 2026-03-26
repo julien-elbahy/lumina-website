@@ -305,5 +305,29 @@ document.addEventListener('DOMContentLoaded',function(){
     if(cws)mm.insertBefore(settingsLink,cws);
     else mm.appendChild(settingsLink);
   }
+
+  // Auto-inject breadcrumb on tool pages
+  var path=location.pathname;
+  if(path.indexOf('/tools/')!==-1&&path!=='/tools/'&&path!=='/de/tools/'){
+    var isToolDE=path.startsWith('/de/');
+    var container=document.querySelector('.container,.ct');
+    if(container){
+      var bc=document.createElement('nav');
+      bc.setAttribute('aria-label','Breadcrumb');
+      bc.style.cssText='font-size:12px;color:var(--muted);margin-bottom:12px;font-family:var(--font)';
+      var home=isToolDE?'/de/':'/';
+      var toolsHref=isToolDE?'/de/tools/':'/tools/';
+      var toolsLabel=isToolDE?'Tools':'Tools';
+      var h1=document.querySelector('h1');
+      var toolName=h1?h1.textContent:'';
+      bc.innerHTML='<a href="'+home+'" style="color:var(--muted);transition:color .2s">Lumina</a> <span style="margin:0 6px;opacity:.5">›</span> <a href="'+toolsHref+'" style="color:var(--muted);transition:color .2s">'+toolsLabel+'</a> <span style="margin:0 6px;opacity:.5">›</span> <span style="color:var(--text2)">'+toolName+'</span>';
+      bc.querySelectorAll('a').forEach(function(a){a.addEventListener('mouseenter',function(){a.style.color='var(--accent)'});a.addEventListener('mouseleave',function(){a.style.color='var(--muted)'})});
+      container.insertBefore(bc,container.firstChild);
+    }
+  }
+
+  // Reduce excessive footer whitespace
+  var footer=document.querySelector('.tf,footer');
+  if(footer){footer.style.marginTop='0'}
 });
 })();
