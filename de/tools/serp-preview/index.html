@@ -421,7 +421,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
 
   fetchPromise.then(function(ctx){
     return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-      messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail\n- Include 3-5 semantic synonyms/alternatives\n- Order by likely importance\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:ctx}],
+      messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- Include 3-5 semantic synonyms/alternatives (different words, same meaning)\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential (most important first)\n- Consider what users would actually type into Google\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:ctx}],
       max_tokens:300
     })});
   })
@@ -462,15 +462,17 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   var btn=this;btn.disabled=true;btn.textContent='⏳ Generiere…';
   var out=document.getElementById('aiResults');
   out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
-  var prompt='You are a senior SEO specialist. Generate optimized meta title and description.\n\n'+
+  var prompt='You are a senior SEO copywriter specializing in high-CTR meta tags.\n\n'+
     (url?'Page URL: '+url+'\n':'')+
     'Primary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+
     'Current title: '+(title||'(none)')+'\n'+
     'Current description: '+(desc||'(none)')+'\n\n'+
     'RULES:\n- Detect the language of the current title/description and WRITE IN THE SAME LANGUAGE\n'+
-    '- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" early. Compelling modifiers.\n'+
-    '- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", value proposition + CTA.\n'+
-    '- Each option takes a different angle\n\nBEFORE OUTPUTTING: Count chars. Title ≤55, description ≤150.\n\nRespond ONLY with JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
+    '- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" in the first half. Use power words (Free, Best, Guide, Easy, Fast, Proven, New, Top).\n'+
+    '- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", highlight unique value, end with a soft CTA (Learn more, Get started, See how, Find out).\n'+
+    '- Option A: benefit-focused (what the user gains)\n- Option B: curiosity/urgency-focused (why act now)\n'+
+    '- Use numbers, brackets [2025], or parentheses where natural\n'+
+    '- Avoid generic filler — every word must earn its place\n\nBEFORE OUTPUTTING: Count every character carefully. Title ≤55, description ≤150. If over limit, rewrite shorter.\n\nRespond ONLY with JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
   fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
   .then(function(r){return r.json()})
   .then(function(data){

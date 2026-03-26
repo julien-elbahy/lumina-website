@@ -431,7 +431,7 @@ function addAiFix(schemas){
     btn.disabled=true;btn.textContent='⏳ Wird behoben…';
     var issuesList=[];document.querySelectorAll('.ci').forEach(function(ci){var t=ci.querySelector('.ci-t');if(t)issuesList.push(t.textContent)});
     fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-      messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert. Fix the provided JSON-LD to resolve ALL listed issues.\n\nRules:\n- Keep ALL existing data intact\n- Add missing required/recommended fields with realistic placeholder values\n- Fix date formats to ISO 8601 (YYYY-MM-DD)\n- Fix URLs to be absolute (https://)\n- Fix author/publisher to be objects with @type and name\n- Ensure the output is valid JSON-LD\n\nRespond with ONLY the fixed JSON-LD, no explanation, no markdown fences.'},{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
+      messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert focused on Google Rich Results eligibility.\n\nRules:\n- Keep ALL existing data intact — never remove valid fields\n- Add missing required fields per Google\'s structured data documentation\n- Add recommended fields where reasonable (improves Rich Result eligibility)\n- Fix date formats to ISO 8601 (YYYY-MM-DDTHH:MM:SS+00:00)\n- Fix URLs to be absolute (https://)\n- Fix author to be {"@type":"Person","name":"..."} or {"@type":"Organization","name":"..."}\n- Fix publisher to be {"@type":"Organization","name":"...","logo":{"@type":"ImageObject","url":"..."}}\n- Add "image" field if missing (required for most Rich Results)\n- Ensure output passes the Google Rich Results Test\n- Output valid JSON-LD only — no explanation, no markdown fences.'},{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
       max_tokens:1500
     })}).then(function(r){return r.json()}).then(function(data){
       if(data.error)throw new Error(data.error);
@@ -489,7 +489,7 @@ document.getElementById('btnAiGenSchema').addEventListener('click',function(){
       '- No markdown, no explanation — JSON only';
 
     return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-      messages:[{role:'system',content:'You are a Schema.org structured data expert. Generate production-ready JSON-LD based on webpage content. Always output valid JSON only, no markdown fences.'},{role:'user',content:prompt}],
+      messages:[{role:'system',content:'You are a Schema.org structured data expert focused on Google Rich Results eligibility. Generate production-ready JSON-LD that will pass the Google Rich Results Test.\n\nPriorities:\n1. Include ALL required fields per Google documentation\n2. Include recommended fields where data is available\n3. Use real data from the page — never use obvious placeholders like "John Doe"\n4. Ensure Rich Result eligibility (Article, Product, FAQ, HowTo, LocalBusiness, etc.)\n5. Output valid JSON only — no markdown fences, no explanation.'},{role:'user',content:prompt}],
       max_tokens:1500
     })});
   }).then(function(r){return r.json()}).then(function(data){
