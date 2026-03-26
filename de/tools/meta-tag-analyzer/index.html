@@ -334,6 +334,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 </div>
 <div id="aiResults" class="ai-results"></div>
 </div>
+<div id="settingsHintAi"></div>
 <div id="crossLinks" style="display:none;margin-top:20px"></div>
 </div>
 <div style="margin-top:32px">
@@ -534,6 +535,7 @@ function renderAll(d){
   renderSEO(d);renderHeadings(d);renderLinks(d);renderOG(d);renderTwitter(d);renderSchema(d);renderTech(d);renderCrossLinks(d);
   _lastAnalysis=d;
   document.getElementById('aiSection').style.display='block';
+  if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
   document.getElementById('aiResults').innerHTML='';
 }
 
@@ -714,7 +716,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   var h1s=d.headings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join('\n');
   var headings=d.headings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
 
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
     messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
     max_tokens:300
   })})
@@ -785,7 +787,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     'BEFORE OUTPUTTING: Count every character. Title ≤55, description ≤150. Shorten if needed.\n\n'+
     'Respond with ONLY valid JSON (no markdown):\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
 
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(data.error);
@@ -819,5 +821,6 @@ if(params.get('url')){urlInput.value=params.get('url');analyze(params.get('url')
 
 </style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+<script src="/settings.js"></script>
 </body>
 </html>

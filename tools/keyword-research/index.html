@@ -308,6 +308,7 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 <div class="quota-bar" id="quotaInfo" style="margin:0;text-align:left">5 free queries per day</div>
 <span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap;margin-left:auto" onclick="document.getElementById('dfsKeyWrap').style.display=document.getElementById('dfsKeyWrap').style.display==='none'?'flex':'none'">🔑 Own API key</span>
 </div>
+<div id="settingsHintDfs"></div>
 <div id="dfsKeyWrap" class="api-key-row" style="display:none;margin-top:0;margin-bottom:8px"><label>DataForSEO Key:</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ What's this?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Without a key, you get 5 free searches per day. With your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> key, searches are unlimited. To create a key: sign up at dataforseo.com → API Dashboard → copy your login:password → encode it at <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> as <code>login:password</code>.</div></div>
 <!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
@@ -355,7 +356,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 var DFS_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/dfs';
 var AI_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/ai';
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function getDfsKey(){return document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';}
+function getDfsKey(){var local=document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';return local||localStorage.getItem('lumina_key_dataforseo')||'';}
 function dfsPost(endpoint,data){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
@@ -552,6 +553,7 @@ function go(){
     if(e.isQuota){
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Daily limit reached</p><p>You\'ve used all 5 free searches for today. Come back tomorrow, or add your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API key below for unlimited searches.</p></div>';
       var q=document.getElementById('quotaInfo');if(q)q.textContent='Free queries: 0/5 today';
+      if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
     }else{
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
     }
@@ -856,6 +858,7 @@ async function fetchGscQueries(){
 // Init column toggles
 renderColToggles();
 (function(){var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Using your API key (unlimited)';else if(q.remaining!=null)el.textContent='Free queries: '+Math.floor(q.remaining/2)+'/5 today'}})();
+if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
 
@@ -895,5 +898,6 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
   });
 })();
 </script>
+<script src="/settings.js"></script>
 </body>
 </html>

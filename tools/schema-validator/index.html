@@ -286,6 +286,7 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 <textarea id="aiGenOutput" readonly style="font-family:var(--mono);font-size:11px;min-height:140px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);width:100%;resize:vertical"></textarea>
 </div>
 </div>
+<div id="settingsHintAi"></div>
 <div class="content">
 <h2>How this validator works</h2>
 <p>This tool parses JSON-LD structured data and validates it against Google's Search documentation. It checks required and recommended fields for 15 schema types, verifies ISO 8601 date formats, validates URL structures, and inspects nested objects like author and publisher.</p>
@@ -428,7 +429,7 @@ function addAiFix(schemas){
     var raw=document.getElementById('inputSchema').value.trim();if(!raw)return;
     btn.disabled=true;btn.textContent='⏳ Fixing…';
     var issuesList=[];document.querySelectorAll('.ci').forEach(function(ci){var t=ci.querySelector('.ci-t');if(t)issuesList.push(t.textContent)});
-    fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
       messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert. Fix the provided JSON-LD to resolve ALL listed issues.\n\nRules:\n- Keep ALL existing data intact\n- Add missing required/recommended fields with realistic placeholder values\n- Fix date formats to ISO 8601 (YYYY-MM-DD)\n- Fix URLs to be absolute (https://)\n- Fix author/publisher to be objects with @type and name\n- Ensure the output is valid JSON-LD\n\nRespond with ONLY the fixed JSON-LD, no explanation, no markdown fences.'},{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
       max_tokens:1500
     })}).then(function(r){return r.json()}).then(function(data){
@@ -445,6 +446,7 @@ function addAiFix(schemas){
 /* Patch renderValidation to add AI Fix */
 var _origRenderValidation=renderValidation;
 renderValidation=function(schemas){_origRenderValidation(schemas);addAiFix(schemas)};
+if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
 
 /* ── AI Schema Generator ── */
 document.getElementById('btnAiGenSchema').addEventListener('click',function(){
@@ -485,7 +487,7 @@ document.getElementById('btnAiGenSchema').addEventListener('click',function(){
       '- Use ISO 8601 dates\n'+
       '- No markdown, no explanation — JSON only';
 
-    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
       messages:[{role:'system',content:'You are a Schema.org structured data expert. Generate production-ready JSON-LD based on webpage content. Always output valid JSON only, no markdown fences.'},{role:'user',content:prompt}],
       max_tokens:1500
     })});
@@ -541,5 +543,6 @@ var params=new URLSearchParams(window.location.search);if(params.get('url')){doc
   });
 })();
 </script>
+<script src="/settings.js"></script>
 </body>
 </html>
