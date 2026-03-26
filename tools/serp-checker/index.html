@@ -252,7 +252,8 @@
 <div class="kw-input"><input type="text" id="kwIn" placeholder="Enter keyword…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">Check SERP</button></div>
 <div class="api-key-row"><label>DataForSEO Key (optional):</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ What's this?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Without a key: 5 free searches/day. With your own <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> key: unlimited.</div></div>
 <div class="quota-bar" id="quotaInfo">5 free queries per day</div>
-<script>(function(){var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null}};var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Using your API key (unlimited)';else if(q.remaining!=null)el.textContent='Free queries: '+q.remaining+'/'+q.limit+' remaining today'}})()</script>
+<div id="settingsHintDfs"></div>
+<script>(function(){var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null}};var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Using your API key (unlimited)';else if(q.remaining!=null)el.textContent='Free queries: '+q.remaining+'/'+q.limit+' remaining today'}})();if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'))</script>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
 <div class="metrics" style="grid-template-columns:repeat(3,1fr)"><div class="metric"><div class="mh">Results</div><p id="mResults">0</p></div><div class="metric"><div class="mh">Keyword</div><p id="mKw" style="font-size:14px">—</p></div><div class="metric"><div class="mh">Volume</div><p id="mVol">—</p></div></div>
@@ -289,7 +290,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 
 var DFS_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/dfs';
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function getDfsKey(){return document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';}
+function getDfsKey(){var local=document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';return local||localStorage.getItem('lumina_key_dataforseo')||'';}
 function dfsPost(endpoint,data){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
@@ -346,6 +347,7 @@ function go(){
     document.getElementById('loading').style.display='none';
     document.getElementById('res').style.display='block';
     document.getElementById('serpResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
+    if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
   });
 }
 document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Results'},1500)})});
@@ -383,5 +385,6 @@ document.getElementById('btnCopy').addEventListener('click',function(){navigator
   });
 })();
 </script>
+<script src="/settings.js"></script>
 </body>
 </html>

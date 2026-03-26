@@ -280,6 +280,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 </div>
 <div id="aiResults" class="ai-results"></div>
 </div>
+<div id="settingsHintAi"></div>
 <div class="content" style="margin-top:32px">
 <h2>How to use</h2><p>Enter your URL, title, and description. The preview updates as you type. The pixel counter shows if Google will truncate your snippet. Use <strong>Fetch from URL</strong> to pull current values from any live page.</p>
 <h2>Optimal lengths</h2><p>Google truncates by pixel width. Keep titles under ~60 chars (~580px) and descriptions under ~155 chars (~920px). Wide characters (W, M) take more space than narrow ones (i, l).</p>
@@ -419,7 +420,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   } else {fetchPromise=Promise.resolve(context)}
 
   fetchPromise.then(function(ctx){
-    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
       messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail\n- Include 3-5 semantic synonyms/alternatives\n- Order by likely importance\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:ctx}],
       max_tokens:300
     })});
@@ -439,7 +440,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     btn.textContent='⏳ Volumes…';
     var lang=(title+' '+desc).match(/[äöüß]/i)?'de':'en';
     var loc=lang==='de'?2040:2840;
-    return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
+    return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_dataforseo');if(k)h['X-DFS-Key']=k;return h})(),body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
   })
   .then(function(r){return r?r.json():null})
   .then(function(data){
@@ -449,7 +450,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     if(_spAiKeywords[0]){document.getElementById('aiKwPrimary').value=_spAiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_spAiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
     spRenderChips()}catch(e){}
   })
-  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(msg)+'</p>';document.getElementById('aiKwChips').style.display='block'})
+  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(msg)+'</p>';document.getElementById('aiKwChips').style.display='block';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
   .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'});
 });
 
@@ -470,7 +471,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     '- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" early. Compelling modifiers.\n'+
     '- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", value proposition + CTA.\n'+
     '- Each option takes a different angle\n\nBEFORE OUTPUTTING: Count chars. Title ≤55, description ≤150.\n\nRespond ONLY with JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
+  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
@@ -493,9 +494,10 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
       upd();b.textContent='✓ Applied';setTimeout(function(){b.textContent='Apply'},1500);
     })});
   })
-  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">'+esc(msg)+'</p>'})
+  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">'+esc(msg)+'</p>';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
 });
+if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
@@ -530,5 +532,6 @@ document.getElementById('bCI').addEventListener('click',function(){s2c(function(
   });
 })();
 </script>
+<script src="/settings.js"></script>
 </body>
 </html>

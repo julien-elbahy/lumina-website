@@ -243,6 +243,7 @@
 <div id="kwChips" style="display:none;margin-bottom:8px"></div>
 <div class="api-key-row"><label>OpenAI Key (optional):</label><input type="text" id="oaiKey" placeholder="sk-…"></div>
 <div class="quota-bar" id="quotaInfo">10 kostenlose KI-Abfragen pro Tag</div>
+<div id="settingsHintAi"></div>
 <div class="btn-row">
 <button class="ab" id="btnAnalyze">Inhalt analysieren</button>
 <button class="ai-btn" id="btnDetectKw" style="background:var(--card);color:var(--accent);border:1px solid var(--border)">🔍 Keywords erkennen</button>
@@ -431,9 +432,10 @@ function pxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col
 var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null},set:function(t,r,l,o){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');d[t]={remaining:r,limit:l,date:this._d(),ownKey:!!o};localStorage.setItem(this._k,JSON.stringify(d))}catch(e){}},update:function(t,data){if(!data||!data._lumina)return;if(data._lumina.ownKey)this.set(t,null,null,true);else if(data._lumina.remaining!=='unlimited')this.set(t,data._lumina.remaining,data._lumina.limit,false)}};
 function updateQuota(data){if(data._lumina){luminaQuota.update('ai',data);if(data._lumina.ownKey){document.getElementById('quotaInfo').textContent='Eigener API-Key (unbegrenzt)'}else if(data._lumina.remaining!=='unlimited'){document.getElementById('quotaInfo').textContent=data._lumina.remaining+'/'+data._lumina.limit+' KI-Abfragen heute verbleibend'}}}
 (function(){var q=luminaQuota.get('ai'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent=q.remaining+'/'+q.limit+' KI-Abfragen heute verbleibend'}})();
+if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));}
 
 async function aiCall(body){
-  var key=document.getElementById('oaiKey').value.trim();
+  var key=document.getElementById('oaiKey').value.trim()||localStorage.getItem('lumina_key_openai')||'';
   var headers={'Content-Type':'application/json'};
   if(key)headers['X-OAI-Key']=key;
   var resp=await fetch(WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify(body)});
@@ -654,5 +656,6 @@ document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key
 </script>
 <style>.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+<script src="/settings.js"></script>
 </body>
 </html>

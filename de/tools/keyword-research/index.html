@@ -308,6 +308,7 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 <div class="quota-bar" id="quotaInfo" style="margin:0;text-align:left">5 kostenlose Suchen pro Tag</div>
 <span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap;margin-left:auto" onclick="document.getElementById('dfsKeyWrap').style.display=document.getElementById('dfsKeyWrap').style.display==='none'?'flex':'none'">🔑 Eigener API-Key</span>
 </div>
+<div id="settingsHintDfs"></div>
 <div id="dfsKeyWrap" class="api-key-row" style="display:none;margin-top:0;margin-bottom:8px"><label>DataForSEO Key:</label><input type="text" id="dfsKey" placeholder="Base64 encoded login:password"><span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">ℹ️ Was ist das?</span><div style="display:none;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px">Ohne Key bekommst du 5 kostenlose Suchen pro Tag. Mit eigenem <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> Key sind Suchen unbegrenzt. Key erstellen: bei dataforseo.com anmelden → API Dashboard → login:password kopieren → bei <a href="https://www.base64encode.org/" target="_blank" rel="noopener">base64encode.org</a> als <code>login:password</code> kodieren.</div></div>
 <!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
@@ -355,7 +356,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 var DFS_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/dfs';
 var AI_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/ai';
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function getDfsKey(){return document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';}
+function getDfsKey(){var local=document.getElementById('dfsKey')?document.getElementById('dfsKey').value.trim():'';return local||localStorage.getItem('lumina_key_dataforseo')||'';}
 function dfsPost(endpoint,data){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
@@ -551,6 +552,7 @@ function go(){
     if(e.isQuota){
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Tageslimit erreicht</p><p>Du hast alle 5 kostenlosen Suchen f\u00fcr heute verbraucht. Komm morgen wieder, oder f\u00fcge unten deinen eigenen <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API-Key hinzu f\u00fcr unbegrenzte Suchen.</p></div>';
       var q=document.getElementById('quotaInfo');if(q)q.textContent='Kostenlose Suchen: 0/5 heute';
+      if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
     }else{
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
     }
@@ -855,6 +857,7 @@ async function fetchGscQueries(){
 // Init column toggles
 renderColToggles();
 (function(){var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent='Kostenlose Suchen: '+Math.floor(q.remaining/2)+'/5 heute'}})();
+if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
 
@@ -880,5 +883,6 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 </style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
+<script src="/settings.js"></script>
 </body>
 </html>
