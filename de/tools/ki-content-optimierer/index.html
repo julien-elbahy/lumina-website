@@ -346,13 +346,22 @@ document.getElementById('btnGscLoad').addEventListener('click',async function(){
   var days=parseInt(document.getElementById('gscRange').value);
   var end=new Date();end.setDate(end.getDate()-1);var start=new Date(end);start.setDate(start.getDate()-days);
   var fmt=function(d){return d.toISOString().split('T')[0]};
-  var body={startDate:fmt(start),endDate:fmt(end),dimensions:['query'],rowLimit:500,type:'web'};
   var url=document.getElementById('urlIn').value.trim();
-  if(url){body.dimensionFilterGroups=[{filters:[{dimension:'page',operator:'contains',expression:url.replace(/^https?:\/\//,'')}]}]}
+  var apiUrl='https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(site)+'/searchAnalytics/query';
+  var allRows=[],startRow=0,pageSize=25000;
   document.getElementById('gscStatus').textContent='GSC-Daten werden geladen…';
-  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(site)+'/searchAnalytics/query',body);
-  if(!d||!d.rows){_gscRows=null;document.getElementById('gscStatus').textContent='Keine GSC-Daten gefunden.';return}
-  _gscRows=d.rows.map(function(r){return{query:r.keys[0],clicks:r.clicks,impressions:r.impressions,ctr:r.ctr,position:r.position}});
+  while(true){
+    var body={startDate:fmt(start),endDate:fmt(end),dimensions:['query'],rowLimit:pageSize,startRow:startRow,type:'web'};
+    if(url){body.dimensionFilterGroups=[{filters:[{dimension:'page',operator:'contains',expression:url.replace(/^https?:\/\//,'')}]}]}
+    var d=await gscApiFetch(apiUrl,body);
+    if(!d||!d.rows||!d.rows.length)break;
+    allRows=allRows.concat(d.rows);
+    document.getElementById('gscStatus').textContent='GSC-Daten werden geladen… '+allRows.length+' Abfragen';
+    if(d.rows.length<pageSize)break;
+    startRow+=pageSize;
+  }
+  if(!allRows.length){_gscRows=null;document.getElementById('gscStatus').textContent='Keine GSC-Daten gefunden.';return}
+  _gscRows=allRows.map(function(r){return{query:r.keys[0],clicks:r.clicks,impressions:r.impressions,ctr:r.ctr,position:r.position}});
   _gscRows.sort(function(a,b){return b.impressions-a.impressions});
   document.getElementById('gscStatus').textContent='✓ '+_gscRows.length+' Suchanfragen — Suchvolumen werden geladen…';
   var topKws=_gscRows.slice(0,40).map(function(r){return r.query});
