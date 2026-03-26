@@ -46,7 +46,7 @@ Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-B
 The Lumina Chrome extension provides all of the above plus:
 - On-page SEO audit with live SERP preview
 - Indexation alarm badge (green/yellow/red icon)
-- AI crawler access checking (23 bots including GPTBot, ClaudeBot, PerplexityBot)
+- AI crawler access checking (24 bots including Google-Agent, GPTBot, ClaudeBot, PerplexityBot)
 - llms.txt validation
 - Schema JSON-LD deep validation with content matching
 - Google Search Console dashboard

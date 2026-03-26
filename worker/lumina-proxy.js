@@ -61,6 +61,7 @@ const BOT_AGENTS = {
   amazonbot: 'Mozilla/5.0 (compatible; Amazonbot/0.1; +https://developer.amazon.com/support/amazonbot)',
   bravebot: 'Mozilla/5.0 (compatible; BraveBot/1.0; +https://brave.com/)',
   youbot: 'Mozilla/5.0 (compatible; YouBot/1.0; +https://you.com)',
+  'google-agent': 'Google-Agent',
 };
 
 const CF_ACCOUNT_ID = '045957bc690a89607c5ced094e3d11e4';
