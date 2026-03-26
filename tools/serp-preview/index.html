@@ -61,6 +61,12 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .serp-desc{font-size:14px;line-height:1.58;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}.serp.lt .serp-desc{color:#4d5156}.serp.dk .serp-desc{color:#bdc1c6}.serp-desc mark{background:transparent;font-weight:700;color:inherit}
 .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px}.act-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .2s;font-family:var(--font);letter-spacing:.2px;white-space:nowrap}.act-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.act-btn:disabled{opacity:.4;cursor:default}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+/* AI Card */
+.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border-color:rgba(124,58,237,.2)}.ai-card:hover{border-color:rgba(124,58,237,.35)}
+.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.ai-card-body label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px}.ai-card-body input[type="text"]{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px;transition:all .2s}.ai-card-body input:focus{outline:none;border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.15)}
+[data-theme="light"] .ai-card:hover{border-color:rgba(124,58,237,.3)}
 /* AI Suggestions */
 .ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
 .ai-results{margin-top:12px}.ai-opt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;transition:border-color .2s}.ai-opt:hover{border-color:var(--accent)}.ai-opt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}.ai-opt-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.ai-opt-text{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:4px;word-break:break-word}.ai-opt-btns{display:flex;gap:4px}.ai-opt-btn{background:var(--accent-soft);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s}.ai-opt-btn.apply{color:var(--accent)}.ai-opt-btn.apply:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.ai-opt-btn.copy{color:var(--muted)}.ai-opt-btn.copy:hover{color:var(--text);border-color:var(--text)}
@@ -255,18 +261,21 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div style="margin-top:10px"><label>Highlight Keywords</label><input type="text" id="kwIn" placeholder="e.g. serp preview tool"></div>
 <div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobile</button><button class="tgl active" data-serp="light">☀️ Light</button><button class="tgl" data-serp="dark">🌙 Dark</button><label class="tgl chk"><input type="checkbox" id="shd"> Export with shadow</label></div>
 <div class="serp-wrap"><div class="serp lt" id="serpEl"><div class="serp-head"><div class="serp-fav"><img id="serpFav" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" onerror="this.style.display='none'" alt=""></div><div class="serp-info"><div class="serp-name-row"><div class="serp-name" id="serpName">Lumina SEO</div><div class="serp-dots">⋮</div></div><div class="serp-urltext"><span id="serpHost">lumina-seo.com</span><span id="serpPath"></span></div></div></div><div class="serp-title" id="serpT">Your title tag will appear here</div><div class="serp-desc" id="serpD">Your meta description will appear here.</div></div></div>
-<div class="actions"><button class="act-btn" id="bCT">Copy Title</button><button class="act-btn" id="bCD">Copy Desc</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Save Image</button><button class="act-btn" id="bCI">📷 Copy Image</button><button class="act-btn" id="bR">↻ Reset</button><button class="ai-btn" id="btnAiToggle">✨ AI Suggest</button></div>
-<div id="aiPanel" style="display:none;margin-top:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px">
-<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-<div style="flex:1;min-width:140px"><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;display:block">Primary Keyword</label><input type="text" id="aiKwPrimary" placeholder="e.g. SEO audit tool" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"></div>
-<div style="flex:1;min-width:140px"><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;display:block">Secondary Keywords</label><input type="text" id="aiKwSecondary" placeholder="e.g. meta tag checker" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"></div>
+<div class="actions"><button class="act-btn" id="bCT">Copy Title</button><button class="act-btn" id="bCD">Copy Desc</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Save Image</button><button class="act-btn" id="bCI">📷 Copy Image</button><button class="act-btn" id="bR">↻ Reset</button><button class="act-btn" id="bUndo" style="display:none">↩ Undo</button></div>
+</div>
+<div class="card ai-card">
+<div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">Generate optimized titles & descriptions</h2><p class="ai-card-desc">Auto-detect keywords from your page, get search volumes, and generate SEO-optimized snippets with AI.</p></div>
+<div class="ai-card-body">
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+<div style="flex:1;min-width:140px"><label>Primary Keyword</label><input type="text" id="aiKwPrimary" placeholder="e.g. SEO audit tool"></div>
+<div style="flex:1;min-width:140px"><label>Secondary Keywords</label><input type="text" id="aiKwSecondary" placeholder="e.g. meta tag checker"></div>
 </div>
 <div id="aiKwChips" style="display:none;margin-bottom:8px"></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap">
-<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:10px;padding:6px 12px">🔍 Auto-detect</button>
-<button class="ai-btn" id="btnAiGenerate" style="font-size:10px;padding:6px 12px">✨ Generate</button>
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:10px;padding:6px 12px">🔍 Auto-detect keywords</button>
+<button class="ai-btn" id="btnAiGenerate" style="font-size:10px;padding:6px 12px">✨ Generate title & description</button>
+<span id="aiQuota" class="ai-quota"></span>
 </div>
-<div id="aiQuota" class="ai-quota"></div>
 </div>
 <div id="aiResults" class="ai-results"></div>
 </div>
@@ -276,9 +285,13 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <h2 style="margin-top:28px">More tools</h2>
 <div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Analyze all SEO meta tags for any URL.</p></a><a href="/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate JSON-LD against Google fields.</p></a><a href="/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">What is a SERP preview tool?<span class="arrow">+</span></div><div class="faq-a">It simulates how your page appears in Google search results — title, URL, description — helping you optimize for click-through rate.</div></div>
-<div class="faq-item"><div class="faq-q">Why does pixel width matter?<span class="arrow">+</span></div><div class="faq-a">Google truncates based on pixel width, not character count. Wide characters get cut sooner. This tool measures actual pixels.</div></div>
-<div class="faq-item"><div class="faq-q">Does Google always use my title?<span class="arrow">+</span></div><div class="faq-a">Not always. Google may rewrite if it thinks its version better matches the query. Well-optimized meta tags are more likely used as-is.</div></div>
+<div class="faq-item"><div class="faq-q">What is a SERP preview tool?<span class="arrow">+</span></div><div class="faq-a">It simulates how your page appears in Google search results — title, URL, description — helping you optimize for click-through rate before publishing.</div></div>
+<div class="faq-item"><div class="faq-q">Why does pixel width matter more than character count?<span class="arrow">+</span></div><div class="faq-a">Google truncates titles and descriptions based on pixel width, not character count. A title with wide characters like "W" or "M" gets cut sooner than one with narrow characters like "i" or "l". This tool measures actual rendered pixels for accuracy.</div></div>
+<div class="faq-item"><div class="faq-q">What is the ideal title tag length?<span class="arrow">+</span></div><div class="faq-a">Keep titles under 580 pixels on desktop (~60 characters) and 500 pixels on mobile. Titles that exceed this limit get truncated with an ellipsis (...), which can hurt click-through rates.</div></div>
+<div class="faq-item"><div class="faq-q">What is the ideal meta description length?<span class="arrow">+</span></div><div class="faq-a">Meta descriptions should stay under 920 pixels on desktop (~155 characters) and 780 pixels on mobile. Descriptions that are too short may look incomplete, while too-long ones get cut off.</div></div>
+<div class="faq-item"><div class="faq-q">Does Google always use my title and description?<span class="arrow">+</span></div><div class="faq-a">Not always. Google may rewrite your title or generate its own description if it thinks its version better matches the search query. Well-optimized, relevant meta tags are much more likely to be used as-is.</div></div>
+<div class="faq-item"><div class="faq-q">How does the AI suggestion feature work?<span class="arrow">+</span></div><div class="faq-a">The AI analyzes your page content and auto-detects target keywords with real search volumes. It then generates optimized title and description options that fit within Google's pixel limits while incorporating your primary and secondary keywords.</div></div>
+<div class="faq-item"><div class="faq-q">Can I use this tool for any website?<span class="arrow">+</span></div><div class="faq-a">Yes. Enter any URL and click "Fetch from URL" to pull the current title and description. The tool works with any publicly accessible webpage — no signup or installation needed.</div></div>
 <div class="cta-box"><div class="cta-t">Get this on every page you visit</div><p>Lumina gives you this SERP preview plus 40+ SEO checks — free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 <footer class="tf"><div class="tf-inner">
@@ -381,9 +394,11 @@ function spRenderChips(){
   })});
 }
 
-document.getElementById('btnAiToggle').addEventListener('click',function(){
-  var p=document.getElementById('aiPanel');p.style.display=p.style.display==='none'?'block':'none';
-});
+/* Undo state */
+var _undoTitle='',_undoDesc='',_undoAvail=false;
+var undoBtn=document.getElementById('bUndo');
+function saveUndo(){_undoTitle=tI.value;_undoDesc=dI.value;_undoAvail=true;undoBtn.style.display=''}
+undoBtn.addEventListener('click',function(){if(!_undoAvail)return;tI.value=_undoTitle;dI.value=_undoDesc;_undoAvail=false;undoBtn.style.display='none';upd()});
 
 document.getElementById('btnAiDetect').addEventListener('click',function(){
   var url=uI.value.trim(),title=tI.value.trim(),desc=dI.value.trim();
@@ -470,6 +485,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     out.querySelectorAll('.ai-opt-btn.apply').forEach(function(b){b.addEventListener('click',function(){
       var type=b.getAttribute('data-ai-type'),idx=b.getAttribute('data-ai-idx');
       var r=window._aiResults;
+      saveUndo();
       if(type==='title')tI.value=idx==='1'?r.title1:r.title2;
       else dI.value=idx==='1'?r.desc1:r.desc2;
       upd();b.textContent='✓ Applied';setTimeout(function(){b.textContent='Apply'},1500);

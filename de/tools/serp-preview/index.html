@@ -61,6 +61,12 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .serp-desc{font-size:14px;line-height:1.58;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}.serp.lt .serp-desc{color:#4d5156}.serp.dk .serp-desc{color:#bdc1c6}.serp-desc mark{background:transparent;font-weight:700;color:inherit}
 .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:14px}.act-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;transition:all .2s;font-family:var(--font);letter-spacing:.2px;white-space:nowrap}.act-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.act-btn:disabled{opacity:.4;cursor:default}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+/* AI Card */
+.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border-color:rgba(124,58,237,.2)}.ai-card:hover{border-color:rgba(124,58,237,.35)}
+.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.ai-card-body label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px}.ai-card-body input[type="text"]{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px;transition:all .2s}.ai-card-body input:focus{outline:none;border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.15)}
+[data-theme="light"] .ai-card:hover{border-color:rgba(124,58,237,.3)}
 /* AI Suggestions */
 .ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
 .ai-results{margin-top:12px}.ai-opt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;transition:border-color .2s}.ai-opt:hover{border-color:var(--accent)}.ai-opt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}.ai-opt-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.ai-opt-text{font-size:13px;color:var(--text);line-height:1.5;margin-bottom:4px;word-break:break-word}.ai-opt-btns{display:flex;gap:4px}.ai-opt-btn{background:var(--accent-soft);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s}.ai-opt-btn.apply{color:var(--accent)}.ai-opt-btn.apply:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.ai-opt-btn.copy{color:var(--muted)}.ai-opt-btn.copy:hover{color:var(--text);border-color:var(--text)}
@@ -255,18 +261,21 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div style="margin-top:10px"><label>Keywords hervorheben</label><input type="text" id="kwIn" placeholder="z.B. SERP Preview Tool"></div>
 <div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobil</button><button class="tgl active" data-serp="light">☀️ Hell</button><button class="tgl" data-serp="dark">🌙 Dunkel</button><label class="tgl chk"><input type="checkbox" id="shd"> Export mit Schatten</label></div>
 <div class="serp-wrap"><div class="serp lt" id="serpEl"><div class="serp-head"><div class="serp-fav"><img id="serpFav" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" onerror="this.style.display='none'" alt=""></div><div class="serp-info"><div class="serp-name-row"><div class="serp-name" id="serpName">Lumina SEO</div><div class="serp-dots">⋮</div></div><div class="serp-urltext"><span id="serpHost">lumina-seo.com</span><span id="serpPath"></span></div></div></div><div class="serp-title" id="serpT">Dein Title-Tag erscheint hier</div><div class="serp-desc" id="serpD">Deine Meta-Description erscheint hier.</div></div></div>
-<div class="actions"><button class="act-btn" id="bCT">Titel kopieren</button><button class="act-btn" id="bCD">Beschreibung kopieren</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Bild speichern</button><button class="act-btn" id="bCI">📷 Bild kopieren</button><button class="act-btn" id="bR">↻ Zurücksetzen</button><button class="ai-btn" id="btnAiToggle">✨ AI-Vorschlag</button></div>
-<div id="aiPanel" style="display:none;margin-top:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:12px">
-<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-<div style="flex:1;min-width:140px"><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;display:block">Haupt-Keyword</label><input type="text" id="aiKwPrimary" placeholder="z.B. Badsanierung Wien" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"></div>
-<div style="flex:1;min-width:140px"><label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px;display:block">Neben-Keywords</label><input type="text" id="aiKwSecondary" placeholder="z.B. Badrenovierung, Fixpreis" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"></div>
+<div class="actions"><button class="act-btn" id="bCT">Titel kopieren</button><button class="act-btn" id="bCD">Beschreibung kopieren</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Bild speichern</button><button class="act-btn" id="bCI">📷 Bild kopieren</button><button class="act-btn" id="bR">↻ Zurücksetzen</button><button class="act-btn" id="bUndo" style="display:none">↩ Rückgängig</button></div>
+</div>
+<div class="card ai-card">
+<div class="ai-card-header"><span class="ai-badge">KI-gestützt</span><h2 class="ai-card-title">Optimierte Titel & Beschreibungen generieren</h2><p class="ai-card-desc">Keywords automatisch erkennen, Suchvolumen abrufen und SEO-optimierte Snippets mit KI generieren.</p></div>
+<div class="ai-card-body">
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+<div style="flex:1;min-width:140px"><label>Haupt-Keyword</label><input type="text" id="aiKwPrimary" placeholder="z.B. Badsanierung Wien"></div>
+<div style="flex:1;min-width:140px"><label>Neben-Keywords</label><input type="text" id="aiKwSecondary" placeholder="z.B. Badrenovierung, Fixpreis"></div>
 </div>
 <div id="aiKwChips" style="display:none;margin-bottom:8px"></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap">
-<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:10px;padding:6px 12px">🔍 Auto-Erkennung</button>
-<button class="ai-btn" id="btnAiGenerate" style="font-size:10px;padding:6px 12px">✨ Generieren</button>
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:10px;padding:6px 12px">🔍 Keywords erkennen</button>
+<button class="ai-btn" id="btnAiGenerate" style="font-size:10px;padding:6px 12px">✨ Titel & Beschreibung generieren</button>
+<span id="aiQuota" class="ai-quota"></span>
 </div>
-<div id="aiQuota" class="ai-quota"></div>
 </div>
 <div id="aiResults" class="ai-results"></div>
 </div>
@@ -276,9 +285,13 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/schema-validator/"><h3>Schema Validator</h3><p>JSON-LD gegen Google-Pflichtfelder validieren.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>AI-Crawler-Guides für deine Seite erstellen.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">Was ist ein SERP-Preview-Tool?<span class="arrow">+</span></div><div class="faq-a">Es simuliert, wie deine Seite in den Google-Suchergebnissen erscheint — Titel, URL, Beschreibung — und hilft dir, die Klickrate zu optimieren.</div></div>
-<div class="faq-item"><div class="faq-q">Warum ist die Pixelbreite wichtig?<span class="arrow">+</span></div><div class="faq-a">Google kürzt basierend auf Pixelbreite, nicht Zeichenanzahl. Breite Zeichen werden früher abgeschnitten. Dieses Tool misst echte Pixel.</div></div>
-<div class="faq-item"><div class="faq-q">Verwendet Google immer meinen Titel?<span class="arrow">+</span></div><div class="faq-a">Nicht immer. Google kann umschreiben, wenn es denkt, seine Version passt besser zur Suchanfrage. Gut optimierte Meta-Tags werden eher unverändert verwendet.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist ein SERP-Preview-Tool?<span class="arrow">+</span></div><div class="faq-a">Es simuliert, wie deine Seite in den Google-Suchergebnissen erscheint — Titel, URL, Beschreibung — und hilft dir, die Klickrate vor der Veröffentlichung zu optimieren.</div></div>
+<div class="faq-item"><div class="faq-q">Warum ist die Pixelbreite wichtiger als die Zeichenanzahl?<span class="arrow">+</span></div><div class="faq-a">Google kürzt Titel und Beschreibungen basierend auf Pixelbreite, nicht Zeichenanzahl. Ein Titel mit breiten Zeichen wie "W" oder "M" wird früher abgeschnitten als einer mit schmalen Zeichen wie "i" oder "l". Dieses Tool misst die tatsächlich gerenderten Pixel.</div></div>
+<div class="faq-item"><div class="faq-q">Wie lang sollte ein Title-Tag sein?<span class="arrow">+</span></div><div class="faq-a">Halte Titel unter 580 Pixel auf dem Desktop (~60 Zeichen) und 500 Pixel auf Mobilgeräten. Titel, die dieses Limit überschreiten, werden mit Auslassungspunkten (...) abgeschnitten, was die Klickrate beeinträchtigen kann.</div></div>
+<div class="faq-item"><div class="faq-q">Wie lang sollte eine Meta-Description sein?<span class="arrow">+</span></div><div class="faq-a">Meta-Descriptions sollten unter 920 Pixel auf dem Desktop (~155 Zeichen) und 780 Pixel auf Mobilgeräten bleiben. Zu kurze Beschreibungen wirken unvollständig, zu lange werden abgeschnitten.</div></div>
+<div class="faq-item"><div class="faq-q">Verwendet Google immer meinen Titel und meine Beschreibung?<span class="arrow">+</span></div><div class="faq-a">Nicht immer. Google kann deinen Titel umschreiben oder eine eigene Beschreibung generieren, wenn es denkt, seine Version passt besser zur Suchanfrage. Gut optimierte, relevante Meta-Tags werden deutlich häufiger unverändert übernommen.</div></div>
+<div class="faq-item"><div class="faq-q">Wie funktioniert die KI-Vorschlagsfunktion?<span class="arrow">+</span></div><div class="faq-a">Die KI analysiert deinen Seiteninhalt und erkennt automatisch Ziel-Keywords mit echten Suchvolumen. Anschließend generiert sie optimierte Titel- und Beschreibungsvorschläge, die in Googles Pixellimits passen und deine Haupt- und Neben-Keywords einbeziehen.</div></div>
+<div class="faq-item"><div class="faq-q">Kann ich dieses Tool für jede Website nutzen?<span class="arrow">+</span></div><div class="faq-a">Ja. Gib eine beliebige URL ein und klicke auf "Von URL laden", um den aktuellen Titel und die Beschreibung abzurufen. Das Tool funktioniert mit jeder öffentlich zugänglichen Webseite — ohne Anmeldung oder Installation.</div></div>
 <div class="cta-box"><div class="cta-t">Snippet-Vorschau auf jeder Seite</div><p>Lumina bietet dir diese Snippet-Vorschau plus 40+ SEO-Checks — kostenlos.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 <footer class="tf"><div class="tf-inner">
@@ -381,9 +394,11 @@ function spRenderChips(){
   })});
 }
 
-document.getElementById('btnAiToggle').addEventListener('click',function(){
-  var p=document.getElementById('aiPanel');p.style.display=p.style.display==='none'?'block':'none';
-});
+/* Undo state */
+var _undoTitle='',_undoDesc='',_undoAvail=false;
+var undoBtn=document.getElementById('bUndo');
+function saveUndo(){_undoTitle=tI.value;_undoDesc=dI.value;_undoAvail=true;undoBtn.style.display=''}
+undoBtn.addEventListener('click',function(){if(!_undoAvail)return;tI.value=_undoTitle;dI.value=_undoDesc;_undoAvail=false;undoBtn.style.display='none';upd()});
 
 document.getElementById('btnAiDetect').addEventListener('click',function(){
   var url=uI.value.trim(),title=tI.value.trim(),desc=dI.value.trim();
@@ -470,6 +485,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     out.querySelectorAll('.ai-opt-btn.apply').forEach(function(b){b.addEventListener('click',function(){
       var type=b.getAttribute('data-ai-type'),idx=b.getAttribute('data-ai-idx');
       var r=window._aiResults;
+      saveUndo();
       if(type==='title')tI.value=idx==='1'?r.title1:r.title2;
       else dI.value=idx==='1'?r.desc1:r.desc2;
       upd();b.textContent='✓ Angewendet';setTimeout(function(){b.textContent='Anwenden'},1500);
