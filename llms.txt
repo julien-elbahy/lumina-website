@@ -58,6 +58,10 @@ The Lumina Chrome extension provides all of the above plus:
 - Keyboard shortcuts (1-9 for tabs)
 - Dark mode
 
+## Blog
+
+- [Google-Agent: What SEO Professionals Need to Know](https://lumina-seo.com/blog/google-agent-ai-crawler/): Google launched Google-Agent for AI-powered web interactions via Project Mariner. What it means for SEO and how to prepare.
+
 ## Languages
 
 Available in English and German (Deutsch).
