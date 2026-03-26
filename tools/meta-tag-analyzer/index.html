@@ -515,7 +515,10 @@ function renderAll(d){
   /* ── Render score circle ── */
   var circ=2*Math.PI*34;var offset=circ-(score/100*circ);
   var sb=document.getElementById('statusBar');
-  sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/></svg><div class="score-num" style="color:'+scoreCol+'">'+score+'</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p>'+passed+' of '+details.length+' checks passed'+(failed?' — '+failed+' to fix':'')+'</p></div><button class="act-btn" id="btnCopyReport" style="flex-shrink:0;align-self:center">📋 Copy Report</button></div>';
+  sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/></svg><div class="score-num" style="color:'+scoreCol+'">0</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p>'+passed+' of '+details.length+' checks passed'+(failed?' — '+failed+' to fix':'')+'</p></div><button class="act-btn" id="btnCopyReport" style="flex-shrink:0;align-self:center">📋 Copy Report</button></div>';
+  /* Animate score */
+  var _sNum=sb.querySelector('.score-num'),_sFg=sb.querySelector('.fg'),_sTarget=score,_sCur=0;
+  var _sAnim=setInterval(function(){_sCur+=Math.ceil((_sTarget-_sCur)/8)||1;if(_sCur>=_sTarget){_sCur=_sTarget;clearInterval(_sAnim)}_sNum.textContent=_sCur;_sFg.setAttribute('stroke-dashoffset',circ-(_sCur/100*circ))},30);
   document.getElementById('btnCopyReport').addEventListener('click',function(){
     var r='SEO REPORT — '+d.url+'\nScore: '+score+'/100 ('+scoreLabel+')\n\n';
     r+='TITLE: '+(d.title||'Missing')+' ['+d.title.length+' chars, '+tPx+'px]\n';
