@@ -328,22 +328,61 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 
 
 
+/* ══════════════════════════════════════════════════
+   SCHEMA VALIDATION ENGINE v2 — Google Rich Results
+   ══════════════════════════════════════════════════ */
 var REQUIRED_FIELDS={
-'Article':{required:['headline','author','datePublished'],recommended:['image','dateModified','publisher']},
-'NewsArticle':{required:['headline','author','datePublished'],recommended:['image','dateModified','publisher']},
-'BlogPosting':{required:['headline','author','datePublished'],recommended:['image','dateModified','publisher']},
-'Product':{required:['name'],recommended:['image','description','offers','brand','sku','review','aggregateRating']},
+'Article':{required:['headline','image','datePublished','author'],recommended:['dateModified','publisher','description','mainEntityOfPage']},
+'NewsArticle':{required:['headline','image','datePublished','author'],recommended:['dateModified','publisher','description']},
+'BlogPosting':{required:['headline','image','datePublished','author'],recommended:['dateModified','publisher','description']},
+'TechArticle':{required:['headline','image','datePublished','author'],recommended:['dateModified','publisher','description']},
+'Product':{required:['name','image'],recommended:['description','brand','offers','aggregateRating','sku','review','gtin','mpn']},
 'FAQPage':{required:['mainEntity'],recommended:[]},
-'LocalBusiness':{required:['name','address'],recommended:['telephone','openingHours','geo','image','url','priceRange']},
-'Organization':{required:['name'],recommended:['url','logo','contactPoint','sameAs']},
-'Person':{required:['name'],recommended:['url','image','jobTitle','sameAs']},
+'LocalBusiness':{required:['name','address'],recommended:['telephone','openingHours','geo','image','url','priceRange','aggregateRating','sameAs']},
+'Organization':{required:['name'],recommended:['url','logo','contactPoint','sameAs','description','foundingDate']},
+'Person':{required:['name'],recommended:['url','image','jobTitle','sameAs','worksFor']},
 'BreadcrumbList':{required:['itemListElement'],recommended:[]},
-'Event':{required:['name','startDate','location'],recommended:['endDate','image','description','offers','performer','organizer']},
-'Recipe':{required:['name'],recommended:['image','author','datePublished','description','recipeIngredient','recipeInstructions']},
-'HowTo':{required:['name','step'],recommended:['image','totalTime','estimatedCost']},
-'VideoObject':{required:['name','description','thumbnailUrl','uploadDate'],recommended:['duration','contentUrl','embedUrl']},
-'WebSite':{required:['name','url'],recommended:['potentialAction']},
-'Review':{required:['itemReviewed','author'],recommended:['reviewRating','datePublished']}
+'Event':{required:['name','startDate','location'],recommended:['endDate','image','description','offers','performer','organizer','eventStatus','eventAttendanceMode']},
+'Recipe':{required:['name','image'],recommended:['author','datePublished','description','totalTime','recipeIngredient','recipeInstructions','aggregateRating','nutrition','recipeYield','recipeCategory']},
+'HowTo':{required:['name','step'],recommended:['image','totalTime','estimatedCost','supply','tool']},
+'VideoObject':{required:['name','uploadDate','thumbnailUrl'],recommended:['description','duration','contentUrl','embedUrl','interactionStatistic']},
+'WebSite':{required:['name','url'],recommended:['potentialAction','description']},
+'Review':{required:['reviewRating','author','itemReviewed'],recommended:['reviewBody','datePublished','publisher']},
+'Course':{required:['name','description','provider'],recommended:['offers','hasCourseInstance','courseCode']},
+'SoftwareApplication':{required:['name','offers'],recommended:['aggregateRating','operatingSystem','applicationCategory','screenshot']},
+'JobPosting':{required:['title','description','datePosted','hiringOrganization','jobLocation'],recommended:['baseSalary','employmentType','validThrough','applicantLocationRequirements']},
+'Dataset':{required:['name','description'],recommended:['license','creator','distribution','temporalCoverage','spatialCoverage']},
+'Book':{required:['name'],recommended:['author','isbn','publisher','datePublished','numberOfPages','bookFormat']},
+'Movie':{required:['name'],recommended:['image','dateCreated','director','aggregateRating','duration','genre']},
+'MusicRecording':{required:['name'],recommended:['byArtist','duration','inAlbum','datePublished']},
+'WebPage':{required:['name'],recommended:['description','url','datePublished','dateModified','breadcrumb']},
+'ItemList':{required:['itemListElement'],recommended:['name','numberOfItems']},
+'Service':{required:['name'],recommended:['description','provider','serviceType','areaServed','offers']}
+};
+var SUBTYPE_MAP={
+'Restaurant':'LocalBusiness','Store':'LocalBusiness','Dentist':'LocalBusiness','Physician':'LocalBusiness',
+'BarOrPub':'LocalBusiness','MedicalBusiness':'LocalBusiness','LegalService':'LocalBusiness',
+'FinancialService':'LocalBusiness','RealEstateAgent':'LocalBusiness','AutoDealer':'LocalBusiness',
+'AutoRepair':'LocalBusiness','BeautySalon':'LocalBusiness','DaySpa':'LocalBusiness','HairSalon':'LocalBusiness',
+'HealthClub':'LocalBusiness','Hotel':'LocalBusiness','InsuranceAgency':'LocalBusiness','GasStation':'LocalBusiness',
+'TouristAttraction':'LocalBusiness','SportsActivityLocation':'LocalBusiness','GovernmentOffice':'LocalBusiness',
+'TechArticle':'Article','ScholarlyArticle':'Article','AdvertiserContentArticle':'Article','SatiricalArticle':'Article',
+'MusicEvent':'Event','SportsEvent':'Event','BusinessEvent':'Event','EducationEvent':'Event',
+'Festival':'Event','TheaterEvent':'Event','ExhibitionEvent':'Event','SocialEvent':'Event',
+'WebApplication':'SoftwareApplication','MobileApplication':'SoftwareApplication','VideoGame':'SoftwareApplication'
+};
+var NESTED_REQUIRED={
+'Product':{'offers':['price','priceCurrency','availability'],'aggregateRating':['ratingValue','ratingCount'],'brand':['name'],'review':['author','reviewRating']},
+'Article':{'author':['name'],'publisher':['name']},
+'NewsArticle':{'author':['name'],'publisher':['name']},
+'BlogPosting':{'author':['name'],'publisher':['name']},
+'LocalBusiness':{'address':['streetAddress','addressLocality','postalCode','addressCountry'],'geo':['latitude','longitude']},
+'Event':{'location':['name','address'],'offers':['price','priceCurrency','url','availability'],'organizer':['name']},
+'Recipe':{'author':['name']},
+'JobPosting':{'hiringOrganization':['name'],'jobLocation':['address']},
+'Review':{'reviewRating':['ratingValue'],'author':['name']},
+'Course':{'provider':['name']},
+'SoftwareApplication':{'offers':['price','priceCurrency']}
 };
 var WORKER_PRIMARY='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 var WORKER_FALLBACK='https://lumina-proxy.julien-elbahy.workers.dev/deep';
@@ -361,18 +400,69 @@ function fetchWithFallback(targetUrl){
     });
 }
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function isValidISO8601(s){if(!s)return true;var str=String(s);return[/^\d{4}-\d{2}-\d{2}$/,/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/].some(function(p){return p.test(str)})&&!isNaN(new Date(str).getTime())}
+function isValidUrl(s){if(!s)return true;try{var u=new URL(String(s));return u.protocol==='http:'||u.protocol==='https:'}catch(e){return false}}
 function validate(json){
-var issues=[],type=json['@type']||'Unknown',spec=REQUIRED_FIELDS[type];
-if(!spec){issues.push({level:'warn',msg:'Unbekannter Schema-Typ: <strong>'+esc(type)+'</strong>'});return{type:type,issues:issues}}
-spec.required.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'error',msg:'Pflichtfeld fehlt: <strong>'+f+'</strong>'})});
-spec.recommended.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'warn',msg:'Empfohlenes Feld fehlt: <strong>'+f+'</strong>'})});
-['datePublished','dateModified','startDate','endDate','uploadDate'].forEach(function(f){if(json[f]&&!/^\d{4}-\d{2}-\d{2}/.test(json[f]))issues.push({level:'error',msg:'<strong>'+f+'</strong>: kein ISO 8601 (JJJJ-MM-TT)'})});
-['url','image','thumbnailUrl','contentUrl','logo'].forEach(function(f){var v=json[f];if(typeof v==='object'&&v)v=v.url||v['@id'];if(typeof v==='string'&&v&&!/^https?:\/\//.test(v))issues.push({level:'warn',msg:'<strong>'+f+'</strong>: sollte eine absolute URL sein'})});
-if(json.author){if(typeof json.author==='string')issues.push({level:'warn',msg:'<strong>author</strong> sollte ein Objekt sein, kein String'});else if(typeof json.author==='object'&&!json.author.name)issues.push({level:'error',msg:'<strong>author.name</strong> fehlt'})}
-if(json.publisher&&typeof json.publisher==='object'&&!json.publisher.name)issues.push({level:'error',msg:'<strong>publisher.name</strong> fehlt'});
-if(type==='FAQPage'&&Array.isArray(json.mainEntity)){json.mainEntity.forEach(function(q,i){if(!q.name&&!q.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>name</strong> fehlt'});if(!q.acceptedAnswer)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>acceptedAnswer</strong> fehlt'});else if(!q.acceptedAnswer.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>acceptedAnswer.text</strong> fehlt'})})}
-if(type==='Product'&&json.offers){var offers=Array.isArray(json.offers)?json.offers:[json.offers];offers.forEach(function(o,i){if(!o.price&&o.price!==0)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>price</strong> fehlt'});if(!o.priceCurrency)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>priceCurrency</strong> fehlt'})})}
+var issues=[],type=json['@type']||'Unknown';
+if(Array.isArray(type))type=type[0];
+var resolvedType=REQUIRED_FIELDS[type]?type:(SUBTYPE_MAP[type]||null);
+var spec=resolvedType?REQUIRED_FIELDS[resolvedType]:null;
+/* @context check */
+if(!json['@context'])issues.push({level:'warn',msg:'<strong>@context</strong> fehlt — sollte "https://schema.org" sein'});
+else if(String(json['@context']).indexOf('schema.org')<0)issues.push({level:'warn',msg:'<strong>@context</strong> sollte schema.org referenzieren'});
+if(!spec){issues.push({level:'warn',msg:'Unbekannter Schema-Typ: <strong>'+esc(type)+'</strong> — Pflichtfelder können nicht validiert werden'});return{type:type,issues:issues}}
+/* Required & Recommended fields */
+spec.required.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'error',msg:'Pflichtfeld fehlt: <strong>'+f+'</strong> — Google erfordert dies für '+type+' Rich Results'})});
+spec.recommended.forEach(function(f){if(!json[f]&&json[f]!==0)issues.push({level:'warn',msg:'Empfohlenes Feld fehlt: <strong>'+f+'</strong> — verbessert die Rich-Result-Eignung'})});
+/* Nested required fields */
+var nested=NESTED_REQUIRED[type]||NESTED_REQUIRED[resolvedType]||null;
+if(nested){Object.keys(nested).forEach(function(parentField){
+var parentObj=json[parentField];if(!parentObj)return;
+if(Array.isArray(parentObj))parentObj=parentObj[0];
+if(typeof parentObj!=='object')return;
+nested[parentField].forEach(function(subField){
+var hasIt=parentObj[subField]!==undefined&&parentObj[subField]!==null&&parentObj[subField]!=='';
+if(!hasIt)issues.push({level:'warn',msg:'<strong>'+parentField+'.'+subField+'</strong> fehlt — Google erwartet dieses Unterfeld für vollständiges '+type+' Markup'})
+})})}
+/* Date format checks */
+var dateFields=['datePublished','dateModified','dateCreated','startDate','endDate','uploadDate','datePosted','validThrough','expires'];
+dateFields.forEach(function(f){if(json[f]){if(!isValidISO8601(json[f]))issues.push({level:'error',msg:'<strong>'+f+'</strong>: "'+esc(String(json[f]).substring(0,30))+'" ist kein gültiges ISO 8601 (z.B. 2024-01-15T10:30:00+01:00)'})}});
+/* URL validation */
+var urlFields=['url','@id','image','logo','thumbnailUrl','contentUrl','embedUrl','sameAs'];
+urlFields.forEach(function(f){var v=json[f];if(!v)return;
+if(Array.isArray(v)){v.forEach(function(item,i){var u=typeof item==='object'?item.url:item;if(u&&typeof u==='string'&&!isValidUrl(u))issues.push({level:'error',msg:'<strong>'+f+'['+i+']</strong>: ungültige URL "'+esc(String(u).substring(0,50))+'"'})})}
+else{var u=typeof v==='object'?v.url||v['@id']:v;if(u&&typeof u==='string'&&(u.indexOf('http')===0||u.indexOf('//')===0)&&!isValidUrl(u))issues.push({level:'error',msg:'<strong>'+f+'</strong>: ungültige URL "'+esc(String(u).substring(0,50))+'"'});
+if(u&&typeof u==='string'&&!/^https?:\/\//.test(u)&&u.indexOf('//')!==0&&f!=='@id')issues.push({level:'warn',msg:'<strong>'+f+'</strong>: sollte eine absolute URL sein (https://…)'})}});
+/* Author/publisher structure */
+if(json.author){var authors=Array.isArray(json.author)?json.author:[json.author];authors.forEach(function(a,i){
+if(typeof a==='string')issues.push({level:'warn',msg:'<strong>author'+(authors.length>1?'['+(i+1)+']':'')+'</strong> sollte ein Objekt sein {\"@type\":\"Person\",\"name\":\"…\"}, kein einfacher String'});
+else if(typeof a==='object'&&!a.name)issues.push({level:'error',msg:'<strong>author.name</strong> fehlt — von Google erfordert'})})}
+if(json.publisher&&typeof json.publisher==='object'){if(!json.publisher.name)issues.push({level:'error',msg:'<strong>publisher.name</strong> fehlt'});
+if(!json.publisher.logo)issues.push({level:'warn',msg:'<strong>publisher.logo</strong> fehlt — empfohlen für Article Rich Results'})}
+/* FAQPage deep validation */
+if(type==='FAQPage'&&Array.isArray(json.mainEntity)){json.mainEntity.forEach(function(q,i){
+if(!q.name&&!q.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>name</strong> fehlt (der Fragetext)'});
+if(!q.acceptedAnswer)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>acceptedAnswer</strong> fehlt'});
+else{if(!q.acceptedAnswer.text)issues.push({level:'error',msg:'FAQ #'+(i+1)+': <strong>acceptedAnswer.text</strong> fehlt'});
+if(q.acceptedAnswer['@type']!=='Answer')issues.push({level:'warn',msg:'FAQ #'+(i+1)+': acceptedAnswer sollte <strong>@type: "Answer"</strong> haben'})}
+if(q['@type']!=='Question')issues.push({level:'warn',msg:'FAQ #'+(i+1)+': sollte <strong>@type: "Question"</strong> haben'})})}
+/* Product deep validation */
+if(type==='Product'&&json.offers){var offers=Array.isArray(json.offers)?json.offers:[json.offers];offers.forEach(function(o,i){
+if(!o.price&&o.price!==0)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>price</strong> fehlt'});
+if(!o.priceCurrency)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>priceCurrency</strong> fehlt'});
+if(!o.availability)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>availability</strong> fehlt — z.B. https://schema.org/InStock'});
+if(o.availability&&String(o.availability).indexOf('schema.org')<0)issues.push({level:'warn',msg:'Angebot #'+(i+1)+': <strong>availability</strong> sollte eine schema.org URL verwenden (z.B. https://schema.org/InStock)'})})}
+/* BreadcrumbList validation */
+if(type==='BreadcrumbList'&&Array.isArray(json.itemListElement)){json.itemListElement.forEach(function(item,i){
+if(!item.position&&item.position!==0)issues.push({level:'warn',msg:'Breadcrumb #'+(i+1)+': <strong>position</strong> fehlt'});
+var name=item.name||(item.item&&typeof item.item==='object'?item.item.name:'');
+if(!name)issues.push({level:'warn',msg:'Breadcrumb #'+(i+1)+': <strong>name</strong> fehlt'})})}
+/* Event validation */
+if(resolvedType==='Event'){if(json.eventStatus&&String(json.eventStatus).indexOf('schema.org')<0)issues.push({level:'warn',msg:'<strong>eventStatus</strong> sollte eine schema.org URL verwenden'})}
+/* Summary */
 if(!issues.length)issues.push({level:'ok',msg:'Alle Pflicht- und empfohlenen Felder vorhanden. Schema sieht gut aus!'});
+else{var errs=issues.filter(function(i){return i.level==='error'}).length;var warns=issues.filter(function(i){return i.level==='warn'}).length;
+if(errs===0&&warns>0)issues.push({level:'ok',msg:'Keine kritischen Fehler! '+warns+' Vorschlag'+(warns>1?' Vorschläge':'')+' zur Verbesserung der Rich-Result-Eignung.'})}
 return{type:type,issues:issues}}
 function renderValidation(schemas){
 var res=document.getElementById('res');res.style.display='block';var html='';
@@ -430,9 +520,16 @@ function addAiFix(schemas){
     var raw=document.getElementById('inputSchema').value.trim();if(!raw)return;
     btn.disabled=true;btn.textContent='⏳ Wird behoben…';
     var issuesList=[];document.querySelectorAll('.ci').forEach(function(ci){var t=ci.querySelector('.ci-t');if(t)issuesList.push(t.textContent)});
+    /* Build type-specific context for AI */
+    var parsed;try{parsed=JSON.parse(raw)}catch(e){parsed={}}
+    var schemaType=parsed['@type']||(parsed['@graph']?'multiple':'Unknown');
+    var resolvedType=REQUIRED_FIELDS[schemaType]?schemaType:(SUBTYPE_MAP[schemaType]||schemaType);
+    var typeSpec=REQUIRED_FIELDS[resolvedType];
+    var typeContext=typeSpec?'\n\nGoogle Required fields for '+schemaType+': '+typeSpec.required.join(', ')+'\nGoogle Recommended fields: '+typeSpec.recommended.join(', '):'';
+    var nestedContext=NESTED_REQUIRED[resolvedType]?'\nNested required: '+JSON.stringify(NESTED_REQUIRED[resolvedType]):'';
     fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-      messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert focused on Google Rich Results eligibility.\n\nRules:\n- Keep ALL existing data intact — never remove valid fields\n- Add missing required fields per Google\'s structured data documentation\n- Add recommended fields where reasonable (improves Rich Result eligibility)\n- Fix date formats to ISO 8601 (YYYY-MM-DDTHH:MM:SS+00:00)\n- Fix URLs to be absolute (https://)\n- Fix author to be {"@type":"Person","name":"..."} or {"@type":"Organization","name":"..."}\n- Fix publisher to be {"@type":"Organization","name":"...","logo":{"@type":"ImageObject","url":"..."}}\n- Add "image" field if missing (required for most Rich Results)\n- Ensure output passes the Google Rich Results Test\n- Output valid JSON-LD only — no explanation, no markdown fences.'},{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
-      max_tokens:1500
+      messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert. Your goal: make the schema pass Google\'s Rich Results Test.\n\nPROCESS:\n1. Analyze each issue listed below\n2. Fix each issue while keeping ALL existing valid data intact\n3. Self-validate: check your output has all required fields\n\nFIX RULES:\n- @context must be "https://schema.org"\n- author → {"@type":"Person","name":"..."} (never a plain string)\n- publisher → {"@type":"Organization","name":"...","logo":{"@type":"ImageObject","url":"..."}}\n- Dates → ISO 8601 with time: YYYY-MM-DDTHH:MM:SS+00:00\n- URLs → absolute https:// URLs\n- image → must be present for Article, Product, Recipe, Event\n- availability → use full schema.org URL (https://schema.org/InStock)\n- If schema has @graph, fix each object within the graph\n- Add missing required AND recommended fields where data can be inferred\n- Never invent data that cannot be inferred from the existing schema\n'+typeContext+nestedContext+'\n\nOutput ONLY valid JSON-LD. No markdown fences, no explanation.'},{role:'user',content:'JSON-LD with issues:\n'+raw+'\n\nValidation issues found:\n'+issuesList.join('\n')}],
+      max_tokens:2000
     })}).then(function(r){return r.json()}).then(function(data){
       if(data.error)throw new Error(data.error);
       var fixed=data.choices[0].message.content.replace(/```json|```/g,'').trim();
@@ -470,27 +567,33 @@ document.getElementById('btnAiGenSchema').addEventListener('click',function(){
     var existingSchemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{existingSchemas.push(JSON.parse(s.textContent))}catch(e){}});
 
     btn.textContent='⏳ Schema wird generiert…';
+    /* Detect FAQs on page */
+    var faqElements=[];doc.querySelectorAll('details summary, .faq-q, [class*="faq"] h3, [class*="faq"] h4, [class*="accordion"] button').forEach(function(el){
+      var q=el.textContent.trim().substring(0,120);if(q.length>10)faqElements.push(q)});
+    /* Detect breadcrumbs */
+    var breadcrumbs=[];doc.querySelectorAll('[class*="breadcrumb"] a, nav[aria-label*="readcrumb"] a, ol[class*="bread"] a').forEach(function(a){
+      breadcrumbs.push({name:a.textContent.trim(),url:a.getAttribute('href')||''})});
+    /* Build type-specific required fields context */
+    var targetType=schemaType==='auto'?null:schemaType;
+    var reqContext='';
+    if(targetType&&REQUIRED_FIELDS[targetType]){reqContext='\n\nGoogle REQUIRED fields for '+targetType+': '+REQUIRED_FIELDS[targetType].required.join(', ')+'\nGoogle RECOMMENDED fields: '+REQUIRED_FIELDS[targetType].recommended.join(', ');
+      if(NESTED_REQUIRED[targetType])reqContext+='\nNested required sub-fields: '+JSON.stringify(NESTED_REQUIRED[targetType])}
     var prompt='Generate optimized JSON-LD structured data for this webpage.\n\n'+
       'URL: '+url+'\n'+
       'Title: '+title+'\n'+
       'Description: '+desc+'\n'+
       'H1: '+h1+'\n'+
       'Headings:\n'+headings.slice(0,15).join('\n')+'\n'+
+      (faqElements.length?'\nFAQ elements detected on page ('+faqElements.length+'):\n'+faqElements.slice(0,8).join('\n')+'\n':'')+
+      (breadcrumbs.length?'\nBreadcrumbs detected: '+JSON.stringify(breadcrumbs)+'\n':'')+
       'Content (first 2000 chars):\n'+bodyText+'\n'+
-      (existingSchemas.length?'\nExisting schema (improve this):\n'+JSON.stringify(existingSchemas[0],null,2)+'\n':'')+
-      '\nSchema type: '+(schemaType==='auto'?'Auto-detect the best type':'Generate '+schemaType)+'\n'+
-      '\nRULES:\n'+
-      '- Output ONLY valid JSON-LD with @context and @type\n'+
-      '- Use REAL data from the page content, not placeholders\n'+
-      '- Include ALL required fields per Google documentation\n'+
-      '- Include recommended fields where data is available\n'+
-      '- Use absolute URLs\n'+
-      '- Use ISO 8601 dates\n'+
-      '- No markdown, no explanation — JSON only';
+      (existingSchemas.length?'\nExisting schema (improve/expand this):\n'+JSON.stringify(existingSchemas[0],null,2)+'\n':'')+
+      '\nSchema type: '+(schemaType==='auto'?'Auto-detect the BEST type(s) for this page. Consider using @graph with multiple schemas if appropriate (e.g. Article + FAQPage + BreadcrumbList).':'Generate '+schemaType)+
+      reqContext;
 
     return fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-      messages:[{role:'system',content:'You are a Schema.org structured data expert focused on Google Rich Results eligibility. Generate production-ready JSON-LD that will pass the Google Rich Results Test.\n\nPriorities:\n1. Include ALL required fields per Google documentation\n2. Include recommended fields where data is available\n3. Use real data from the page — never use obvious placeholders like "John Doe"\n4. Ensure Rich Result eligibility (Article, Product, FAQ, HowTo, LocalBusiness, etc.)\n5. Output valid JSON only — no markdown fences, no explanation.'},{role:'user',content:prompt}],
-      max_tokens:1500
+      messages:[{role:'system',content:'You are a Schema.org structured data expert focused on Google Rich Results eligibility.\n\nYour process:\n1. Analyze the page content to identify what schema types are appropriate\n2. Generate production-ready JSON-LD that WILL pass Google\'s Rich Results Test\n3. Self-validate: ensure ALL required fields per Google docs are present\n\nRules:\n- Use REAL data from the page — never use placeholders like "John Doe" or "example.com"\n- Include ALL required fields per Google structured data documentation\n- Include recommended fields where data is available on the page\n- author: always {"@type":"Person","name":"..."} (object, not string)\n- publisher: always {"@type":"Organization","name":"...","logo":{"@type":"ImageObject","url":"..."}}\n- Dates: ISO 8601 with time (YYYY-MM-DDTHH:MM:SS+00:00)\n- URLs: absolute https:// URLs\n- availability: full schema.org URL (https://schema.org/InStock)\n- If FAQ elements are detected, include FAQPage schema\n- If breadcrumbs are detected, include BreadcrumbList schema\n- When multiple schemas fit, use @graph array\n- If improving existing schema: keep all valid data, add missing fields, fix format issues\n\nOutput ONLY valid JSON-LD. No markdown fences, no explanation, no comments.'},{role:'user',content:prompt}],
+      max_tokens:2500
     })});
   }).then(function(r){return r.json()}).then(function(data){
     if(data.error)throw new Error(data.error);
