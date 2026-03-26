@@ -23,6 +23,7 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Meta Tag Analyzer","url":"https://lumina-seo.com/tools/meta-tag-analyzer/","description":"Free meta tag analyzer. Check title, description, canonical, robots, OG tags, Twitter Cards, Schema, hreflang for any URL.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What meta tags does this tool check?","acceptedAnswer":{"@type":"Answer","text":"Title, description, canonical, robots, H1, all Open Graph tags, Twitter Card tags, Schema.org JSON-LD, hreflang, viewport, charset, lang attribute, and favicon."}},{"@type":"Question","name":"How is the SEO score calculated?","acceptedAnswer":{"@type":"Answer","text":"The score is based on 15 weighted checks: title presence and length (pixel-based), meta description presence and length, H1 count, canonical URL, robots directive, Open Graph tags, Schema.org markup, viewport, and language attribute."}},{"@type":"Question","name":"Does this tool work with JavaScript-heavy websites?","acceptedAnswer":{"@type":"Answer","text":"Yes. If the initial fetch returns incomplete data, the tool automatically falls back to a headless browser that renders JavaScript — so you see the page exactly as search engines do."}},{"@type":"Question","name":"Why do pixel widths matter for titles and descriptions?","acceptedAnswer":{"@type":"Answer","text":"Google truncates search snippets based on pixel width, not character count. This tool measures actual rendered pixels for more accurate truncation predictions than character counting alone."}},{"@type":"Question","name":"Can I analyze pages behind a login?","acceptedAnswer":{"@type":"Answer","text":"No, this tool can only analyze publicly accessible pages. For pages behind authentication, use the Lumina Chrome extension which runs directly in your browser."}}]}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -331,7 +332,9 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 </div>
 <div style="margin-top:32px">
 <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">How this tool works</h2>
-<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">This tool fetches any public URL and analyzes all SEO-relevant meta tags — title, description, canonical, robots, Open Graph, Twitter Cards, Schema.org JSON-LD, hreflang, viewport, charset, and more.</p>
+<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Enter any public URL and this tool fetches the page through our own servers — no browser extension needed. It parses the full HTML and extracts all SEO-relevant meta tags: title, description, canonical, robots, Open Graph, Twitter Cards, Schema.org JSON-LD, hreflang, viewport, charset, and more.</p>
+<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Results are organized in 7 tabs covering on-page SEO, heading structure, links, social tags, structured data, and technical setup. A weighted SEO score (0–100) gives you an instant overview of how well-optimized the page is, with actionable tips for every issue found.</p>
+<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">For JavaScript-heavy sites, the tool automatically falls back to a headless browser renderer to ensure accurate results — just like a search engine would see the page.</p>
 </div>
 <h2 style="font-size:18px;font-weight:800;margin:32px 0 12px">More free SEO tools</h2>
 <div class="other-tools">
@@ -344,8 +347,13 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="btn-primary" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a>
 </div>
 <h2 style="font-size:18px;font-weight:800;margin-bottom:12px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">What meta tags does this tool check?<span class="arrow">+</span></div><div class="faq-a">Title, description, canonical, robots, H1, all Open Graph tags, Twitter Card tags, Schema.org JSON-LD, hreflang, viewport, charset, lang, and favicon.</div></div>
-<div class="faq-item"><div class="faq-q">Is this tool free?<span class="arrow">+</span></div><div class="faq-a">Completely free, no signup needed. The analysis runs through our own server — no third-party proxies.</div></div>
+<div class="faq-item"><div class="faq-q">What meta tags does this tool check?<span class="arrow">+</span></div><div class="faq-a">Title, description, canonical, robots, H1, all Open Graph tags (og:title, og:description, og:image, og:url, og:type, og:site_name, og:locale), Twitter Card tags, Schema.org JSON-LD, hreflang, viewport, charset, lang attribute, and favicon.</div></div>
+<div class="faq-item"><div class="faq-q">Is this tool free?<span class="arrow">+</span></div><div class="faq-a">Completely free, no signup needed. The analysis runs through our own servers — no third-party proxies. You can analyze unlimited URLs.</div></div>
+<div class="faq-item"><div class="faq-q">How is the SEO score calculated?<span class="arrow">+</span></div><div class="faq-a">The score is based on 15 weighted checks: title presence and length (pixel-based), meta description presence and length, H1 count, canonical URL, robots directive, Open Graph tags, Schema.org markup, viewport, and language attribute. Each check has a different weight based on its SEO importance.</div></div>
+<div class="faq-item"><div class="faq-q">Does this tool work with JavaScript-heavy websites?<span class="arrow">+</span></div><div class="faq-a">Yes. If the initial fetch returns incomplete data (common with React, Angular, or Vue apps), the tool automatically falls back to a headless browser that renders JavaScript — so you see the page exactly as search engines do.</div></div>
+<div class="faq-item"><div class="faq-q">What does the AI suggestion feature do?<span class="arrow">+</span></div><div class="faq-a">After analyzing a page, you can use AI to automatically detect target keywords with real search volumes from Google Ads data. The AI then generates optimized title and description suggestions that fit within Google's pixel limits while incorporating your keywords.</div></div>
+<div class="faq-item"><div class="faq-q">Why do pixel widths matter for titles and descriptions?<span class="arrow">+</span></div><div class="faq-a">Google truncates search snippets based on pixel width, not character count. A title with wide characters like "W" or "M" gets cut sooner than one with narrow characters. This tool measures actual rendered pixels for more accurate truncation predictions than character counting alone.</div></div>
+<div class="faq-item"><div class="faq-q">Can I analyze pages behind a login?<span class="arrow">+</span></div><div class="faq-a">No, this tool can only analyze publicly accessible pages. For pages behind authentication, use the Lumina Chrome extension which runs directly in your browser and can analyze any page you have access to.</div></div>
 </div>
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
@@ -502,6 +510,23 @@ function renderAll(d){
   var sb=document.getElementById('statusBar');
   sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/></svg><div class="score-num" style="color:'+scoreCol+'">'+score+'</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p>'+passed+' of '+details.length+' checks passed'+(failed?' — '+failed+' to fix':'')+'</p></div></div>';
 
+  sb.innerHTML+='<button class="act-btn" id="btnCopyReport" style="margin-top:10px;display:block;margin-left:auto;margin-right:auto">📋 Copy Report</button>';
+  document.getElementById('btnCopyReport').addEventListener('click',function(){
+    var r='SEO REPORT — '+d.url+'\nScore: '+score+'/100 ('+scoreLabel+')\n\n';
+    r+='TITLE: '+(d.title||'Missing')+' ['+d.title.length+' chars, '+tPx+'px]\n';
+    r+='DESCRIPTION: '+(d.desc||'Missing')+' ['+d.desc.length+' chars, '+dPx+'px]\n';
+    r+='CANONICAL: '+(d.canonical||'Not set')+'\n';
+    r+='ROBOTS: '+(d.robots||'Not set (defaults to index, follow)')+'\n';
+    r+='H1: '+d.hC.h1+' found\n';
+    r+='LANG: '+(d.lang||'Not set')+'\n\n';
+    r+='OPEN GRAPH:\n';['og:title','og:description','og:image','og:url','og:type'].forEach(function(k){r+='  '+k+': '+(d.og[k]||'Not set')+'\n'});
+    r+='\nSCHEMA: '+(d.schemas.length?d.schemas.join(', '):'None found')+'\n';
+    r+='HREFLANG: '+(d.hreflangs.length?d.hreflangs.map(function(h){return h.lang+' → '+h.href}).join(', '):'None')+'\n';
+    r+='\nLINKS: '+d.links.total+' total ('+d.links.int+' internal, '+d.links.ext+' external, '+d.links.nf+' nofollow)\n';
+    r+='IMAGES: '+d.imgs.total+' total ('+d.imgs.noAlt+' missing ALT)\n';
+    r+='\nCHECKS:\n';details.forEach(function(x){r+=(x.ok?'✓':'✗')+' '+x.t+'\n'});
+    navigator.clipboard.writeText(r).then(function(){var b=document.getElementById('btnCopyReport');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500)});
+  });
   renderSEO(d);renderHeadings(d);renderLinks(d);renderOG(d);renderTwitter(d);renderSchema(d);renderTech(d);renderCrossLinks(d);
   _lastAnalysis=d;
   document.getElementById('aiSection').style.display='block';
