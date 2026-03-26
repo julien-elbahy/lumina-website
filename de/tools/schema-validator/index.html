@@ -23,7 +23,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Schema-JSON-LD-Validator","url":"https://lumina-seo.com/de/tools/schema-validator/","description":"Kostenloser JSON-LD-Validator mit Prüfung der Google-Pflichtfelder.","applicationCategory":"SEO Tool","operatingSystem":"Web","inLanguage":"de","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Schema-JSON-LD-Validator","url":"https://lumina-seo.com/de/tools/schema-validator/","description":"Kostenloser JSON-LD-Validator mit Prüfung der Google-Pflichtfelder. Unterstützt 15 Schema-Typen mit KI-gestützter Generierung und Korrekturvorschlägen.","applicationCategory":"SEO Tool","operatingSystem":"Web","inLanguage":"de","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Welche Schema-Typen werden unterstützt?","acceptedAnswer":{"@type":"Answer","text":"15 Typen: Article, NewsArticle, BlogPosting, Product, FAQPage, LocalBusiness, Organization, Person, BreadcrumbList, Event, Recipe, HowTo, VideoObject, WebSite und Review."}},{"@type":"Question","name":"Was macht der KI-Schema-Generator?","acceptedAnswer":{"@type":"Answer","text":"Die KI analysiert den Inhalt einer beliebigen URL und generiert optimierte JSON-LD-Strukturdaten mit allen erforderlichen und empfohlenen Feldern."}},{"@type":"Question","name":"Wie funktioniert die KI-Fix-Funktion?","acceptedAnswer":{"@type":"Answer","text":"Wenn die Validierung Fehler findet, klicken Sie auf KI-Fix, damit die KI Ihr Schema automatisch mit allen behobenen Problemen umschreibt und vorhandene Daten beibehält."}},{"@type":"Question","name":"Kann ich mehrere Schema-Blöcke gleichzeitig validieren?","acceptedAnswer":{"@type":"Answer","text":"Ja. Das Tool unterstützt @graph-Arrays und mehrere JSON-LD-Blöcke. Alle Schema-Blöcke einer Seite werden extrahiert und einzeln validiert."}}]}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -61,6 +62,14 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 .rh{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}.badge{display:inline-block;font-size:10px;padding:3px 8px;border-radius:6px;font-weight:700;border:1px solid}.badge.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.badge.wn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.badge.er{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.tn-name{font-size:17px;font-weight:800}
 .ci{display:flex;gap:8px;padding:7px 0;border-bottom:1px dashed rgba(255,240,215,.06);font-size:13px;align-items:flex-start}.ci:last-child{border-bottom:none}.ci-i{width:18px;text-align:center;flex-shrink:0;font-size:12px}.ci-t{flex:1;color:var(--text2);line-height:1.5}.ci-t strong{color:var(--text)}
 .ext-links{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.ext-links a{background:var(--card);border:1px solid var(--border);padding:7px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--muted);transition:all .2s}.ext-links a:hover{border-color:var(--accent);color:var(--text)}
+/* AI Card */
+.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:16px;margin-bottom:16px;backdrop-filter:blur(var(--blur))}.ai-card:hover{border-color:rgba(124,58,237,.35)}
+.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.ai-card-body label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px}.ai-card-body input[type="text"],.ai-card-body select{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px;transition:all .2s}.ai-card-body input:focus,.ai-card-body select:focus{outline:none;border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
+.ai-quota{font-size:11px;color:var(--muted)}
+.ai-fix-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.ai-fix-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.3)}.ai-fix-btn:disabled{opacity:.5;transform:none}
+[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.15)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -260,14 +269,38 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 </div>
 <div id="res" style="display:none"></div>
 </div>
+<div class="card ai-card">
+<div class="ai-card-header"><span class="ai-badge">KI-gestützt</span><h2 class="ai-card-title">Schema aus Seiteninhalt generieren</h2><p class="ai-card-desc">Analysiere jede URL und lass die KI optimierte JSON-LD-Strukturdaten basierend auf Seiteninhalt, Typ und Branche generieren.</p></div>
+<div class="ai-card-body">
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+<div style="flex:1;min-width:180px"><label>URL für Schema-Generierung</label><input type="text" id="aiGenUrl" placeholder="https://example.com"></div>
+<div style="flex:0 0 auto"><label>Schema-Typ</label><select id="aiGenType" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-family:var(--font);font-size:12px"><option value="auto">Automatisch erkennen</option><option value="Article">Article</option><option value="Product">Product</option><option value="LocalBusiness">LocalBusiness</option><option value="FAQPage">FAQPage</option><option value="Organization">Organization</option><option value="Person">Person</option><option value="Event">Event</option><option value="Recipe">Recipe</option><option value="HowTo">HowTo</option><option value="VideoObject">VideoObject</option><option value="BreadcrumbList">BreadcrumbList</option><option value="WebSite">WebSite</option><option value="Review">Review</option></select></div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+<button class="ai-btn" id="btnAiGenSchema">✨ Schema generieren</button>
+<span id="aiGenQuota" class="ai-quota"></span>
+</div>
+</div>
+<div id="aiGenResult" style="display:none;margin-top:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><label style="margin:0">Generiertes JSON-LD</label><div style="display:flex;gap:4px"><button class="act-btn" id="btnAiCopyGen">📋 Kopieren</button><button class="act-btn" id="btnAiUseGen">↗ Im Validator verwenden</button></div></div>
+<textarea id="aiGenOutput" readonly style="font-family:var(--mono);font-size:11px;min-height:140px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);width:100%;resize:vertical"></textarea>
+</div>
+</div>
 <div class="content">
 <h2>So funktioniert der Validator</h2>
-<p>Dieses Tool parst JSON-LD und prüft gegen Googles Dokumentation — Pflichtfelder für 15 Schema-Typen, ISO-8601-Datumsangaben, URL-Formate und verschachtelte Objekte.</p>
+<p>Dieses Tool parst JSON-LD-Strukturdaten und validiert sie gegen Googles Search-Dokumentation. Es prüft Pflicht- und empfohlene Felder für 15 Schema-Typen, verifiziert ISO-8601-Datumsformate, validiert URL-Strukturen und inspiziert verschachtelte Objekte wie author und publisher.</p>
+<p>Du kannst JSON-LD direkt einfügen oder von einer beliebigen Live-URL abrufen. Bei JavaScript-lastigen Seiten wechselt das Tool automatisch auf einen Headless-Browser-Renderer. Der KI-Generator analysiert Seiteninhalte und erstellt optimierte Strukturdaten, die du kopieren und implementieren kannst.</p>
+<p>Nach der Validierung nutze den "KI-Fix"-Button, um spezifische Korrekturen für gefundene Probleme zu erhalten — die KI schreibt dein Schema mit allen behobenen Fehlern neu.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/serp-preview/"><h3>Snippet Preview</h3><p>Google-Snippet-Vorschau mit Pixelzähler.</p></a><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>AI-Crawler-Guides für deine Seite erstellen.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">Welche Schema-Typen werden unterstützt?<span class="arrow">+</span></div><div class="faq-a">Article, NewsArticle, BlogPosting, Product, FAQPage, LocalBusiness, Organization, Person, BreadcrumbList, Event, Recipe, HowTo, VideoObject, WebSite und Review.</div></div>
-<div class="faq-item"><div class="faq-q">Kann ich von einer Live-URL validieren?<span class="arrow">+</span></div><div class="faq-a">Ja! Verwende "Laden & Validieren", um alle JSON-LD-Blöcke von einer beliebigen URL abzurufen und zu validieren.</div></div>
+<div class="faq-item"><div class="faq-q">Welche Schema-Typen werden unterstützt?<span class="arrow">+</span></div><div class="faq-a">15 Typen: Article, NewsArticle, BlogPosting, Product, FAQPage, LocalBusiness, Organization, Person, BreadcrumbList, Event, Recipe, HowTo, VideoObject, WebSite und Review. Jeder Typ hat eigene Pflicht- und empfohlene Felder basierend auf Googles Dokumentation.</div></div>
+<div class="faq-item"><div class="faq-q">Kann ich von einer Live-URL validieren?<span class="arrow">+</span></div><div class="faq-a">Ja. Verwende "Laden & Validieren", um alle JSON-LD-Blöcke von einer beliebigen öffentlichen URL abzurufen und zu validieren. Bei JavaScript-lastigen Seiten nutzt das Tool automatisch einen Headless-Browser zum Rendern der Seite.</div></div>
+<div class="faq-item"><div class="faq-q">Was macht der KI-Schema-Generator?<span class="arrow">+</span></div><div class="faq-a">Die KI analysiert den Inhalt einer beliebigen URL — Überschriften, Text, Metadaten — und generiert optimierte JSON-LD-Strukturdaten. Sie erkennt automatisch den besten Schema-Typ oder lässt dich einen auswählen. Das generierte Schema enthält alle Pflicht- und empfohlenen Felder mit echten Daten von der Seite.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist der Unterschied zwischen Pflicht- und empfohlenen Feldern?<span class="arrow">+</span></div><div class="faq-a">Pflichtfelder sind notwendig, damit Google Rich Results anzeigt (wie Sternebewertungen, Rezeptkarten oder FAQ-Dropdowns). Fehlende Pflichtfelder führen zu Fehlern. Empfohlene Felder verbessern die Qualität der Rich Results, verhindern aber nicht deren Anzeige.</div></div>
+<div class="faq-item"><div class="faq-q">Wie funktioniert die KI-Fix-Funktion?<span class="arrow">+</span></div><div class="faq-a">Wenn die Validierung Fehler oder Warnungen findet, klicke auf "KI-Fix", damit die KI dein Schema automatisch mit allen behobenen Problemen umschreibt. Sie bewahrt deine vorhandenen Daten und fügt fehlende Felder hinzu, korrigiert Datumsformate und berichtigt URL-Strukturen.</div></div>
+<div class="faq-item"><div class="faq-q">Prüft dieses Tool, ob mein Schema Rich Results auslöst?<span class="arrow">+</span></div><div class="faq-a">Dieses Tool validiert gegen Googles Pflichtfelder — wenn alle bestanden sind, ist dein Schema für Rich Results berechtigt. Für eine abschließende Prüfung nutze den externen Link zum Google Rich Results Test, der nach der Validierung erscheint.</div></div>
+<div class="faq-item"><div class="faq-q">Kann ich mehrere Schema-Blöcke gleichzeitig validieren?<span class="arrow">+</span></div><div class="faq-a">Ja. Das Tool unterstützt @graph-Arrays und mehrere JSON-LD-Blöcke. Beim Abrufen von einer URL werden alle Schema-Blöcke der Seite extrahiert und einzeln mit separaten Ergebnissen für jeden Typ validiert.</div></div>
 <div class="cta-box"><div class="cta-t">Schema-Validierung auf jeder Seite</div><p>Lumina gleicht Schema-Daten mit dem tatsächlichen Seiteninhalt ab — Preise, Daten, FAQs, Adressen.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 <footer class="tf"><div class="tf-inner">
@@ -377,6 +410,111 @@ renderValidation(allSchemas)})
 document.getElementById('btnPrettify').addEventListener('click',function(){var ta=document.getElementById('inputSchema');try{ta.value=JSON.stringify(JSON.parse(ta.value),null,2)}catch(e){alert('Ungültiges JSON: '+e.message)}});
 document.getElementById('btnExample').addEventListener('click',function(){document.getElementById('inputSchema').value=JSON.stringify({"@context":"https://schema.org","@type":"Article","headline":"Wie man für AI-Suche optimiert","author":{"@type":"Person","name":"Julien El-Bahy"},"datePublished":"2026-03-20","image":"https://example.com/image.jpg","publisher":{"@type":"Organization","name":"Lumina SEO","logo":{"@type":"ImageObject","url":"https://lumina-seo.com/icon128.png"}}},null,2)});
 document.getElementById('btnClear').addEventListener('click',function(){document.getElementById('inputSchema').value='';document.getElementById('res').style.display='none'});
+/* ── Copy Schema Button ── */
+var _copyBtn=document.createElement('button');_copyBtn.className='act-btn';_copyBtn.id='btnCopySchema';_copyBtn.textContent='📋 Schema kopieren';_copyBtn.style.cssText='margin-top:8px';
+_copyBtn.addEventListener('click',function(){var v=document.getElementById('inputSchema').value;if(!v){return}navigator.clipboard.writeText(v).then(function(){_copyBtn.textContent='✓ Kopiert!';setTimeout(function(){_copyBtn.textContent='📋 Schema kopieren'},1500)})});
+document.querySelector('.btns').appendChild(_copyBtn);
+
+/* ── AI Fix Suggestions ── */
+var WORKER_BASE='https://lumina-proxy.julien-elbahy.workers.dev';
+function addAiFix(schemas){
+  var errs=document.querySelectorAll('.ci .ci-i');var hasErr=false;
+  errs.forEach(function(e){if(e.textContent.trim()==='❌'||e.textContent.trim()==='⚠️')hasErr=true});
+  if(!hasErr)return;
+  var existing=document.getElementById('btnAiFix');if(existing)existing.remove();
+  var btn=document.createElement('button');btn.id='btnAiFix';btn.className='ai-fix-btn';btn.textContent='✨ KI-Fix — Alle Probleme beheben';
+  document.getElementById('res').appendChild(btn);
+  btn.addEventListener('click',function(){
+    var raw=document.getElementById('inputSchema').value.trim();if(!raw)return;
+    btn.disabled=true;btn.textContent='⏳ Wird behoben…';
+    var issuesList=[];document.querySelectorAll('.ci').forEach(function(ci){var t=ci.querySelector('.ci-t');if(t)issuesList.push(t.textContent)});
+    fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      messages:[{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
+      system:'You are a Schema.org/JSON-LD expert. Fix the provided JSON-LD to resolve ALL listed issues.\n\nRules:\n- Keep ALL existing data intact\n- Add missing required/recommended fields with realistic placeholder values\n- Fix date formats to ISO 8601 (YYYY-MM-DD)\n- Fix URLs to be absolute (https://)\n- Fix author/publisher to be objects with @type and name\n- Ensure the output is valid JSON-LD\n\nRespond with ONLY the fixed JSON-LD, no explanation, no markdown fences.',
+      max_tokens:1500
+    })}).then(function(r){return r.json()}).then(function(data){
+      if(data.error)throw new Error(data.error);
+      var fixed=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+      try{JSON.parse(fixed)}catch(e){throw new Error('AI returned invalid JSON')}
+      document.getElementById('inputSchema').value=JSON.stringify(JSON.parse(fixed),null,2);
+      document.getElementById('btnValidate').click();
+      btn.textContent='✓ Behoben & neu validiert';setTimeout(function(){btn.textContent='✨ KI-Fix — Alle Probleme beheben'},2000);
+    }).catch(function(e){btn.textContent='❌ '+e.message;setTimeout(function(){btn.textContent='✨ KI-Fix — Alle Probleme beheben'},3000)})
+    .finally(function(){btn.disabled=false});
+  });
+}
+/* Patch renderValidation to add AI Fix */
+var _origRenderValidation=renderValidation;
+renderValidation=function(schemas){_origRenderValidation(schemas);addAiFix(schemas)};
+
+/* ── AI Schema Generator ── */
+document.getElementById('btnAiGenSchema').addEventListener('click',function(){
+  var url=document.getElementById('aiGenUrl').value.trim();
+  if(!url){alert('Bitte eine URL eingeben.');return}
+  if(!/^https?:\/\//i.test(url))url='https://'+url;
+  var schemaType=document.getElementById('aiGenType').value;
+  var btn=this;btn.disabled=true;btn.textContent='⏳ Seite wird analysiert…';
+  var resultDiv=document.getElementById('aiGenResult');
+  resultDiv.style.display='none';
+
+  fetchWithFallback(url).then(function(data){
+    if(data.error)throw new Error(data.error);
+    var doc=new DOMParser().parseFromString(data.html,'text/html');
+    var title=doc.querySelector('title')?.textContent?.trim()||'';
+    var desc=(doc.querySelector('meta[name="description"]')?.getAttribute('content'))||'';
+    var h1=doc.querySelector('h1')?.textContent?.trim()||'';
+    var headings=[];doc.querySelectorAll('h1,h2,h3').forEach(function(h){headings.push(h.tagName+': '+h.textContent.trim().substring(0,80))});
+    var bodyText=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim().substring(0,2000);
+    var existingSchemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{existingSchemas.push(JSON.parse(s.textContent))}catch(e){}});
+
+    btn.textContent='⏳ Schema wird generiert…';
+    var prompt='Generate optimized JSON-LD structured data for this webpage.\n\n'+
+      'URL: '+url+'\n'+
+      'Title: '+title+'\n'+
+      'Description: '+desc+'\n'+
+      'H1: '+h1+'\n'+
+      'Headings:\n'+headings.slice(0,15).join('\n')+'\n'+
+      'Content (first 2000 chars):\n'+bodyText+'\n'+
+      (existingSchemas.length?'\nExisting schema (improve this):\n'+JSON.stringify(existingSchemas[0],null,2)+'\n':'')+
+      '\nSchema type: '+(schemaType==='auto'?'Auto-detect the best type':'Generate '+schemaType)+'\n'+
+      '\nRULES:\n'+
+      '- Output ONLY valid JSON-LD with @context and @type\n'+
+      '- Use REAL data from the page content, not placeholders\n'+
+      '- Include ALL required fields per Google documentation\n'+
+      '- Include recommended fields where data is available\n'+
+      '- Use absolute URLs\n'+
+      '- Use ISO 8601 dates\n'+
+      '- No markdown, no explanation — JSON only';
+
+    return fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      messages:[{role:'user',content:prompt}],
+      system:'You are a Schema.org structured data expert. Generate production-ready JSON-LD based on webpage content. Always output valid JSON only, no markdown fences.',
+      max_tokens:1500
+    })});
+  }).then(function(r){return r.json()}).then(function(data){
+    if(data.error)throw new Error(data.error);
+    if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiGenQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    try{var parsed=JSON.parse(raw);raw=JSON.stringify(parsed,null,2)}catch(e){}
+    document.getElementById('aiGenOutput').value=raw;
+    resultDiv.style.display='block';
+  }).catch(function(e){
+    document.getElementById('aiGenOutput').value='Error: '+e.message;
+    resultDiv.style.display='block';
+  }).finally(function(){btn.disabled=false;btn.textContent='✨ Schema generieren'});
+});
+
+document.getElementById('btnAiCopyGen').addEventListener('click',function(){
+  navigator.clipboard.writeText(document.getElementById('aiGenOutput').value).then(function(){
+    var b=document.getElementById('btnAiCopyGen');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Kopieren'},1500);
+  });
+});
+document.getElementById('btnAiUseGen').addEventListener('click',function(){
+  document.getElementById('inputSchema').value=document.getElementById('aiGenOutput').value;
+  document.getElementById('btnValidate').click();
+  window.scrollTo({top:document.querySelector('.cd').offsetTop-80,behavior:'smooth'});
+});
+
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');document.getElementById('btnFetchUrl').click()}
 
 </script>
