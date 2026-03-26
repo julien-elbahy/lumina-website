@@ -271,10 +271,10 @@
 <div id="gscMain" style="display:none">
 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
 <span style="font-size:10px;color:var(--ok);font-weight:700;flex-shrink:0">✓ GSC</span>
-<span class="gsc-country" id="gscCountry" title="Keyword data country — synced with country selector below">📍 Austria</span>
 <select id="gscSite" class="gsc-sel"></select>
-<select id="gscRange" class="gsc-sel">
+<select id="gscRange" class="gsc-sel" style="min-width:auto;width:auto">
 <option value="7">7 days</option><option value="28" selected>28 days</option><option value="90">90 days</option></select>
+<span class="gsc-country" id="gscCountry" title="Keyword data country — synced with country selector below">📍 Austria</span>
 <input type="text" id="gscUrl" placeholder="Filter by URL (optional)" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);flex:1;min-width:160px">
 <button class="exp-btn" id="btnGscDisconnect" style="margin:0;padding:5px 10px;font-size:10px;color:var(--err)">✕</button>
 </div>
@@ -292,13 +292,13 @@
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seeds</div><p id="mSeed" style="font-size:12px;word-break:break-word">—</p></div><div class="metric"><div class="mh">Avg. Volume</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Avg. CPC</div><p id="mAvgCpc">—</p></div></div>
 <!-- Column toggles -->
 <div id="colToggles" style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;align-items:center"><span style="font-size:10px;color:var(--muted);margin-right:4px">Columns:</span></div>
-<div id="kwHint" class="kw-hint" style="display:none"><span class="hint-icon">💡</span> Click rows to select keywords for mapping — or map all at once</div>
 <div id="excludeBar" class="exclude-bar" style="display:none"><span id="excludeCount"></span><button id="btnRestoreAll">Restore all</button></div>
 <div class="kw-filter"><input type="text" id="kwFilter" placeholder="Filter keywords…"><span class="count" id="kwCount"></span></div>
 <div id="kwResults" class="list-scroll"></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center">
 <button class="exp-btn" id="btnCsv">📊 CSV Export</button>
 <button class="exp-btn" id="btnMap">📋 Keyword Mapping</button>
+<span id="kwHint" class="kw-hint" style="display:none;margin:0">💡 Click rows to select — or map all at once</span>
 </div>
 </div>
 </div>
@@ -315,7 +315,7 @@
 <button class="exp-btn" id="btnMapSave" style="margin:0">💾 Save Image</button>
 <button class="exp-btn" id="btnMapCopy" style="margin:0">📷 Copy Image</button>
 <button class="exp-btn" id="btnMapText" style="margin:0">📋 Copy Text</button>
-<label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer"><input type="checkbox" id="mapShadow" checked> Shadow</label>
+<label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer"><input type="checkbox" id="mapShadow" checked> Export with shadow</label>
 </div>
 </div>
 </div>
@@ -534,7 +534,7 @@ function go(){
     sortCol='vol';sortDir='desc';filterText='';filterSrc='';document.getElementById('kwFilter').value='';
     selectedKws.clear();mainKw='';excludedKws.clear();
     renderColToggles();renderTable();updateMapBtn();updateExcludeBar();
-    document.getElementById('kwHint').style.display='flex';
+    document.getElementById('kwHint').style.display='inline-flex';
     document.getElementById('res').style.display='block';
   }).catch(function(e){
     btn.disabled=false;btn.textContent='Find Keywords';

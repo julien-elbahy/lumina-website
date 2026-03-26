@@ -271,10 +271,10 @@
 <div id="gscMain" style="display:none">
 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
 <span style="font-size:10px;color:var(--ok);font-weight:700;flex-shrink:0">✓ GSC</span>
-<span class="gsc-country" id="gscCountry" title="Land der Keyword-Daten — synchronisiert mit der Länderauswahl unten">📍 Austria</span>
 <select id="gscSite" class="gsc-sel"></select>
-<select id="gscRange" class="gsc-sel">
+<select id="gscRange" class="gsc-sel" style="min-width:auto;width:auto">
 <option value="7">7 Tage</option><option value="28" selected>28 Tage</option><option value="90">90 Tage</option></select>
+<span class="gsc-country" id="gscCountry" title="Land der Keyword-Daten — synchronisiert mit der Länderauswahl unten">📍 Austria</span>
 <input type="text" id="gscUrl" placeholder="Nach URL filtern (optional)" style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:11px;font-family:var(--mono);flex:1;min-width:160px">
 <button class="exp-btn" id="btnGscDisconnect" style="margin:0;padding:5px 10px;font-size:10px;color:var(--err)">✕</button>
 </div>
@@ -292,13 +292,13 @@
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)"><div class="metric"><div class="mh">Keywords</div><p id="mCount">0</p></div><div class="metric"><div class="mh">Seeds</div><p id="mSeed" style="font-size:12px;word-break:break-word">—</p></div><div class="metric"><div class="mh">Ø Volumen</div><p id="mAvgVol">—</p></div><div class="metric"><div class="mh">Ø CPC</div><p id="mAvgCpc">—</p></div></div>
 <!-- Column toggles -->
 <div id="colToggles" style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;align-items:center"><span style="font-size:10px;color:var(--muted);margin-right:4px">Columns:</span></div>
-<div id="kwHint" class="kw-hint" style="display:none"><span class="hint-icon">💡</span> Klicke auf Zeilen um Keywords fürs Mapping auszuwählen — oder alle auf einmal mappen</div>
 <div id="excludeBar" class="exclude-bar" style="display:none"><span id="excludeCount"></span><button id="btnRestoreAll">Alle wiederherstellen</button></div>
 <div class="kw-filter"><input type="text" id="kwFilter" placeholder="Keywords filtern…"><span class="count" id="kwCount"></span></div>
 <div id="kwResults" class="list-scroll"></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center">
 <button class="exp-btn" id="btnCsv">📊 CSV-Export</button>
 <button class="exp-btn" id="btnMap">📋 Keyword-Mapping</button>
+<span id="kwHint" class="kw-hint" style="display:none;margin:0">💡 Zeilen klicken zum Auswählen — oder alle mappen</span>
 </div>
 </div>
 </div>
@@ -315,7 +315,7 @@
 <button class="exp-btn" id="btnMapSave" style="margin:0">💾 Bild speichern</button>
 <button class="exp-btn" id="btnMapCopy" style="margin:0">📷 Bild kopieren</button>
 <button class="exp-btn" id="btnMapText" style="margin:0">📋 Text kopieren</button>
-<label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer"><input type="checkbox" id="mapShadow" checked> Schatten</label>
+<label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer"><input type="checkbox" id="mapShadow" checked> Export mit Schatten</label>
 </div>
 </div>
 </div>
@@ -533,7 +533,7 @@ function go(){
     sortCol='vol';sortDir='desc';filterText='';filterSrc='';document.getElementById('kwFilter').value='';
     selectedKws.clear();mainKw='';excludedKws.clear();
     renderColToggles();renderTable();updateMapBtn();updateExcludeBar();
-    document.getElementById('kwHint').style.display='flex';
+    document.getElementById('kwHint').style.display='inline-flex';
     document.getElementById('res').style.display='block';
   }).catch(function(e){
     btn.disabled=false;btn.textContent='Keywords finden';
