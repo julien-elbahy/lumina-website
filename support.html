@@ -55,7 +55,9 @@ label{display:block;font-size:13px;font-weight:600;color:var(--gray);margin-bott
 input[type="text"],input[type="email"],textarea,select{width:100%;background:var(--dark3);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px;color:var(--white);font-family:var(--font);font-size:14px;transition:border-color .2s;margin-bottom:16px}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--orange)}
 textarea{min-height:140px;resize:vertical}
-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+select{cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a09484' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+select option{background:var(--dark3,#262119);color:var(--white,#faf7f2);padding:8px}select option:checked{background:var(--orange,#d4843a);color:#fff}
+[data-theme="light"] select option{background:#fff;color:#2c241c}[data-theme="light"] select option:checked{background:var(--accent);color:#fff}
 select option{background:var(--dark3);color:var(--white)}
 .btn-send{background:var(--orange);border:none;color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;font-family:var(--font);transition:transform .15s;width:100%}.btn-send:hover{transform:translateY(-2px)}
 .help-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:20px}
@@ -298,11 +300,20 @@ document.getElementById('btnSend').addEventListener('click',function(){
   var email=document.getElementById('sEmail').value.trim();
   var topic=document.getElementById('sTopic').value;
   var msg=document.getElementById('sMsg').value.trim();
-  if(!msg){document.getElementById('sendStatus').style.display='block';document.getElementById('sendStatus').style.color='#ef4444';document.getElementById('sendStatus').textContent='Please enter a message.';return}
-  var subject=encodeURIComponent('[Lumina Support] '+topic);
-  var body=encodeURIComponent('Name: '+(name||'Not provided')+'\nEmail: '+(email||'Not provided')+'\nTopic: '+topic+'\n\n'+msg);
-  window.location.href='mai'+'lto:'+'julien'+'.'+'elbahy'+'@'+'gm'+'ail.com?subject='+subject+'&body='+body;
-  document.getElementById('sendStatus').style.display='block';document.getElementById('sendStatus').style.color='#22c55e';document.getElementById('sendStatus').textContent='Your email client should open now. If not, send your message directly to julien.elbahy@gmail.com';
+  var status=document.getElementById('sendStatus');
+  if(!msg){status.style.display='block';status.style.color='var(--err,#ef4444)';status.textContent='Please enter a message.';return}
+  var btn=this;btn.disabled=true;btn.textContent='Sending…';
+  fetch('https://api.web3forms.com/submit',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({access_key:'f1e02d77-8c8f-4b7f-832d-fb581f0c521e',subject:'[Lumina Support] '+topic,from_name:name||'Anonymous',email:email||'noreply@lumina-seo.com',message:'Topic: '+topic+'\nName: '+(name||'Not provided')+'\nEmail: '+(email||'Not provided')+'\n\n'+msg})
+  }).then(function(r){return r.json()}).then(function(data){
+    if(data.success){
+      status.style.display='block';status.style.color='var(--ok,#22c55e)';status.textContent='Message sent successfully! We\'ll get back to you soon.';
+      document.getElementById('sName').value='';document.getElementById('sEmail').value='';document.getElementById('sMsg').value='';
+    } else {throw new Error(data.message||'Failed to send')}
+  }).catch(function(e){
+    status.style.display='block';status.style.color='var(--err,#ef4444)';status.textContent='Could not send: '+e.message+'. Try emailing us directly.';
+  }).finally(function(){btn.disabled=false;btn.textContent='Send Message'});
 });
 </script>
 
