@@ -1,0 +1,69 @@
+# Lumina SEO & GEO
+
+> Free all-in-one SEO & GEO Chrome extension and web toolkit. On-page audits, AI crawler checks, schema validation, Google Search Console & GA4 dashboards, keyword research, and AI-powered content tools — all in one click.
+
+## About
+
+Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-Bahy. It provides comprehensive SEO analysis without requiring an account, tracking, or payment. Over 90% of features work instantly without API keys.
+
+- Website: https://lumina-seo.com
+- Chrome Extension: https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe
+- Author: Julien El-Bahy (https://www.linkedin.com/in/julien-elbahy/)
+
+## Free Online Tools
+
+### SEO Analysis
+- [Snippet Preview](https://lumina-seo.com/tools/serp-preview/): Google SERP preview with pixel-accurate title & description measurement. AI-powered title and description generation.
+- [Meta Tag Analyzer](https://lumina-seo.com/tools/meta-tag-analyzer/): Complete meta tag audit — SEO, headings, links, Open Graph, Twitter Cards, Schema, and technical tags.
+- [Schema Validator](https://lumina-seo.com/tools/schema-validator/): JSON-LD structured data validator with 25+ schema types, Google Rich Results checks, and AI-powered fix suggestions.
+- [Heading Checker](https://lumina-seo.com/tools/heading-checker/): H1-H6 hierarchy analyzer with SEO score, keyword check, duplicate detection, and AI heading optimizer.
+- [OG Preview](https://lumina-seo.com/tools/og-preview/): Social media card preview for Facebook, Twitter/X, LinkedIn, WhatsApp, and Discord with OG tag validation.
+
+### SERP & Keywords
+- [Keyword Research](https://lumina-seo.com/tools/keyword-research/): Find related keywords with search volume, CPC, intent classification, SERP features, trend data, and AI clustering.
+- [SERP Checker](https://lumina-seo.com/tools/serp-checker/): Check Google top 10 results for any keyword with SERP feature detection and domain highlighting.
+- [SERP Overlap](https://lumina-seo.com/tools/serp-overlap/): Compare search results for two keywords with Venn diagram visualization and cannibalization score.
+
+### Technical SEO
+- [Tech Stack Detector](https://lumina-seo.com/tools/tech-stack/): Identify CMS, frameworks, analytics, and other technologies used on any website.
+- [Security Headers](https://lumina-seo.com/tools/security-headers/): Analyze HTTP security headers (HSTS, CSP, X-Frame-Options, etc.) with scoring.
+- [PageSpeed Insights](https://lumina-seo.com/tools/pagespeed/): Google PageSpeed Insights proxy with Core Web Vitals and performance metrics.
+- [Redirect Checker](https://lumina-seo.com/tools/redirect-checker/): Follow redirect chains and detect redirect loops, mixed content, and status codes.
+- [Link Analyzer](https://lumina-seo.com/tools/link-analyzer/): Analyze internal and external links, nofollow attributes, and anchor text distribution.
+
+### Content & GEO
+- [Word Counter](https://lumina-seo.com/tools/word-counter/): Count words, characters, sentences, paragraphs, and reading time for any URL.
+- [Image SEO Checker](https://lumina-seo.com/tools/image-seo-checker/): Check ALT tags, file sizes, formats, lazy loading, and dimensions for all images on a page.
+- [Semantic HTML](https://lumina-seo.com/tools/semantic-checker/): Analyze HTML5 semantic elements, landmarks, and accessibility structure.
+- [JS vs No-JS](https://lumina-seo.com/tools/js-nojs/): Compare JavaScript-rendered vs non-JS content to understand what AI crawlers see.
+- [Robots.txt Analyzer](https://lumina-seo.com/tools/robots-txt-analyzer/): Parse and validate robots.txt with syntax highlighting and bot access testing.
+- [llms.txt Generator](https://lumina-seo.com/tools/llms-txt-generator/): Generate llms.txt files for AI crawler guidance.
+- [Hreflang Checker](https://lumina-seo.com/tools/hreflang-checker/): Validate hreflang tags, return links, self-references, and language codes.
+- [AI Content Optimizer](https://lumina-seo.com/tools/ai-content-optimizer/): AI-powered content analysis with keyword optimization suggestions.
+
+## Chrome Extension Features
+
+The Lumina Chrome extension provides all of the above plus:
+- On-page SEO audit with live SERP preview
+- Indexation alarm badge (green/yellow/red icon)
+- AI crawler access checking (23 bots including GPTBot, ClaudeBot, PerplexityBot)
+- llms.txt validation
+- Schema JSON-LD deep validation with content matching
+- Google Search Console dashboard
+- Google Analytics 4 dashboard
+- AI Traffic Dashboard
+- Heading highlighting with color-coded badges
+- Full-page screenshots (desktop, mobile, tablet)
+- Local search simulation via UULE parameters
+- Keyboard shortcuts (1-9 for tabs)
+- Dark mode
+
+## Languages
+
+Available in English and German (Deutsch).
+- English: https://lumina-seo.com
+- Deutsch: https://lumina-seo.com/de/
+
+## Privacy
+
+All analysis happens locally in the browser. No backend server, no analytics, no tracking. API keys and OAuth tokens are stored locally in Chrome/browser localStorage.
