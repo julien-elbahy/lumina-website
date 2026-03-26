@@ -58,9 +58,28 @@
 /* Metrics */
 .metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:14px}.mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 4px;text-align:center}.mc .mh{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}.mc p{font-size:18px;font-weight:800;margin-top:1px}
 /* Heading tree */
-.hi{margin-bottom:2px;padding:5px 10px;display:flex;align-items:baseline;gap:6px;border-radius:8px;transition:background .15s}.hi:hover{background:var(--accent-soft)}.ht{font-family:var(--mono);font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;min-width:24px;text-align:center;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-glow);flex-shrink:0}.hx{font-size:12px;color:var(--text2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hi{margin-bottom:2px;padding:5px 10px;display:flex;align-items:center;gap:6px;border-radius:8px;transition:background .15s}.hi:hover{background:var(--accent-soft)}.ht{font-family:var(--mono);font-size:10px;font-weight:800;padding:2px 5px;border-radius:4px;min-width:24px;text-align:center;flex-shrink:0}
+.ht[data-l="1"]{color:#dc2626;background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.2)}
+.ht[data-l="2"]{color:#2563eb;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2)}
+.ht[data-l="3"]{color:#16a34a;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.2)}
+.ht[data-l="4"]{color:#d97706;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.2)}
+.ht[data-l="5"]{color:#7c3aed;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2)}
+.ht[data-l="6"]{color:#9ca3af;background:rgba(156,163,175,.1);border:1px solid rgba(156,163,175,.2)}
+.hx{font-size:12px;color:var(--text2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.h-meta{font-size:10px;color:var(--muted);font-family:var(--mono);white-space:nowrap;flex-shrink:0}
+.hi.is-dup{background:var(--warn-bg);border:1px solid var(--warn-border)}.hi.is-empty .hx{color:var(--err)}
 /* Issues */
 .issue{display:flex;gap:8px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:13px}.issue:last-child{border-bottom:none}.issue-i{width:18px;text-align:center;flex-shrink:0}.issue-t{flex:1;color:var(--text2);line-height:1.5}
+/* Score ring */
+.score-wrap{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px}.score-ring{position:relative;width:70px;height:70px;flex-shrink:0}.score-ring svg{transform:rotate(-90deg)}.score-ring circle{fill:none;stroke-width:5}.score-ring .bg{stroke:var(--border)}.score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset .8s ease}.score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800}.score-info{flex:1}.score-info h3{font-size:16px;font-weight:800;margin-bottom:2px}.score-info p{font-size:12px;color:var(--muted)}
+/* Toolbar */
+.hd-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}.hd-toolbar .act-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;font-family:var(--font)}.hd-toolbar .act-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+/* Keyword check */
+.kw-check{display:flex;gap:8px;margin-bottom:14px;align-items:center}.kw-check input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--text);font-family:var(--font)}.kw-check input:focus{outline:none;border-color:var(--accent)}.kw-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}.kw-badge.found{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}.kw-badge.missing{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border)}
+/* AI section */
+.ai-section{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(236,165,80,.06));border:1px solid rgba(139,92,246,.2);border-radius:16px;padding:20px;margin-top:16px}.ai-section h3{font-size:14px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}.ai-section .ai-badge{background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}.ai-section p{font-size:12px;color:var(--muted);margin-bottom:12px}
+.ai-result{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12px;line-height:1.7;color:var(--text2);white-space:pre-wrap;max-height:400px;overflow-y:auto}
+/* Cross-tool links */
+.cross-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cross-links a{display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);transition:all .2s}.cross-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -307,48 +326,133 @@ function fetchWithFallback(targetUrl){
     });
 }
 
+var WORKER_AI='https://lumina-proxy.julien-elbahy.workers.dev';
+var _lastHeadings=null,_lastUrl='',_lastTitle='',_lastBodyText='';
+
+function scoreRing(score,size){
+  var r=(size-6)/2,c=2*Math.PI*r,off=c-(score/100)*c;
+  var col=score>=80?'var(--ok)':score>=50?'var(--warn)':'var(--err)';
+  var label=score>=80?'Great structure':score>=50?'Needs improvement':'Poor structure';
+  return '<div class="score-wrap"><div class="score-ring" style="width:'+size+'px;height:'+size+'px"><svg width="'+size+'" height="'+size+'"><circle class="bg" cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'"/><circle class="fg" cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'"/></svg><div class="score-val" style="color:'+col+'">'+score+'</div></div><div class="score-info"><h3>'+label+'</h3><p>Heading hierarchy analysis</p></div></div>';
+}
+
+function calcScore(headings,counts,issues){
+  var s=100;
+  if(counts.h1===0)s-=30;else if(counts.h1>1)s-=15;
+  var usedLevels=[];for(var i=1;i<=6;i++)if(counts['h'+i]>0)usedLevels.push(i);
+  for(var j=1;j<usedLevels.length;j++){if(usedLevels[j]-usedLevels[j-1]>1)s-=10}
+  for(var j=1;j<headings.length;j++){if(headings[j].l>headings[j-1].l+1)s-=5}
+  headings.forEach(function(h){if(!h.t)s-=5;if(h.t&&h.t.length>70)s-=3});
+  var texts={};headings.forEach(function(h){if(h.t){var k=h.t.toLowerCase();texts[k]=(texts[k]||0)+1}});
+  Object.values(texts).forEach(function(c){if(c>1)s-=5});
+  if(headings.length===0)s=0;
+  return Math.max(0,Math.min(100,s));
+}
+
 function analyze(url){
 url=url.trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
-document.getElementById('urlIn').value=url;
+document.getElementById('urlIn').value=url;_lastUrl=url;
 var btn=document.getElementById('btnGo');btn.disabled=true;btn.textContent='Analyzing…';
 document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
 fetchWithFallback(url)
 .then(function(data){
 if(data.error)throw new Error(data.error);
 var doc=new DOMParser().parseFromString(data.html,'text/html');
+_lastTitle=(doc.querySelector('title')||{}).textContent||'';
+_lastBodyText=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim().substring(0,3000);
 var headings=[],counts={};
-for(var i=1;i<=6;i++){counts['h'+i]=0;doc.querySelectorAll('h'+i).forEach(function(h){var t=cleanText(h.textContent);headings.push({l:i,t:t});counts['h'+i]++})}
+for(var i=1;i<=6;i++){counts['h'+i]=0;doc.querySelectorAll('h'+i).forEach(function(h){var t=cleanText(h.textContent);var wc=t?t.split(/\s+/).length:0;headings.push({l:i,t:t,chars:t.length,words:wc});counts['h'+i]++})}
+_lastHeadings=headings;
 var issues=[];
 if(counts.h1===0)issues.push({icon:'❌',msg:'No H1 tag found. Every page should have exactly one H1.'});
 else if(counts.h1>1)issues.push({icon:'⚠️',msg:'Multiple H1 tags ('+counts.h1+'). Best practice is one H1 per page.'});
 else issues.push({icon:'✅',msg:'Single H1 found — good.'});
-// Check skipped levels
 var usedLevels=[];for(var i=1;i<=6;i++)if(counts['h'+i]>0)usedLevels.push(i);
 for(var j=1;j<usedLevels.length;j++){if(usedLevels[j]-usedLevels[j-1]>1)issues.push({icon:'⚠️',msg:'Skipped heading level: H'+usedLevels[j-1]+' → H'+usedLevels[j]+'. Consider adding H'+(usedLevels[j-1]+1)+'.'})}
-// Check sequential skips in order
 for(var j=1;j<headings.length;j++){if(headings[j].l>headings[j-1].l+1)issues.push({icon:'⚠️',msg:'Jump from H'+headings[j-1].l+' to H'+headings[j].l+' at "'+esc(headings[j].t.substring(0,50))+'…"'})}
-// Empty headings
 headings.forEach(function(h){if(!h.t)issues.push({icon:'⚠️',msg:'Empty H'+h.l+' tag found.'})});
-// Long headings
 headings.forEach(function(h){if(h.t.length>70)issues.push({icon:'⚠️',msg:'H'+h.l+' is '+h.t.length+' chars — consider shortening: "'+esc(h.t.substring(0,60))+'…"'})});
-var total=headings.length;
+/* Duplicate detection */
+var seen={},dupes=new Set();
+headings.forEach(function(h,i){if(!h.t)return;var k=h.t.toLowerCase();if(seen[k]!==undefined){dupes.add(seen[k]);dupes.add(i);issues.push({icon:'⚠️',msg:'Duplicate H'+h.l+': "'+esc(h.t.substring(0,50))+'…"'})}else seen[k]=i});
+var score=calcScore(headings,counts,issues);
 if(!issues.some(function(i){return i.icon==='❌'||i.icon==='⚠️'}))issues.push({icon:'✅',msg:'Heading structure looks clean!'});
-// Render
-var html='';
-var errCount=issues.filter(function(i){return i.icon==='❌'}).length;
-var warnCount=issues.filter(function(i){return i.icon==='⚠️'}).length;
-if(errCount)html+='<div class="sb er">❌ '+errCount+' error'+(errCount>1?'s':'')+' found</div>';
-else if(warnCount)html+='<div class="sb wn">⚠️ '+warnCount+' warning'+(warnCount>1?'s':'')+'</div>';
-else html+='<div class="sb ok">✅ Heading structure is perfect!</div>';
+
+/* Render */
+var html=scoreRing(score,70);
 html+='<div class="metrics">';for(var i=1;i<=6;i++){var c=counts['h'+i];html+='<div class="mc"><div class="mh">H'+i+'</div><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
 html+='</div>';
+/* Keyword check */
+html+='<div class="kw-check"><input type="text" id="kwInput" placeholder="Enter target keyword to check…"><button class="act-btn" id="btnKwCheck" style="background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer">Check</button></div><div id="kwResult"></div>';
+/* Issues */
 if(issues.length>1||issues[0].icon!=='✅'){html+='<div style="margin-bottom:14px">';issues.forEach(function(i){html+='<div class="issue"><div class="issue-i">'+i.icon+'</div><div class="issue-t">'+i.msg+'</div></div>'});html+='</div>'}
-if(headings.length){html+='<div style="max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:12px;padding:8px">';headings.forEach(function(h){html+='<div class="hi" style="margin-left:'+((h.l-1)*16)+'px"><span class="ht">H'+h.l+'</span><span class="hx">'+(h.t?esc(h.t):'<em style="color:var(--err)">(empty)</em>')+'</span></div>'});html+='</div>'}
+/* Toolbar */
+html+='<div class="hd-toolbar"><button class="act-btn" id="btnCopyOutline">📋 Copy Outline</button><button class="act-btn" id="btnExportCSV">📥 Export CSV</button><button class="act-btn" id="btnCopyReport">📊 Copy Report</button></div>';
+/* Heading tree */
+if(headings.length){html+='<div style="max-height:400px;overflow-y:auto;border:1px solid var(--border);border-radius:12px;padding:8px">';headings.forEach(function(h,idx){
+var cls='hi'+(dupes.has(idx)?' is-dup':'')+((!h.t)?' is-empty':'');
+html+='<div class="'+cls+'" style="margin-left:'+((h.l-1)*16)+'px"><span class="ht" data-l="'+h.l+'">H'+h.l+'</span><span class="hx">'+(h.t?esc(h.t):'<em style="color:var(--err)">(empty)</em>')+'</span><span class="h-meta">'+h.chars+'c / '+h.words+'w</span></div>'});html+='</div>'}
 else html+='<p style="color:var(--muted);text-align:center;padding:20px">No headings found on this page.</p>';
+/* Cross-tool links */
+html+='<div class="cross-links"><a href="/tools/meta-tag-analyzer/?url='+encodeURIComponent(url)+'">🔍 Full Meta Analysis</a><a href="/tools/serp-preview/?url='+encodeURIComponent(url)+'">📱 Snippet Preview</a><a href="/tools/schema-validator/?url='+encodeURIComponent(url)+'">✅ Schema Validation</a><a href="/tools/semantic-checker/?url='+encodeURIComponent(url)+'">🏷️ Semantic HTML</a></div>';
+/* AI section */
+html+='<div class="ai-section"><h3><span class="ai-badge">AI-Powered</span> Heading Optimizer</h3><p>Get AI suggestions to improve your heading structure for SEO and readability.</p><button class="act-btn" id="btnAiHeadings" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer">✨ Optimize Headings with AI</button><div id="aiResult" style="display:none;margin-top:12px"></div></div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
+/* Bind events */
+document.getElementById('btnCopyOutline').addEventListener('click',function(){
+  var txt=headings.map(function(h){return '  '.repeat(h.l-1)+'H'+h.l+': '+h.t}).join('\n');
+  navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopyOutline');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Outline'},1500)})});
+document.getElementById('btnExportCSV').addEventListener('click',function(){
+  var csv='Tag,Text,Characters,Words\n'+headings.map(function(h){return 'H'+h.l+',"'+h.t.replace(/"/g,'""')+'",'+h.chars+','+h.words}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='headings.csv';a.click()});
+document.getElementById('btnCopyReport').addEventListener('click',function(){
+  var rpt='Heading Report: '+url+'\nScore: '+score+'/100\n\n';
+  for(var i=1;i<=6;i++)rpt+='H'+i+': '+counts['h'+i]+'\n';
+  rpt+='\nIssues:\n';issues.forEach(function(is){rpt+=is.icon+' '+is.msg.replace(/<[^>]*>/g,'')+'\n'});
+  rpt+='\nOutline:\n';headings.forEach(function(h){rpt+='  '.repeat(h.l-1)+'H'+h.l+': '+h.t+'\n'});
+  navigator.clipboard.writeText(rpt).then(function(){var b=document.getElementById('btnCopyReport');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📊 Copy Report'},1500)})});
+document.getElementById('btnKwCheck').addEventListener('click',function(){checkKeyword()});
+document.getElementById('kwInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkKeyword()});
+document.getElementById('btnAiHeadings').addEventListener('click',function(){aiOptimize()});
 }).catch(function(e){
 document.getElementById('res').innerHTML='<div class="sb er">❌ '+esc(e.message)+'</div>';document.getElementById('res').style.display='block';
 }).finally(function(){btn.disabled=false;btn.textContent='Analyze Headings';document.getElementById('loading').style.display='none'})}
+
+function checkKeyword(){
+  var kw=document.getElementById('kwInput').value.trim().toLowerCase();if(!kw||!_lastHeadings)return;
+  var res=document.getElementById('kwResult');var html='';
+  var h1s=_lastHeadings.filter(function(h){return h.l===1});
+  var h2s=_lastHeadings.filter(function(h){return h.l===2});
+  var inH1=h1s.some(function(h){return h.t.toLowerCase().indexOf(kw)>=0});
+  var inH2=h2s.some(function(h){return h.t.toLowerCase().indexOf(kw)>=0});
+  var inAny=_lastHeadings.some(function(h){return h.t.toLowerCase().indexOf(kw)>=0});
+  html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">';
+  html+='<span class="kw-badge '+(inH1?'found':'missing')+'">'+(inH1?'✅':'❌')+' H1</span>';
+  html+='<span class="kw-badge '+(inH2?'found':'missing')+'">'+(inH2?'✅':'❌')+' H2</span>';
+  html+='<span class="kw-badge '+(inAny?'found':'missing')+'">'+(inAny?'✅':'❌')+' Any heading</span>';
+  html+='</div>';
+  if(!inH1)html+='<div class="issue"><div class="issue-i">💡</div><div class="issue-t">Keyword "'+esc(kw)+'" not found in H1. Consider including it for better topic relevance.</div></div>';
+  if(!inH2)html+='<div class="issue"><div class="issue-i">💡</div><div class="issue-t">Keyword "'+esc(kw)+'" not found in any H2. Consider adding it to a section heading.</div></div>';
+  res.innerHTML=html;
+}
+
+function aiOptimize(){
+  if(!_lastHeadings||!_lastHeadings.length)return;
+  var btn=document.getElementById('btnAiHeadings');btn.disabled=true;btn.textContent='⏳ Analyzing…';
+  var rd=document.getElementById('aiResult');rd.style.display='none';
+  var kw=document.getElementById('kwInput').value.trim();
+  var outline=_lastHeadings.map(function(h){return 'H'+h.l+': '+h.t}).join('\n');
+  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
+    messages:[{role:'system',content:'You are an expert SEO content strategist specializing in heading structure optimization.\n\nYour task: Analyze the heading structure and suggest improvements.\n\nRules:\n1. Evaluate the current H1 — is it compelling, keyword-rich, and within 60 chars?\n2. Check H2-H3 hierarchy — are there gaps in topic coverage?\n3. Suggest specific rewrites for weak headings\n4. Suggest missing H2/H3 sections that competitors would cover\n5. Ensure headings follow a logical narrative flow\n6. Keep the page language — if headings are in German, respond in German\n7. Format your response clearly with sections: SCORE, ISSUES, SUGGESTED IMPROVEMENTS, MISSING SECTIONS\n8. Be specific — give exact heading text suggestions, not vague advice'},{role:'user',content:'URL: '+_lastUrl+'\nPage title: '+_lastTitle+'\n'+(kw?'Target keyword: '+kw+'\n':'')+'Current heading structure:\n'+outline+'\n\nContent excerpt:\n'+_lastBodyText.substring(0,1500)}],
+    max_tokens:1500
+  })}).then(function(r){return r.json()}).then(function(data){
+    if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    var text=data.choices[0].message.content;
+    rd.innerHTML='<div class="ai-result">'+esc(text)+'</div>';rd.style.display='block';
+  }).catch(function(e){rd.innerHTML='<div class="sb er">❌ '+esc(e.message)+'</div>';rd.style.display='block'})
+  .finally(function(){btn.disabled=false;btn.textContent='✨ Optimize Headings with AI'});
+}
+
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');analyze(params.get('url'))}
 
 </script>
