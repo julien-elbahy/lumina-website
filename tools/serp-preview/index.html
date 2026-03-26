@@ -258,8 +258,9 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <input type="hidden" id="nameIn" value="Lumina SEO">
 <div style="margin-top:10px"><label>Title Tag</label><input type="text" id="titleIn" placeholder="Your page title" maxlength="200"><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="titleBar"></div></div><span class="px-label"><span id="titleChars">0</span> chars · <span id="titlePx">0</span>px <span id="titleSt"></span></span></div></div>
 <div style="margin-top:10px"><label>Meta Description</label><textarea id="descIn" placeholder="Your meta description" maxlength="500" rows="2"></textarea><div class="px-bar-wrap"><div class="px-track"><div class="px-fill" id="descBar"></div></div><span class="px-label"><span id="descChars">0</span> chars · <span id="descPx">0</span>px <span id="descSt"></span></span></div></div>
-<div style="margin-top:10px"><label>Highlight Keywords</label><input type="text" id="kwIn" placeholder="e.g. serp preview tool"></div>
-<div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobile</button><button class="tgl active" data-serp="light">☀️ Light</button><button class="tgl" data-serp="dark">🌙 Dark</button><label class="tgl chk"><input type="checkbox" id="shd"> Export with shadow</label></div>
+<div style="margin-top:10px;margin-bottom:14px"><label>Highlight Keywords</label><input type="text" id="kwIn" placeholder="e.g. serp preview tool"></div>
+<div class="toggles"><button class="tgl active" data-mode="desktop">🖥 Desktop</button><button class="tgl" data-mode="mobile">📱 Mobile</button><button class="tgl active" data-serp="light">☀️ Light</button><button class="tgl" data-serp="dark">🌙 Dark</button></div>
+<div style="text-align:center;margin-bottom:14px"><label class="tgl chk" style="cursor:pointer;font-size:11px;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:6px"><input type="checkbox" id="shd" style="accent-color:var(--accent)"> Export with shadow</label></div>
 <div class="serp-wrap"><div class="serp lt" id="serpEl"><div class="serp-head"><div class="serp-fav"><img id="serpFav" src="data:image/svg+xml,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='8' fill='%23ddd'/%3E%3C/svg%3E" onerror="this.style.display='none'" alt=""></div><div class="serp-info"><div class="serp-name-row"><div class="serp-name" id="serpName">Lumina SEO</div><div class="serp-dots">⋮</div></div><div class="serp-urltext"><span id="serpHost">lumina-seo.com</span><span id="serpPath"></span></div></div></div><div class="serp-title" id="serpT">Your title tag will appear here</div><div class="serp-desc" id="serpD">Your meta description will appear here.</div></div></div>
 <div class="actions"><button class="act-btn" id="bCT">Copy Title</button><button class="act-btn" id="bCD">Copy Desc</button><button class="act-btn" id="bCH">📋 HTML</button><button class="act-btn" id="bSI">💾 Save Image</button><button class="act-btn" id="bCI">📷 Copy Image</button><button class="act-btn" id="bR">↻ Reset</button><button class="act-btn" id="bUndo" style="display:none">↩ Undo</button></div>
 </div>
@@ -426,9 +427,10 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   })
   .then(function(r){return r.json()})
   .then(function(data){
-    if(data.error)throw new Error(data.error);
+    if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var raw=data.choices&&data.choices[0]?data.choices[0].message.content.replace(/```json|```/g,'').trim():'';
+    if(!raw)throw new Error('Empty AI response');
     var kws=JSON.parse(raw).keywords||[];
     if(!kws.length)throw new Error('No keywords detected');
     document.getElementById('aiKwPrimary').value=kws[0];
@@ -448,8 +450,8 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     if(_spAiKeywords[0]){document.getElementById('aiKwPrimary').value=_spAiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_spAiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
     spRenderChips()}catch(e){}
   })
-  .catch(function(e){document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(e.message)+'</p>';document.getElementById('aiKwChips').style.display='block'})
-  .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect'});
+  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(msg)+'</p>';document.getElementById('aiKwChips').style.display='block'})
+  .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'});
 });
 
 document.getElementById('btnAiGenerate').addEventListener('click',function(){
@@ -472,9 +474,10 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
   .then(function(r){return r.json()})
   .then(function(data){
-    if(data.error)throw new Error(data.error);
+    if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var raw=data.choices&&data.choices[0]?data.choices[0].message.content.replace(/```json|```/g,'').trim():'';
+    if(!raw)throw new Error('Empty AI response');
     var r=JSON.parse(raw);window._aiResults=r;
     var h='';
     h+=spAiOpt('Title — Option A',r.title1||'',true,1);
@@ -491,8 +494,8 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
       upd();b.textContent='✓ Applied';setTimeout(function(){b.textContent='Apply'},1500);
     })});
   })
-  .catch(function(e){out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">❌ '+esc(e.message)+'</p>'})
-  .finally(function(){btn.disabled=false;btn.textContent='✨ Generate'});
+  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">'+esc(msg)+'</p>'})
+  .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
