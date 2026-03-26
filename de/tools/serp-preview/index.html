@@ -420,8 +420,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
 
   fetchPromise.then(function(ctx){
     return fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      messages:[{role:'user',content:ctx}],
-      system:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail\n- Include 3-5 semantic synonyms/alternatives\n- Order by likely importance\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}',
+      messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail\n- Include 3-5 semantic synonyms/alternatives\n- Order by likely importance\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:ctx}],
       max_tokens:300
     })});
   })

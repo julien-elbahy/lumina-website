@@ -515,7 +515,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
   var btn=this;btn.disabled=true;btn.textContent='⏳ Detecting…';
   try{
     var snippet=text.substring(0,2000);
-    var data=await aiCall({messages:[{role:'user',content:'CONTENT:\n'+snippet}],system:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}',max_tokens:300});
+    var data=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],max_tokens:300});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var kws=JSON.parse(raw).keywords||[];
     if(!kws.length)throw new Error('No keywords detected');
@@ -550,8 +550,7 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
   var lang=text.match(/[äöüß]/i)?'de':'en';
   var gscCtx=gscContextForPrompt();
   try{
-    var data=await aiCall({messages:[{role:'user',content:'URL: '+(url||'(none)')+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+'Content (first 4000 chars):\n'+text.substring(0,4000)+gscCtx}],
-    system:'You are a senior SEO consultant performing a data-driven content optimization. The page language is "'+lang+'". WRITE ALL OPTIMIZED TEXT IN THE SAME LANGUAGE AS THE ORIGINAL.\n\n'+
+    var data=await aiCall({messages:[{role:'system',content:'You are a senior SEO consultant performing a data-driven content optimization. The page language is "'+lang+'". WRITE ALL OPTIMIZED TEXT IN THE SAME LANGUAGE AS THE ORIGINAL.\n\n'+
       'Primary target keyword: "'+primary+'".\n'+
       (secondary?'Secondary keywords: '+secondary+'\n':'')+
       'OPTIMIZATION RULES (apply strictly):\n'+
@@ -586,7 +585,7 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
       '"before":"EXACT original text (empty string for new_section)",'+
       '"after":"optimized replacement text",'+
       '"reason":"specific explanation: which keyword concept, what volume, why this change improves ranking"}],'+
-      '"readability":{"level":"grade level","avgSentenceLength":0,"suggestion":"specific actionable improvement"}}',
+      '"readability":{"level":"grade level","avgSentenceLength":0,"suggestion":"specific actionable improvement"}}'},{role:'user',content:'URL: '+(url||'(none)')+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+'Content (first 4000 chars):\n'+text.substring(0,4000)+gscCtx}],
     max_tokens:2000});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var r=JSON.parse(raw);
