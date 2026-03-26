@@ -711,8 +711,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
   var headings=d.headings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
 
   fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-    messages:[{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
-    system:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}',
+    messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
     max_tokens:300
   })})
   .then(function(r){return r.json()})

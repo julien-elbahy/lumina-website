@@ -429,8 +429,7 @@ function addAiFix(schemas){
     btn.disabled=true;btn.textContent='⏳ Wird behoben…';
     var issuesList=[];document.querySelectorAll('.ci').forEach(function(ci){var t=ci.querySelector('.ci-t');if(t)issuesList.push(t.textContent)});
     fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      messages:[{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
-      system:'You are a Schema.org/JSON-LD expert. Fix the provided JSON-LD to resolve ALL listed issues.\n\nRules:\n- Keep ALL existing data intact\n- Add missing required/recommended fields with realistic placeholder values\n- Fix date formats to ISO 8601 (YYYY-MM-DD)\n- Fix URLs to be absolute (https://)\n- Fix author/publisher to be objects with @type and name\n- Ensure the output is valid JSON-LD\n\nRespond with ONLY the fixed JSON-LD, no explanation, no markdown fences.',
+      messages:[{role:'system',content:'You are a Schema.org/JSON-LD expert. Fix the provided JSON-LD to resolve ALL listed issues.\n\nRules:\n- Keep ALL existing data intact\n- Add missing required/recommended fields with realistic placeholder values\n- Fix date formats to ISO 8601 (YYYY-MM-DD)\n- Fix URLs to be absolute (https://)\n- Fix author/publisher to be objects with @type and name\n- Ensure the output is valid JSON-LD\n\nRespond with ONLY the fixed JSON-LD, no explanation, no markdown fences.'},{role:'user',content:'JSON-LD to fix:\n```json\n'+raw+'\n```\n\nIssues found:\n'+issuesList.join('\n')}],
       max_tokens:1500
     })}).then(function(r){return r.json()}).then(function(data){
       if(data.error)throw new Error(data.error);
@@ -487,8 +486,7 @@ document.getElementById('btnAiGenSchema').addEventListener('click',function(){
       '- No markdown, no explanation — JSON only';
 
     return fetch(WORKER_BASE+'/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      messages:[{role:'user',content:prompt}],
-      system:'You are a Schema.org structured data expert. Generate production-ready JSON-LD based on webpage content. Always output valid JSON only, no markdown fences.',
+      messages:[{role:'system',content:'You are a Schema.org structured data expert. Generate production-ready JSON-LD based on webpage content. Always output valid JSON only, no markdown fences.'},{role:'user',content:prompt}],
       max_tokens:1500
     })});
   }).then(function(r){return r.json()}).then(function(data){
