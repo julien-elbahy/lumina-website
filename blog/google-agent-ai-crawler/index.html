@@ -55,6 +55,29 @@
 .mobile-menu .mm-links{display:none;flex-shrink:0}
 .mobile-menu .mm-cat.open+.mm-links{display:block}
 @media(max-width:640px){.burger-btn{display:flex}.nr>*:not(.lang-sw){display:none!important}.nr{margin-left:auto;gap:0}.nl img{display:none}.nr::after{content:"|";color:var(--muted);font-weight:300;font-size:16px;margin:0 6px}.tools-sub{display:none!important}}
+/* Hero */
+.article-hero{position:relative;overflow:hidden;padding:60px 24px 48px;text-align:center;background:linear-gradient(135deg,#1a1410 0%,#2a1f15 40%,#1c1914 100%);border-bottom:1px solid var(--border)}
+.article-hero::before{content:'';position:absolute;top:-60px;right:-40px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(236,165,80,.12) 0%,transparent 70%);pointer-events:none}
+.article-hero::after{content:'';position:absolute;bottom:-80px;left:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(236,165,80,.06) 0%,transparent 70%);pointer-events:none}
+[data-theme="light"] .article-hero{background:linear-gradient(135deg,#f0e8dc 0%,#e8dfd0 40%,#f7f4f0 100%)}
+[data-theme="light"] .article-hero::before{background:radial-gradient(circle,rgba(200,122,48,.10) 0%,transparent 70%)}
+[data-theme="light"] .article-hero::after{background:radial-gradient(circle,rgba(200,122,48,.06) 0%,transparent 70%)}
+.article-hero .hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:1}
+.article-hero .hero-cat{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#fff;background:var(--accent);padding:4px 14px;border-radius:20px;margin-bottom:16px}
+.article-hero h1{font-size:clamp(28px,5.5vw,42px);font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px;color:var(--text)}
+.article-hero .hero-desc{font-size:16px;color:var(--muted);line-height:1.6;max-width:600px;margin:0 auto 20px}
+.article-hero .hero-meta{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.article-hero .hero-meta a{color:var(--accent);font-weight:600;text-decoration:none}
+.article-hero .hero-meta a:hover{text-decoration:underline}
+.hero-divider{color:var(--border);font-size:10px}
+/* TOC */
+.article-toc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:32px}
+.article-toc h2{font-size:14px;font-weight:800;margin:0 0 12px;color:var(--text);letter-spacing:-.2px}
+.article-toc ol{margin:0;padding:0 0 0 20px;counter-reset:toc}
+.article-toc li{margin-bottom:6px;font-size:14px;line-height:1.5;color:var(--muted)}
+.article-toc a{color:var(--text2);text-decoration:none;font-weight:500;transition:color .2s}
+.article-toc a:hover{color:var(--accent)}
+@media(max-width:640px){.article-hero{padding:40px 16px 32px}.article-hero h1{font-size:clamp(24px,6vw,32px)}}
 /* Article */
 .article-wrap{max-width:720px;margin:0 auto;padding:40px 24px 60px}
 .article-meta{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.article-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff;background:var(--accent);padding:3px 10px;border-radius:20px}.article-date{color:var(--muted)}.article-read{color:var(--muted)}
@@ -156,14 +179,24 @@
 </div>
 <div class="mm-actions"><button class="mm-theme" onclick="document.getElementById('themeToggle').click()">&#9728;&#65039; Light / Dark</button><button class="mm-settings" onclick="luminaSettings.open()">&#9881;&#65039; Settings</button></div>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
-</div><article class="article-wrap">
-<div class="article-meta">
-<span class="article-cat">AI Search</span>
-<span class="article-date">March 26, 2026</span>
-<span class="article-read">4 min read</span>
-</div>
-
+</div><div class="article-hero"><div class="hero-inner">
+<span class="hero-cat">AI Crawlers</span>
 <h1>Google-Agent: What SEO Professionals Need to Know</h1>
+<p class="hero-desc">Understanding Google's new AI agent crawler and what it means for your website's visibility in the age of agentic search.</p>
+<div class="hero-meta"><a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a><span class="hero-divider">|</span><span>March 24, 2026</span><span class="hero-divider">|</span><span>8 min read</span></div>
+</div></div>
+<article class="article-wrap">
+
+<nav class="article-toc">
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#what-is">What is Google-Agent?</a></li>
+<li><a href="#differences">How it differs from Googlebot and Google-Extended</a></li>
+<li><a href="#impact">What this means for your website</a></li>
+<li><a href="#prepare">How to prepare your site</a></li>
+<li><a href="#bigger-picture">The bigger picture: the agentic web</a></li>
+</ol>
+</nav>
 
 <div class="article-body">
 
@@ -171,7 +204,7 @@
 
 <p>This is not another indexing bot. This is the beginning of the agentic web.</p>
 
-<h2>What is Google-Agent?</h2>
+<h2 id="what-is">What is Google-Agent?</h2>
 
 <p>Google-Agent is a user-agent string for <strong>AI agents hosted on Google infrastructure</strong>. These agents browse websites, click buttons, fill forms, and complete tasks — all directed by a human user. The first product using this technology is <strong>Project Mariner</strong>, Google's AI research prototype that operates within Chrome.</p>
 
@@ -187,7 +220,7 @@
 </ul>
 </div>
 
-<h2>How it differs from Googlebot and Google-Extended</h2>
+<h2 id="differences">How it differs from Googlebot and Google-Extended</h2>
 
 <p>The Google crawler ecosystem now has three distinct agents with very different purposes:</p>
 
@@ -199,7 +232,7 @@
 
 <p>The critical difference: Google-Agent represents a <strong>real user's intent</strong>. Blocking it could mean blocking potential customers whose AI assistant is trying to interact with your business.</p>
 
-<h2>What this means for your website</h2>
+<h2 id="impact">What this means for your website</h2>
 
 <p>The implications depend on your business model:</p>
 
@@ -212,7 +245,7 @@
 <h3>Privacy-sensitive sites</h3>
 <p>If your site handles sensitive data (banking, healthcare), you may want to evaluate whether AI agent interactions align with your security requirements. Google-Agent can be controlled via robots.txt.</p>
 
-<h2>How to prepare your site</h2>
+<h2 id="prepare">How to prepare your site</h2>
 
 <p>Here are three concrete steps you should take now:</p>
 
@@ -238,7 +271,7 @@ Disallow: /api/
 <h3>3. Review your WAF/CDN rules</h3>
 <p>If you use Cloudflare, AWS WAF, or similar services, verify that your bot protection rules don't block Google-Agent. Google publishes its IP ranges so you can allowlist them.</p>
 
-<h2>The bigger picture: the agentic web</h2>
+<h2 id="bigger-picture">The bigger picture: the agentic web</h2>
 
 <p>Google-Agent is not an isolated development. OpenAI has <code>ChatGPT-User</code> and <code>OAI-SearchBot</code>. Anthropic has <code>Claude-User</code>. The pattern is clear: AI companies are building agents that browse the web on behalf of users.</p>
 

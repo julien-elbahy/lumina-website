@@ -57,6 +57,35 @@
 .mobile-menu .mm-links{display:none;flex-shrink:0}
 .mobile-menu .mm-cat.open+.mm-links{display:block}
 @media(max-width:640px){.burger-btn{display:flex}.nr>*:not(.lang-sw){display:none!important}.nr{margin-left:auto;gap:0}.nl img{display:none}.nr::after{content:"|";color:var(--muted);font-weight:300;font-size:16px;margin:0 6px}.tools-sub{display:none!important}}
+/* Hero */
+.article-hero{position:relative;overflow:hidden;padding:60px 24px 48px;text-align:center;background:linear-gradient(135deg,#1a1410 0%,#2a1f15 40%,#1c1914 100%);border-bottom:1px solid var(--border)}
+.article-hero::before{content:'';position:absolute;top:-60px;right:-40px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(236,165,80,.12) 0%,transparent 70%);pointer-events:none}
+.article-hero::after{content:'';position:absolute;bottom:-80px;left:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(236,165,80,.06) 0%,transparent 70%);pointer-events:none}
+[data-theme="light"] .article-hero{background:linear-gradient(135deg,#f0e8dc 0%,#e8dfd0 40%,#f7f4f0 100%)}
+[data-theme="light"] .article-hero::before{background:radial-gradient(circle,rgba(200,122,48,.10) 0%,transparent 70%)}
+[data-theme="light"] .article-hero::after{background:radial-gradient(circle,rgba(200,122,48,.06) 0%,transparent 70%)}
+.article-hero .hero-inner{max-width:720px;margin:0 auto;position:relative;z-index:1}
+.article-hero .hero-cat{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#fff;background:var(--accent);padding:4px 14px;border-radius:20px;margin-bottom:16px}
+.article-hero h1{font-size:clamp(28px,5.5vw,42px);font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px;color:var(--text)}
+.article-hero .hero-desc{font-size:16px;color:var(--muted);line-height:1.6;max-width:600px;margin:0 auto 20px}
+.article-hero .hero-meta{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.article-hero .hero-meta a{color:var(--accent);font-weight:600;text-decoration:none}
+.article-hero .hero-meta a:hover{text-decoration:underline}
+.hero-divider{color:var(--border);font-size:10px}
+/* Byline */
+.article-byline{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.article-byline .byline-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.article-byline .byline-text{font-size:13px;color:var(--muted);line-height:1.4}
+.article-byline .byline-text strong{color:var(--text);font-weight:700}
+.article-byline .byline-text a{color:var(--accent);text-decoration:none;font-weight:600}
+/* TOC */
+.article-toc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:32px}
+.article-toc h2{font-size:14px;font-weight:800;margin:0 0 12px;color:var(--text);letter-spacing:-.2px}
+.article-toc ol{margin:0;padding:0 0 0 20px;counter-reset:toc}
+.article-toc li{margin-bottom:6px;font-size:14px;line-height:1.5;color:var(--muted)}
+.article-toc a{color:var(--text2);text-decoration:none;font-weight:500;transition:color .2s}
+.article-toc a:hover{color:var(--accent)}
+@media(max-width:640px){.article-hero{padding:40px 16px 32px}.article-hero h1{font-size:clamp(24px,6vw,32px)}}
 /* Article */
 .article-wrap{max-width:720px;margin:0 auto;padding:40px 24px 60px}
 .article-meta{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;font-size:13px;color:var(--muted)}.article-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff;background:var(--accent);padding:3px 10px;border-radius:20px}.article-date{color:var(--muted)}.article-read{color:var(--muted)}
@@ -160,20 +189,34 @@
 </div>
 <div class="mm-actions"><button class="mm-theme" onclick="document.getElementById('themeToggle').click()">&#9728;&#65039; Light / Dark</button><button class="mm-settings" onclick="luminaSettings.open()">&#9881;&#65039; Settings</button></div>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
-</div><article class="article-wrap">
-<div class="article-meta">
-<span class="article-cat">Core Updates</span>
-<span class="article-date">March 27, 2026</span>
-<span class="article-read">18 min read</span>
-</div>
-
+</div><div class="article-hero"><div class="hero-inner">
+<span class="hero-cat">Core Updates</span>
 <h1>Google March 2026 Core Update: A Strategic Realignment of Organic Search</h1>
+<p class="hero-desc">An expert analysis of the Gemini 4.0 Semantic Filter, stricter E-E-A-T requirements, and the new 150ms INP threshold.</p>
+<div class="hero-meta"><a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a><span class="hero-divider">|</span><span>March 27, 2026</span><span class="hero-divider">|</span><span>18 min read</span></div>
+</div></div>
+<article class="article-wrap">
+
+<nav class="article-toc">
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#timeline">The Timeline of Algorithmic Upheavals in Spring 2026</a></li>
+<li><a href="#gemini">Technological Innovations: Gemini 4.0 and the Semantic Filter</a></li>
+<li><a href="#spam">The Spam Update: Surgical Precision via SpamBrain</a></li>
+<li><a href="#inp">The New INP Threshold: Technical Excellence as a Ranking Prerequisite</a></li>
+<li><a href="#authority">The Crisis of Authority: Why Amazon and Zara Lost</a></li>
+<li><a href="#eeat">E-E-A-T and the Materialization of Authorship</a></li>
+<li><a href="#dach">Regional Specifics: The DACH Market Under the Microscope</a></li>
+<li><a href="#recommendations">Strategic Recommendations for Post-Update Management</a></li>
+<li><a href="#conclusion">Conclusion: From Search Engine to Answer Engine</a></li>
+</ol>
+</nav>
 
 <div class="article-body">
 
 <p>The digital information landscape underwent a transformation in Q1 2026 that eclipses the algorithmic upheavals of the past decade in both depth and speed. With the rollout of the March 2026 Core Update, Google has ushered in a new era of AI-driven quality assurance that not only redefines content relevance but also dramatically raises the technical bar for web properties. This analysis examines the multidimensional impact of this update, released nearly simultaneously with a specialized spam update and immediately following a fundamental overhaul of the Google Discover algorithm. The focus is on the shift from a purely reactive search engine toward a proactive recommendation and answer platform that prioritizes genuine value and human expertise over scaled automation.</p>
 
-<h2>The Timeline of Algorithmic Upheavals in Spring 2026</h2>
+<h2 id="timeline">The Timeline of Algorithmic Upheavals in Spring 2026</h2>
 
 <p>March 2026 marks the culmination of a series of system updates that strategically built upon one another. The sequence began with the <strong>Google Discover Core Update</strong> launched on February 5, 2026, which for the first time exclusively targeted the recommendation systems in personalized feeds. Only after this three-week phase concluded did the actual <strong>Broad Core Update</strong> begin on March 6, 2026, recalibrating all of global search over a period of approximately 21 days. This temporal density is unusual and signals Google's high confidence in the efficiency of its new AI-based evaluation infrastructure.</p>
 
@@ -190,7 +233,7 @@
 </table>
 </div>
 
-<h2>Technological Innovations: Gemini 4.0 and the Semantic Filter</h2>
+<h2 id="gemini">Technological Innovations: Gemini 4.0 and the Semantic Filter</h2>
 
 <p>At the core of the March 2026 Core Update is the first widespread integration of the <strong>Gemini 4.0 Semantic Filter</strong>. This system represents a quantum leap in natural language processing (NLP), capable of distinguishing the nuances between fluently written AI-generated mass content and deeply insightful expert literature. The filter acts as a cognitive gatekeeper, comparing the actual information value of a document against the knowledge already available in the index.</p>
 
@@ -214,7 +257,7 @@
 </table>
 </div>
 
-<h2>The Spam Update: Surgical Precision via SpamBrain</h2>
+<h2 id="spam">The Spam Update: Surgical Precision via SpamBrain</h2>
 
 <p>While the Core Update reassessed relevance and quality, the Spam Update launched on March 24, 2026 served as an aggressive enforcement of existing policies. What makes this update historically significant is its unprecedented speed: the global rollout was completed in just <strong>19 hours and 30 minutes</strong>. This efficiency is attributable to the advanced <strong>SpamBrain</strong> system, an AI model trained to identify and neutralize manipulative patterns in real time.</p>
 
@@ -222,13 +265,13 @@
 
 <p>Interestingly, link spam and Site Reputation Abuse were not primarily addressed in this specific 24-hour window, as these issues are handled by separate, continuously running systems. This underscores the increasing compartmentalization of Google's algorithms: rather than solving everything in one sweeping update, Google deploys highly specialized, rapid interventions against specific abuse patterns.</p>
 
-<h2>The New INP Threshold: Technical Excellence as a Ranking Prerequisite</h2>
+<h2 id="inp">The New INP Threshold: Technical Excellence as a Ranking Prerequisite</h2>
 
 <p>A technical detail often overlooked in broader coverage but of highest priority for SEO consultants concerns the adjustment of <strong>Core Web Vitals</strong>. During the March 2026 Core Update, Google was observed to have lowered the critical threshold for <strong>Interaction to Next Paint (INP)</strong> from 200ms to <strong>150ms</strong>. Websites whose response time for user interactions exceeds this new mark must expect measurable ranking losses.</p>
 
 <p>This tightening reflects rising user expectations for interactivity, particularly on mobile devices. With approximately 70% to 80% of global search traffic coming through mobile endpoints, Google no longer views technical performance as an optional extra but as an integral component of content quality. A slow, sluggish interface is interpreted by the algorithm as a signal of poor user experience, which can override content relevance in borderline cases.</p>
 
-<h2>The Crisis of Authority: Why Amazon and Zara Lost</h2>
+<h2 id="authority">The Crisis of Authority: Why Amazon and Zara Lost</h2>
 
 <p>One of the most surprising findings from the March update analysis is that <strong>high domain authority alone no longer shields against visibility losses</strong>. Prominent examples include Amazon (-14%) and Zara (-24%), which despite their immense brand power recorded declines. The reason lies in the insufficient alignment of content with specific search intent.</p>
 
@@ -248,19 +291,19 @@
 </table>
 </div>
 
-<h2>E-E-A-T and the Materialization of Authorship</h2>
+<h2 id="eeat">E-E-A-T and the Materialization of Authorship</h2>
 
 <p>E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) requirements were tightened again in March 2026. Particularly in sensitive areas like health, finance, and law (<strong>YMYL — Your Money or Your Life</strong>), Google now demands explicit proof of professional competence. A study conducted during the update found that <strong>72% of top-ranking pages</strong> display detailed author references and expert biographies, compared to 58% before the update.</p>
 
 <p>Google increasingly uses <strong>Person schema data</strong> and cross-references with other trusted sources to verify an author's identity and expertise. Anonymous advice sites or portals with fictitious author profiles have no survival chance in the new ecosystem. The strategy for 2026 must therefore be: away from the anonymous content farm, toward personalized expert publications.</p>
 
-<h2>Regional Specifics: The DACH Market Under the Microscope</h2>
+<h2 id="dach">Regional Specifics: The DACH Market Under the Microscope</h2>
 
 <p>For the German-speaking region (Germany, Austria, Switzerland), the updates present specific challenges. While the February Discover update was initially US-focused, the rollout of new localization signals for the DACH region is firmly planned for this year. This means geographic relevance will become an even stronger factor for visibility in mobile feeds.</p>
 
 <p>Companies in Germany and Austria should increasingly invest in <strong>location-specific landing pages</strong>, as Google increasingly favors these over global main domains. A local emergency plumber in Berlin, for example, will rank better through a dedicated Berlin subpage with genuine local references than through a generic nationwide page. Additionally, <strong>"Green SEO"</strong> is gaining importance in the DACH region: websites that are demonstrably resource-efficient could enjoy long-term advantages in user favor and thus in rankings.</p>
 
-<h2>Strategic Recommendations for Post-Update Management</h2>
+<h2 id="recommendations">Strategic Recommendations for Post-Update Management</h2>
 
 <p>Recovery from a Core Update loss is not a quick process. Google emphasizes that it can take months for automated systems to recognize quality improvements. However, immediate activism after the update is counterproductive. SEO teams should wait at least one week for data to stabilize before making deep structural changes.</p>
 
@@ -283,7 +326,7 @@
 
 <p>Technical response time (INP) must be prioritized. This often requires collaboration between SEO and engineering teams to reduce JavaScript bloat and optimize critical paths. The use of CDNs and modern cloud hosting is no longer a luxury in 2026 — it's a prerequisite for SEO success.</p>
 
-<h2>Conclusion: From Search Engine to Answer Engine</h2>
+<h2 id="conclusion">Conclusion: From Search Engine to Answer Engine</h2>
 
 <p>The Google March 2026 Core Update is more than a routine adjustment. It is the algorithmic response to the flood of generic AI content and marks the transition to a web where only genuine expertise and significant information gain matter. The era of easy shortcuts through scaled automation is definitively over.</p>
 
