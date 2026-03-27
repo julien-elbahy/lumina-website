@@ -101,7 +101,10 @@
 .ai-kw-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.ai-kw-row input{flex:1;min-width:180px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.ai-kw-row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .quota-bar{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:var(--mono)}
 .btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.btn-sm{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}.btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-sm:disabled{opacity:.4;cursor:default;transform:none}
-.score-ring{width:80px;height:80px;margin:0 auto 8px}
+.score-ring{width:90px;height:90px;margin:0 auto 6px}.score-ring-wrap{text-align:center;margin-bottom:14px}.score-ring-wrap .score-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+.heading-tree{margin-top:12px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px}.heading-tree .ht-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--accent);margin-bottom:8px}.heading-tree .ht-row{font-size:12px;padding:3px 0;color:var(--text2);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.heading-tree .ht-row.h1{font-weight:800;color:var(--text);font-size:13px}.heading-tree .ht-row.h2{padding-left:16px}.heading-tree .ht-row.h3{padding-left:32px;color:var(--muted)}.heading-tree .ht-row.h4{padding-left:48px;color:var(--muted);font-size:11px}.heading-tree .ht-tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 4px;border-radius:4px;margin-right:6px;border:1px solid var(--border);color:var(--muted);min-width:22px;text-align:center}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .ai-section{margin-top:16px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:14px}.ai-section h3{font-size:14px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}.ai-section .ai-icon{font-size:16px}
 .ai-suggestions{font-size:13px;color:var(--text2);line-height:1.8}.ai-suggestions ul{margin:8px 0;padding-left:18px}.ai-suggestions li{margin-bottom:6px;color:var(--text2)}.ai-suggestions strong{color:var(--text)}
 .meta-gen{margin-top:12px}.meta-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;position:relative}.meta-card .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}.meta-card p{font-size:13px;color:var(--text);font-family:var(--mono);line-height:1.6;word-break:break-word}.meta-card .copy-btn{position:absolute;top:8px;right:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s}.meta-card .copy-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -223,7 +226,7 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">KI-gestütztes SEO-Tool</div><h1>KI Content Optimierer</h1><p>Füge deinen Inhalt ein oder rufe ihn von einer URL ab. Keywords automatisch erkennen mit Suchvolumen, Google Search Console für echte Ranking-Daten verbinden, dann KI-gestützte Optimierung. 10 kostenlose KI-Abfragen pro Tag.</p></div>
+<div class="th"><div class="lb">KI-gestütztes SEO-Tool</div><h1>KI Content Optimierer</h1><p>Füge deinen Inhalt ein oder rufe ihn von einer URL ab. Keywords automatisch erkennen mit Suchvolumen, Google Search Console für echte Ranking-Daten verbinden, dann KI-gestützte Optimierungsvorschläge erhalten.</p></div>
 <div class="cd" style="padding:12px 16px;margin-bottom:8px">
 <div id="gscConnect" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
 <button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0">🔗 GSC verbinden</button>
@@ -262,14 +265,24 @@
 </div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics" style="grid-template-columns:repeat(5,1fr)">
+<div class="section-label">📊 Content-Analyse</div>
+<div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
+<div class="score-ring-wrap"><svg class="score-ring" viewBox="0 0 36 36"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="var(--border)" stroke-width="2.5"/><path id="scoreArc" d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-dasharray="0, 100" stroke-linecap="round"/><text x="18" y="20" id="scoreText" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="800" font-family="var(--font)">—</text></svg><div class="score-label">SEO-Score</div></div>
+<div style="flex:1;min-width:0">
+<div class="metrics" style="grid-template-columns:repeat(4,1fr)">
 <div class="metric"><div class="mh">Wörter</div><p id="mWords">0</p></div>
 <div class="metric"><div class="mh">Sätze</div><p id="mSent">0</p></div>
 <div class="metric"><div class="mh">Lesbarkeit</div><p id="mRead">—</p></div>
 <div class="metric"><div class="mh">KW-Dichte</div><p id="mDens">—</p></div>
-<div class="metric"><div class="mh">Score</div><p id="mScore">—</p></div>
 </div>
 <div class="density-bar" id="densityBars"></div>
+</div>
+</div>
+<div id="headingTree"></div>
+<div class="toolbar" id="analysisToolbar" style="display:none">
+<button class="tb-btn" id="btnCopyAnalysis">📋 Kopieren</button>
+<button class="tb-btn" id="btnReport">📄 Bericht</button>
+</div>
 </div>
 <div id="aiRes" style="display:none"></div>
 <div id="metaRes" style="display:none"></div>
@@ -277,7 +290,7 @@
 
 <div class="content">
 <h2>So funktioniert es</h2>
-<p>Gib deinen Inhalt und Zielkeyword ein. Das Tool berechnet sofort Wortanzahl, Satzanzahl, Keyword-Dichte und Lesbarkeit (Flesch-Kincaid Näherung). Nutze dann die KI-Buttons für Optimierungsvorschläge und Meta-Titel/Beschreibungs-Ideen von GPT — 10 kostenlose Abfragen pro Tag, oder nutze deinen eigenen OpenAI API Key für unbegrenzten Zugriff.</p>
+<p>Gib deinen Inhalt und Zielkeyword ein. Das Tool berechnet sofort Wortanzahl, Satzanzahl, Keyword-Dichte, Lesbarkeit (Flesch-Kincaid) und einen SEO-Score. Per URL-Abruf siehst du auch die Überschriften-Struktur. Nutze dann die KI-Buttons für Optimierungsvorschläge und Meta-Titel/Beschreibungs-Generierung.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/keyword-research/"><h3>Keyword-Recherche</h3><p>Volumen, CPC & Wettbewerbsdaten.</p></a><a href="/de/tools/serp-preview/"><h3>Snippet-Vorschau</h3><p>Vorschau deines Google-Ergebnisses.</p></a><a href="/de/tools/semantic-checker/"><h3>Semantisches HTML</h3><p>Semantische Struktur prüfen.</p></a></div>
 <div class="faq-item"><div class="faq-q">Wie funktioniert die Bewertung?<span class="arrow">+</span></div><div class="faq-a">Der Content-Score kombiniert Keyword-Dichte (ideal: 1–3%), Lesbarkeit (Flesch-Kincaid), Inhaltslänge (300+ Wörter empfohlen) und Satzvarianz. Höhere Scores zeigen bessere On-Page-SEO-Ausrichtung für dein Zielkeyword.</div></div>
@@ -461,6 +474,7 @@ async function aiCall(body){
   return data;
 }
 
+var _fetchedHeadings=[];
 document.getElementById('btnFetchUrl').addEventListener('click',function(){
   var url=document.getElementById('urlIn').value.trim();
   if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;
@@ -471,6 +485,11 @@ document.getElementById('btnFetchUrl').addEventListener('click',function(){
     var doc=new DOMParser().parseFromString(data.html,'text/html');
     var body=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim();
     if(body.length>50)document.getElementById('contentIn').value=body.substring(0,8000);
+    _fetchedHeadings=[];
+    doc.querySelectorAll('h1,h2,h3,h4').forEach(function(h){
+      var txt=h.textContent.trim();
+      if(txt.length>0&&txt.length<200)_fetchedHeadings.push({tag:h.tagName.toLowerCase(),text:txt});
+    });
   }).catch(function(e){alert('Konnte nicht abgerufen werden: '+e.message)}).finally(function(){btn.disabled=false;btn.textContent='Von URL laden'});
 });
 
@@ -486,15 +505,33 @@ function runAnalysis(){
   document.getElementById('mRead').style.color=read>=60?'var(--ok)':read>=40?'var(--warn)':'var(--err)';
   document.getElementById('mDens').textContent=kw?dens.pct.toFixed(1)+'%':'—';
   document.getElementById('mDens').style.color=kw?(dens.pct>=0.5&&dens.pct<=3?'var(--ok)':dens.pct>3&&dens.pct<=5?'var(--warn)':'var(--err)'):'var(--text)';
-  document.getElementById('mScore').textContent=score+'/100';
-  document.getElementById('mScore').style.color=score>=70?'var(--ok)':score>=40?'var(--warn)':'var(--err)';
+  // Score ring
+  var sCol=score>=70?'var(--ok)':score>=40?'var(--warn)':'var(--err)';
+  document.getElementById('scoreArc').setAttribute('stroke',sCol);
+  document.getElementById('scoreArc').setAttribute('stroke-dasharray',score+', 100');
+  document.getElementById('scoreText').textContent=score;
+  document.getElementById('scoreText').setAttribute('fill',sCol);
   var bars='';
   if(kw){var words=text.toLowerCase().split(/\s+/);var freq={};words.forEach(function(w){w=w.replace(/[^a-zäöüß0-9-]/gi,'');if(w.length>2)freq[w]=(freq[w]||0)+1});var sorted=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,8);var maxFreq=sorted.length?sorted[0][1]:1;var kwEntry=kw.toLowerCase();if(!sorted.some(function(e){return e[0]===kwEntry})&&dens.count>0)sorted.unshift([kwEntry,dens.count]);sorted.forEach(function(e){var pct=(e[1]/maxFreq)*100;var isKw=e[0]===kwEntry;bars+='<div class="density-row"><span class="density-label"'+(isKw?' style="color:var(--accent)"':'')+'>'+e[0]+'</span><div class="density-track"><div class="density-fill" style="width:'+pct+'%;background:'+(isKw?'var(--accent)':'var(--border-h)')+'"></div></div><span class="density-val">'+e[1]+'×</span></div>'})}
   document.getElementById('densityBars').innerHTML=bars;
+  // Heading tree
+  var htEl=document.getElementById('headingTree');
+  if(_fetchedHeadings.length){
+    var ht='<div class="heading-tree"><div class="ht-title">Überschriften-Struktur ('+_fetchedHeadings.length+' Überschriften)</div>';
+    var h1Count=_fetchedHeadings.filter(function(h){return h.tag==='h1'}).length;
+    if(h1Count===0)ht+='<div style="font-size:11px;color:var(--err);margin-bottom:6px">⚠ Kein H1 gefunden</div>';
+    else if(h1Count>1)ht+='<div style="font-size:11px;color:var(--warn);margin-bottom:6px">⚠ Mehrere H1-Tags ('+h1Count+')</div>';
+    _fetchedHeadings.forEach(function(h){
+      ht+='<div class="ht-row '+h.tag+'"><span class="ht-tag">'+h.tag.toUpperCase()+'</span>'+esc(h.text.substring(0,80))+(h.text.length>80?'…':'')+'</div>';
+    });
+    ht+='</div>';htEl.innerHTML=ht;
+  }else{htEl.innerHTML=''}
+  // Toolbar
+  document.getElementById('analysisToolbar').style.display='flex';
   document.getElementById('res').style.display='block';
   document.getElementById('btnOptimize').disabled=false;
   document.getElementById('btnMeta').disabled=false;
-  analysisData={text:text,kw:kw,sec:document.getElementById('kwSecondary').value.trim(),wc:wc,sc:sc,read:read,dens:dens,score:score,url:document.getElementById('urlIn').value.trim()};
+  analysisData={text:text,kw:kw,sec:document.getElementById('kwSecondary').value.trim(),wc:wc,sc:sc,read:read,dens:dens,score:score,url:document.getElementById('urlIn').value.trim(),headings:_fetchedHeadings};
 }
 
 function renderChips(){
@@ -557,7 +594,7 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
   var url=document.getElementById('urlIn').value.trim();
   var btn=this;btn.disabled=true;btn.textContent='⏳ Optimierung…';
   var out=document.getElementById('aiRes');out.style.display='block';
-  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w90"></div><div class="skel w70"></div>';
+  out.innerHTML='<div class="section-label">✨ KI-Optimierung</div><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w90"></div><div class="skel w70"></div>';
   var lang=text.match(/[äöüß]/i)?'de':'en';
   var gscCtx=gscContextForPrompt();
   try{
@@ -600,7 +637,7 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
     max_tokens:2000});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var r=JSON.parse(raw);
-    var h='';
+    var h='<div class="section-label">✨ KI-Optimierung</div>';
     var sclB=(r.score_before||0)>=75?'good':(r.score_before||0)>=50?'mid':'bad';
     var sclA=(r.score_after||0)>=75?'good':(r.score_after||0)>=50?'mid':'bad';
     h+='<div class="ai-card" style="text-align:center"><div style="display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:6px"><div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Vorher</div><span class="ai-score '+sclB+'">'+(r.score_before||'?')+'</span></div><div style="font-size:20px;color:var(--muted)">→</div><div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Nachher</div><span class="ai-score '+sclA+'">'+(r.score_after||'?')+'</span></div></div><p style="font-size:13px;color:var(--text);margin:4px 0 0">'+esc(r.summary||'')+'</p></div>';
@@ -648,12 +685,12 @@ document.getElementById('btnMeta').addEventListener('click',async function(){
   var url=document.getElementById('urlIn').value.trim();
   var btn=this;btn.disabled=true;btn.textContent='⏳ Wird generiert…';
   var out=document.getElementById('metaRes');out.style.display='block';
-  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div>';
+  out.innerHTML='<div class="section-label">📝 Meta-Tags</div><div class="skel w90"></div><div class="skel w70"></div>';
   try{
     var data=await aiCall({messages:[{role:'user',content:'Target keyword: "'+primary+'"\n'+(url?'URL: '+url+'\n':'')+'Content (first 1500 chars):\n'+text.substring(0,1500)+'\n\nRespond with ONLY valid JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}\n\nRules:\n- Detect language from content. WRITE IN SAME LANGUAGE.\n- title1, title2: STRICT MAX 55 chars, keyword early, compelling\n- desc1, desc2: STRICT MAX 150 chars, keyword + CTA\n- Count chars before outputting'}],max_tokens:500});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var parsed=JSON.parse(raw);
-    var h='<div class="ai-card"><h4>📝 Generierte Meta-Tags</h4>';
+    var h='<div class="section-label">📝 Meta-Tags</div><div class="ai-card"><h4>Generierte Meta-Tags</h4>';
     [['title1','Titel — Option A',true],['title2','Titel — Option B',true],['desc1','Beschreibung — Option A',false],['desc2','Beschreibung — Option B',false]].forEach(function(pair){
       var val=parsed[pair[0]]||'';var isTitle=pair[2];
       var px=pxMeasure(val,isTitle?'20px Arial':'14px Arial');
@@ -669,6 +706,46 @@ document.getElementById('btnMeta').addEventListener('click',async function(){
 document.getElementById('btnAnalyze').addEventListener('click',runAnalysis);
 document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)runAnalysis()});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnFetchUrl').click()});
+
+document.getElementById('btnCopyAnalysis').addEventListener('click',function(){
+  if(!analysisData)return;
+  var d=analysisData;
+  var txt='Content-Analyse'+(d.url?' — '+d.url:'')+'\n';
+  txt+='Score: '+d.score+'/100\n';
+  txt+='Wörter: '+d.wc+' | Sätze: '+d.sc+' | Lesbarkeit: '+d.read+'\n';
+  if(d.kw)txt+='Keyword: "'+d.kw+'" | Dichte: '+d.dens.pct.toFixed(1)+'% ('+d.dens.count+'×)\n';
+  if(d.headings&&d.headings.length){txt+='\nÜberschriften-Struktur:\n';d.headings.forEach(function(h){var indent=h.tag==='h1'?'':h.tag==='h2'?'  ':h.tag==='h3'?'    ':'      ';txt+=indent+h.tag.toUpperCase()+': '+h.text+'\n'})}
+  navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopyAnalysis');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Kopieren'},1500)});
+});
+
+document.getElementById('btnReport').addEventListener('click',function(){
+  if(!analysisData)return;
+  var d=analysisData;
+  var sCol=d.score>=70?'#22c55e':d.score>=40?'#f59e0b':'#ef4444';
+  var w=window.open('','_blank');
+  var h='<html><head><title>Content-Analyse-Bericht'+(d.url?' — '+d.url:'')+'</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a2e;line-height:1.6}h1{font-size:22px;margin-bottom:4px}h2{font-size:16px;margin-top:28px;border-bottom:2px solid #eca550;padding-bottom:4px}.meta{color:#666;font-size:13px;margin-bottom:24px}.score-box{text-align:center;margin:20px 0}.score-num{display:inline-flex;width:80px;height:80px;border-radius:50%;align-items:center;justify-content:center;font-size:28px;font-weight:800;border:4px solid}.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}.metric-box{background:#f8f8f8;border-radius:10px;padding:12px;text-align:center}.metric-box .label{font-size:10px;font-weight:700;text-transform:uppercase;color:#888;letter-spacing:.5px}.metric-box .val{font-size:20px;font-weight:800;margin-top:4px}.ht{margin:12px 0;padding:12px;background:#f8f8f8;border-radius:8px;font-family:monospace;font-size:12px;line-height:1.8}.ht .h1{font-weight:800;font-size:13px}.ht .h2{padding-left:16px}.ht .h3{padding-left:32px;color:#666}.ht .h4{padding-left:48px;color:#999;font-size:11px}.tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;border:1px solid #ddd;color:#888;margin-right:4px;min-width:20px;text-align:center}.warn{color:#f59e0b}.err{color:#ef4444}.ok{color:#22c55e}</style></head><body>';
+  h+='<h1>Content-Analyse-Bericht</h1>';
+  h+='<p class="meta">'+(d.url?'URL: '+d.url+'<br>':'')+'Keyword: "'+esc(d.kw||'—')+'"<br>Datum: '+new Date().toLocaleDateString('de-DE')+' · Erstellt von Lumina SEO</p>';
+  h+='<div class="score-box"><div class="score-num" style="color:'+sCol+';border-color:'+sCol+'">'+d.score+'</div><div style="font-size:11px;color:#888;margin-top:4px">SEO-Score / 100</div></div>';
+  h+='<h2>Metriken</h2><div class="metrics-grid">';
+  h+='<div class="metric-box"><div class="label">Wörter</div><div class="val">'+d.wc.toLocaleString()+'</div></div>';
+  h+='<div class="metric-box"><div class="label">Sätze</div><div class="val">'+d.sc+'</div></div>';
+  var rCol=d.read>=60?'ok':d.read>=40?'warn':'err';
+  h+='<div class="metric-box"><div class="label">Lesbarkeit</div><div class="val '+rCol+'">'+d.read+'</div></div>';
+  if(d.kw){var dCol=d.dens.pct>=0.5&&d.dens.pct<=3?'ok':d.dens.pct>3?'warn':'err';h+='<div class="metric-box"><div class="label">KW-Dichte</div><div class="val '+dCol+'">'+d.dens.pct.toFixed(1)+'%</div></div>'}
+  h+='</div>';
+  if(d.headings&&d.headings.length){
+    var h1c=d.headings.filter(function(x){return x.tag==='h1'}).length;
+    h+='<h2>Überschriften-Struktur ('+d.headings.length+' Überschriften)</h2>';
+    if(h1c===0)h+='<p class="err">⚠ Kein H1-Tag gefunden</p>';
+    else if(h1c>1)h+='<p class="warn">⚠ Mehrere H1-Tags ('+h1c+')</p>';
+    h+='<div class="ht">';
+    d.headings.forEach(function(x){h+='<div class="'+x.tag+'"><span class="tag">'+x.tag.toUpperCase()+'</span>'+esc(x.text)+'</div>'});
+    h+='</div>';
+  }
+  h+='</body></html>';
+  w.document.write(h);w.document.close();
+});
 </script>
 <style>.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}</style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
