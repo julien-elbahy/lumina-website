@@ -17,8 +17,8 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/tools/security-headers/">
-<meta property="og:title" content="Free Link Analyzer – Internal, External & Nofollow | Lumina SEO">
-<meta property="og:description" content="Analyze all links on any webpage. Internal/external classification, nofollow detection, internal link ranking, CSV export.">
+<meta property="og:title" content="Free Security Headers Checker – HTTP Security Analysis | Lumina SEO">
+<meta property="og:description" content="Check HTTP security headers on any website. Analyze HSTS, CSP, X-Frame-Options, Referrer-Policy, and more. Free security score with actionable recommendations.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -68,7 +68,12 @@
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
-.exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Toolbar */
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}
+.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Quota */
+.quota-bar{text-align:center;margin-top:8px;font-size:11px;color:var(--muted);font-family:var(--mono)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -274,7 +279,12 @@
 <div id="secResults"></div>
 <div class="sec-head" style="margin-top:16px">🌐 Response Info</div>
 <div id="respInfo"></div>
-<button class="exp-btn" id="btnCopy">📋 Copy Report</button>
+<div class="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Copy</button>
+<button class="tb-btn" id="btnCSV">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Report</button>
+</div>
+<div class="quota-bar" id="quotaBar"></div>
 </div>
 </div>
 <div class="content">
@@ -316,7 +326,7 @@ var urlIn=document.getElementById('urlIn');
 var btn=document.getElementById('btnGo');
 var loading=document.getElementById('loading');
 var res=document.getElementById('res');
-var lastReport='';
+var lastReport='';var lastData=null;var lastUrl='';
 
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
@@ -369,6 +379,7 @@ function showError(msg){
 }
 
 function renderResults(data){
+  lastData=data;lastUrl=urlIn.value;
   var score=0,maxScore=0,present=0;
   var html='';
   
@@ -436,7 +447,29 @@ function renderResults(data){
 
 document.getElementById('btnCopy').addEventListener('click',function(){
   navigator.clipboard.writeText(lastReport).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500);
+    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500);
+  });
+});
+document.getElementById('btnCSV').addEventListener('click',function(){
+  if(!lastData)return;
+  var lines=['Header,Status,Value'];
+  SEC_HEADERS.forEach(function(h){
+    var val=lastData.security[h.key]||'';
+    var status=val?'Present':'Missing';
+    lines.push('"'+h.name+'","'+status+'","'+(val||'').replace(/"/g,'""')+'"');
+  });
+  var blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='security-headers-'+new URL(lastUrl).hostname+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  var b=document.getElementById('btnCSV');b.textContent='✓ Downloaded!';setTimeout(function(){b.textContent='📊 CSV'},1500)
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  if(!lastReport)return;
+  navigator.clipboard.writeText(lastReport).then(function(){
+    var b=document.getElementById('btnReport');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📄 Report'},1500)
   });
 });
 

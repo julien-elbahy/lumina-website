@@ -6,9 +6,9 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<title>Free Security Headers Checker – HTTP Security Analysis | Lumina SEO</title>
-<meta name="description" content="Check HTTP security headers for any website. HSTS, CSP, X-Frame-Options, Referrer-Policy and more. Server info, tech detection, security score. Free.">
-<meta name="keywords" content="security headers checker, HTTP headers, HSTS checker, CSP checker, X-Frame-Options, security score, server headers">
+<title>Kostenloser Security Headers Checker – HTTP-Sicherheitsanalyse | Lumina SEO</title>
+<meta name="description" content="HTTP-Sicherheitsheader auf jeder Website prüfen. HSTS, CSP, X-Frame-Options, Referrer-Policy und mehr. Server-Infos, Technologie-Erkennung, Sicherheits-Score. Kostenlos.">
+<meta name="keywords" content="security headers checker, HTTP headers, HSTS checker, CSP checker, X-Frame-Options, sicherheits-score, server headers, sicherheitsheader">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/security-headers/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/security-headers/">
@@ -17,13 +17,13 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/de/tools/security-headers/">
-<meta property="og:title" content="Free Link Analyzer – Internal, External & Nofollow | Lumina SEO">
-<meta property="og:description" content="Analyze all links on any webpage. Internal/external classification, nofollow detection, internal link ranking, CSV export.">
+<meta property="og:title" content="Kostenloser Security Headers Checker – HTTP-Sicherheitsanalyse | Lumina SEO">
+<meta property="og:description" content="HTTP-Sicherheitsheader auf jeder Website prüfen. Analysiert HSTS, CSP, X-Frame-Options, Referrer-Policy und mehr. Kostenloser Sicherheits-Score mit Handlungsempfehlungen.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Security Headers Checker","url":"https://lumina-seo.com/de/tools/security-headers/","description":"Free HTTP security headers checker. Analyze HSTS, CSP, X-Frame-Options and more.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Security Headers Checker","url":"https://lumina-seo.com/de/tools/security-headers/","description":"Kostenloser HTTP-Sicherheitsheader-Checker. HSTS, CSP, X-Frame-Options und mehr analysieren.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -69,6 +69,12 @@
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Toolbar */
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}
+.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Quota */
+.quota-bar{text-align:center;margin-top:8px;font-size:11px;color:var(--muted);font-family:var(--mono)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -274,21 +280,26 @@
 <div id="secResults"></div>
 <div class="sec-head" style="margin-top:16px">🌐 Response Info</div>
 <div id="respInfo"></div>
-<button class="exp-btn" id="btnCopy">📋 Bericht kopieren</button>
+<div class="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Kopieren</button>
+<button class="tb-btn" id="btnCSV">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Bericht</button>
 </div>
+</div>
+<div class="quota-bar" id="quotaBar"></div>
 </div>
 <div class="content">
 <h2>Was dieses Tool prüft</h2>
 <p>Dieses Tool sendet einen HEAD-Request an eine URL und analysiert die Response-Headers. Es prüft 10 kritische Security-Headers, die gegen XSS, Clickjacking, MIME-Sniffing und andere Angriffe schützen. Es erkennt auch Server-Software, CDN-Nutzung und Redirect-Ketten.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
-<div class="other-tools"><a href="/de/tools/tech-stack/"><h3>Tech Stack Detector</h3><p>467 Technologien auf jeder Seite erkennen.</p></a><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Full meta tag audit for any URL.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>Check AI & search crawler access.</p></a></div>
+<div class="other-tools"><a href="/de/tools/tech-stack/"><h3>Tech Stack Detector</h3><p>467 Technologien auf jeder Seite erkennen.</p></a><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Vollständiger Meta-Tag-Audit für jede URL.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>KI- und Suchcrawler-Zugriff prüfen.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Was ist HSTS?<span class="arrow">+</span></div><div class="faq-a">HTTP Strict Transport Security weist Browser an, nur über HTTPS zu verbinden. Ohne HSTS könnten Nutzer auf eine unsichere HTTP-Version deiner Seite umgeleitet werden.</div></div>
 <div class="faq-item"><div class="faq-q">Was ist Content-Security-Policy?<span class="arrow">+</span></div><div class="faq-a">CSP steuert, welche Ressourcen (Scripts, Styles, Bilder) auf deiner Seite geladen werden dürfen. Es ist die wichtigste Verteidigung gegen XSS-Angriffe.</div></div>
 <div class="faq-item"><div class="faq-q">Welchen Score sollte ich anstreben?<span class="arrow">+</span></div><div class="faq-a">Ein Score von 80+ ist gut. 90+ ist ausgezeichnet. Konzentriere dich zuerst auf HSTS, CSP und X-Content-Type-Options — diese bieten die größten Sicherheitsverbesserungen.</div></div>
 <div class="faq-item"><div class="faq-q">Beeinflussen Security Headers das SEO?<span class="arrow">+</span></div><div class="faq-a">Indirekt, ja. Google betrachtet HTTPS als Ranking-Signal, und HSTS erzwingt HTTPS. Websites, die von Browsern als unsicher markiert werden, haben auch höhere Absprungraten, was Rankings beeinträchtigen kann. Starke Security Headers stärken das Nutzervertrauen und schützen den Ruf deiner Website.</div></div>
 <div class="faq-item"><div class="faq-q">Was ist der wichtigste Security Header?<span class="arrow">+</span></div><div class="faq-a">Content-Security-Policy (CSP) gilt allgemein als der wichtigste, weil er Cross-Site-Scripting-(XSS)-Angriffe verhindert. HSTS ist ein enger Zweiter, da er sichere HTTPS-Verbindungen erzwingt.</div></div>
-<div class="cta-box"><div class="cta-t">Security-Headers auf jeder Seite</div><p>Lumina checks HTTP status, security headers, and server info automatically — for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="cta-box"><div class="cta-t">Security-Headers auf jeder Seite</div><p>Lumina prüft HTTP-Status, Security Headers und Server-Infos automatisch — kostenlos.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -316,7 +327,7 @@ var urlIn=document.getElementById('urlIn');
 var btn=document.getElementById('btnGo');
 var loading=document.getElementById('loading');
 var res=document.getElementById('res');
-var lastReport='';
+var lastReport='';var lastData=null;var lastUrl='';
 
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
@@ -324,16 +335,16 @@ btn.addEventListener('click',function(){go(urlIn.value)});
 urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)});
 
 var SEC_HEADERS=[
-  {key:'hsts',name:'Strict-Transport-Security',desc:'Forces HTTPS connections',weight:15},
-  {key:'csp',name:'Content-Security-Policy',desc:'Controls resource loading, prevents XSS',weight:20},
-  {key:'xFrameOptions',name:'X-Frame-Options',desc:'Prevents clickjacking',weight:10},
-  {key:'xContentType',name:'X-Content-Type-Options',desc:'Prevents MIME sniffing',weight:10},
-  {key:'referrerPolicy',name:'Referrer-Policy',desc:'Controls referrer information',weight:10},
-  {key:'permissionsPolicy',name:'Permissions-Policy',desc:'Controls browser features',weight:10},
-  {key:'xXssProtection',name:'X-XSS-Protection',desc:'Legacy XSS filter (deprecated but still useful)',weight:5},
-  {key:'crossOriginOpenerPolicy',name:'Cross-Origin-Opener-Policy',desc:'Isolates browsing context',weight:7},
-  {key:'crossOriginEmbedderPolicy',name:'Cross-Origin-Embedder-Policy',desc:'Controls embedded resources',weight:7},
-  {key:'crossOriginResourcePolicy',name:'Cross-Origin-Resource-Policy',desc:'Controls resource sharing',weight:6},
+  {key:'hsts',name:'Strict-Transport-Security',desc:'Erzwingt HTTPS-Verbindungen',weight:15},
+  {key:'csp',name:'Content-Security-Policy',desc:'Kontrolliert Ressourcenladung, verhindert XSS',weight:20},
+  {key:'xFrameOptions',name:'X-Frame-Options',desc:'Verhindert Clickjacking',weight:10},
+  {key:'xContentType',name:'X-Content-Type-Options',desc:'Blockiert MIME-Type-Sniffing',weight:10},
+  {key:'referrerPolicy',name:'Referrer-Policy',desc:'Kontrolliert Referrer-Informationen',weight:10},
+  {key:'permissionsPolicy',name:'Permissions-Policy',desc:'Schränkt Browser-Funktionen ein',weight:10},
+  {key:'xXssProtection',name:'X-XSS-Protection',desc:'XSS-Filter (veraltet)',weight:5},
+  {key:'crossOriginOpenerPolicy',name:'Cross-Origin-Opener-Policy',desc:'Isoliert den Browsing-Kontext',weight:7},
+  {key:'crossOriginEmbedderPolicy',name:'Cross-Origin-Embedder-Policy',desc:'Kontrolliert Cross-Origin-Einbettung',weight:7},
+  {key:'crossOriginResourcePolicy',name:'Cross-Origin-Resource-Policy',desc:'Beschränkt Cross-Origin-Ressourcenzugriff',weight:6},
 ];
 
 
@@ -355,7 +366,7 @@ function go(url){
   .catch(function(e){
     btn.disabled=false;btn.textContent='Sicherheit prüfen';
     loading.style.display='none';
-    showError('Could not check: '+e.message);
+    showError('Konnte nicht überprüft werden: '+e.message);
   });
 }
 
@@ -370,6 +381,7 @@ function showError(msg){
 }
 
 function renderResults(data){
+  lastData=data;lastUrl=urlIn.value;
   var score=0,maxScore=0,present=0;
   var html='';
   
@@ -379,10 +391,10 @@ function renderResults(data){
     var badge,display;
     if(val){
       score+=h.weight;present++;
-      badge='<span class="sec-badge pass">✓ Present</span>';
+      badge='<span class="sec-badge pass">✓ Vorhanden</span>';
       display=esc(val.length>80?val.substring(0,77)+'…':val);
     } else {
-      badge='<span class="sec-badge fail">✗ Missing</span>';
+      badge='<span class="sec-badge fail">✗ Fehlt</span>';
       display='<em style="color:var(--muted)">'+h.desc+'</em>';
     }
     html+='<div class="sec-row"><span class="sec-name">'+h.name+'</span><span class="sec-val">'+display+'</span>'+badge+'</div>';
@@ -409,7 +421,7 @@ function renderResults(data){
   if(data.tech.poweredBy)serverHtml+='<span class="server-tag">X-Powered-By: '+esc(data.tech.poweredBy)+'</span>';
   if(data.tech.cfRay)serverHtml+='<span class="server-tag">☁️ Cloudflare</span>';
   if(data.tech.via)serverHtml+='<span class="server-tag">Via: '+esc(data.tech.via)+'</span>';
-  if(data.redirect.redirected)serverHtml+='<span class="server-tag">↪ Redirected to '+esc(data.redirect.finalUrl.substring(0,50))+'</span>';
+  if(data.redirect.redirected)serverHtml+='<span class="server-tag">↪ Weitergeleitet zu '+esc(data.redirect.finalUrl.substring(0,50))+'</span>';
   serverHtml+='<span class="server-tag">⏱ '+data.time+'ms</span>';
   serverHtml+='</div>';
   document.getElementById('serverInfo').innerHTML=serverHtml;
@@ -424,10 +436,10 @@ function renderResults(data){
   document.getElementById('respInfo').innerHTML=respHtml;
   
   // Build report
-  lastReport='Security Headers Report: '+urlIn.value+'\nScore: '+pct+'%\nHTTP Status: '+sc+'\n\n';
+  lastReport='Security Headers Bericht: '+urlIn.value+'\nScore: '+pct+'%\nHTTP-Status: '+sc+'\n\n';
   SEC_HEADERS.forEach(function(h){
     var val=data.security[h.key];
-    lastReport+=(val?'✓':'✗')+' '+h.name+(val?': '+val:' (MISSING)')+'\n';
+    lastReport+=(val?'✓':'✗')+' '+h.name+(val?': '+val:' (FEHLT)')+'\n';
   });
   if(data.tech.server)lastReport+='\nServer: '+data.tech.server;
   if(data.tech.poweredBy)lastReport+='\nX-Powered-By: '+data.tech.poweredBy;
@@ -437,7 +449,29 @@ function renderResults(data){
 
 document.getElementById('btnCopy').addEventListener('click',function(){
   navigator.clipboard.writeText(lastReport).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Bericht kopieren'},1500);
+    var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Kopieren'},1500);
+  });
+});
+document.getElementById('btnCSV').addEventListener('click',function(){
+  if(!lastData)return;
+  var lines=['Header,Status,Wert'];
+  SEC_HEADERS.forEach(function(h){
+    var val=lastData.security[h.key]||'';
+    var status=val?'Vorhanden':'Fehlt';
+    lines.push('"'+h.name+'","'+status+'","'+(val||'').replace(/"/g,'""')+'"');
+  });
+  var blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='security-headers-'+new URL(lastUrl).hostname+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  var b=document.getElementById('btnCSV');b.textContent='✓ Heruntergeladen!';setTimeout(function(){b.textContent='📊 CSV'},1500)
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  if(!lastReport)return;
+  navigator.clipboard.writeText(lastReport).then(function(){
+    var b=document.getElementById('btnReport');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📄 Bericht'},1500)
   });
 });
 
