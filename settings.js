@@ -341,24 +341,7 @@ document.addEventListener('DOMContentLoaded',function(){
       themeBtn.parentNode.insertBefore(gear,themeBtn);
     }
   }
-  // Mobile menu
-  var mm=document.getElementById('mobileMenu');
-  if(mm){
-    var settingsLink=document.createElement('a');
-    settingsLink.href='#';settingsLink.textContent='⚙️ '+T.title;
-    settingsLink.style.cssText='color:var(--accent)';
-    settingsLink.addEventListener('click',function(e){
-      e.preventDefault();
-      mm.classList.remove('open');
-      document.body.style.overflow='';
-      var burger=document.getElementById('burgerBtn');if(burger)burger.classList.remove('open');
-      window.luminaSettings.open();
-    });
-    // Insert before CWS link
-    var cws=mm.querySelector('.mm-cws');
-    if(cws)mm.insertBefore(settingsLink,cws);
-    else mm.appendChild(settingsLink);
-  }
+  // Mobile menu — settings button already in .mm-actions, no extra link needed
 
   // Auto-inject breadcrumb on tool pages
   var path=location.pathname;
