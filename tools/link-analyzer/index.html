@@ -61,6 +61,7 @@
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}
 @media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
 .filters{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}.fbtn{background:0;border:0;padding:7px 11px;font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:8px;transition:all .2s;letter-spacing:.4px;font-family:var(--font);white-space:nowrap}.fbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 12px var(--accent-glow)}.fbtn:hover:not(.active){color:var(--text);background:var(--accent-soft)}
+.section-toggles{display:flex;gap:12px;margin-bottom:10px;align-items:center;flex-wrap:wrap}.section-toggles label{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;user-select:none}.toggle-sw{position:relative;width:32px;height:18px;display:inline-block}.toggle-sw input{opacity:0;width:0;height:0}.toggle-sl{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--border);border-radius:9px;transition:.2s}.toggle-sl:before{position:absolute;content:"";height:14px;width:14px;left:2px;bottom:2px;background:var(--text);border-radius:50%;transition:.2s}.toggle-sw input:checked+.toggle-sl{background:var(--accent)}.toggle-sw input:checked+.toggle-sl:before{transform:translateX(14px)}
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
@@ -270,6 +271,13 @@
 <div class="ratio-bar" id="ratioBar"></div>
 <div class="ratio-legend" id="ratioLegend"></div>
 <div class="section-head">📋 Link List</div>
+<div class="section-toggles" id="sectionToggles" style="display:none">
+<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Show links from:</span>
+<label><span class="toggle-sw"><input type="checkbox" id="togHeader" checked><span class="toggle-sl"></span></span> Header</label>
+<label><span class="toggle-sw"><input type="checkbox" id="togNav" checked><span class="toggle-sl"></span></span> Navigation</label>
+<label><span class="toggle-sw"><input type="checkbox" id="togFooter" checked><span class="toggle-sl"></span></span> Footer</label>
+<label><span class="toggle-sw"><input type="checkbox" id="togMain" checked><span class="toggle-sl"></span></span> Main Content</label>
+</div>
 <div class="filters" id="filterBar"></div>
 <div class="link-list" id="linkList"></div>
 <div class="toolbar" id="toolbar">
@@ -382,6 +390,17 @@ function showError(msg){
   document.getElementById('mNf').textContent='0';
 }
 
+function getSection(el){
+  var p=el;
+  while(p){
+    if(p.tagName==='HEADER')return 'header';
+    if(p.tagName==='NAV')return 'nav';
+    if(p.tagName==='FOOTER')return 'footer';
+    p=p.parentElement;
+  }
+  return 'main';
+}
+
 function parseLinks(html,pageUrl){
   var doc=new DOMParser().parseFromString(html,'text/html');
   var base;try{base=new URL(pageUrl)}catch(e){base={hostname:'',origin:''}}
@@ -423,7 +442,8 @@ function parseLinks(html,pageUrl){
       isInternal:isInternal,
       nofollow:hasNofollow,
       sponsored:hasSponsored,
-      ugc:hasUgc
+      ugc:hasUgc,
+      section:getSection(a)
     });
   });
 
@@ -466,6 +486,7 @@ function parseLinks(html,pageUrl){
   var filterHtml='';
   filterDefs.forEach(function(f){filterHtml+='<button class="fbtn'+(f.key==='all'?' active':'')+'" data-filter="'+f.key+'">'+f.label+'</button>'});
   document.getElementById('filterBar').innerHTML=filterHtml;
+  document.getElementById('sectionToggles').style.display='flex';
 
   document.querySelectorAll('.fbtn').forEach(function(b){
     b.addEventListener('click',function(){
@@ -475,20 +496,47 @@ function parseLinks(html,pageUrl){
     });
   });
 
+  ['togHeader','togNav','togFooter','togMain'].forEach(function(id){
+    document.getElementById(id).addEventListener('change',function(){
+      applyFilters();
+    });
+  });
+
   renderLinks('all');
   renderRanking(links);
   renderExtRanking(links);
   res.style.display='block';
 }
 
+function getVisibleLinks(){
+  var showHeader=document.getElementById('togHeader').checked;
+  var showNav=document.getElementById('togNav').checked;
+  var showFooter=document.getElementById('togFooter').checked;
+  var showMain=document.getElementById('togMain').checked;
+  return allLinks.filter(function(l){
+    if(l.section==='header'&&!showHeader)return false;
+    if(l.section==='nav'&&!showNav)return false;
+    if(l.section==='footer'&&!showFooter)return false;
+    if(l.section==='main'&&!showMain)return false;
+    return true;
+  });
+}
+
+function applyFilters(){
+  var activeFilter=document.querySelector('.fbtn.active');
+  var filter=activeFilter?activeFilter.getAttribute('data-filter'):'all';
+  renderLinks(filter);
+}
+
 function renderLinks(filter){
-  var filtered=allLinks;
-  if(filter==='int')filtered=allLinks.filter(function(l){return l.isInternal});
-  if(filter==='ext')filtered=allLinks.filter(function(l){return !l.isInternal});
-  if(filter==='nf')filtered=allLinks.filter(function(l){return l.nofollow});
-  if(filter==='sp')filtered=allLinks.filter(function(l){return l.sponsored});
-  if(filter==='ugc')filtered=allLinks.filter(function(l){return l.ugc});
-  if(filter==='notxt')filtered=allLinks.filter(function(l){return !l.text});
+  var visible=getVisibleLinks();
+  var filtered=visible;
+  if(filter==='int')filtered=visible.filter(function(l){return l.isInternal});
+  if(filter==='ext')filtered=visible.filter(function(l){return !l.isInternal});
+  if(filter==='nf')filtered=visible.filter(function(l){return l.nofollow});
+  if(filter==='sp')filtered=visible.filter(function(l){return l.sponsored});
+  if(filter==='ugc')filtered=visible.filter(function(l){return l.ugc});
+  if(filter==='notxt')filtered=visible.filter(function(l){return !l.text});
 
   if(filtered.length===0){
     document.getElementById('linkList').innerHTML='<div class="error-msg"><p>No links match this filter.</p></div>';
