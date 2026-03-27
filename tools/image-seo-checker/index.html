@@ -70,7 +70,12 @@
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
 .error-msg{text-align:center;padding:24px;color:var(--muted)}.error-msg .icon{font-size:24px;margin-bottom:6px}
-.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.badge.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.badge.err{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.badge.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.badge.info{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.2)}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.fmt-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:14px;gap:2px}.fmt-seg{height:100%;border-radius:3px;min-width:3px;transition:width .4s}
+.fmt-legend{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}.fmt-legend span{font-size:10px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:4px}.fmt-legend .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.img-thumb{width:48px;height:48px;border-radius:6px;object-fit:cover;background:var(--bg);border:1px solid var(--border);flex-shrink:0}.img-thumb.broken{display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--muted)}
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
 .img-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px;align-items:flex-start}.img-thumb{width:48px;height:48px;border-radius:6px;object-fit:cover;background:var(--bg);border:1px solid var(--border);flex-shrink:0}.img-info{flex:1;min-width:0}.img-src{font-family:var(--mono);font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.img-alt{margin-top:3px;font-size:12px}.img-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
@@ -257,9 +262,17 @@
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Check Images</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">Total</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">No ALT</div><p id="mNoAlt">0</p></div><div class="metric"><div class="mh">Lazy</div><p id="mLazy">0</p></div><div class="metric"><div class="mh">Modern</div><p id="mModern">0</p></div></div>
-<div id="imgResults"></div>
-<button class="exp-btn" id="btnCsv">📊 CSV Export</button>
+<div class="metrics"><div class="metric"><div class="mh">Total</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">No ALT</div><p id="mNoAlt">0</p></div><div class="metric"><div class="mh">No Lazy</div><p id="mNoLazy">0</p></div><div class="metric"><div class="mh">Modern</div><p id="mModern">0</p></div><div class="metric"><div class="mh">Legacy</div><p id="mLegacy">0</p></div></div>
+<div class="fmt-bar" id="fmtBar"></div>
+<div class="fmt-legend" id="fmtLegend"></div>
+<div class="section-head">🖼 Images</div>
+<div class="filters" id="filterBar"></div>
+<div class="link-list" id="imgResults"></div>
+<div class="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Copy</button>
+<button class="tb-btn" id="btnCsv">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Report</button>
+</div>
 </div>
 </div>
 <div class="content"><h2>Why image SEO matters</h2><p>Images can account for 50%+ of page weight. Missing ALT tags hurt accessibility and SEO. Modern formats (WebP, AVIF) reduce size by 25-50%. Lazy loading defers off-screen images, improving Core Web Vitals.</p>
@@ -324,43 +337,143 @@ function go(url){
   }).catch(function(e){btn.disabled=false;btn.textContent='Check Images';document.getElementById('loading').style.display='none'});
 }
 
+function resolveUrl(src,pageUrl){
+  if(!src)return '';
+  if(src.startsWith('data:'))return src;
+  if(src.startsWith('//'))return 'https:'+src;
+  if(src.startsWith('/'))try{return new URL(src,pageUrl).href}catch(e){return src}
+  if(src.startsWith('http'))return src;
+  try{return new URL(src,pageUrl).href}catch(e){return src}
+}
+
 function parseImages(html,pageUrl){
   var doc=new DOMParser().parseFromString(html,'text/html');
   var imgs=doc.querySelectorAll('img');var results=[];
   imgs.forEach(function(img){
     var src=cleanUrl(img.getAttribute('src')||img.getAttribute('data-src')||'');
-    var alt=cleanText(img.getAttribute('alt')||'');
+    var altAttr=img.getAttribute('alt');
+    var alt=cleanText(altAttr||'');
+    var hasAlt=altAttr!==null&&alt!=='';
     var lazy=img.getAttribute('loading')==='lazy'||img.hasAttribute('data-src')||img.hasAttribute('data-lazy');
-    var ext=src.split('?')[0].split('.').pop().toLowerCase();
+    var ext=src.split('?')[0].split('#')[0].split('.').pop().toLowerCase();
+    if(ext.length>5)ext='unknown';
     var isModern=['webp','avif','svg'].indexOf(ext)>=0;
-    results.push({src:src,alt:alt,hasAlt:alt!==null&&alt!=='',lazy:lazy,format:ext,modern:isModern});
+    var fullSrc=resolveUrl(src,pageUrl);
+    results.push({src:src,fullSrc:fullSrc,alt:alt,hasAlt:hasAlt,lazy:lazy,format:ext,modern:isModern});
   });
   allImgs=results;
   var noAlt=results.filter(function(i){return !i.hasAlt}).length;
   var lazyCount=results.filter(function(i){return i.lazy}).length;
+  var noLazy=results.length-lazyCount;
   var modernCount=results.filter(function(i){return i.modern}).length;
+  var legacyCount=results.length-modernCount;
   document.getElementById('mTotal').textContent=results.length;
   document.getElementById('mNoAlt').textContent=noAlt;
   document.getElementById('mNoAlt').style.color=noAlt>0?'var(--err)':'var(--ok)';
-  document.getElementById('mLazy').textContent=lazyCount;
+  document.getElementById('mNoLazy').textContent=noLazy;
+  document.getElementById('mNoLazy').style.color=noLazy>0?'var(--warn)':'var(--ok)';
   document.getElementById('mModern').textContent=modernCount;
+  document.getElementById('mModern').style.color=modernCount>0?'var(--ok)':'';
+  document.getElementById('mLegacy').textContent=legacyCount;
+  document.getElementById('mLegacy').style.color=legacyCount>0?'var(--warn)':'var(--ok)';
+
+  // Format distribution bar
+  if(results.length>0){
+    var fmtFreq={};
+    results.forEach(function(i){fmtFreq[i.format]=(fmtFreq[i.format]||0)+1});
+    var fmtColors={webp:'var(--ok)',avif:'#6e9eff',svg:'#c390ff',jpg:'var(--warn)',jpeg:'var(--warn)',png:'var(--err)',gif:'#f4c44a',unknown:'var(--muted)'};
+    var barHtml='',legHtml='';
+    Object.entries(fmtFreq).sort(function(a,b){return b[1]-a[1]}).forEach(function(f){
+      var pct=Math.round((f[1]/results.length)*100);
+      var col=fmtColors[f[0]]||'var(--muted)';
+      barHtml+='<div class="fmt-seg" style="width:'+pct+'%;background:'+col+'"></div>';
+      legHtml+='<span><span class="dot" style="background:'+col+'"></span>'+f[0].toUpperCase()+' '+f[1]+'</span>';
+    });
+    document.getElementById('fmtBar').innerHTML=barHtml;
+    document.getElementById('fmtLegend').innerHTML=legHtml;
+  }
+
+  // Filters
+  var filterDefs=[
+    {key:'all',label:'All ('+results.length+')'},
+    {key:'noalt',label:'No ALT ('+noAlt+')'},
+    {key:'nolazy',label:'No Lazy ('+(results.length-lazyCount)+')'},
+    {key:'modern',label:'Modern ('+modernCount+')'},
+    {key:'legacy',label:'Legacy ('+legacyCount+')'}
+  ];
+  var filterHtml='';
+  filterDefs.forEach(function(f){filterHtml+='<button class="fbtn'+(f.key==='all'?' active':'')+'" data-filter="'+f.key+'">'+f.label+'</button>'});
+  document.getElementById('filterBar').innerHTML=filterHtml;
+  document.querySelectorAll('.fbtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      renderImages(b.dataset.filter);
+    });
+  });
+
+  renderImages('all');
+  document.getElementById('res').style.display='block';
+}
+
+function renderImages(filter){
+  var filtered=allImgs;
+  if(filter==='noalt')filtered=allImgs.filter(function(i){return !i.hasAlt});
+  if(filter==='nolazy')filtered=allImgs.filter(function(i){return !i.lazy});
+  if(filter==='modern')filtered=allImgs.filter(function(i){return i.modern});
+  if(filter==='legacy')filtered=allImgs.filter(function(i){return !i.modern});
+  if(filtered.length===0){document.getElementById('imgResults').innerHTML='<div class="error-msg"><p>No images match this filter.</p></div>';return}
   var html='';
-  results.forEach(function(img){
+  filtered.forEach(function(img){
     var tags='<span class="badge '+(img.hasAlt?'ok':'err')+'">'+(img.hasAlt?'ALT ✓':'NO ALT')+'</span>';
     tags+=' <span class="badge info">'+esc(img.format.toUpperCase())+'</span>';
     if(img.lazy)tags+=' <span class="badge ok">lazy</span>';
+    else tags+=' <span class="badge warn">no lazy</span>';
     if(img.modern)tags+=' <span class="badge ok">modern</span>';
-    html+='<div class="img-item"><div class="img-info"><div class="img-src" title="'+esc(img.src)+'">'+esc(img.src.substring(0,80))+'</div>';
-    if(img.hasAlt)html+='<div class="img-alt"><strong>ALT:</strong> '+esc(img.alt.substring(0,80))+'</div>';
+    var thumbHtml='';
+    if(img.fullSrc&&!img.fullSrc.startsWith('data:')){
+      thumbHtml='<img class="img-thumb" src="'+esc(img.fullSrc)+'" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=img-thumb><span style=color:var(--muted);font-size:16px>🖼</span></div>\'">';
+    }else{
+      thumbHtml='<div class="img-thumb" style="display:flex;align-items:center;justify-content:center"><span style="color:var(--muted);font-size:16px">🖼</span></div>';
+    }
+    html+='<div class="img-item">'+thumbHtml+'<div class="img-info"><div class="img-src" title="'+esc(img.src)+'">'+esc(img.src.substring(0,100))+'</div>';
+    if(img.hasAlt)html+='<div class="img-alt"><strong>ALT:</strong> '+esc(img.alt.substring(0,100))+'</div>';
     html+='<div class="img-tags">'+tags+'</div></div></div>';
   });
-  document.getElementById('imgResults').innerHTML=html||'<div class="error-msg"><p>No images found.</p></div>';
-  document.getElementById('res').style.display='block';
+  document.getElementById('imgResults').innerHTML=html;
 }
+
+// Toolbar
+document.getElementById('btnCopy').addEventListener('click',function(){
+  var txt=allImgs.map(function(i){return i.src+'\t'+(i.alt||'')+'\t'+i.format+'\t'+(i.hasAlt?'ALT':'NO ALT')+'\t'+(i.lazy?'lazy':'')+'\t'+(i.modern?'modern':'legacy')}).join('\n');
+  navigator.clipboard.writeText(txt);this.textContent='✓ Copied';var b=this;setTimeout(function(){b.textContent='📋 Copy'},1500);
+});
 document.getElementById('btnCsv').addEventListener('click',function(){
   var csv='Source,ALT,Has ALT,Format,Lazy,Modern\n';
   allImgs.forEach(function(i){csv+='"'+i.src.replace(/"/g,'""')+'","'+(i.alt||'').replace(/"/g,'""')+'",'+i.hasAlt+','+i.format+','+i.lazy+','+i.modern+'\n'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='images.csv';a.click();
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='images-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  var noAlt=allImgs.filter(function(i){return !i.hasAlt}).length;
+  var lazyC=allImgs.filter(function(i){return i.lazy}).length;
+  var modernC=allImgs.filter(function(i){return i.modern}).length;
+  var w=window.open('','_blank');var h='<html><head><title>Image SEO Report</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a1a}h1{font-size:22px}h2{font-size:16px;margin-top:24px;color:#555}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #e0e0e0}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888}p.meta{color:#888;font-size:13px}.stat{display:inline-block;margin-right:20px;font-size:15px}.stat b{font-size:22px}.ok{color:#279e5e}.err{color:#c53e3e}.warn{color:#bf8310}</style></head><body>';
+  h+='<h1>Image SEO Report</h1><p class="meta">URL: '+esc(urlIn.value)+'<br>Date: '+new Date().toLocaleDateString()+'<br>Generated by Lumina SEO</p>';
+  h+='<div style="margin:20px 0"><span class="stat"><b>'+allImgs.length+'</b> Total</span><span class="stat '+(noAlt>0?'err':'ok')+'"><b>'+noAlt+'</b> No ALT</span><span class="stat"><b>'+lazyC+'</b> Lazy</span><span class="stat ok"><b>'+modernC+'</b> Modern</span></div>';
+  if(noAlt>0)h+='<p class="err">⚠ '+noAlt+' image'+(noAlt>1?'s':'')+' missing ALT text.</p>';
+  h+='<h2>All Images</h2><table><tr><th>Source</th><th>ALT</th><th>Format</th><th>Lazy</th></tr>';
+  allImgs.forEach(function(i){
+    h+='<tr><td style="font-size:12px;word-break:break-all">'+esc(i.src.substring(0,80))+'</td><td>'+(i.hasAlt?esc(i.alt.substring(0,60)):'<em class="err">(missing)</em>')+'</td><td>'+i.format.toUpperCase()+'</td><td>'+(i.lazy?'✓':'—')+'</td></tr>';
+  });
+  h+='</table>';
+  // Format summary
+  var fmtFreq={};allImgs.forEach(function(i){fmtFreq[i.format]=(fmtFreq[i.format]||0)+1});
+  h+='<h2>Format Distribution</h2><table><tr><th>Format</th><th>Count</th><th>%</th></tr>';
+  Object.entries(fmtFreq).sort(function(a,b){return b[1]-a[1]}).forEach(function(f){
+    h+='<tr><td>'+f[0].toUpperCase()+'</td><td><b>'+f[1]+'</b></td><td>'+Math.round((f[1]/allImgs.length)*100)+'%</td></tr>';
+  });
+  h+='</table></body></html>';
+  w.document.write(h);w.document.close();
 });
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
