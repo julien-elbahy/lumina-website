@@ -64,7 +64,7 @@
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
-.exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -266,7 +266,12 @@
 <div id="issuesList"></div>
 <div class="section-head" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">hreflang Tags</div>
 <div id="hlResults" class="list-scroll" style="max-height:500px;overflow-y:auto"></div>
-<div style="display:flex;gap:6px;margin-top:10px"><button class="exp-btn" id="btnReturn" disabled>🔗 Check Return Links</button><button class="exp-btn" id="btnCopy">📋 Copy</button></div>
+<div class="toolbar" style="margin-top:10px">
+<button class="tb-btn" id="btnReturn" disabled>🔗 Check Return Links</button>
+<button class="tb-btn" id="btnCopy">📋 Copy</button>
+<button class="tb-btn" id="btnCsv">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Report</button>
+</div>
 <div id="returnProgress" style="font-size:11px;color:var(--muted);text-align:center;margin-top:4px;font-family:var(--mono)"></div>
 </div>
 </div>
@@ -430,6 +435,42 @@ document.getElementById('btnCopy').addEventListener('click',function(){
   var txt='hreflang tags for '+pageUrl+'\n';
   hlData.forEach(function(h){txt+=h.lang+' → '+h.href+'\n'});
   navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)});
+});
+
+document.getElementById('btnCsv').addEventListener('click',function(){
+  if(!hlData.length)return;
+  var csv='Language,URL,Self-referencing,Return Link\n';
+  var currentNorm=normalizeUrl(pageUrl);
+  hlData.forEach(function(h){
+    var isSelf=normalizeUrl(h.href)===currentNorm?'Yes':'No';
+    var ret=document.querySelector('[data-return="'+h.href+'"]');
+    var retStatus=ret?ret.textContent.trim():'Not checked';
+    csv+='"'+h.lang+'","'+h.href+'","'+isSelf+'","'+retStatus+'"\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hreflang-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+  var b=document.getElementById('btnCsv');b.textContent='✓ Downloaded!';setTimeout(function(){b.textContent='📊 CSV'},1500);
+});
+
+document.getElementById('btnReport').addEventListener('click',function(){
+  if(!hlData.length)return;
+  var currentNorm=normalizeUrl(pageUrl);
+  var total=hlData.length;
+  var selfRef=hlData.filter(function(h){return normalizeUrl(h.href)===currentNorm}).length;
+  var w=window.open('','_blank');
+  var h='<html><head><title>hreflang Report – '+pageUrl+'</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a2e;line-height:1.6}h1{font-size:22px;margin-bottom:4px}h2{font-size:16px;margin-top:28px;border-bottom:2px solid #eca550;padding-bottom:4px}.meta{color:#666;font-size:13px;margin-bottom:24px}table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}th{text-align:left;padding:8px;background:#f5f5f5;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #ddd}td{padding:8px;border-bottom:1px solid #eee}tr:hover td{background:#fafafa}.ok{color:#22c55e}.err{color:#ef4444}.warn{color:#f59e0b}.stat{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;margin-right:8px}.stat.green{background:#dcfce7;color:#16a34a}.stat.red{background:#fef2f2;color:#dc2626}.stat.blue{background:#eff6ff;color:#2563eb}</style></head><body>';
+  h+='<h1>hreflang Tag Report</h1>';
+  h+='<p class="meta">URL: '+pageUrl+'<br>Date: '+new Date().toLocaleDateString()+' · Generated by Lumina SEO</p>';
+  h+='<div><span class="stat blue">'+total+' Tags</span><span class="stat '+(selfRef?'green':'red')+'">'+(selfRef?'Self-ref ✓':'Self-ref missing')+'</span></div>';
+  h+='<h2>hreflang Tags</h2><table><tr><th>Language</th><th>URL</th><th>Self-ref</th><th>Return Link</th></tr>';
+  hlData.forEach(function(d){
+    var isSelf=normalizeUrl(d.href)===currentNorm;
+    var ret=document.querySelector('[data-return="'+d.href+'"]');
+    var retTxt=ret?ret.textContent.trim():'—';
+    var retClass=retTxt.indexOf('✓')!==-1?'ok':retTxt.indexOf('✗')!==-1?'err':'warn';
+    h+='<tr><td>'+d.lang+'</td><td style="font-family:monospace;font-size:11px;word-break:break-all">'+d.href+'</td><td>'+(isSelf?'<span class="ok">Self ✓</span>':'—')+'</td><td><span class="'+retClass+'">'+retTxt+'</span></td></tr>';
+  });
+  h+='</table></body></html>';
+  w.document.write(h);w.document.close();
 });
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
