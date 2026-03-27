@@ -70,7 +70,10 @@
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 .faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:300px;padding-top:8px}
 .error-msg{text-align:center;padding:24px;color:var(--muted)}.error-msg .icon{font-size:24px;margin-bottom:6px}
-.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px}
+.ratio-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:14px;gap:2px}.ratio-seg{height:100%;border-radius:3px;position:relative;min-width:3px;transition:width .4s}.ratio-seg.int{background:var(--ok)}.ratio-seg.ext{background:#6e9eff}.ratio-seg.nf{background:var(--err)}
+.ratio-legend{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}.ratio-legend span{font-size:10px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:4px}.ratio-legend .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.link-url a{color:var(--muted);text-decoration:none;transition:color .15s}.link-url a:hover{color:var(--accent)}
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
 .mobile-menu .mm-cat{flex-shrink:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
@@ -262,7 +265,11 @@
 <div class="metric"><div class="mh">Internal</div><p id="mInt">0</p></div>
 <div class="metric"><div class="mh">External</div><p id="mExt">0</p></div>
 <div class="metric"><div class="mh">Nofollow</div><p id="mNf">0</p></div>
+<div class="metric"><div class="mh">No Text</div><p id="mNoText">0</p></div>
 </div>
+<div class="ratio-bar" id="ratioBar"></div>
+<div class="ratio-legend" id="ratioLegend"></div>
+<div class="section-head">📋 Link List</div>
 <div class="filters" id="filterBar"></div>
 <div class="link-list" id="linkList"></div>
 <div class="toolbar" id="toolbar">
@@ -272,6 +279,8 @@
 </div>
 <div class="section-head" style="margin-top:20px">🔗 Internal Link Ranking</div>
 <div id="ranking"></div>
+<div class="section-head" style="margin-top:20px">🌐 External Domain Ranking</div>
+<div id="extRanking"></div>
 </div>
 </div>
 <div class="content">
@@ -422,16 +431,27 @@ function parseLinks(html,pageUrl){
   var intC=links.filter(function(l){return l.isInternal}).length;
   var extC=links.filter(function(l){return !l.isInternal}).length;
   var nfC=links.filter(function(l){return l.nofollow}).length;
+  var noText=links.filter(function(l){return !l.text}).length;
 
   document.getElementById('mTotal').textContent=links.length;
   document.getElementById('mInt').textContent=intC;
   document.getElementById('mExt').textContent=extC;
   document.getElementById('mNf').textContent=nfC;
+  document.getElementById('mNoText').textContent=noText;
+  if(noText>0)document.getElementById('mNoText').style.color='var(--err)';
+  else document.getElementById('mNoText').style.color='';
+
+  // Ratio bar
+  if(links.length>0){
+    var intPct=Math.round((intC/links.length)*100);
+    var extPct=100-intPct;
+    document.getElementById('ratioBar').innerHTML='<div class="ratio-seg int" style="width:'+intPct+'%"></div><div class="ratio-seg ext" style="width:'+extPct+'%"></div>';
+    document.getElementById('ratioLegend').innerHTML='<span><span class="dot" style="background:var(--ok)"></span>Internal '+intPct+'%</span><span><span class="dot" style="background:#6e9eff"></span>External '+extPct+'%</span>'+(nfC>0?'<span><span class="dot" style="background:var(--err)"></span>Nofollow '+Math.round((nfC/links.length)*100)+'%</span>':'')+(noText>0?'<span style="color:var(--err)">⚠ '+noText+' link'+(noText>1?'s':'')+' without anchor text</span>':'');
+  }
 
   // Build filters
   var spC=links.filter(function(l){return l.sponsored}).length;
   var ugcC=links.filter(function(l){return l.ugc}).length;
-  var noText=links.filter(function(l){return !l.text}).length;
 
   var filterDefs=[
     {key:'all',label:'All ('+links.length+')'},
@@ -457,6 +477,7 @@ function parseLinks(html,pageUrl){
 
   renderLinks('all');
   renderRanking(links);
+  renderExtRanking(links);
   res.style.display='block';
 }
 
@@ -485,7 +506,7 @@ function renderLinks(filter){
 
     html+='<div class="link-item">';
     html+='<div><span class="link-text'+(l.text?'':' empty')+'">'+(l.text?esc(l.text):'(no anchor text)')+'</span> '+tags+'</div>';
-    html+='<div class="link-url">'+esc(l.url)+'</div>';
+    html+='<div class="link-url"><a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.url)+'</a></div>';
     html+='</div>';
   });
   document.getElementById('linkList').innerHTML=html;
@@ -509,6 +530,23 @@ function renderRanking(links){
     html+='<div class="ranking-bar"><div class="ranking-fill" style="width:'+pct+'%"></div></div>';
   });
   document.getElementById('ranking').innerHTML=html;
+}
+
+function renderExtRanking(links){
+  var freq={};
+  links.filter(function(l){return !l.isInternal&&l.url}).forEach(function(l){
+    try{var h=new URL(l.url).hostname.replace(/^www\./,'');freq[h]=(freq[h]||0)+1}catch(e){}
+  });
+  var ranked=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
+  if(ranked.length===0){document.getElementById('extRanking').innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px">No external links found.</div>';return}
+  var max=ranked[0][1];
+  var html='';
+  ranked.forEach(function(r){
+    var pct=Math.round((r[1]/max)*100);
+    html+='<div class="ranking-item"><span class="ranking-url" title="'+esc(r[0])+'">'+esc(r[0])+'</span><span class="ranking-count">'+r[1]+'×</span></div>';
+    html+='<div class="ranking-bar"><div class="ranking-fill" style="width:'+pct+'%;background:#6e9eff"></div></div>';
+  });
+  document.getElementById('extRanking').innerHTML=html;
 }
 
 // Toolbar handlers
@@ -547,6 +585,16 @@ document.getElementById('btnReport').addEventListener('click',function(){
   if(ranked.length>0){
     h+='<h2>Internal Link Ranking (Top 20)</h2><table><tr><th>Path</th><th>Links</th></tr>';
     ranked.forEach(function(r){h+='<tr><td>'+esc(r[0])+'</td><td><b>'+r[1]+'</b></td></tr>'});
+    h+='</table>';
+  }
+  var extFreq={};
+  allLinks.filter(function(l){return !l.isInternal&&l.url}).forEach(function(l){
+    try{var d=new URL(l.url).hostname.replace(/^www\./,'');extFreq[d]=(extFreq[d]||0)+1}catch(e){}
+  });
+  var extRanked=Object.entries(extFreq).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
+  if(extRanked.length>0){
+    h+='<h2>External Domain Ranking (Top 20)</h2><table><tr><th>Domain</th><th>Links</th></tr>';
+    extRanked.forEach(function(r){h+='<tr><td>'+esc(r[0])+'</td><td><b>'+r[1]+'</b></td></tr>'});
     h+='</table>';
   }
   h+='</body></html>';
