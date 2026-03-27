@@ -105,6 +105,42 @@
 .data-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}.data-table th{background:var(--accent-soft);color:var(--text);font-weight:700;text-align:left;padding:10px 14px;border-bottom:2px solid var(--border)}.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text2)}.data-table tr:hover td{background:var(--card)}@media(max-width:640px){.data-table{font-size:12px}.data-table th,.data-table td{padding:8px 10px}}
 /* Info box */
 .info-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin:24px 0}.info-box h4{font-size:14px;font-weight:800;margin-bottom:8px;color:var(--text)}.info-box p,.info-box ul{font-size:14px}
+/* Visual Charts */
+.vis-chart{margin:24px 0;padding:0}.vis-chart h4{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.vis-bar{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);transition:background .2s}.vis-bar:hover{background:var(--card);border-radius:8px;padding:10px 12px;margin:0 -12px}
+.vis-bar .vb-label{min-width:120px;font-size:13px;font-weight:600;color:var(--text)}
+.vis-bar .vb-track{flex:1;height:28px;background:var(--card);border-radius:6px;overflow:hidden;position:relative}
+.vis-bar .vb-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 10px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;transition:width .8s ease-out;min-width:fit-content}
+.vis-bar .vb-fill.positive{background:linear-gradient(90deg,var(--ok),#3ecb7a)}
+.vis-bar .vb-fill.negative{background:linear-gradient(90deg,var(--err),#e05555)}
+.vis-bar .vb-fill.neutral{background:linear-gradient(90deg,var(--accent),var(--accent-h))}
+.vis-bar .vb-val{min-width:55px;text-align:right;font-size:14px;font-weight:800;font-family:var(--mono)}
+.vis-bar .vb-val.pos{color:var(--ok)}.vis-bar .vb-val.neg{color:var(--err)}
+/* Info Gain Radar */
+.vis-factors{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0}
+.vis-factor{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all .2s}.vis-factor:hover{border-color:var(--accent);transform:translateY(-2px)}
+.vis-factor .vf-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.vis-factor .vf-name{font-size:13px;font-weight:700;color:var(--text)}
+.vis-factor .vf-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.vis-factor .vf-badge.critical{background:rgba(244,120,120,.15);color:var(--err)}
+.vis-factor .vf-badge.high{background:rgba(236,165,80,.15);color:var(--accent)}
+.vis-factor .vf-badge.extreme{background:rgba(80,224,144,.15);color:var(--ok)}
+.vis-factor .vf-badge.negative{background:rgba(244,120,120,.15);color:var(--err)}
+.vis-factor .vf-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.vis-factor .vf-meter{height:4px;background:var(--border);border-radius:2px;margin-top:10px;overflow:hidden}
+.vis-factor .vf-meter-fill{height:100%;border-radius:2px;transition:width .6s ease-out}
+.vis-factor .vf-meter-fill.extreme{background:var(--ok);width:95%}
+.vis-factor .vf-meter-fill.high{background:var(--accent);width:80%}
+.vis-factor .vf-meter-fill.critical{background:var(--err);width:90%}
+.vis-factor .vf-meter-fill.negative{background:var(--err);width:60%}
+/* Timeline */
+.vis-timeline{position:relative;padding-left:24px;margin:24px 0}.vis-timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+.vis-tl-item{position:relative;padding:12px 0 20px;border:none}.vis-tl-item::before{content:'';position:absolute;left:-20px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);z-index:1}
+.vis-tl-item .tl-date{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+.vis-tl-item .tl-name{font-size:15px;font-weight:700;color:var(--text);margin:4px 0}
+.vis-tl-item .tl-scope{font-size:12px;color:var(--muted)}
+.vis-tl-item .tl-duration{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text2);margin-top:4px}
+@media(max-width:640px){.vis-factors{grid-template-columns:1fr}.vis-bar .vb-label{min-width:80px;font-size:12px}}
 /* CTA */
 .article-cta{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:36px 0}.article-cta h3{font-size:20px;font-weight:800;margin-bottom:8px}.article-cta p{color:var(--muted);font-size:14px;margin-bottom:16px}.article-cta .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;text-decoration:none}.article-cta .btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 /* Author */
@@ -223,16 +259,11 @@
 
 <p>Die Volatilität während dieses Zeitraums erreichte Werte von bis zu 9,3 von 10 auf gängigen Index-Skalen, was in Fachkreisen als „Googlequake" tituliert wurde. Die Analyse von Drittanbieterdaten bestätigt, dass über 55 % aller beobachteten Websites signifikante Ranking-Veränderungen von mehr als fünf Positionen verzeichneten. Während englischsprachige Märkte die ersten Schwankungen erlebten, folgten die nicht-englischen Regionen, einschließlich des DACH-Raums, mit einer Verzögerung von lediglich drei bis fünf Tagen.</p>
 
-<table class="data-table">
-<thead>
-<tr><th>Update-Bezeichnung</th><th>Startdatum</th><th>Abschlussdatum</th><th>Primärer Geltungsbereich</th></tr>
-</thead>
-<tbody>
-<tr><td>Discover Core Update</td><td>05.02.2026</td><td>27.02.2026</td><td>Personalisierte Feeds (US/EN Fokus)</td></tr>
-<tr><td>March 2026 Core Update</td><td>06.03.2026</td><td>27.03.2026</td><td>Globale Suche (Web Search)</td></tr>
-<tr><td>March 2026 Spam Update</td><td>24.03.2026</td><td>25.03.2026</td><td>Richtliniendurchsetzung (Global)</td></tr>
-</tbody>
-</table>
+<div class="vis-timeline">
+<div class="vis-tl-item"><span class="tl-date">5. Feb. — 27. Feb. 2026</span><div class="tl-name">Discover Core Update</div><div class="tl-scope">Personalisierte Feeds (US/EN Fokus)</div><span class="tl-duration">22 Tage</span></div>
+<div class="vis-tl-item"><span class="tl-date">6. Mär. — 27. Mär. 2026</span><div class="tl-name">March 2026 Core Update</div><div class="tl-scope">Globale Suche (Web Search)</div><span class="tl-duration">21 Tage</span></div>
+<div class="vis-tl-item"><span class="tl-date">24. Mär. — 25. Mär. 2026</span><div class="tl-name">March 2026 Spam Update</div><div class="tl-scope">Richtliniendurchsetzung (Global)</div><span class="tl-duration">19,5 Stunden</span></div>
+</div>
 
 <h2 id="gemini">Technologische Innovationen: Gemini 4.0 und der semantische Filter</h2>
 
@@ -246,17 +277,12 @@
 
 <p>Die algorithmische Bewertung folgt dabei einer Logik, die den Wissenszuwachs des Nutzers nach dem Konsum des Inhalts maximieren möchte. In der Praxis führte dies dazu, dass Websites mit originärer Forschung einen durchschnittlichen Anstieg der Sichtbarkeit um 22 % erfuhren, während reine Aggregator-Seiten massiv an Boden verloren.</p>
 
-<table class="data-table">
-<thead>
-<tr><th>Faktor</th><th>Beschreibung</th><th>Relevanz nach dem Update</th></tr>
-</thead>
-<tbody>
-<tr><td>Information Gain</td><td>Neuheitswert der Informationen im Vergleich zum Index</td><td>Extrem Hoch</td></tr>
-<tr><td>Semantische Tiefe</td><td>Logische Kohärenz und fachliche Detaildichte</td><td>Hoch</td></tr>
-<tr><td>Synthetische Redundanz</td><td>KI-generierte Neufassung bestehender Inhalte</td><td>Negativ (Demotion)</td></tr>
-<tr><td>Echte Expertise</td><td>Nachweisbare Fachkenntnis des Autors</td><td>Kritisch</td></tr>
-</tbody>
-</table>
+<div class="vis-factors">
+<div class="vis-factor"><div class="vf-head"><span class="vf-name">Information Gain</span><span class="vf-badge extreme">Extrem Hoch</span></div><div class="vf-desc">Neuheitswert der Informationen im Vergleich zum Index</div><div class="vf-meter"><div class="vf-meter-fill extreme"></div></div></div>
+<div class="vis-factor"><div class="vf-head"><span class="vf-name">Semantische Tiefe</span><span class="vf-badge high">Hoch</span></div><div class="vf-desc">Logische Kohärenz und fachliche Detaildichte</div><div class="vf-meter"><div class="vf-meter-fill high"></div></div></div>
+<div class="vis-factor"><div class="vf-head"><span class="vf-name">Synthetische Redundanz</span><span class="vf-badge negative">Negativ</span></div><div class="vf-desc">KI-generierte Neufassung bestehender Inhalte</div><div class="vf-meter"><div class="vf-meter-fill negative"></div></div></div>
+<div class="vis-factor"><div class="vf-head"><span class="vf-name">Echte Expertise</span><span class="vf-badge critical">Kritisch</span></div><div class="vf-desc">Nachweisbare Fachkenntnis des Autors</div><div class="vf-meter"><div class="vf-meter-fill critical"></div></div></div>
+</div>
 
 <h2 id="spam">Das Spam-Update: Chirurgische Präzision durch SpamBrain</h2>
 
@@ -280,17 +306,13 @@
 
 <p>Gewinner wie Uniqlo.com (+76 %) zeigen hingegen, dass eine klare, nutzerzentrierte Strukturierung von Kategorie- und Produktseiten, die das Auswahlbedürfnis des Nutzers in den Vordergrund stellt, massiv belohnt wird. Es zeigt sich ein Trend weg von der bloßen „Macht der Marke" hin zur „Qualität der Antwort".</p>
 
-<table class="data-table">
-<thead>
-<tr><th>Domain</th><th>Sichtbarkeitsänderung</th><th>Hauptgrund (Analyse)</th></tr>
-</thead>
-<tbody>
-<tr><td>Uniqlo.com</td><td>+76 %</td><td>Strukturierte Kategorieseiten, hohe Intent-Passung</td></tr>
-<tr><td>Reddit</td><td>Deutliches Plus</td><td>Authentische Nutzererfahrungen, hoher Infogehalt</td></tr>
-<tr><td>hmrc.gov.uk</td><td>-50 %</td><td>Komplexe Navigation, langsame Antworten auf einfache Fragen</td></tr>
-<tr><td>Zara</td><td>-24 %</td><td>Dominanz generischer Seiten gegenüber spezifischem Intent</td></tr>
-</tbody>
-</table>
+<div class="vis-chart">
+<div class="vis-bar"><span class="vb-label">Uniqlo.com</span><div class="vb-track"><div class="vb-fill positive" style="width:76%">Strukturierte Seiten, hohe Intent-Passung</div></div><span class="vb-val pos">+76%</span></div>
+<div class="vis-bar"><span class="vb-label">Reddit</span><div class="vb-track"><div class="vb-fill positive" style="width:45%">Authentische Nutzererfahrungen</div></div><span class="vb-val pos">+45%</span></div>
+<div class="vis-bar"><span class="vb-label">Amazon</span><div class="vb-track"><div class="vb-fill negative" style="width:14%">Generisch vs. spezifisch</div></div><span class="vb-val neg">-14%</span></div>
+<div class="vis-bar"><span class="vb-label">Zara</span><div class="vb-track"><div class="vb-fill negative" style="width:24%">Dominanz generischer Seiten</div></div><span class="vb-val neg">-24%</span></div>
+<div class="vis-bar"><span class="vb-label">hmrc.gov.uk</span><div class="vb-track"><div class="vb-fill negative" style="width:50%">Komplexe Nav, langsame Antworten</div></div><span class="vb-val neg">-50%</span></div>
+</div>
 
 <h2 id="eeat">E-E-A-T und die Manifestierung der Urheberschaft</h2>
 
