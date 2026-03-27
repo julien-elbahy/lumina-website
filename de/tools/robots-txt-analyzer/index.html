@@ -63,9 +63,10 @@
 
 /* Burger + Mobile Menu */
 .burger-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:301;flex-direction:column;gap:5px}.burger-btn span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}.burger-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.burger-btn.open span:nth-child(2){opacity:0}.burger-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:300;padding:80px 28px 40px;overflow-y:auto;flex-direction:column;gap:0;align-items:stretch}.mobile-menu.open{display:flex}.mobile-menu a{flex-shrink:0;font-size:18px;font-weight:600;padding:14px 0;border-bottom:1px solid var(--border);color:var(--text2);display:block;transition:color .2s}.mobile-menu a:hover{color:var(--accent)}.mobile-menu .mm-cws{display:block;text-align:center;margin-top:16px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--bg);z-index:300;padding:16px 24px 100px;overflow-y:auto;overscroll-behavior:contain;flex-direction:column;gap:0;align-items:stretch}.mobile-menu.open{display:flex}.mobile-menu a{flex-shrink:0;font-size:18px;font-weight:600;padding:14px 0;border-bottom:1px solid var(--border);color:var(--text2);display:block;transition:color .2s}.mobile-menu a:hover{color:var(--accent)}.mobile-menu .mm-cws{display:block;text-align:center;margin-top:16px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px}
+.mobile-menu .mm-actions{display:flex;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}.mobile-menu .mm-actions button{flex:1;padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.mobile-menu .mm-actions button:hover{border-color:var(--accent);color:var(--accent)}
 
-@media(max-width:640px){.burger-btn{display:flex}.nr>a:not(.lang-sw),.nr .tools-dd,.nr .bc,.bt{display:none}.nr{gap:10px}.nav-right{display:none}.nl img{display:none}}
+@media(max-width:640px){.burger-btn{display:flex}.nr>a:not(.lang-sw),.nr .tools-dd,.nr .bc,.bt{display:none}.nr{gap:6px}.nav-right{display:none}.nl img{display:none}}
 @media(max-width:640px){.url-bar{flex-direction:column}.ct{padding:16px}.nr,.nav-right{display:none}.cr{flex-wrap:wrap}.cr-name{min-width:100px}}
 
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
@@ -243,6 +244,7 @@
 <a href="/de/tools/keyword-research/">Keyword Research</a>
 <a href="/de/tools/serp-overlap/">SERP Overlap</a>
 </div>
+<div class="mm-actions"><button class="mm-theme" onclick="document.getElementById('themeToggle').click()">&#9728;&#65039; Theme</button><button class="mm-settings" onclick="luminaSettings.open()">&#9881;&#65039; Einstellungen</button></div>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Chrome Extension installieren — Kostenlos</a>
 </div><a href="/de/tools/serp-preview/">Snippet Preview</a>
 <a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
