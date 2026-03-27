@@ -314,7 +314,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 var W='https://lumina-proxy.julien-elbahy.workers.dev';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-var hlData=[],pageUrl='',currentNorm='';
+var hlData=[],pageUrl='',currentNorm='',allIssues=[];
 
 var LANG_NAMES={af:'Afrikaans',am:'Amharisch',ar:'Arabisch',az:'Aserbaidschanisch',be:'Weißrussisch',bg:'Bulgarisch',bn:'Bengalisch',bs:'Bosnisch',ca:'Katalanisch',cs:'Tschechisch',cy:'Walisisch',da:'Dänisch',de:'Deutsch',el:'Griechisch',en:'Englisch',es:'Spanisch',et:'Estnisch',eu:'Baskisch',fa:'Persisch',fi:'Finnisch',fr:'Französisch',ga:'Irisch',gl:'Galicisch',gu:'Gujarati',he:'Hebräisch',hi:'Hindi',hr:'Kroatisch',hu:'Ungarisch',hy:'Armenisch',id:'Indonesisch',is:'Isländisch',it:'Italienisch',ja:'Japanisch',ka:'Georgisch',kk:'Kasachisch',km:'Khmer',kn:'Kannada',ko:'Koreanisch',ky:'Kirgisisch',lo:'Laotisch',lt:'Litauisch',lv:'Lettisch',mk:'Mazedonisch',ml:'Malayalam',mn:'Mongolisch',mr:'Marathi',ms:'Malaiisch',my:'Birmanisch',nb:'Norwegisch',ne:'Nepalesisch',nl:'Niederländisch',nn:'Norwegisch Nynorsk',no:'Norwegisch',pa:'Punjabi',pl:'Polnisch',pt:'Portugiesisch',ro:'Rumänisch',ru:'Russisch',si:'Singhalesisch',sk:'Slowakisch',sl:'Slowenisch',sq:'Albanisch',sr:'Serbisch',sv:'Schwedisch',sw:'Suaheli',ta:'Tamil',te:'Telugu',th:'Thailändisch',tl:'Filipino',tr:'Türkisch',uk:'Ukrainisch',ur:'Urdu',uz:'Usbekisch',vi:'Vietnamesisch',zh:'Chinesisch','en-US':'Englisch (USA)','en-GB':'Englisch (UK)','en-AU':'Englisch (AU)','en-CA':'Englisch (CA)','en-IN':'Englisch (IN)','es-ES':'Spanisch (Spanien)','es-MX':'Spanisch (Mexiko)','es-AR':'Spanisch (Argentinien)','fr-FR':'Französisch (Frankreich)','fr-CA':'Französisch (Kanada)','fr-BE':'Französisch (Belgien)','de-DE':'Deutsch (Deutschland)','de-AT':'Deutsch (Österreich)','de-CH':'Deutsch (Schweiz)','pt-BR':'Portugiesisch (Brasilien)','pt-PT':'Portugiesisch (Portugal)','zh-CN':'Chinesisch (Vereinfacht)','zh-TW':'Chinesisch (Traditionell)','zh-HK':'Chinesisch (Hongkong)','nl-BE':'Niederländisch (Belgien)','nl-NL':'Niederländisch (Niederlande)','ar-SA':'Arabisch (Saudi-Arabien)','ar-AE':'Arabisch (VAE)','nb-NO':'Norwegisch (Bokmål)','nn-NO':'Norwegisch (Nynorsk)'};
 function langName(code){if(code==='x-default')return 'Standard';return LANG_NAMES[code]||LANG_NAMES[code.split('-')[0]]||code}
@@ -326,8 +326,8 @@ function normalizeUrl(u){try{var o=new URL(u);return(o.origin+o.pathname).replac
 
 var VALID_LANGS=/^(x-default|[a-z]{2,3}(-[a-zA-Z]{2,4})?)$/;
 
-function getReturnStatus(lang){
-  var el=document.getElementById('hlst-'+lang);
+function getReturnStatus(idx){
+  var el=document.getElementById('hlst-'+idx);
   if(!el)return 'Nicht geprüft';
   var txt=el.textContent.trim();
   if(txt.indexOf('✓')!==-1&&(txt.indexOf('Rück')!==-1||txt.indexOf('Return')!==-1))return 'OK';
@@ -335,6 +335,16 @@ function getReturnStatus(lang){
   if(txt.indexOf('Fehler')!==-1||txt.indexOf('Error')!==-1)return 'Fehler';
   if(txt.indexOf('Selbst')!==-1)return 'Selbst';
   return 'Nicht geprüft';
+}
+
+function renderIssues(){
+  var issHtml='';
+  allIssues.forEach(function(iss){
+    issHtml+='<div style="padding:6px 10px;margin-bottom:4px;border-radius:8px;font-size:12px;background:var(--'+(iss.type==='err'?'err':'warn')+'-bg);color:var(--'+(iss.type==='err'?'err':'warn')+');border:1px solid var(--'+(iss.type==='err'?'err':'warn')+'-border)">'+(iss.type==='err'?'❌':'⚠️')+' '+esc(iss.text)+'</div>';
+  });
+  document.getElementById('issuesList').innerHTML=issHtml;
+  document.getElementById('mIssues').textContent=allIssues.length;
+  document.getElementById('mIssues').style.color=allIssues.length>0?'var(--err)':'var(--ok)';
 }
 
 function go(url){
@@ -357,45 +367,68 @@ function go(url){
     var doc=parser.parseFromString(html,'text/html');
     var links=doc.querySelectorAll('link[rel="alternate"][hreflang]');
     hlData=[];
-    links.forEach(function(l){
+    links.forEach(function(l,i){
       var lang=l.getAttribute('hreflang')||'';
       var href=l.getAttribute('href')||'';
       if(href&&!/^https?:\/\//i.test(href)){try{href=new URL(href,url).href}catch(e){}}
-      hlData.push({lang:lang,href:href,status:null});
+      hlData.push({lang:lang,href:href,idx:i,status:null});
     });
 
     currentNorm=normalizeUrl(data.url||url);
     var hasSelf=hlData.some(function(h){return normalizeUrl(h.href)===currentNorm});
     var hasDefault=hlData.some(function(h){return h.lang==='x-default'});
-    var issues=[];
-    if(hlData.length===0)issues.push({type:'err',text:'Keine hreflang-Tags auf dieser Seite gefunden.'});
-    if(hlData.length>0&&!hasSelf)issues.push({type:'warn',text:'Fehlender selbstreferenzierender hreflang-Tag. Die Seite sollte auf sich selbst verweisen.'});
-    if(hlData.length>0&&!hasDefault)issues.push({type:'warn',text:'Kein x-default-Tag gefunden. Empfohlen als Fallback-Sprache.'});
+
+    // Canonical check
+    var canonicalEl=doc.querySelector('link[rel="canonical"]');
+    var canonicalUrl=canonicalEl?canonicalEl.getAttribute('href')||'':'';
+    if(canonicalUrl&&!/^https?:\/\//i.test(canonicalUrl)){try{canonicalUrl=new URL(canonicalUrl,url).href}catch(e){}}
+
+    allIssues=[];
+    if(hlData.length===0)allIssues.push({type:'err',text:'Keine hreflang-Tags auf dieser Seite gefunden.'});
+    if(hlData.length>0&&!hasSelf)allIssues.push({type:'warn',text:'Fehlender selbstreferenzierender hreflang-Tag. Die Seite sollte auf sich selbst verweisen.'});
+    if(hlData.length>0&&!hasDefault)allIssues.push({type:'warn',text:'Kein x-default-Tag gefunden. Empfohlen als Fallback-Sprache.'});
+
+    // Duplicate language codes
+    var langCount={};
+    hlData.forEach(function(h){langCount[h.lang]=(langCount[h.lang]||0)+1});
+    Object.keys(langCount).forEach(function(lang){
+      if(langCount[lang]>1)allIssues.push({type:'err',text:'Doppelter Sprachcode „'+lang+'" erscheint '+langCount[lang]+'-mal. Jeder Code sollte einzigartig sein.'});
+    });
+
+    // Canonical vs self-ref consistency
+    if(canonicalUrl&&hasSelf){
+      var selfHref=hlData.find(function(h){return normalizeUrl(h.href)===currentNorm});
+      if(selfHref&&normalizeUrl(selfHref.href)!==normalizeUrl(canonicalUrl)){
+        allIssues.push({type:'warn',text:'Kanonische URL weicht vom selbstreferenzierenden hreflang ab. Canonical: '+canonicalUrl});
+      }
+    }
+
+    // Trailing slash consistency
+    if(hlData.length>1){
+      var withSlash=hlData.filter(function(h){try{return new URL(h.href).pathname.endsWith('/')}catch(e){return false}}).length;
+      var withoutSlash=hlData.length-withSlash;
+      if(withSlash>0&&withoutSlash>0)allIssues.push({type:'warn',text:'Schrägstrich-Inkonsistenz: '+withSlash+' URLs enden mit /, '+withoutSlash+' ohne. Verwende ein einheitliches Muster.'});
+    }
+
     hlData.forEach(function(h){
-      if(!VALID_LANGS.test(h.lang))issues.push({type:'warn',text:'Nicht-standardisierter Sprachcode: „'+h.lang+'"'});
-      if(h.href.startsWith('http:')&&url.startsWith('https:'))issues.push({type:'warn',text:'HTTP/HTTPS-Abweichung für '+h.lang+': URL nutzt http, aber die Seite ist https.'});
+      if(!VALID_LANGS.test(h.lang))allIssues.push({type:'warn',text:'Nicht-standardisierter Sprachcode: „'+h.lang+'"'});
+      if(h.href.startsWith('http:')&&url.startsWith('https:'))allIssues.push({type:'warn',text:'HTTP/HTTPS-Abweichung für '+h.lang+': URL nutzt http, aber die Seite ist https.'});
     });
 
     document.getElementById('mLangs').textContent=hlData.filter(function(h){return h.lang!=='x-default'}).length;
     document.getElementById('mSelf').innerHTML=hasSelf?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--err)">✗</span>';
     document.getElementById('mDefault').innerHTML=hasDefault?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--warn)">—</span>';
-    document.getElementById('mIssues').textContent=issues.length;
-    document.getElementById('mIssues').style.color=issues.length>0?'var(--err)':'var(--ok)';
-
-    var issHtml='';
-    issues.forEach(function(iss){
-      issHtml+='<div style="padding:6px 10px;margin-bottom:4px;border-radius:8px;font-size:12px;background:var(--'+(iss.type==='err'?'err':'warn')+'-bg);color:var(--'+(iss.type==='err'?'err':'warn')+');border:1px solid var(--'+(iss.type==='err'?'err':'warn')+'-border)">'+(iss.type==='err'?'❌':'⚠️')+' '+esc(iss.text)+'</div>';
-    });
-    document.getElementById('issuesList').innerHTML=issHtml;
+    renderIssues();
 
     var tbl='<table class="hl-tbl"><thead><tr><th>Code</th><th>Sprache</th><th>URL</th><th>Status</th></tr></thead><tbody>';
     hlData.forEach(function(h){
       var isSelf=normalizeUrl(h.href)===currentNorm;
       var langValid=VALID_LANGS.test(h.lang);
-      tbl+='<tr><td><span class="badge '+(h.lang==='x-default'?'info':langValid?'ok':'warn')+'">'+esc(h.lang)+'</span></td>';
+      var isDupe=langCount[h.lang]>1;
+      tbl+='<tr><td><span class="badge '+(isDupe?'err':h.lang==='x-default'?'info':langValid?'ok':'warn')+'">'+esc(h.lang)+(isDupe?' ⚠':'')+'</span></td>';
       tbl+='<td style="font-size:12px;color:var(--text2)">'+esc(langName(h.lang))+'</td>';
       tbl+='<td style="font-family:var(--mono);font-size:11px;color:var(--muted);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+esc(h.href)+'"><a href="'+esc(h.href)+'" target="_blank" rel="noopener" style="color:var(--muted)">'+esc(h.href)+'</a></td>';
-      tbl+='<td id="hlst-'+esc(h.lang)+'">'+(isSelf?'<span class="badge info">Selbst ✓</span>':'<span class="badge" style="color:var(--muted);border-color:var(--border)">—</span>')+'</td></tr>';
+      tbl+='<td id="hlst-'+h.idx+'">'+(isSelf?'<span class="badge info">Selbst ✓</span>':'<span class="badge" style="color:var(--muted);border-color:var(--border)">—</span>')+'</td></tr>';
     });
     tbl+='</tbody></table>';
     document.getElementById('hlResults').innerHTML=hlData.length?tbl:'<p style="color:var(--muted);padding:12px;text-align:center">Keine hreflang-Tags gefunden.</p>';
@@ -416,8 +449,10 @@ document.getElementById('btnReturn').addEventListener('click',function(){
   var btnR=document.getElementById('btnReturn');
   btnR.disabled=true;btnR.textContent='⏳ Wird geprüft…';
   var done=0,ok=0,fail=0,errs=0;
+  // Remove old return-link issues
+  allIssues=allIssues.filter(function(i){return i.text.indexOf('fehlender Rückverweis')< 0});
   targets.forEach(function(h){
-    var el=document.getElementById('hlst-'+h.lang);
+    var el=document.getElementById('hlst-'+h.idx);
     if(el)el.innerHTML='<span class="spinner-inline" style="display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite"></span>';
     fetch(W+'/fetch?url='+encodeURIComponent(h.href))
     .then(function(r){return r.json()})
@@ -432,7 +467,7 @@ document.getElementById('btnReturn').addEventListener('click',function(){
         if(normalizeUrl(rHref)===currentNorm)hasReturn=true;
       });
       if(el)el.innerHTML=hasReturn?'<span class="badge ok">✓ Rückverweis</span>':'<span class="badge err">✗ Kein Rückverweis</span>';
-      if(hasReturn)ok++;else fail++;
+      if(hasReturn)ok++;else{fail++;allIssues.push({type:'err',text:h.lang+' ('+langName(h.lang)+') fehlender Rückverweis auf diese Seite.'});}
     })
     .catch(function(){
       if(el)el.innerHTML='<span class="badge warn">⚠️ Fehler</span>';errs++;
@@ -443,6 +478,7 @@ document.getElementById('btnReturn').addEventListener('click',function(){
       if(done===targets.length){
         btnR.disabled=false;btnR.textContent='↻ Return-Links erneut prüfen';
         document.getElementById('returnProgress').innerHTML=ok+' OK'+(fail?' · <span style="color:var(--err)">'+fail+' fehlend</span>':'')+(errs?' · '+errs+' Fehler':'');
+        renderIssues();
       }
     });
   });
@@ -459,7 +495,7 @@ document.getElementById('btnCsv').addEventListener('click',function(){
   var csv='Sprachcode,Sprache,URL,Selbstreferenz,Rückverweis\n';
   hlData.forEach(function(h){
     var isSelf=normalizeUrl(h.href)===currentNorm?'Ja':'Nein';
-    var retStatus=getReturnStatus(h.lang);
+    var retStatus=getReturnStatus(h.idx);
     csv+='"'+h.lang+'","'+langName(h.lang)+'","'+h.href+'","'+isSelf+'","'+retStatus+'"\n';
   });
   var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hreflang-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
@@ -472,14 +508,18 @@ document.getElementById('btnReport').addEventListener('click',function(){
   var selfRef=hlData.filter(function(h){return normalizeUrl(h.href)===currentNorm}).length;
   var hasDefault=hlData.some(function(h){return h.lang==='x-default'});
   var w=window.open('','_blank');
-  var h='<html><head><title>hreflang-Bericht – '+esc(pageUrl)+'</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a2e;line-height:1.6}h1{font-size:22px;margin-bottom:4px}h2{font-size:16px;margin-top:28px;border-bottom:2px solid #eca550;padding-bottom:4px}.meta{color:#666;font-size:13px;margin-bottom:24px}table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}th{text-align:left;padding:8px;background:#f5f5f5;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #ddd}td{padding:8px;border-bottom:1px solid #eee}tr:hover td{background:#fafafa}.ok{color:#22c55e}.err{color:#ef4444}.warn{color:#f59e0b}.stat{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;margin-right:8px}.stat.green{background:#dcfce7;color:#16a34a}.stat.red{background:#fef2f2;color:#dc2626}.stat.blue{background:#eff6ff;color:#2563eb}.stat.yellow{background:#fefce8;color:#a16207}</style></head><body>';
+  var h='<html><head><title>hreflang-Bericht – '+esc(pageUrl)+'</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a2e;line-height:1.6}h1{font-size:22px;margin-bottom:4px}h2{font-size:16px;margin-top:28px;border-bottom:2px solid #eca550;padding-bottom:4px}.meta{color:#666;font-size:13px;margin-bottom:24px}table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}th{text-align:left;padding:8px;background:#f5f5f5;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #ddd}td{padding:8px;border-bottom:1px solid #eee}tr:hover td{background:#fafafa}.ok{color:#22c55e}.err{color:#ef4444}.warn{color:#f59e0b}.stat{display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;margin-right:8px}.stat.green{background:#dcfce7;color:#16a34a}.stat.red{background:#fef2f2;color:#dc2626}.stat.blue{background:#eff6ff;color:#2563eb}.stat.yellow{background:#fefce8;color:#a16207}.issue{padding:6px 10px;margin-bottom:4px;border-radius:6px;font-size:12px}.issue.e{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}.issue.w{background:#fefce8;color:#a16207;border:1px solid #fde68a}</style></head><body>';
   h+='<h1>hreflang-Tag-Bericht</h1>';
   h+='<p class="meta">URL: '+esc(pageUrl)+'<br>Datum: '+new Date().toLocaleDateString('de-DE')+' · Erstellt mit Lumina SEO</p>';
-  h+='<div><span class="stat blue">'+total+' Tags</span><span class="stat '+(selfRef?'green':'red')+'">'+(selfRef?'Selbstref. ✓':'Selbstref. fehlt')+'</span><span class="stat '+(hasDefault?'green':'yellow')+'">'+(hasDefault?'x-default ✓':'x-default fehlt')+'</span></div>';
+  h+='<div><span class="stat blue">'+total+' Tags</span><span class="stat '+(selfRef?'green':'red')+'">'+(selfRef?'Selbstref. ✓':'Selbstref. fehlt')+'</span><span class="stat '+(hasDefault?'green':'yellow')+'">'+(hasDefault?'x-default ✓':'x-default fehlt')+'</span><span class="stat '+(allIssues.length?'red':'green')+'">'+allIssues.length+' Problem'+(allIssues.length!==1?'e':'')+'</span></div>';
+  if(allIssues.length){
+    h+='<h2>Probleme</h2>';
+    allIssues.forEach(function(iss){h+='<div class="issue '+(iss.type==='err'?'e':'w')+'">'+(iss.type==='err'?'❌':'⚠️')+' '+esc(iss.text)+'</div>'});
+  }
   h+='<h2>hreflang-Tags</h2><table><tr><th>Code</th><th>Sprache</th><th>URL</th><th>Selbstref.</th><th>Rückverweis</th></tr>';
   hlData.forEach(function(d){
     var isSelf=normalizeUrl(d.href)===currentNorm;
-    var retStatus=getReturnStatus(d.lang);
+    var retStatus=getReturnStatus(d.idx);
     var retClass=retStatus==='OK'?'ok':retStatus==='Fehlend'?'err':retStatus==='Selbst'?'ok':'warn';
     h+='<tr><td><b>'+esc(d.lang)+'</b></td><td>'+esc(langName(d.lang))+'</td><td style="font-family:monospace;font-size:11px;word-break:break-all">'+esc(d.href)+'</td><td>'+(isSelf?'<span class="ok">Selbst ✓</span>':'—')+'</td><td><span class="'+retClass+'">'+retStatus+'</span></td></tr>';
   });
