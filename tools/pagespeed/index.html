@@ -283,20 +283,14 @@
 <button class="tb-btn" id="btnReport">📄 Report</button>
 </div>
 <div id="aiSection" class="ai-card" style="display:none">
-<div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">Generate optimized titles &amp; descriptions</h2><p class="ai-card-desc">Auto-detect keywords from the analyzed page, get search volumes, and generate SEO-optimized snippets with AI.</p></div>
+<div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">AI Performance Analysis</h2><p class="ai-card-desc">Get personalized optimization recommendations based on your Lighthouse scores, Core Web Vitals, and detected tech stack.</p></div>
 <div class="ai-card-body">
-<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
-<div style="flex:1;min-width:180px"><label>Primary Keyword</label><input type="text" id="aiKwPrimary" placeholder="e.g. SEO audit tool"></div>
-<div style="flex:1;min-width:180px"><label>Secondary Keywords</label><input type="text" id="aiKwSecondary" placeholder="e.g. meta tag checker"></div>
-</div>
-<div id="aiKwChips" style="display:none;margin-bottom:10px"></div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:11px;padding:8px 14px">🔍 Auto-detect keywords</button>
-<button class="ai-btn" id="btnAiGenerate" style="font-size:11px;padding:8px 14px">✨ Generate title &amp; description</button>
+<button class="ai-btn" id="btnAI" style="font-size:11px;padding:8px 14px">🤖 Analyze with AI</button>
 <span id="aiQuota" class="ai-quota"></span>
 </div>
 </div>
-<div id="aiResults" class="ai-results"></div>
+<div id="aiResult" class="ai-results"></div>
 </div>
 </div>
 </div>
@@ -370,16 +364,10 @@ function go(url){
     document.getElementById('res').style.display='block';
     document.getElementById('toolbar').style.display='flex';
     document.getElementById('aiSection').style.display='block';
-    // Fetch page content for AI keyword detection
-    fetch(AI_WORKER+'/fetch?url='+encodeURIComponent(urlIn.value),{headers:{'X-Lumina-Tool':'pagespeed'}}).then(function(r){return r.json()}).then(function(fd){
-      if(fd.html){var doc=new DOMParser().parseFromString(fd.html,'text/html');_lastTitle=(doc.querySelector('title')||{}).textContent||'';_lastBodyText=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim().substring(0,3000);var hh=[];for(var i=1;i<=6;i++){doc.querySelectorAll('h'+i).forEach(function(el){hh.push({l:i,t:(el.textContent||'').replace(/\s+/g,' ').trim()})})}
-      _lastHeadings=hh}
-    }).catch(function(){});
   }
 }
 
 var lastData={},lastUrl='';
-var _lastTitle='',_lastBodyText='',_lastHeadings=[];
 function cwvStatus(metric,val){
   var t={fcp:[1800,3000],lcp:[2500,4000],tbt:[200,600],cls:[0.1,0.25],inp:[150,400],si:[3400,5800]};
   var th=t[metric];if(!th)return'';
@@ -495,100 +483,117 @@ function renderPSI(targetId,data,strategy){
   el.innerHTML=html;
 }
 
-// AI card
+// AI Analysis
 var AI_WORKER='https://lumina-proxy.julien-elbahy.workers.dev';
-var _aiKeywords=[];
-function aiUpdateQuota(data){
-  if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
-}
-function aiRenderChips(){
-  var container=document.getElementById('aiKwChips');
-  if(!_aiKeywords.length){container.style.display='none';return}
-  var primary=document.getElementById('aiKwPrimary').value.trim().toLowerCase();
-  var secRaw=document.getElementById('aiKwSecondary').value.trim().toLowerCase();
-  var secondaries=secRaw?secRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
-  var h='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px">Detected keywords — click to set as primary, click again for secondary</div>';
-  _aiKeywords.forEach(function(kw){
-    var k=kw.keyword.toLowerCase();var isPri=k===primary;var isSec=secondaries.indexOf(k)!==-1;
-    var cls=isPri?'primary':isSec?'secondary':'';
-    var vol=kw.vol!==undefined?' <span class="kw-vol">'+kw.vol.toLocaleString()+'/mo</span>':'';
-    h+='<span class="kw-chip '+cls+'" data-kw="'+esc(kw.keyword)+'">'+esc(kw.keyword)+vol+'</span>';
-  });
-  container.innerHTML=h;container.style.display='block';
-  container.querySelectorAll('.kw-chip').forEach(function(chip){
-    chip.addEventListener('click',function(){
-      var kw=chip.getAttribute('data-kw');
-      var pri=document.getElementById('aiKwPrimary');var sec=document.getElementById('aiKwSecondary');
-      if(pri.value.trim().toLowerCase()===kw.toLowerCase()){pri.value='';var secs=sec.value?sec.value.split(',').map(function(s){return s.trim()}).filter(Boolean):[];if(secs.indexOf(kw)===-1)secs.push(kw);sec.value=secs.join(', ')}
-      else if(sec.value.toLowerCase().indexOf(kw.toLowerCase())!==-1){var secs=sec.value.split(',').map(function(s){return s.trim()}).filter(function(s){return s.toLowerCase()!==kw.toLowerCase()});sec.value=secs.join(', ')}
-      else{if(pri.value.trim()){var secs=sec.value?sec.value.split(',').map(function(s){return s.trim()}).filter(Boolean):[];if(pri.value.trim()&&secs.indexOf(pri.value.trim())===-1)secs.push(pri.value.trim());sec.value=secs.join(', ')}pri.value=kw}
-      aiRenderChips();
-    });
-  });
-}
-function aiGetLangLocation(lang){var l=(lang||'en').toLowerCase();if(l.startsWith('de'))return{lc:'de',loc:2040};if(l.startsWith('fr'))return{lc:'fr',loc:2250};if(l.startsWith('it'))return{lc:'it',loc:2380};return{lc:'en',loc:2840}}
-function aiDetectKeywords(){
-  if(!_lastTitle&&!_lastBodyText){alert('Run a PageSpeed test first.');return}
-  var btn=document.getElementById('btnAiDetect');btn.disabled=true;btn.textContent='⏳ Detecting…';
-  var h1s=_lastHeadings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join('\n');
-  var headings=_lastHeadings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
-  fetch(AI_WORKER+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'pagespeed'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-    messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail keywords\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(_lastTitle||'')+'\nH1: '+(h1s||'')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+_lastBodyText.substring(0,1500)}],max_tokens:300
-  })})
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.error)throw new Error(data.error);aiUpdateQuota(data);
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(raw);var kws=parsed.keywords||[];
-    if(!kws.length)throw new Error('No keywords detected');
-    document.getElementById('aiKwPrimary').value=kws[0];
-    if(kws.length>1)document.getElementById('aiKwSecondary').value=kws.slice(1,4).join(', ');
-    _aiKeywords=kws.map(function(k){return{keyword:k}});aiRenderChips();
-    btn.textContent='⏳ Getting search volumes…';
-    var ll=aiGetLangLocation('en');
-    return fetch(AI_WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'pagespeed'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:ll.lc,location_code:ll.loc}])});
-  })
-  .then(function(r){return r?r.json():null})
-  .then(function(data){
-    if(!data||data.error)return;
-    try{(data.tasks||[]).forEach(function(t){(t.result||[]).forEach(function(r){_aiKeywords.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})});
-    _aiKeywords.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
-    if(_aiKeywords[0]){document.getElementById('aiKwPrimary').value=_aiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_aiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
-    aiRenderChips()}catch(e){}
-  })
-  .catch(function(e){document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p>';document.getElementById('aiKwChips').style.display='block'})
-  .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'});
-}
-function aiRenderOption(label,text,isTitle){
-  var maxChars=isTitle?60:155;
-  var h='<div class="ai-opt"><div class="ai-opt-header"><span class="ai-opt-label">'+label+' <span class="badge '+(text.length<=maxChars?'ok':'warn')+'">'+text.length+' chars</span></span>';
-  h+='<button class="ai-opt-copy" onclick="navigator.clipboard.writeText(this.closest(\'.ai-opt\').querySelector(\'.ai-opt-text\').textContent).then(function(){event.target.textContent=\'\\u2713 Copied\'});setTimeout(function(){event.target.textContent=\'Copy\'},1500)">Copy</button></div>';
-  h+='<div class="ai-opt-text">'+esc(text)+'</div></div>';return h;
-}
-function aiGenerateTitleDesc(){
-  if(!_lastTitle&&!_lastBodyText){alert('Run a PageSpeed test first.');return}
-  var primary=document.getElementById('aiKwPrimary').value.trim();
-  var secondary=document.getElementById('aiKwSecondary').value.trim();
-  if(!primary){alert('Enter or detect a primary keyword first.');return}
-  var btn=document.getElementById('btnAiGenerate');btn.disabled=true;btn.textContent='⏳ Generating…';
-  var out=document.getElementById('aiResults');
-  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
-  var h1s=_lastHeadings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join(', ');
-  var prompt='You are a senior SEO copywriter specializing in high-CTR meta tags.\n\nPage URL: '+lastUrl+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+'Current title: '+(_lastTitle||'(none)')+'\nH1: '+(h1s||'(none)')+'\nPage content (first 1500 chars):\n'+_lastBodyText.substring(0,1500)+'\n\nRULES:\n- WRITE IN THE SAME LANGUAGE AS THE PAGE CONTENT\n- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" in the first half. Use power words.\n- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", highlight unique value, end with a soft CTA.\n- Option A: benefit-focused\n- Option B: curiosity/urgency-focused\n- Avoid generic filler\n\nBEFORE OUTPUTTING: Count every character. Title ≤55, description ≤150.\n\nRespond with ONLY valid JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
-  fetch(AI_WORKER+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'pagespeed'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.error)throw new Error(data.error);aiUpdateQuota(data);
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();var r=JSON.parse(raw);var h='';
-    h+=aiRenderOption('Title — Option A',r.title1||'',true);h+=aiRenderOption('Title — Option B',r.title2||'',true);
-    h+=aiRenderOption('Description — Option A',r.desc1||'',false);h+=aiRenderOption('Description — Option B',r.desc2||'',false);
-    out.innerHTML=h;
-  })
-  .catch(function(e){out.innerHTML='<p style="color:var(--err);padding:12px">❌ '+esc(e.message)+'</p>'})
-  .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
-}
-document.getElementById('btnAiDetect').addEventListener('click',function(){aiDetectKeywords()});
-document.getElementById('btnAiGenerate').addEventListener('click',function(){aiGenerateTitleDesc()});
+document.getElementById('btnAI').addEventListener('click',async function(){
+  var aiBox=document.getElementById('aiResult');
+  aiBox.innerHTML='<div style="text-align:center;padding:24px;color:var(--muted);font-size:13px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><p style="margin-top:8px">Analyzing performance data and detecting tech stack…</p></div>';
+  var btnAI=this;btnAI.disabled=true;btnAI.textContent='🤖 Analyzing…';
+  try{
+    // Step 1: Detect tech stack via /fetch
+    var techStack='Unknown';
+    try{
+      var fetchResp=await fetch(AI_WORKER+'/fetch?url='+encodeURIComponent(lastUrl),{headers:{'X-Lumina-Tool':'pagespeed'}});
+      var fetchData=await fetchResp.json();
+      if(fetchData.headers){
+        var techs=[];
+        var h=fetchData.headers;
+        if(h['x-powered-by'])techs.push(h['x-powered-by']);
+        if(h['server'])techs.push('Server: '+h['server']);
+        if(h['x-generator'])techs.push(h['x-generator']);
+        if(h['via'])techs.push('CDN: '+h['via']);
+        ['x-cache','x-vercel-id','x-amz-cf-id','cf-ray','x-netlify','x-github-request-id'].forEach(function(k){if(h[k])techs.push(k.replace('x-','').replace(/-/g,' '))});
+        if(fetchData.html){
+          var b=fetchData.html.substring(0,15000);
+          if(/wp-content|wordpress/i.test(b))techs.push('WordPress');
+          if(/shopify/i.test(b))techs.push('Shopify');
+          if(/next\.js|__next/i.test(b))techs.push('Next.js');
+          if(/nuxt/i.test(b))techs.push('Nuxt');
+          if(/react/i.test(b))techs.push('React');
+          if(/vue/i.test(b))techs.push('Vue.js');
+          if(/angular/i.test(b))techs.push('Angular');
+          if(/wix\.com/i.test(b))techs.push('Wix');
+          if(/squarespace/i.test(b))techs.push('Squarespace');
+          if(/elementor/i.test(b))techs.push('Elementor');
+          if(/jquery/i.test(b))techs.push('jQuery');
+          if(/bootstrap/i.test(b))techs.push('Bootstrap');
+          if(/tailwind/i.test(b))techs.push('Tailwind CSS');
+          if(/google.*tag.*manager|gtm\.js/i.test(b))techs.push('Google Tag Manager');
+          if(/google.*analytics|gtag/i.test(b))techs.push('Google Analytics');
+          if(/hotjar/i.test(b))techs.push('Hotjar');
+          if(/cloudflare/i.test(b))techs.push('Cloudflare');
+          if(/lazy/i.test(b))techs.push('Lazy Loading');
+        }
+        if(techs.length>0)techStack=[...new Set(techs)].join(', ');
+      }
+    }catch(e){techStack='Could not detect';}
+    // Step 2: Collect all PSI data
+    var activeTab=document.querySelector('.psi-tab.active');
+    var strategy=activeTab?activeTab.dataset.s:'mobile';
+    var data=lastData[strategy];
+    if(!data||!data.lighthouseResult)throw new Error('No PSI data available');
+    var sc=getScores(data);
+    var opps=[];var diags=[];
+    var cats=data.lighthouseResult.categories||{};
+    var audits=data.lighthouseResult.audits||{};
+    if(cats.performance&&cats.performance.auditRefs){
+      cats.performance.auditRefs.forEach(function(ref){
+        var a=audits[ref.id];if(!a||a.score===null||a.score>=1)return;
+        if(ref.group==='load-opportunities'&&a.details&&a.details.overallSavingsMs>0)
+          opps.push(a.title+' (potential saving: '+(a.displayValue||'')+')');
+        if(ref.group==='diagnostics')
+          diags.push(a.title+(a.displayValue?' — '+a.displayValue:''));
+      });
+    }
+    var fieldInfo='No field data available';
+    var le=data.loadingExperience||{};
+    if(le.overall_category){
+      var fm=le.metrics||{};
+      var fd=[];
+      if(fm.LARGEST_CONTENTFUL_PAINT_MS)fd.push('LCP p75: '+fm.LARGEST_CONTENTFUL_PAINT_MS.percentile+'ms ('+fm.LARGEST_CONTENTFUL_PAINT_MS.category+')');
+      if(fm.INTERACTION_TO_NEXT_PAINT)fd.push('INP p75: '+fm.INTERACTION_TO_NEXT_PAINT.percentile+'ms ('+fm.INTERACTION_TO_NEXT_PAINT.category+')');
+      if(fm.CUMULATIVE_LAYOUT_SHIFT)fd.push('CLS p75: '+(fm.CUMULATIVE_LAYOUT_SHIFT.percentile/100).toFixed(2)+' ('+fm.CUMULATIVE_LAYOUT_SHIFT.category+')');
+      fieldInfo='Overall: '+le.overall_category+'. '+fd.join(', ');
+    }
+    // Step 3: Build the AI prompt
+    var systemPrompt='You are a senior web performance engineer and SEO specialist. Analyze PageSpeed Insights data and give concrete, actionable optimization recommendations.\n\nRules:\n- Be specific: reference the actual metrics, tech stack, and audit findings\n- Prioritize by impact: highest impact fixes first\n- For each recommendation: state WHAT to do, WHY it helps, and HOW to implement it for the detected tech stack\n- If you detect WordPress+Elementor: recommend WP Rocket, image optimization plugins, CSS/JS deferral\n- If you detect Next.js/React: recommend code splitting, dynamic imports, Image component\n- If you detect Shopify: recommend theme optimization, app reduction, lazy loading\n- Keep it practical — no generic advice like "optimize your images" without specifics\n- Use markdown formatting: ## for sections, **bold** for emphasis, - for bullet points\n- Max 5 recommendations, sorted by estimated impact\n- IMPORTANT: The INP threshold was lowered to 150ms in Google\'s March 2026 Core Update. Anything above 150ms is now considered "needs improvement". Flag this if INP is above 150ms.\n- If all scores are 90+, acknowledge the good performance and suggest micro-optimizations or monitoring tips instead';
+    var userPrompt='Analyze this PageSpeed Insights data and give me the top optimization recommendations:\n\n';
+    userPrompt+='**URL:** '+lastUrl+'\n';
+    userPrompt+='**Strategy:** '+strategy+'\n';
+    userPrompt+='**Detected Tech Stack:** '+techStack+'\n\n';
+    userPrompt+='**Scores:**\n- Performance: '+sc.perf+'/100\n- Accessibility: '+sc.a11y+'/100\n- Best Practices: '+sc.bp+'/100\n- SEO: '+sc.seo+'/100\n\n';
+    userPrompt+='**Lab Metrics:**\n- FCP: '+sc.fcp+'\n- LCP: '+sc.lcp+'\n- TBT: '+sc.tbt+'\n- CLS: '+sc.cls+'\n- INP: '+sc.inp+'\n- Speed Index: '+sc.si+'\n\n';
+    userPrompt+='**Field Data (CrUX):** '+fieldInfo+'\n\n';
+    if(opps.length>0)userPrompt+='**Lighthouse Opportunities:**\n'+opps.map(function(o){return'- '+o}).join('\n')+'\n\n';
+    if(diags.length>0)userPrompt+='**Lighthouse Diagnostics:**\n'+diags.map(function(d){return'- '+d}).join('\n')+'\n\n';
+    userPrompt+='Give me concrete, prioritized recommendations based on this data and the detected tech stack. Focus on what will move the needle most.';
+    // Step 4: Call AI
+    var key=localStorage.getItem('lumina_key_openai')||'';
+    var headers={'Content-Type':'application/json','X-Lumina-Tool':'pagespeed'};
+    if(key)headers['X-OAI-Key']=key;
+    var aiResp=await fetch(AI_WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify({model:'gpt-4.1-mini',max_tokens:2000,messages:[{role:'system',content:systemPrompt},{role:'user',content:userPrompt}]})});
+    var aiData=await aiResp.json();
+    if(aiData.error)throw new Error(aiData.error);
+    var content=aiData.choices&&aiData.choices[0]&&aiData.choices[0].message?aiData.choices[0].message.content:'No analysis available.';
+    // Step 5: Render markdown content
+    var rendered=content
+      .replace(/^### (.*?)$/gm,'<h4 style="font-size:13px;font-weight:700;color:var(--accent);margin:16px 0 6px">$1</h4>')
+      .replace(/^## (.*?)$/gm,'<h3 style="font-size:15px;font-weight:800;color:var(--text);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">$1</h3>')
+      .replace(/^# (.*?)$/gm,'<h3 style="font-size:15px;font-weight:800;color:var(--text);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--text)">$1</strong>')
+      .replace(/`(.*?)`/g,'<code style="background:var(--input-bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px">$1</code>')
+      .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid var(--border);margin:16px 0">')
+      .replace(/^- (.*?)$/gm,'<li style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px">$1</li>')
+      .replace(/(<li[^>]*>.*?<\/li>\n?)+/gs,function(m){return'<ul style="padding-left:18px;margin:6px 0">'+m+'</ul>'})
+      .replace(/<\/ul>\s*<ul[^>]*>/g,'')
+      .replace(/\n\n/g,'<br>')
+      .replace(/\n/g,'<br>');
+    aiBox.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:14px;backdrop-filter:blur(var(--blur))"><div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div><p style="font-size:10px;color:var(--muted);margin-top:12px;text-align:right">Powered by GPT-4.1 Mini · Tech stack: '+esc(techStack)+'</p></div>';
+  }catch(e){
+    aiBox.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:14px"><p style="color:var(--err)">'+esc(e.message)+'</p><p style="font-size:11px;color:var(--muted);margin-top:8px">💡 Save your API keys in ⚙ Settings for unlimited access</p></div>';
+  }
+  btnAI.disabled=false;btnAI.textContent='🤖 Analyze with AI';
+});
 
 // Toolbar handlers
 function getScores(data){

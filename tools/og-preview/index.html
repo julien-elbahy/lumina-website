@@ -350,7 +350,7 @@ function fetchWithFallback(targetUrl){
 }
 
 var WORKER_AI='https://lumina-proxy.julien-elbahy.workers.dev';
-var _lastOg={},_lastTw={},_lastUrl='',_lastTitle='',_lastDesc='',_lastBodyText='',_lastHeadings=[];
+var _lastOg={},_lastTw={},_lastUrl='',_lastTitle='',_lastDesc='';
 
 function scoreRing(score,size){
   var r=(size-6)/2,c=2*Math.PI*r,off=c-(score/100)*c;
@@ -379,9 +379,6 @@ var tw={};['twitter:card','twitter:title','twitter:description','twitter:image',
 _lastOg=og;_lastTw=tw;
 var title=og['og:title']||g('title');var desc=og['og:description']||g('meta[name="description"]','content');var img=og['og:image'];var site=og['og:site_name']||base.hostname;
 _lastTitle=title;_lastDesc=desc;
-var hTags=[];for(var hi=1;hi<=6;hi++){doc.querySelectorAll('h'+hi).forEach(function(el){hTags.push({l:hi,t:(el.textContent||'').replace(/\s+/g,' ').trim()})})}
-_lastHeadings=hTags;
-_lastBodyText=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim().substring(0,3000);
 var twTitle=tw['twitter:title']||title;var twDesc=tw['twitter:description']||desc;var twImg=tw['twitter:image']||img;var twCard=tw['twitter:card']||'summary';
 
 /* Score */
@@ -449,9 +446,10 @@ html+='<div class="og-toolbar"><button class="act-btn" id="btnCopyHtml">📋 Cop
 /* Cross-tool links */
 html+='<div class="cross-links"><a href="/tools/meta-tag-analyzer/?url='+encodeURIComponent(url)+'">🔍 Full Meta Analysis</a><a href="/tools/serp-preview/?url='+encodeURIComponent(url)+'">📱 Snippet Preview</a><a href="/tools/schema-validator/?url='+encodeURIComponent(url)+'">✅ Schema Validation</a></div>';
 /* AI section */
-html+='<div id="aiSection" class="ai-card"><div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">Generate optimized titles & descriptions</h2><p class="ai-card-desc">Auto-detect keywords from the analyzed page, get search volumes, and generate SEO-optimized snippets with AI.</p></div><div class="ai-card-body"><div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap"><div style="flex:1;min-width:180px"><label>Primary Keyword</label><input type="text" id="aiKwPrimary" placeholder="e.g. SEO audit tool"></div><div style="flex:1;min-width:180px"><label>Secondary Keywords</label><input type="text" id="aiKwSecondary" placeholder="e.g. meta tag checker"></div></div><div id="aiKwChips" style="display:none;margin-bottom:10px"></div><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:11px;padding:8px 14px">🔍 Auto-detect keywords</button><button class="ai-btn" id="btnAiGenerate" style="font-size:11px;padding:8px 14px">✨ Generate title & description</button><span id="aiQuota" class="ai-quota"></span></div></div><div id="aiResults" class="ai-results"></div></div>';
+html+='<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">OG Tag Generator</h2><p class="ai-card-desc">Generate optimized Open Graph and Twitter Card tags for this page.</p></div><div class="ai-card-body"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center"><button class="ai-btn" id="btnAiOg" style="font-size:11px;padding:8px 14px">✨ Generate Optimized Tags</button><span id="aiQuota" class="ai-quota"></span></div></div><div id="aiOgResult" class="ai-results" style="display:none"></div></div>';
 
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
+if(window.luminaQuota)luminaQuota.createBar('og-preview',document.querySelector('.cd'));
 /* Tab switching */
 document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tp').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('t-'+b.getAttribute('data-t')).classList.add('active')})});
 /* Image dimension check */
@@ -477,102 +475,40 @@ document.getElementById('btnCopyReport').addEventListener('click',function(){
   rpt+='\n';['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(k){rpt+=k+': '+(tw[k]||'(not set)')+'\n'});
   rpt+='\nIssues:\n';issues.forEach(function(x){rpt+=x.i+' '+x.m+'\n'});
   navigator.clipboard.writeText(rpt).then(function(){var b=document.getElementById('btnCopyReport');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📊 Copy Report'},1500)})});
-document.getElementById('btnAiDetect').addEventListener('click',function(){aiDetectKeywords()});
-document.getElementById('btnAiGenerate').addEventListener('click',function(){aiGenerateTitleDesc()});
+document.getElementById('btnAiOg').addEventListener('click',function(){aiGenerateOg()});
 }).catch(function(e){document.getElementById('res').innerHTML='<p style="color:var(--err);text-align:center;padding:20px">❌ '+esc(e.message)+'</p>';document.getElementById('res').style.display='block'
 }).finally(function(){btn.disabled=false;btn.textContent='Preview Social Cards';document.getElementById('loading').style.display='none'})}
 
-var _aiKeywords=[];
-function aiUpdateQuota(data){
-  if(window.luminaQuota)window.luminaQuota.update('og-preview',data);
-  if(data._lumina&&data._lumina.remaining!=='unlimited'){document.getElementById('aiQuota').textContent=data._lumina.remaining+'/'+data._lumina.limit+' AI queries remaining today'}
-}
-function aiRenderChips(){
-  var container=document.getElementById('aiKwChips');
-  if(!_aiKeywords.length){container.style.display='none';return}
-  var primary=document.getElementById('aiKwPrimary').value.trim().toLowerCase();
-  var secRaw=document.getElementById('aiKwSecondary').value.trim().toLowerCase();
-  var secondaries=secRaw?secRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
-  var h='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px">Detected keywords — click to set as primary, click again for secondary</div>';
-  _aiKeywords.forEach(function(kw){
-    var k=kw.keyword.toLowerCase();var isPri=k===primary;var isSec=secondaries.indexOf(k)!==-1;
-    var cls=isPri?'primary':isSec?'secondary':'';
-    var vol=kw.vol!==undefined?' <span class="kw-vol">'+kw.vol.toLocaleString()+'/mo</span>':'';
-    h+='<span class="kw-chip '+cls+'" data-kw="'+esc(kw.keyword)+'">'+esc(kw.keyword)+vol+'</span>';
-  });
-  container.innerHTML=h;container.style.display='block';
-  container.querySelectorAll('.kw-chip').forEach(function(chip){
-    chip.addEventListener('click',function(){
-      var kw=chip.getAttribute('data-kw');
-      var pri=document.getElementById('aiKwPrimary');var sec=document.getElementById('aiKwSecondary');
-      if(pri.value.trim().toLowerCase()===kw.toLowerCase()){pri.value='';var secs=sec.value?sec.value.split(',').map(function(s){return s.trim()}).filter(Boolean):[];if(secs.indexOf(kw)===-1)secs.push(kw);sec.value=secs.join(', ')}
-      else if(sec.value.toLowerCase().indexOf(kw.toLowerCase())!==-1){var secs=sec.value.split(',').map(function(s){return s.trim()}).filter(function(s){return s.toLowerCase()!==kw.toLowerCase()});sec.value=secs.join(', ')}
-      else{if(pri.value.trim()){var secs=sec.value?sec.value.split(',').map(function(s){return s.trim()}).filter(Boolean):[];if(pri.value.trim()&&secs.indexOf(pri.value.trim())===-1)secs.push(pri.value.trim());sec.value=secs.join(', ')}pri.value=kw}
-      aiRenderChips();
-    });
-  });
-}
-function aiGetLangLocation(lang){var l=(lang||'en').toLowerCase();if(l.startsWith('de'))return{lc:'de',loc:2040};if(l.startsWith('fr'))return{lc:'fr',loc:2250};if(l.startsWith('it'))return{lc:'it',loc:2380};return{lc:'en',loc:2840}}
-function aiDetectKeywords(){
-  if(!_lastTitle&&!_lastBodyText)return;
-  var btn=document.getElementById('btnAiDetect');btn.disabled=true;btn.textContent='⏳ Detecting…';
-  var h1s=_lastHeadings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join('\n');
-  var headings=_lastHeadings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
+function aiGenerateOg(){
+  var btn=document.getElementById('btnAiOg');btn.disabled=true;btn.textContent='⏳ Generating…';
+  var rd=document.getElementById('aiOgResult');
+  rd.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
+  rd.style.display='block';
+  var existing='Current tags:\n';
+  ['og:title','og:description','og:image','og:url','og:type','og:site_name'].forEach(function(k){existing+=k+': '+((_lastOg[k])||'(not set)')+'\n'});
+  ['twitter:card','twitter:title','twitter:image'].forEach(function(k){existing+=k+': '+((_lastTw[k])||'(not set)')+'\n'});
   fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'og-preview'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-    messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail and medium-tail keywords\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(_lastTitle||'')+'\nDESCRIPTION: '+(_lastDesc||'')+'\nH1: '+(h1s||'')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+_lastBodyText.substring(0,1500)}],
-    max_tokens:300
-  })})
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.error)throw new Error(data.error);aiUpdateQuota(data);
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(raw);var kws=parsed.keywords||[];
-    if(!kws.length)throw new Error('No keywords detected');
-    document.getElementById('aiKwPrimary').value=kws[0];
-    if(kws.length>1)document.getElementById('aiKwSecondary').value=kws.slice(1,4).join(', ');
-    _aiKeywords=kws.map(function(k){return{keyword:k}});aiRenderChips();
-    btn.textContent='⏳ Getting search volumes…';
-    var ll=aiGetLangLocation('en');
-    return fetch(WORKER_AI+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'og-preview'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:ll.lc,location_code:ll.loc}])});
-  })
-  .then(function(r){return r?r.json():null})
-  .then(function(data){
-    if(!data||data.error)return;
-    try{(data.tasks||[]).forEach(function(t){(t.result||[]).forEach(function(r){_aiKeywords.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})});
-    _aiKeywords.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
-    if(_aiKeywords[0]){document.getElementById('aiKwPrimary').value=_aiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_aiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
-    aiRenderChips()}catch(e){}
-  })
-  .catch(function(e){document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p>';document.getElementById('aiKwChips').style.display='block'})
-  .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'});
-}
-function aiRenderOption(label,text,isTitle){
-  var maxChars=isTitle?60:155;
-  var h='<div class="ai-opt"><div class="ai-opt-header"><span class="ai-opt-label">'+label+' <span class="badge '+(text.length<=maxChars?'ok':'warn')+'">'+text.length+' chars</span></span>';
-  h+='<button class="ai-opt-copy" onclick="navigator.clipboard.writeText(this.closest(\'.ai-opt\').querySelector(\'.ai-opt-text\').textContent).then(function(){event.target.textContent=\'\\u2713 Copied\'});setTimeout(function(){event.target.textContent=\'Copy\'},1500)">Copy</button></div>';
-  h+='<div class="ai-opt-text">'+esc(text)+'</div></div>';return h;
-}
-function aiGenerateTitleDesc(){
-  if(!_lastTitle&&!_lastBodyText)return;
-  var primary=document.getElementById('aiKwPrimary').value.trim();
-  var secondary=document.getElementById('aiKwSecondary').value.trim();
-  if(!primary){alert('Enter or detect a primary keyword first.');return}
-  var btn=document.getElementById('btnAiGenerate');btn.disabled=true;btn.textContent='⏳ Generating…';
-  var out=document.getElementById('aiResults');
-  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
-  var h1s=_lastHeadings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join(', ');
-  var prompt='You are a senior SEO copywriter specializing in high-CTR meta tags.\n\nPage URL: '+_lastUrl+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+'Current title: '+(_lastTitle||'(none)')+'\nCurrent description: '+(_lastDesc||'(none)')+'\nH1: '+(h1s||'(none)')+'\nPage content (first 1500 chars):\n'+_lastBodyText.substring(0,1500)+'\n\nRULES:\n- WRITE IN THE SAME LANGUAGE AS THE PAGE CONTENT\n- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" in the first half. Use power words.\n- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", highlight unique value, end with a soft CTA.\n- Option A: benefit-focused\n- Option B: curiosity/urgency-focused\n- Avoid generic filler\n\nBEFORE OUTPUTTING: Count every character. Title ≤55, description ≤150.\n\nRespond with ONLY valid JSON:\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
-  fetch(WORKER_AI+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'og-preview'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.error)throw new Error(data.error);aiUpdateQuota(data);
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();var r=JSON.parse(raw);var h='';
-    h+=aiRenderOption('Title — Option A',r.title1||'',true);h+=aiRenderOption('Title — Option B',r.title2||'',true);
-    h+=aiRenderOption('Description — Option A',r.desc1||'',false);h+=aiRenderOption('Description — Option B',r.desc2||'',false);
-    out.innerHTML=h;
-  })
-  .catch(function(e){out.innerHTML='<p style="color:var(--err);padding:12px">❌ '+esc(e.message)+'</p>'})
-  .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
+    messages:[{role:'system',content:'You are a social media SEO expert specializing in Open Graph and Twitter Card optimization.\n\nGenerate optimized meta tags that maximize click-through rates on social platforms.\n\nRules:\n1. og:title: Under 60 chars, compelling, includes key benefit or keyword\n2. og:description: Under 155 chars, includes CTA or value proposition\n3. twitter:card should be "summary_large_image" for visual content\n4. Keep the page language — if content is German, write German tags\n5. Output as ready-to-paste HTML meta tags\n6. Include all essential OG + Twitter Card tags\n7. If existing tags are good, suggest small improvements\n8. Add og:type, og:site_name, og:locale where missing\n\nFormat: First output the HTML meta tags in a code block, then a brief explanation of your choices.'},{role:'user',content:'URL: '+_lastUrl+'\nPage title: '+_lastTitle+'\nPage description: '+_lastDesc+'\n\n'+existing}],
+    max_tokens:1000
+  })}).then(function(r){return r.json()}).then(function(data){
+    if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    if(window.luminaQuota)window.luminaQuota.update('og-preview',data);
+    var text=data.choices[0].message.content;
+    var rendered=text
+      .replace(/```html\n?([\s\S]*?)```/g,'<pre style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;overflow-x:auto;line-height:1.6;color:var(--text);white-space:pre-wrap">$1</pre>')
+      .replace(/```\n?([\s\S]*?)```/g,'<pre style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;overflow-x:auto;line-height:1.6;color:var(--text);white-space:pre-wrap">$1</pre>')
+      .replace(/^### (.*?)$/gm,'<h4 style="font-size:13px;font-weight:700;color:var(--accent);margin:16px 0 6px">$1</h4>')
+      .replace(/^## (.*?)$/gm,'<h3 style="font-size:15px;font-weight:800;color:var(--text);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--text)">$1</strong>')
+      .replace(/`(.*?)`/g,'<code style="background:var(--input-bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px">$1</code>')
+      .replace(/^- (.*?)$/gm,'<li style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px">$1</li>')
+      .replace(/(<li[^>]*>.*?<\/li>\n?)+/gs,function(m){return'<ul style="padding-left:18px;margin:6px 0">'+m+'</ul>'})
+      .replace(/<\/ul>\s*<ul[^>]*>/g,'')
+      .replace(/\n\n/g,'<br>')
+      .replace(/\n/g,'<br>');
+    rd.innerHTML='<div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div>';
+  }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div>'})
+  .finally(function(){btn.disabled=false;btn.textContent='✨ Generate Optimized Tags'});
 }
 
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');go(params.get('url'))}
