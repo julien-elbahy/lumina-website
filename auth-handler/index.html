@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Authenticating… | Lumina SEO</title>
+<style>
+:root{--bg:#1c1914;--text:#faf7f2;--accent:#eca550;--muted:#a09484;--font:'Plus Jakarta Sans',system-ui,sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center}
+.wrap{max-width:400px;padding:24px}
+h1{font-size:20px;margin-bottom:12px}
+p{font-size:14px;color:var(--muted);line-height:1.6}
+.spinner{width:32px;height:32px;border:3px solid rgba(236,165,80,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="spinner"></div>
+<h1>Authenticating…</h1>
+<p id="msg">Saving your Google credentials and redirecting…</p>
+</div>
+<script>
+(function(){
+  var hash=window.location.hash;
+  if(!hash||hash.indexOf('access_token')===-1){
+    document.getElementById('msg').innerHTML='No authentication data found. <a href="/">Return to Lumina SEO</a>';
+    return;
+  }
+
+  var params=new URLSearchParams(hash.substring(1));
+  var token=params.get('access_token');
+  var expires=parseInt(params.get('expires_in')||'3600');
+  var state=params.get('state')||'/';
+
+  if(!token){
+    document.getElementById('msg').innerHTML='Authentication failed. <a href="/">Return to Lumina SEO</a>';
+    return;
+  }
+
+  // Store token in localStorage (same keys used by all GSC tools)
+  localStorage.setItem('lumina_gsc_token',token);
+  localStorage.setItem('lumina_gsc_expiry',String(Date.now()+expires*1000));
+
+  // Redirect back to the originating tool page
+  try{
+    var returnPath=decodeURIComponent(state);
+    // Safety: only allow same-origin paths
+    if(returnPath.startsWith('/'))window.location.replace(returnPath);
+    else window.location.replace('/');
+  }catch(e){
+    window.location.replace('/');
+  }
+})();
+</script>
+</body>
+</html>

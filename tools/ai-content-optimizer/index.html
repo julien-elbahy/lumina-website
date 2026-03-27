@@ -232,7 +232,7 @@
 <div class="th"><div class="lb">AI-Powered SEO Tool</div><h1>AI Content Optimizer</h1><p>Paste your content or fetch from a URL. Auto-detect keywords with search volume, connect Google Search Console for real ranking data, then get AI-powered optimization suggestions.</p></div>
 <div class="cd" style="padding:12px 16px;margin-bottom:8px">
 <div id="gscConnect" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0">🔗 Connect GSC</button>
+<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0 8px 0 0;flex-shrink:0">🔗 Connect GSC</button>
 <span style="font-size:12px;color:var(--muted);line-height:1.4">See real clicks, impressions &amp; rankings from Google Search Console — data flows directly into AI optimization.</span>
 </div>
 <div id="gscMain" style="display:none">
@@ -249,7 +249,7 @@
 </div>
 </div>
 <div class="cd">
-<div class="url-bar" style="margin-bottom:10px"><input type="text" id="urlIn" placeholder="https://example.com — Fetch content from URL" spellcheck="false"><button class="ab" id="btnFetchUrl" style="padding:10px 18px;font-size:12px">Fetch from URL</button></div>
+<div class="url-bar" style="margin-bottom:10px"><input type="text" id="urlIn" placeholder="https://example.com — Fetch content from URL" value="https://lumina-seo.com" spellcheck="false"><button class="ab" id="btnFetchUrl" style="padding:10px 18px;font-size:12px">Fetch from URL</button></div>
 <textarea class="ai-textarea" id="contentIn" placeholder="Paste your content here… (article text, landing page copy, blog post, etc.)"></textarea>
 <div class="ai-kw-row">
 <input type="text" id="kwPrimary" placeholder="Primary keyword (e.g. Badsanierung Wien)">
@@ -343,17 +343,14 @@ function gscUpdateUI(){
   if(c)gscLoadSites();
 }
 (function(){
-  var hash=window.location.hash;
-  if(hash&&hash.indexOf('access_token')!==-1){
-    var params=new URLSearchParams(hash.substring(1));
-    var token=params.get('access_token');var expires=parseInt(params.get('expires_in')||'3600');
-    if(token){gscToken=token;gscExpiry=Date.now()+expires*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));window.history.replaceState({},'',window.location.pathname+window.location.search)}
-  }
+  gscToken=localStorage.getItem('lumina_gsc_token')||'';
+  gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
   gscUpdateUI();
 })();
 document.getElementById('btnGscConnect').addEventListener('click',function(){
-  var redirect=window.location.origin+window.location.pathname;
-  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
+  var redirect=window.location.origin+'/auth-handler/';
+  var state=encodeURIComponent(window.location.pathname);
+  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&state='+state+'&prompt=consent';
 });
 document.getElementById('btnGscDisconnect').addEventListener('click',function(){
   gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');

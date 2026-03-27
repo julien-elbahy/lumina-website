@@ -229,7 +229,7 @@
 <div class="th"><div class="lb">KI-gestütztes SEO-Tool</div><h1>KI Content Optimierer</h1><p>Füge deinen Inhalt ein oder rufe ihn von einer URL ab. Keywords automatisch erkennen mit Suchvolumen, Google Search Console für echte Ranking-Daten verbinden, dann KI-gestützte Optimierungsvorschläge erhalten.</p></div>
 <div class="cd" style="padding:12px 16px;margin-bottom:8px">
 <div id="gscConnect" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0">🔗 GSC verbinden</button>
+<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0 8px 0 0;flex-shrink:0">🔗 GSC verbinden</button>
 <span style="font-size:12px;color:var(--muted);line-height:1.4">Echte Klicks, Impressionen &amp; Rankings aus der Google Search Console — Daten fließen direkt in die KI-Optimierung ein.</span>
 </div>
 <div id="gscMain" style="display:none">
@@ -246,7 +246,7 @@
 </div>
 </div>
 <div class="cd">
-<div class="url-bar" style="margin-bottom:10px"><input type="text" id="urlIn" placeholder="https://example.com — Inhalt von URL abrufen" spellcheck="false"><button class="ab" id="btnFetchUrl" style="padding:10px 18px;font-size:12px">Von URL laden</button></div>
+<div class="url-bar" style="margin-bottom:10px"><input type="text" id="urlIn" placeholder="https://example.com — Inhalt von URL abrufen" value="https://lumina-seo.com" spellcheck="false"><button class="ab" id="btnFetchUrl" style="padding:10px 18px;font-size:12px">Von URL laden</button></div>
 <textarea class="ai-textarea" id="contentIn" placeholder="Füge deinen Inhalt hier ein… (Artikeltext, Landingpage-Text, Blogpost, etc.)"></textarea>
 <div class="ai-kw-row">
 <input type="text" id="kwPrimary" placeholder="Haupt-Keyword (z.B. Badsanierung Wien)">
@@ -340,17 +340,14 @@ function gscUpdateUI(){
   if(c)gscLoadSites();
 }
 (function(){
-  var hash=window.location.hash;
-  if(hash&&hash.indexOf('access_token')!==-1){
-    var params=new URLSearchParams(hash.substring(1));
-    var token=params.get('access_token');var expires=parseInt(params.get('expires_in')||'3600');
-    if(token){gscToken=token;gscExpiry=Date.now()+expires*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));window.history.replaceState({},'',window.location.pathname+window.location.search)}
-  }
+  gscToken=localStorage.getItem('lumina_gsc_token')||'';
+  gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
   gscUpdateUI();
 })();
 document.getElementById('btnGscConnect').addEventListener('click',function(){
-  var redirect=window.location.origin+window.location.pathname;
-  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
+  var redirect=window.location.origin+'/auth-handler/';
+  var state=encodeURIComponent(window.location.pathname);
+  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&state='+state+'&prompt=consent';
 });
 document.getElementById('btnGscDisconnect').addEventListener('click',function(){
   gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');

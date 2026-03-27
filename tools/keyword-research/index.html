@@ -838,18 +838,15 @@ function gscUpdateUI(){
 }
 
 (function(){
-  var hash=window.location.hash;
-  if(hash&&hash.indexOf('access_token')!==-1){
-    var params=new URLSearchParams(hash.substring(1));
-    var token=params.get('access_token');var expires=parseInt(params.get('expires_in')||'3600');
-    if(token){gscToken=token;gscExpiry=Date.now()+expires*1000;localStorage.setItem('lumina_gsc_token',gscToken);localStorage.setItem('lumina_gsc_expiry',String(gscExpiry));window.history.replaceState({},'',window.location.pathname+window.location.search)}
-  }
+  gscToken=localStorage.getItem('lumina_gsc_token')||'';
+  gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
   gscUpdateUI();
 })();
 
 document.getElementById('btnGscConnect').addEventListener('click',function(){
-  var redirect=window.location.origin+window.location.pathname;
-  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
+  var redirect=window.location.origin+'/auth-handler/';
+  var state=encodeURIComponent(window.location.pathname);
+  window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&state='+state+'&prompt=consent';
 });
 document.getElementById('btnGscDisconnect').addEventListener('click',function(){
   gscToken='';gscExpiry=0;localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');

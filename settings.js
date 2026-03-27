@@ -211,8 +211,9 @@ function wireGsc(){
 
   if(connectBtn){
     connectBtn.addEventListener('click',function(){
-      var redirect=window.location.origin+window.location.pathname;
-      window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&prompt=consent';
+      var redirect=window.location.origin+'/auth-handler/';
+      var state=encodeURIComponent(window.location.pathname);
+      window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&state='+state+'&prompt=consent';
     });
   }
 
