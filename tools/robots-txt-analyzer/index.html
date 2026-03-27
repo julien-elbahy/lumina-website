@@ -66,7 +66,7 @@
 .mobile-menu{display:none!important;position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--bg);z-index:300;padding:16px 24px 100px;overflow-y:auto;overscroll-behavior:contain;flex-direction:column;gap:0;align-items:stretch}.mobile-menu.open{display:flex!important}.mobile-menu a{flex-shrink:0;font-size:18px;font-weight:600;padding:14px 0;border-bottom:1px solid var(--border);color:var(--text2);display:block;transition:color .2s}.mobile-menu a:hover{color:var(--accent)}.mobile-menu .mm-cws{display:block;text-align:center;margin-top:16px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px}
 .mobile-menu .mm-actions{display:flex;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}.mobile-menu .mm-actions button{flex:1;padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.mobile-menu .mm-actions button:hover{border-color:var(--accent);color:var(--accent)}
 
-@media(max-width:640px){.burger-btn{display:flex}.nr,.bt{display:none}.nl img{display:none}.lang-sw{margin-left:auto}}
+@media(max-width:640px){.burger-btn{display:flex}.nr>*:not(.lang-sw){display:none!important}.nr{margin-left:auto;gap:0}.nl img{display:none}.nr::after{content:"|";color:var(--muted);font-weight:300;font-size:16px}.tools-sub{display:none!important}}
 @media(max-width:640px){.url-bar{flex-direction:column}.ct{padding:16px}.nr,.nav-right{display:none}.cr{flex-wrap:wrap}.cr-name{min-width:100px}}
 
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:780px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
@@ -204,7 +204,7 @@
 <a href="/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
 </div>
-</div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><a href="/de/tools/robots-txt-analyzer/" class="lang-sw" title="Deutsch">DE</a><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="/de/tools/robots-txt-analyzer/" class="lang-sw" title="Deutsch">DE</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Get the Chrome Extension</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/">Home</a>
 <a href="/#features">Features</a>
@@ -245,31 +245,6 @@
 <a href="/tools/serp-overlap/">SERP Overlap</a>
 </div>
 <div class="mm-actions"><button class="mm-theme" onclick="document.getElementById('themeToggle').click()">&#9728;&#65039; Theme</button><button class="mm-settings" onclick="luminaSettings.open()">&#9881;&#65039; Settings</button></div>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
-</div><a href="/tools/serp-preview/">Snippet Preview</a>
-<a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
-<a href="/tools/schema-validator/">Schema Validator</a>
-<a href="/tools/heading-checker/">Heading Checker</a>
-<a href="/tools/og-preview/">OG Preview</a>
-<div class="mm-cat">Technical SEO</div>
-<a href="/tools/tech-stack/">Tech Stack Detector</a>
-<a href="/tools/security-headers/">Security Headers</a>
-<a href="/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/tools/redirect-checker/">Redirect Checker</a>
-<a href="/tools/link-analyzer/">Link Analyzer</a>
-<div class="mm-cat">Content & GEO</div>
-<a href="/tools/word-counter/">Word Counter</a>
-<a href="/tools/image-seo-checker/">Image SEO Checker</a>
-<a href="/tools/semantic-checker/">Semantic HTML</a>
-<a href="/tools/js-nojs/">JS vs No-JS</a>
-<a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
-<a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a>
-<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
-<div class="mm-cat">SERP & Keywords</div>
-<a href="/tools/serp-checker/">SERP Checker</a>
-<a href="/tools/keyword-research/">Keyword Research</a>
-<a href="/tools/serp-overlap/">SERP Overlap</a>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
 </div>
 
