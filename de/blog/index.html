@@ -46,7 +46,7 @@
 .mobile-menu .mm-cat.open .mm-arrow{transform:rotate(45deg)}
 .mobile-menu .mm-links{display:none;flex-shrink:0}
 .mobile-menu .mm-cat.open+.mm-links{display:block}
-@media(max-width:640px){.burger-btn{display:flex}.nr,.bt{display:none}.nl img{display:none}.lang-sw{margin-left:auto}}
+@media(max-width:640px){.burger-btn{display:flex}.nr>*:not(.lang-sw){display:none!important}.nr{margin-left:auto;gap:0}.nl img{display:none}.nr::after{content:"|";color:var(--muted);font-weight:300;font-size:16px}.tools-sub{display:none!important}}
 /* Blog styles */
 .blog-hero{text-align:center;padding:60px 24px 40px;max-width:780px;margin:0 auto}.blog-hero .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.blog-hero h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.5px;margin-bottom:10px}.blog-hero p{font-size:16px;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.7}
 .blog-grid{max-width:780px;margin:0 auto;padding:0 24px 40px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
@@ -88,7 +88,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><button class="bt" id="themeToggle" title="Theme">&#9728;&#65039;</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><a href="/blog/" class="lang-sw" title="English">EN</a><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><button class="bt" id="themeToggle" title="Theme">&#9728;&#65039;</button><a href="/blog/" class="lang-sw" title="English">EN</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>

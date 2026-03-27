@@ -54,7 +54,7 @@
 
 
 .scan-mode{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;font-family:var(--mono)}
-@media(max-width:640px){.burger-btn{display:flex}.nr,.bt{display:none}.nl img{display:none}.lang-sw{margin-left:auto}}
+@media(max-width:640px){.burger-btn{display:flex}.nr>*:not(.lang-sw){display:none!important}.nr{margin-left:auto;gap:0}.nl img{display:none}.nr::after{content:"|";color:var(--muted);font-weight:300;font-size:16px}.tools-sub{display:none!important}}
 .ct{max-width:780px;margin:0 auto;padding:24px}
 .th{text-align:center;margin-bottom:24px}.th .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.th h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.th p{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
 .cd{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s)}
@@ -218,7 +218,7 @@
 <a href="/de/tools/hreflang-checker/">hreflang Checker</a>
 <a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
 </div>
-</div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><a href="/tools/tech-stack/" class="lang-sw" title="English">EN</a><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+</div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="/tools/tech-stack/" class="lang-sw" title="English">EN</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-menu" id="mobileMenu">
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>
@@ -260,31 +260,6 @@
 </div>
 <div class="mm-actions"><button class="mm-theme" onclick="document.getElementById('themeToggle').click()">&#9728;&#65039; Theme</button><button class="mm-settings" onclick="luminaSettings.open()">&#9881;&#65039; Einstellungen</button></div>
 <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Chrome Extension installieren — Kostenlos</a>
-</div><a href="/de/tools/serp-preview/">Snippet Preview</a>
-<a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
-<a href="/de/tools/schema-validator/">Schema Validator</a>
-<a href="/de/tools/heading-checker/">Heading Checker</a>
-<a href="/de/tools/og-preview/">OG Preview</a>
-<div class="mm-cat">Technical SEO</div>
-<a href="/de/tools/tech-stack/">Tech Stack Detector</a>
-<a href="/de/tools/security-headers/">Security Headers</a>
-<a href="/de/tools/pagespeed/">PageSpeed Insights</a>
-<a href="/de/tools/redirect-checker/">Redirect Checker</a>
-<a href="/de/tools/link-analyzer/">Link Analyzer</a>
-<div class="mm-cat">Content & GEO</div>
-<a href="/de/tools/word-counter/">Word Counter</a>
-<a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
-<a href="/de/tools/semantic-checker/">Semantic HTML</a>
-<a href="/de/tools/js-nojs/">JS vs No-JS</a>
-<a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
-<a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
-<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
-<div class="mm-cat">SERP & Keywords</div>
-<a href="/de/tools/serp-checker/">SERP Checker</a>
-<a href="/de/tools/keyword-research/">Keyword Research</a>
-<a href="/de/tools/serp-overlap/">SERP Overlap</a>
-<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a>
 </div>
 
 <div class="ct">
