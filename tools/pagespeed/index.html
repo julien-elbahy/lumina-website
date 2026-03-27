@@ -75,6 +75,11 @@
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
 
 .psi-scores{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}.psi-score{text-align:center;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px}.psi-score .mh{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}.psi-ring{width:60px;height:60px;margin:0 auto}.psi-cwv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.psi-cwv-item{text-align:center;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px}.psi-cwv-item .mh{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:4px}.psi-cwv-item p{font-size:16px;font-weight:800}.psi-strategy{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;justify-content:center}.psi-tab{background:0;border:0;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);border-radius:8px;transition:all .2s;font-family:var(--font)}.psi-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff}
+.psi-cwv-item.good{border-color:var(--ok-border);background:var(--ok-bg)}.psi-cwv-item.needs-improvement{border-color:var(--warn-border);background:var(--warn-bg)}.psi-cwv-item.poor{border-color:var(--err-border);background:var(--err-bg)}
+.cwv-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-top:4px;text-transform:uppercase;letter-spacing:.3px}.cwv-badge.good{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}.cwv-badge.warn{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}.cwv-badge.poor{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border)}
+.psi-opps{margin:8px 0}.psi-opp{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px}.psi-opp:last-child{border-bottom:none}.opp-title{color:var(--text);font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:12px}.opp-savings{color:var(--err);font-weight:700;font-size:12px;white-space:nowrap;font-family:var(--mono)}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ai-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:14px;backdrop-filter:blur(var(--blur))}.ai-box h3{font-size:14px;font-weight:800;margin-bottom:12px;color:var(--accent)}.ai-box .ai-section{margin-bottom:16px}.ai-box .ai-section:last-child{margin-bottom:0}.ai-box .ai-section h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text);margin-bottom:6px}.ai-box ul{padding-left:18px;margin:0}.ai-box li{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px}.ai-box li strong{color:var(--text)}.ai-box p{font-size:13px;color:var(--text2);line-height:1.7}.ai-loading{text-align:center;padding:24px;color:var(--muted);font-size:13px}
 @media(max-width:480px){.psi-scores{grid-template-columns:repeat(2,1fr)}.psi-cwv{grid-template-columns:1fr 1fr 1fr}}
 .mobile-menu .mm-cat{flex-shrink:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
 .mobile-menu .mm-cat .mm-arrow{font-size:14px;transition:transform .3s;color:var(--muted)}
@@ -257,12 +262,19 @@
 <div class="th"><div class="lb">Free Performance Tool</div><h1>PageSpeed Insights</h1><p>Get Google Lighthouse scores for any URL — Performance, Accessibility, Best Practices, SEO, and Core Web Vitals. Powered by the free Google PSI API.</p></div>
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Run Test</button></div>
-<div class="quota-bar" id="quotaInfo" style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:var(--mono)">50 free tests per day</div>
+<div class="quota-bar" id="quotaInfo" style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:var(--mono);display:none"></div>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Running Lighthouse audit… This may take 15-30 seconds.</p></div>
 <div id="res" style="display:none">
 <div class="psi-strategy"><button class="psi-tab active" data-s="mobile">📱 Mobile</button><button class="psi-tab" data-s="desktop">🖥 Desktop</button></div>
 <div id="psiMobile"></div>
 <div id="psiDesktop" style="display:none"></div>
+<div class="toolbar" id="toolbar" style="display:none">
+<button class="tb-btn" id="btnCopy">📋 Copy</button>
+<button class="tb-btn" id="btnCSV">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Report</button>
+<button class="tb-btn" id="btnAI" style="background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:var(--accent)">🤖 AI Analysis</button>
+</div>
+<div id="aiResult" style="display:none"></div>
 </div>
 </div>
 <div class="content"><h2>What this tool checks</h2><p>This tool calls the Google PageSpeed Insights API directly from your browser — no proxy, no API key needed. Google runs a full Lighthouse audit and returns scores for Performance, Accessibility, Best Practices, and SEO, plus Core Web Vitals (FCP, LCP, TBT, CLS, Speed Index, TTI).</p>
@@ -315,7 +327,7 @@ function go(url){
   urlIn.value=url;
   // Track PSI usage client-side
   var today=new Date().toISOString().split('T')[0];
-  try{var pq=JSON.parse(localStorage.getItem('lumina_quota')||'{}');if(!pq.psi||pq.psi.date!==today)pq.psi={used:0,date:today};pq.psi.used++;localStorage.setItem('lumina_quota',JSON.stringify(pq));var el=document.getElementById('quotaInfo');if(el)el.textContent='PSI tests today: '+pq.psi.used+'/25'}catch(e){}
+  try{var pq=JSON.parse(localStorage.getItem('lumina_quota')||'{}');if(!pq.psi||pq.psi.date!==today)pq.psi={used:0,date:today};if(pq.psi.used>=25){var el=document.getElementById('quotaInfo');if(el){el.textContent='Daily limit reached (25 tests). Try again tomorrow.';el.style.display='block';el.style.color='var(--err)'}btn.disabled=true;return}pq.psi.used++;localStorage.setItem('lumina_quota',JSON.stringify(pq))}catch(e){}
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Testing…';
@@ -333,12 +345,26 @@ function go(url){
     renderPSI('psiMobile',results.mobile,'mobile');
     renderPSI('psiDesktop',results.desktop,'desktop');
     document.getElementById('res').style.display='block';
+    document.getElementById('toolbar').style.display='flex';
   }
 }
 
+var lastData={},lastUrl='';
+function cwvStatus(metric,val){
+  var t={fcp:[1800,3000],lcp:[2500,4000],tbt:[200,600],cls:[0.1,0.25],inp:[150,400],si:[3400,5800]};
+  var th=t[metric];if(!th)return'';
+  return val<=th[0]?'good':val<=th[1]?'needs-improvement':'poor';
+}
+function cwvBadge(status){
+  if(status==='good')return'<span class="cwv-badge good">Good</span>';
+  if(status==='needs-improvement')return'<span class="cwv-badge warn">Needs Work</span>';
+  if(status==='poor')return'<span class="cwv-badge poor">Poor</span>';
+  return'';
+}
 function renderPSI(targetId,data,strategy){
   var el=document.getElementById(targetId);
   if(data.error||!data.lighthouseResult){el.innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(data.error||'No results')+'</p></div>';return}
+  lastData[strategy]=data;lastUrl=urlIn.value;
   var lh=data.lighthouseResult;var cats=lh.categories||{};
   var scores={
     performance:Math.round((cats.performance||{}).score*100||0),
@@ -347,32 +373,254 @@ function renderPSI(targetId,data,strategy){
     seo:Math.round((cats.seo||{}).score*100||0)
   };
   var audits=lh.audits||{};
-  var cwv={
-    fcp:audits['first-contentful-paint']?audits['first-contentful-paint'].displayValue:'—',
-    lcp:audits['largest-contentful-paint']?audits['largest-contentful-paint'].displayValue:'—',
-    tbt:audits['total-blocking-time']?audits['total-blocking-time'].displayValue:'—',
-    cls:audits['cumulative-layout-shift']?audits['cumulative-layout-shift'].displayValue:'—',
-    si:audits['speed-index']?audits['speed-index'].displayValue:'—',
-    tti:audits['interactive']?audits['interactive'].displayValue:'—'
-  };
+  var metrics=[
+    {key:'fcp',id:'first-contentful-paint',label:'FCP',desc:'First Contentful Paint'},
+    {key:'lcp',id:'largest-contentful-paint',label:'LCP',desc:'Largest Contentful Paint'},
+    {key:'tbt',id:'total-blocking-time',label:'TBT',desc:'Total Blocking Time'},
+    {key:'cls',id:'cumulative-layout-shift',label:'CLS',desc:'Cumulative Layout Shift'},
+    {key:'inp',id:'interaction-to-next-paint',label:'INP',desc:'Interaction to Next Paint'},
+    {key:'si',id:'speed-index',label:'SI',desc:'Speed Index'}
+  ];
   var html='<div class="psi-scores">';
   html+='<div class="psi-score"><div class="mh">Performance</div>'+ringChart(scores.performance,60)+'</div>';
   html+='<div class="psi-score"><div class="mh">Accessibility</div>'+ringChart(scores.accessibility,60)+'</div>';
   html+='<div class="psi-score"><div class="mh">Best Practices</div>'+ringChart(scores.bestPractices,60)+'</div>';
   html+='<div class="psi-score"><div class="mh">SEO</div>'+ringChart(scores.seo,60)+'</div>';
   html+='</div>';
-  html+='<div class="sec-head">Core Web Vitals</div>';
+  // Field data (CrUX)
+  var le=data.loadingExperience||{};var fm=le.metrics||{};
+  if(le.overall_category){
+    html+='<div class="section-head">Field Data (Chrome UX Report)</div>';
+    var fieldStatus=le.overall_category==='FAST'?'good':le.overall_category==='AVERAGE'?'needs-improvement':'poor';
+    html+='<p style="font-size:12px;color:var(--muted);margin-bottom:8px">Real user data from the last 28 days '+cwvBadge(fieldStatus)+'</p>';
+    html+='<div class="psi-cwv">';
+    var fieldMetrics=[
+      {key:'LARGEST_CONTENTFUL_PAINT_MS',label:'LCP',unit:'ms'},
+      {key:'INTERACTION_TO_NEXT_PAINT',label:'INP',unit:'ms'},
+      {key:'CUMULATIVE_LAYOUT_SHIFT',label:'CLS',unit:''},
+      {key:'FIRST_CONTENTFUL_PAINT_MS',label:'FCP',unit:'ms'},
+      {key:'EXPERIMENTAL_TIME_TO_FIRST_BYTE',label:'TTFB',unit:'ms'}
+    ];
+    fieldMetrics.forEach(function(m){
+      var fd=fm[m.key];if(!fd)return;
+      var p75=fd.percentile;var cat=fd.category||'';
+      var st=cat==='FAST'?'good':cat==='AVERAGE'?'needs-improvement':'poor';
+      var display=m.unit==='ms'?(p75>1000?(p75/1000).toFixed(1)+' s':p75+' ms'):(p75/100).toFixed(2);
+      html+='<div class="psi-cwv-item '+st+'"><h3>'+m.label+'</h3><p>'+display+'</p>'+cwvBadge(st)+'</div>';
+    });
+    html+='</div>';
+  }
+  // Lab data
+  html+='<div class="section-head">Lab Data (Lighthouse)</div>';
   html+='<div class="psi-cwv">';
-  html+='<div class="psi-cwv-item"><h3>FCP</h3><p>'+cwv.fcp+'</p></div>';
-  html+='<div class="psi-cwv-item"><h3>LCP</h3><p>'+cwv.lcp+'</p></div>';
-  html+='<div class="psi-cwv-item"><h3>TBT</h3><p>'+cwv.tbt+'</p></div>';
-  html+='<div class="psi-cwv-item"><h3>CLS</h3><p>'+cwv.cls+'</p></div>';
-  html+='<div class="psi-cwv-item"><h3>Speed Index</h3><p>'+cwv.si+'</p></div>';
-  html+='<div class="psi-cwv-item"><h3>TTI</h3><p>'+cwv.tti+'</p></div>';
+  metrics.forEach(function(m){
+    var a=audits[m.id];if(!a)return;
+    var val=a.numericValue||0;var st=cwvStatus(m.key,m.key==='cls'?val:val);
+    if(m.key==='cls')st=cwvStatus('cls',val);
+    html+='<div class="psi-cwv-item '+st+'"><h3>'+m.label+'</h3><p>'+(a.displayValue||'—')+'</p>'+cwvBadge(st)+'</div>';
+  });
   html+='</div>';
-  html+='<p style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">'+(strategy==='mobile'?'📱 Mobile':'🖥 Desktop')+' · <a href="https://pagespeed.web.dev/analysis?url='+encodeURIComponent(urlIn.value)+'" target="_blank" rel="noopener">View full report →</a></p>';
+  // Top opportunities
+  var opps=[];
+  if(cats.performance&&cats.performance.auditRefs){
+    cats.performance.auditRefs.forEach(function(ref){
+      if(ref.group==='load-opportunities'){
+        var a=audits[ref.id];
+        if(a&&a.score!==null&&a.score<1&&a.details&&a.details.overallSavingsMs>0){
+          opps.push({title:a.title,savings:a.details.overallSavingsMs,display:a.displayValue||''});
+        }
+      }
+    });
+  }
+  if(opps.length>0){
+    opps.sort(function(a,b){return b.savings-a.savings});
+    html+='<div class="section-head">Top Opportunities</div>';
+    html+='<div class="psi-opps">';
+    opps.slice(0,5).forEach(function(o){
+      html+='<div class="psi-opp"><span class="opp-title">'+esc(o.title)+'</span><span class="opp-savings">'+esc(o.display)+'</span></div>';
+    });
+    html+='</div>';
+  }
+  // Diagnostics
+  var diags=[];
+  if(cats.performance&&cats.performance.auditRefs){
+    cats.performance.auditRefs.forEach(function(ref){
+      if(ref.group==='diagnostics'){
+        var a=audits[ref.id];
+        if(a&&a.score!==null&&a.score<1&&a.title){
+          diags.push({title:a.title,display:a.displayValue||''});
+        }
+      }
+    });
+  }
+  if(diags.length>0){
+    html+='<div class="section-head">Diagnostics</div>';
+    html+='<div class="psi-opps">';
+    diags.slice(0,5).forEach(function(d){
+      html+='<div class="psi-opp"><span class="opp-title">'+esc(d.title)+'</span><span class="opp-savings">'+esc(d.display)+'</span></div>';
+    });
+    html+='</div>';
+  }
+  html+='<p style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px">'+(strategy==='mobile'?'📱 Mobile':'🖥 Desktop')+' · <a href="https://pagespeed.web.dev/analysis?url='+encodeURIComponent(urlIn.value)+'" target="_blank" rel="noopener">View full report on PageSpeed Insights →</a></p>';
   el.innerHTML=html;
 }
+
+// AI Analysis
+var AI_WORKER='https://lumina-proxy.julien-elbahy.workers.dev';
+document.getElementById('btnAI').addEventListener('click',async function(){
+  var aiBox=document.getElementById('aiResult');
+  aiBox.style.display='block';
+  aiBox.innerHTML='<div class="ai-loading"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><p style="margin-top:8px">Analyzing performance data and detecting tech stack…</p></div>';
+  var btnAI=this;btnAI.disabled=true;btnAI.textContent='🤖 Analyzing…';
+  try{
+    // Step 1: Detect tech stack via /fetch
+    var techStack='Unknown';
+    try{
+      var fetchResp=await fetch(AI_WORKER+'/fetch?url='+encodeURIComponent(lastUrl),{headers:{'X-Lumina-Tool':'pagespeed'}});
+      var fetchData=await fetchResp.json();
+      if(fetchData.headers){
+        var techs=[];
+        var h=fetchData.headers;
+        if(h['x-powered-by'])techs.push(h['x-powered-by']);
+        if(h['server'])techs.push('Server: '+h['server']);
+        if(h['x-generator'])techs.push(h['x-generator']);
+        if(h['via'])techs.push('CDN: '+h['via']);
+        ['x-cache','x-vercel-id','x-amz-cf-id','cf-ray','x-netlify','x-github-request-id'].forEach(function(k){if(h[k])techs.push(k.replace('x-','').replace(/-/g,' '))});
+        if(fetchData.body){
+          var b=fetchData.body.substring(0,15000);
+          if(/wp-content|wordpress/i.test(b))techs.push('WordPress');
+          if(/shopify/i.test(b))techs.push('Shopify');
+          if(/next\.js|__next/i.test(b))techs.push('Next.js');
+          if(/nuxt/i.test(b))techs.push('Nuxt');
+          if(/react/i.test(b))techs.push('React');
+          if(/vue/i.test(b))techs.push('Vue.js');
+          if(/angular/i.test(b))techs.push('Angular');
+          if(/wix\.com/i.test(b))techs.push('Wix');
+          if(/squarespace/i.test(b))techs.push('Squarespace');
+          if(/elementor/i.test(b))techs.push('Elementor');
+          if(/jquery/i.test(b))techs.push('jQuery');
+          if(/bootstrap/i.test(b))techs.push('Bootstrap');
+          if(/tailwind/i.test(b))techs.push('Tailwind CSS');
+          if(/google.*tag.*manager|gtm\.js/i.test(b))techs.push('Google Tag Manager');
+          if(/google.*analytics|gtag/i.test(b))techs.push('Google Analytics');
+          if(/hotjar/i.test(b))techs.push('Hotjar');
+          if(/cloudflare/i.test(b))techs.push('Cloudflare');
+          if(/lazy/i.test(b))techs.push('Lazy Loading');
+        }
+        if(techs.length>0)techStack=techs.join(', ');
+      }
+    }catch(e){techStack='Could not detect';}
+    // Step 2: Collect all PSI data
+    var activeTab=document.querySelector('.psi-tab.active');
+    var strategy=activeTab?activeTab.dataset.s:'mobile';
+    var data=lastData[strategy];
+    if(!data||!data.lighthouseResult)throw new Error('No PSI data available');
+    var sc=getScores(data);
+    var opps=[];var diags=[];
+    var cats=data.lighthouseResult.categories||{};
+    var audits=data.lighthouseResult.audits||{};
+    if(cats.performance&&cats.performance.auditRefs){
+      cats.performance.auditRefs.forEach(function(ref){
+        var a=audits[ref.id];if(!a||a.score===null||a.score>=1)return;
+        if(ref.group==='load-opportunities'&&a.details&&a.details.overallSavingsMs>0)
+          opps.push(a.title+' (potential saving: '+(a.displayValue||'')+')');
+        if(ref.group==='diagnostics')
+          diags.push(a.title+(a.displayValue?' — '+a.displayValue:''));
+      });
+    }
+    var fieldInfo='No field data available';
+    var le=data.loadingExperience||{};
+    if(le.overall_category){
+      var fm=le.metrics||{};
+      var fd=[];
+      if(fm.LARGEST_CONTENTFUL_PAINT_MS)fd.push('LCP p75: '+fm.LARGEST_CONTENTFUL_PAINT_MS.percentile+'ms ('+fm.LARGEST_CONTENTFUL_PAINT_MS.category+')');
+      if(fm.INTERACTION_TO_NEXT_PAINT)fd.push('INP p75: '+fm.INTERACTION_TO_NEXT_PAINT.percentile+'ms ('+fm.INTERACTION_TO_NEXT_PAINT.category+')');
+      if(fm.CUMULATIVE_LAYOUT_SHIFT)fd.push('CLS p75: '+(fm.CUMULATIVE_LAYOUT_SHIFT.percentile/100).toFixed(2)+' ('+fm.CUMULATIVE_LAYOUT_SHIFT.category+')');
+      fieldInfo='Overall: '+le.overall_category+'. '+fd.join(', ');
+    }
+    // Step 3: Build the AI prompt
+    var systemPrompt='You are a senior web performance engineer and SEO specialist. Analyze PageSpeed Insights data and give concrete, actionable optimization recommendations.\n\nRules:\n- Be specific: reference the actual metrics, tech stack, and audit findings\n- Prioritize by impact: highest impact fixes first\n- For each recommendation: state WHAT to do, WHY it helps, and HOW to implement it for the detected tech stack\n- If you detect WordPress+Elementor: recommend WP Rocket, image optimization plugins, CSS/JS deferral\n- If you detect Next.js/React: recommend code splitting, dynamic imports, Image component\n- If you detect Shopify: recommend theme optimization, app reduction, lazy loading\n- Keep it practical — no generic advice like "optimize your images" without specifics\n- Use markdown formatting: ## for sections, **bold** for emphasis, - for bullet points\n- Max 5 recommendations, sorted by estimated impact\n- IMPORTANT: The INP threshold was lowered to 150ms in Google\'s March 2026 Core Update. Anything above 150ms is now considered "needs improvement". Flag this if INP is above 150ms.\n- If all scores are 90+, acknowledge the good performance and suggest micro-optimizations or monitoring tips instead';
+    var userPrompt='Analyze this PageSpeed Insights data and give me the top optimization recommendations:\n\n';
+    userPrompt+='**URL:** '+lastUrl+'\n';
+    userPrompt+='**Strategy:** '+strategy+'\n';
+    userPrompt+='**Detected Tech Stack:** '+techStack+'\n\n';
+    userPrompt+='**Scores:**\n- Performance: '+sc.perf+'/100\n- Accessibility: '+sc.a11y+'/100\n- Best Practices: '+sc.bp+'/100\n- SEO: '+sc.seo+'/100\n\n';
+    userPrompt+='**Lab Metrics:**\n- FCP: '+sc.fcp+'\n- LCP: '+sc.lcp+'\n- TBT: '+sc.tbt+'\n- CLS: '+sc.cls+'\n- INP: '+sc.inp+'\n- Speed Index: '+sc.si+'\n\n';
+    userPrompt+='**Field Data (CrUX):** '+fieldInfo+'\n\n';
+    if(opps.length>0)userPrompt+='**Lighthouse Opportunities:**\n'+opps.map(function(o){return'- '+o}).join('\n')+'\n\n';
+    if(diags.length>0)userPrompt+='**Lighthouse Diagnostics:**\n'+diags.map(function(d){return'- '+d}).join('\n')+'\n\n';
+    userPrompt+='Give me concrete, prioritized recommendations based on this data and the detected tech stack. Focus on what will move the needle most.';
+    // Step 4: Call AI
+    var key=localStorage.getItem('lumina_key_openai')||'';
+    var headers={'Content-Type':'application/json','X-Lumina-Tool':'pagespeed'};
+    if(key)headers['X-OAI-Key']=key;
+    var aiResp=await fetch(AI_WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify({model:'gpt-4.1-mini',max_tokens:2000,messages:[{role:'system',content:systemPrompt},{role:'user',content:userPrompt}]})});
+    var aiData=await aiResp.json();
+    if(aiData.error)throw new Error(aiData.error);
+    var content=aiData.choices&&aiData.choices[0]&&aiData.choices[0].message?aiData.choices[0].message.content:'No analysis available.';
+    // Step 5: Render markdown-ish content
+    var rendered=content
+      .replace(/## (.*)/g,'<h4>$1</h4>')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+      .replace(/^- (.*)/gm,'<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/gs,function(m){return'<ul>'+m+'</ul>'})
+      .replace(/<\/ul>\s*<ul>/g,'')
+      .replace(/\n\n/g,'<br><br>')
+      .replace(/\n/g,'<br>');
+    aiBox.innerHTML='<div class="ai-box"><h3>🤖 AI Performance Analysis</h3><div class="ai-content">'+rendered+'</div><p style="font-size:10px;color:var(--muted);margin-top:12px;text-align:right">Powered by GPT-4.1 Mini · Tech stack: '+esc(techStack)+'</p></div>';
+  }catch(e){
+    aiBox.innerHTML='<div class="ai-box"><h3>🤖 AI Analysis</h3><p style="color:var(--err)">'+esc(e.message)+'</p><p style="font-size:11px;color:var(--muted);margin-top:8px">Add your OpenAI API key in Settings for unlimited AI analyses.</p></div>';
+  }
+  btnAI.disabled=false;btnAI.textContent='🤖 AI Analysis';
+});
+
+// Toolbar handlers
+function getScores(data){
+  if(!data||!data.lighthouseResult)return null;
+  var cats=data.lighthouseResult.categories||{};var audits=data.lighthouseResult.audits||{};
+  var g=function(id){var a=audits[id];return a?a.displayValue||'—':'—'};
+  return{perf:Math.round((cats.performance||{}).score*100||0),a11y:Math.round((cats.accessibility||{}).score*100||0),bp:Math.round((cats['best-practices']||{}).score*100||0),seo:Math.round((cats.seo||{}).score*100||0),fcp:g('first-contentful-paint'),lcp:g('largest-contentful-paint'),tbt:g('total-blocking-time'),cls:g('cumulative-layout-shift'),inp:g('interaction-to-next-paint'),si:g('speed-index')};
+}
+document.getElementById('btnCopy').addEventListener('click',function(){
+  var lines=['PageSpeed Insights Report','URL: '+lastUrl,''];
+  ['mobile','desktop'].forEach(function(s){
+    var sc=getScores(lastData[s]);if(!sc)return;
+    lines.push(s.toUpperCase());
+    lines.push('Performance: '+sc.perf+' | Accessibility: '+sc.a11y+' | Best Practices: '+sc.bp+' | SEO: '+sc.seo);
+    lines.push('FCP: '+sc.fcp+' | LCP: '+sc.lcp+' | TBT: '+sc.tbt+' | CLS: '+sc.cls+' | INP: '+sc.inp+' | SI: '+sc.si);
+    lines.push('');
+  });
+  navigator.clipboard.writeText(lines.join('\n'));this.textContent='✓ Copied';var b=this;setTimeout(function(){b.textContent='📋 Copy'},1500);
+});
+document.getElementById('btnCSV').addEventListener('click',function(){
+  var rows=[['Strategy','Performance','Accessibility','Best Practices','SEO','FCP','LCP','TBT','CLS','INP','Speed Index']];
+  ['mobile','desktop'].forEach(function(s){
+    var sc=getScores(lastData[s]);if(!sc)return;
+    rows.push([s,sc.perf,sc.a11y,sc.bp,sc.seo,sc.fcp,sc.lcp,sc.tbt,sc.cls,sc.inp,sc.si]);
+  });
+  var csv=rows.map(function(r){return r.map(function(c){return'"'+String(c).replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pagespeed-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  var w=window.open('','_blank');var h='<html><head><title>PageSpeed Report</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a1a}h1{font-size:22px}h2{font-size:16px;margin-top:24px;color:#555}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #e0e0e0}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888}.good{color:#279e5e}.warn{color:#bf8310}.poor{color:#c53e3e}p.meta{color:#888;font-size:13px}</style></head><body>';
+  h+='<h1>PageSpeed Insights Report</h1><p class="meta">URL: '+esc(lastUrl)+'<br>Date: '+new Date().toLocaleDateString()+'<br>Generated by Lumina SEO</p>';
+  ['mobile','desktop'].forEach(function(s){
+    var sc=getScores(lastData[s]);if(!sc)return;
+    h+='<h2>'+(s==='mobile'?'📱 Mobile':'🖥 Desktop')+'</h2>';
+    h+='<table><tr><th>Category</th><th>Score</th></tr>';
+    [{n:'Performance',v:sc.perf},{n:'Accessibility',v:sc.a11y},{n:'Best Practices',v:sc.bp},{n:'SEO',v:sc.seo}].forEach(function(c){
+      var cls=c.v>=90?'good':c.v>=50?'warn':'poor';
+      h+='<tr><td>'+c.n+'</td><td class="'+cls+'"><strong>'+c.v+'</strong></td></tr>';
+    });
+    h+='</table><table><tr><th>Metric</th><th>Value</th></tr>';
+    [{n:'FCP',v:sc.fcp},{n:'LCP',v:sc.lcp},{n:'TBT',v:sc.tbt},{n:'CLS',v:sc.cls},{n:'INP',v:sc.inp},{n:'Speed Index',v:sc.si}].forEach(function(m){
+      h+='<tr><td>'+m.n+'</td><td>'+m.v+'</td></tr>';
+    });
+    h+='</table>';
+  });
+  h+='</body></html>';
+  w.document.write(h);w.document.close();
+});
 
 // Tab switching
 document.querySelectorAll('.psi-tab').forEach(function(t){t.addEventListener('click',function(){
@@ -382,8 +630,8 @@ document.querySelectorAll('.psi-tab').forEach(function(t){t.addEventListener('cl
   document.getElementById('psiDesktop').style.display=t.dataset.s==='desktop'?'block':'none';
 })});
 
-// Show stored PSI quota on load
-(function(){try{var pq=JSON.parse(localStorage.getItem('lumina_quota')||'{}');var today=new Date().toISOString().split('T')[0];if(pq.psi&&pq.psi.date===today&&pq.psi.used>0){var el=document.getElementById('quotaInfo');if(el)el.textContent='PSI tests today: '+pq.psi.used+'/25'}}catch(e){}})();
+// Check quota on load
+(function(){try{var pq=JSON.parse(localStorage.getItem('lumina_quota')||'{}');var today=new Date().toISOString().split('T')[0];if(pq.psi&&pq.psi.date===today&&pq.psi.used>=25){var el=document.getElementById('quotaInfo');if(el){el.textContent='Daily limit reached (25 tests). Try again tomorrow.';el.style.display='block';el.style.color='var(--err)'}btn.disabled=true}}catch(e){}})();
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
 </script>
 <style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}
