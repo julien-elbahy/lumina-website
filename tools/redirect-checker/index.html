@@ -96,7 +96,11 @@
 .redir-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.redir-toolbar .act-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;font-family:var(--font)}.redir-toolbar .act-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 /* Cross-links */
 .cross-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cross-links a{display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);transition:all .2s}.cross-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.mm-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none}
+.mobile-menu .mm-cat{flex-shrink:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.mobile-menu .mm-cat .mm-arrow{font-size:14px;transition:transform .3s;color:var(--muted)}
+.mobile-menu .mm-cat.open .mm-arrow{transform:rotate(45deg)}
+.mobile-menu .mm-links{display:none;flex-shrink:0}
+.mobile-menu .mm-cat.open+.mm-links{display:block}
 /* ── Mega Menu ── */
 .tools-dd{position:relative}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
 .tools-sub{display:none;position:absolute;top:100%;right:-120px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px 20px;width:620px;box-shadow:var(--shadow-m);z-index:50;backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4)}
@@ -230,9 +234,43 @@
 <a href="/">Home</a>
 <a href="/#features">Features</a>
 <a href="/about.html">About</a>
-<a href="/support.html">Support</a><a href="/blog/">Blog</a>
-<div class="mm-cat">SEO Analysis</div>
+<a href="/support.html">Support</a>
+<a href="/blog/">Blog</a>
+<div class="mm-cat">SEO Analysis <span class="mm-arrow">+</span></div>
+<div class="mm-links">
 <a href="/tools/serp-preview/">Snippet Preview</a>
+<a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
+<a href="/tools/schema-validator/">Schema Validator</a>
+<a href="/tools/heading-checker/">Heading Checker</a>
+<a href="/tools/og-preview/">OG Preview</a>
+</div>
+<div class="mm-cat">Technical SEO <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/tools/tech-stack/">Tech Stack Detector</a>
+<a href="/tools/security-headers/">Security Headers</a>
+<a href="/tools/pagespeed/">PageSpeed Insights</a>
+<a href="/tools/redirect-checker/">Redirect Checker</a>
+<a href="/tools/link-analyzer/">Link Analyzer</a>
+</div>
+<div class="mm-cat">Content &amp; GEO <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/tools/word-counter/">Word Counter</a>
+<a href="/tools/image-seo-checker/">Image SEO Checker</a>
+<a href="/tools/semantic-checker/">Semantic HTML</a>
+<a href="/tools/js-nojs/">JS vs No-JS</a>
+<a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
+<a href="/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a>
+</div>
+<div class="mm-cat">SERP &amp; Keywords <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/tools/serp-checker/">SERP Checker</a>
+<a href="/tools/keyword-research/">Keyword Research</a>
+<a href="/tools/serp-overlap/">SERP Overlap</a>
+</div>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Get the Chrome Extension — Free</a>
+</div><a href="/tools/serp-preview/">Snippet Preview</a>
 <a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/tools/schema-validator/">Schema Validator</a>
 <a href="/tools/heading-checker/">Heading Checker</a>
@@ -306,6 +344,8 @@
 var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'\u2600\ufe0f':'\ud83c\udf19';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'\u2600\ufe0f':'\ud83c\udf19';localStorage.setItem('lumina_theme',_t)})}})()
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+_mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){_bb.classList.remove('open');_mm.classList.remove('open');document.body.style.overflow=''})})
+document.querySelectorAll('.mm-cat').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('open')})})
 
 document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
 

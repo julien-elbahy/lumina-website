@@ -353,9 +353,43 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/de/">Startseite</a>
 <a href="/de/#features">Features</a>
 <a href="/de/ueber-uns.html">Über uns</a>
-<a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a>
-<div class="mm-cat">SEO Analysis</div>
+<a href="/de/kontakt.html">Kontakt</a>
+<a href="/de/blog/">Blog</a>
+<div class="mm-cat">SEO Analysis <span class="mm-arrow">+</span></div>
+<div class="mm-links">
 <a href="/de/tools/serp-preview/">Snippet Preview</a>
+<a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
+<a href="/de/tools/schema-validator/">Schema Validator</a>
+<a href="/de/tools/heading-checker/">Heading Checker</a>
+<a href="/de/tools/og-preview/">OG Preview</a>
+</div>
+<div class="mm-cat">Technical SEO <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/de/tools/tech-stack/">Tech Stack Detector</a>
+<a href="/de/tools/security-headers/">Security Headers</a>
+<a href="/de/tools/pagespeed/">PageSpeed Insights</a>
+<a href="/de/tools/redirect-checker/">Redirect Checker</a>
+<a href="/de/tools/link-analyzer/">Link Analyzer</a>
+</div>
+<div class="mm-cat">Content &amp; GEO <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/de/tools/word-counter/">Word Counter</a>
+<a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
+<a href="/de/tools/semantic-checker/">Semantic HTML</a>
+<a href="/de/tools/js-nojs/">JS vs No-JS</a>
+<a href="/de/tools/robots-txt-analyzer/">Robots.txt Analyzer</a>
+<a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
+</div>
+<div class="mm-cat">SERP &amp; Keywords <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/de/tools/serp-checker/">SERP Checker</a>
+<a href="/de/tools/keyword-research/">Keyword Research</a>
+<a href="/de/tools/serp-overlap/">SERP Overlap</a>
+</div>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Chrome Extension installieren — Kostenlos</a>
+</div><a href="/de/tools/serp-preview/">Snippet Preview</a>
 <a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
 <a href="/de/tools/schema-validator/">Schema Validator</a>
 <a href="/de/tools/heading-checker/">Heading Checker</a>
@@ -516,6 +550,8 @@ var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dar
 _tb.addEventListener('click',function(){document.documentElement.classList.add('theme-switching');_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'☀️':'🌙';localStorage.setItem('lumina_theme',_t);setTimeout(function(){document.documentElement.classList.remove('theme-switching')},400)})}})()
 var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu');
 if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');document.body.style.overflow=_mm.classList.contains('open')?'hidden':''})}
+_mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){_bb.classList.remove('open');_mm.classList.remove('open');document.body.style.overflow=''})})
+document.querySelectorAll('.mm-cat').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('open')})})
 
 
 
