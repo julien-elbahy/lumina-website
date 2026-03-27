@@ -64,7 +64,7 @@
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
-.exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -265,7 +265,11 @@
 </div>
 <div class="filters" id="filterBar"></div>
 <div class="link-list" id="linkList"></div>
-<div style="display:flex;gap:6px;margin-top:8px"><button class="exp-btn" id="btnCsv">📊 CSV Export</button><button class="exp-btn" id="btnCopy">📋 Copy All</button></div>
+<div class="toolbar" id="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Copy</button>
+<button class="tb-btn" id="btnCsv">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Report</button>
+</div>
 <div class="section-head" style="margin-top:20px">🔗 Internal Link Ranking</div>
 <div id="ranking"></div>
 </div>
@@ -507,22 +511,46 @@ function renderRanking(links){
   document.getElementById('ranking').innerHTML=html;
 }
 
-// CSV Export
+// Toolbar handlers
+document.getElementById('btnCopy').addEventListener('click',function(){
+  var txt=allLinks.map(function(l){return (l.isInternal?'INT':'EXT')+'\t'+l.url+'\t'+(l.text||'')+'\t'+l.rel}).join('\n');
+  navigator.clipboard.writeText(txt);this.textContent='✓ Copied';var b=this;setTimeout(function(){b.textContent='📋 Copy'},1500);
+});
 document.getElementById('btnCsv').addEventListener('click',function(){
   var csv='URL,Anchor Text,Type,Rel\n';
   allLinks.forEach(function(l){
     csv+='"'+l.url.replace(/"/g,'""')+'","'+(l.text||'').replace(/"/g,'""')+'","'+(l.isInternal?'Internal':'External')+'","'+l.rel+'"\n';
   });
   var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='links.csv';a.click();
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='links-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
 });
-
-// Copy All
-document.getElementById('btnCopy').addEventListener('click',function(){
-  var txt=allLinks.map(function(l){return (l.isInternal?'INT':'EXT')+'\t'+l.url+'\t'+(l.text||'')+'\t'+l.rel}).join('\n');
-  navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy All'},1500);
+document.getElementById('btnReport').addEventListener('click',function(){
+  var intC=allLinks.filter(function(l){return l.isInternal}).length;
+  var extC=allLinks.filter(function(l){return !l.isInternal}).length;
+  var nfC=allLinks.filter(function(l){return l.nofollow}).length;
+  var noText=allLinks.filter(function(l){return !l.text}).length;
+  var w=window.open('','_blank');var h='<html><head><title>Link Analysis Report</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a1a}h1{font-size:22px}h2{font-size:16px;margin-top:24px;color:#555}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #e0e0e0}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888}.int{color:#279e5e}.ext{color:#6e9eff}.nf{color:#c53e3e}p.meta{color:#888;font-size:13px}.stat{display:inline-block;margin-right:20px;font-size:15px}.stat b{font-size:22px}</style></head><body>';
+  h+='<h1>Link Analysis Report</h1><p class="meta">URL: '+esc(urlIn.value)+'<br>Date: '+new Date().toLocaleDateString()+'<br>Generated by Lumina SEO</p>';
+  h+='<div style="margin:20px 0"><span class="stat"><b>'+allLinks.length+'</b> Total</span><span class="stat int"><b>'+intC+'</b> Internal</span><span class="stat ext"><b>'+extC+'</b> External</span><span class="stat nf"><b>'+nfC+'</b> Nofollow</span></div>';
+  if(noText>0)h+='<p style="color:#c53e3e">⚠ '+noText+' link'+(noText>1?'s':'')+' without anchor text detected.</p>';
+  h+='<h2>All Links</h2><table><tr><th>Type</th><th>URL</th><th>Anchor Text</th><th>Rel</th></tr>';
+  allLinks.forEach(function(l){
+    h+='<tr><td class="'+(l.isInternal?'int':'ext')+'">'+(l.isInternal?'Internal':'External')+'</td><td style="font-size:12px;word-break:break-all">'+esc(l.url)+'</td><td>'+(l.text?esc(l.text):'<em style="color:#888">(none)</em>')+'</td><td>'+(l.rel||'—')+'</td></tr>';
   });
+  h+='</table>';
+  // Internal link ranking
+  var freq={};
+  allLinks.filter(function(l){return l.isInternal&&l.url}).forEach(function(l){
+    try{var p=new URL(l.url).pathname.replace(/\/$/,'')||'/';freq[p]=(freq[p]||0)+1}catch(e){}
+  });
+  var ranked=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
+  if(ranked.length>0){
+    h+='<h2>Internal Link Ranking (Top 20)</h2><table><tr><th>Path</th><th>Links</th></tr>';
+    ranked.forEach(function(r){h+='<tr><td>'+esc(r[0])+'</td><td><b>'+r[1]+'</b></td></tr>'});
+    h+='</table>';
+  }
+  h+='</body></html>';
+  w.document.write(h);w.document.close();
 });
 
 // URL param support

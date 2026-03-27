@@ -6,9 +6,9 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<title>Free Link Analyzer – Internal, External & Nofollow Checker | Lumina SEO</title>
-<meta name="description" content="Analyze all links on any page. Find internal, external, nofollow, sponsored, and ugc links. Internal link ranking, CSV export. Free, no signup.">
-<meta name="keywords" content="link analyzer, internal links checker, external links, nofollow checker, link audit tool, SEO link analysis, internal link ranking">
+<title>Kostenloser Link Analyzer – Interne, externe & Nofollow-Links prüfen | Lumina SEO</title>
+<meta name="description" content="Analysiere alle Links auf jeder Seite. Finde interne, externe, nofollow-, sponsored- und ugc-Links. Internes Link-Ranking, CSV-Export. Kostenlos, ohne Anmeldung.">
+<meta name="keywords" content="link analyzer, interne links prüfen, externe links, nofollow checker, link audit tool, SEO link analyse, internes link ranking">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/link-analyzer/">
 <link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/link-analyzer/">
@@ -17,13 +17,13 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/de/tools/link-analyzer/">
-<meta property="og:title" content="Free Link Analyzer – Internal, External & Nofollow | Lumina SEO">
-<meta property="og:description" content="Analyze all links on any webpage. Internal/external classification, nofollow detection, internal link ranking, CSV export.">
+<meta property="og:title" content="Kostenloser Link Analyzer – Interne, externe & Nofollow-Links | Lumina SEO">
+<meta property="og:description" content="Analysiere alle Links auf jeder Seite. Interne/externe Klassifikation, Nofollow-Erkennung, internes Link-Ranking, CSV-Export.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Link Analyzer","url":"https://lumina-seo.com/de/tools/link-analyzer/","description":"Free link analysis tool for SEO. Check internal, external, nofollow links and internal link ranking.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Kostenloser Link Analyzer","url":"https://lumina-seo.com/de/tools/link-analyzer/","description":"Kostenloses Link-Analyse-Tool für SEO. Interne, externe und Nofollow-Links prüfen mit internem Link-Ranking.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -64,7 +64,7 @@
 .link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
 .rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
 .ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
-.exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -265,24 +265,28 @@
 </div>
 <div class="filters" id="filterBar"></div>
 <div class="link-list" id="linkList"></div>
-<div style="display:flex;gap:6px;margin-top:8px"><button class="exp-btn" id="btnCsv">📊 CSV-Export</button><button class="exp-btn" id="btnCopy">📋 Alles kopieren</button></div>
+<div class="toolbar" id="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Kopieren</button>
+<button class="tb-btn" id="btnCsv">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Bericht</button>
+</div>
 <div class="section-head" style="margin-top:20px">🔗 Internes Link-Ranking</div>
 <div id="ranking"></div>
 </div>
 </div>
 <div class="content">
 <h2>So funktioniert das Tool</h2>
-<p>Enter any URL and the tool fetches the page, extracts every <code>&lt;a href&gt;</code> link, and classifies it. Internal links point to the same domain, external links go elsewhere. Rel attributes like <code>nofollow</code>, <code>sponsored</code>, and <code>ugc</code> are detected automatically.</p>
-<p>The <strong>Internes Link-Ranking</strong> shows which pages on the site receive the most internal links — a key factor for search engine crawl priority and PageRank distribution.</p>
+<p>Gib eine beliebige URL ein und das Tool ruft die Seite ab, extrahiert jeden <code>&lt;a href&gt;</code>-Link und klassifiziert ihn. Interne Links verweisen auf dieselbe Domain, externe Links auf andere Websites. Rel-Attribute wie <code>nofollow</code>, <code>sponsored</code> und <code>ugc</code> werden automatisch erkannt.</p>
+<p>Das <strong>Interne Link-Ranking</strong> zeigt, welche Seiten die meisten internen Links erhalten — ein wichtiger Faktor für die Crawl-Priorisierung und PageRank-Verteilung durch Suchmaschinen.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
-<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>H1-H6 hierarchy analysis.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>Check AI & search crawler access.</p></a></div>
+<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Alle SEO-Meta-Tags einer URL analysieren.</p></a><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>H1–H6-Überschriftenhierarchie analysieren.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>KI- und Suchmaschinen-Crawler-Zugriff prüfen.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Was ist der Unterschied zwischen internen und externen Links?<span class="arrow">+</span></div><div class="faq-a">Interne Links verweisen auf Seiten derselben Domain. Externe Links verweisen auf andere Websites. Beide sind wichtig für SEO — interne Links verteilen Linkjuice, externe Links liefern Autoritätssignale.</div></div>
 <div class="faq-item"><div class="faq-q">Was bedeutet nofollow?<span class="arrow">+</span></div><div class="faq-a">Ein <code>rel="nofollow"</code>-Attribut signalisiert Suchmaschinen, keinen Linkjuice (PageRank) über diesen Link weiterzugeben. <code>sponsored</code> kennzeichnet bezahlte Links, <code>ugc</code> kennzeichnet nutzergenerierte Inhalte.</div></div>
 <div class="faq-item"><div class="faq-q">Warum ist das interne Linkranking wichtig?<span class="arrow">+</span></div><div class="faq-a">Seiten mit mehr internen Links erhalten mehr Crawl-Aufmerksamkeit und Linkjuice. Das Ranking zeigt, welche Seiten durch die interne Verlinkung priorisiert werden — und welche möglicherweise zu wenig verlinkt sind.</div></div>
 <div class="faq-item"><div class="faq-q">Was ist der Unterschied zwischen dofollow und nofollow?<span class="arrow">+</span></div><div class="faq-a">Dofollow-Links (der Standard) geben Linkjuice und Ranking-Signale an die Zielseite weiter. Nofollow-Links enthalten ein rel="nofollow"-Attribut, das Suchmaschinen signalisiert, keinen Linkjuice weiterzugeben. Verwende nofollow für bezahlte Links, nutzergenerierte Inhalte und nicht vertrauenswürdige URLs.</div></div>
 <div class="faq-item"><div class="faq-q">Wie viele interne Links sollte eine Seite haben?<span class="arrow">+</span></div><div class="faq-a">Es gibt kein striktes Limit, aber strebe eine natürliche Anzahl an, die Nutzern bei der Navigation hilft. Wichtige Seiten sollten mehr interne Links erhalten. Google empfiehlt, die Linkanzahl vernünftig zu halten — typischerweise unter 100–200 pro Seite für optimale Crawl-Effizienz.</div></div>
-<div class="cta-box"><div class="cta-t">Link-Analyse auf jeder Seite</div><p>Lumina highlights broken links, shows internal link ranking, and checks nofollow — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="cta-box"><div class="cta-t">Link-Analyse auf jeder Seite</div><p>Lumina erkennt fehlerhafte Links, zeigt das interne Link-Ranking und prüft Nofollow — automatisch und kostenlos.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -349,12 +353,12 @@ function go(url){
   .then(function(data){
     btn.disabled=false;btn.textContent='Links analysieren';loading.style.display='none';
     if(data.error){showError(data.error);return}
-    if(!data.html||data.html.length<50){showError('Empty response. The site may block automated access.');return}
+    if(!data.html||data.html.length<50){showError('Leere Antwort. Die Seite blockiert möglicherweise automatisierte Zugriffe.');return}
     parseLinks(data.html,url);
   })
   .catch(function(e){
     btn.disabled=false;btn.textContent='Links analysieren';loading.style.display='none';
-    showError('Could not fetch: '+e.message);
+    showError('Abruf fehlgeschlagen: '+e.message);
   });
 }
 
@@ -430,14 +434,14 @@ function parseLinks(html,pageUrl){
   var noText=links.filter(function(l){return !l.text}).length;
 
   var filterDefs=[
-    {key:'all',label:'All ('+links.length+')'},
-    {key:'int',label:'Internal ('+intC+')'},
-    {key:'ext',label:'External ('+extC+')'},
+    {key:'all',label:'Alle ('+links.length+')'},
+    {key:'int',label:'Intern ('+intC+')'},
+    {key:'ext',label:'Extern ('+extC+')'},
     {key:'nf',label:'Nofollow ('+nfC+')'}
   ];
   if(spC>0)filterDefs.push({key:'sp',label:'Sponsored ('+spC+')'});
   if(ugcC>0)filterDefs.push({key:'ugc',label:'UGC ('+ugcC+')'});
-  if(noText>0)filterDefs.push({key:'notxt',label:'No text ('+noText+')'});
+  if(noText>0)filterDefs.push({key:'notxt',label:'Ohne Text ('+noText+')'});
 
   var filterHtml='';
   filterDefs.forEach(function(f){filterHtml+='<button class="fbtn'+(f.key==='all'?' active':'')+'" data-filter="'+f.key+'">'+f.label+'</button>'});
@@ -480,7 +484,7 @@ function renderLinks(filter){
     if(l.ugc)tags+='<span class="rel-tag ugc">ugc</span>';
 
     html+='<div class="link-item">';
-    html+='<div><span class="link-text'+(l.text?'':' empty')+'">'+(l.text?esc(l.text):'(no anchor text)')+'</span> '+tags+'</div>';
+    html+='<div><span class="link-text'+(l.text?'':' empty')+'">'+(l.text?esc(l.text):'(kein Ankertext)')+'</span> '+tags+'</div>';
     html+='<div class="link-url">'+esc(l.url)+'</div>';
     html+='</div>';
   });
@@ -507,22 +511,45 @@ function renderRanking(links){
   document.getElementById('ranking').innerHTML=html;
 }
 
-// CSV Export
-document.getElementById('btnCsv').addEventListener('click',function(){
-  var csv='URL,Anchor Text,Type,Rel\n';
-  allLinks.forEach(function(l){
-    csv+='"'+l.url.replace(/"/g,'""')+'","'+(l.text||'').replace(/"/g,'""')+'","'+(l.isInternal?'Internal':'External')+'","'+l.rel+'"\n';
-  });
-  var blob=new Blob([csv],{type:'text/csv'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='links.csv';a.click();
-});
-
-// Copy All
+// Toolbar
 document.getElementById('btnCopy').addEventListener('click',function(){
   var txt=allLinks.map(function(l){return (l.isInternal?'INT':'EXT')+'\t'+l.url+'\t'+(l.text||'')+'\t'+l.rel}).join('\n');
-  navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Alles kopieren'},1500);
+  navigator.clipboard.writeText(txt);this.textContent='✓ Kopiert';var b=this;setTimeout(function(){b.textContent='📋 Kopieren'},1500);
+});
+document.getElementById('btnCsv').addEventListener('click',function(){
+  var csv='URL,Ankertext,Typ,Rel\n';
+  allLinks.forEach(function(l){
+    csv+='"'+l.url.replace(/"/g,'""')+'","'+(l.text||'').replace(/"/g,'""')+'","'+(l.isInternal?'Intern':'Extern')+'","'+l.rel+'"\n';
   });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='links-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  var intC=allLinks.filter(function(l){return l.isInternal}).length;
+  var extC=allLinks.filter(function(l){return !l.isInternal}).length;
+  var nfC=allLinks.filter(function(l){return l.nofollow}).length;
+  var noText=allLinks.filter(function(l){return !l.text}).length;
+  var w=window.open('','_blank');var h='<html><head><title>Link-Analyse Bericht</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a1a}h1{font-size:22px}h2{font-size:16px;margin-top:24px;color:#555}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #e0e0e0}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888}.int{color:#279e5e}.ext{color:#6e9eff}.nf{color:#c53e3e}p.meta{color:#888;font-size:13px}.stat{display:inline-block;margin-right:20px;font-size:15px}.stat b{font-size:22px}</style></head><body>';
+  h+='<h1>Link-Analyse Bericht</h1><p class="meta">URL: '+esc(urlIn.value)+'<br>Datum: '+new Date().toLocaleDateString('de-DE')+'<br>Erstellt mit Lumina SEO</p>';
+  h+='<div style="margin:20px 0"><span class="stat"><b>'+allLinks.length+'</b> Gesamt</span><span class="stat int"><b>'+intC+'</b> Intern</span><span class="stat ext"><b>'+extC+'</b> Extern</span><span class="stat nf"><b>'+nfC+'</b> Nofollow</span></div>';
+  if(noText>0)h+='<p style="color:#c53e3e">⚠ '+noText+' Link'+(noText>1?'s':'')+' ohne Ankertext erkannt.</p>';
+  h+='<h2>Alle Links</h2><table><tr><th>Typ</th><th>URL</th><th>Ankertext</th><th>Rel</th></tr>';
+  allLinks.forEach(function(l){
+    h+='<tr><td class="'+(l.isInternal?'int':'ext')+'">'+(l.isInternal?'Intern':'Extern')+'</td><td style="font-size:12px;word-break:break-all">'+esc(l.url)+'</td><td>'+(l.text?esc(l.text):'<em style="color:#888">(keiner)</em>')+'</td><td>'+(l.rel||'—')+'</td></tr>';
+  });
+  h+='</table>';
+  var freq={};
+  allLinks.filter(function(l){return l.isInternal&&l.url}).forEach(function(l){
+    try{var p=new URL(l.url).pathname.replace(/\/$/,'')||'/';freq[p]=(freq[p]||0)+1}catch(e){}
+  });
+  var ranked=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,20);
+  if(ranked.length>0){
+    h+='<h2>Internes Link-Ranking (Top 20)</h2><table><tr><th>Pfad</th><th>Links</th></tr>';
+    ranked.forEach(function(r){h+='<tr><td>'+esc(r[0])+'</td><td><b>'+r[1]+'</b></td></tr>'});
+    h+='</table>';
+  }
+  h+='</body></html>';
+  w.document.write(h);w.document.close();
 });
 
 // URL param support
