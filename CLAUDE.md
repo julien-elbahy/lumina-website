@@ -41,12 +41,13 @@ sitemap.xml             → Sitemap
 - Sole developer, Netlify auto-deploys from main
 
 ### Bulk Edits (Nav, Footer, CSS variables)
-Nav and footer are duplicated in **all 58+ HTML files**. For bulk changes:
-1. Use `perl -i -pe` with `find -exec` for mass edits
-2. **Always use `\r?\n`** in regexes (Windows CRLF line endings)
-3. **Test on one file first** without `-i` flag (dry run)
-4. Verify with `grep -c` before and after
-5. Avoid greedy regexes — a bad regex once deleted the entire mobile menu from all files
+Nav and footer are duplicated in **all 58+ HTML files** (both `/` and `/de/`). For bulk changes:
+1. **Always apply to BOTH English AND German pages** — never edit only one language
+2. Use `perl -i -pe` with `find -exec` for mass edits
+3. **Always use `\r?\n`** in regexes (Windows CRLF line endings)
+4. **Test on one file first** without `-i` flag (dry run)
+5. Verify with `grep -c` before and after
+6. Avoid greedy regexes — a bad regex once deleted the entire mobile menu from all files
 
 ### Design System
 - CSS variables for theming: `--bg`, `--text`, `--accent`, `--border`, etc.
