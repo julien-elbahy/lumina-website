@@ -44,7 +44,29 @@
       "Bash(! grep:*)",
       "Bash(then perl:*)",
       "Bash(echo \"EN HTML: $f\" fi done)",
-      "Bash(then perl -e ':*)"
+      "Bash(then perl -e ':*)",
+      "Bash(echo \"$f\")",
+      "Bash(perl -pe 's/placeholder=\"\"\"\"https:\\\\/\\\\/example\\\\.com\"\"\"\"/placeholder=\"\"\"\"https:\\\\/\\\\/example.com\"\"\"\" value=\"\"\"\"https:\\\\/\\\\/lumina-seo.com\"\"\"\"/g' tools/link-analyzer/index.html)",
+      "Bash(xargs perl:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where perl:*)",
+      "Bash(curl -sI https://lumina-seo.com/tools/pagespeed/)",
+      "Bash(head -20 grep -n \"btnAI\\\\|aiResult\\\\|AI Performance\\\\|KI-Performance\\\\|Analyze with AI\\\\|Mit KI analysieren\\\\|AI_WORKER\\\\|getScores\" \"C:/Users/julien/OneDrive - bazuba GmbH/Dokumente/GitHub/lumina-website/.claude/worktrees/thirsty-bell/de/tools/pagespeed/index.html\")",
+      "Bash(perl -ne 'print if /SERP.*Keywords/' about.html)",
+      "Bash(perl -0777 -pe ':*)",
+      "Bash(find . -name \"*.html\" -not -path \"./de/*\" -exec grep -l \"SEO Analysis\" {})",
+      "Bash(perl -ne 'print if /tf-col|tf-h/' about.html)",
+      "Bash(perl -ne 'print if /ts-col|ts-cat/' de/about.html)",
+      "Bash(ls de/*.html)",
+      "Bash(perl -ne 'print if /ts-cat/' de/ueber-uns.html)",
+      "Bash(perl -ne 'print if /ts-col/' de/ueber-uns.html)",
+      "Bash(find ./de -name \"*.html\" -exec grep -l \"SEO Analysis\" {})",
+      "Bash(perl -ne 'print if /mm-cat/' de/ueber-uns.html)",
+      "Bash(perl -ne 'print if /tf-col|tf-h/' de/ueber-uns.html)",
+      "Bash(echo \"=== ''''Content & GEO'''' remaining ===\")",
+      "Bash(echo \"=== ''''SERP & Content'''' count ===\")",
+      "Bash(perl -ne 'print \"\"\"\"$. $_\"\"\"\" if /ts-col|ts-cat/' 404.html)",
+      "Bash(perl -0777 -i -pe ':*)"
     ]
   }
 }
