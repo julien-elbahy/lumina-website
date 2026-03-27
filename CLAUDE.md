@@ -69,7 +69,13 @@ Nav and footer are duplicated in **all 58+ HTML files** (both `/` and `/de/`). F
 - Client-side settings in localStorage with `lumina_key_` prefix
 
 ### Tool UX Standards
-Each tool should have: score ring, AI suggestions, cross-tool links, toolbar (copy/CSV/report), quota counter.
+Each tool should have where it makes sense:
+- **Cross-tool links** — always
+- **Toolbar** (copy/CSV/report) — always
+- **Quota counter** — always (shows remaining daily scans)
+- **Score ring** — only for tools where a quality score is meaningful (e.g., Content Optimizer, Schema Validator). Not for purely informational tools like Tech Stack Detector.
+- **AI suggestions** — only where actionable recommendations add real value. Skip if it would just be filler.
+- **Results layout** — detected/found items always at the top, prominent and visible. Empty/missing items collapsed or hidden below.
 
 ## Language
 - Bilingual: English (primary) + German (`/de/`)

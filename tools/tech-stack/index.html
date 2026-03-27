@@ -7,7 +7,7 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
 <title>Free Tech Stack & Analytics Detector | Lumina SEO</title>
-<meta name="description" content="Detect analytics tools, CMS platforms, consent managers, and marketing scripts on any website. Finds GA4, GTM, Shopify, WordPress, and 45+ technologies. Free.">
+<meta name="description" content="Detect analytics tools, CMS platforms, consent managers, and marketing scripts on any website. Finds GA4, GTM, Shopify, WordPress, and 467 technologies. Free.">
 <meta name="keywords" content="tech stack detector, analytics checker, CMS detector, website technology, GA4 checker, GTM detector, WordPress detector, Shopify detector">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/tools/tech-stack/">
@@ -18,7 +18,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/tools/tech-stack/">
 <meta property="og:title" content="Free Tech Stack & Analytics Detector | Lumina SEO">
-<meta property="og:description" content="Detect 45+ technologies on any website: analytics, CMS, consent tools, SEO plugins, marketing scripts, and more.">
+<meta property="og:description" content="Detect 467 technologies on any website: analytics, CMS, consent tools, SEO plugins, marketing scripts, and more.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -74,6 +74,16 @@
 .summary-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
 .error-msg{text-align:center;padding:24px;color:var(--muted)}.error-msg .icon{font-size:24px;margin-bottom:6px}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:10px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Toolbar */
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}
+.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Category Filter */
+.cat-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.cf-btn{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s}
+.cf-btn:hover,.cf-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Quota */
+.quota-bar{text-align:center;margin-top:8px;font-size:11px;color:var(--muted);font-family:var(--mono)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -274,9 +284,15 @@
 <div class="metric"><div class="mh">Checked</div><p id="mTotal">467</p></div>
 </div>
 <div class="summary-bar" id="summaryBar"></div>
+<div class="cat-filter" id="catFilter" style="display:none"></div>
 <div id="techResults"></div>
-<button class="exp-btn" id="btnCopy">📋 Copy Results</button>
+<div class="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Copy</button>
+<button class="tb-btn" id="btnCSV">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Report</button>
 </div>
+</div>
+<div class="quota-bar" id="quotaBar"></div>
 </div>
 <div class="content">
 <h2>What this tool detects</h2>
@@ -288,8 +304,6 @@
 <div class="faq-item"><div class="faq-q">How does detection work?<span class="arrow">+</span></div><div class="faq-a">The tool fetches the page HTML and searches for known script URLs, global variables, and code patterns specific to each technology. For example, GA4 is detected by finding <code>gtag(</code> or <code>googletagmanager.com/gtag</code> in the source.</div></div>
 <div class="faq-item"><div class="faq-q">Can it detect everything?<span class="arrow">+</span></div><div class="faq-a">The tool detects technologies that leave traces in the HTML source. Server-side tools, backend-only integrations, or scripts loaded from a custom domain may not be detected. The Lumina extension detects more because it runs in the browser after JavaScript execution.</div></div>
 <div class="faq-item"><div class="faq-q">Is the meta tag <code>generator</code> used?<span class="arrow">+</span></div><div class="faq-a">Yes! The tool also checks the <code>&lt;meta name="generator"&gt;</code> tag, which many CMS platforms set automatically (WordPress, Joomla, Drupal, etc.).</div></div>
-<div class="faq-item"><div class="faq-q">How does technology detection work?<span class="arrow">+</span></div><div class="faq-a">The tool analyzes the page's HTML source code for unique signatures — specific script URLs, meta tags, CSS class patterns, and global JavaScript variables that are characteristic of each technology or framework.</div></div>
-<div class="faq-item"><div class="faq-q">Can I detect all technologies on a page?<span class="arrow">+</span></div><div class="faq-a">Not always. Technologies that only run server-side or load scripts from custom domains may not leave detectable traces in the HTML. The Lumina browser extension can detect more technologies because it runs after JavaScript execution.</div></div>
 <div class="cta-box"><div class="cta-t">Detect tech on every page you visit</div><p>Lumina shows analytics, CMS, consent tools, and SEO plugins automatically — on every page, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 
@@ -880,8 +894,9 @@ function go(url){
 
 function showError(msg){
   document.getElementById('res').style.display='block';
-  document.getElementById('techResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(msg)+'</p></div>';
+  document.getElementById('techResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div>'+esc(msg)+'</div>';
   document.getElementById('summaryBar').innerHTML='';
+  document.getElementById('catFilter').style.display='none';
   document.getElementById('mFound').textContent='0';
   document.getElementById('mCats').textContent='0';
 }
@@ -905,6 +920,7 @@ function detect(html){
         var gl=generator.toLowerCase(),nl=sig.name.toLowerCase();
         if(gl.indexOf(nl)>=0||(nl==='wordpress'&&gl.indexOf('wordpress')>=0))found=true;
       }
+      sig._found=found;
       catResults.push({name:sig.name,found:found,tag:cat.tag});
       if(found){totalFound++;catSet.add(cat.cat);summaryTags[cat.tag]=(summaryTags[cat.tag]||0)+1;}
     });
@@ -932,24 +948,30 @@ function detect(html){
   if(generator)sumHtml+='<span class="gen-tag cms" title="'+esc(generator)+'">Generator: '+esc(generator.substring(0,30))+'</span>';
   document.getElementById('summaryBar').innerHTML=sumHtml;
 
-  // Render results — show found first, then missing
+  // Category filter buttons
+  var cfHtml='<button class="cf-btn active" data-filter="all">All</button>';
+  results.forEach(function(cat){
+    var foundItems=cat.items.filter(function(i){return i.found});
+    if(foundItems.length>0){
+      cfHtml+='<button class="cf-btn" data-filter="'+cat.tag+'">'+cat.cat.replace(/^[^\s]+\s/,'')+'</button>';
+    }
+  });
+  var cfEl=document.getElementById('catFilter');
+  cfEl.innerHTML=cfHtml;
+  cfEl.style.display=catSet.size>1?'flex':'none';
+
+  // Render results — show found first (only found items per category), then collapsible empty
   var html='';
   results.forEach(function(cat){
     var foundItems=cat.items.filter(function(i){return i.found});
-    var missingItems=cat.items.filter(function(i){return !i.found});
-    if(foundItems.length===0&&missingItems.length>0){
-      // Skip categories with zero detections
-      return;
-    }
-    html+='<div class="cat-head">'+cat.cat+' ('+foundItems.length+'/'+cat.items.length+')</div>';
+    if(foundItems.length===0) return;
+    html+='<div class="cat-section" data-tag="'+cat.tag+'">';
+    html+='<div class="cat-head">'+cat.cat+' ('+foundItems.length+' detected)</div>';
     html+='<div class="tech-grid">';
     foundItems.forEach(function(i){
       html+='<div class="tech-item found"><div class="dot"></div><span class="tech-name">'+esc(i.name)+'</span></div>';
     });
-    missingItems.forEach(function(i){
-      html+='<div class="tech-item missing"><div class="dot"></div><span class="tech-name">'+esc(i.name)+'</span></div>';
-    });
-    html+='</div>';
+    html+='</div></div>';
   });
 
   // Show categories with zero detections collapsed
@@ -980,6 +1002,18 @@ function detect(html){
     if(s.style.display==='none'){s.style.display='block';showBtn.textContent='− Hide empty categories'}
     else{s.style.display='none';showBtn.textContent='+ '+emptyCount+' categories with no detections'}
   })}
+
+  // Category filter click handler
+  cfEl.querySelectorAll('.cf-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      cfEl.querySelectorAll('.cf-btn').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      var f=b.getAttribute('data-filter');
+      document.querySelectorAll('.cat-section').forEach(function(s){
+        s.style.display=(f==='all'||s.getAttribute('data-tag')===f)?'':'none';
+      });
+    });
+  });
 }
 
 // Copy results
@@ -993,7 +1027,34 @@ document.getElementById('btnCopy').addEventListener('click',function(){
     txt+='\n';
   });
   navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Results'},1500);
+    var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500);
+  });
+});
+document.getElementById('btnCSV').addEventListener('click',function(){
+  var lines=['Technology,Category,Status'];
+  SIGS.forEach(function(c){c.items.forEach(function(t){
+    var f=t._found?'Found':'Not detected';
+    lines.push('"'+t.name+'","'+c.cat+'","'+f+'"');
+  })});
+  var blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tech-stack-'+new URL(urlIn.value.indexOf('http')===0?urlIn.value:'https://'+urlIn.value).hostname+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  var b=document.getElementById('btnCSV');b.textContent='✓ Downloaded!';setTimeout(function(){b.textContent='📊 CSV'},1500)
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  var found=[];
+  SIGS.forEach(function(c){c.items.forEach(function(t){if(t._found)found.push(t.name+' ('+c.cat.replace(/^[^\s]+\s/,'')+')');})});
+  var url=urlIn.value.indexOf('http')===0?urlIn.value:'https://'+urlIn.value;
+  var txt='TECH STACK REPORT\n'+url+'\nGenerated: '+new Date().toLocaleDateString()+'\n\n';
+  txt+='DETECTED TECHNOLOGIES ('+found.length+')\n'+('─').repeat(40)+'\n';
+  found.forEach(function(f){txt+='  ✓ '+f+'\n'});
+  txt+='\nTotal checked: 467 technologies across 22 categories\n';
+  txt+='Powered by Lumina SEO — https://lumina-seo.com/tools/tech-stack/';
+  navigator.clipboard.writeText(txt).then(function(){
+    var b=document.getElementById('btnReport');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📄 Report'},1500)
   });
 });
 

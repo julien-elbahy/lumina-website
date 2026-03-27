@@ -6,8 +6,8 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<title>Free Tech Stack & Analytics Detector | Lumina SEO</title>
-<meta name="description" content="Detect analytics tools, CMS platforms, consent managers, and marketing scripts on any website. Finds GA4, GTM, Shopify, WordPress, and 45+ technologies. Free.">
+<title>Kostenloser Tech Stack & Analytics Detektor | Lumina SEO</title>
+<meta name="description" content="Erkennen Sie Analytics-Tools, CMS-Plattformen, Consent-Manager und Marketing-Scripts auf jeder Website. Findet GA4, GTM, Shopify, WordPress und 467 weitere Technologien. Kostenlos.">
 <meta name="keywords" content="tech stack detector, analytics checker, CMS detector, website technology, GA4 checker, GTM detector, WordPress detector, Shopify detector">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/tech-stack/">
@@ -17,13 +17,13 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/de/tools/tech-stack/">
-<meta property="og:title" content="Free Tech Stack & Analytics Detector | Lumina SEO">
-<meta property="og:description" content="Detect 45+ technologies on any website: analytics, CMS, consent tools, SEO plugins, marketing scripts, and more.">
+<meta property="og:title" content="Kostenloser Tech Stack & Analytics Detektor | Lumina SEO">
+<meta property="og:description" content="Erkennen Sie 467 Technologien auf jeder Website: Analytics, CMS, Consent-Tools, SEO-Plugins, Marketing-Scripts und mehr.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tech Stack & Analytics Detector","url":"https://lumina-seo.com/de/tools/tech-stack/","description":"Detect analytics, CMS, consent managers, and marketing technologies on any website.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Tech Stack & Analytics Detektor","url":"https://lumina-seo.com/de/tools/tech-stack/","description":"Erkennen Sie Analytics, CMS, Consent-Manager und Marketing-Technologien auf jeder Website. 467 Technologien in 22 Kategorien.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -74,6 +74,16 @@
 .summary-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
 .error-msg{text-align:center;padding:24px;color:var(--muted)}.error-msg .icon{font-size:24px;margin-bottom:6px}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:10px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Toolbar */
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}
+.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Category Filter */
+.cat-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.cf-btn{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s}
+.cf-btn:hover,.cf-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Quota */
+.quota-bar{text-align:center;margin-top:8px;font-size:11px;color:var(--muted);font-family:var(--mono)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -263,7 +273,7 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Kostenloses SEO & GEO Tool</div><h1>Tech Stack & Analytics Detector</h1><p>Erkenne Analytics-Tools, CMS-Plattformen, Consent-Manager, SEO-Plugins und Marketing-Scripts auf jeder Website — 467 Technologien in 22 Kategorien.</p></div>
+<div class="th"><div class="lb">Kostenloses SEO & GEO Tool</div><h1>Tech Stack & Analytics Detektor</h1><p>Erkenne Analytics-Tools, CMS-Plattformen, Consent-Manager, SEO-Plugins und Marketing-Scripts auf jeder Website — 467 Technologien in 22 Kategorien.</p></div>
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com"><button class="ab" id="btnGo">Scannen</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div><div class="skel w70"></div></div>
@@ -274,23 +284,27 @@
 <div class="metric"><div class="mh">Geprüft</div><p id="mTotal">467</p></div>
 </div>
 <div class="summary-bar" id="summaryBar"></div>
+<div class="cat-filter" id="catFilter" style="display:none"></div>
 <div id="techResults"></div>
-<button class="exp-btn" id="btnCopy">📋 Ergebnisse kopieren</button>
+<div class="toolbar">
+<button class="tb-btn" id="btnCopy">📋 Kopieren</button>
+<button class="tb-btn" id="btnCSV">📊 CSV</button>
+<button class="tb-btn" id="btnReport">📄 Bericht</button>
+</div>
+<div class="quota-bar" id="quotaBar"></div>
 </div>
 </div>
 <div class="content">
 <h2>Was dieses Tool erkennt</h2>
-<p>This tool scans a page's HTML source for signatures of 467 technologies across 22 categories: analytics & tracking, tag managers, advertising, CMS & e-commerce platforms, consent management, SEO plugins, monitoring & error tracking, and A/B testing tools.</p>
-<p>Detection is based on the same signature database used by the <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe">Lumina Chrome Extension</a>.</p>
+<p>Dieses Tool durchsucht den HTML-Quellcode einer Seite nach Signaturen von 467 Technologien in 22 Kategorien: Analytics & Tracking, Tag-Manager, Werbung, CMS- & E-Commerce-Plattformen, Consent-Management, SEO-Plugins, Monitoring & Error-Tracking und A/B-Testing-Tools.</p>
+<p>Die Erkennung basiert auf derselben Signaturdatenbank, die auch die <a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe">Lumina Chrome Extension</a> verwendet.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
-<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Full meta tag audit for any URL.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>Check AI & search crawler access.</p></a><a href="/de/tools/link-analyzer/"><h3>Link Analyzer</h3><p>Internal/external link analysis.</p></a></div>
+<div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Vollständiger Meta-Tag-Audit für jede URL.</p></a><a href="/de/tools/robots-txt-analyzer/"><h3>Robots.txt Analyzer</h3><p>KI- und Suchmaschinen-Crawler-Zugriff prüfen.</p></a><a href="/de/tools/link-analyzer/"><h3>Link Analyzer</h3><p>Interne/externe Link-Analyse.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
-<div class="faq-item"><div class="faq-q">Wie funktioniert die Erkennung?<span class="arrow">+</span></div><div class="faq-a">Das Tool ruft den HTML-Quellcode der Seite ab und sucht nach bekannten Script-URLs, globalen Variablen und Code-Mustern, die für jede Technologie spezifisch sind. GA4 wird zum Beispiel durch <code>gtag(</code> oder <code>googletagmanager.com/gtag</code> im Quellcode erkannt.</div></div>
-<div class="faq-item"><div class="faq-q">Kann es alles erkennen?<span class="arrow">+</span></div><div class="faq-a">Das Tool erkennt Technologien, die Spuren im HTML-Quellcode hinterlassen. Serverseitige Tools, Backend-Integrationen oder Scripts von eigenen Domains werden möglicherweise nicht erkannt. Die Lumina Extension erkennt mehr, weil sie im Browser nach der JavaScript-Ausführung läuft.</div></div>
-<div class="faq-item"><div class="faq-q">Wird der Meta-Tag <code>generator</code> genutzt?<span class="arrow">+</span></div><div class="faq-a">Ja! Das Tool prüft auch den <code>&lt;meta name="generator"&gt;</code>-Tag, den viele CMS-Plattformen automatisch setzen (WordPress, Joomla, Drupal usw.).</div></div>
-<div class="faq-item"><div class="faq-q">Wie funktioniert die Technologie-Erkennung?<span class="arrow">+</span></div><div class="faq-a">Das Tool analysiert den HTML-Quellcode der Seite nach einzigartigen Signaturen — bestimmte Script-URLs, Meta-Tags, CSS-Klassen-Muster und globale JavaScript-Variablen, die für jede Technologie oder jedes Framework charakteristisch sind.</div></div>
-<div class="faq-item"><div class="faq-q">Kann ich alle Technologien einer Seite erkennen?<span class="arrow">+</span></div><div class="faq-a">Nicht immer. Technologien, die nur serverseitig laufen oder Scripts von eigenen Domains laden, hinterlassen möglicherweise keine erkennbaren Spuren im HTML. Die Lumina Browser-Extension kann mehr Technologien erkennen, weil sie nach der JavaScript-Ausführung läuft.</div></div>
-<div class="cta-box"><div class="cta-t">Tech-Erkennung auf jeder Seite</div><p>Lumina shows analytics, CMS, consent tools, and SEO plugins automatically — on every page, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
+<div class="faq-item"><div class="faq-q">Wie funktioniert die Erkennung?<span class="arrow">+</span></div><div class="faq-a">Das Tool ruft den HTML-Quellcode der Seite ab und sucht nach bekannten Script-URLs, globalen Variablen und Code-Mustern, die für jede Technologie spezifisch sind. GA4 wird beispielsweise durch das Auffinden von <code>gtag(</code> oder <code>googletagmanager.com/gtag</code> im Quellcode erkannt.</div></div>
+<div class="faq-item"><div class="faq-q">Kann das Tool alles erkennen?<span class="arrow">+</span></div><div class="faq-a">Das Tool erkennt Technologien, die Spuren im HTML-Quellcode hinterlassen. Serverseitige Tools, Backend-Integrationen oder Scripts, die von einer eigenen Domain geladen werden, können möglicherweise nicht erkannt werden. Die Lumina-Extension erkennt mehr, da sie im Browser nach der JavaScript-Ausführung läuft.</div></div>
+<div class="faq-item"><div class="faq-q">Wird das Meta-Tag <code>generator</code> verwendet?<span class="arrow">+</span></div><div class="faq-a">Ja! Das Tool prüft auch das <code>&lt;meta name="generator"&gt;</code>-Tag, das viele CMS-Plattformen automatisch setzen (WordPress, Joomla, Drupal usw.).</div></div>
+<div class="cta-box"><div class="cta-t">Technologien auf jeder besuchten Seite erkennen</div><p>Lumina zeigt Analytics, CMS, Consent-Tools und SEO-Plugins automatisch an — auf jeder Seite, kostenlos.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
 
 <footer class="tf"><div class="tf-inner">
@@ -868,13 +882,13 @@ function go(url){
     btn.disabled=false;btn.textContent='Scannen';
     document.getElementById('loading').style.display='none';
     if(data.error){showError(data.error);return}
-    if(!data.html||data.html.length<50){showError('Empty response.');return}
+    if(!data.html||data.html.length<50){showError('Leere Antwort.');return}
     detect(data.html);
   })
   .catch(function(e){
     btn.disabled=false;btn.textContent='Scannen';
     document.getElementById('loading').style.display='none';
-    showError('Could not fetch: '+e.message);
+    showError('Konnte nicht abgerufen werden: '+e.message);
   });
 }
 
@@ -905,6 +919,7 @@ function detect(html){
         var gl=generator.toLowerCase(),nl=sig.name.toLowerCase();
         if(gl.indexOf(nl)>=0||(nl==='wordpress'&&gl.indexOf('wordpress')>=0))found=true;
       }
+      sig._found=found;
       catResults.push({name:sig.name,found:found,tag:cat.tag});
       if(found){totalFound++;catSet.add(cat.cat);summaryTags[cat.tag]=(summaryTags[cat.tag]||0)+1;}
     });
@@ -956,7 +971,7 @@ function detect(html){
   var emptyCount=0;
   results.forEach(function(cat){if(cat.items.filter(function(i){return i.found}).length===0)emptyCount++});
   if(emptyCount>0){
-    html+='<div class="cat-head" style="color:var(--muted);cursor:pointer" id="showEmpty">+ '+emptyCount+' categories with no detections</div>';
+    html+='<div class="cat-head" style="color:var(--muted);cursor:pointer" id="showEmpty">+ '+emptyCount+' Kategorien ohne Ergebnisse anzeigen</div>';
     html+='<div id="emptySection" style="display:none">';
     results.forEach(function(cat){
       if(cat.items.filter(function(i){return i.found}).length>0)return;
@@ -977,14 +992,14 @@ function detect(html){
   var showBtn=document.getElementById('showEmpty');
   if(showBtn){showBtn.addEventListener('click',function(){
     var s=document.getElementById('emptySection');
-    if(s.style.display==='none'){s.style.display='block';showBtn.textContent='− Hide empty categories'}
-    else{s.style.display='none';showBtn.textContent='+ '+emptyCount+' categories with no detections'}
+    if(s.style.display==='none'){s.style.display='block';showBtn.textContent='− Leere Kategorien ausblenden'}
+    else{s.style.display='none';showBtn.textContent='+ '+emptyCount+' Kategorien ohne Ergebnisse anzeigen'}
   })}
 }
 
 // Copy results
 document.getElementById('btnCopy').addEventListener('click',function(){
-  var txt='Tech Stack Analysis: '+urlIn.value+'\n\n';
+  var txt='Tech Stack Analyse: '+urlIn.value+'\n\n';
   lastResults.forEach(function(cat){
     var found=cat.items.filter(function(i){return i.found});
     if(found.length===0)return;
@@ -993,7 +1008,34 @@ document.getElementById('btnCopy').addEventListener('click',function(){
     txt+='\n';
   });
   navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Ergebnisse kopieren'},1500);
+    var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Kopieren'},1500);
+  });
+});
+document.getElementById('btnCSV').addEventListener('click',function(){
+  var lines=['Technologie,Kategorie,Status'];
+  SIGS.forEach(function(c){c.items.forEach(function(t){
+    var f=t._found?'Erkannt':'Nicht erkannt';
+    lines.push('"'+t.name+'","'+c.cat+'","'+f+'"');
+  })});
+  var blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='tech-stack-'+new URL(urlIn.value.indexOf('http')===0?urlIn.value:'https://'+urlIn.value).hostname+'.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  var b=document.getElementById('btnCSV');b.textContent='✓ Heruntergeladen!';setTimeout(function(){b.textContent='📊 CSV'},1500)
+});
+document.getElementById('btnReport').addEventListener('click',function(){
+  var found=[];
+  SIGS.forEach(function(c){c.items.forEach(function(t){if(t._found)found.push(t.name+' ('+c.cat.replace(/^[^\s]+\s/,'')+')');})});
+  var url=urlIn.value.indexOf('http')===0?urlIn.value:'https://'+urlIn.value;
+  var txt='TECH STACK BERICHT\n'+url+'\nErstellt: '+new Date().toLocaleDateString('de-DE')+'\n\n';
+  txt+='ERKANNTE TECHNOLOGIEN ('+found.length+')\n'+('─').repeat(40)+'\n';
+  found.forEach(function(f){txt+='  ✓ '+f+'\n'});
+  txt+='\nInsgesamt geprüft: 467 Technologien in 22 Kategorien\n';
+  txt+='Powered by Lumina SEO — https://lumina-seo.com/de/tools/tech-stack/';
+  navigator.clipboard.writeText(txt).then(function(){
+    var b=document.getElementById('btnReport');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📄 Bericht'},1500)
   });
 });
 
