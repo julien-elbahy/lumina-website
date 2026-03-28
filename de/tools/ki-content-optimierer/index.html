@@ -112,6 +112,12 @@
 .ai-suggestions{font-size:13px;color:var(--text2);line-height:1.8}.ai-suggestions ul{margin:8px 0;padding-left:18px}.ai-suggestions li{margin-bottom:6px;color:var(--text2)}.ai-suggestions strong{color:var(--text)}
 .meta-gen{margin-top:12px}.meta-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;position:relative}.meta-card .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}.meta-card p{font-size:13px;color:var(--text);font-family:var(--mono);line-height:1.6;word-break:break-word}.meta-card .copy-btn{position:absolute;top:8px;right:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s}.meta-card .copy-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .density-bar{margin-top:10px}.density-row{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:12px}.density-label{width:100px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.density-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.density-fill{height:100%;border-radius:3px;transition:width .4s}.density-val{font-family:var(--mono);font-size:11px;color:var(--muted);width:50px;text-align:right}
+/* Country/Language selector */
+.loc-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}.loc-row label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.loc-sel{background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 28px 8px 10px;color:var(--text);font-size:12px;font-family:var(--font);-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a09484'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;cursor:pointer;min-width:140px}.loc-sel:focus{outline:none;border-color:var(--accent)}
+/* Content insights */
+.insight-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5}.insight-row:last-child{border-bottom:none}.insight-icon{flex-shrink:0;width:20px;text-align:center;font-size:14px}.insight-text{flex:1;color:var(--text2)}.insight-text strong{color:var(--text)}.insight-ok{color:var(--ok)}.insight-warn{color:var(--warn)}.insight-err{color:var(--err)}
+/* Top keywords */
+.top-kw-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.top-kw{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:12px}.top-kw-word{font-weight:700;color:var(--text)}.top-kw-count{font-family:var(--mono);font-size:10px;color:var(--muted)}.top-kw-bar{width:40px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}.top-kw-fill{height:100%;border-radius:2px;background:var(--accent)}
 
 /* Light mode */
 [data-theme="light"] body{background:linear-gradient(168deg,#efe8dc 0%,#e7ddd0 40%,#e0d5c7 100%)}
@@ -222,7 +228,7 @@
 </div>
 
 <div class="ct" id="main-content">
-<div class="th"><div class="lb">KI-gestütztes SEO-Tool</div><h1>KI Content Optimierer</h1><p>Füge deinen Inhalt ein oder rufe ihn von einer URL ab. Keywords automatisch erkennen mit Suchvolumen, Google Search Console für echte Ranking-Daten verbinden, dann KI-gestützte Optimierungsvorschläge erhalten.</p></div>
+<div class="th"><div class="lb">KI-gestütztes SEO-Tool</div><h1>KI Content Optimierer</h1><p>Füge deinen Inhalt ein oder lade ihn von einer URL. Wähle deinen Zielmarkt, erkenne Keywords mit echten Suchvolumen, verbinde Google Search Console für Ranking-Daten und erhalte KI-gestützte Optimierungsvorschläge.</p></div>
 <div class="cd" style="padding:12px 16px;margin-bottom:8px">
 <div id="gscConnect" style="display:flex;align-items:center;gap:14px">
 <button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0 14px 0 0;flex-shrink:0">🔗 GSC verbinden</button>
@@ -248,6 +254,25 @@
 <input type="text" id="kwPrimary" placeholder="Haupt-Keyword (z.B. Badsanierung Wien)">
 <input type="text" id="kwSecondary" placeholder="Neben-Keywords (z.B. Badrenovierung, Fixpreis)">
 </div>
+<div class="loc-row">
+<label>Markt</label>
+<select id="locCountry" class="loc-sel">
+<option value="2276-de">🇩🇪 Deutschland</option>
+<option value="2040-de">🇦🇹 Österreich</option>
+<option value="2756-de">🇨🇭 Schweiz</option>
+<option value="2840-en">🇺🇸 USA</option>
+<option value="2826-en">🇬🇧 Großbritannien</option>
+<option value="2250-fr">🇫🇷 Frankreich</option>
+<option value="2380-it">🇮🇹 Italien</option>
+<option value="2724-es">🇪🇸 Spanien</option>
+<option value="2528-nl">🇳🇱 Niederlande</option>
+<option value="2616-pl">🇵🇱 Polen</option>
+<option value="2036-en">🇦🇺 Australien</option>
+<option value="2124-en">🇨🇦 Kanada</option>
+<option value="2356-en">🇮🇳 Indien</option>
+<option value="2076-pt">🇧🇷 Brasilien</option>
+</select>
+</div>
 <div id="kwChips" style="display:none;margin-bottom:8px"></div>
 
 <div class="quota-bar" id="quotaInfo" style="display:none"></div>
@@ -265,13 +290,14 @@
 <div style="flex:1;min-width:0">
 <div class="metrics" style="grid-template-columns:repeat(4,1fr)">
 <div class="metric"><div class="mh">Wörter</div><p id="mWords">0</p></div>
-<div class="metric"><div class="mh">Sätze</div><p id="mSent">0</p></div>
+<div class="metric"><div class="mh">Lesezeit</div><p id="mTime">—</p></div>
 <div class="metric"><div class="mh">Lesbarkeit</div><p id="mRead">—</p></div>
 <div class="metric"><div class="mh">KW-Dichte</div><p id="mDens">—</p></div>
 </div>
-<div class="density-bar" id="densityBars"></div>
 </div>
 </div>
+<div id="contentInsights" style="margin-top:12px"></div>
+<div id="topKeywords" style="margin-top:12px;display:none"></div>
 <div id="headingTree"></div>
 <div class="toolbar" id="analysisToolbar" style="display:none">
 <button class="tb-btn" id="btnCopyAnalysis">📋 Kopieren</button>
@@ -296,7 +322,7 @@
 
 <div class="content">
 <h2>So funktioniert es</h2>
-<p>Gib deinen Inhalt und Zielkeyword ein. Das Tool berechnet sofort Wortanzahl, Satzanzahl, Keyword-Dichte, Lesbarkeit (Flesch-Kincaid) und einen SEO-Score. Per URL-Abruf siehst du auch die Überschriften-Struktur. Nutze dann die KI-Buttons für Optimierungsvorschläge und Meta-Titel/Beschreibungs-Generierung.</p>
+<p>Füge deinen Inhalt ein oder lade ihn von einer URL. Wähle deinen Zielmarkt, erkenne Keywords mit echten Suchvolumen, verbinde Google Search Console für Ranking-Daten und nutze dann die KI-gestützte Optimierung für detaillierte Vorschläge.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/keyword-research/"><h3>Keyword-Recherche</h3><p>Volumen, CPC & Wettbewerbsdaten.</p></a><a href="/de/tools/serp-preview/"><h3>Snippet-Vorschau</h3><p>Vorschau deines Google-Ergebnisses.</p></a><a href="/de/tools/semantic-checker/"><h3>Semantisches HTML</h3><p>Semantische Struktur prüfen.</p></a></div>
 <div class="faq-item"><div class="faq-q">Wie funktioniert die Bewertung?<span class="arrow">+</span></div><div class="faq-a">Der Content-Score kombiniert Keyword-Dichte (ideal: 1–3%), Lesbarkeit (Flesch-Kincaid), Inhaltslänge (300+ Wörter empfohlen) und Satzvarianz. Höhere Scores zeigen bessere On-Page-SEO-Ausrichtung für dein Zielkeyword.</div></div>
@@ -395,10 +421,9 @@ document.getElementById('btnGscLoad').addEventListener('click',async function(){
   _gscRows.sort(function(a,b){return b.impressions-a.impressions});
   document.getElementById('gscStatus').textContent='✓ '+_gscRows.length+' Suchanfragen — Suchvolumen werden geladen…';
   var topKws=_gscRows.slice(0,40).map(function(r){return r.query});
-  var text=document.getElementById('contentIn').value;
-  var lang=text.match(/[äöüß]/i)?'de':'en';var loc=lang==='de'?2040:2840;
+  var lp=getLocParts();
   try{
-    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:topKws,language_code:lang,location_code:loc}])});
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:topKws,language_code:lp.lang,location_code:lp.loc}])});
     var dfsData=await dfsResp.json();
     if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_gscRows.forEach(function(g){if(g.query.toLowerCase()===r.keyword.toLowerCase()){g.vol=r.search_volume||0}})})})}
   }catch(e){}
@@ -452,7 +477,13 @@ function countSentences(t){var m=t.match(/[.!?]+[\s\n]+|[.!?]+$/g);return m?m.le
 function countSyllables(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(w.length<=3)return 1;w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'');w=w.replace(/^y/,'');var m=w.match(/[aeiouy]{1,2}/g);return m?m.length:1}
 function fleschKincaid(text){var words=text.trim().split(/\s+/).filter(function(w){return w.length>0});var wc=words.length;if(wc===0)return 0;var sc=countSentences(text)||1;var sylCount=0;words.forEach(function(w){sylCount+=countSyllables(w)});return Math.max(0,Math.min(100,Math.round(206.835-1.015*(wc/sc)-84.6*(sylCount/wc))))}
 function kwDensity(text,kw){if(!kw)return{pct:0,count:0};var lower=text.toLowerCase();var kwLower=kw.toLowerCase().trim();var words=lower.split(/\s+/);var totalWords=words.length;if(totalWords===0)return{pct:0,count:0};var escaped=kwLower.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var re=new RegExp('\\b'+escaped+'\\b','gi');var matches=lower.match(re);var count=matches?matches.length:0;var kwWords=kwLower.split(/\s+/).length;var pct=(count*kwWords/totalWords)*100;return{pct:pct,count:count}}
-function calcScore(wordCount,density,readability){var score=0;if(wordCount>=300)score+=20;else if(wordCount>=150)score+=12;else score+=5;if(wordCount>=600)score+=5;if(wordCount>=1000)score+=5;if(density>=0.5&&density<=3)score+=30;else if(density>3&&density<=5)score+=15;else if(density>0&&density<0.5)score+=10;else score+=0;if(readability>=60)score+=20;else if(readability>=40)score+=12;else score+=5;var sentCount=countSentences(document.getElementById('contentIn').value);var avgSentLen=wordCount/(sentCount||1);if(avgSentLen>=10&&avgSentLen<=25)score+=10;else score+=4;score+=10;return Math.min(100,score)}
+function calcScore(wordCount,density,readability,hasKw,headings){var score=0;if(wordCount>=300)score+=20;else if(wordCount>=150)score+=12;else score+=5;if(wordCount>=600)score+=5;if(wordCount>=1000)score+=5;if(hasKw){if(density>=0.5&&density<=3)score+=30;else if(density>3&&density<=5)score+=15;else if(density>0&&density<0.5)score+=10}else{score+=15}if(readability>=60)score+=20;else if(readability>=40)score+=12;else score+=5;var sentCount=countSentences(document.getElementById('contentIn').value);var avgSentLen=wordCount/(sentCount||1);if(avgSentLen>=10&&avgSentLen<=25)score+=10;else score+=4;score+=10;return Math.min(100,score)}
+function readingTime(wc){var min=Math.ceil(wc/238);return min<1?'< 1 Min.':min+' Min.'}
+function readabilityLabel(fk){if(fk>=80)return{text:'Sehr einfach',tip:'Einfaches Vokabular, kurze Sätze. Ideal für ein breites Publikum.'};if(fk>=60)return{text:'Einfach',tip:'Umgangssprachlicher Ton. Gut für die meisten Web-Inhalte.'};if(fk>=40)return{text:'Standard',tip:'Mittlere Komplexität. Geeignet für informierte Leser.'};if(fk>=20)return{text:'Schwierig',tip:'Komplexe Sätze und Vokabular. Vereinfachung für Web-Leser empfohlen.'};return{text:'Sehr schwer',tip:'Akademisches Niveau. Die meisten Web-Leser könnten abspringen.'}}
+var STOP_WORDS_EN='a,an,the,and,or,but,in,on,at,to,for,of,with,by,from,as,is,was,are,were,be,been,being,have,has,had,do,does,did,will,would,shall,should,may,might,must,can,could,not,no,nor,so,if,then,than,that,this,these,those,it,its,i,me,my,we,our,you,your,he,him,his,she,her,they,them,their,what,which,who,whom,how,when,where,why,all,each,every,both,few,more,most,other,some,such,only,own,same,very,just,about,above,after,again,also,any,because,before,between,during,into,over,under,until,up,down,out,off,here,there,now,new,one,two,get,got,been,make,like,many,much,well,even,back,still,way,take,come,go,see,know,think,look,give,use,find,tell,ask,work,seem,feel,try,leave,call,need,say,turn,keep,let,put,begin,show,hear,play,run,move,live,hold,bring,word,however,per,via,else'.split(',');
+var STOP_WORDS_DE='der,die,das,den,dem,des,ein,eine,einen,einem,einer,und,oder,aber,in,im,an,am,auf,aus,bei,mit,von,zu,zum,zur,für,über,unter,vor,nach,bis,seit,wie,als,wenn,da,so,doch,noch,schon,nur,auch,nicht,kein,keine,keinen,keinem,ich,du,er,sie,es,wir,ihr,mich,mir,dich,dir,ihm,ihn,uns,euch,sich,sein,seine,seinem,seinen,seiner,ist,sind,war,waren,wird,werden,wurde,wurden,hat,haben,hatte,hatten,kann,können,konnte,muss,müssen,soll,sollen,darf,dürfen,will,wollen,mag,mögen,hier,dort,dann,weil,dass,ob,was,wer,wem,wen,welche,welcher,welches,diese,dieser,dieses,diesen,diesem,jede,jeder,jedes,alle,man,mehr,sehr,viel,gut,neue,neuen,neuer,neues'.split(',');
+function getStopWords(){var loc=document.getElementById('locCountry').value;return loc.split('-')[1]==='de'?STOP_WORDS_DE:STOP_WORDS_EN}
+function getLocParts(){var v=document.getElementById('locCountry').value.split('-');return{loc:parseInt(v[0]),lang:v[1]}}
 
 var _mc=null;
 function pxMeasure(text,font){if(!_mc){_mc=document.createElement('canvas').getContext('2d')}_mc.font=font;return Math.round(_mc.measureText(text).width)}
@@ -475,6 +506,19 @@ async function aiCall(body){
   return data;
 }
 
+/* ── Markt automatisch erkennen ── */
+function autoDetectMarket(text){
+  var sel=document.getElementById('locCountry');
+  if(sel._userChanged)return;
+  if(text.match(/[äöüß]/i)){
+    if(text.match(/\b(Wien|Österreich|Graz|Linz|Salzburg|Innsbruck|Klagenfurt)\b/i))sel.value='2040-de';
+    else if(text.match(/\b(Zürich|Bern|Schweiz|Basel|Genf|Luzern)\b/i))sel.value='2756-de';
+    else sel.value='2276-de';
+  } else if(text.match(/\b(colour|favourite|organisation|centre|realise)\b/i))sel.value='2826-en';
+  else sel.value='2840-en';
+}
+document.getElementById('locCountry').addEventListener('change',function(){this._userChanged=true});
+
 var _fetchedHeadings=[];
 document.getElementById('btnFetchUrl').addEventListener('click',function(){
   var url=document.getElementById('urlIn').value.trim();
@@ -487,7 +531,7 @@ document.getElementById('btnFetchUrl').addEventListener('click',function(){
     doc.querySelectorAll('nav,header,footer,script,style,noscript,svg,.nav,.nr,.tf,.mm,#mobileMenu,[role="navigation"],[role="banner"],[role="contentinfo"]').forEach(function(el){el.remove()});
     var main=doc.querySelector('main,[role="main"],#main-content,.ct,.container,article')||doc.body;
     var body=(main?main.textContent:'').replace(/\s+/g,' ').trim();
-    if(body.length>50)document.getElementById('contentIn').value=body.substring(0,8000);
+    if(body.length>50){document.getElementById('contentIn').value=body.substring(0,8000);autoDetectMarket(body)}
     _fetchedHeadings=[];
     var headingSource=doc.querySelector('main,[role="main"],#main-content,.ct,.container,article')||doc.body;
     headingSource.querySelectorAll('h1,h2,h3,h4').forEach(function(h){
@@ -502,25 +546,56 @@ function runAnalysis(){
   var kw=document.getElementById('kwPrimary').value.trim();
   if(!text){alert('Bitte füge Inhalt zum Analysieren ein.');return}
   var wc=countWords(text);var sc=countSentences(text);var read=fleschKincaid(text);
-  var dens=kwDensity(text,kw);var score=calcScore(wc,dens.pct,read);
-  document.getElementById('mWords').textContent=wc.toLocaleString();
-  document.getElementById('mSent').textContent=sc;
-  document.getElementById('mRead').textContent=read;
-  document.getElementById('mRead').style.color=read>=60?'var(--ok)':read>=40?'var(--warn)':'var(--err)';
-  document.getElementById('mDens').textContent=kw?dens.pct.toFixed(1)+'%':'—';
-  document.getElementById('mDens').style.color=kw?(dens.pct>=0.5&&dens.pct<=3?'var(--ok)':dens.pct>3&&dens.pct<=5?'var(--warn)':'var(--err)'):'var(--text)';
+  var dens=kwDensity(text,kw);
+  var headings=_fetchedHeadings||[];
+  var score=calcScore(wc,dens.pct,read,!!kw,headings);
   // Score ring
   var sCol=score>=70?'var(--ok)':score>=40?'var(--warn)':'var(--err)';
   document.getElementById('scoreArc').setAttribute('stroke',sCol);
   document.getElementById('scoreArc').setAttribute('stroke-dasharray',score+', 100');
   document.getElementById('scoreText').textContent=score;
   document.getElementById('scoreText').setAttribute('fill',sCol);
-  var bars='';
-  if(kw){var words=text.toLowerCase().split(/\s+/);var freq={};words.forEach(function(w){w=w.replace(/[^a-zäöüß0-9-]/gi,'');if(w.length>2)freq[w]=(freq[w]||0)+1});var sorted=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,8);var maxFreq=sorted.length?sorted[0][1]:1;var kwEntry=kw.toLowerCase();if(!sorted.some(function(e){return e[0]===kwEntry})&&dens.count>0)sorted.unshift([kwEntry,dens.count]);sorted.forEach(function(e){var pct=(e[1]/maxFreq)*100;var isKw=e[0]===kwEntry;bars+='<div class="density-row"><span class="density-label"'+(isKw?' style="color:var(--accent)"':'')+'>'+e[0]+'</span><div class="density-track"><div class="density-fill" style="width:'+pct+'%;background:'+(isKw?'var(--accent)':'var(--border-h)')+'"></div></div><span class="density-val">'+e[1]+'×</span></div>'})}
-  document.getElementById('densityBars').innerHTML=bars;
+  // Metrics
+  document.getElementById('mWords').textContent=wc.toLocaleString();
+  document.getElementById('mTime').textContent=readingTime(wc);
+  var rl=readabilityLabel(read);
+  document.getElementById('mRead').textContent=rl.text;
+  document.getElementById('mRead').style.color=read>=60?'var(--ok)':read>=40?'var(--warn)':'var(--err)';
+  document.getElementById('mRead').title='Flesch-Kincaid: '+read+' — '+rl.tip;
+  document.getElementById('mDens').textContent=kw?dens.pct.toFixed(1)+'%':'—';
+  document.getElementById('mDens').style.color=kw?(dens.pct>=0.5&&dens.pct<=3?'var(--ok)':dens.pct>3&&dens.pct<=5?'var(--warn)':'var(--err)'):'var(--text)';
+  // Content insights
+  var ins='';var avgSentLen=Math.round(wc/(sc||1));
+  if(wc>=1000)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>'+wc.toLocaleString()+' Wörter</strong> — umfassende Inhaltslänge. Ideal für ausführliche Ratgeber und kompetitive Keywords.</span></div>';
+  else if(wc>=300)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>'+wc.toLocaleString()+' Wörter</strong> — solide Inhaltslänge für die meisten Themen. Für kompetitive Keywords auf 800+ erweitern.</span></div>';
+  else ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>'+wc.toLocaleString()+' Wörter</strong> — dünner Inhalt. Die meisten rankenden Seiten haben 300+ Wörter. Mehr Tiefe hinzufügen.</span></div>';
+  ins+='<div class="insight-row"><span class="insight-icon '+(read>=50?'insight-ok':'insight-warn')+'">'+(read>=50?'✓':'⚠')+'</span><span class="insight-text"><strong>Lesbarkeit: '+rl.text+'</strong> (Flesch-Kincaid '+read+') — '+rl.tip+'</span></div>';
+  if(avgSentLen>=10&&avgSentLen<=20)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>Ø '+avgSentLen+' Wörter/Satz</strong> — ideal für Web-Lesbarkeit.</span></div>';
+  else if(avgSentLen>20&&avgSentLen<=25)ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>Ø '+avgSentLen+' Wörter/Satz</strong> — etwas lang. Sätze über 25 Wörter aufteilen.</span></div>';
+  else if(avgSentLen>25)ins+='<div class="insight-row"><span class="insight-icon insight-err">✕</span><span class="insight-text"><strong>Ø '+avgSentLen+' Wörter/Satz</strong> — zu lang für Web-Inhalte. Ziel: 15–20 Wörter pro Satz.</span></div>';
+  else ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>Ø '+avgSentLen+' Wörter/Satz</strong> — sehr prägnant. Gute Lesbarkeit.</span></div>';
+  if(kw){
+    if(dens.pct>=0.5&&dens.pct<=3)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> kommt '+dens.count+'× vor ('+dens.pct.toFixed(1)+'% Dichte) — idealer Bereich.</span></div>';
+    else if(dens.pct>3)ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> kommt '+dens.count+'× vor ('+dens.pct.toFixed(1)+'% Dichte) — möglicherweise überoptimiert. Ziel: 0,5–3%.</span></div>';
+    else if(dens.count>0)ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> kommt '+dens.count+'× vor ('+dens.pct.toFixed(1)+'% Dichte) — niedrig. Füge ein paar natürliche Erwähnungen hinzu.</span></div>';
+    else ins+='<div class="insight-row"><span class="insight-icon insight-err">✕</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> nicht im Inhalt gefunden. Füge dein Ziel-Keyword natürlich in den Text ein.</span></div>';
+  }
+  document.getElementById('contentInsights').innerHTML=ins;
+  // Top keywords (stop-word filtered)
+  var stopWords=getStopWords();
+  var words=text.toLowerCase().split(/\s+/);var freq={};
+  words.forEach(function(w){w=w.replace(/[^a-zäöüßàáâãèéêëìíîïòóôõùúûüñç0-9-]/gi,'');if(w.length>2&&stopWords.indexOf(w)===-1)freq[w]=(freq[w]||0)+1});
+  var sorted=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,12);
+  if(sorted.length){
+    var maxF=sorted[0][1];
+    var tkh='<div class="section-label">🔤 Top-Keywords im Inhalt</div><div class="top-kw-grid">';
+    sorted.forEach(function(e){var pct=Math.round(e[1]/maxF*100);var isKw=kw&&e[0]===kw.toLowerCase();
+      tkh+='<div class="top-kw'+(isKw?' style="border-color:var(--accent)"':'')+'"><span class="top-kw-word"'+(isKw?' style="color:var(--accent)"':'')+'>'+e[0]+'</span><span class="top-kw-count">'+e[1]+'×</span><div class="top-kw-bar"><div class="top-kw-fill" style="width:'+pct+'%'+(isKw?';background:var(--accent)':'')+'"></div></div></div>'});
+    tkh+='</div>';
+    var tkEl=document.getElementById('topKeywords');tkEl.innerHTML=tkh;tkEl.style.display='block';
+  }else{document.getElementById('topKeywords').style.display='none'}
   // Heading tree
   var htEl=document.getElementById('headingTree');
-  var headings=_fetchedHeadings||[];
   if(headings.length){
     var ht='<div class="heading-tree"><div class="ht-title">Überschriften-Struktur ('+headings.length+' Überschriften)</div>';
     var h1Count=headings.filter(function(h){return h.tag==='h1'}).length;
@@ -531,12 +606,11 @@ function runAnalysis(){
     });
     ht+='</div>';htEl.innerHTML=ht;
   }else{htEl.innerHTML=''}
-  // Toolbar + AI Card + Cross-links
   document.getElementById('analysisToolbar').style.display='flex';
   document.getElementById('res').style.display='block';
   document.getElementById('aiCard').style.display='block';
   var url_=document.getElementById('urlIn').value.trim();
-  if(url_){var cl=document.getElementById('crossLinks');cl.innerHTML='<a href="/de/tools/meta-tag-analyzer/?url='+encodeURIComponent(url_)+'">🔍 Meta-Analyse</a><a href="/de/tools/serp-preview/?url='+encodeURIComponent(url_)+'">📱 Snippet-Vorschau</a><a href="/de/tools/heading-checker/?url='+encodeURIComponent(url_)+'">📑 Heading-Check</a><a href="/de/tools/semantic-checker/?url='+encodeURIComponent(url_)+'">🏷️ Semantisches HTML</a>';cl.style.display='flex'}
+  if(url_){var cl=document.getElementById('crossLinks');cl.innerHTML='<a href="/de/tools/meta-tag-analyzer/?url='+encodeURIComponent(url_)+'">🔍 Meta-Analyse</a><a href="/de/tools/serp-preview/?url='+encodeURIComponent(url_)+'">📱 Snippet-Vorschau</a><a href="/de/tools/heading-checker/?url='+encodeURIComponent(url_)+'">📑 Heading Check</a><a href="/de/tools/semantic-checker/?url='+encodeURIComponent(url_)+'">🏷️ Semantisches HTML</a>';cl.style.display='flex'}
   analysisData={text:text,kw:kw,sec:document.getElementById('kwSecondary').value.trim(),wc:wc,sc:sc,read:read,dens:dens,score:score,url:url_,headings:headings};
 }
 
@@ -571,7 +645,8 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
   var btn=this;btn.disabled=true;btn.textContent='⏳ Erkennung…';
   try{
     var snippet=text.substring(0,2000);
-    var data=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],max_tokens:300});
+    var locLabel=document.getElementById('locCountry').selectedOptions[0].textContent;
+    var data=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\nTarget market: '+locLabel+'\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for IN THE LANGUAGE OF THE CONTENT\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n- Keywords must match the content language and target market\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],max_tokens:300});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var kws=JSON.parse(raw).keywords||[];
     if(!kws.length)throw new Error('Keine Keywords erkannt');
@@ -580,8 +655,8 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
     _kwData=kws.map(function(k){return{keyword:k}});
     renderChips();
     btn.textContent='⏳ Suchvolumen…';
-    var lang=text.match(/[äöüß]/i)?'de':'en';var loc=lang==='de'?2040:2840;
-    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lang,location_code:loc}])});
+    var lp=getLocParts();
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lp.lang,location_code:lp.loc}])});
     var dfsData=await dfsResp.json();
     if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_kwData.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})})}
     _kwData.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
@@ -602,7 +677,7 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
   var btn=this;btn.disabled=true;btn.textContent='⏳ Optimierung…';
   var out=document.getElementById('aiRes');out.style.display='block';
   out.innerHTML='<div class="section-label">✨ KI-Optimierung</div><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w90"></div><div class="skel w70"></div>';
-  var lang=text.match(/[äöüß]/i)?'de':'en';
+  var lang=getLocParts().lang;
   var gscCtx=gscContextForPrompt();
   try{
     var data=await aiCall({messages:[{role:'system',content:'You are a senior SEO consultant performing a data-driven content optimization. The page language is "'+lang+'". WRITE ALL OPTIMIZED TEXT IN THE SAME LANGUAGE AS THE ORIGINAL.\n\n'+
