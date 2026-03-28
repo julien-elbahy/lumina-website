@@ -486,7 +486,10 @@ function analyze(html,pageUrl){
 
   document.getElementById('res').style.display='block';
 
-  lastReport={url:pageUrl,score:score,landmarks:lm,lmFound:lmFound,semantic:sem,semCount:semCount,headings:headings,a11y:a11y,issues:issues};
+  /* HTML-Auszug für KI-Kontext speichern — erste 3000 Zeichen des Body */
+  var bodyExcerpt='';
+  try{var bodyEl=doc.querySelector('body');if(bodyEl){bodyExcerpt=bodyEl.innerHTML.replace(/\s+/g,' ').substring(0,3000)}}catch(e){}
+  lastReport={url:pageUrl,score:score,landmarks:lm,lmFound:lmFound,semantic:sem,semCount:semCount,headings:headings,a11y:a11y,issues:issues,divCount:divCount,spanCount:spanCount,totalSemantic:totalSemantic,bodyExcerpt:bodyExcerpt};
 }
 
 // ── Toolbar ──
@@ -529,16 +532,23 @@ document.getElementById('btnAi').addEventListener('click',function(){
   var rd=document.getElementById('aiResult');
   rd.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
   rd.style.display='block';
-  var summary='URL: '+r.url+'\nSemantic Score: '+r.score+'/100\nLandmarks gefunden: '+r.lmFound+'/7\nSemantische Elemente: '+r.semCount+'\nProbleme: '+r.issues.length+'\n\n';
-  summary+='Landmarks:\n';r.landmarks.forEach(function(l){summary+=(l.n>0?'✓':'✗')+' <'+l.tag+'> — '+l.desc+(l.n>0?' ('+l.n+')':'')+'\n'});
-  summary+='\nÜberschriften:\n';r.headings.forEach(function(h){summary+='  '.repeat(h.level-1)+'H'+h.level+': '+h.text+'\n'});
-  summary+='\nBarrierefreiheit:\n';r.a11y.forEach(function(a){summary+=(a.ok?'✓':'✗')+' '+a.l+': '+a.v+'\n'});
-  if(r.issues.length){summary+='\nProbleme:\n';r.issues.forEach(function(i){summary+=i.t+' — '+i.d+'\n'})}
+  var summary='URL: '+r.url+'\nSemantic Score: '+r.score+'/100\n';
+  summary+='Landmarks gefunden: '+r.lmFound+'/7\nSemantische Elemente: '+r.semCount+'\n';
+  summary+='Generische Elemente: '+r.divCount+' div + '+r.spanCount+' span\nSemantischer Anteil: '+Math.round(r.totalSemantic/(r.totalSemantic+r.divCount+r.spanCount)*100)+'%\n';
+  summary+='Probleme: '+r.issues.length+'\n\n';
+  summary+='LANDMARKS:\n';r.landmarks.forEach(function(l){summary+=(l.n>0?'✓':'✗')+' <'+l.tag+'> — '+l.desc+(l.n>0?' ('+l.n+')':'')+'\n'});
+  summary+='\nÜBERSCHRIFTEN:\n';r.headings.forEach(function(h){summary+='  '.repeat(h.level-1)+'H'+h.level+': '+h.text+'\n'});
+  summary+='\nBARRIEREFREIHEIT:\n';r.a11y.forEach(function(a){summary+=(a.ok?'✓':'✗')+' '+a.l+': '+a.v+'\n'});
+  if(r.issues.length){summary+='\nGEFUNDENE PROBLEME:\n';r.issues.forEach(function(i){summary+='['+i.s.toUpperCase()+'] '+i.t+' — '+i.d+'\n'})}
+  if(r.bodyExcerpt){summary+='\nHTML BODY AUSZUG (erste 3000 Zeichen):\n'+r.bodyExcerpt}
   var headers={'Content-Type':'application/json','X-Lumina-Tool':'semantic-checker'};
   var k=localStorage.getItem('lumina_key_openai');if(k)headers['X-OAI-Key']=k;
   fetch(WORKER_AI+'/ai',{method:'POST',headers:headers,body:JSON.stringify({
-    messages:[{role:'system',content:'Du bist ein Experte für Webentwicklung und Barrierefreiheit.\n\nAnalysiere den Semantic-HTML-Bericht und gib konkrete Empfehlungen.\n\nRegeln:\n1. Fokussiere auf die wichtigsten Verbesserungen zuerst\n2. Erkläre WARUM jede Änderung wichtig ist (SEO, Barrierefreiheit, Screenreader)\n3. Gib konkrete Code-Beispiele wo hilfreich (z.B. welches div durch welches semantische Tag ersetzen)\n4. Halte die Empfehlungen praxisnah — nicht die ganze Seite umschreiben\n5. Antworte auf Deutsch\n6. Formatiere mit Markdown: ## für Abschnitte, **fett** für Betonung, `code` für Tags, - für Aufzählungen\n7. Sei präzise — max 5-7 Kernempfehlungen\n8. Gruppiere in: Kritisch (muss behoben werden), Empfohlen (sollte behoben werden), Nice-to-have'},{role:'user',content:summary}],
-    max_tokens:1200
+    messages:[
+      {role:'system',content:'Du bist ein Semantic-HTML-Auditor. Du erhältst einen Scan-Bericht UND einen HTML-Auszug der tatsächlichen Seite.\n\nDeine Aufgabe: Gib spezifische, umsetzbare Empfehlungen, die NUR auf den Daten des Berichts und dem HTML-Auszug basieren.\n\n## STRIKTE REGELN — TU DAS:\n- Basiere jede Empfehlung auf konkreten Ergebnissen aus den Berichtsdaten\n- Referenziere tatsächliche HTML-Elemente, Klassennamen und Strukturen aus dem HTML-Auszug\n- Zeige Vorher/Nachher Code-Beispiele mit dem ECHTEN Markup der Seite\n- Bei Score 80+: Bestätige die gute Struktur, schlage nur kleine Verbesserungen vor\n- Bei null Problemen: Sag das klar — erfinde keine Probleme\n- Fokussiere auf die 3-5 wichtigsten Änderungen, keine Aufzählung von allem\n- Antworte auf Deutsch\n- Format: ## für Überschriften, **fett** für Schlüsselwörter, `code` für Tags, - für Listen, ```html für Code-Blöcke\n\n## STRIKTE REGELN — TU DAS NICHT:\n- KEINE generischen Lehrbuch-Tipps, die auf jede Seite passen\n- KEINE erfundenen Klassennamen, IDs oder HTML-Strukturen\n- KEINE Empfehlung für Elemente, die die Seite bereits hat (prüfe die Landmarks-Liste!)\n- KEIN `<article>` empfehlen, außer die Seite hat tatsächlich eigenständige, unabhängig verteilbare Inhaltsblöcke\n- KEIN `<aside>` empfehlen, außer es gibt tatsächlich Sidebar- oder Nebeninhalte\n- NICHT Dinge wiederholen, die der Bericht als OK (✓) markiert\n- KEINE ARIA-Rollen empfehlen, wenn native semantische HTML-Elemente funktionieren\n- KEINE Füllwörter oder überflüssige Einleitungen\n\n## AUSGABEFORMAT:\nGruppiere in: **Kritisch** (muss behoben werden) / **Empfohlen** (sollte behoben werden) / **Nice-to-have**\nÜberspringe Gruppen ohne Einträge — keine leeren Abschnitte.\nMaximal 500 Wörter.'},
+      {role:'user',content:summary}
+    ],
+    max_tokens:1500
   })}).then(function(res){return res.json()}).then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     var text=data.choices[0].message.content;

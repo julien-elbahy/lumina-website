@@ -496,7 +496,10 @@ function analyze(html,pageUrl){
   document.getElementById('res').style.display='block';
 
   // Store report data
-  lastReport={url:pageUrl,score:score,landmarks:lm,lmFound:lmFound,semantic:sem,semCount:semCount,headings:headings,a11y:a11y,issues:issues};
+  /* Store HTML excerpt for AI context — first 3000 chars of body */
+  var bodyExcerpt='';
+  try{var bodyEl=doc.querySelector('body');if(bodyEl){bodyExcerpt=bodyEl.innerHTML.replace(/\s+/g,' ').substring(0,3000)}}catch(e){}
+  lastReport={url:pageUrl,score:score,landmarks:lm,lmFound:lmFound,semantic:sem,semCount:semCount,headings:headings,a11y:a11y,issues:issues,divCount:divCount,spanCount:spanCount,totalSemantic:totalSemantic,bodyExcerpt:bodyExcerpt};
 }
 
 // ── Toolbar ──
@@ -539,16 +542,23 @@ document.getElementById('btnAi').addEventListener('click',function(){
   var rd=document.getElementById('aiResult');
   rd.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
   rd.style.display='block';
-  var summary='URL: '+r.url+'\nSemantic Score: '+r.score+'/100\nLandmarks found: '+r.lmFound+'/7\nSemantic elements: '+r.semCount+'\nIssues: '+r.issues.length+'\n\n';
-  summary+='Landmarks:\n';r.landmarks.forEach(function(l){summary+=(l.n>0?'✓':'✗')+' <'+l.tag+'> — '+l.desc+(l.n>0?' ('+l.n+')':'')+'\n'});
-  summary+='\nHeadings:\n';r.headings.forEach(function(h){summary+='  '.repeat(h.level-1)+'H'+h.level+': '+h.text+'\n'});
-  summary+='\nAccessibility:\n';r.a11y.forEach(function(a){summary+=(a.ok?'✓':'✗')+' '+a.l+': '+a.v+'\n'});
-  if(r.issues.length){summary+='\nIssues:\n';r.issues.forEach(function(i){summary+=i.t+' — '+i.d+'\n'})}
+  var summary='URL: '+r.url+'\nSemantic Score: '+r.score+'/100\n';
+  summary+='Landmarks found: '+r.lmFound+'/7\nSemantic elements: '+r.semCount+'\n';
+  summary+='Generic elements: '+r.divCount+' div + '+r.spanCount+' span\nSemantic ratio: '+Math.round(r.totalSemantic/(r.totalSemantic+r.divCount+r.spanCount)*100)+'%\n';
+  summary+='Issues: '+r.issues.length+'\n\n';
+  summary+='LANDMARKS:\n';r.landmarks.forEach(function(l){summary+=(l.n>0?'✓':'✗')+' <'+l.tag+'> — '+l.desc+(l.n>0?' ('+l.n+')':'')+'\n'});
+  summary+='\nHEADINGS:\n';r.headings.forEach(function(h){summary+='  '.repeat(h.level-1)+'H'+h.level+': '+h.text+'\n'});
+  summary+='\nACCESSIBILITY:\n';r.a11y.forEach(function(a){summary+=(a.ok?'✓':'✗')+' '+a.l+': '+a.v+'\n'});
+  if(r.issues.length){summary+='\nISSUES FOUND:\n';r.issues.forEach(function(i){summary+='['+i.s.toUpperCase()+'] '+i.t+' — '+i.d+'\n'})}
+  if(r.bodyExcerpt){summary+='\nHTML BODY EXCERPT (first 3000 chars):\n'+r.bodyExcerpt}
   var headers={'Content-Type':'application/json','X-Lumina-Tool':'semantic-checker'};
   var k=localStorage.getItem('lumina_key_openai');if(k)headers['X-OAI-Key']=k;
   fetch(WORKER_AI+'/ai',{method:'POST',headers:headers,body:JSON.stringify({
-    messages:[{role:'system',content:'You are an expert web developer and accessibility specialist.\n\nAnalyze the semantic HTML report and give actionable recommendations.\n\nRules:\n1. Focus on the most impactful improvements first\n2. Explain WHY each change matters (SEO, accessibility, screen readers)\n3. Give specific code examples where helpful (e.g. which div to replace with which semantic tag)\n4. Keep recommendations practical — don\'t suggest rewriting the entire page\n5. If the page language is German, respond in German\n6. Format with markdown: ## for sections, **bold** for emphasis, `code` for tags, - for bullets\n7. Be concise — max 5-7 key recommendations\n8. Group into: Critical (must fix), Recommended (should fix), Nice to have'},{role:'user',content:summary}],
-    max_tokens:1200
+    messages:[
+      {role:'system',content:'You are a semantic HTML auditor. You receive a scan report AND an HTML excerpt from the actual page.\n\nYour job: Give specific, actionable recommendations based ONLY on what the report and HTML excerpt show.\n\n## STRICT RULES — DO:\n- Base every recommendation on concrete findings from the report data\n- Reference actual HTML elements, class names, and structures from the HTML excerpt\n- Show before/after code examples using REAL markup from the page\n- If the score is 80+, acknowledge the good structure and only suggest minor improvements\n- If there are zero issues, say so clearly — don\'t invent problems\n- Match the page language (German page → German response)\n- Focus on the 3-5 most impactful changes, not a laundry list\n- Format: ## for section headers, **bold** for key terms, `code` for tags, - for bullets, ```html for code blocks\n\n## STRICT RULES — DO NOT:\n- Do NOT give generic textbook advice that could apply to any page\n- Do NOT invent class names, IDs, or HTML structures that don\'t exist in the excerpt\n- Do NOT recommend elements the page already has (check the landmarks list!)\n- Do NOT suggest adding `<article>` unless the page actually has self-contained, independently distributable content blocks\n- Do NOT suggest adding `<aside>` unless the page actually has sidebar or tangential content\n- Do NOT repeat things the report already flags as OK (✓)\n- Do NOT recommend ARIA roles when native semantic HTML elements would work\n- Do NOT pad your response with filler or caveats\n\n## OUTPUT FORMAT:\nGroup into: **Critical** (must fix) / **Recommended** (should fix) / **Nice to have**\nSkip any group that has zero items — don\'t include empty sections.\nKeep total response under 500 words.'},
+      {role:'user',content:summary}
+    ],
+    max_tokens:1500
   })}).then(function(res){return res.json()}).then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     var text=data.choices[0].message.content;
