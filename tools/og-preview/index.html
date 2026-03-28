@@ -485,17 +485,22 @@ function aiGenerateOg(){
     if(window.luminaQuota)window.luminaQuota.update('og-preview',data);
     var text=data.choices[0].message.content;
     var rendered=text
-      .replace(/```html\n?([\s\S]*?)```/g,'<pre style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;overflow-x:auto;line-height:1.6;color:var(--text);white-space:pre-wrap">$1</pre>')
-      .replace(/```\n?([\s\S]*?)```/g,'<pre style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;overflow-x:auto;line-height:1.6;color:var(--text);white-space:pre-wrap">$1</pre>')
+      .replace(/```[\w]*\n?([\s\S]*?)```/g,function(_,c){return'\n<pre style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;overflow-x:auto;line-height:1.6;color:var(--text);white-space:pre-wrap">'+c.replace(/</g,'&lt;').replace(/>/g,'&gt;').trim()+'</pre>\n'})
       .replace(/^### (.*?)$/gm,'<h4 style="font-size:13px;font-weight:700;color:var(--accent);margin:16px 0 6px">$1</h4>')
       .replace(/^## (.*?)$/gm,'<h3 style="font-size:15px;font-weight:800;color:var(--text);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">$1</h3>')
+      .replace(/^# (.*?)$/gm,'<h3 style="font-size:15px;font-weight:800;color:var(--text);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)">$1</h3>')
       .replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--text)">$1</strong>')
-      .replace(/`(.*?)`/g,'<code style="background:var(--input-bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px">$1</code>')
+      .replace(/(?<!`)`([^`\n]+)`(?!`)/g,'<code style="background:var(--input-bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px">$1</code>')
+      .replace(/^---$/gm,'<hr style="border:none;border-top:1px solid var(--border);margin:16px 0">')
+      .replace(/^\d+\.\s+(.*?)$/gm,'<oli style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px">$1</oli>')
+      .replace(/((?:<oli[^>]*>.*?<\/oli>\n?)+)/gs,function(m){return'<ol style="padding-left:18px;margin:6px 0">'+m.replace(/oli/g,'li')+'</ol>'})
       .replace(/^- (.*?)$/gm,'<li style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px">$1</li>')
-      .replace(/(<li[^>]*>.*?<\/li>\n?)+/gs,function(m){return'<ul style="padding-left:18px;margin:6px 0">'+m+'</ul>'})
-      .replace(/<\/ul>\s*<ul[^>]*>/g,'')
-      .replace(/\n\n/g,'<br>')
+      .replace(/((?:<li[^>]*>.*?<\/li>\n?)+)/gs,function(m){return'<ul style="padding-left:18px;margin:6px 0">'+m+'</ul>'})
+      .replace(/<\/ul>\s*<ul[^>]*>/g,'').replace(/<\/ol>\s*<ol[^>]*>/g,'')
+      .replace(/\n{2,}/g,'</p><p style="margin:0 0 8px">')
       .replace(/\n/g,'<br>');
+    rendered='<p style="margin:0 0 8px">'+rendered+'</p>';
+    rendered=rendered.replace(/<p[^>]*>\s*(<h[34]|<ul|<ol|<pre|<hr)/g,'$1').replace(/(<\/h[34]>|<\/ul>|<\/ol>|<\/pre>|<hr[^>]*>)\s*<\/p>/g,'$1').replace(/<p[^>]*>\s*<\/p>/g,'');
     rd.innerHTML='<div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div>';
   }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generate Optimized Tags'});
