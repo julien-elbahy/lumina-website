@@ -475,9 +475,9 @@ function pxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col
 
 var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null},set:function(t,r,l,o){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');d[t]={remaining:r,limit:l,date:this._d(),ownKey:!!o};localStorage.setItem(this._k,JSON.stringify(d))}catch(e){}},update:function(t,data){if(!data||!data._lumina)return;if(data._lumina.ownKey)this.set(t,null,null,true);else if(data._lumina.remaining!=='unlimited')this.set(t,data._lumina.remaining,data._lumina.limit,false)}};
 function updateQuota(data){if(data._lumina){luminaQuota.update('ai',data);if(window.luminaQuota)window.luminaQuota.update('content-optimizer',data);var el=document.getElementById('quotaInfo');if(data._lumina.ownKey){el.textContent='Using your API key (unlimited)';el.style.display='block'}else if(data._lumina.remaining!=='unlimited'&&data._lumina.remaining<=0){el.innerHTML='Daily AI query limit reached. Add your own OpenAI API key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.';el.style.display='block';el.style.color='var(--err)'}}}
-(function(){var q=luminaQuota.get('ai'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey){el.textContent='Using your API key (unlimited)';el.style.display='block'}else if(q.remaining!=null&&q.remaining<=0){el.innerHTML='Daily AI query limit reached. Add your own OpenAI API key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.';el.style.display='block';el.style.color='var(--err)'}}})();
+try{(function(){var q=luminaQuota.get('ai'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey){el.textContent='Using your API key (unlimited)';el.style.display='block'}else if(q.remaining!=null&&q.remaining<=0){el.innerHTML='Daily AI query limit reached. Add your own OpenAI API key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.';el.style.display='block';el.style.color='var(--err)'}}})();
 if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));}
-if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.getElementById('lq_content-optimizer')?.parentElement||document.querySelector('.cd'));
+if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.getElementById('lq_content-optimizer')?.parentElement||document.querySelector('.cd'));}catch(_e){console.error('LUMINA_INIT_ERROR:',_e)}
 
 async function aiCall(body){
   if(!body.model)body.model='gpt-4.1';
@@ -491,7 +491,6 @@ async function aiCall(body){
   return data;
 }
 
-console.log('LUMINA_DEBUG: before fetch handler');
 /* ── Fetch from URL ── */
 var _fetchedHeadings=[];
 document.getElementById('btnFetchUrl').addEventListener('click',function(){
@@ -610,7 +609,6 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
   finally{btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'}
 });
 
-console.log('LUMINA_DEBUG: before AI optimize handler');
 /* ── AI Optimize (Extension-quality prompt) ── */
 document.getElementById('btnOptimize').addEventListener('click',async function(){
   var text=document.getElementById('contentIn').value.trim();
@@ -722,7 +720,6 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
   finally{btn.disabled=false;btn.textContent='✨ AI Optimize'}
 });
 
-console.log('LUMINA_DEBUG: before btnAnalyze listener');
 document.getElementById('btnAnalyze').addEventListener('click',runAnalysis);
 document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)runAnalysis()});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnFetchUrl').click()});
@@ -738,7 +735,6 @@ document.getElementById('btnCopyAnalysis').addEventListener('click',function(){
   navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopyAnalysis');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)});
 });
 
-console.log('LUMINA_DEBUG: all event listeners registered');
 document.getElementById('btnReport').addEventListener('click',function(){
   if(!analysisData)return;
   var d=analysisData;
