@@ -491,6 +491,7 @@ async function aiCall(body){
   return data;
 }
 
+console.log('LUMINA_DEBUG: before fetch handler');
 /* ── Fetch from URL ── */
 var _fetchedHeadings=[];
 document.getElementById('btnFetchUrl').addEventListener('click',function(){
@@ -609,6 +610,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
   finally{btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'}
 });
 
+console.log('LUMINA_DEBUG: before AI optimize handler');
 /* ── AI Optimize (Extension-quality prompt) ── */
 document.getElementById('btnOptimize').addEventListener('click',async function(){
   var text=document.getElementById('contentIn').value.trim();
@@ -720,6 +722,7 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
   finally{btn.disabled=false;btn.textContent='✨ AI Optimize'}
 });
 
+console.log('LUMINA_DEBUG: before btnAnalyze listener');
 document.getElementById('btnAnalyze').addEventListener('click',runAnalysis);
 document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)runAnalysis()});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnFetchUrl').click()});
@@ -735,6 +738,7 @@ document.getElementById('btnCopyAnalysis').addEventListener('click',function(){
   navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopyAnalysis');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)});
 });
 
+console.log('LUMINA_DEBUG: all event listeners registered');
 document.getElementById('btnReport').addEventListener('click',function(){
   if(!analysisData)return;
   var d=analysisData;
