@@ -348,7 +348,7 @@ var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
 function gscIsConnected(){return !!gscToken&&Date.now()<gscExpiry}
 function gscUpdateUI(){
   var c=gscIsConnected();
-  document.getElementById('gscConnect').style.display=c?'none':'block';
+  document.getElementById('gscConnect').style.display=c?'none':'flex';
   document.getElementById('gscMain').style.display=c?'block':'none';
   if(c)gscLoadSites();
 }
