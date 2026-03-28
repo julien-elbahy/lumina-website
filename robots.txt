@@ -1,0 +1,38 @@
+# lumina-seo.com robots.txt
+
+# All crawlers welcome
+User-agent: *
+Allow: /
+Disallow: /.claude/
+Disallow: /worker/
+Disallow: /screenshots/
+Disallow: /fonts/
+
+# AI crawlers — welcome, see llms.txt for structured info
+User-agent: GPTBot
+Allow: /
+Disallow: /.claude/
+Disallow: /worker/
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /.claude/
+Disallow: /worker/
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemaps
+Sitemap: https://lumina-seo.com/sitemap.xml
