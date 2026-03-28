@@ -6,7 +6,6 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<link rel="preload" href="/screenshots/lumina-overview-light.webp" as="image" type="image/webp">
 <title>Lumina – Free All-in-One SEO & GEO Chrome Extension</title>
 <meta name="description" content="Free Chrome extension for SEO & GEO. On-page audits, AI crawler checks, schema validation, GSC & GA4 dashboards — all in one click.">
 <meta name="keywords" content="SEO extension, GEO extension, Chrome extension SEO, llms.txt checker, AI crawler check, schema validator, SERP preview tool, Google Search Console extension, GA4 extension, free SEO tool">
@@ -96,7 +95,7 @@ footer{padding:40px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 .demo-heading-tag.h6{color:#9ca3af;background:rgba(156,163,175,.1);border:1px solid rgba(156,163,175,.2)}
 .demo-heading-text{font-size:12px;color:#ccc0ae;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Score ring */
-.demo-score-wrap{display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:12px;background:rgba(255,245,225,.04);border:1px solid rgba(255,240,215,.08);border-radius:12px}.demo-score-ring{position:relative;width:60px;height:60px;flex-shrink:0}.demo-score-ring svg{transform:rotate(-90deg)}.demo-score-ring circle{fill:none;stroke-width:5}.demo-score-ring .bg{stroke:rgba(255,240,215,.08)}.demo-score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset 1.2s ease}.demo-score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}.demo-score-info h4{font-size:14px;font-weight:800;color:#f2eade;margin:0 0 2px}.demo-score-info p{font-size:11px;color:#918474;margin:0}
+.demo-score-wrap{display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:12px;background:rgba(255,245,225,.04);border:1px solid rgba(255,240,215,.08);border-radius:12px}.demo-score-ring{position:relative;width:60px;height:60px;flex-shrink:0}.demo-score-ring svg{transform:rotate(-90deg)}.demo-score-ring circle{fill:none;stroke-width:5}.demo-score-ring .bg{stroke:rgba(255,240,215,.08)}.demo-score-ring .fg{stroke-linecap:round}.demo-score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}.demo-score-info h4{font-size:14px;font-weight:800;color:#f2eade;margin:0 0 2px}.demo-score-info p{font-size:11px;color:#918474;margin:0}
 /* Issues summary */
 .demo-issues{margin-bottom:10px}.demo-issue-item{display:flex;gap:8px;padding:5px 0;font-size:11px;align-items:center}.demo-issue-item .ii{width:14px;text-align:center;flex-shrink:0}.demo-issue-item .it{flex:1;color:#ccc0ae}.demo-issue-item a{color:#eca550;font-weight:600;margin-left:6px;white-space:nowrap;font-size:10px}
 /* AI/GEO tab */
@@ -423,7 +422,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="feat-group fade-in">
 <div class="feat-head"><h3>🔍 On-Page SEO</h3><p>Complete on-page audit at a glance</p></div>
 <div class="feat-body">
-<div class="feat-screenshot" id="screenshotSeo" onclick="openLB('/screenshots/lumina-overview-light.webp')"><img src="/screenshots/lumina-overview-light.webp" alt="Lumina SEO Extension — Overview tab showing on-page SEO audit" width="577" height="592" fetchpriority="high"></div>
+<div class="feat-screenshot" id="screenshotSeo" onclick="openLB('/screenshots/lumina-overview-light.webp')"><img src="/screenshots/lumina-overview-light.webp" alt="Lumina SEO Extension — Overview tab showing on-page SEO audit" width="340" height="349" loading="eager"></div>
 <div class="feat-items">
 <div class="feat-item"><strong>On-Page Audit</strong> — Title, description, canonical, robots, HTTP status with live SERP preview and pixel measurement.</div>
 <div class="feat-item"><strong>Heading Structure</strong> — H1–H6 tree with error detection. Highlight headings directly on the page with color-coded badges.<a href="/tools/heading-checker/" class="feat-try">Try it free →</a></div>
@@ -837,6 +836,6 @@ renderResults(LUMINA_DATA);
     localStorage.setItem('lumina_consent','denied');b.style.display='none';
   });
 })();
-</script><div class="lightbox" id="lb" onclick="closeLB()"><span class="lb-close" onclick="closeLB()">×</span><img id="lbImg" src="" alt="Screenshot"></div><script>function openLB(s){document.getElementById("lbImg").src=s;document.getElementById("lb").classList.add("open");document.body.style.overflow="hidden"}function closeLB(){document.getElementById("lb").classList.remove("open");document.body.style.overflow=""}document.addEventListener("keydown",function(e){if(e.key==="Escape")closeLB()})</script><script src="/settings.js"></script>
+</script><div class="lightbox" id="lb" onclick="closeLB()"><span class="lb-close" onclick="closeLB()">×</span><img id="lbImg" src="" alt="Screenshot"></div><script>function openLB(s){document.getElementById("lbImg").src=s;document.getElementById("lb").classList.add("open");document.body.style.overflow="hidden"}function closeLB(){document.getElementById("lb").classList.remove("open");document.body.style.overflow=""}document.addEventListener("keydown",function(e){if(e.key==="Escape")closeLB()})</script><script src="/settings.js" defer></script>
 </body>
 </html>
