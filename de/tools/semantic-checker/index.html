@@ -65,6 +65,8 @@
 .badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.badge.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.badge.err{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.badge.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.badge.info{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.2)}
 .toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .el-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}.el-row .cnt{font-family:var(--mono);font-size:13px;font-weight:700;min-width:32px;text-align:right;color:var(--text)}.el-row .el-tag{font-family:var(--mono);font-size:12px;color:var(--accent);min-width:110px}.el-row .el-desc{font-size:12px;color:var(--muted);flex:1}
+.ai-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:12px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);transition:all .25s;margin-top:14px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
+.ai-result{display:none;margin-top:12px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;font-size:13px;line-height:1.7;color:var(--text2)}.ai-result h3{font-size:15px;font-weight:800;color:var(--text);margin:20px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}.ai-result h3:first-child{margin-top:0}.ai-result h4{font-size:13px;font-weight:700;color:var(--accent);margin:16px 0 6px}.ai-result strong{color:var(--text)}.ai-result code{background:var(--input-bg);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px}.ai-result ul{padding-left:18px;margin:6px 0}.ai-result li{margin-bottom:4px}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -249,6 +251,8 @@
 <button class="tb-btn" id="btnCsv">📊 CSV</button>
 <button class="tb-btn" id="btnReport">📄 Bericht</button>
 </div>
+<button class="ai-btn" id="btnAi">✨ KI-Empfehlungen erhalten</button>
+<div class="ai-result" id="aiResult"></div>
 </div>
 </div>
 <div class="content"><h2>Warum semantisches HTML wichtig ist</h2><p>Semantisches HTML hilft Suchmaschinen, die Seitenstruktur zu verstehen und verbessert die Barrierefreiheit für Screenreader. Die Verwendung von <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code> statt generischer <code>&lt;div&gt;</code>-Elemente schafft eine bedeutungsvolle Struktur.</p>
@@ -355,6 +359,7 @@ function analyze(html,pageUrl){
   // ── Überschriften-Hierarchie ──
   var headings=[];
   doc.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(h){
+    h.querySelectorAll('br').forEach(function(br){br.replaceWith(' ')});
     headings.push({level:parseInt(h.tagName[1]),text:(h.textContent||'').replace(/\s+/g,' ').trim().substring(0,80)});
   });
   var h1Count=doc.querySelectorAll('h1').length;
@@ -510,6 +515,41 @@ document.getElementById('btnReport').addEventListener('click',function(){
   if(r.issues.length){h+='<h2>Probleme ('+r.issues.length+')</h2>';r.issues.forEach(function(i){h+='<div class="row"><span class="'+i.s+'">'+(i.s==='err'?'✗':i.s==='warn'?'⚠':'ℹ')+'</span><span>'+esc(i.t)+' — '+esc(i.d)+'</span></div>'})}
   h+='<p style="margin-top:24px;font-size:11px;color:#999">Erstellt von Lumina SEO — lumina-seo.com</p></body></html>';
   var w=window.open('','_blank');w.document.write(h);w.document.close();
+});
+
+// ── KI-Empfehlungen ──
+var WORKER_AI='https://lumina-proxy.julien-elbahy.workers.dev';
+document.getElementById('btnAi').addEventListener('click',function(){
+  if(!lastReport)return;var r=lastReport;
+  var btn=document.getElementById('btnAi');btn.disabled=true;btn.textContent='⏳ Wird analysiert…';
+  var rd=document.getElementById('aiResult');
+  rd.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
+  rd.style.display='block';
+  var summary='URL: '+r.url+'\nSemantic Score: '+r.score+'/100\nLandmarks gefunden: '+r.lmFound+'/7\nSemantische Elemente: '+r.semCount+'\nProbleme: '+r.issues.length+'\n\n';
+  summary+='Landmarks:\n';r.landmarks.forEach(function(l){summary+=(l.n>0?'✓':'✗')+' <'+l.tag+'> — '+l.desc+(l.n>0?' ('+l.n+')':'')+'\n'});
+  summary+='\nÜberschriften:\n';r.headings.forEach(function(h){summary+='  '.repeat(h.level-1)+'H'+h.level+': '+h.text+'\n'});
+  summary+='\nBarrierefreiheit:\n';r.a11y.forEach(function(a){summary+=(a.ok?'✓':'✗')+' '+a.l+': '+a.v+'\n'});
+  if(r.issues.length){summary+='\nProbleme:\n';r.issues.forEach(function(i){summary+=i.t+' — '+i.d+'\n'})}
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':'semantic-checker'};
+  var k=localStorage.getItem('lumina_key_openai');if(k)headers['X-OAI-Key']=k;
+  fetch(WORKER_AI+'/ai',{method:'POST',headers:headers,body:JSON.stringify({
+    messages:[{role:'system',content:'Du bist ein Experte für Webentwicklung und Barrierefreiheit.\n\nAnalysiere den Semantic-HTML-Bericht und gib konkrete Empfehlungen.\n\nRegeln:\n1. Fokussiere auf die wichtigsten Verbesserungen zuerst\n2. Erkläre WARUM jede Änderung wichtig ist (SEO, Barrierefreiheit, Screenreader)\n3. Gib konkrete Code-Beispiele wo hilfreich (z.B. welches div durch welches semantische Tag ersetzen)\n4. Halte die Empfehlungen praxisnah — nicht die ganze Seite umschreiben\n5. Antworte auf Deutsch\n6. Formatiere mit Markdown: ## für Abschnitte, **fett** für Betonung, `code` für Tags, - für Aufzählungen\n7. Sei präzise — max 5-7 Kernempfehlungen\n8. Gruppiere in: Kritisch (muss behoben werden), Empfohlen (sollte behoben werden), Nice-to-have'},{role:'user',content:summary}],
+    max_tokens:1200
+  })}).then(function(res){return res.json()}).then(function(data){
+    if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
+    var text=data.choices[0].message.content;
+    var rendered=text
+      .replace(/^### (.*?)$/gm,'<h4>$1</h4>')
+      .replace(/^## (.*?)$/gm,'<h3>$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+      .replace(/`(.*?)`/g,'<code>$1</code>')
+      .replace(/^- (.*?)$/gm,'<li>$1</li>')
+      .replace(/(<li>.*?<\/li>\n?)+/gs,function(m){return '<ul>'+m+'</ul>'})
+      .replace(/<\/ul>\s*<ul>/g,'')
+      .replace(/\n\n/g,'<br>').replace(/\n/g,'<br>');
+    rd.innerHTML=rendered;
+  }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div>'})
+  .finally(function(){btn.disabled=false;btn.textContent='✨ KI-Empfehlungen erhalten'});
 });
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}

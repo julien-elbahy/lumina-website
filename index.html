@@ -159,6 +159,8 @@ footer{border-color:rgba(160,135,105,.12)}
 [data-theme="light"] .consent-btn.reject{background:#f7f4f0;color:#7a6e62;border-color:rgba(0,0,0,.1)}
 [data-theme="light"] .showcase-bar{background:#f7f4f0;border-color:rgba(0,0,0,.05)}
 [data-theme="light"] .showcase-bar .tab-label{color:#8a7e72}.showcase-bar .tab-label strong{color:#c87a30}
+/* ── Skip Link ── */
+.skip-link{position:absolute;top:-100px;left:16px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;z-index:999;transition:top .2s}.skip-link:focus{top:8px}
 /* ── Nav ── */
 .tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:19px;color:var(--text);line-height:1.1}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-top:-2px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
 /* ── Tools Dropdown ── */
@@ -326,6 +328,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 <nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
@@ -408,7 +411,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </div>
 <div class="hero-right">
 <div class="showcase"><div class="showcase-frame"><div class="showcase-bar"><span class="dot d-r"></span><span class="dot d-y"></span><span class="dot d-g"></span><span class="tab-label"><strong>Lumina</strong> SEO & GEO</span></div>
-<div class="demo-url-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" class="demo-input" id="demoUrl" placeholder="Enter any URL to analyze…" spellcheck="false"><button class="demo-btn-go" id="demoGo">Analyze</button></div>
+<div class="demo-url-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" class="demo-input" id="demoUrl" placeholder="Enter any URL to analyze…" spellcheck="false" aria-label="URL to analyze"><button class="demo-btn-go" id="demoGo">Analyze</button></div>
 <div class="showcase-tabs" id="demoTabs"><button class="active" data-panel="seo">SEO</button><button data-panel="headings">Headings</button><button data-panel="links">Links &amp; Images</button><button data-panel="social">Social</button><button data-panel="tech">Technical</button><button data-panel="geo">AI / GEO</button></div>
 <div class="demo-results" id="demoResults"><div id="demoLoading"><div class="demo-skel-wrap"><div class="demo-skel w30"></div><div class="demo-skel w90"></div><div class="demo-skel w30"></div><div class="demo-skel w70"></div><div class="demo-skel w30"></div><div class="demo-skel w50"></div><div class="demo-skel w30"></div><div class="demo-skel w90"></div></div></div><div class="demo-panel" id="panel-seo"></div><div class="demo-panel" id="panel-headings"></div><div class="demo-panel" id="panel-links"></div><div class="demo-panel" id="panel-social"></div><div class="demo-panel" id="panel-tech"></div><div class="demo-panel" id="panel-geo"></div></div>
 <div class="demo-cta-bar"><span>This is just a preview — the extension does much more.</span><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Get full analysis with Lumina →</a></div>
@@ -416,7 +419,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </div>
 </header>
 
-<main>
+<main id="main-content">
 <section id="features" aria-labelledby="feat-t"><div class="container"><div class="section-label fade-in">No setup needed</div><h2 class="section-title fade-in" id="feat-t">Works instantly on any page</h2><p class="section-desc fade-in">Open the extension, get results. No API keys, no login, no limits.</p>
 
 <div class="feat-group fade-in">
@@ -609,7 +612,7 @@ function demoScoreRing(score){
   var r=27,c=2*Math.PI*r;
   var col=score>=80?'#50e090':score>=50?'#f4c44a':'#f47878';
   var label=score>=80?'Great SEO setup':score>=50?'Needs improvement':'Needs attention';
-  return '<div class="demo-score-wrap"><div class="demo-score-ring"><svg width="60" height="60"><circle class="bg" cx="30" cy="30" r="'+r+'"/><circle class="fg" cx="30" cy="30" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c+'" stroke-dashoffset="'+c+'" id="demoScoreFg"/></svg><div class="demo-score-val" style="color:'+col+'" id="demoScoreNum">0</div></div><div class="demo-score-info"><h4>'+label+'</h4><p>On-page SEO analysis</p></div></div>';
+  return '<div class="demo-score-wrap"><div class="demo-score-ring"><svg width="60" height="60"><circle class="bg" cx="30" cy="30" r="'+r+'"/><circle class="fg" cx="30" cy="30" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c+'" stroke-dashoffset="'+c+'" id="demoScoreFg"/></svg><div class="demo-score-val" style="color:'+col+'" id="demoScoreNum">0</div></div><div class="demo-score-info"><strong style="font-size:15px;display:block">'+label+'</strong><p>On-page SEO analysis</p></div></div>';
 }
 function animateScore(target){
   var fg=document.getElementById('demoScoreFg');var num=document.getElementById('demoScoreNum');
