@@ -420,8 +420,11 @@ function go(url){
     });
     tbl+='</tbody></table>';
     document.getElementById('hlResults').innerHTML=hlData.length?tbl:'<p style="color:var(--muted);padding:12px;text-align:center">Keine hreflang-Tags gefunden.</p>';
-    document.getElementById('btnReturn').disabled=hlData.filter(function(h){return normalizeUrl(h.href)!==currentNorm}).length===0;
+    var hasTargets=hlData.filter(function(h){return normalizeUrl(h.href)!==currentNorm}).length>0;
+    document.getElementById('btnReturn').disabled=!hasTargets;
     document.getElementById('res').style.display='block';
+    // Auto-trigger return link check
+    if(hasTargets)setTimeout(function(){document.getElementById('btnReturn').click()},100);
   })
   .catch(function(e){
     btn.disabled=false;btn.textContent='hreflang prüfen';
