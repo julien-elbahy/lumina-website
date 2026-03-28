@@ -103,6 +103,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .tools-sub a{display:block;padding:4px 0;font-size:12px;color:var(--text2);white-space:nowrap}.tools-sub a:hover{color:var(--accent)}
 @media(max-width:640px){.tools-sub{display:none!important}}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.skip-link{position:absolute;top:-100px;left:16px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;z-index:999;transition:top .2s}.skip-link:focus{top:8px}
 .tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:19px;color:var(--text);line-height:1.1}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-top:-2px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
 
 
@@ -187,6 +188,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Inhalt springen</a>
 <nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
@@ -257,7 +259,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 </div>
 
 <div class="container">
-<div class="tool-header"><div class="label">Kostenloses SEO-Tool</div><h1>Google Snippet Preview</h1><p>Sieh, wie dein Titel und deine Beschreibung in den Google-Suchergebnissen erscheinen. Pixelmessung, Desktop/Mobil, Keyword-Hervorhebung.</p></div>
+<div class="tool-header" id="main-content"><div class="label">Kostenloses SEO-Tool</div><h1>Google Snippet Preview</h1><p>Sieh, wie dein Titel und deine Beschreibung in den Google-Suchergebnissen erscheinen. Pixelmessung, Desktop/Mobil, Keyword-Hervorhebung.</p></div>
 <div class="card">
 <div class="input-row"><div class="grow"><label>Seiten-URL</label><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com/"></div><button class="act-btn" id="btnFetch" style="padding:10px 14px;margin-bottom:1px">Von URL laden</button></div>
 <input type="hidden" id="nameIn" value="Lumina SEO">
