@@ -542,6 +542,7 @@ document.getElementById('btnAi').addEventListener('click',function(){
   })}).then(function(res){return res.json()}).then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     var text=data.choices[0].message.content;
+    var rawText=text;
     /* Extract code blocks first, store safely */
     var codeBlocks=[];
     text=text.replace(/```[\w]*\n([\s\S]*?)```/g,function(_,c){
@@ -569,7 +570,8 @@ document.getElementById('btnAi').addEventListener('click',function(){
     rendered=rendered.replace(/<p>\s*(<h[34]|<ul|<ol|<pre|<hr)/g,'$1').replace(/(<\/h[34]>|<\/ul>|<\/ol>|<\/pre>|<hr>)\s*<\/p>/g,'$1').replace(/<p>\s*<\/p>/g,'');
     /* Restore code blocks */
     rendered=rendered.replace(/%%CB(\d+)%%/g,function(_,i){return codeBlocks[parseInt(i)-1]});
-    rd.innerHTML=rendered;
+    rd.innerHTML='<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="var b=this;navigator.clipboard.writeText(b.closest(\'.ai-result\')._raw).then(function(){b.textContent=\'✓ Kopiert\';setTimeout(function(){b.textContent=\'📋 Kopieren\'},1500)})" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px">📋 Kopieren</button></div>'+rendered;
+    rd._raw=rawText;
     rd.style.display='block';
   }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ KI-Empfehlungen erhalten'});

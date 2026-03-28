@@ -564,6 +564,7 @@ document.getElementById('btnAI').addEventListener('click',async function(){
     var aiData=await aiResp.json();
     if(aiData.error)throw new Error(aiData.error);
     var content=aiData.choices&&aiData.choices[0]&&aiData.choices[0].message?aiData.choices[0].message.content:'No analysis available.';
+    var rawText=content;
     // Schritt 5: Markdown rendern
     var codeBlocks=[];
     content=content.replace(/```[\w]*\n?([\s\S]*?)```/g,function(_,c){
@@ -588,7 +589,8 @@ document.getElementById('btnAI').addEventListener('click',async function(){
     rendered='<p style="margin:0 0 8px">'+rendered+'</p>';
     rendered=rendered.replace(/<p[^>]*>\s*(<h[34]|<ul|<ol|<pre|<hr)/g,'$1').replace(/(<\/h[34]>|<\/ul>|<\/ol>|<\/pre>|<hr[^>]*>)\s*<\/p>/g,'$1').replace(/<p[^>]*>\s*<\/p>/g,'');
     rendered=rendered.replace(/%%CB(\d+)%%/g,function(_,i){return codeBlocks[parseInt(i)-1]});
-    aiBox.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:14px;backdrop-filter:blur(var(--blur))"><div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div><p style="font-size:10px;color:var(--muted);margin-top:12px;text-align:right">Powered by GPT-4.1 Mini · Tech stack: '+esc(techStack)+'</p></div>';
+    aiBox._raw=rawText;
+    aiBox.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:14px;backdrop-filter:blur(var(--blur))"><div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="var b=this;navigator.clipboard.writeText(document.getElementById(\'aiResult\')._raw).then(function(){b.textContent=\'✓ Kopiert\';setTimeout(function(){b.textContent=\'📋 Kopieren\'},1500)})" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px">📋 Kopieren</button></div><div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div><p style="font-size:10px;color:var(--muted);margin-top:12px;text-align:right">Powered by GPT-4.1 Mini · Tech stack: '+esc(techStack)+'</p></div>';
   }catch(e){
     aiBox.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:14px"><p style="color:var(--err)">'+esc(e.message)+'</p><p style="font-size:11px;color:var(--muted);margin-top:8px">💡 Speichere deine API-Keys in ⚙ Einstellungen für unbegrenzten Zugriff</p></div>';
   }

@@ -465,6 +465,7 @@ function aiOptimize(){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     if(window.luminaQuota)window.luminaQuota.update('heading-checker',data);
     var text=data.choices[0].message.content;
+    var rawText=text;
     var codeBlocks=[];
     text=text.replace(/```[\w]*\n([\s\S]*?)```/g,function(_,c){
       codeBlocks.push('<pre style="background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px;font-family:var(--mono);font-size:11px;overflow-x:auto;line-height:1.6;color:var(--text);white-space:pre-wrap">'+c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').trim()+'</pre>');
@@ -488,7 +489,8 @@ function aiOptimize(){
     rendered='<p style="margin:0 0 8px">'+rendered+'</p>';
     rendered=rendered.replace(/<p[^>]*>\s*(<h[34]|<ul|<ol|<pre|<hr)/g,'$1').replace(/(<\/h[34]>|<\/ul>|<\/ol>|<\/pre>|<hr[^>]*>)\s*<\/p>/g,'$1').replace(/<p[^>]*>\s*<\/p>/g,'');
     rendered=rendered.replace(/%%CB(\d+)%%/g,function(_,i){return codeBlocks[parseInt(i)-1]});
-    rd.innerHTML='<div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div>';
+    rd.innerHTML='<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="var b=this;navigator.clipboard.writeText(document.getElementById(\'aiResult\')._raw).then(function(){b.textContent=\'✓ Copied\';setTimeout(function(){b.textContent=\'📋 Copy\'},1500)})" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px">📋 Copy</button></div><div style="font-size:13px;line-height:1.7;color:var(--text2)">'+rendered+'</div>';
+    rd._raw=rawText;rd.style.display='block';
   }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Optimize Headings with AI'});
 }
