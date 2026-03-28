@@ -7,7 +7,7 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
 <title>Free Image SEO Checker – ALT Tags, Format & Lazy Loading | Lumina SEO</title>
-<meta name="description" content="Analyze all images on any page. Find missing ALT tags, check formats (WebP, AVIF, JPG, PNG), detect lazy loading, and export results as CSV.">
+<meta name="description" content="Analyze all images on any page. Check ALT tags, formats, lazy loading, dimensions, srcset, file sizes, and duplicates. Get an optimization score and export results.">
 <meta name="robots" content="index, follow">
 
 <link rel="canonical" href="https://lumina-seo.com/tools/image-seo-checker/">
@@ -18,12 +18,12 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/tools/image-seo-checker/">
 <meta property="og:title" content="Free Image SEO Checker – ALT Tags, Format & Lazy Loading | Lumina SEO">
-<meta property="og:description" content="Analyze all images on any page. Find missing ALT tags, check formats (WebP, AVIF, JPG, PNG), detect lazy loading, and export results as CSV.">
+<meta property="og:description" content="Analyze all images on any page. Check ALT tags, formats, lazy loading, dimensions, srcset, file sizes, and duplicates. Get an optimization score and export results.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free Image SEO Checker – ALT Tags, Format & Lazy Loading","url":"https://lumina-seo.com/tools/image-seo-checker/","description":"Analyze all images on any page. Find missing ALT tags, check formats (WebP, AVIF, JPG, PNG), detect lazy loading, and export results as CSV.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free Image SEO Checker – ALT Tags, Format & Lazy Loading","url":"https://lumina-seo.com/tools/image-seo-checker/","description":"Analyze all images on any page. Check ALT tags, formats, lazy loading, dimensions, srcset, file sizes, and duplicates. Get an optimization score and export results.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -59,12 +59,12 @@
 .ab{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .25s}.ab:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}.ab:disabled{opacity:.5;cursor:default;transform:none}
 .skel{height:12px;background:var(--border);border-radius:6px;margin-bottom:8px;animation:shimmer 1.5s infinite}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}
-@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.metrics{grid-template-columns:repeat(3,1fr)}}
 .filters{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}.fbtn{background:0;border:0;padding:7px 11px;font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:8px;transition:all .2s;letter-spacing:.4px;font-family:var(--font);white-space:nowrap}.fbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 12px var(--accent-glow)}.fbtn:hover:not(.active){color:var(--text);background:var(--accent-soft)}
-.link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}.link-item{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;display:flex;flex-direction:column;gap:4px;transition:background .15s}.link-item:hover{background:var(--accent-soft)}.link-url{font-family:var(--mono);font-size:11px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.link-text{font-weight:600;color:var(--text)}.link-text.empty{color:var(--err);font-weight:500;font-style:italic}
-.rel-tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:4px;vertical-align:middle;border:1px solid;text-transform:uppercase;letter-spacing:.3px}.rel-tag.dofollow{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.nofollow{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.rel-tag.sponsored{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.ugc{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.rel-tag.int{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.rel-tag.ext{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}
-.ranking-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px}.ranking-url{font-family:var(--mono);font-size:12px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.ranking-count{font-weight:800;color:var(--accent);font-size:14px;margin-left:12px;flex-shrink:0}.ranking-bar{height:3px;background:var(--border);border-radius:2px;margin-top:3px;overflow:hidden}.ranking-fill{height:100%;background:var(--accent);border-radius:2px}
-.exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.link-list{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+/* Score ring */
+.score-wrap{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:14px}.score-ring{position:relative;width:70px;height:70px;flex-shrink:0}.score-ring svg{transform:rotate(-90deg)}.score-ring circle{fill:none;stroke-width:5}.score-ring .bg{stroke:var(--border)}.score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset .8s ease}.score-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800}.score-info{flex:1}.score-info h3{font-size:16px;font-weight:800;margin-bottom:2px}.score-info p{font-size:12px;color:var(--muted)}
+.issues-list{margin-bottom:14px}.iss-item{padding:6px 10px;margin-bottom:4px;border-radius:8px;font-size:12px}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -157,18 +157,7 @@
 [data-theme="light"] .other-tools a{box-shadow:0 2px 10px rgba(100,70,30,.07)}
 [data-theme="light"] .other-tools a:hover{box-shadow:0 6px 24px rgba(200,122,48,.12)}
 [data-theme="light"] .cta-box{box-shadow:0 3px 16px rgba(100,70,30,.07)}
-[data-theme="light"] #compare{background:rgba(255,255,255,.5)!important}
-[data-theme="light"] .compare-wrap{background:#fff;border-color:rgba(140,120,90,.08)}
-[data-theme="light"] .compare-table{background:#fff}
-[data-theme="light"] .compare-table th{background:rgba(250,248,245,.95);color:#5a5046}
-[data-theme="light"] .compare-table td{color:#3d342c}
-[data-theme="light"] .compare-table .cross{color:#c4b8aa}
-[data-theme="light"] .demo-info .val{color:#3d342c}
-[data-theme="light"] .demo-stat .label{color:#908476}
 [data-theme="light"] .consent-inner{box-shadow:0 -4px 32px rgba(80,60,30,.12)}
-[data-theme="light"] .about-teaser{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.10);box-shadow:0 3px 16px rgba(100,70,30,.07)}
-[data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
-[data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
 
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -247,14 +236,16 @@
 </div>
 
 <div class="ct">
-<div class="th"><div class="lb">Free SEO Tool</div><h1>Image SEO Checker</h1><p>Analyze all images on any page. Find missing ALT tags, check formats, detect lazy loading. JS-rendered content included via Browser Rendering.</p></div>
+<div class="th"><div class="lb">Free SEO Tool</div><h1>Image SEO Checker</h1><p>Analyze all images on any page. Check ALT tags, formats, dimensions, lazy loading, file sizes, and duplicates. Get an overall optimization score.</p></div>
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Check Images</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
-<div class="metrics"><div class="metric"><div class="mh">Total</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">No ALT</div><p id="mNoAlt">0</p></div><div class="metric"><div class="mh">No Lazy</div><p id="mNoLazy">0</p></div><div class="metric"><div class="mh">Modern</div><p id="mModern">0</p></div><div class="metric"><div class="mh">Legacy</div><p id="mLegacy">0</p></div></div>
+<div id="scoreArea"></div>
+<div class="metrics"><div class="metric"><div class="mh">Total</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">No ALT</div><p id="mNoAlt">0</p></div><div class="metric"><div class="mh">No Dimensions</div><p id="mNoDim">0</p></div><div class="metric"><div class="mh">No Lazy</div><p id="mNoLazy">0</p></div><div class="metric"><div class="mh">Modern</div><p id="mModern">0</p></div><div class="metric"><div class="mh">Duplicates</div><p id="mDupes">0</p></div></div>
 <div class="fmt-bar" id="fmtBar"></div>
 <div class="fmt-legend" id="fmtLegend"></div>
+<div id="issuesList" class="issues-list"></div>
 <div class="section-head">🖼 Images</div>
 <div class="filters" id="filterBar"></div>
 <div class="link-list" id="imgResults"></div>
@@ -265,7 +256,7 @@
 </div>
 </div>
 </div>
-<div class="content"><h2>Why image SEO matters</h2><p>Images can account for 50%+ of page weight. Missing ALT tags hurt accessibility and SEO. Modern formats (WebP, AVIF) reduce size by 25-50%. Lazy loading defers off-screen images, improving Core Web Vitals.</p>
+<div class="content"><h2>Why image SEO matters</h2><p>Images often make up over half of a page's total weight. Missing ALT text hurts both accessibility and search visibility. Modern formats like WebP and AVIF cut file sizes significantly compared to JPEG or PNG. Missing width and height attributes cause Cumulative Layout Shift (CLS), a Core Web Vital. This tool checks all of these factors and gives you an actionable score.</p>
 <h2 style="margin-top:28px">More tools</h2>
 <div class="other-tools"><a href="/tools/pagespeed/"><h3>PageSpeed</h3><p>Full Lighthouse audit.</p></a><a href="/tools/semantic-checker/"><h3>Semantic HTML</h3><p>HTML5 landmarks & accessibility.</p></a><a href="/tools/heading-checker/"><h3>Heading Checker</h3><p>H1-H6 hierarchy analysis.</p></a></div>
 <h2>FAQ</h2>
@@ -295,19 +286,76 @@ document.querySelectorAll('.mm-cat').forEach(function(c){c.addEventListener('cli
 
 document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
 
-var WORKER_PRIMARY='https://lumina-proxy.julien-elbahy.workers.dev/deep';
-var WORKER_FALLBACK='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
+var W='https://lumina-proxy.julien-elbahy.workers.dev';
+var TOOL='image-seo-checker';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
-var allImgs=[];
+var allImgs=[],pageUrl='';
 function cleanText(s){return(s||'').replace(/\\[nrt]/g,' ').replace(/[\n\r\t]+/g,' ').replace(/\s{2,}/g,' ').trim()}
 function cleanUrl(s){return(s||'').replace(/\\"/g,'').replace(/^"|"$/g,'')}
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 function fetchWithFallback(targetUrl){
-  return fetch(WORKER_PRIMARY+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()}).then(function(data){
-    if(data.error&&data.error.indexOf('Browser Rendering')>=0)return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()});
+  var opts={headers:{'X-Lumina-Tool':TOOL}};
+  return fetch(W+'/deep?url='+encodeURIComponent(targetUrl),opts).then(function(r){return r.json()}).then(function(data){
+    if(data.error&&data.error.indexOf('Browser Rendering')>=0)return fetch(W+'/fetch?url='+encodeURIComponent(targetUrl),opts).then(function(r){return r.json()});
     return data;
-  }).catch(function(){return fetch(WORKER_FALLBACK+'?url='+encodeURIComponent(targetUrl)).then(function(r){return r.json()})});
+  }).catch(function(){return fetch(W+'/fetch?url='+encodeURIComponent(targetUrl),opts).then(function(r){return r.json()})});
+}
+
+function resolveUrl(src,base){
+  if(!src)return '';
+  if(src.startsWith('data:'))return src;
+  if(src.startsWith('//'))return 'https:'+src;
+  try{return new URL(src,base).href}catch(e){return src}
+}
+
+function detectFormat(src){
+  if(!src||src.startsWith('data:')){
+    var m=src.match(/^data:image\/([a-z+]+)/);
+    return m?m[1].replace('+xml',''):'unknown';
+  }
+  // Check URL params for format hints (CDN rewrite patterns)
+  var lower=src.toLowerCase();
+  if(/[?&](fm|format|f)=webp/i.test(lower))return 'webp';
+  if(/[?&](fm|format|f)=avif/i.test(lower))return 'avif';
+  if(/[?&](fm|format|f)=png/i.test(lower))return 'png';
+  if(/[?&](fm|format|f)=jpe?g/i.test(lower))return 'jpg';
+  // Fall back to extension
+  var path=src.split('?')[0].split('#')[0];
+  var ext=path.split('.').pop().toLowerCase();
+  if(ext.length>5||ext.indexOf('/')>=0)return 'unknown';
+  if(ext==='jpeg')return 'jpg';
+  return ext;
+}
+
+function scoreRing(score,size){
+  var r=(size-6)/2,c=2*Math.PI*r,off=c-(score/100)*c;
+  var col=score>=80?'var(--ok)':score>=50?'var(--warn)':'var(--err)';
+  var label=score>=80?'Good image SEO':score>=50?'Needs improvement':'Poor image SEO';
+  return '<div class="score-wrap"><div class="score-ring" style="width:'+size+'px;height:'+size+'px"><svg width="'+size+'" height="'+size+'"><circle class="bg" cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'"/><circle class="fg" cx="'+(size/2)+'" cy="'+(size/2)+'" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'"/></svg><div class="score-val" style="color:'+col+'">'+score+'</div></div><div class="score-info"><h3>'+label+'</h3><p>Image optimization score</p></div></div>';
+}
+
+function calcScore(stats){
+  var s=100;
+  if(stats.total===0)return 0;
+  // ALT text: up to -30
+  var altPct=stats.noAlt/stats.total;
+  s-=Math.round(altPct*30);
+  // Modern format: up to -20
+  var legPct=stats.legacy/stats.total;
+  s-=Math.round(legPct*20);
+  // Lazy loading: up to -15
+  var noLazyPct=stats.noLazy/stats.total;
+  s-=Math.round(noLazyPct*15);
+  // Dimensions: up to -15
+  var noDimPct=stats.noDim/stats.total;
+  s-=Math.round(noDimPct*15);
+  // srcset: up to -10
+  var noSrcsetPct=(stats.total-stats.srcset)/stats.total;
+  s-=Math.round(noSrcsetPct*10);
+  // Duplicates: -2 per duplicate (max -10)
+  s-=Math.min(stats.dupes*2,10);
+  return Math.max(0,Math.min(100,s));
 }
 
 btn.addEventListener('click',function(){go(urlIn.value)});
@@ -315,79 +363,132 @@ urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)}
 
 function go(url){
   url=(url||'').trim();if(!url)return;
-  if(!/^https?:\/\//i.test(url))url='https://'+url;urlIn.value=url;
+  if(!/^https?:\/\//i.test(url))url='https://'+url;urlIn.value=url;pageUrl=url;
   document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Checking…';
   fetchWithFallback(url).then(function(data){
     btn.disabled=false;btn.textContent='Check Images';document.getElementById('loading').style.display='none';
     if(data.error){document.getElementById('res').style.display='block';document.getElementById('imgResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(data.error)+'</p></div>';return}
-    parseImages(data.html,url);
-  }).catch(function(e){btn.disabled=false;btn.textContent='Check Images';document.getElementById('loading').style.display='none'});
+    parseImages(data.html,data.url||url);
+  }).catch(function(e){
+    btn.disabled=false;btn.textContent='Check Images';document.getElementById('loading').style.display='none';
+    document.getElementById('res').style.display='block';
+    document.getElementById('imgResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>Network error. Please try again.</p></div>';
+  });
 }
 
-function resolveUrl(src,pageUrl){
-  if(!src)return '';
-  if(src.startsWith('data:'))return src;
-  if(src.startsWith('//'))return 'https:'+src;
-  if(src.startsWith('/'))try{return new URL(src,pageUrl).href}catch(e){return src}
-  if(src.startsWith('http'))return src;
-  try{return new URL(src,pageUrl).href}catch(e){return src}
-}
-
-function parseImages(html,pageUrl){
+function parseImages(html,pUrl){
   var doc=new DOMParser().parseFromString(html,'text/html');
   var imgs=doc.querySelectorAll('img');var results=[];
+  // Track duplicates
+  var srcCount={};
+  imgs.forEach(function(img){
+    var src=cleanUrl(img.getAttribute('src')||img.getAttribute('data-src')||'');
+    var fullSrc=resolveUrl(src,pUrl);
+    srcCount[fullSrc]=(srcCount[fullSrc]||0)+1;
+  });
+
   imgs.forEach(function(img){
     var src=cleanUrl(img.getAttribute('src')||img.getAttribute('data-src')||'');
     var altAttr=img.getAttribute('alt');
     var alt=cleanText(altAttr||'');
+    var isDecorative=altAttr!==null&&alt==='';
     var hasAlt=altAttr!==null&&alt!=='';
     var lazy=img.getAttribute('loading')==='lazy'||img.hasAttribute('data-src')||img.hasAttribute('data-lazy');
-    var ext=src.split('?')[0].split('#')[0].split('.').pop().toLowerCase();
-    if(ext.length>5)ext='unknown';
-    var isModern=['webp','avif','svg'].indexOf(ext)>=0;
-    var fullSrc=resolveUrl(src,pageUrl);
-    results.push({src:src,fullSrc:fullSrc,alt:alt,hasAlt:hasAlt,lazy:lazy,format:ext,modern:isModern});
+    var hasWidth=img.hasAttribute('width');
+    var hasHeight=img.hasAttribute('height');
+    var hasDimensions=hasWidth&&hasHeight;
+    var hasSrcset=img.hasAttribute('srcset');
+    var fmt=detectFormat(src);
+    var isModern=['webp','avif','svg'].indexOf(fmt)>=0;
+    var fullSrc=resolveUrl(src,pUrl);
+    var isDupe=srcCount[fullSrc]>1;
+    results.push({src:src,fullSrc:fullSrc,alt:alt,hasAlt:hasAlt,isDecorative:isDecorative,lazy:lazy,format:fmt,modern:isModern,hasDimensions:hasDimensions,hasSrcset:hasSrcset,isDupe:isDupe,fileSize:null});
   });
   allImgs=results;
-  var noAlt=results.filter(function(i){return !i.hasAlt}).length;
+
+  if(results.length===0){
+    document.getElementById('scoreArea').innerHTML='';
+    document.getElementById('mTotal').textContent='0';
+    document.getElementById('mNoAlt').textContent='0';document.getElementById('mNoAlt').style.color='';
+    document.getElementById('mNoDim').textContent='0';document.getElementById('mNoDim').style.color='';
+    document.getElementById('mNoLazy').textContent='0';document.getElementById('mNoLazy').style.color='';
+    document.getElementById('mModern').textContent='0';document.getElementById('mModern').style.color='';
+    document.getElementById('mDupes').textContent='0';document.getElementById('mDupes').style.color='';
+    document.getElementById('fmtBar').innerHTML='';document.getElementById('fmtLegend').innerHTML='';
+    document.getElementById('issuesList').innerHTML='';document.getElementById('filterBar').innerHTML='';
+    document.getElementById('imgResults').innerHTML='<div class="error-msg"><div class="icon">🖼</div><p>No images found on this page.</p></div>';
+    document.getElementById('res').style.display='block';return;
+  }
+
+  var noAlt=results.filter(function(i){return !i.hasAlt&&!i.isDecorative}).length;
+  var decCount=results.filter(function(i){return i.isDecorative}).length;
   var lazyCount=results.filter(function(i){return i.lazy}).length;
   var noLazy=results.length-lazyCount;
   var modernCount=results.filter(function(i){return i.modern}).length;
   var legacyCount=results.length-modernCount;
+  var noDim=results.filter(function(i){return !i.hasDimensions}).length;
+  var srcsetCount=results.filter(function(i){return i.hasSrcset}).length;
+  var dupeUrls=Object.keys(srcCount).filter(function(k){return srcCount[k]>1});
+  var dupeCount=dupeUrls.length;
+
+  var stats={total:results.length,noAlt:noAlt,legacy:legacyCount,noLazy:noLazy,noDim:noDim,srcset:srcsetCount,dupes:dupeCount};
+  var score=calcScore(stats);
+  document.getElementById('scoreArea').innerHTML=scoreRing(score,70);
+
+  // Issues
+  var issues=[];
+  if(noAlt>0)issues.push({t:'err',m:noAlt+' image'+(noAlt>1?'s':'')+' missing ALT text. This hurts SEO and accessibility.'});
+  if(decCount>0)issues.push({t:'info',m:decCount+' image'+(decCount>1?'s':'')+' with empty alt="" (decorative). Verify these are truly decorative.'});
+  if(noDim>0)issues.push({t:'warn',m:noDim+' image'+(noDim>1?'s':'')+' missing width/height attributes. This causes layout shift (CLS).'});
+  if(noLazy>0)issues.push({t:'warn',m:noLazy+' image'+(noLazy>1?'s':'')+' without lazy loading.'});
+  if(legacyCount>0)issues.push({t:'warn',m:legacyCount+' image'+(legacyCount>1?'s':'')+' using legacy format'+(legacyCount>1?'s':'')+'. Consider WebP or AVIF.'});
+  if(srcsetCount===0&&results.length>0)issues.push({t:'warn',m:'No images use srcset for responsive serving.'});
+  if(dupeCount>0)issues.push({t:'warn',m:dupeCount+' duplicate image URL'+(dupeCount>1?'s':'')+' found.'});
+  var issHtml='';
+  issues.forEach(function(iss){
+    var bg=iss.t==='err'?'err':iss.t==='warn'?'warn':'accent';
+    var icon=iss.t==='err'?'❌':iss.t==='warn'?'⚠️':'ℹ️';
+    issHtml+='<div class="iss-item" style="background:var(--'+(iss.t==='info'?'accent-soft':bg+'-bg')+');color:var(--'+(iss.t==='info'?'accent':bg)+');border:1px solid var(--'+(iss.t==='info'?'accent-glow':bg+'-border')+')">'+icon+' '+esc(iss.m)+'</div>';
+  });
+  document.getElementById('issuesList').innerHTML=issHtml;
+
+  // Metrics
   document.getElementById('mTotal').textContent=results.length;
   document.getElementById('mNoAlt').textContent=noAlt;
   document.getElementById('mNoAlt').style.color=noAlt>0?'var(--err)':'var(--ok)';
+  document.getElementById('mNoDim').textContent=noDim;
+  document.getElementById('mNoDim').style.color=noDim>0?'var(--warn)':'var(--ok)';
   document.getElementById('mNoLazy').textContent=noLazy;
   document.getElementById('mNoLazy').style.color=noLazy>0?'var(--warn)':'var(--ok)';
   document.getElementById('mModern').textContent=modernCount;
   document.getElementById('mModern').style.color=modernCount>0?'var(--ok)':'';
-  document.getElementById('mLegacy').textContent=legacyCount;
-  document.getElementById('mLegacy').style.color=legacyCount>0?'var(--warn)':'var(--ok)';
+  document.getElementById('mDupes').textContent=dupeCount;
+  document.getElementById('mDupes').style.color=dupeCount>0?'var(--warn)':'var(--ok)';
 
   // Format distribution bar
-  if(results.length>0){
-    var fmtFreq={};
-    results.forEach(function(i){fmtFreq[i.format]=(fmtFreq[i.format]||0)+1});
-    var fmtColors={webp:'var(--ok)',avif:'#6e9eff',svg:'#c390ff',jpg:'var(--warn)',jpeg:'var(--warn)',png:'var(--err)',gif:'#f4c44a',unknown:'var(--muted)'};
-    var barHtml='',legHtml='';
-    Object.entries(fmtFreq).sort(function(a,b){return b[1]-a[1]}).forEach(function(f){
-      var pct=Math.round((f[1]/results.length)*100);
-      var col=fmtColors[f[0]]||'var(--muted)';
-      barHtml+='<div class="fmt-seg" style="width:'+pct+'%;background:'+col+'"></div>';
-      legHtml+='<span><span class="dot" style="background:'+col+'"></span>'+f[0].toUpperCase()+' '+f[1]+'</span>';
-    });
-    document.getElementById('fmtBar').innerHTML=barHtml;
-    document.getElementById('fmtLegend').innerHTML=legHtml;
-  }
+  var fmtFreq={};
+  results.forEach(function(i){fmtFreq[i.format]=(fmtFreq[i.format]||0)+1});
+  var fmtColors={webp:'var(--ok)',avif:'#6e9eff',svg:'#c390ff',jpg:'var(--warn)',png:'var(--err)',gif:'#f4c44a',ico:'var(--muted)',unknown:'var(--muted)'};
+  var barHtml='',legHtml='';
+  Object.entries(fmtFreq).sort(function(a,b){return b[1]-a[1]}).forEach(function(f){
+    var pct=Math.round((f[1]/results.length)*100);
+    var col=fmtColors[f[0]]||'var(--muted)';
+    barHtml+='<div class="fmt-seg" style="width:'+pct+'%;background:'+col+'"></div>';
+    legHtml+='<span><span class="dot" style="background:'+col+'"></span>'+f[0].toUpperCase()+' '+f[1]+'</span>';
+  });
+  document.getElementById('fmtBar').innerHTML=barHtml;
+  document.getElementById('fmtLegend').innerHTML=legHtml;
 
   // Filters
   var filterDefs=[
     {key:'all',label:'All ('+results.length+')'},
     {key:'noalt',label:'No ALT ('+noAlt+')'},
-    {key:'nolazy',label:'No Lazy ('+(results.length-lazyCount)+')'},
+    {key:'nodim',label:'No Dims ('+noDim+')'},
+    {key:'nolazy',label:'No Lazy ('+noLazy+')'},
     {key:'modern',label:'Modern ('+modernCount+')'},
-    {key:'legacy',label:'Legacy ('+legacyCount+')'}
+    {key:'legacy',label:'Legacy ('+legacyCount+')'},
+    {key:'dupes',label:'Dupes ('+dupeCount+')'}
   ];
   var filterHtml='';
   filterDefs.forEach(function(f){filterHtml+='<button class="fbtn'+(f.key==='all'?' active':'')+'" data-filter="'+f.key+'">'+f.label+'</button>'});
@@ -402,25 +503,79 @@ function parseImages(html,pageUrl){
 
   renderImages('all');
   document.getElementById('res').style.display='block';
+
+  // Async file size fetching
+  fetchFileSizes(results);
+}
+
+function fetchFileSizes(results){
+  var unique={};
+  results.forEach(function(img,i){
+    if(img.fullSrc&&!img.fullSrc.startsWith('data:')&&!unique[img.fullSrc]){
+      unique[img.fullSrc]={indices:[i]};
+    }else if(unique[img.fullSrc]){
+      unique[img.fullSrc].indices.push(i);
+    }
+  });
+  var urls=Object.keys(unique);
+  var done=0,totalSize=0;
+  urls.forEach(function(u){
+    fetch(W+'/headers?url='+encodeURIComponent(u),{headers:{'X-Lumina-Tool':TOOL}})
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var cl=0;
+      if(data.headers){
+        var h=data.headers;
+        cl=parseInt(h['content-length']||h['Content-Length']||'0',10);
+      }
+      if(cl>0){
+        unique[u].indices.forEach(function(idx){allImgs[idx].fileSize=cl});
+        totalSize+=cl;
+      }
+    })
+    .catch(function(){})
+    .finally(function(){
+      done++;
+      if(done===urls.length){
+        // Re-render current filter to show sizes
+        var activeBtn=document.querySelector('.fbtn.active');
+        if(activeBtn)renderImages(activeBtn.dataset.filter);
+      }
+    });
+  });
+}
+
+function fmtSize(bytes){
+  if(!bytes)return '';
+  if(bytes<1024)return bytes+' B';
+  if(bytes<1048576)return(bytes/1024).toFixed(1)+' KB';
+  return(bytes/1048576).toFixed(1)+' MB';
 }
 
 function renderImages(filter){
   var filtered=allImgs;
-  if(filter==='noalt')filtered=allImgs.filter(function(i){return !i.hasAlt});
+  if(filter==='noalt')filtered=allImgs.filter(function(i){return !i.hasAlt&&!i.isDecorative});
+  if(filter==='nodim')filtered=allImgs.filter(function(i){return !i.hasDimensions});
   if(filter==='nolazy')filtered=allImgs.filter(function(i){return !i.lazy});
   if(filter==='modern')filtered=allImgs.filter(function(i){return i.modern});
   if(filter==='legacy')filtered=allImgs.filter(function(i){return !i.modern});
+  if(filter==='dupes')filtered=allImgs.filter(function(i){return i.isDupe});
   if(filtered.length===0){document.getElementById('imgResults').innerHTML='<div class="error-msg"><p>No images match this filter.</p></div>';return}
   var html='';
   filtered.forEach(function(img){
-    var tags='<span class="badge '+(img.hasAlt?'ok':'err')+'">'+(img.hasAlt?'ALT ✓':'NO ALT')+'</span>';
-    tags+=' <span class="badge info">'+esc(img.format.toUpperCase())+'</span>';
-    if(img.lazy)tags+=' <span class="badge ok">lazy</span>';
-    else tags+=' <span class="badge warn">no lazy</span>';
-    if(img.modern)tags+=' <span class="badge ok">modern</span>';
+    var tags='';
+    if(img.isDecorative)tags+='<span class="badge info">decorative</span> ';
+    else tags+='<span class="badge '+(img.hasAlt?'ok':'err')+'">'+(img.hasAlt?'ALT ✓':'NO ALT')+'</span> ';
+    tags+='<span class="badge info">'+esc(img.format.toUpperCase())+'</span> ';
+    tags+=img.lazy?'<span class="badge ok">lazy</span> ':'<span class="badge warn">no lazy</span> ';
+    if(img.modern)tags+='<span class="badge ok">modern</span> ';
+    if(!img.hasDimensions)tags+='<span class="badge warn">no dims</span> ';
+    if(img.hasSrcset)tags+='<span class="badge ok">srcset</span> ';
+    if(img.isDupe)tags+='<span class="badge warn">dupe</span> ';
+    if(img.fileSize)tags+='<span class="badge '+(img.fileSize>200000?'err':img.fileSize>100000?'warn':'ok')+'">'+fmtSize(img.fileSize)+'</span> ';
     var thumbHtml='';
     if(img.fullSrc&&!img.fullSrc.startsWith('data:')){
-      thumbHtml='<img class="img-thumb" src="'+esc(img.fullSrc)+'" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=img-thumb><span style=color:var(--muted);font-size:16px>🖼</span></div>\'">';
+      thumbHtml='<img class="img-thumb" src="'+esc(img.fullSrc)+'" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=img-thumb style=display:flex;align-items:center;justify-content:center><span style=color:var(--muted);font-size:16px>🖼</span></div>\'">';
     }else{
       thumbHtml='<div class="img-thumb" style="display:flex;align-items:center;justify-content:center"><span style="color:var(--muted);font-size:16px">🖼</span></div>';
     }
@@ -433,28 +588,31 @@ function renderImages(filter){
 
 // Toolbar
 document.getElementById('btnCopy').addEventListener('click',function(){
-  var txt=allImgs.map(function(i){return i.src+'\t'+(i.alt||'')+'\t'+i.format+'\t'+(i.hasAlt?'ALT':'NO ALT')+'\t'+(i.lazy?'lazy':'')+'\t'+(i.modern?'modern':'legacy')}).join('\n');
+  var txt=allImgs.map(function(i){return i.src+'\t'+(i.alt||'')+'\t'+i.format+'\t'+(i.hasAlt?'ALT':i.isDecorative?'decorative':'NO ALT')+'\t'+(i.lazy?'lazy':'')+'\t'+(i.modern?'modern':'legacy')+'\t'+(i.hasDimensions?'dims':'no dims')+'\t'+fmtSize(i.fileSize)}).join('\n');
   navigator.clipboard.writeText(txt);this.textContent='✓ Copied';var b=this;setTimeout(function(){b.textContent='📋 Copy'},1500);
 });
 document.getElementById('btnCsv').addEventListener('click',function(){
-  var csv='Source,ALT,Has ALT,Format,Lazy,Modern\n';
-  allImgs.forEach(function(i){csv+='"'+i.src.replace(/"/g,'""')+'","'+(i.alt||'').replace(/"/g,'""')+'",'+i.hasAlt+','+i.format+','+i.lazy+','+i.modern+'\n'});
+  var csv='Source,ALT,ALT Status,Format,Lazy,Modern,Dimensions,srcset,Duplicate,File Size\n';
+  allImgs.forEach(function(i){csv+='"'+i.src.replace(/"/g,'""')+'","'+(i.alt||'').replace(/"/g,'""')+'",'+(i.hasAlt?'yes':i.isDecorative?'decorative':'missing')+','+i.format+','+i.lazy+','+i.modern+','+i.hasDimensions+','+i.hasSrcset+','+i.isDupe+','+(i.fileSize||'')+'\n'});
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='images-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
 });
 document.getElementById('btnReport').addEventListener('click',function(){
-  var noAlt=allImgs.filter(function(i){return !i.hasAlt}).length;
+  var noAlt=allImgs.filter(function(i){return !i.hasAlt&&!i.isDecorative}).length;
+  var noDim=allImgs.filter(function(i){return !i.hasDimensions}).length;
   var lazyC=allImgs.filter(function(i){return i.lazy}).length;
   var modernC=allImgs.filter(function(i){return i.modern}).length;
-  var w=window.open('','_blank');var h='<html><head><title>Image SEO Report</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a1a}h1{font-size:22px}h2{font-size:16px;margin-top:24px;color:#555}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #e0e0e0}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888}p.meta{color:#888;font-size:13px}.stat{display:inline-block;margin-right:20px;font-size:15px}.stat b{font-size:22px}.ok{color:#279e5e}.err{color:#c53e3e}.warn{color:#bf8310}</style></head><body>';
+  var totalBytes=allImgs.reduce(function(s,i){return s+(i.fileSize||0)},0);
+  var stats={total:allImgs.length,noAlt:noAlt,legacy:allImgs.length-modernC,noLazy:allImgs.length-lazyC,noDim:noDim,srcset:allImgs.filter(function(i){return i.hasSrcset}).length,dupes:allImgs.filter(function(i){return i.isDupe}).length};
+  var score=calcScore(stats);
+  var w=window.open('','_blank');var h='<html><head><title>Image SEO Report</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a1a}h1{font-size:22px}h2{font-size:16px;margin-top:24px;color:#555}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid #e0e0e0}th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888}p.meta{color:#888;font-size:13px}.stat{display:inline-block;margin-right:20px;font-size:15px}.stat b{font-size:22px}.ok{color:#279e5e}.err{color:#c53e3e}.warn{color:#bf8310}.score{font-size:32px;font-weight:800;margin:16px 0}</style></head><body>';
   h+='<h1>Image SEO Report</h1><p class="meta">URL: '+esc(urlIn.value)+'<br>Date: '+new Date().toLocaleDateString()+'<br>Generated by Lumina SEO</p>';
-  h+='<div style="margin:20px 0"><span class="stat"><b>'+allImgs.length+'</b> Total</span><span class="stat '+(noAlt>0?'err':'ok')+'"><b>'+noAlt+'</b> No ALT</span><span class="stat"><b>'+lazyC+'</b> Lazy</span><span class="stat ok"><b>'+modernC+'</b> Modern</span></div>';
-  if(noAlt>0)h+='<p class="err">⚠ '+noAlt+' image'+(noAlt>1?'s':'')+' missing ALT text.</p>';
-  h+='<h2>All Images</h2><table><tr><th>Source</th><th>ALT</th><th>Format</th><th>Lazy</th></tr>';
+  h+='<div class="score '+(score>=80?'ok':score>=50?'warn':'err')+'">Score: '+score+'/100</div>';
+  h+='<div style="margin:20px 0"><span class="stat"><b>'+allImgs.length+'</b> Total</span><span class="stat '+(noAlt>0?'err':'ok')+'"><b>'+noAlt+'</b> No ALT</span><span class="stat '+(noDim>0?'warn':'ok')+'"><b>'+noDim+'</b> No Dims</span><span class="stat"><b>'+lazyC+'</b> Lazy</span><span class="stat ok"><b>'+modernC+'</b> Modern</span>'+(totalBytes?'<span class="stat"><b>'+fmtSize(totalBytes)+'</b> Total Size</span>':'')+'</div>';
+  h+='<h2>All Images</h2><table><tr><th>Source</th><th>ALT</th><th>Format</th><th>Lazy</th><th>Dims</th><th>Size</th></tr>';
   allImgs.forEach(function(i){
-    h+='<tr><td style="font-size:12px;word-break:break-all">'+esc(i.src.substring(0,80))+'</td><td>'+(i.hasAlt?esc(i.alt.substring(0,60)):'<em class="err">(missing)</em>')+'</td><td>'+i.format.toUpperCase()+'</td><td>'+(i.lazy?'✓':'—')+'</td></tr>';
+    h+='<tr><td style="font-size:12px;word-break:break-all">'+esc(i.src.substring(0,80))+'</td><td>'+(i.hasAlt?esc(i.alt.substring(0,60)):i.isDecorative?'<em style="color:#888">(decorative)</em>':'<em class="err">(missing)</em>')+'</td><td>'+i.format.toUpperCase()+'</td><td>'+(i.lazy?'✓':'—')+'</td><td>'+(i.hasDimensions?'✓':'<span class="warn">—</span>')+'</td><td>'+fmtSize(i.fileSize)+'</td></tr>';
   });
   h+='</table>';
-  // Format summary
   var fmtFreq={};allImgs.forEach(function(i){fmtFreq[i.format]=(fmtFreq[i.format]||0)+1});
   h+='<h2>Format Distribution</h2><table><tr><th>Format</th><th>Count</th><th>%</th></tr>';
   Object.entries(fmtFreq).sort(function(a,b){return b[1]-a[1]}).forEach(function(f){
