@@ -486,9 +486,16 @@ function analyze(html,pageUrl){
 
   document.getElementById('res').style.display='block';
 
-  /* HTML-Auszug für KI-Kontext speichern — erste 3000 Zeichen des Body */
+  /* HTML-Auszug für KI-Kontext speichern — nur sichtbarer Body-Inhalt */
   var bodyExcerpt='';
-  try{var bodyEl=doc.querySelector('body');if(bodyEl){bodyExcerpt=bodyEl.innerHTML.replace(/\s+/g,' ').substring(0,3000)}}catch(e){}
+  try{
+    var bodyEl=doc.querySelector('body');
+    if(bodyEl){
+      var clone=bodyEl.cloneNode(true);
+      clone.querySelectorAll('script,style,noscript,svg,link,meta,iframe').forEach(function(el){el.remove()});
+      bodyExcerpt=clone.innerHTML.replace(/\s{2,}/g,' ').replace(/>\s+</g,'>\n<').trim().substring(0,3000);
+    }
+  }catch(e){}
   lastReport={url:pageUrl,score:score,landmarks:lm,lmFound:lmFound,semantic:sem,semCount:semCount,headings:headings,a11y:a11y,issues:issues,divCount:divCount,spanCount:spanCount,totalSemantic:totalSemantic,bodyExcerpt:bodyExcerpt};
 }
 
