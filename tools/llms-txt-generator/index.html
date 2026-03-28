@@ -80,7 +80,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .mobile-menu .mm-cat.open+.mm-links{display:block}
 /* ── Mega Menu ── */
 .tools-dd{position:relative;z-index:2}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
-.tools-sub{display:none;position:absolute;top:100%;right:-120px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px 20px;width:620px;box-shadow:var(--shadow-m);z-index:50;backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4)}
+.tools-sub{display:none;position:absolute;top:100%;right:-120px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px 20px;width:620px;box-shadow:var(--shadow-m);z-index:50;}
 .tools-dd:hover .tools-sub{display:grid;grid-template-columns:repeat(3,1fr);gap:0 24px}
 .ts-col{min-width:0}
 .ts-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);padding:10px 0 6px;border-bottom:1px solid var(--border);margin-bottom:4px}
@@ -100,7 +100,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 [data-theme="light"] input[type="text"],[data-theme="light"] textarea{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.15)}
 [data-theme="light"] input[type="text"]:focus,[data-theme="light"] textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,122,48,.12);background:#fff}
 [data-theme="light"] .tool-header .label{background:linear-gradient(135deg,rgba(200,122,48,.08),rgba(200,122,48,.03));padding:4px 12px;border-radius:20px;display:inline-block}
-[data-theme="light"] .tools-sub{background:rgba(255,255,255,.96);border-color:rgba(140,120,90,.10);box-shadow:0 12px 48px rgba(80,60,30,.12),0 0 0 1px rgba(255,255,255,.5) inset;backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5)}
+[data-theme="light"] .tools-sub{background:#efece6;border-color:rgba(140,120,90,.10);box-shadow:0 12px 48px rgba(80,60,30,.12),0 0 0 1px rgba(255,255,255,.5) inset;}
 [data-theme="light"] .ts-cat{color:var(--accent);border-color:rgba(140,120,90,.10)}
 [data-theme="light"] .tools-sub a{color:#5a5046}
 [data-theme="light"] .tools-sub a:hover{color:var(--accent)}
@@ -290,11 +290,9 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-elbahy/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
 <div class="tf-col"><div class="tf-h">On-Page SEO</div><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a><a href="/tools/heading-checker/">Heading Checker</a><a href="/tools/schema-validator/">Schema Validator</a><a href="/tools/og-preview/">OG Preview</a><a href="/tools/image-seo-checker/">Image SEO Checker</a><a href="/tools/semantic-checker/">Semantic HTML</a><a href="/tools/link-analyzer/">Link Analyzer</a></div>
-<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/hreflang-checker/">hreflang Checker</a><div class="tf-h" style="margin-top:12px">SERP &amp; Content</div><a href="/tools/serp-preview/">Snippet Preview</a><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a><a href="/tools/word-counter/">Word Counter</a><a href="/tools/ai-content-optimizer/">AI Content Optimizer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a>
-<a href="/tools/hreflang-checker/">hreflang Checker</a>
-<a href="/tools/ai-content-optimizer/">AI Content Optimizer</a></div>
-<div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></div>
-<div class="tf-col"><div class="tf-h">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div>
+<div class="tf-col"><div class="tf-h">Technical SEO</div><a href="/tools/pagespeed/">PageSpeed Insights</a><a href="/tools/tech-stack/">Tech Stack Detector</a><a href="/tools/security-headers/">Security Headers</a><a href="/tools/redirect-checker/">Redirect Checker</a><a href="/tools/robots-txt-analyzer/">Robots.txt Analyzer</a><a href="/tools/js-nojs/">JS vs No-JS</a><a href="/tools/hreflang-checker/">hreflang Checker</a></div>
+<div class="tf-col"><div class="tf-h">SERP &amp; Content</div><a href="/tools/serp-preview/">Snippet Preview</a><a href="/tools/serp-checker/">SERP Checker</a><a href="/tools/keyword-research/">Keyword Research</a><a href="/tools/serp-overlap/">SERP Overlap</a><a href="/tools/word-counter/">Word Counter</a><a href="/tools/ai-content-optimizer/">AI Content Optimizer</a><a href="/tools/llms-txt-generator/">llms.txt Generator</a></div>
+<div class="tf-col"><div class="tf-h">Company</div><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a><div class="tf-h" style="margin-top:12px">Legal</div><a href="/imprint.html">Imprint</a><a href="/privacy-policy.html">Privacy</a></div>
 </div></footer>
 <script>
 

@@ -66,7 +66,14 @@
       "Bash(echo \"=== ''''Content & GEO'''' remaining ===\")",
       "Bash(echo \"=== ''''SERP & Content'''' count ===\")",
       "Bash(perl -ne 'print \"\"\"\"$. $_\"\"\"\" if /ts-col|ts-cat/' 404.html)",
-      "Bash(perl -0777 -i -pe ':*)"
+      "Bash(perl -0777 -i -pe ':*)",
+      "Bash(perl -ne 'print \"\"\"\"$. $_\"\"\"\" if /class=\"\"\"\"tf\"\"\"\"|tf-inner|tf-col|tf-h/' about.html)",
+      "Bash(perl -ne 'print if /tf-col/' about.html)",
+      "Bash(perl -0777 -pe 's{<a href=\"\"\"\"/tools/hreflang-checker/\"\"\"\">hreflang Checker</a><div class=\"\"\"\"tf-h\"\"\"\" style=\"\"\"\"margin-top:12px\"\"\"\">SERP &amp; Content</div>}{<a href=\"\"\"\"/tools/hreflang-checker/\"\"\"\">hreflang Checker</a></div>\\\\n<div class=\"\"\"\"tf-col\"\"\"\"><div class=\"\"\"\"tf-h\"\"\"\">SERP &amp; Content</div>}gs' about.html)",
+      "Bash(perl -0777 -pe 's{<a href=\"\"\"\"/tools/llms-txt-generator/\"\"\"\">llms.txt Generator</a>\\\\r?\\\\n<div class=\"\"\"\"tf-col\"\"\"\"><div class=\"\"\"\"tf-h\"\"\"\">Company</div>}{<a href=\"\"\"\"/tools/llms-txt-generator/\"\"\"\">llms.txt Generator</a></div>\\\\n<div class=\"\"\"\"tf-col\"\"\"\"><div class=\"\"\"\"tf-h\"\"\"\">Company</div>}gs')",
+      "Bash(perl -0777 -pe 's{Chrome Web Store</a></div>\\\\r?\\\\n<div class=\"\"\"\"tf-col\"\"\"\"><div class=\"\"\"\"tf-h\"\"\"\">Legal</div>}{Chrome Web Store</a><div class=\"\"\"\"tf-h\"\"\"\" style=\"\"\"\"margin-top:12px\"\"\"\">Legal</div>}gs')",
+      "Bash(perl -ne 'print \"\"$. $_\"\" if /tf-col/' de/ueber-uns.html)",
+      "Bash(perl -ne 'print \"\"$. $_\"\" if /tf-col/' 404.html)"
     ]
   }
 }
