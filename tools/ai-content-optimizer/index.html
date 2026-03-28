@@ -461,6 +461,7 @@ if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById
 if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.getElementById('lq_content-optimizer')?.parentElement||document.querySelector('.cd'));
 
 async function aiCall(body){
+  if(!body.model)body.model='gpt-4.1';
   var key=localStorage.getItem('lumina_key_openai')||'';
   var headers={'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'};
   if(key)headers['X-OAI-Key']=key;

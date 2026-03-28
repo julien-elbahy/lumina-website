@@ -677,7 +677,7 @@ export default {
       }
 
       // Security: enforce limits on the request
-      const allowedModels = ['gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini', 'gpt-3.5-turbo'];
+      const allowedModels = ['gpt-4.1', 'gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini', 'gpt-3.5-turbo'];
       if (body.model && !allowedModels.includes(body.model)) {
         body.model = 'gpt-4.1-mini';
       }
