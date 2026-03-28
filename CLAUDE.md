@@ -67,15 +67,25 @@ Nav and footer are duplicated in **all 58+ HTML files** (both `/` and `/de/`). F
 - Per-tool daily quotas via `X-Lumina-Tool` header + KV storage
 - CORS: only `lumina-seo.com`, `localhost`, and Pages preview allowed
 - Client-side settings in localStorage with `lumina_key_` prefix
+- AI model allowlist: `gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `gpt-4o-mini`, `gpt-3.5-turbo`
+
+### AI Models per Tool
+- **GPT-4.1** (complex): Semantic Checker, Content Optimizer, Schema Validator, PageSpeed
+- **GPT-4.1-mini** (simple): Keyword Research, SERP Preview, Meta-Tag Analyzer, Heading Checker, OG Preview
 
 ### Tool UX Standards
 Each tool should have where it makes sense:
 - **Cross-tool links** — always
 - **Toolbar** (copy/CSV/report) — always
-- **Quota handling** — no visible counter by default. Only show a clear error message when the daily limit is actually reached. Don't create artificial scarcity UX.
+- **Quota handling** — no visible counter by default. Only show a clear error message when the daily limit is actually reached. Don't create artificial scarcity UX. Always include a **clickable ⚙️ Settings link** (`luminaSettings.open()`) in error messages.
 - **Score ring** — only for tools where a quality score is meaningful (e.g., Content Optimizer, Schema Validator). Not for purely informational tools like Tech Stack Detector.
+- **AI Card pattern** — AI features should use the `.ai-card` pattern with `.ai-badge`, `.ai-card-title`, `.ai-card-desc`, and button inside `.ai-card-body`. Not bare buttons in a row.
 - **AI suggestions** — only where actionable recommendations add real value. Skip if it would just be filler.
 - **Results layout** — detected/found items always at the top, prominent and visible. Empty/missing items collapsed or hidden below.
+
+### Semantic HTML
+- Nav links, mobile menu links, and footer links are wrapped in `<ul><li>` for accessibility
+- CSS reset: `.tools-sub ul,.mm-links ul,.tf-col ul{list-style:none;padding:0;margin:0}`
 
 ## Language
 - Bilingual: English (primary) + German (`/de/`)
