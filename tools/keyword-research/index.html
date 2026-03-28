@@ -279,7 +279,7 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 <!-- GSC Connection Bar -->
 <div class="cd" id="gscBar" style="padding:12px 16px;margin-bottom:8px">
 <div id="gscConnect" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0 8px 0 0;flex-shrink:0">🔗 Connect GSC</button>
+<button class="ab" id="btnGscConnect" style="font-size:11px;padding:8px 16px;margin:0 14px 0 0;flex-shrink:0">🔗 Connect GSC</button>
 <span style="font-size:12px;color:var(--muted);line-height:1.4">See real clicks, impressions &amp; rankings from Google Search Console</span>
 </div>
 <div id="gscMain" style="display:none">
@@ -821,7 +821,7 @@ var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
 function gscIsConnected(){return !!gscToken&&Date.now()<gscExpiry}
 function gscUpdateUI(){
   var connected=gscIsConnected();
-  document.getElementById('gscConnect').style.display=connected?'none':'block';
+  document.getElementById('gscConnect').style.display=connected?'none':'flex';
   document.getElementById('gscMain').style.display=connected?'block':'none';
   document.getElementById('gscStatus').textContent='';
   if(connected)gscLoadSites();
