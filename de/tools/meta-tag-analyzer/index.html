@@ -817,7 +817,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
     h+=aiRenderOption('Description — Option B',r.desc2||'',false);
     out.innerHTML=h;
   })
-  .catch(function(e){out.innerHTML='<p style="color:var(--err);padding:12px">❌ '+esc(e.message)+'</p>'})
+  .catch(function(e){out.innerHTML='<p style="color:var(--err);padding:12px">❌ '+esc(e.message)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px;padding:0 12px">💡 Eigenen API-Key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinterlegen für unbegrenzten Zugang.</p>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Title & Description generieren'});
 });
 

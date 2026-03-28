@@ -555,7 +555,7 @@ function addAiFix(schemas){
       document.getElementById('inputSchema').value=JSON.stringify(JSON.parse(fixed),null,2);
       document.getElementById('btnValidate').click();
       btn.textContent='✓ Behoben & neu validiert';setTimeout(function(){btn.textContent='✨ KI-Fix — Alle Probleme beheben'},2000);
-    }).catch(function(e){btn.textContent='❌ '+e.message;setTimeout(function(){btn.textContent='✨ KI-Fix — Alle Probleme beheben'},3000)})
+    }).catch(function(e){btn.textContent='❌ '+e.message;setTimeout(function(){btn.textContent='✨ KI-Fix — Alle Probleme beheben'},3000);var _hint=document.getElementById('aiFixHint');if(!_hint){_hint=document.createElement('p');_hint.id='aiFixHint';_hint.style.cssText='font-size:12px;color:var(--muted);margin-top:8px';_hint.innerHTML='💡 Eigenen API-Key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinterlegen für unbegrenzten Zugang.';btn.parentNode.insertBefore(_hint,btn.nextSibling)}})
     .finally(function(){btn.disabled=false});
   });
 }
@@ -626,6 +626,7 @@ document.getElementById('btnAiGenSchema').addEventListener('click',function(){
   }).catch(function(e){
     document.getElementById('aiGenOutput').value='Error: '+e.message;
     resultDiv.style.display='block';
+    var _hint=document.getElementById('aiGenHint');if(!_hint){_hint=document.createElement('p');_hint.id='aiGenHint';_hint.style.cssText='font-size:12px;color:var(--muted);margin-top:8px;text-align:center';_hint.innerHTML='💡 Eigenen API-Key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinterlegen für unbegrenzten Zugang.';resultDiv.appendChild(_hint)}
   }).finally(function(){btn.disabled=false;btn.textContent='✨ Schema generieren'});
 });
 

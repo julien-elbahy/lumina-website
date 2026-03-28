@@ -468,7 +468,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     if(_spAiKeywords[0]){document.getElementById('aiKwPrimary').value=_spAiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_spAiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
     spRenderChips()}catch(e){}
   })
-  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(msg)+'</p>';document.getElementById('aiKwChips').style.display='block';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
+  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(msg)+'</p><p style="font-size:11px;color:var(--muted);margin-top:6px">💡 Eigenen API-Key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinterlegen für unbegrenzten Zugang.</p>';document.getElementById('aiKwChips').style.display='block';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
   .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-Erkennung'});
 });
 
@@ -515,7 +515,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
       upd();b.textContent='✓ Angewendet';setTimeout(function(){b.textContent='Anwenden'},1500);
     })});
   })
-  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">'+esc(msg)+'</p>';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
+  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">'+esc(msg)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center">💡 Eigenen API-Key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinterlegen für unbegrenzten Zugang.</p>';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));

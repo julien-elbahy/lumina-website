@@ -395,7 +395,7 @@ function go(){
     btn.disabled=false;btn.textContent='Check SERP';
     document.getElementById('loading').style.display='none';
     document.getElementById('res').style.display='block';
-    document.getElementById('serpResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
+    document.getElementById('serpResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px">💡 Add your API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.</p></div>';
     if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
   });
 }
