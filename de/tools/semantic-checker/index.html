@@ -262,7 +262,7 @@
 <div class="content"><h2>Warum semantisches HTML wichtig ist</h2><p>Semantisches HTML hilft Suchmaschinen, die Seitenstruktur zu verstehen und verbessert die Barrierefreiheit für Screenreader. Die Verwendung von <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code> statt generischer <code>&lt;div&gt;</code>-Elemente schafft eine bedeutungsvolle Struktur.</p>
 <h2 style="margin-top:28px">Weitere Tools</h2>
 <div class="other-tools"><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>H1-H6 Überschriften-Hierarchie analysieren.</p></a><a href="/de/tools/image-seo-checker/"><h3>Image SEO</h3><p>ALT-Tags, Format, Lazy Loading.</p></a><a href="/de/tools/pagespeed/"><h3>PageSpeed</h3><p>Vollständiger Lighthouse-Audit mit Barrierefreiheits-Score.</p></a></div>
-<h2>FAQ</h2>
+<h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Was ist semantisches HTML?<span class="arrow">+</span></div><div class="faq-a">Semantisches HTML verwendet Elemente, die ihre Bedeutung beschreiben, wie &lt;nav&gt;, &lt;main&gt;, &lt;article&gt; und &lt;footer&gt;, anstatt generische &lt;div&gt;- und &lt;span&gt;-Elemente. Das macht die Seitenstruktur für Browser, Crawler und assistive Technologien verständlich.</div></div>
 <div class="faq-item"><div class="faq-q">Warum ist semantisches HTML wichtig für SEO?<span class="arrow">+</span></div><div class="faq-a">Suchmaschinen nutzen semantische Elemente, um die Seitenstruktur zu verstehen und Hauptinhalt von Navigation und Seitenleisten zu unterscheiden. Korrekte semantische Auszeichnung kann verbessern, wie dein Content indexiert und in den Suchergebnissen dargestellt wird.</div></div>
 <div class="faq-item"><div class="faq-q">Was sind HTML5-Landmarks?<span class="arrow">+</span></div><div class="faq-a">HTML5-Landmarks sind strukturelle Elemente wie &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;aside&gt; und &lt;footer&gt;, die Seitenbereiche definieren. Screenreader nutzen sie zur schnellen Navigation und Suchmaschinen zur Erkennung der Content-Hierarchie.</div></div>
@@ -542,23 +542,33 @@ document.getElementById('btnAi').addEventListener('click',function(){
   })}).then(function(res){return res.json()}).then(function(data){
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     var text=data.choices[0].message.content;
+    /* Extract code blocks first, store safely */
+    var codeBlocks=[];
+    text=text.replace(/```[\w]*\n([\s\S]*?)```/g,function(_,c){
+      codeBlocks.push('<pre><code>'+c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').trim()+'</code></pre>');
+      return'\n%%CB'+codeBlocks.length+'%%\n';
+    });
+    /* HTML-escape everything else so <article> etc. show as text */
+    text=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    /* Now apply markdown */
     var rendered=text
-      .replace(/```[\w]*\n([\s\S]*?)```/g,function(_,c){return'\n<pre><code>'+c.replace(/</g,'&lt;').replace(/>/g,'&gt;').trim()+'</code></pre>\n'})
       .replace(/^### (.*?)$/gm,'<h4>$1</h4>')
       .replace(/^## (.*?)$/gm,'<h3>$1</h3>')
       .replace(/^# (.*?)$/gm,'<h3>$1</h3>')
       .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-      .replace(/(?<!`)`([^`\n]+)`(?!`)/g,'<code>$1</code>')
+      .replace(/`([^`\n]+)`/g,'<code>$1</code>')
       .replace(/^---$/gm,'<hr>')
       .replace(/^\d+\.\s+(.*?)$/gm,'<oli>$1</oli>')
-      .replace(/((?:<oli>.*?<\/oli>\n?)+)/gs,function(m){return'<ol>'+m.replace(/oli>/g,'li>')+'</ol>'})
-      .replace(/^- (.*?)$/gm,'<li>$1</li>')
+      .replace(/((?:<oli>.*?<\/oli>\n?)+)/gs,function(m){return'<ol>'+m.replace(/oli&gt;/g,'li>').replace(/oli>/g,'li>')+'</ol>'})
+      .replace(/^[-•]\s+(.*?)$/gm,'<li>$1</li>')
       .replace(/((?:<li>.*?<\/li>\n?)+)/gs,function(m){return'<ul>'+m+'</ul>'})
       .replace(/<\/ul>\s*<ul>/g,'').replace(/<\/ol>\s*<ol>/g,'')
       .replace(/\n{2,}/g,'</p><p>')
       .replace(/\n/g,'<br>');
     rendered='<p>'+rendered+'</p>';
     rendered=rendered.replace(/<p>\s*(<h[34]|<ul|<ol|<pre|<hr)/g,'$1').replace(/(<\/h[34]>|<\/ul>|<\/ol>|<\/pre>|<hr>)\s*<\/p>/g,'$1').replace(/<p>\s*<\/p>/g,'');
+    /* Restore code blocks */
+    rendered=rendered.replace(/%%CB(\d+)%%/g,function(_,i){return codeBlocks[parseInt(i)-1]});
     rd.innerHTML=rendered;
     rd.style.display='block';
   }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div>'})
