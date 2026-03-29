@@ -57,6 +57,7 @@
 .raw{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
 .cr-live{font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;border:1px solid;margin-left:auto}.cr-live.l200{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-live.l403{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-live.l4xx{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.cr-live.lerr{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}.tb-btn.copied{border-color:var(--ok);color:var(--ok)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -247,6 +248,7 @@
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Analyze</button></div>
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div></div>
+<div id="toolbar" style="display:none;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
 <div id="res" style="display:none"></div>
 <div id="liveWrap" style="display:none;margin-top:10px;gap:6px;flex-wrap:wrap"><button class="ab" id="btnLive" style="font-size:12px;padding:8px 16px">🔍 Live Server Check</button><span id="liveProgress" style="font-size:11px;color:var(--muted);font-family:var(--mono);align-self:center"></span></div>
 </div>
@@ -324,7 +326,7 @@ var raw=data.html||'';var httpStatus=data.status||0;
 if(!raw||raw.length<5||raw.includes('<!DOCTYPE')||raw.includes('<html')){
 document.getElementById('res').innerHTML='<div class="sb wn">⚠️ No robots.txt found at this domain. All crawlers are allowed by default.</div>';
 document.getElementById('res').style.display='block';document.getElementById('liveWrap').style.display='flex';return}
-var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];
+var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
 line=line.replace(/#.*/,'').trim();if(!line)return;
 var m=line.match(/^([^:]+):\s*(.+)/);if(!m)return;
@@ -332,9 +334,11 @@ var dir=m[1].toLowerCase().trim(),val=m[2].trim();
 if(dir==='user-agent'){currentUA=val;if(!rules[currentUA])rules[currentUA]={allow:[],disallow:[]}}
 else if(dir==='disallow'&&val){if(!rules[currentUA])rules[currentUA]={allow:[],disallow:[]};rules[currentUA].disallow.push(val)}
 else if(dir==='allow'&&val){if(!rules[currentUA])rules[currentUA]={allow:[],disallow:[]};rules[currentUA].allow.push(val)}
+else if(dir==='crawl-delay'){crawlDelays[currentUA]=val}
 else if(dir==='sitemap')sitemaps.push(val)});
+var rulesLower={};Object.keys(rules).forEach(function(k){rulesLower[k.toLowerCase()]=rules[k]});
 function checkBot(name){
-var specific=rules[name]||rules[name.toLowerCase()];var wildcard=rules['*'];
+var specific=rulesLower[name.toLowerCase()];var wildcard=rulesLower['*'];
 if(specific){if(specific.disallow.some(function(d){return d==='/'}))return'blocked';if(specific.disallow.length>0)return'partial';return'allowed'}
 if(wildcard){if(wildcard.disallow.some(function(d){return d==='/'}))return'blocked';if(wildcard.disallow.length>0)return'partial'}
 return'allowed'}
@@ -355,10 +359,13 @@ cat.bots.forEach(function(b){
 var s=checkBot(b.name);
 html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-status '+s+'">'+(s==='blocked'?'BLOCKED':s==='partial'?'PARTIAL':'ALLOWED')+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'" style="display:none"></span></div>'});
 });
+var delayKeys=Object.keys(crawlDelays);
+if(delayKeys.length){html+='<div class="sec">⏱️ Crawl-Delay ('+delayKeys.length+')</div>';delayKeys.forEach(function(k){html+='<div class="cr"><span class="cr-name">'+esc(k)+'</span><span class="cr-status partial" style="background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)">'+esc(crawlDelays[k])+'s</span></div>'})}
 if(sitemaps.length){html+='<div class="sec">📍 Sitemaps ('+sitemaps.length+')</div>';sitemaps.forEach(function(s){html+='<div style="padding:4px 0;font-size:12px"><a href="'+esc(s)+'" target="_blank" rel="noopener" style="font-family:var(--mono)">'+esc(s)+'</a></div>'})}
 html+='<div class="sec">📄 Raw robots.txt</div><div class="raw">'+esc(raw)+'</div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
 document.getElementById('liveWrap').style.display='flex';
+window._lastResults={bots:BOTS,checkBot:checkBot,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,blocked:blocked,partial:partial,raw:raw};showToolbar();
 document.getElementById('btnLive').disabled=false;document.getElementById('btnLive').textContent='🔍 Live Server Check';
 document.getElementById('liveProgress').textContent='';
 }).catch(function(e){document.getElementById('res').innerHTML='<div class="sb er">❌ '+esc(e.message)+'</div>';document.getElementById('res').style.display='block'
@@ -391,6 +398,35 @@ document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var
 });
 });
 });
+
+function showToolbar(){
+var tb=document.getElementById('toolbar');
+tb.style.display='flex';
+tb.innerHTML='<button class="tb-btn" onclick="copyText()">📋 Copy</button><button class="tb-btn" onclick="copyCSV()">📊 CSV</button>';
+}
+function copyText(){
+var r=window._lastResults;if(!r)return;
+var t=r.siteOrigin+' — Crawler Access Check\n';
+t+='Allowed: '+r.allowed+' | Partial: '+r.partial+' | Blocked: '+r.blocked+' ('+r.totalBots+' total)\n\n';
+r.bots.forEach(function(cat){t+=cat.cat+'\n';cat.bots.forEach(function(b){
+var s=r.checkBot(b.name);
+var live=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));
+var liveStr=live&&live.textContent&&live.textContent!=='…'?' ['+live.textContent+']':'';
+t+='  '+b.name+' ('+b.label+'): '+s.toUpperCase()+liveStr+'\n'});t+='\n'});
+if(r.sitemaps.length){t+='Sitemaps:\n';r.sitemaps.forEach(function(s){t+='  '+s+'\n'})}
+navigator.clipboard.writeText(t).then(function(){flashBtn(0)});
+}
+function copyCSV(){
+var r=window._lastResults;if(!r)return;
+var rows=['Bot,Label,Category,robots.txt Status,Live Status'];
+r.bots.forEach(function(cat){cat.bots.forEach(function(b){
+var s=r.checkBot(b.name);
+var live=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));
+var liveStr=live&&live.textContent&&live.textContent!=='…'?live.textContent:'';
+rows.push('"'+b.name+'","'+b.label+'","'+cat.cat.replace(/[^\w\s&]/g,'').trim()+'","'+s.toUpperCase()+'","'+liveStr+'"')})});
+navigator.clipboard.writeText(rows.join('\n')).then(function(){flashBtn(1)});
+}
+function flashBtn(i){var b=document.querySelectorAll('.tb-btn')[i];if(!b)return;b.classList.add('copied');b.textContent='✓ Copied';setTimeout(function(){b.classList.remove('copied');b.textContent=i===0?'📋 Copy':'📊 CSV'},1500)}
 
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');go(params.get('url'))}
 
