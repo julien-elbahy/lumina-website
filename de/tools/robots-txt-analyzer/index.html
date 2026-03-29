@@ -367,21 +367,28 @@ var s=checkBot(b.name).status;totalBots++;
 if(s==='blocked')blocked++;else if(s==='partial')partial++;else allowed++;
 })});
 var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Teilweise</div><p style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blockiert</div><p style="color:var(--err)">'+blocked+'</p></div></div>';
-var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).source!=='wildcard')allWildcard=false})});
-if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];var wcStatus=blocked===totalBots?'BLOCKED':partial===totalBots?'PARTIAL':'mixed';
-if(wcStatus==='BLOCKED')html+='<div class="sb er" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln gefunden. <strong>User-Agent: *</strong> hat <code>Disallow: /</code> → alle '+totalBots+' Bots sind BLOCKIERT.</div>';
-else if(wcStatus==='PARTIAL')html+='<div class="sb wn" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln gefunden. Alle '+totalBots+' Bots erben von <strong>User-Agent: *</strong> mit '+wc.disallow.length+' Disallow-Regel'+(wc.disallow.length!==1?'n':'')+' → alle als TEILWEISE angezeigt.</div>';}
-html+='<div id="serverSummary"></div>';
+// Show wildcard notice if all bots inherit from *
+var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){var src=checkBot(b.name).source;if(src!=='wildcard'&&src!=='default')allWildcard=false})});
+if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];
+if(blocked===totalBots)html+='<div class="sb er" style="font-size:12px">🚫 Keine bot-spezifischen Regeln. <strong>User-Agent: *</strong> hat <code>Disallow: /</code> — alle '+totalBots+' Bots sind vollständig blockiert via robots.txt.</div>';
+else if(partial>0){html+='<div class="sb wn" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln. Alle '+totalBots+' Bots erben von <strong>User-Agent: *</strong>, der den Zugang teilweise einschränkt:<br><code style="font-size:11px;color:var(--text2)">'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('<br>')+'</code></div>';}}
+// Show bot-specific block list for robots.txt
+var robotsBlocked=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).status==='blocked')robotsBlocked.push(b.name)})});
+if(robotsBlocked.length>0)html+='<div class="sb er" style="font-size:12px">🚫 robots.txt blockiert '+robotsBlocked.length+' Bot'+(robotsBlocked.length!==1?'s':'')+': <strong>'+robotsBlocked.join(', ')+'</strong></div>';
+// AI crawler summary (robots.txt only — Server-Check aktualisiert dies)
 var aiBlocked=BOTS[1].bots.filter(function(b){return checkBot(b.name).status==='blocked'}).length;
 var aiTotal=BOTS[1].bots.length;
-if(aiBlocked>=Math.floor(aiTotal*.6))html+='<div class="sb er">🚫 '+aiBlocked+'/'+aiTotal+' AI-Crawler sind blockiert</div>';
-else if(aiBlocked>0)html+='<div class="sb wn">⚠️ '+aiBlocked+'/'+aiTotal+' AI-Crawler blockiert</div>';
-else html+='<div class="sb ok">✅ Alle AI-Crawler sind erlaubt</div>';
+var aiBlockedNames=BOTS[1].bots.filter(function(b){return checkBot(b.name).status==='blocked'}).map(function(b){return b.name});
+if(aiBlocked>=Math.floor(aiTotal*.6))html+='<div class="sb er" id="aiSummary">🚫 robots.txt blockiert '+aiBlocked+'/'+aiTotal+' AI-Crawler: <strong>'+aiBlockedNames.join(', ')+'</strong></div>';
+else if(aiBlocked>0)html+='<div class="sb wn" id="aiSummary">⚠️ robots.txt blockiert '+aiBlocked+'/'+aiTotal+' AI-Crawler: <strong>'+aiBlockedNames.join(', ')+'</strong></div>';
+else html+='<div class="sb ok" id="aiSummary">✅ Alle AI-Crawler sind per robots.txt erlaubt</div>';
+html+='<div id="serverSummary"></div>';
 BOTS.forEach(function(cat){
 html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';
 cat.bots.forEach(function(b){
 var r=checkBot(b.name);var s=r.status;
-var title=r.source==='wildcard'?'Erbt von User-Agent: * ('+r.count+' Disallow-Regeln)':r.source==='specific'?'Hat spezifische User-Agent-Regeln':'Keine Regeln gefunden — standardmäßig erlaubt';
+var paths=r.source==='wildcard'&&rulesLower['*']?rulesLower['*'].disallow:r.source==='specific'&&rulesLower[b.name.toLowerCase()]?rulesLower[b.name.toLowerCase()].disallow:[];
+var title=r.source==='wildcard'?'Erbt von User-Agent: * — blockierte Pfade: '+paths.join(', '):r.source==='specific'?'Hat spezifische Regeln — blockierte Pfade: '+paths.join(', '):'Keine Regeln gefunden — standardmäßig erlaubt';
 html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+s+'" title="'+title+'">'+(s==='blocked'?'BLOCKIERT':s==='partial'?'TEILWEISE':'ERLAUBT')+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
 });
 var delayKeys=Object.keys(crawlDelays);
@@ -425,8 +432,15 @@ function runBatches(i){
 if(i>=allBots.length){
 btnL.disabled=false;btnL.textContent='↻ Erneut prüfen';btnGo.disabled=false;
 document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var(--ok)">OK</span>'+(blocked403?' · '+blocked403+' <span style="color:var(--err)">blockiert</span>':'')+(errors?' · '+errors+' Fehler':'');
+// Namen der server-blockierten Bots sammeln
+var serverBlockedNames=[];allBots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent==='403')serverBlockedNames.push(b.name)});
 var ss=document.getElementById('serverSummary');
-if(ss&&blocked403>0){ss.innerHTML='<div class="sb er" style="font-size:12px">🚫 Der Server blockiert '+blocked403+' von '+allBots.length+' Bots mit HTTP 403 — diese Crawler werden unabhängig von den robots.txt-Regeln abgewiesen.</div>'}
+if(ss&&serverBlockedNames.length>0){ss.innerHTML='<div class="sb er" style="font-size:12px">🚫 Server blockiert '+serverBlockedNames.length+' von '+allBots.length+' Bots mit HTTP 403: <strong>'+serverBlockedNames.join(', ')+'</strong></div>'}
+// AI-Zusammenfassung mit Server-Realität aktualisieren
+var aiSummary=document.getElementById('aiSummary');
+if(aiSummary){var aiServerBlocked=[];BOTS[1].bots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent==='403')aiServerBlocked.push(b.name)});
+if(aiServerBlocked.length>0){aiSummary.className='sb er';aiSummary.innerHTML='🚫 '+aiServerBlocked.length+'/'+BOTS[1].bots.length+' AI-Crawler vom Server blockiert (HTTP 403): <strong>'+aiServerBlocked.join(', ')+'</strong>'}
+}
 return}
 var batch=allBots.slice(i,i+BATCH);
 Promise.all(batch.map(checkOne)).then(function(){runBatches(i+BATCH)});
