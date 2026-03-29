@@ -460,8 +460,11 @@ document.addEventListener('DOMContentLoaded',function(){
     function open(){
       wrap.classList.add('open');
       render();
+      // Show invisible first to measure, then position, then reveal
+      panel.style.visibility='hidden';
       panel.classList.add('cs-open');
       positionPanel();
+      panel.style.visibility='';
       if(searchIn){searchIn.value='';searchIn.focus()}
     }
     function close(){
