@@ -456,16 +456,18 @@ function aiAnalyze(){
   var mc=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked;
   var nj=mc?lastNojs.mc:lastNojs;var jw=mc?lastJs.mc:lastJs;
   var pct=jw.words>0?Math.min(100,Math.round((nj.words/jw.words)*100)):nj.words>0?100:0;
-  var prompt='Analyze this JS vs No-JS comparison for '+urlIn.value+':\n';
+  var dw=jw.words-nj.words,dh=(jw.headings||0)-(nj.headings||0),dl=(jw.links||0)-(nj.links||0),di=(jw.imgs||0)-(nj.imgs||0);
+  var prompt='URL: '+urlIn.value+'\n';
   prompt+='Mode: '+(mc?'Main Content Only':'Full Page')+'\n';
-  prompt+='AI Content Readability Score: '+pct+'%\n';
-  prompt+='Words: No-JS='+nj.words+' / JS='+jw.words+'\n';
-  prompt+='Headings: No-JS='+nj.headings+' / JS='+jw.headings+'\n';
-  prompt+='Links: No-JS='+nj.links+' / JS='+jw.links+'\n';
-  prompt+='Images: No-JS='+nj.imgs+' / JS='+jw.imgs+'\n';
-  prompt+='Schema: No-JS='+(nj.schemas||0)+' / JS='+(jw.schemas||0)+'\n';
+  prompt+='Readability Score: '+pct+'%\n\n';
+  prompt+='| Metric    | No-JS | JS   | Diff  |\n';
+  prompt+='| Words     | '+nj.words+' | '+jw.words+' | '+(dw>0?'+':'')+dw+' |\n';
+  prompt+='| Headings  | '+(nj.headings||0)+' | '+(jw.headings||0)+' | '+(dh>0?'+':'')+dh+' |\n';
+  prompt+='| Links     | '+(nj.links||0)+' | '+(jw.links||0)+' | '+(dl>0?'+':'')+dl+' |\n';
+  prompt+='| Images    | '+(nj.imgs||0)+' | '+(jw.imgs||0)+' | '+(di>0?'+':'')+di+' |\n';
+  prompt+='| Schema    | '+(nj.schemas||0)+' | '+(jw.schemas||0)+' | 0 |\n';
   var W='https://lumina-proxy.julien-elbahy.workers.dev';
-  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'You are an SEO expert analyzing JS vs No-JS content accessibility. Provide a concise analysis with actionable recommendations. Use HTML formatting: <h4> for section headers, <ul><li> for bullet points. Focus on: 1) What content AI crawlers are missing, 2) Impact on AI search visibility (GEO), 3) Specific fixes to improve No-JS accessibility. Keep it concise (max 200 words). Do NOT use markdown — only HTML tags.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
+  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'You analyze JS vs No-JS comparisons for websites. The user gives you metrics comparing what AI crawlers see (No-JS) vs what browsers see (JS). Your job:\n\n1. Reference the ACTUAL numbers. Say "929 words in No-JS vs 876 in JS" not "word counts are similar".\n2. Adapt your tone to the score:\n   - 90-100%: Congratulate briefly, then focus on minor optimizations or edge cases.\n   - 60-89%: Highlight what\'s missing and prioritize fixes.\n   - Below 60%: Urgent tone. Explain the SEO/GEO risk clearly.\n3. Be specific to this site. Don\'t give generic "use SSR" advice if the site already has great No-JS content.\n4. Schema counts are identical in both modes (JSON-LD is in the HTML source). Don\'t claim one mode has more schema than the other.\n5. Max 150 words. No filler. Every sentence must reference data or give a concrete action.\n\nFormat: Use HTML only (no markdown). Use <h4> for 2-3 section headers, <ul><li> for points. Keep it tight.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
     if(d.error){aiRes.innerHTML='<p style="color:var(--err)">'+esc(d.error)+'. <a href="#" onclick="luminaSettings.open();return false">Check API settings</a></p>';return}
     var msg=d.choices&&d.choices[0]&&d.choices[0].message?d.choices[0].message.content:'No response';
     aiRes.innerHTML=msg;

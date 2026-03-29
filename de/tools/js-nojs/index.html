@@ -441,16 +441,18 @@ function aiAnalyze(){
   var mc=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked;
   var nj=mc?lastNojs.mc:lastNojs;var jw=mc?lastJs.mc:lastJs;
   var pct=jw.words>0?Math.min(100,Math.round((nj.words/jw.words)*100)):nj.words>0?100:0;
-  var prompt='Analyze this JS vs No-JS comparison for '+urlIn.value+':\n';
-  prompt+='Mode: '+(mc?'Main Content Only':'Full Page')+'\n';
-  prompt+='AI Content Readability Score: '+pct+'%\n';
-  prompt+='Words: No-JS='+nj.words+' / JS='+jw.words+'\n';
-  prompt+='Headings: No-JS='+nj.headings+' / JS='+jw.headings+'\n';
-  prompt+='Links: No-JS='+nj.links+' / JS='+jw.links+'\n';
-  prompt+='Images: No-JS='+nj.imgs+' / JS='+jw.imgs+'\n';
-  prompt+='Schema: No-JS='+(nj.schemas||0)+' / JS='+(jw.schemas||0)+'\n';
+  var dw=jw.words-nj.words,dh=(jw.headings||0)-(nj.headings||0),dl=(jw.links||0)-(nj.links||0),di=(jw.imgs||0)-(nj.imgs||0);
+  var prompt='URL: '+urlIn.value+'\n';
+  prompt+='Modus: '+(mc?'Nur Hauptinhalt':'Gesamte Seite')+'\n';
+  prompt+='Readability Score: '+pct+'%\n\n';
+  prompt+='| Metrik    | No-JS | JS   | Diff  |\n';
+  prompt+='| Wörter    | '+nj.words+' | '+jw.words+' | '+(dw>0?'+':'')+dw+' |\n';
+  prompt+='| Headings  | '+(nj.headings||0)+' | '+(jw.headings||0)+' | '+(dh>0?'+':'')+dh+' |\n';
+  prompt+='| Links     | '+(nj.links||0)+' | '+(jw.links||0)+' | '+(dl>0?'+':'')+dl+' |\n';
+  prompt+='| Bilder    | '+(nj.imgs||0)+' | '+(jw.imgs||0)+' | '+(di>0?'+':'')+di+' |\n';
+  prompt+='| Schema    | '+(nj.schemas||0)+' | '+(jw.schemas||0)+' | 0 |\n';
   var W='https://lumina-proxy.julien-elbahy.workers.dev';
-  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'Du bist ein SEO-Experte, der eine JS vs No-JS Content-Analyse durchführt. Gib eine kurze Analyse mit umsetzbaren Empfehlungen auf Deutsch. Verwende HTML-Formatierung: <h4> für Abschnittsüberschriften, <ul><li> für Aufzählungen. Fokussiere auf: 1) Welche Inhalte KI-Crawler nicht sehen, 2) Auswirkungen auf KI-Suchsichtbarkeit (GEO), 3) Konkrete Maßnahmen zur Verbesserung der No-JS-Zugänglichkeit. Halte es kurz (max 200 Wörter). Verwende KEIN Markdown — nur HTML-Tags.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
+  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'Du analysierst JS vs No-JS Vergleiche für Websites. Der User gibt dir Metriken, die zeigen was KI-Crawler sehen (No-JS) vs was Browser sehen (JS). Deine Aufgabe:\n\n1. Nenne die KONKRETEN Zahlen. Schreibe "929 Wörter in No-JS vs 876 in JS" statt "Wortzahlen sind ähnlich".\n2. Passe deinen Ton an den Score an:\n   - 90-100%: Kurz gratulieren, dann Feinoptimierungen oder Randszenarien.\n   - 60-89%: Hervorheben was fehlt, Fixes priorisieren.\n   - Unter 60%: Dringender Ton. SEO/GEO-Risiko klar erklären.\n3. Sei spezifisch für diese Seite. Keine generischen "nutze SSR"-Tipps wenn die Seite bereits guten No-JS Content hat.\n4. Schema-Counts sind in beiden Modi identisch (JSON-LD ist im HTML-Quellcode). Behaupte nicht, ein Modus hätte mehr Schema als der andere.\n5. Max 150 Wörter. Kein Fülltext. Jeder Satz muss Daten referenzieren oder eine konkrete Aktion nennen.\n\nFormat: Nur HTML (kein Markdown). Verwende <h4> für 2-3 Abschnittsüberschriften, <ul><li> für Punkte. Halte es knapp.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
     if(d.error){aiRes.innerHTML='<p style="color:var(--err)">'+esc(d.error)+'. <a href="#" onclick="luminaSettings.open();return false">API-Einstellungen prüfen</a></p>';return}
     var msg=d.choices&&d.choices[0]&&d.choices[0].message?d.choices[0].message.content:'Keine Antwort';
     aiRes.innerHTML=msg;
