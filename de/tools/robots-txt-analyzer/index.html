@@ -251,8 +251,8 @@
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Analysieren</button></div>
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div></div>
-<div id="toolbar" style="display:none;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
 <div id="res" style="display:none"></div>
+<div id="toolbar" style="display:none;gap:6px;flex-wrap:wrap;margin-top:10px"></div>
 <div id="liveWrap" style="display:none;margin-top:10px;gap:6px;flex-wrap:wrap"><button class="ab" id="btnLive" style="font-size:12px;padding:8px 16px">🔍 Live-Serverprüfung</button><span id="liveProgress" style="font-size:11px;color:var(--muted);font-family:var(--mono);align-self:center"></span></div>
 <div id="crossLinks" style="display:none;margin-top:16px"></div>
 </div>
@@ -343,16 +343,20 @@ else if(dir==='sitemap')sitemaps.push(val)});
 var rulesLower={};Object.keys(rules).forEach(function(k){rulesLower[k.toLowerCase()]=rules[k]});
 function checkBot(name){
 var specific=rulesLower[name.toLowerCase()];var wildcard=rulesLower['*'];
-if(specific){if(specific.disallow.some(function(d){return d==='/'}))return'blocked';if(specific.disallow.length>0)return'partial';return'allowed'}
-if(wildcard){if(wildcard.disallow.some(function(d){return d==='/'}))return'blocked';if(wildcard.disallow.length>0)return'partial'}
-return'allowed'}
+if(specific){if(specific.disallow.some(function(d){return d==='/'}))return{status:'blocked',source:'specific'};if(specific.disallow.length>0)return{status:'partial',source:'specific',count:specific.disallow.length};return{status:'allowed',source:'specific'}}
+if(wildcard){if(wildcard.disallow.some(function(d){return d==='/'}))return{status:'blocked',source:'wildcard'};if(wildcard.disallow.length>0)return{status:'partial',source:'wildcard',count:wildcard.disallow.length}}
+return{status:'allowed',source:'default'}}
+function checkBotStatus(name){return checkBot(name).status}
 var totalBots=0,blocked=0,allowed=0,partial=0;
 BOTS.forEach(function(cat){cat.bots.forEach(function(b){
-var s=checkBot(b.name);totalBots++;
+var s=checkBot(b.name).status;totalBots++;
 if(s==='blocked')blocked++;else if(s==='partial')partial++;else allowed++;
 })});
 var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Teilweise</div><p style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blockiert</div><p style="color:var(--err)">'+blocked+'</p></div></div>';
-var aiBlocked=BOTS[1].bots.filter(function(b){return checkBot(b.name)==='blocked'}).length;
+var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).source!=='wildcard')allWildcard=false})});
+if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];html+='<div class="sb wn" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln gefunden. Alle '+totalBots+' Bots erben von <strong>User-Agent: *</strong> mit '+wc.disallow.length+' Disallow-Regel'+(wc.disallow.length!==1?'n':'')+' → alle als TEILWEISE angezeigt.</div>'}
+html+='<div id="serverSummary"></div>';
+var aiBlocked=BOTS[1].bots.filter(function(b){return checkBot(b.name).status==='blocked'}).length;
 var aiTotal=BOTS[1].bots.length;
 if(aiBlocked>=Math.floor(aiTotal*.6))html+='<div class="sb er">🚫 '+aiBlocked+'/'+aiTotal+' AI-Crawler sind blockiert</div>';
 else if(aiBlocked>0)html+='<div class="sb wn">⚠️ '+aiBlocked+'/'+aiTotal+' AI-Crawler blockiert</div>';
@@ -360,8 +364,9 @@ else html+='<div class="sb ok">✅ Alle AI-Crawler sind erlaubt</div>';
 BOTS.forEach(function(cat){
 html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';
 cat.bots.forEach(function(b){
-var s=checkBot(b.name);
-html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+s+'">'+(s==='blocked'?'BLOCKIERT':s==='partial'?'TEILWEISE':'ERLAUBT')+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
+var r=checkBot(b.name);var s=r.status;
+var title=r.source==='wildcard'?'Erbt von User-Agent: * ('+r.count+' Disallow-Regeln)':r.source==='specific'?'Hat spezifische User-Agent-Regeln':'Keine Regeln gefunden — standardmäßig erlaubt';
+html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+s+'" title="'+title+'">'+(s==='blocked'?'BLOCKIERT':s==='partial'?'TEILWEISE':'ERLAUBT')+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
 });
 var delayKeys=Object.keys(crawlDelays);
 if(delayKeys.length){html+='<div class="sec">⏱️ Crawl-Delay ('+delayKeys.length+')</div>';delayKeys.forEach(function(k){html+='<div class="cr"><span class="cr-name">'+esc(k)+'</span><span class="cr-status partial" style="background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)">'+esc(crawlDelays[k])+'s</span></div>'})}
@@ -369,7 +374,7 @@ if(sitemaps.length){html+='<div class="sec">📍 Sitemaps ('+sitemaps.length+')<
 html+='<div class="sec">📄 Raw robots.txt</div><div class="raw">'+esc(raw)+'</div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
 document.getElementById('liveWrap').style.display='flex';
-window._lastResults={bots:BOTS,checkBot:checkBot,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,blocked:blocked,partial:partial,raw:raw};showToolbar();animateMetrics();
+window._lastResults={bots:BOTS,checkBot:checkBotStatus,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,blocked:blocked,partial:partial,raw:raw};showToolbar();animateMetrics();renderCrossLinks();
 document.getElementById('liveProgress').textContent='';
 runLiveCheck();
 }).catch(function(e){document.getElementById('res').innerHTML='<div class="sb er">❌ '+esc(e.message)+'</div>';document.getElementById('res').style.display='block'
@@ -398,7 +403,9 @@ else{el.textContent='ERR';el.className='cr-live lerr';errors++}
 done++;
 document.getElementById('liveProgress').textContent=done+'/'+allBots.length;
 if(done===allBots.length){btnL.disabled=false;btnL.textContent='↻ Erneut prüfen';
-document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var(--ok)">OK</span>'+(blocked403?' · '+blocked403+' <span style="color:var(--err)">blockiert</span>':'')+(errors?' · '+errors+' Fehler':'')}
+document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var(--ok)">OK</span>'+(blocked403?' · '+blocked403+' <span style="color:var(--err)">blockiert</span>':'')+(errors?' · '+errors+' Fehler':'');
+var ss=document.getElementById('serverSummary');
+if(ss&&blocked403>0){ss.innerHTML='<div class="sb er" style="font-size:12px">🚫 Der Server blockiert '+blocked403+' von '+allBots.length+' Bots mit HTTP 403 — diese Crawler werden unabhängig von den robots.txt-Regeln abgewiesen.</div>'}}
 });
 });
 }
