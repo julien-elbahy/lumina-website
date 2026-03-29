@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded',function(){
   // Replaces native <select> with styled, searchable dropdowns
   var csStyle=document.createElement('style');
   csStyle.textContent=
-    '.cs-wrap{position:relative;display:inline-flex;vertical-align:middle;z-index:1}.cs-wrap.open{z-index:9999}'+
+    '.cs-wrap{position:relative;display:inline-flex;vertical-align:middle}'+
     '.cs-trigger{display:inline-flex;align-items:center;gap:6px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 30px 8px 10px;color:var(--text);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .2s;white-space:nowrap;text-align:left;position:relative;min-width:0;max-width:200px;overflow:hidden;text-overflow:ellipsis}'+
     '.cs-trigger:hover{border-color:var(--accent)}.cs-trigger:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}'+
     '.cs-trigger::after{content:"";position:absolute;right:10px;top:50%;transform:translateY(-50%);border:4px solid transparent;border-top:5px solid var(--muted);pointer-events:none}'+
@@ -444,9 +444,13 @@ document.addEventListener('DOMContentLoaded',function(){
       btn.textContent=sel.selectedOptions[0].textContent;
       close();
     }
+    // Boost stacking context of ancestor cards so panel floats above page content
+    function boostZ(){var el=wrap.parentElement;while(el){if(el.classList&&(el.classList.contains('cd')||el.classList.contains('kw-input')||el.classList.contains('ai-kw-row')||el.classList.contains('card'))){el._csOldZ=el.style.zIndex;el.style.position='relative';el.style.zIndex='999';wrap._boosted=el;break}el=el.parentElement}}
+    function restoreZ(){if(wrap._boosted){wrap._boosted.style.zIndex=wrap._boosted._csOldZ||'';delete wrap._boosted._csOldZ;delete wrap._boosted}}
     function open(){
       wrap.classList.add('open');
       render();
+      boostZ();
       if(searchIn){searchIn.value='';searchIn.focus()}
       // Measure actual panel height, flip up if near bottom
       var rect=wrap.getBoundingClientRect();
@@ -454,7 +458,7 @@ document.addEventListener('DOMContentLoaded',function(){
       if(rect.bottom+panelH+8>window.innerHeight){panel.style.top='auto';panel.style.bottom='calc(100% + 4px)'}
       else{panel.style.top='calc(100% + 4px)';panel.style.bottom='auto'}
     }
-    function close(){wrap.classList.remove('open');hlIdx=-1}
+    function close(){wrap.classList.remove('open');hlIdx=-1;restoreZ()}
     function isOpen(){return wrap.classList.contains('open')}
     btn.addEventListener('click',function(e){e.stopPropagation();if(isOpen())close();else open()});
     if(searchIn){searchIn.addEventListener('input',function(){render(this.value.toLowerCase())});
