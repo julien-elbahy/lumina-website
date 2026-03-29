@@ -317,11 +317,6 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 <div id="clusterWrap" style="display:none"></div>
 </div>
 </div>
-<!-- API Key & Quota -->
-<div style="display:flex;align-items:center;gap:8px;margin-top:4px;margin-bottom:8px;flex-wrap:wrap;padding:0 4px">
-<div class="quota-bar" id="quotaInfo" style="margin:0;text-align:left">5 kostenlose Suchen pro Tag</div>
-<span style="font-size:10px;color:var(--accent);cursor:pointer;white-space:nowrap;margin-left:auto" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ API-Einstellungen</span>
-</div>
 <div id="settingsHintDfs"></div>
 <!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
@@ -383,8 +378,6 @@ function dfsPost(endpoint,data){
     method:'POST',headers:headers,body:JSON.stringify(data)
   }).then(function(r){return r.json()}).then(function(d){
     if(d._lumina){
-      var q=document.getElementById('quotaInfo');
-      if(q)q.textContent=d._lumina.ownKey?'Eigener API-Key (unbegrenzt)':'Kostenlose Suchen: '+Math.floor(d._lumina.remaining/2)+'/5 heute';
       luminaQuota.update('dfs',d);
       if(window.luminaQuota)window.luminaQuota.update('keyword-research',d);
     }
@@ -585,7 +578,6 @@ function go(){
     document.getElementById('res').style.display='block';
     if(e.isQuota){
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Tageslimit erreicht</p><p>Du hast alle 5 kostenlosen Suchen f\u00fcr heute verbraucht. Komm morgen wieder, oder f\u00fcge deinen eigenen <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API-Key \u00fcber <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinzu f\u00fcr unbegrenzte Suchen.</p></div>';
-      var q=document.getElementById('quotaInfo');if(q)q.textContent='Kostenlose Suchen: 0/5 heute';
       if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
     }else{
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
@@ -899,9 +891,8 @@ async function fetchGscQueries(){
 
 // Init column toggles
 renderColToggles();
-(function(){var q=luminaQuota.get('dfs'),el=document.getElementById('quotaInfo');if(q&&el){if(q.ownKey)el.textContent='Eigener API-Key (unbegrenzt)';else if(q.remaining!=null)el.textContent='Kostenlose Suchen: '+Math.floor(q.remaining/2)+'/5 heute'}})();
 if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
-if(window.luminaQuota)luminaQuota.createBar('keyword-research',document.getElementById('quotaInfo')?.parentElement);
+if(window.luminaQuota)luminaQuota.createBar('keyword-research',document.querySelectorAll('#main-content>.cd')[1]);
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn")&&(document.getElementById("urlIn").value=params.get("url"));}
 
