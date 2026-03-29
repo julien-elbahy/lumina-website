@@ -89,6 +89,8 @@
 .tb-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);color:var(--text2);transition:all .2s}.tb-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}.tb-btn.copied{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
 .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:16px;margin-top:14px;backdrop-filter:blur(var(--blur))}.ai-card:hover{border-color:rgba(124,58,237,.35)}.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}.ai-card-body{text-align:center;margin-top:10px}.ai-card-body button{background:linear-gradient(135deg,#a855f7,#6366f1);border:none;color:#fff;padding:9px 18px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .2s}.ai-card-body button:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(168,85,247,.3)}.ai-card-body button:disabled{opacity:.5;cursor:default;transform:none}
 .missing-section{margin-top:14px}.missing-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);padding-bottom:6px;border-bottom:1px solid var(--border);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}.missing-head .count{font-size:10px;color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0}.missing-item{display:flex;align-items:baseline;gap:8px;padding:6px 8px;border-bottom:1px solid var(--border);font-size:12px;transition:background .15s}.missing-item:hover{background:var(--accent-soft)}.missing-tag{font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--err-bg);color:var(--err);border:1px solid var(--err-border);text-transform:uppercase;flex-shrink:0}.missing-text{font-weight:600;color:var(--text);word-break:break-word}.missing-url{font-family:var(--mono);font-size:10px;color:var(--muted);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:400px}.missing-none{text-align:center;padding:16px;font-size:12px;color:var(--ok);font-weight:700}.missing-list{max-height:300px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.meta-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;align-items:flex-start}.meta-label{font-weight:800;min-width:90px;flex-shrink:0;font-size:11px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);padding-top:2px}.meta-vals{flex:1;display:flex;flex-direction:column;gap:4px}.meta-val{display:flex;align-items:flex-start;gap:6px}.meta-val .dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0}.meta-val span{word-break:break-word;line-height:1.5}.meta-match{color:var(--ok);font-size:10px;font-weight:700}.meta-diff{color:var(--err);font-size:10px;font-weight:700}.meta-empty{color:var(--err);font-style:italic;font-size:11px}
+.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}.preview-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:11px;line-height:1.6;color:var(--text2);max-height:150px;overflow-y:auto;scrollbar-width:thin;word-break:break-word}.preview-box .pv-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}@media(max-width:480px){.preview-grid{grid-template-columns:1fr}}
 .ai-result{margin-top:12px;font-size:13px;color:var(--text2);line-height:1.7}.ai-result h4{font-size:13px;font-weight:800;color:var(--text);margin:14px 0 6px}.ai-result h4:first-child{margin-top:0}.ai-result ul{margin:4px 0 10px 18px;list-style:disc;padding:0}.ai-result li{margin-bottom:4px}.ai-result p{margin-bottom:6px}
 @media(max-width:480px){.comp-grid{grid-template-columns:1fr 1fr}}
 .mobile-menu .mm-cat{flex-shrink:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
@@ -338,9 +340,22 @@ function extractItems(root){
   var iList=[];root.querySelectorAll('img').forEach(function(el){var src=el.getAttribute('src')||el.getAttribute('data-src')||'';var alt=el.getAttribute('alt')||'';if(src)iList.push({src:src,alt:alt})});
   return{headingList:hList,linkList:lList,imgList:iList}
 }
+function extractMeta(doc){
+  var title=(doc.querySelector('title')||{}).textContent||'';
+  var descEl=doc.querySelector('meta[name="description"]');
+  var desc=descEl?descEl.getAttribute('content')||'':'';
+  var canEl=doc.querySelector('link[rel="canonical"]');
+  var canonical=canEl?canEl.getAttribute('href')||'':'';
+  var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(el){hreflangs.push({lang:el.getAttribute('hreflang'),href:el.getAttribute('href')||''})});
+  var ogTitle=(doc.querySelector('meta[property="og:title"]')||{getAttribute:function(){return ''}}).getAttribute('content')||'';
+  var ogDesc=(doc.querySelector('meta[property="og:description"]')||{getAttribute:function(){return ''}}).getAttribute('content')||'';
+  var robots=(doc.querySelector('meta[name="robots"]')||{getAttribute:function(){return ''}}).getAttribute('content')||'';
+  return{title:title.trim(),desc:desc.trim(),canonical:canonical.trim(),hreflangs:hreflangs,ogTitle:ogTitle.trim(),ogDesc:ogDesc.trim(),robots:robots.trim()}
+}
 function parseContent(html){
   var doc=new DOMParser().parseFromString(html,'text/html');
   var schemas=doc.querySelectorAll('script[type="application/ld+json"]').length;
+  var meta=extractMeta(doc);
   doc.querySelectorAll('script,style,noscript').forEach(function(el){el.remove()});
   var text=doc.body?doc.body.textContent||'':'';
   var words=text.split(/\s+/).filter(function(w){return w.length>0}).length;
@@ -348,6 +363,7 @@ function parseContent(html){
   var links=doc.querySelectorAll('a[href]').length;
   var imgs=doc.querySelectorAll('img').length;
   var fullItems=extractItems(doc);
+  var preview=text.replace(/\s+/g,' ').trim().substring(0,300);
   var clone=doc.cloneNode(true);
   clone.querySelectorAll('nav,header,footer,aside,[role="navigation"],[role="banner"],[role="contentinfo"],.nav,.navbar,.header,.footer,.sidebar,.menu,.cookie-banner,.cookie-consent').forEach(function(el){el.remove()});
   var mainEl=clone.querySelector('main,article,[role="main"]');
@@ -358,7 +374,8 @@ function parseContent(html){
   var mcLinks=mcRoot?mcRoot.querySelectorAll('a[href]').length:0;
   var mcImgs=mcRoot?mcRoot.querySelectorAll('img').length:0;
   var mcItems=extractItems(mcRoot);
-  return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length,items:fullItems,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs,schemas:schemas,items:mcItems}}
+  var mcPreview=mcText.replace(/\s+/g,' ').trim().substring(0,300);
+  return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length,items:fullItems,meta:meta,preview:preview,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs,schemas:schemas,items:mcItems,preview:mcPreview}}
 }
 
 function diffList(jsArr,nojsArr,eq){return jsArr.filter(function(j){return!nojsArr.some(function(n){return eq(j,n)})})}
@@ -440,6 +457,66 @@ function renderComparison(nojs,js){
       }
       h+='</div></div>';
     }
+    // Meta & SEO Tags
+    if(nojs.meta&&js.meta){
+      var nm=nojs.meta,jm=js.meta;
+      var metaTags=[
+        {label:'Title',nj:nm.title,js:jm.title},
+        {label:'Description',nj:nm.desc,js:jm.desc},
+        {label:'Canonical',nj:nm.canonical,js:jm.canonical},
+        {label:'Robots',nj:nm.robots,js:jm.robots},
+        {label:'OG Title',nj:nm.ogTitle,js:jm.ogTitle},
+        {label:'OG Desc.',nj:nm.ogDesc,js:jm.ogDesc}
+      ];
+      var metaIssues=metaTags.filter(function(t){return t.nj!==t.js}).length;
+      var hrefIssues=0;
+      var jsHrefMap={};(jm.hreflangs||[]).forEach(function(h){jsHrefMap[h.lang]=h.href});
+      var njHrefMap={};(nm.hreflangs||[]).forEach(function(h){njHrefMap[h.lang]=h.href});
+      var allLangs={};Object.keys(jsHrefMap).forEach(function(k){allLangs[k]=1});Object.keys(njHrefMap).forEach(function(k){allLangs[k]=1});
+      Object.keys(allLangs).forEach(function(lang){if(jsHrefMap[lang]!==njHrefMap[lang])hrefIssues++});
+      var totalMetaIssues=metaIssues+hrefIssues;
+      h+='<div class="missing-section">';
+      h+='<button class="detail-toggle" id="metaToggle">Meta & SEO Tags'+(totalMetaIssues>0?' <span style="color:var(--err)">('+totalMetaIssues+' Unterschiede)</span>':' <span style="color:var(--ok)">✓ identisch</span>')+' <span class="arrow">▼</span></button>';
+      h+='<div class="detail-body" id="metaBody">';
+      metaTags.forEach(function(t){
+        var match=t.nj===t.js;
+        var njEmpty=!t.nj,jsEmpty=!t.js;
+        h+='<div class="meta-row"><span class="meta-label">'+t.label+'</span><div class="meta-vals">';
+        if(match&&!njEmpty){
+          h+='<div class="meta-val"><span class="dot" style="background:var(--ok)"></span><span>'+esc(t.nj)+'</span></div><span class="meta-match">✓ Identisch</span>';
+        } else if(match&&njEmpty){
+          h+='<span class="meta-empty">In keiner Version gesetzt</span>';
+        } else {
+          h+='<div class="meta-val"><span class="dot" style="background:var(--err)"></span><span><strong>No-JS:</strong> '+(t.nj?esc(t.nj):'<em class="meta-empty">fehlt</em>')+'</span></div>';
+          h+='<div class="meta-val"><span class="dot" style="background:var(--ok)"></span><span><strong>JS:</strong> '+(t.js?esc(t.js):'<em class="meta-empty">fehlt</em>')+'</span></div>';
+          h+='<span class="meta-diff">⚠ Unterschiedlich — KI-Crawler sehen die No-JS-Version</span>';
+        }
+        h+='</div></div>';
+      });
+      if(Object.keys(allLangs).length>0){
+        h+='<div class="meta-row"><span class="meta-label">Hreflang</span><div class="meta-vals">';
+        Object.keys(allLangs).sort().forEach(function(lang){
+          var nVal=njHrefMap[lang]||'',jVal=jsHrefMap[lang]||'';
+          if(nVal===jVal){h+='<div class="meta-val"><span class="dot" style="background:var(--ok)"></span><span><code>'+esc(lang)+'</code> → '+esc(nVal)+'</span></div>'}
+          else{h+='<div class="meta-val"><span class="dot" style="background:var(--err)"></span><span><code>'+esc(lang)+'</code>: No-JS='+(nVal?esc(nVal):'<em>fehlt</em>')+' / JS='+(jVal?esc(jVal):'<em>fehlt</em>')+'</span></div>'}
+        });
+        if(hrefIssues===0)h+='<span class="meta-match">✓ Alle Hreflang-Tags identisch</span>';
+        else h+='<span class="meta-diff">⚠ '+hrefIssues+' Hreflang-Unterschied'+(hrefIssues>1?'e':'')+'</span>';
+        h+='</div></div>';
+      }
+      h+='</div></div>';
+    }
+    // Textvorschau
+    var njPrev=mainContent?nojs.mc.preview:nojs.preview;
+    var jsPrev=mainContent?js.mc.preview:js.preview;
+    if(njPrev||jsPrev){
+      h+='<div class="missing-section">';
+      h+='<button class="detail-toggle" id="previewToggle">Textvorschau <span class="arrow">▼</span></button>';
+      h+='<div class="detail-body" id="previewBody"><div class="preview-grid">';
+      h+='<div class="preview-box" style="border-color:var(--err-border)"><div class="pv-label">🚫 No-JS (KI-Crawler)</div>'+(njPrev?esc(njPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
+      h+='<div class="preview-box" style="border-color:var(--ok-border)"><div class="pv-label">✅ Mit JS (Browser)</div>'+(jsPrev?esc(jsPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
+      h+='</div></div></div>';
+    }
     document.getElementById('compResults').innerHTML=h;
     document.getElementById('res').style.display='block';
     showToolbar();
@@ -447,6 +524,8 @@ function renderComparison(nojs,js){
     document.getElementById('mcToggle').addEventListener('change',function(){render(this.checked)});
     document.getElementById('detailToggle').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('detailBody').classList.toggle('open')});
     var mt=document.getElementById('missingToggle');if(mt)mt.addEventListener('click',function(){this.classList.toggle('open');document.getElementById('missingBody').classList.toggle('open')});
+    var metaT=document.getElementById('metaToggle');if(metaT)metaT.addEventListener('click',function(){this.classList.toggle('open');document.getElementById('metaBody').classList.toggle('open')});
+    var prevT=document.getElementById('previewToggle');if(prevT)prevT.addEventListener('click',function(){this.classList.toggle('open');document.getElementById('previewBody').classList.toggle('open')});
     lastReport='JS vs No-JS: '+urlIn.value+'\n';
     lastReport+='Modus: '+(mainContent?'Nur Hauptinhalt':'Gesamte Seite')+'\n';
     lastReport+='KI Content Lesbarkeit: '+pct+'%\n\n';
