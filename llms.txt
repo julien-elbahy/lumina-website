@@ -36,7 +36,7 @@ Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-B
 - [Image SEO Checker](https://lumina-seo.com/tools/image-seo-checker/): Check ALT tags, file sizes, formats, lazy loading, and dimensions for all images on a page.
 - [Semantic HTML](https://lumina-seo.com/tools/semantic-checker/): Analyze HTML5 semantic elements, landmarks, and accessibility structure.
 - [JS vs No-JS](https://lumina-seo.com/tools/js-nojs/): Compare JavaScript-rendered vs non-JS content to understand what AI crawlers see.
-- [Robots.txt Analyzer](https://lumina-seo.com/tools/robots-txt-analyzer/): Parse and validate robots.txt with syntax highlighting and bot access testing.
+- [Crawler Access Checker](https://lumina-seo.com/tools/robots-txt-analyzer/): Check which of 23 crawlers can access your site via robots.txt rules and live User-Agent checks.
 - [llms.txt Generator](https://lumina-seo.com/tools/llms-txt-generator/): Generate llms.txt files for AI crawler guidance.
 - [Hreflang Checker](https://lumina-seo.com/tools/hreflang-checker/): Validate hreflang tags, return links, self-references, and language codes.
 - [AI Content Optimizer](https://lumina-seo.com/tools/ai-content-optimizer/): AI-powered content analysis with keyword optimization suggestions.
