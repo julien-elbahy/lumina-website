@@ -86,6 +86,9 @@
 .mc-toggle{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0;font-size:12px;color:var(--muted)}.mc-toggle label{cursor:pointer;display:flex;align-items:center;gap:6px;font-weight:600}.mc-switch{position:relative;width:36px;height:20px;display:inline-block}.mc-switch input{opacity:0;width:0;height:0}.mc-slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--border);border-radius:10px;cursor:pointer;transition:.2s}.mc-slider:before{content:'';position:absolute;height:16px;width:16px;left:2px;bottom:2px;background:var(--muted);border-radius:50%;transition:.2s}.mc-switch input:checked+.mc-slider{background:var(--accent)}.mc-switch input:checked+.mc-slider:before{transform:translateX(16px);background:#fff}
 .detail-toggle{cursor:pointer;font-size:12px;font-weight:700;color:var(--accent);text-align:center;padding:10px 0;border:none;background:none;width:100%;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px}.detail-toggle:hover{color:var(--accent-h)}.detail-toggle .arrow{transition:transform .3s}.detail-toggle.open .arrow{transform:rotate(180deg)}
 .detail-body{max-height:0;overflow:hidden;transition:max-height .4s ease}.detail-body.open{max-height:600px}
+.tb-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);color:var(--text2);transition:all .2s}.tb-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}.tb-btn.copied{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
+.ai-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:14px;backdrop-filter:blur(var(--blur))}.ai-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,#a855f7,#6366f1);color:#fff;margin-bottom:8px}.ai-card-title{font-size:15px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px}.ai-card-body button{background:linear-gradient(135deg,#a855f7,#6366f1);border:none;color:#fff;padding:9px 18px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .2s}.ai-card-body button:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(168,85,247,.3)}.ai-card-body button:disabled{opacity:.5;cursor:default;transform:none}
+.ai-result{margin-top:12px;font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap}.ai-result h4{font-size:13px;font-weight:800;color:var(--text);margin:10px 0 4px}.ai-result ul{margin:4px 0 8px 16px;list-style:disc}.ai-result li{margin-bottom:3px}
 @media(max-width:480px){.comp-grid{grid-template-columns:1fr 1fr}}
 .mobile-menu .mm-cat{flex-shrink:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
 .mobile-menu .mm-cat .mm-arrow{font-size:14px;transition:transform .3s;color:var(--muted)}
@@ -261,9 +264,16 @@
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Compare JS / No-JS</button></div>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Fetching both versions… (raw HTML + JS-rendered)</p></div>
+<div id="toolbar" style="display:none;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>
 <div id="res" style="display:none">
 <div id="compResults"></div>
-<button class="exp-btn" id="btnCopy">📋 Copy Report</button>
+</div>
+<div class="ai-card" id="aiCard" style="display:none">
+<div class="ai-badge">AI-Powered</div>
+<div class="ai-card-title">🧠 AI Accessibility Analysis</div>
+<div class="ai-card-desc">Get AI-powered recommendations to improve your content accessibility for non-JS crawlers like GPTBot, ClaudeBot, and CCBot.</div>
+<div class="ai-card-body"><button id="btnAi" onclick="aiAnalyze()">✨ Analyze with AI</button></div>
+<div class="ai-result" id="aiResult"></div>
 </div>
 </div>
 <div class="content"><h2>Why JS vs No-JS matters</h2><p>Many AI crawlers (GPTBot, ClaudeBot, CCBot) do not execute JavaScript. If your site renders content client-side (React, Vue, Angular), these crawlers may see an empty or incomplete page. This tool shows exactly what's different.</p>
@@ -323,6 +333,8 @@ function go(url){
 
 function parseContent(html){
   var doc=new DOMParser().parseFromString(html,'text/html');
+  // Count schemas BEFORE removing script elements
+  var schemas=doc.querySelectorAll('script[type="application/ld+json"]').length;
   doc.querySelectorAll('script,style,noscript').forEach(function(el){el.remove()});
   // Full page
   var text=doc.body?doc.body.textContent||'':'';
@@ -330,7 +342,6 @@ function parseContent(html){
   var headings=doc.querySelectorAll('h1,h2,h3,h4,h5,h6').length;
   var links=doc.querySelectorAll('a[href]').length;
   var imgs=doc.querySelectorAll('img').length;
-  var schemas=doc.querySelectorAll('script[type="application/ld+json"]').length;
   // Main content only — remove nav chrome
   var clone=doc.cloneNode(true);
   clone.querySelectorAll('nav,header,footer,aside,[role="navigation"],[role="banner"],[role="contentinfo"],.nav,.navbar,.header,.footer,.sidebar,.menu,.cookie-banner,.cookie-consent').forEach(function(el){el.remove()});
@@ -341,7 +352,7 @@ function parseContent(html){
   var mcHeadings=mcRoot?mcRoot.querySelectorAll('h1,h2,h3,h4,h5,h6').length:0;
   var mcLinks=mcRoot?mcRoot.querySelectorAll('a[href]').length:0;
   var mcImgs=mcRoot?mcRoot.querySelectorAll('img').length:0;
-  return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs}}
+  return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs,schemas:schemas}}
 }
 
 function scoreColor(pct){return pct>=90?'var(--ok)':pct>=60?'var(--warn)':'var(--err)'}
@@ -368,9 +379,9 @@ function renderComparison(nojs,js){
       {label:'Headings',nojs:mainContent?nj.headings:nojs.headings,js:mainContent?jw.headings:js.headings},
       {label:'Links',nojs:mainContent?nj.links:nojs.links,js:mainContent?jw.links:js.links},
       {label:'Images',nojs:mainContent?nj.imgs:nojs.imgs,js:mainContent?jw.imgs:js.imgs},
+      {label:'Schema',nojs:mainContent?nj.schemas:nojs.schemas,js:mainContent?jw.schemas:js.schemas},
     ];
     if(!mainContent){
-      metrics.push({label:'Schema',nojs:nojs.schemas,js:js.schemas});
       metrics.push({label:'Characters',nojs:nojs.chars,js:js.chars});
     }
     // Build HTML
@@ -388,9 +399,10 @@ function renderComparison(nojs,js){
     if(diff>5)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% of '+(mainContent?'main ':'')+'content requires JavaScript</p>';
     else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript</p>';
     else h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Only '+diff+'% difference — content is well accessible</p>';
-    // Detail comparison (collapsible)
-    h+='<button class="detail-toggle" id="detailToggle">Detailed Comparison <span class="arrow">▼</span></button>';
-    h+='<div class="detail-body" id="detailBody">';
+    // Detail comparison (collapsible — open by default)
+    h+='<button class="detail-toggle open" id="detailToggle">Detailed Comparison <span class="arrow">▼</span></button>';
+    h+='<div class="detail-body open" id="detailBody">';
+    h+='<div style="display:flex;justify-content:flex-end;gap:16px;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:4px 0;margin-bottom:2px"><span style="min-width:40px;text-align:right">No-JS</span><span style="min-width:40px;text-align:right;color:var(--ok)">JS</span></div>';
     metrics.forEach(function(m){
       var max=Math.max(m.nojs,m.js,1);
       h+='<div class="comp-diff"><span class="comp-label">'+m.label+'</span><div class="comp-bar"><div class="comp-fill" style="width:'+Math.round(m.nojs/max*100)+'%;background:var(--err)"></div></div><span class="comp-val">'+m.nojs.toLocaleString()+'</span><span class="comp-val" style="color:var(--ok)">'+m.js.toLocaleString()+'</span></div>';
@@ -398,6 +410,10 @@ function renderComparison(nojs,js){
     h+='</div>';
     document.getElementById('compResults').innerHTML=h;
     document.getElementById('res').style.display='block';
+    // Show toolbar
+    showToolbar();
+    // Show AI card
+    document.getElementById('aiCard').style.display='block';
     // Toggle handler
     document.getElementById('mcToggle').addEventListener('change',function(){render(this.checked)});
     // Detail toggle
@@ -409,7 +425,52 @@ function renderComparison(nojs,js){
     metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' lost)':'')+'\n'});
   }
 }
-document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500)})});
+function showToolbar(){
+  var tb=document.getElementById('toolbar');tb.style.display='flex';
+  tb.innerHTML='<button class="tb-btn" onclick="copyReport()">📋 Copy Report</button><button class="tb-btn" onclick="copyCSV()">📊 CSV</button>';
+}
+function copyReport(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.querySelector('#toolbar .tb-btn');b.textContent='✓ Copied!';b.classList.add('copied');setTimeout(function(){b.textContent='📋 Copy Report';b.classList.remove('copied')},1500)})}
+function copyCSV(){
+  var csv='Metric,No-JS,JS,Difference\n';
+  var nj=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked?lastNojs.mc:lastNojs;
+  var jw=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked?lastJs.mc:lastJs;
+  var rows=[['Words',nj.words,jw.words],['Headings',nj.headings,jw.headings],['Links',nj.links,jw.links],['Images',nj.imgs,jw.imgs],['Schema',nj.schemas||0,jw.schemas||0]];
+  rows.forEach(function(r){csv+=r[0]+','+r[1]+','+r[2]+','+(r[2]-r[1])+'\n'});
+  navigator.clipboard.writeText(csv).then(function(){var bs=document.querySelectorAll('#toolbar .tb-btn');var b=bs[1];b.textContent='✓ Copied!';b.classList.add('copied');setTimeout(function(){b.textContent='📊 CSV';b.classList.remove('copied')},1500)});
+}
+function animateMetrics(){
+  document.querySelectorAll('.comp-col p').forEach(function(el){
+    var raw=el.textContent;var target=parseInt(raw.replace(/[^0-9]/g,''),10);
+    if(isNaN(target)||target===0)return;
+    var prefix=raw.match(/^[^0-9]*/)[0]||'';var suffix=raw.match(/[^0-9]*$/)[0]||'';
+    var start=performance.now();var dur=600;
+    function tick(now){var p=Math.min((now-start)/dur,1);var ease=1-Math.pow(1-p,3);
+    el.textContent=prefix+Math.round(target*ease)+suffix;
+    if(p<1)requestAnimationFrame(tick)}
+    requestAnimationFrame(tick)});
+}
+function aiAnalyze(){
+  if(!lastNojs||!lastJs)return;
+  var btnAi=document.getElementById('btnAi');btnAi.disabled=true;btnAi.textContent='⏳ Analyzing…';
+  var aiRes=document.getElementById('aiResult');aiRes.innerHTML='';
+  var mc=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked;
+  var nj=mc?lastNojs.mc:lastNojs;var jw=mc?lastJs.mc:lastJs;
+  var pct=jw.words>0?Math.min(100,Math.round((nj.words/jw.words)*100)):nj.words>0?100:0;
+  var prompt='Analyze this JS vs No-JS comparison for '+urlIn.value+':\n';
+  prompt+='Mode: '+(mc?'Main Content Only':'Full Page')+'\n';
+  prompt+='AI Content Readability Score: '+pct+'%\n';
+  prompt+='Words: No-JS='+nj.words+' / JS='+jw.words+'\n';
+  prompt+='Headings: No-JS='+nj.headings+' / JS='+jw.headings+'\n';
+  prompt+='Links: No-JS='+nj.links+' / JS='+jw.links+'\n';
+  prompt+='Images: No-JS='+nj.imgs+' / JS='+jw.imgs+'\n';
+  prompt+='Schema: No-JS='+(nj.schemas||0)+' / JS='+(jw.schemas||0)+'\n';
+  var W='https://lumina-proxy.julien-elbahy.workers.dev';
+  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'You are an SEO expert analyzing JS vs No-JS content accessibility. Provide a concise analysis with actionable recommendations. Use HTML formatting: <h4> for section headers, <ul><li> for bullet points. Focus on: 1) What content AI crawlers are missing, 2) Impact on AI search visibility (GEO), 3) Specific fixes to improve No-JS accessibility. Keep it concise (max 200 words). Do NOT use markdown — only HTML tags.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
+    if(d.error){aiRes.innerHTML='<p style="color:var(--err)">'+esc(d.error)+'. <a href="#" onclick="luminaSettings.open();return false">Check API settings</a></p>';return}
+    var msg=d.choices&&d.choices[0]&&d.choices[0].message?d.choices[0].message.content:'No response';
+    aiRes.innerHTML=msg;
+  }).catch(function(e){aiRes.innerHTML='<p style="color:var(--err)">Error: '+esc(e.message)+'. <a href="#" onclick="luminaSettings.open();return false">Check settings</a></p>'}).finally(function(){btnAi.disabled=false;btnAi.textContent='✨ Analyze with AI'});
+}
 
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
 </script>
