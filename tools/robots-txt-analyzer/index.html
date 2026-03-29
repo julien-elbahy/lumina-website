@@ -327,9 +327,16 @@ fetch(W+'/fetch?url='+encodeURIComponent(url))
 .then(function(r){return r.json()}).then(function(data){
 if(data.error)throw new Error(data.error);
 var raw=data.html||'';var httpStatus=data.status||0;
-if(!raw||raw.length<5||raw.includes('<!DOCTYPE')||raw.includes('<html')){
-var nfHtml='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:var(--warn)">'+(httpStatus||404)+'</p></div><div class="metric"><div class="mh">Total Bots</div><p>23</p></div><div class="metric"><div class="mh">Allowed</div><p style="color:var(--ok)">23</p></div><div class="metric"><div class="mh">Partial</div><p style="color:var(--warn)">0</p></div><div class="metric"><div class="mh">Blocked</div><p style="color:var(--err)">0</p></div></div>';
-nfHtml+='<div class="sb wn">⚠️ No robots.txt found at this domain. All crawlers are allowed by default.</div>';
+var isHtml=raw.includes('<!DOCTYPE')||raw.includes('<html');
+var isEmpty=!raw||raw.trim().length<3;
+var isNoRobots=isEmpty||isHtml||httpStatus===404||httpStatus===403;
+if(isNoRobots){
+var statusColor=httpStatus===404?'var(--warn)':httpStatus===403?'var(--err)':'var(--warn)';
+var nfHtml='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+statusColor+'">'+(httpStatus||'N/A')+'</p></div><div class="metric"><div class="mh">Total Bots</div><p>23</p></div><div class="metric"><div class="mh">Allowed</div><p style="color:var(--ok)">23</p></div><div class="metric"><div class="mh">Partial</div><p style="color:var(--warn)">0</p></div><div class="metric"><div class="mh">Blocked</div><p style="color:var(--err)">0</p></div></div>';
+if(httpStatus===403)nfHtml+='<div class="sb er">🚫 robots.txt access denied (HTTP 403). The server blocks direct access to robots.txt.</div>';
+else if(isHtml&&!isEmpty)nfHtml+='<div class="sb wn">⚠️ Server returned an HTML page instead of robots.txt — likely a redirect or error page. Treating as no robots.txt.</div>';
+else if(isEmpty&&httpStatus>=200&&httpStatus<300)nfHtml+='<div class="sb wn">⚠️ robots.txt exists but is empty. All crawlers are allowed by default.</div>';
+else nfHtml+='<div class="sb wn">⚠️ No robots.txt found'+(httpStatus?' (HTTP '+httpStatus+')':'')+'. All crawlers are allowed by default.</div>';
 nfHtml+='<div class="sb ok">✅ All AI crawlers are allowed</div>';
 nfHtml+='<div id="serverSummary"></div>';
 BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ALLOWED</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
@@ -393,31 +400,39 @@ runLiveCheck();
 function runLiveCheck(){
 if(!siteOrigin)return;
 var btnL=document.getElementById('btnLive');btnL.disabled=true;btnL.textContent='⏳ Checking servers…';
+var btnGo=document.getElementById('btnGo');btnGo.disabled=true;
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-allBots.forEach(function(b){
+var BATCH=5;
+
+function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
 var el=document.getElementById(elId);if(el){el.textContent='…';el.className='cr-live'}
-fetch(W+'/check?url='+encodeURIComponent(siteOrigin)+'&bot='+encodeURIComponent(b.name.toLowerCase()))
+return fetch(W+'/check?url='+encodeURIComponent(siteOrigin)+'&bot='+encodeURIComponent(b.name.toLowerCase()))
 .then(function(r){return r.json()})
 .then(function(data){
 if(!el)return;
-var sc=data.statusCode||0;
+var sc=data.statusCode||0;var err=data.error||'';
 if(sc>=200&&sc<300){el.textContent=sc;el.className='cr-live l200';ok200++}
 else if(sc===403){el.textContent='403';el.className='cr-live l403';blocked403++}
 else if(sc>0){el.textContent=sc;el.className='cr-live l4xx'}
-else{el.textContent='ERR';el.className='cr-live lerr';errors++}
+else{el.textContent=err==='Timeout'?'TMO':'ERR';el.className='cr-live lerr';errors++}
 })
 .catch(function(){if(el){el.textContent='ERR';el.className='cr-live lerr';errors++}})
-.finally(function(){
-done++;
-document.getElementById('liveProgress').textContent=done+'/'+allBots.length;
-if(done===allBots.length){btnL.disabled=false;btnL.textContent='↻ Re-check';
+.finally(function(){done++;document.getElementById('liveProgress').textContent=done+'/'+allBots.length});
+}
+
+function runBatches(i){
+if(i>=allBots.length){
+btnL.disabled=false;btnL.textContent='↻ Re-check';btnGo.disabled=false;
 document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var(--ok)">OK</span>'+(blocked403?' · '+blocked403+' <span style="color:var(--err)">blocked</span>':'')+(errors?' · '+errors+' errors':'');
 var ss=document.getElementById('serverSummary');
-if(ss&&blocked403>0){ss.innerHTML='<div class="sb er" style="font-size:12px">🚫 Server blocks '+blocked403+' of '+allBots.length+' bots with HTTP 403 — these crawlers are effectively denied access regardless of robots.txt rules.</div>'}}
-});
-});
+if(ss&&blocked403>0){ss.innerHTML='<div class="sb er" style="font-size:12px">🚫 Server blocks '+blocked403+' of '+allBots.length+' bots with HTTP 403 — these crawlers are effectively denied access regardless of robots.txt rules.</div>'}
+return}
+var batch=allBots.slice(i,i+BATCH);
+Promise.all(batch.map(checkOne)).then(function(){runBatches(i+BATCH)});
+}
+runBatches(0);
 }
 document.getElementById('btnLive').addEventListener('click',runLiveCheck);
 
