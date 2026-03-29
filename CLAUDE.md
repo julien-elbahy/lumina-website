@@ -87,11 +87,12 @@ Nav and footer are duplicated in **all 58+ HTML files** (both `/` and `/de/`). F
 Each tool should have where it makes sense:
 - **Cross-tool links** — always
 - **Toolbar** (copy/CSV/report) — always
-- **Quota handling** — no visible counter by default. Only show a clear error message when the daily limit is actually reached. Don't create artificial scarcity UX. Always include a **clickable ⚙️ Settings link** (`luminaSettings.open()`) in error messages.
+- **Quota handling** — visible by default, positioned **below the `.cd` card** (right-aligned) via `luminaQuota.createBar()` from `settings.js`. Do NOT put `<div id="lq_*">` elements inside the card HTML — `createBar` inserts them automatically after the container. Always include a **clickable ⚙️ Settings link** (`luminaSettings.open()`) in error messages.
 - **Score ring** — only for tools where a quality score is meaningful (e.g., Content Optimizer, Schema Validator). Not for purely informational tools like Tech Stack Detector.
 - **AI Card pattern** — AI features should use the `.ai-card` pattern with `.ai-badge`, `.ai-card-title`, `.ai-card-desc`, and button inside `.ai-card-body`. Not bare buttons in a row.
 - **AI suggestions** — only where actionable recommendations add real value. Skip if it would just be filler.
 - **Results layout** — detected/found items always at the top, prominent and visible. Empty/missing items collapsed or hidden below.
+- **Card structure** — the `.cd` card box contains ONLY the tool's interactive UI (inputs, buttons, results). "How it works", "More tools", FAQ, and CTA sections go in a `<div class="content">` OUTSIDE the `.cd` box.
 
 ### Semantic HTML
 - Nav links, mobile menu links, and footer links are wrapped in `<ul><li>` for accessibility
