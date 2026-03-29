@@ -104,7 +104,7 @@
 
 /* Tool-specific */
 .ai-textarea{width:100%;min-height:200px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text);font-family:var(--font);font-size:14px;line-height:1.7;resize:vertical;transition:all .2s}.ai-textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-.ai-kw-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.ai-kw-row input{flex:1;min-width:180px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.ai-kw-row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.ai-kw-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.ai-kw-row input{flex:1;min-width:180px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.ai-kw-row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}.ai-kw-row select{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:10px 32px 10px 12px;color:var(--text);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .2s;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a09484' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}.ai-kw-row select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .quota-bar{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:var(--mono)}
 .btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.btn-sm{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-size:12px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;white-space:nowrap}.btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-sm:disabled{opacity:.4;cursor:default;transform:none}
 .score-ring{width:90px;height:90px;margin:0 auto 6px}.score-ring-wrap{text-align:center;margin-bottom:14px}.score-ring-wrap .score-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
@@ -115,8 +115,7 @@
 .ai-suggestions{font-size:13px;color:var(--text2);line-height:1.8}.ai-suggestions ul{margin:8px 0;padding-left:18px}.ai-suggestions li{margin-bottom:6px;color:var(--text2)}.ai-suggestions strong{color:var(--text)}
 .meta-gen{margin-top:12px}.meta-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;position:relative}.meta-card .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:6px}.meta-card p{font-size:13px;color:var(--text);font-family:var(--mono);line-height:1.6;word-break:break-word}.meta-card .copy-btn{position:absolute;top:8px;right:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 8px;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s}.meta-card .copy-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .density-bar{margin-top:10px}.density-row{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:12px}.density-label{width:100px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.density-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}.density-fill{height:100%;border-radius:3px;transition:width .4s}.density-val{font-family:var(--mono);font-size:11px;color:var(--muted);width:50px;text-align:right}
-/* Country/Language selector */
-.loc-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}.loc-row label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.loc-sel{background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 28px 8px 10px;color:var(--text);font-size:12px;font-family:var(--font);-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a09484'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;cursor:pointer;min-width:140px}.loc-sel:focus{outline:none;border-color:var(--accent)}
+/* Country/Language selector (now in .ai-kw-row) */
 /* Content insights */
 .insight-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5}.insight-row:last-child{border-bottom:none}.insight-icon{flex-shrink:0;width:20px;text-align:center;font-size:14px}.insight-text{flex:1;color:var(--text2)}.insight-text strong{color:var(--text)}.insight-ok{color:var(--ok)}.insight-warn{color:var(--warn)}.insight-err{color:var(--err)}
 /* Top keywords */
@@ -262,25 +261,8 @@
 <div class="ai-kw-row">
 <input type="text" id="kwPrimary" placeholder="Primary keyword (e.g. Badsanierung Wien)">
 <input type="text" id="kwSecondary" placeholder="Secondary keywords (e.g. Badrenovierung, Fixpreis)">
-</div>
-<div class="loc-row">
-<label>Market</label>
-<select id="locCountry" class="loc-sel">
-<option value="2840-en">🇺🇸 United States</option>
-<option value="2826-en">🇬🇧 United Kingdom</option>
-<option value="2276-de">🇩🇪 Germany</option>
-<option value="2040-de">🇦🇹 Austria</option>
-<option value="2756-de">🇨🇭 Switzerland</option>
-<option value="2250-fr">🇫🇷 France</option>
-<option value="2380-it">🇮🇹 Italy</option>
-<option value="2724-es">🇪🇸 Spain</option>
-<option value="2528-nl">🇳🇱 Netherlands</option>
-<option value="2616-pl">🇵🇱 Poland</option>
-<option value="2036-en">🇦🇺 Australia</option>
-<option value="2124-en">🇨🇦 Canada</option>
-<option value="2356-en">🇮🇳 India</option>
-<option value="2076-pt">🇧🇷 Brazil</option>
-</select>
+<select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select>
+<select id="langSelect" title="Search language" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select>
 </div>
 <div id="kwChips" style="display:none;margin-bottom:8px"></div>
 
@@ -503,8 +485,8 @@ function readabilityLabel(fk){if(fk>=80)return{text:'Very Easy',tip:'Simple voca
 /* Stop words for content analysis */
 var STOP_WORDS_EN='a,an,the,and,or,but,in,on,at,to,for,of,with,by,from,as,is,was,are,were,be,been,being,have,has,had,do,does,did,will,would,shall,should,may,might,must,can,could,not,no,nor,so,if,then,than,that,this,these,those,it,its,i,me,my,we,our,you,your,he,him,his,she,her,they,them,their,what,which,who,whom,how,when,where,why,all,each,every,both,few,more,most,other,some,such,only,own,same,very,just,about,above,after,again,also,any,because,before,between,during,into,over,under,until,up,down,out,off,here,there,now,new,one,two,get,got,been,make,like,many,much,well,even,back,still,way,take,come,go,see,know,think,look,give,use,find,tell,ask,work,seem,feel,try,leave,call,need,say,turn,keep,let,put,begin,show,hear,play,run,move,live,hold,bring,word,however,per,via,else'.split(',');
 var STOP_WORDS_DE='der,die,das,den,dem,des,ein,eine,einen,einem,einer,und,oder,aber,in,im,an,am,auf,aus,bei,mit,von,zu,zum,zur,für,über,unter,vor,nach,bis,seit,wie,als,wenn,da,so,doch,noch,schon,nur,auch,nicht,kein,keine,keinen,keinem,ich,du,er,sie,es,wir,ihr,mich,mir,dich,dir,ihm,ihn,uns,euch,sich,sein,seine,seinem,seinen,seiner,ist,sind,war,waren,wird,werden,wurde,wurden,hat,haben,hatte,hatten,kann,können,konnte,muss,müssen,soll,sollen,darf,dürfen,will,wollen,mag,mögen,hier,dort,dann,weil,dass,ob,was,wer,wem,wen,welche,welcher,welches,diese,dieser,dieses,diesen,diesem,jede,jeder,jedes,alle,man,mehr,sehr,viel,gut,neue,neuen,neuer,neues'.split(',');
-function getStopWords(){var loc=document.getElementById('locCountry').value;return loc.split('-')[1]==='de'?STOP_WORDS_DE:STOP_WORDS_EN}
-function getLocParts(){var v=document.getElementById('locCountry').value.split('-');return{loc:parseInt(v[0]),lang:v[1]}}
+function getStopWords(){return document.getElementById('langSelect').value==='de'?STOP_WORDS_DE:STOP_WORDS_EN}
+function getLocParts(){return{loc:parseInt(document.getElementById('locSelect').value),lang:document.getElementById('langSelect').value}}
 
 /* Pixel measurement */
 var _mc=null;
@@ -530,18 +512,20 @@ async function aiCall(body){
 }
 
 /* ── Auto-detect market from content ── */
+var defaultLangMap={2040:'de',2276:'de',2756:'de',2826:'en',2840:'en',2250:'fr',2380:'it',2724:'es',2528:'nl',2616:'pl',2392:'ja',2036:'en',2124:'en',2356:'en',2076:'pt'};
 function autoDetectMarket(text){
-  var sel=document.getElementById('locCountry');
-  if(sel._userChanged)return; // Don't override if user manually changed
+  var locSel=document.getElementById('locSelect');
+  var langSel=document.getElementById('langSelect');
+  if(locSel._userChanged)return;
   if(text.match(/[äöüß]/i)){
-    // German text — check for AT/CH-specific words
-    if(text.match(/\b(Wien|Österreich|Graz|Linz|Salzburg|Innsbruck|Klagenfurt)\b/i))sel.value='2040-de';
-    else if(text.match(/\b(Zürich|Bern|Schweiz|Basel|Genf|Luzern)\b/i))sel.value='2756-de';
-    else sel.value='2276-de';
-  } else if(text.match(/\b(colour|favourite|organisation|centre|realise)\b/i))sel.value='2826-en';
-  else sel.value='2840-en';
+    if(text.match(/\b(Wien|Österreich|Graz|Linz|Salzburg|Innsbruck|Klagenfurt)\b/i))locSel.value='2040';
+    else if(text.match(/\b(Zürich|Bern|Schweiz|Basel|Genf|Luzern)\b/i))locSel.value='2756';
+    else locSel.value='2276';
+    langSel.value='de';
+  } else if(text.match(/\b(colour|favourite|organisation|centre|realise)\b/i)){locSel.value='2826';langSel.value='en'}
+  else{locSel.value='2840';langSel.value='en'}
 }
-document.getElementById('locCountry').addEventListener('change',function(){this._userChanged=true});
+document.getElementById('locSelect').addEventListener('change',function(){this._userChanged=true;var lang=defaultLangMap[parseInt(this.value)];if(lang)document.getElementById('langSelect').value=lang});
 
 /* ── Fetch from URL ── */
 var _fetchedHeadings=[];
@@ -679,7 +663,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
   var btn=this;btn.disabled=true;btn.textContent='⏳ Detecting…';
   try{
     var snippet=text.substring(0,2000);
-    var locLabel=document.getElementById('locCountry').selectedOptions[0].textContent;
+    var locLabel=document.getElementById('locSelect').selectedOptions[0].textContent+' ('+document.getElementById('langSelect').value+')';
     var data=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\nTarget market: '+locLabel+'\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for IN THE LANGUAGE OF THE CONTENT\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n- Keywords must match the content language and target market\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],max_tokens:300});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var kws=JSON.parse(raw).keywords||[];

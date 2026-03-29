@@ -73,6 +73,16 @@ Nav and footer are duplicated in **all 58+ HTML files** (both `/` and `/de/`). F
 - **GPT-4.1** (complex): Semantic Checker, Content Optimizer, Schema Validator, PageSpeed
 - **GPT-4.1-mini** (simple): Keyword Research, SERP Preview, Meta-Tag Analyzer, Heading Checker, OG Preview
 
+### Country & Language Selectors
+- **All tools** with country/language selects use the **same 63 countries** and **39 languages**
+- Country select: `id="locSelect"` with DataForSEO location codes (e.g., `2040` for Austria)
+- Language select: `id="langSelect"` with ISO 639-1 codes (e.g., `de`, `en`)
+- `defaultLangMap` object maps each location_code to its default language — auto-syncs on country change
+- Tools with these selects: Keyword Research, AI Content Optimizer, SERP Checker, SERP Overlap
+- **Custom searchable dropdowns** via `settings.js` (`csUpgrade`) replace ALL native `<select>` elements with 2+ options
+- `window.csUpgrade` is exposed globally for dynamically-populated selects (e.g., GSC site selector)
+- Dropdown panels auto-flip upward when near viewport bottom
+
 ### Tool UX Standards
 Each tool should have where it makes sense:
 - **Cross-tool links** — always

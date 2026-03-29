@@ -448,9 +448,10 @@ document.addEventListener('DOMContentLoaded',function(){
       wrap.classList.add('open');
       render();
       if(searchIn){searchIn.value='';searchIn.focus()}
-      // Flip up if near bottom
+      // Measure actual panel height, flip up if near bottom
       var rect=wrap.getBoundingClientRect();
-      if(rect.bottom+240>window.innerHeight){panel.style.top='auto';panel.style.bottom='calc(100% + 4px)'}
+      var panelH=panel.offsetHeight||260;
+      if(rect.bottom+panelH+8>window.innerHeight){panel.style.top='auto';panel.style.bottom='calc(100% + 4px)'}
       else{panel.style.top='calc(100% + 4px)';panel.style.bottom='auto'}
     }
     function close(){wrap.classList.remove('open');hlIdx=-1}
