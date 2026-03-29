@@ -250,6 +250,7 @@
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Analyze</button></div>
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="toolbar" style="display:none;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
+<div id="toolbar" style="display:none;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>
 <div id="res" style="display:none"></div>
 <div id="liveWrap" style="display:none;margin-top:10px;gap:6px;flex-wrap:wrap"><button class="ab" id="btnLive" style="font-size:12px;padding:8px 16px">🔍 Live Server Check</button><span id="liveProgress" style="font-size:11px;color:var(--muted);font-family:var(--mono);align-self:center"></span></div>
 </div>
@@ -400,7 +401,6 @@ document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var
 });
 }
 document.getElementById('btnLive').addEventListener('click',runLiveCheck);
-});
 
 function showToolbar(){
 var tb=document.getElementById('toolbar');
