@@ -366,15 +366,15 @@ BOTS.forEach(function(cat){cat.bots.forEach(function(b){
 var s=checkBot(b.name).status;totalBots++;
 if(s==='blocked')blocked++;else if(s==='partial')partial++;else allowed++;
 })});
-var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Total Bots</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Allowed</div><p style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Partial</div><p style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blocked</div><p style="color:var(--err)">'+blocked+'</p></div></div>';
+var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Total Bots</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Allowed</div><p id="metricAllowed" style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Partial</div><p id="metricPartial" style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blocked</div><p id="metricBlocked" style="color:var(--err)">'+blocked+'</p></div></div>';
 // Show wildcard notice if all bots inherit from *
 var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){var src=checkBot(b.name).source;if(src!=='wildcard'&&src!=='default')allWildcard=false})});
 if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];
-if(blocked===totalBots)html+='<div class="sb er" style="font-size:12px">🚫 No bot-specific rules. <strong>User-Agent: *</strong> has <code>Disallow: /</code> — all '+totalBots+' bots are fully blocked via robots.txt.</div>';
-else if(partial>0){html+='<div class="sb wn" style="font-size:12px">ℹ️ No bot-specific rules. All '+totalBots+' bots inherit from <strong>User-Agent: *</strong> which partially restricts access:<br><code style="font-size:11px;color:var(--text2)">'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('<br>')+'</code></div>';}}
+if(blocked===totalBots)html+='<div class="sb er">🚫 No bot-specific rules. <strong>User-Agent: *</strong> has <code>Disallow: /</code> — all '+totalBots+' bots are fully blocked via robots.txt.</div>';
+else if(partial>0){html+='<div class="sb wn">ℹ️ No bot-specific rules — all '+totalBots+' bots inherit from <strong>User-Agent: *</strong></div><div class="raw" style="margin-bottom:12px;max-height:120px">'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('\n')+'</div>';}}
 // Show bot-specific block list for robots.txt
 var robotsBlocked=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).status==='blocked')robotsBlocked.push(b.name)})});
-if(robotsBlocked.length>0)html+='<div class="sb er" style="font-size:12px">🚫 robots.txt blocks '+robotsBlocked.length+' bot'+(robotsBlocked.length!==1?'s':'')+': <strong>'+robotsBlocked.join(', ')+'</strong></div>';
+if(robotsBlocked.length>0)html+='<div class="sb er">🚫 robots.txt blocks '+robotsBlocked.length+' bot'+(robotsBlocked.length!==1?'s':'')+': <strong>'+robotsBlocked.join(', ')+'</strong></div>';
 // AI crawler summary (robots.txt only — server check updates this later)
 var aiBlocked=BOTS[1].bots.filter(function(b){return checkBot(b.name).status==='blocked'}).length;
 var aiTotal=BOTS[1].bots.length;
@@ -409,15 +409,17 @@ var btnL=document.getElementById('btnLive');btnL.disabled=true;btnL.textContent=
 var btnGo=document.getElementById('btnGo');btnGo.disabled=true;
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-var BATCH=5;
+var BATCH=3;var DELAY=2000;
 
 function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
 var el=document.getElementById(elId);if(el){el.textContent='…';el.className='cr-live'}
 return fetch(W+'/check?url='+encodeURIComponent(siteOrigin)+'&bot='+encodeURIComponent(b.name.toLowerCase()))
-.then(function(r){return r.json()})
+.then(function(r){
+if(r.status===429){if(el){el.textContent='LIMIT';el.className='cr-live lerr';errors++};return null}
+return r.json()})
 .then(function(data){
-if(!el)return;
+if(!data||!el)return;
 var sc=data.statusCode||0;var err=data.error||'';
 if(sc>=200&&sc<300){el.textContent=sc;el.className='cr-live l200';ok200++}
 else if(sc===403){el.textContent='403';el.className='cr-live l403';blocked403++}
@@ -435,7 +437,11 @@ document.getElementById('liveProgress').innerHTML=ok200+' <span style="color:var
 // Collect names of server-blocked bots
 var serverBlockedNames=[];allBots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent==='403')serverBlockedNames.push(b.name)});
 var ss=document.getElementById('serverSummary');
-if(ss&&serverBlockedNames.length>0){ss.innerHTML='<div class="sb er" style="font-size:12px">🚫 Server blocks '+serverBlockedNames.length+' of '+allBots.length+' bots with HTTP 403: <strong>'+serverBlockedNames.join(', ')+'</strong></div>'}
+if(ss&&serverBlockedNames.length>0){ss.innerHTML='<div class="sb er">🚫 Server blocks '+serverBlockedNames.length+' of '+allBots.length+' bots with HTTP 403: <strong>'+serverBlockedNames.join(', ')+'</strong></div>'}
+// Update metrics to reflect server blocks
+var mb=document.getElementById('metricBlocked');if(mb&&serverBlockedNames.length>0){mb.textContent=serverBlockedNames.length}
+var ma=document.getElementById('metricAllowed');var mp=document.getElementById('metricPartial');
+if(ma&&mp&&serverBlockedNames.length>0){var sOk=0,sPart=0;allBots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent!=='403'&&el.textContent!=='ERR'&&el.textContent!=='TMO'){var rs=window._lastResults.checkBot(b.name);if(rs==='partial')sPart++;else sOk++}});ma.textContent=sOk;mp.textContent=sPart}
 // Update AI summary to reflect server reality
 var aiSummary=document.getElementById('aiSummary');
 if(aiSummary){var aiServerBlocked=[];BOTS[1].bots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent==='403')aiServerBlocked.push(b.name)});
@@ -443,7 +449,7 @@ if(aiServerBlocked.length>0){aiSummary.className='sb er';aiSummary.innerHTML='�
 }
 return}
 var batch=allBots.slice(i,i+BATCH);
-Promise.all(batch.map(checkOne)).then(function(){runBatches(i+BATCH)});
+Promise.all(batch.map(checkOne)).then(function(){setTimeout(function(){runBatches(i+BATCH)},DELAY)});
 }
 runBatches(0);
 }
