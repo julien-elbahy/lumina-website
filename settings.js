@@ -279,13 +279,15 @@ window.luminaQuota={
     el.textContent=(isDE?'Kontingent: ':'Quota: ')+r+'/'+l+(isDE?' heute verbleibend':' remaining today');
     el.style.color=r<=1?'var(--err)':r<=Math.ceil(l/3)?'var(--warn)':'var(--muted)';
   },
-  // Create a quota display element and attach to a container
+  // Create a quota display element below the container (card)
   createBar:function(tool,container){
     if(!container)return null;
     var el=document.createElement('div');
     el.id='lq_'+tool;
-    el.style.cssText='font-size:11px;text-align:center;margin-top:6px;font-family:var(--mono);min-height:16px;transition:color .3s';
-    container.appendChild(el);
+    el.style.cssText='font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;transition:color .3s';
+    // Insert after the container (below the card) instead of inside it
+    if(container.nextSibling)container.parentNode.insertBefore(el,container.nextSibling);
+    else container.parentNode.appendChild(el);
     // Load stored quota on page load
     var d=this.get(tool);
     if(d)this._render(tool);
