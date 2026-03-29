@@ -73,6 +73,8 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 .ai-quota{font-size:11px;color:var(--muted)}
 .ai-fix-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:6px 14px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.ai-fix-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.3)}.ai-fix-btn:disabled{opacity:.5;transform:none}
 [data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.15)}
+.cross-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.cross-link{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--accent);transition:all .2s}.cross-link:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent-h)}
+.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -302,7 +304,8 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 <textarea id="aiGenOutput" readonly style="font-family:var(--mono);font-size:11px;min-height:140px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);width:100%;resize:vertical"></textarea>
 </div>
 </div>
-<div id="settingsHintAi"></div>
+<div id="settingsHintAi"><div id="crossLinks" style="display:none;margin-top:16px"></div>
+</div>
 <div class="content">
 <h2>So funktioniert der Validator</h2>
 <p>Dieses Tool parst JSON-LD-Strukturdaten und validiert sie gegen Googles Search-Dokumentation. Es prüft Pflicht- und empfohlene Felder für 15 Schema-Typen, verifiziert ISO-8601-Datumsformate, validiert URL-Strukturen und inspiziert verschachtelte Objekte wie author und publisher.</p>
@@ -480,7 +483,7 @@ else{var errs=issues.filter(function(i){return i.level==='error'}).length;var wa
 if(errs===0&&warns>0)issues.push({level:'ok',msg:'Keine kritischen Fehler! '+warns+' Vorschlag'+(warns>1?' Vorschläge':'')+' zur Verbesserung der Rich-Result-Eignung.'})}
 return{type:type,issues:issues}}
 function renderValidation(schemas){
-var res=document.getElementById('res');res.style.display='block';var html='';
+var res=document.getElementById('res');res.style.display='block';renderCrossLinks();var html='';
 schemas.forEach(function(s){var r=validate(s);var errs=r.issues.filter(function(i){return i.level==='error'}).length;var warns=r.issues.filter(function(i){return i.level==='warn'}).length;
 var bc=errs?'er':warns?'wn':'ok';var bt=errs?errs+' Fehler':warns?warns+' Warnung'+(warns>1?'en':''):'Gültig';
 html+='<div class="rh"><span class="badge '+bc+'">'+bt+'</span><span class="tn-name">'+esc(r.type)+'</span></div>';
@@ -640,6 +643,17 @@ document.getElementById('btnAiUseGen').addEventListener('click',function(){
   window.scrollTo({top:document.querySelector('.cd').offsetTop-80,behavior:'smooth'});
 });
 
+function renderCrossLinks(){
+var u=encodeURIComponent(urlIn.value);if(!u)return;
+var links=[];
+links.push('<a class="cross-link" href="/de/tools/meta-tag-analyzer/?url='+u+'">🔍 Meta-Tag Audit<\/a>');
+links.push('<a class="cross-link" href="/de/tools/heading-checker/?url='+u+'">📑 Headings prüfen<\/a>');
+links.push('<a class="cross-link" href="/de/tools/serp-preview/?url='+u+'">📱 Snippet-Vorschau<\/a>');
+links.push('<a class="cross-link" href="/de/tools/link-analyzer/?url='+u+'">🔗 Links analysieren<\/a>');
+var cl=document.getElementById('crossLinks');
+cl.innerHTML='<div class="section-head">Analyse fortsetzen</div><div class="cross-links">'+links.join('')+'</div>';
+cl.style.display='block';
+}
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');document.getElementById('btnFetchUrl').click()}
 
 </script>

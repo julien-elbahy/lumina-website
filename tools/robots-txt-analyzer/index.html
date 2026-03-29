@@ -59,6 +59,8 @@
 .cr-live{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid var(--border);min-width:60px;text-align:center;color:var(--muted)}.cr-live.l200{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-live.l403{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-live.l4xx{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.cr-live.lerr{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
 .tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}.tb-btn.copied{border-color:var(--ok);color:var(--ok)}
+.cross-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.cross-link{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--accent);transition:all .2s}.cross-link:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent-h)}
+.section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -253,6 +255,7 @@
 <div id="toolbar" style="display:none;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>
 <div id="res" style="display:none"></div>
 <div id="liveWrap" style="display:none;margin-top:10px;gap:6px;flex-wrap:wrap"><button class="ab" id="btnLive" style="font-size:12px;padding:8px 16px">🔍 Live Server Check</button><span id="liveProgress" style="font-size:11px;color:var(--muted);font-family:var(--mono);align-self:center"></span></div>
+<div id="crossLinks" style="display:none;margin-top:16px"></div>
 </div>
 <div class="content">
 <h2>Why robots.txt matters for AI</h2>
@@ -442,6 +445,17 @@ navigator.clipboard.writeText(rows.join('\n')).then(function(){flashBtn(1)});
 }
 function flashBtn(i){var b=document.querySelectorAll('.tb-btn')[i];if(!b)return;b.classList.add('copied');b.textContent='✓ Copied';setTimeout(function(){b.classList.remove('copied');b.textContent=i===0?'📋 Copy':'📊 CSV'},1500)}
 
+function renderCrossLinks(){
+var u=encodeURIComponent(urlIn.value);if(!u)return;
+var links=[];
+links.push('<a class="cross-link" href="/tools/js-nojs/?url='+u+'">🔄 Compare JS vs No-JS<\/a>');
+links.push('<a class="cross-link" href="/tools/meta-tag-analyzer/?url='+u+'">🔍 Full meta tag audit<\/a>');
+links.push('<a class="cross-link" href="/tools/semantic-checker/?url='+u+'">🏗️ Analyze semantic HTML<\/a>');
+links.push('<a class="cross-link" href="/tools/tech-stack/?url='+u+'">⚙️ Detect tech stack<\/a>');
+var cl=document.getElementById('crossLinks');
+cl.innerHTML='<div class="section-head">Continue analysis</div><div class="cross-links">'+links.join('')+'</div>';
+cl.style.display='block';
+}
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');go(params.get('url'))}
 
 </script>
