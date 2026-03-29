@@ -328,8 +328,15 @@ fetch(W+'/fetch?url='+encodeURIComponent(url))
 if(data.error)throw new Error(data.error);
 var raw=data.html||'';var httpStatus=data.status||0;
 if(!raw||raw.length<5||raw.includes('<!DOCTYPE')||raw.includes('<html')){
-document.getElementById('res').innerHTML='<div class="sb wn">⚠️ Keine robots.txt auf dieser Domain gefunden. Alle Crawler sind standardmäßig erlaubt.</div>';
-document.getElementById('res').style.display='block';document.getElementById('liveWrap').style.display='flex';return}
+var nfHtml='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:var(--warn)">'+(httpStatus||404)+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>23</p></div><div class="metric"><div class="mh">Erlaubt</div><p style="color:var(--ok)">23</p></div><div class="metric"><div class="mh">Teilweise</div><p style="color:var(--warn)">0</p></div><div class="metric"><div class="mh">Blockiert</div><p style="color:var(--err)">0</p></div></div>';
+nfHtml+='<div class="sb wn">⚠️ Keine robots.txt auf dieser Domain gefunden. Alle Crawler sind standardmäßig erlaubt.</div>';
+nfHtml+='<div class="sb ok">✅ Alle AI-Crawler sind erlaubt</div>';
+nfHtml+='<div id="serverSummary"></div>';
+BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ERLAUBT</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
+document.getElementById('res').innerHTML=nfHtml;document.getElementById('res').style.display='block';
+document.getElementById('liveWrap').style.display='flex';
+window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:23,allowed:23,blocked:0,partial:0,raw:''};showToolbar();animateMetrics();renderCrossLinks();
+runLiveCheck();return}
 var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
 line=line.replace(/#.*/,'').trim();if(!line)return;
@@ -354,7 +361,9 @@ if(s==='blocked')blocked++;else if(s==='partial')partial++;else allowed++;
 })});
 var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Teilweise</div><p style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blockiert</div><p style="color:var(--err)">'+blocked+'</p></div></div>';
 var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).source!=='wildcard')allWildcard=false})});
-if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];html+='<div class="sb wn" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln gefunden. Alle '+totalBots+' Bots erben von <strong>User-Agent: *</strong> mit '+wc.disallow.length+' Disallow-Regel'+(wc.disallow.length!==1?'n':'')+' → alle als TEILWEISE angezeigt.</div>'}
+if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];var wcStatus=blocked===totalBots?'BLOCKED':partial===totalBots?'PARTIAL':'mixed';
+if(wcStatus==='BLOCKED')html+='<div class="sb er" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln gefunden. <strong>User-Agent: *</strong> hat <code>Disallow: /</code> → alle '+totalBots+' Bots sind BLOCKIERT.</div>';
+else if(wcStatus==='PARTIAL')html+='<div class="sb wn" style="font-size:12px">ℹ️ Keine bot-spezifischen Regeln gefunden. Alle '+totalBots+' Bots erben von <strong>User-Agent: *</strong> mit '+wc.disallow.length+' Disallow-Regel'+(wc.disallow.length!==1?'n':'')+' → alle als TEILWEISE angezeigt.</div>';}
 html+='<div id="serverSummary"></div>';
 var aiBlocked=BOTS[1].bots.filter(function(b){return checkBot(b.name).status==='blocked'}).length;
 var aiTotal=BOTS[1].bots.length;
