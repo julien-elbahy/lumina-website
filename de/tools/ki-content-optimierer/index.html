@@ -261,7 +261,7 @@
 <div id="settingsHintAi"></div>
 <div id="lq_content-optimizer"></div>
 <div class="btn-row">
-<button class="ab" id="btnAnalyze">Inhalt analysieren</button>
+<button class="ab" id="btnAnalyze">✨ Analysieren &amp; Optimieren</button>
 <button class="ai-btn" id="btnDetectKw" style="background:var(--card);color:var(--accent);border:1px solid var(--border)">🔍 Keywords erkennen</button>
 </div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
@@ -467,10 +467,11 @@ function fleschKincaid(text){var words=text.trim().split(/\s+/).filter(function(
 function kwDensity(text,kw){if(!kw)return{pct:0,count:0};var lower=text.toLowerCase();var kwLower=kw.toLowerCase().trim();var words=lower.split(/\s+/);var totalWords=words.length;if(totalWords===0)return{pct:0,count:0};var escaped=kwLower.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var re=new RegExp('\\b'+escaped+'\\b','gi');var matches=lower.match(re);var count=matches?matches.length:0;var kwWords=kwLower.split(/\s+/).length;var pct=(count*kwWords/totalWords)*100;return{pct:pct,count:count}}
 function calcScore(wordCount,density,readability,hasKw,headings){var score=0;if(wordCount>=300)score+=20;else if(wordCount>=150)score+=12;else score+=5;if(wordCount>=600)score+=5;if(wordCount>=1000)score+=5;if(hasKw){if(density>=0.5&&density<=3)score+=30;else if(density>3&&density<=5)score+=15;else if(density>0&&density<0.5)score+=10}else{score+=15}if(readability>=60)score+=20;else if(readability>=40)score+=12;else score+=5;var sentCount=countSentences(document.getElementById('contentIn').value);var avgSentLen=wordCount/(sentCount||1);if(avgSentLen>=10&&avgSentLen<=25)score+=10;else score+=4;score+=10;return Math.min(100,score)}
 function readingTime(wc){var min=Math.ceil(wc/238);return min<1?'< 1 Min.':min+' Min.'}
+function animateScore(score){var arc=document.getElementById('scoreArc');var txt=document.getElementById('scoreText');var sCol=score>=70?'var(--ok)':score>=40?'var(--warn)':'var(--err)';arc.setAttribute('stroke',sCol);txt.setAttribute('fill',sCol);var start=0;var dur=800;var t0=performance.now();function step(t){var p=Math.min((t-t0)/dur,1);var e=1-Math.pow(1-p,3);var c=Math.round(start+(score-start)*e);arc.setAttribute('stroke-dasharray',c+', 100');txt.textContent=c;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
 function readabilityLabel(fk){if(fk>=80)return{text:'Sehr einfach',tip:'Einfaches Vokabular, kurze Sätze. Ideal für ein breites Publikum.'};if(fk>=60)return{text:'Einfach',tip:'Umgangssprachlicher Ton. Gut für die meisten Web-Inhalte.'};if(fk>=40)return{text:'Standard',tip:'Mittlere Komplexität. Geeignet für informierte Leser.'};if(fk>=20)return{text:'Schwierig',tip:'Komplexe Sätze und Vokabular. Vereinfachung für Web-Leser empfohlen.'};return{text:'Sehr schwer',tip:'Akademisches Niveau. Die meisten Web-Leser könnten abspringen.'}}
 var STOP_WORDS_EN='a,an,the,and,or,but,in,on,at,to,for,of,with,by,from,as,is,was,are,were,be,been,being,have,has,had,do,does,did,will,would,shall,should,may,might,must,can,could,not,no,nor,so,if,then,than,that,this,these,those,it,its,i,me,my,we,our,you,your,he,him,his,she,her,they,them,their,what,which,who,whom,how,when,where,why,all,each,every,both,few,more,most,other,some,such,only,own,same,very,just,about,above,after,again,also,any,because,before,between,during,into,over,under,until,up,down,out,off,here,there,now,new,one,two,get,got,been,make,like,many,much,well,even,back,still,way,take,come,go,see,know,think,look,give,use,find,tell,ask,work,seem,feel,try,leave,call,need,say,turn,keep,let,put,begin,show,hear,play,run,move,live,hold,bring,word,however,per,via,else'.split(',');
 var STOP_WORDS_DE='der,die,das,den,dem,des,ein,eine,einen,einem,einer,und,oder,aber,in,im,an,am,auf,aus,bei,mit,von,zu,zum,zur,für,über,unter,vor,nach,bis,seit,wie,als,wenn,da,so,doch,noch,schon,nur,auch,nicht,kein,keine,keinen,keinem,ich,du,er,sie,es,wir,ihr,mich,mir,dich,dir,ihm,ihn,uns,euch,sich,sein,seine,seinem,seinen,seiner,ist,sind,war,waren,wird,werden,wurde,wurden,hat,haben,hatte,hatten,kann,können,konnte,muss,müssen,soll,sollen,darf,dürfen,will,wollen,mag,mögen,hier,dort,dann,weil,dass,ob,was,wer,wem,wen,welche,welcher,welches,diese,dieser,dieses,diesen,diesem,jede,jeder,jedes,alle,man,mehr,sehr,viel,gut,neue,neuen,neuer,neues'.split(',');
-function getStopWords(){return document.getElementById('langSelect').value==='de'?STOP_WORDS_DE:STOP_WORDS_EN}
+function getStopWords(){var combined=STOP_WORDS_EN.concat(STOP_WORDS_DE);return combined.filter(function(v,i,a){return a.indexOf(v)===i})}
 function getLocParts(){return{loc:parseInt(document.getElementById('locSelect').value),lang:document.getElementById('langSelect').value}}
 
 var _mc=null;
@@ -524,7 +525,7 @@ document.getElementById('btnFetchUrl').addEventListener('click',function(){
     var body=(main?main.textContent:'').replace(/\s+/g,' ').trim();
     if(body.length>50){document.getElementById('contentIn').value=body.substring(0,8000);autoDetectMarket(body)}
     _fetchedHeadings=[];
-    var headingSource=doc.querySelector('main,[role="main"],#main-content,.ct,.container,article')||doc.body;
+    var headingSource=doc.body;
     headingSource.querySelectorAll('h1,h2,h3,h4').forEach(function(h){
       var txt=h.textContent.trim();
       if(txt.length>0&&txt.length<200)_fetchedHeadings.push({tag:h.tagName.toLowerCase(),text:txt});
@@ -540,12 +541,8 @@ function runAnalysis(){
   var dens=kwDensity(text,kw);
   var headings=_fetchedHeadings||[];
   var score=calcScore(wc,dens.pct,read,!!kw,headings);
-  // Score ring
-  var sCol=score>=70?'var(--ok)':score>=40?'var(--warn)':'var(--err)';
-  document.getElementById('scoreArc').setAttribute('stroke',sCol);
-  document.getElementById('scoreArc').setAttribute('stroke-dasharray',score+', 100');
-  document.getElementById('scoreText').textContent=score;
-  document.getElementById('scoreText').setAttribute('fill',sCol);
+  // Score ring (animated)
+  animateScore(score);
   // Metrics
   document.getElementById('mWords').textContent=wc.toLocaleString();
   document.getElementById('mTime').textContent=readingTime(wc);
@@ -650,8 +647,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
     var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lp.lang,location_code:lp.loc}])});
     var dfsData=await dfsResp.json();
     if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_kwData.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})})}
-    _kwData.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
-    if(_kwData[0]){document.getElementById('kwPrimary').value=_kwData[0].keyword;document.getElementById('kwSecondary').value=_kwData.slice(1,4).map(function(k){return k.keyword}).join(', ')}
+    _kwData.sort(function(a,b){return(b.vol||0)-(a.vol||0)})
     renderChips();
   }catch(e){document.getElementById('kwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p>';document.getElementById('kwChips').style.display='block'}
   finally{btn.disabled=false;btn.textContent='🔍 Keywords erkennen'}
@@ -762,8 +758,37 @@ document.getElementById('btnOptimize').addEventListener('click',async function()
   finally{btn.disabled=false;btn.textContent='✨ KI-Optimierung'}
 });
 
-document.getElementById('btnAnalyze').addEventListener('click',runAnalysis);
-document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)runAnalysis()});
+async function analyzeAndOptimize(){
+  var text=document.getElementById('contentIn').value.trim();
+  if(!text){alert('Bitte füge Inhalte ein oder rufe sie per URL ab.');return}
+  var btn=document.getElementById('btnAnalyze');
+  btn.disabled=true;
+  var primary=document.getElementById('kwPrimary').value.trim();
+  if(!primary){
+    btn.textContent='⏳ Keywords erkennen…';
+    try{
+      var snippet=text.substring(0,2000);
+      var locLabel=document.getElementById('locSelect').selectedOptions[0].textContent+' ('+document.getElementById('langSelect').value+')';
+      var kwData=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\nTarget market: '+locLabel+'\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for IN THE LANGUAGE OF THE CONTENT\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n- Keywords must match the content language and target market\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],model:'gpt-4.1-mini',max_tokens:300});
+      var raw=kwData.choices[0].message.content.replace(/```json|```/g,'').trim();
+      var kws=JSON.parse(raw).keywords||[];
+      if(kws.length){
+        document.getElementById('kwPrimary').value=kws[0];
+        if(kws.length>1)document.getElementById('kwSecondary').value=kws.slice(1,4).join(', ');
+        _kwData=kws.map(function(k){return{keyword:k}});
+        renderChips();
+        primary=kws[0];
+      }
+    }catch(e){console.warn('Keyword detection failed:',e)}
+  }
+  if(!primary){btn.disabled=false;btn.textContent='✨ Analysieren & Optimieren';alert('Keywords konnten nicht erkannt werden. Bitte gib ein Hauptkeyword manuell ein.');return}
+  btn.textContent='⏳ Analysiere…';
+  runAnalysis();
+  document.getElementById('btnOptimize').click();
+  btn.disabled=false;btn.textContent='✨ Analysieren & Optimieren';
+}
+document.getElementById('btnAnalyze').addEventListener('click',analyzeAndOptimize);
+document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)analyzeAndOptimize()});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnFetchUrl').click()});
 
 document.getElementById('btnCopyAnalysis').addEventListener('click',function(){
