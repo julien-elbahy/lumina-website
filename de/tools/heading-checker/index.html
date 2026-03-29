@@ -419,7 +419,7 @@ html+='<div class="cross-links"><a href="/de/tools/meta-tag-analyzer/?url='+enco
 /* AI section */
 html+='<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">KI-gestützt</span><h2 class="ai-card-title">Heading-Optimierer</h2><p class="ai-card-desc">Erhalte KI-Vorschläge zur Verbesserung deiner Überschriften-Struktur für SEO und Lesbarkeit.</p></div><div class="ai-card-body"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center"><button class="ai-btn" id="btnAiHeadings" style="font-size:11px;padding:8px 14px">✨ Überschriften mit KI optimieren</button><span id="aiQuota" class="ai-quota"></span></div></div><div id="aiResult" class="ai-results" style="display:none"></div></div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
-if(window.luminaQuota)luminaQuota.createBar('heading-checker',document.getElementById('lq_heading-checker')?.parentElement||document.querySelector('.cd'));
+if(window.luminaQuota)luminaQuota.createBar('heading-checker',document.querySelector('.cd'));
 /* Bind events */
 document.getElementById('btnCopyOutline').addEventListener('click',function(){
   var txt=headings.map(function(h){return '  '.repeat(h.l-1)+'H'+h.l+': '+h.t}).join('\n');

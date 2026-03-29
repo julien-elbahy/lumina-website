@@ -295,7 +295,6 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div id="aiResults" class="ai-results"></div>
 </div>
 <div id="settingsHintAi"></div>
-<div id="lq_serp-preview"></div>
 <div class="content" style="margin-top:32px">
 <h2>So verwendest du es</h2><p>Gib deine URL, deinen Titel und deine Beschreibung ein. Die Vorschau aktualisiert sich beim Tippen. Der Pixelzähler zeigt, ob Google dein Snippet abschneidet. Nutze <strong>Von URL laden</strong>, um aktuelle Werte von jeder Live-Seite zu holen.</p>
 <h2>Optimale Längen</h2><p>Google kürzt nach Pixelbreite. Halte Titel unter ~60 Zeichen (~580px) und Beschreibungen unter ~155 Zeichen (~920px). Breite Zeichen (W, M) brauchen mehr Platz als schmale (i, l).</p>
@@ -519,7 +518,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.getElementById('lq_serp-preview')?.parentElement||document.querySelector('.cd'));
+if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.querySelector('.cd'));
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>

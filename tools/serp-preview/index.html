@@ -295,7 +295,6 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div id="aiResults" class="ai-results"></div>
 </div>
 <div id="settingsHintAi"></div>
-<div id="lq_serp-preview"></div>
 <div class="content" style="margin-top:32px">
 <h2>How to use</h2><p>Enter your URL, title, and description. The preview updates as you type. The pixel counter shows if Google will truncate your snippet. Use <strong>Fetch from URL</strong> to pull current values from any live page.</p>
 <h2>Optimal lengths</h2><p>Google truncates by pixel width. Keep titles under ~60 chars (~580px) and descriptions under ~155 chars (~920px). Wide characters (W, M) take more space than narrow ones (i, l).</p>
@@ -519,7 +518,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.getElementById('lq_serp-preview')?.parentElement||document.querySelector('.cd'));
+if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.querySelector('.cd'));
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>

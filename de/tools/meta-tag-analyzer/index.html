@@ -343,7 +343,6 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <div id="aiResults" class="ai-results"></div>
 </div>
 <div id="settingsHintAi"></div>
-<div id="lq_meta-analyzer"></div>
 <div id="crossLinks" style="display:none;margin-top:20px"></div>
 </div>
 <div style="margin-top:32px">
@@ -548,7 +547,7 @@ function renderAll(d){
   _lastAnalysis=d;
   document.getElementById('aiSection').style.display='block';
   if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-  if(window.luminaQuota)luminaQuota.createBar('meta-analyzer',document.getElementById('lq_meta-analyzer')?.parentElement||document.querySelector('.cd'));
+  if(window.luminaQuota)luminaQuota.createBar('meta-analyzer',document.querySelector('.cd'));
   document.getElementById('aiResults').innerHTML='';
 }
 
