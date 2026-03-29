@@ -871,6 +871,7 @@ async function gscLoadSites(){
     if(!d.siteEntry||!d.siteEntry.length){document.getElementById('gscStatus').textContent='No properties found. Make sure your Google account has GSC access.';return}
     var sel=document.getElementById('gscSite');sel.innerHTML='';
     d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+    if(window.csUpgrade)csUpgrade(sel);
     document.getElementById('gscStatus').textContent='✓ '+d.siteEntry.length+' properties loaded';
   }catch(e){document.getElementById('gscStatus').textContent='GSC request failed: '+e.message;console.error('GSC loadSites error:',e)}
 }

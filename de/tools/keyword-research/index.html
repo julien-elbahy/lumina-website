@@ -869,6 +869,7 @@ async function gscLoadSites(){
     if(!d.siteEntry||!d.siteEntry.length){document.getElementById('gscStatus').textContent='Keine Properties gefunden. Stelle sicher, dass dein Google-Konto GSC-Zugriff hat.';return}
     var sel=document.getElementById('gscSite');sel.innerHTML='';
     d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+    if(window.csUpgrade)csUpgrade(sel);
     document.getElementById('gscStatus').textContent='✓ '+d.siteEntry.length+' Properties geladen';
   }catch(e){document.getElementById('gscStatus').textContent='GSC-Anfrage fehlgeschlagen: '+e.message;console.error('GSC loadSites error:',e)}
 }

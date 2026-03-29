@@ -381,8 +381,8 @@ document.addEventListener('DOMContentLoaded',function(){
     '.cs-wrap.open .cs-panel{display:block}'+
     '.cs-search{width:100%;border:none;border-bottom:1px solid var(--border);background:var(--input-bg);color:var(--text);font-size:12px;font-family:var(--font);padding:8px 10px;outline:none;box-sizing:border-box}'+
     '.cs-search::placeholder{color:var(--muted)}'+
-    '.cs-opts{max-height:220px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}'+
-    '.cs-opts::-webkit-scrollbar{width:5px}.cs-opts::-webkit-scrollbar-track{background:transparent}.cs-opts::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}.cs-opts::-webkit-scrollbar-thumb:hover{background:var(--muted)}'+
+    '.cs-opts{max-height:220px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}'+
+    '.cs-opts::-webkit-scrollbar{display:none}'+
     '.cs-opt{padding:7px 10px;font-size:12px;color:var(--text2);cursor:pointer;transition:background .1s,color .1s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'+
     '.cs-opt:hover,.cs-opt.hl{background:var(--accent-soft);color:var(--text)}'+
     '.cs-opt.sel{color:var(--accent);font-weight:700}'+
@@ -390,8 +390,10 @@ document.addEventListener('DOMContentLoaded',function(){
     '[data-theme="light"] .cs-panel{background:rgba(255,255,255,.97);box-shadow:0 8px 32px rgba(100,70,30,.12)}'+
     '[data-theme="light"] .cs-search{background:rgba(245,240,233,.8)}'+
     '[data-theme="light"] .cs-opt:hover,[data-theme="light"] .cs-opt.hl{background:rgba(200,122,48,.08)}'+
+    '.cs-wrap select{display:none!important;position:absolute;opacity:0;pointer-events:none}'+
     '.kw-input .cs-trigger{border-radius:12px;padding:10px 30px 10px 12px}.kw-input .cs-panel{border-radius:12px}'+
-    '.loc-row .cs-trigger{border-radius:8px}';
+    '.loc-row .cs-trigger{border-radius:8px}'+
+    '.gsc-bar .cs-trigger{font-family:var(--mono);font-size:11px;padding:6px 28px 6px 10px;min-width:140px}';
   document.head.appendChild(csStyle);
 
   function csUpgrade(sel){
@@ -481,9 +483,12 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  // Auto-upgrade all selects with 5+ options (skip GSC site selector which is dynamically populated)
+  // Expose csUpgrade globally so tool scripts can upgrade dynamically-populated selects
+  window.csUpgrade=csUpgrade;
+
+  // Auto-upgrade all selects with 2+ options (skip GSC site selector which is dynamically populated)
   document.querySelectorAll('select').forEach(function(sel){
-    if(sel.options.length>=5&&sel.id!=='gscSite')csUpgrade(sel);
+    if(sel.options.length>=2&&sel.id!=='gscSite')csUpgrade(sel);
   });
 });
 })();

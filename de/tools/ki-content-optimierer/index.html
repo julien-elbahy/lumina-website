@@ -400,6 +400,7 @@ async function gscLoadSites(){
     if(!d.siteEntry||!d.siteEntry.length){console.warn('GSC: no siteEntry found');return}
     var sel=document.getElementById('gscSite');sel.innerHTML='';
     d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+    if(window.csUpgrade)csUpgrade(sel);
   }catch(e){console.error('GSC loadSites error:',e)}
 }
 document.getElementById('btnGscLoad').addEventListener('click',async function(){
