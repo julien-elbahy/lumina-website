@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded',function(){
   // Replaces native <select> with styled, searchable dropdowns
   var csStyle=document.createElement('style');
   csStyle.textContent=
-    '.cs-wrap{position:relative;display:inline-flex;vertical-align:middle}'+
+    '.cs-wrap{position:relative;display:inline-flex;vertical-align:middle;z-index:1}.cs-wrap.open{z-index:9999}'+
     '.cs-trigger{display:inline-flex;align-items:center;gap:6px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 30px 8px 10px;color:var(--text);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .2s;white-space:nowrap;text-align:left;position:relative;min-width:0;max-width:200px;overflow:hidden;text-overflow:ellipsis}'+
     '.cs-trigger:hover{border-color:var(--accent)}.cs-trigger:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}'+
     '.cs-trigger::after{content:"";position:absolute;right:10px;top:50%;transform:translateY(-50%);border:4px solid transparent;border-top:5px solid var(--muted);pointer-events:none}'+
