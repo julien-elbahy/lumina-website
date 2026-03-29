@@ -121,6 +121,19 @@
 /* Top keywords */
 .top-kw-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.top-kw{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:12px}.top-kw-word{font-weight:700;color:var(--text)}.top-kw-count{font-family:var(--mono);font-size:10px;color:var(--muted)}.top-kw-bar{width:40px;height:4px;background:var(--border);border-radius:2px;overflow:hidden}.top-kw-fill{height:100%;border-radius:2px;background:var(--accent)}
 
+/* SERP Benchmark */
+.bench-grid{display:flex;flex-direction:column;gap:10px;margin-top:8px}.bench-row{display:flex;align-items:center;gap:10px}.bench-label{font-size:11px;font-weight:700;color:var(--muted);width:80px;flex-shrink:0;text-transform:uppercase;letter-spacing:.5px}.bench-bars{flex:1;display:flex;flex-direction:column;gap:3px}.bench-bar{display:flex;align-items:center;gap:8px;font-size:11px}.bench-track{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;position:relative}.bench-fill{height:100%;border-radius:4px;transition:width .6s ease}.bench-fill.user{background:var(--accent)}.bench-fill.comp{background:var(--muted);opacity:.5}.bench-val{font-family:var(--mono);font-size:11px;min-width:50px;text-align:right}.bench-val.user{color:var(--accent);font-weight:700}.bench-val.comp{color:var(--muted)}
+.intent-box{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;margin-top:8px;font-size:13px;border:1px solid}.intent-box.match{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.intent-box.mismatch{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}.intent-icon{font-size:20px}.intent-text{flex:1}.intent-text strong{display:block;font-size:14px;margin-bottom:2px}.intent-text span{font-size:12px;opacity:.8}
+/* Term Checklist */
+.term-section{margin-top:6px}.term-cat{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;padding:6px 0 4px;margin-top:8px;display:flex;align-items:center;gap:6px}.term-cat.must{color:var(--err)}.term-cat.weak{color:var(--warn)}.term-cat.good{color:var(--ok)}.term-cat.over{color:var(--err)}
+.term-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;font-size:12px;transition:background .15s}.term-item:hover{background:var(--accent-soft)}.term-icon{width:16px;text-align:center;flex-shrink:0}.term-word{flex:1;font-weight:600;color:var(--text)}.term-count{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:80px;text-align:right}
+.term-search{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:var(--text);font-size:12px;font-family:var(--font);margin-bottom:4px}.term-search:focus{outline:none;border-color:var(--accent)}
+/* Content Gaps */
+.gap-item{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;transition:all .2s}.gap-item:hover{border-color:var(--accent)}.gap-icon{font-size:14px;flex-shrink:0;margin-top:1px}.gap-heading{font-weight:700;font-size:13px;color:var(--text)}.gap-meta{font-size:11px;color:var(--muted);margin-top:2px}.gap-brief{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.5}
+/* PAA */
+.paa-item{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}.paa-item:last-child{border-bottom:none}.paa-icon{flex-shrink:0;width:18px;text-align:center;margin-top:1px}.paa-q{font-weight:600;color:var(--text);flex:1}.paa-hint{font-size:11px;color:var(--muted);margin-top:2px}
+/* Loading steps */
+.step-progress{margin-top:14px}.step-item{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12px;color:var(--muted)}.step-item.active{color:var(--accent);font-weight:600}.step-item.done{color:var(--ok)}.step-spinner{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.step-check{color:var(--ok);font-weight:700}
 /* Light mode */
 [data-theme="light"] body{background:linear-gradient(168deg,#efe8dc 0%,#e7ddd0 40%,#e0d5c7 100%)}
 [data-theme="light"] body::before{opacity:.012}
@@ -273,42 +286,26 @@
 <button class="ab" id="btnAnalyze">✨ Analyze &amp; Optimize</button>
 <button class="ai-btn" id="btnDetectKw" style="background:var(--card);color:var(--accent);border:1px solid var(--border)">🔍 Auto-detect keywords</button>
 </div>
-<div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
+<div id="loading" style="display:none;margin-top:14px">
+<div class="step-progress">
+<div class="step-item" id="stepKw">🔍 Detecting keywords…</div>
+<div class="step-item" id="stepSerp">📊 Analyzing SERP…</div>
+<div class="step-item" id="stepComp">🕷️ Fetching competitor content…</div>
+<div class="step-item" id="stepAi">✨ AI analysis…</div>
+</div>
+</div>
 <div id="res" style="display:none">
-<div class="section-label">📊 Content Analysis</div>
-<div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
-<div class="score-ring-wrap"><svg class="score-ring" viewBox="0 0 36 36"><path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="var(--border)" stroke-width="2.5"/><path id="scoreArc" d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-dasharray="0, 100" stroke-linecap="round"/><text x="18" y="20" id="scoreText" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="800" font-family="var(--font)">—</text></svg><div class="score-label">SEO Score</div></div>
-<div style="flex:1;min-width:0">
-<div class="metrics" style="grid-template-columns:repeat(4,1fr)">
-<div class="metric"><div class="mh">Words</div><p id="mWords">0</p></div>
-<div class="metric"><div class="mh">Reading Time</div><p id="mTime">—</p></div>
-<div class="metric"><div class="mh">Readability</div><p id="mRead">—</p></div>
-<div class="metric"><div class="mh">KW Density</div><p id="mDens">—</p></div>
-</div>
-</div>
-</div>
-<div id="contentInsights" style="margin-top:12px"></div>
-<div id="topKeywords" style="margin-top:12px;display:none"></div>
-<div id="headingTree"></div>
+<div id="serpBenchmark"></div>
+<div id="termChecklist"></div>
+<div id="contentGaps"></div>
+<div id="paaQuestions"></div>
+<div id="aiOptimizations"></div>
+<div id="metaAlts"></div>
 <div class="toolbar" id="analysisToolbar" style="display:none">
 <button class="tb-btn" id="btnCopyAnalysis">📋 Copy</button>
 <button class="tb-btn" id="btnReport">📄 Report</button>
 </div>
-</div>
 <div class="cross-links" id="crossLinks" style="display:none"></div>
-</div>
-<div class="ai-card" id="aiCard" style="margin-top:16px;display:none">
-<div class="ai-card-header">
-<span class="ai-badge">AI-Powered</span>
-<h2 class="ai-card-title">Content Optimizer</h2>
-<p class="ai-card-desc">Keyword coverage, title &amp; meta description rewrites, heading improvements, and readability tips.</p>
-</div>
-<div class="ai-card-body">
-<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center">
-<button class="ai-btn" id="btnOptimize" style="font-size:12px;padding:10px 18px">✨ AI Optimize</button>
-</div>
-</div>
-<div id="aiRes" style="display:none"></div>
 </div>
 
 <div class="content">
@@ -552,81 +549,6 @@ document.getElementById('btnFetchUrl').addEventListener('click',function(){
   }).catch(function(e){alert('Could not fetch: '+e.message)}).finally(function(){btn.disabled=false;btn.textContent='Fetch from URL'});
 });
 
-/* ── Client-side Analysis ── */
-function runAnalysis(){
-  var text=document.getElementById('contentIn').value.trim();
-  var kw=document.getElementById('kwPrimary').value.trim();
-  if(!text){alert('Please paste some content to analyze.');return}
-  var wc=countWords(text);var sc=countSentences(text);var read=fleschKincaid(text);
-  var dens=kwDensity(text,kw);
-  var headings=_fetchedHeadings||[];
-  var score=calcScore(wc,dens.pct,read,!!kw,headings);
-  // Score ring (animated)
-  animateScore(score);
-  // Metrics
-  document.getElementById('mWords').textContent=wc.toLocaleString();
-  document.getElementById('mTime').textContent=readingTime(wc);
-  var rl=readabilityLabel(read);
-  document.getElementById('mRead').textContent=rl.text;
-  document.getElementById('mRead').style.color=read>=60?'var(--ok)':read>=40?'var(--warn)':'var(--err)';
-  document.getElementById('mRead').title='Flesch-Kincaid: '+read+' — '+rl.tip;
-  document.getElementById('mDens').textContent=kw?dens.pct.toFixed(1)+'%':'—';
-  document.getElementById('mDens').style.color=kw?(dens.pct>=0.5&&dens.pct<=3?'var(--ok)':dens.pct>3&&dens.pct<=5?'var(--warn)':'var(--err)'):'var(--text)';
-  // Content insights
-  var ins='';var avgSentLen=Math.round(wc/(sc||1));
-  // Word count insight
-  if(wc>=1000)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>'+wc.toLocaleString()+' words</strong> — comprehensive content length. Good for in-depth guides and competitive keywords.</span></div>';
-  else if(wc>=300)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>'+wc.toLocaleString()+' words</strong> — solid content length for most topics. Consider expanding to 800+ for competitive keywords.</span></div>';
-  else ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>'+wc.toLocaleString()+' words</strong> — thin content. Most ranking pages have 300+ words. Consider adding more depth.</span></div>';
-  // Readability insight
-  ins+='<div class="insight-row"><span class="insight-icon '+(read>=50?'insight-ok':'insight-warn')+'">'+(read>=50?'✓':'⚠')+'</span><span class="insight-text"><strong>Readability: '+rl.text+'</strong> (Flesch-Kincaid '+read+') — '+rl.tip+'</span></div>';
-  // Sentence length insight
-  if(avgSentLen>=10&&avgSentLen<=20)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>Avg. '+avgSentLen+' words/sentence</strong> — ideal for web readability.</span></div>';
-  else if(avgSentLen>20&&avgSentLen<=25)ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>Avg. '+avgSentLen+' words/sentence</strong> — slightly long. Try breaking up sentences over 25 words.</span></div>';
-  else if(avgSentLen>25)ins+='<div class="insight-row"><span class="insight-icon insight-err">✕</span><span class="insight-text"><strong>Avg. '+avgSentLen+' words/sentence</strong> — too long for web content. Aim for 15-20 words per sentence.</span></div>';
-  else ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>Avg. '+avgSentLen+' words/sentence</strong> — very concise. Good readability.</span></div>';
-  // Keyword density insight
-  if(kw){
-    if(dens.pct>=0.5&&dens.pct<=3)ins+='<div class="insight-row"><span class="insight-icon insight-ok">✓</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> appears '+dens.count+'× ('+dens.pct.toFixed(1)+'% density) — ideal range.</span></div>';
-    else if(dens.pct>3)ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> appears '+dens.count+'× ('+dens.pct.toFixed(1)+'% density) — might be over-optimized. Aim for 0.5–3%.</span></div>';
-    else if(dens.count>0)ins+='<div class="insight-row"><span class="insight-icon insight-warn">⚠</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> appears '+dens.count+'× ('+dens.pct.toFixed(1)+'% density) — low. Consider adding a few more natural mentions.</span></div>';
-    else ins+='<div class="insight-row"><span class="insight-icon insight-err">✕</span><span class="insight-text"><strong>"'+esc(kw)+'"</strong> not found in content. Add your target keyword naturally into the text.</span></div>';
-  }
-  document.getElementById('contentInsights').innerHTML=ins;
-  // Top keywords (stop-word filtered)
-  var stopWords=getStopWords();
-  var words=text.toLowerCase().split(/\s+/);var freq={};
-  words.forEach(function(w){w=w.replace(/[^a-zäöüßàáâãèéêëìíîïòóôõùúûüñç0-9-]/gi,'');if(w.length>2&&stopWords.indexOf(w)===-1)freq[w]=(freq[w]||0)+1});
-  var sorted=Object.entries(freq).sort(function(a,b){return b[1]-a[1]}).slice(0,12);
-  if(sorted.length){
-    var maxF=sorted[0][1];
-    var tkh='<div class="section-label">🔤 Top Keywords in Content</div><div class="top-kw-grid">';
-    sorted.forEach(function(e){var pct=Math.round(e[1]/maxF*100);var isKw=kw&&e[0]===kw.toLowerCase();
-      tkh+='<div class="top-kw'+(isKw?' style="border-color:var(--accent)"':'')+'"><span class="top-kw-word"'+(isKw?' style="color:var(--accent)"':'')+'>'+e[0]+'</span><span class="top-kw-count">'+e[1]+'×</span><div class="top-kw-bar"><div class="top-kw-fill" style="width:'+pct+'%'+(isKw?';background:var(--accent)':'')+'"></div></div></div>'});
-    tkh+='</div>';
-    var tkEl=document.getElementById('topKeywords');tkEl.innerHTML=tkh;tkEl.style.display='block';
-  }else{document.getElementById('topKeywords').style.display='none'}
-  // Heading tree
-  var htEl=document.getElementById('headingTree');
-  if(headings.length){
-    var ht='<div class="heading-tree"><div class="ht-title">Heading Structure ('+headings.length+' headings)</div>';
-    var h1Count=headings.filter(function(h){return h.tag==='h1'}).length;
-    if(h1Count===0)ht+='<div style="font-size:11px;color:var(--err);margin-bottom:6px">⚠ No H1 found</div>';
-    else if(h1Count>1)ht+='<div style="font-size:11px;color:var(--warn);margin-bottom:6px">⚠ Multiple H1 tags ('+h1Count+')</div>';
-    headings.forEach(function(h){
-      ht+='<div class="ht-row '+h.tag+'"><span class="ht-tag">'+h.tag.toUpperCase()+'</span>'+esc(h.text.substring(0,80))+(h.text.length>80?'…':'')+'</div>';
-    });
-    ht+='</div>';htEl.innerHTML=ht;
-  }else{htEl.innerHTML=''}
-  // Toolbar + AI Card + Cross-links
-  document.getElementById('analysisToolbar').style.display='flex';
-  document.getElementById('res').style.display='block';
-  document.getElementById('aiCard').style.display='block';
-  var url_=document.getElementById('urlIn').value.trim();
-  if(url_){var cl=document.getElementById('crossLinks');cl.innerHTML='<a href="/tools/meta-tag-analyzer/?url='+encodeURIComponent(url_)+'">🔍 Meta Analysis</a><a href="/tools/serp-preview/?url='+encodeURIComponent(url_)+'">📱 Snippet Preview</a><a href="/tools/heading-checker/?url='+encodeURIComponent(url_)+'">📑 Heading Check</a><a href="/tools/semantic-checker/?url='+encodeURIComponent(url_)+'">🏷️ Semantic HTML</a>';cl.style.display='flex'}
-  analysisData={text:text,kw:kw,sec:document.getElementById('kwSecondary').value.trim(),wc:wc,sc:sc,read:read,dens:dens,score:score,url:url_,headings:headings};
-}
-
 /* ── Keyword chip rendering ── */
 function renderChips(){
   var container=document.getElementById('kwChips');
@@ -653,7 +575,7 @@ function renderChips(){
   })});
 }
 
-/* ── Auto-detect keywords: AI → DFS volume ── */
+/* ── Auto-detect keywords (standalone) ── */
 document.getElementById('btnDetectKw').addEventListener('click',async function(){
   var text=document.getElementById('contentIn').value.trim();
   if(!text){alert('Please paste content first.');return}
@@ -661,7 +583,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
   try{
     var snippet=text.substring(0,2000);
     var locLabel=document.getElementById('locSelect').selectedOptions[0].textContent+' ('+document.getElementById('langSelect').value+')';
-    var data=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\nTarget market: '+locLabel+'\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for IN THE LANGUAGE OF THE CONTENT\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n- Keywords must match the content language and target market\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],max_tokens:300});
+    var data=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\nTarget market: '+locLabel+'\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for IN THE LANGUAGE OF THE CONTENT\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n- Keywords must match the content language and target market\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],model:'gpt-4.1-mini',max_tokens:300});
     var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     var kws=JSON.parse(raw).keywords||[];
     if(!kws.length)throw new Error('No keywords detected');
@@ -669,200 +591,310 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
     if(kws.length>1)document.getElementById('kwSecondary').value=kws.slice(1,4).join(', ');
     _kwData=kws.map(function(k){return{keyword:k}});
     renderChips();
-    // DFS volumes
-    btn.textContent='⏳ Getting volumes…';
-    var lp=getLocParts();
-    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:kws.slice(0,20),language_code:lp.lang,location_code:lp.loc}])});
-    var dfsData=await dfsResp.json();
-    if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_kwData.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0})})})}
-    _kwData.sort(function(a,b){return(b.vol||0)-(a.vol||0)})
-    renderChips();
-  }catch(e){document.getElementById('kwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p><p style="font-size:11px;color:var(--muted);margin-top:6px">💡 Add your API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.</p>';document.getElementById('kwChips').style.display='block'}
+  }catch(e){document.getElementById('kwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p>';document.getElementById('kwChips').style.display='block'}
   finally{btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'}
 });
 
-/* ── AI Optimize (Extension-quality prompt) ── */
-document.getElementById('btnOptimize').addEventListener('click',async function(){
-  var text=document.getElementById('contentIn').value.trim();
-  var primary=document.getElementById('kwPrimary').value.trim();
-  if(!text){alert('Paste content first.');return}
-  if(!primary){alert('Enter or detect a primary keyword first.');return}
-  if(!analysisData)runAnalysis();
-  var secondary=document.getElementById('kwSecondary').value.trim();
-  var url=document.getElementById('urlIn').value.trim();
-  var btn=this;btn.disabled=true;btn.textContent='⏳ Optimizing…';
-  var out=document.getElementById('aiRes');out.style.display='block';
-  out.innerHTML='<div class="section-label">✨ AI Optimization</div><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w90"></div><div class="skel w70"></div>';
-  var lang=getLocParts().lang;
-  var gscCtx=gscContextForPrompt();
-  try{
-    var data=await aiCall({messages:[{role:'system',content:'You are a senior SEO consultant performing a data-driven content optimization. The page language is "'+lang+'". WRITE ALL OPTIMIZED TEXT IN THE SAME LANGUAGE AS THE ORIGINAL.\n\n'+
-      'Primary target keyword: "'+primary+'".\n'+
-      (secondary?'Secondary keywords: '+secondary+'\n':'')+
-      'OPTIMIZATION RULES (apply strictly):\n'+
-      '1. SEMANTIC KEYWORD MATCHING (CRITICAL): Google uses BERT/MUM and understands semantic meaning. A keyword does NOT need to appear as an exact phrase. Partial matches, reordered words, and semantic equivalents COUNT as covered. Only flag a keyword as "weak" or "missing" if its MEANING is genuinely absent from that element.\n'+
-      '2. TITLE TAG: Must contain the primary keyword concept (not necessarily exact match). Use compelling modifiers. STRICT LIMIT: max 50-55 characters (Google truncates at ~580px which is roughly 50-55 chars). Shorter is better. Count carefully before outputting. Add brand at end ONLY if total stays under 50 chars.\n'+
-      '3. META DESCRIPTION: Must address the primary search intent. Include value proposition + CTA. STRICT LIMIT: 135-150 characters (Google truncates at ~920px). Count every character. Never exceed 150. Aim for 140.\n'+
-      '4. HEADING STRUCTURE: H1 must reflect the primary topic. H2s should cover main aspects. Never skip heading levels.\n'+
-      '5. CONTENT QUALITY: Short sentences (15-20 words avg). Bullet points for lists. Define key entities clearly.\n'+
-      (gscCtx?'6. GSC-DRIVEN: The GSC data below is pre-analyzed with search volumes. Keywords marked HIGH PRIORITY have the biggest ranking opportunity — optimize title, description, and content specifically for these. Position 4-20 with high volume = strengthen content. Position 1-3 = don\'t change aggressively. Low CTR on page 1 = title/description problem.\n':'6. CONTENT GAPS: If related keywords are genuinely missing from the page meaning, suggest a new section.\n')+
-      '7. NO INTERNAL LINK SUGGESTIONS — do not suggest internal links as you cannot verify which pages exist.\n'+
-      '8. META ALTERNATIVES: Also generate 2 creative alternative title options and 2 alternative description options. These should use different angles, modifiers, or CTAs than the main optimizations.\n\n'+
-      'EXAMPLES OF GOOD TITLE OPTIMIZATIONS:\n'+
-      '✓ "Badsanierung Wien – Fixpreis & Festtermin" (43 chars — keyword early, compelling modifiers)\n'+
-      '✓ "SEO Audit: 7 Checks für bessere Rankings" (43 chars — number, clear benefit)\n'+
-      '✓ "Bathroom Renovation in 1 Day | bazuba" (40 chars — USP + brand fits)\n\n'+
-      'EXAMPLES OF BAD TITLES (DO NOT PRODUCE THESE):\n'+
-      '✗ "Badsanierung & Badrenovierung aus einer Hand – Ihr Experte für Komplettsanierungen" (too long — 84 chars, will be truncated)\n'+
-      '✗ "Best Bathroom Renovation Services Company Near You 2026" (generic, keyword-stuffed)\n'+
-      '✗ "Home | bazuba" (too vague, wastes the entire title tag)\n\n'+
-      'EXAMPLES OF GOOD DESCRIPTIONS:\n'+
-      '✓ "Badsanierung in nur 1 Tag. ✓ Fixpreis ✓ Kein Staub ✓ 100.000+ zufriedene Kunden. Jetzt Festpreis anfragen." (109 chars — benefits, proof, CTA)\n'+
-      '✓ "Complete bathroom renovation with fixed pricing. No dust, no mess. Get your free quote today." (93 chars — clear, concise)\n\n'+
-      'EXAMPLES OF BAD DESCRIPTIONS:\n'+
-      '✗ "Wir sind Ihr kompetenter Partner für Badsanierung und Badrenovierung aus einer Hand mit über 20 Jahren Erfahrung und mehr als 100.000 zufriedenen Kunden in ganz Österreich, Deutschland und der Schweiz." (too long — 199 chars)\n'+
-      '✗ "Welcome to our website. Click here to learn more about our services." (generic, no keywords, no value)\n\n'+
-      'IMPORTANT: Provide optimizations for EVERY element that needs improvement — title, description, H1, all weak H2s, and any paragraphs where keyword placement or readability can be improved. Typically 5-15 optimizations depending on content length and quality. Return concrete, ready-to-use text rewrites. The "before" field must be the EXACT original text. Keep the original tone and voice.\n'+
-      'BEFORE OUTPUTTING: Count the characters of any title optimization (must be ≤55 chars) and any description optimization (must be ≤150 chars). Shorten if they exceed these limits.\n\n'+
-      'Respond ONLY with valid JSON:\n'+
-      '{"score_before":0-100,"score_after":0-100,"summary":"1 sentence what was improved",'+
-      '"keywords":{"covered":["keywords semantically well-represented"],"weak":["keywords whose MEANING is present but weakly"],"missing":["keywords whose MEANING is genuinely absent"],'+
-      '"primary":"detected main keyword","density":"X.X%","inTitle":true/false,"inH1":true/false,"inDesc":true/false,"inFirst100Words":true/false},'+
-      '"optimizations":[{"type":"title|description|h1|h2|paragraph|new_section",'+
-      '"before":"EXACT original text (empty string for new_section)",'+
-      '"after":"optimized replacement text",'+
-      '"reason":"specific explanation: which keyword concept, what volume, why this change improves ranking"}],'+
-      '"readability":{"level":"grade level","avgSentenceLength":0,"suggestion":"specific actionable improvement"},'+
-      '"meta_alternatives":{"title1":"alt title 1 (max 55 chars)","title2":"alt title 2","desc1":"alt description 1 (max 150 chars)","desc2":"alt description 2"}}'},{role:'user',content:'URL: '+(url||'(none)')+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+'Content (first 4000 chars):\n'+text.substring(0,4000)+gscCtx}],
-    max_tokens:2000});
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
-    var r=JSON.parse(raw);
-    var h='<div class="section-label">✨ AI Optimization</div>';
-    // Score before → after
-    var sclB=(r.score_before||0)>=75?'good':(r.score_before||0)>=50?'mid':'bad';
-    var sclA=(r.score_after||0)>=75?'good':(r.score_after||0)>=50?'mid':'bad';
-    h+='<div class="ai-card" style="text-align:center"><div style="display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:6px"><div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Before</div><span class="ai-score '+sclB+'">'+(r.score_before||'?')+'</span></div><div style="font-size:20px;color:var(--muted)">→</div><div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">After</div><span class="ai-score '+sclA+'">'+(r.score_after||'?')+'</span></div></div><p style="font-size:13px;color:var(--text);margin:4px 0 0">'+esc(r.summary||'')+'</p></div>';
-    // Keyword coverage
-    if(r.keywords){var kws=r.keywords;
-      h+='<div class="ai-card"><h4>Keyword Coverage</h4>';
-      h+='<p style="font-size:13px;margin:0 0 6px"><strong>Primary:</strong> '+esc(kws.primary||'—')+(kws.density?' · <strong>Density:</strong> '+esc(kws.density):'')+'</p>';
-      h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0">';
-      h+='<span class="badge '+(kws.inTitle?'ok':'err')+'">Title: '+(kws.inTitle?'✓':'✕')+'</span>';
-      h+='<span class="badge '+(kws.inH1?'ok':'err')+'">H1: '+(kws.inH1?'✓':'✕')+'</span>';
-      h+='<span class="badge '+(kws.inDesc?'ok':'err')+'">Description: '+(kws.inDesc?'✓':'✕')+'</span>';
-      h+='<span class="badge '+(kws.inFirst100Words?'ok':'err')+'">First 100 words: '+(kws.inFirst100Words?'✓':'✕')+'</span></div>';
-      if(kws.covered&&kws.covered.length)h+='<p style="font-size:12px;margin:4px 0"><strong style="color:var(--ok)">✓ Well covered:</strong> '+kws.covered.map(function(k){return'<span class="badge ok" style="margin:1px">'+esc(k)+'</span>'}).join(' ')+'</p>';
-      if(kws.weak&&kws.weak.length)h+='<p style="font-size:12px;margin:4px 0"><strong style="color:var(--warn)">◐ Weak:</strong> '+kws.weak.map(function(k){return'<span class="badge warn" style="margin:1px">'+esc(k)+'</span>'}).join(' ')+'</p>';
-      if(kws.missing&&kws.missing.length)h+='<p style="font-size:12px;margin:4px 0"><strong style="color:var(--err)">✕ Missing:</strong> '+kws.missing.map(function(k){return'<span class="badge err" style="margin:1px">'+esc(k)+'</span>'}).join(' ')+'</p>';
-      h+='</div>';
-    }
-    // Optimizations with before/after + pixel bars for title/desc
-    var opts=r.optimizations||[];
-    if(opts.length){
-      var typeLabels={title:'🏷️ Title',description:'📝 Description',h1:'📌 H1',h2:'📌 H2',paragraph:'📄 Paragraph',new_section:'🆕 New Section'};
-      h+='<div class="ai-card"><h4>✏️ Optimizations ('+opts.length+')</h4>';
-      opts.forEach(function(o){
-        h+='<div class="ai-diff"><div class="ai-diff-label">'+(typeLabels[o.type]||o.type)+'</div>';
-        if(o.before)h+='<div class="ai-diff-before">'+esc(o.before)+'</div>';
-        h+='<div class="ai-diff-after">'+esc(o.after)+'</div>';
-        if(o.type==='title'){var px=pxMeasure(o.after,'20px Arial');h+=pxBar(px,580,520)+'<span style="font-size:10px;color:var(--muted)">'+o.after.length+' chars</span>'}
-        if(o.type==='description'){var px=pxMeasure(o.after,'14px Arial');h+=pxBar(px,920,820)+'<span style="font-size:10px;color:var(--muted)">'+o.after.length+' chars</span>'}
-        if(o.reason)h+='<div class="ai-diff-reason">💡 '+esc(o.reason)+'</div>';
-        h+='</div>';
-      });
-      h+='<button class="btn-sm" style="margin-top:8px" onclick="var opts=window._lastOpts||[];var lines=[];opts.forEach(function(c){lines.push(\'--- \'+c.type.toUpperCase()+\' ---\');if(c.before)lines.push(\'BEFORE: \'+c.before);lines.push(\'AFTER: \'+c.after);if(c.reason)lines.push(\'REASON: \'+c.reason);lines.push(\'\')});navigator.clipboard.writeText(lines.join(\'\\n\'));this.textContent=\'✓ Copied!\';setTimeout(function(){event.target.textContent=\'📋 Copy all changes\'},1500)">📋 Copy all changes</button>';
-      h+='</div>';
-      window._lastOpts=opts;
-    }
-    // Readability
-    if(r.readability){h+='<div class="ai-card"><h4>📖 Readability</h4><p style="font-size:13px"><strong>Level:</strong> '+esc(r.readability.level||'')+'</p><p style="font-size:12px;color:var(--muted)">'+esc(r.readability.suggestion||'')+'</p></div>'}
-    // Meta alternatives
-    if(r.meta_alternatives){var ma=r.meta_alternatives;
-      h+='<div class="ai-card"><h4>🏷️ Alternative Meta Tags</h4>';
-      [['title1','Title — Option A',true],['title2','Title — Option B',true],['desc1','Description — Option A',false],['desc2','Description — Option B',false]].forEach(function(pair){
-        var val=ma[pair[0]]||'';if(!val)return;var isTitle=pair[2];
-        var px=pxMeasure(val,isTitle?'20px Arial':'14px Arial');
-        var maxPx=isTitle?580:920;var warnPx=isTitle?520:820;
-        h+='<div class="meta-card"><div class="mh">'+pair[1]+' <span class="badge '+(val.length<=(isTitle?55:150)?'ok':'warn')+'">'+val.length+' chars</span></div><p>'+esc(val)+'</p>'+pxBar(px,maxPx,warnPx)+'<button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector(\'p\').textContent);this.textContent=\'✓\';setTimeout(function(){event.target.textContent=\'Copy\'},1500)">Copy</button></div>';
-      });
-      h+='</div>';
-    }
-    out.innerHTML=h;
-  }catch(e){out.innerHTML='<p style="color:var(--err);padding:16px">❌ '+esc(e.message)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px;padding:0 16px">💡 Add your API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.</p>'}
-  finally{btn.disabled=false;btn.textContent='✨ AI Optimize'}
-});
+/* ── SERP + Competitor Fetching ── */
+async function fetchSERP(keyword,loc,lang){
+  var resp=await fetch(WORKER+'/dfs?endpoint=serp/google/organic/live/regular',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keyword:keyword,language_code:lang,location_code:loc,depth:10}])});
+  var data=await resp.json();
+  var results=[],paa=[];
+  if(data.tasks)data.tasks.forEach(function(t){(t.result||[]).forEach(function(r){
+    (r.items||[]).forEach(function(item){
+      if(item.type==='organic'&&item.url)results.push({url:item.url,title:item.title||'',description:item.description||'',position:item.rank_group||0});
+      if(item.type==='people_also_ask')paa.push.apply(paa,(item.items||[]).map(function(q){return q.title||q.question||''}));
+    });
+  })});
+  return{results:results.slice(0,10),paa:paa};
+}
 
+async function fetchCompetitorPage(url){
+  try{
+    var resp=await fetch(WORKER+'/fetch?url='+encodeURIComponent(url),{headers:{'X-Lumina-Tool':'content-optimizer'}});
+    var data=await resp.json();
+    if(!data.html)return null;
+    var doc=new DOMParser().parseFromString(data.html,'text/html');
+    doc.querySelectorAll('nav,header,footer,script,style,noscript,svg,[role="navigation"],[role="banner"],[role="contentinfo"]').forEach(function(el){el.remove()});
+    var text=(doc.body.textContent||'').replace(/\s+/g,' ').trim();
+    var headings=[];
+    doc.body.querySelectorAll('h1,h2,h3').forEach(function(h){var t=h.textContent.trim();if(t.length>0&&t.length<200)headings.push({tag:h.tagName.toLowerCase(),text:t})});
+    return{url:url,text:text.substring(0,2000),headings:headings,wordCount:countWords(text)};
+  }catch(e){return null}
+}
+
+/* ── Rendering functions ── */
+function renderBenchmark(el,data){
+  var sb=data.serp_benchmark;if(!sb)return;
+  var h='<div class="section-label">📊 SERP Benchmark — Your Content vs. Top 5</div>';
+  var maxW=Math.max(sb.user_words||0,sb.avg_words||1);
+  var maxH=Math.max(sb.user_headings||0,sb.avg_headings||1);
+  h+='<div class="bench-grid">';
+  // Words
+  h+='<div class="bench-row"><div class="bench-label">Words</div><div class="bench-bars">';
+  h+='<div class="bench-bar"><div class="bench-track"><div class="bench-fill user" style="width:'+Math.round((sb.user_words||0)/maxW*100)+'%"></div></div><span class="bench-val user">'+(sb.user_words||0).toLocaleString()+'</span></div>';
+  h+='<div class="bench-bar"><div class="bench-track"><div class="bench-fill comp" style="width:'+Math.round((sb.avg_words||0)/maxW*100)+'%"></div></div><span class="bench-val comp">Ø '+(sb.avg_words||0).toLocaleString()+'</span></div>';
+  h+='</div></div>';
+  // Headings
+  h+='<div class="bench-row"><div class="bench-label">Headings</div><div class="bench-bars">';
+  h+='<div class="bench-bar"><div class="bench-track"><div class="bench-fill user" style="width:'+Math.round((sb.user_headings||0)/maxH*100)+'%"></div></div><span class="bench-val user">'+(sb.user_headings||0)+'</span></div>';
+  h+='<div class="bench-bar"><div class="bench-track"><div class="bench-fill comp" style="width:'+Math.round((sb.avg_headings||0)/maxH*100)+'%"></div></div><span class="bench-val comp">Ø '+(sb.avg_headings||0)+'</span></div>';
+  h+='</div></div></div>';
+  // Intent
+  if(data.search_intent){var si=data.search_intent;
+    h+='<div class="intent-box '+(si.user_match?'match':'mismatch')+'"><span class="intent-icon">'+(si.label||'🔍')+'</span><div class="intent-text"><strong>'+esc(si.type||'')+'</strong><span>'+esc(si.description||'')+'</span>'+(si.suggestion&&!si.user_match?'<div style="margin-top:4px;font-size:11px;font-weight:600">💡 '+esc(si.suggestion)+'</div>':'')+'</div></div>';
+  }
+  el.innerHTML=h;
+}
+
+function renderTerms(el,terms){
+  if(!terms||!terms.length)return;
+  var must=terms.filter(function(t){return t.status==='missing'});
+  var weak=terms.filter(function(t){return t.status==='weak'});
+  var good=terms.filter(function(t){return t.status==='good'});
+  var over=terms.filter(function(t){return t.status==='overused'});
+  var h='<div class="section-label">🔤 Term Checklist — vs. Top 5 Competitors</div>';
+  h+='<input class="term-search" placeholder="Filter terms…" oninput="var v=this.value.toLowerCase();this.parentElement.querySelectorAll(\'.term-item\').forEach(function(el){el.style.display=el.textContent.toLowerCase().indexOf(v)!==-1?\'flex\':\'none\'})">';
+  function renderCat(items,label,cls,icon){
+    if(!items.length)return'';
+    var s='<div class="term-cat '+cls+'">'+icon+' '+label+' ('+items.length+')</div>';
+    items.forEach(function(t){
+      s+='<div class="term-item"><span class="term-icon">'+icon+'</span><span class="term-word">'+esc(t.term)+'</span><span class="term-count">'+t.user_count+'× <span style="color:var(--muted)">(Ø '+t.competitor_avg+'×)</span></span></div>';
+    });
+    return s;
+  }
+  h+=renderCat(must,'Must Use','must','✕');
+  h+=renderCat(weak,'Needs More','weak','◐');
+  h+=renderCat(good,'Well Covered','good','✓');
+  h+=renderCat(over,'Overused','over','⚠');
+  el.innerHTML=h;
+}
+
+function renderGaps(el,gaps){
+  if(!gaps||!gaps.length)return;
+  var h='<div class="section-label">📌 Content Gaps — Topics Competitors Cover</div>';
+  gaps.forEach(function(g){
+    h+='<div class="gap-item"><span class="gap-icon">📌</span><div><div class="gap-heading">'+esc(g.suggested_heading||g.topic)+'</div><div class="gap-meta">Found in '+esc(g.found_in)+' competitors</div>'+(g.brief?'<div class="gap-brief">'+esc(g.brief)+'</div>':'')+'</div></div>';
+  });
+  el.innerHTML=h;
+}
+
+function renderPAA(el,items){
+  if(!items||!items.length)return;
+  var h='<div class="section-label">❓ People Also Ask</div>';
+  items.forEach(function(p){
+    h+='<div class="paa-item"><span class="paa-icon">'+(p.answered?'✓':'✕')+'</span><div><div class="paa-q">'+esc(p.question)+'</div>'+(p.suggestion?'<div class="paa-hint">💡 '+esc(p.suggestion)+'</div>':'')+'</div></div>';
+  });
+  el.innerHTML=h;
+}
+
+function renderOptimizations(el,r){
+  var h='';
+  // Optimizations with before/after diffs
+  var opts=r.optimizations||[];
+  if(opts.length){
+    var typeLabels={title:'🏷️ Title',description:'📝 Description',h1:'📌 H1',h2:'📌 H2',paragraph:'📄 Paragraph',new_section:'🆕 New Section'};
+    h+='<div class="section-label">✏️ Optimizations ('+opts.length+')</div>';
+    opts.forEach(function(o){
+      h+='<div class="ai-diff"><div class="ai-diff-label">'+(typeLabels[o.type]||o.type)+'</div>';
+      if(o.before)h+='<div class="ai-diff-before">'+esc(o.before)+'</div>';
+      h+='<div class="ai-diff-after">'+esc(o.after)+'</div>';
+      if(o.type==='title'){var px=pxMeasure(o.after,'20px Arial');h+=pxBar(px,580,520)+'<span style="font-size:10px;color:var(--muted)">'+o.after.length+' chars</span>'}
+      if(o.type==='description'){var px=pxMeasure(o.after,'14px Arial');h+=pxBar(px,920,820)+'<span style="font-size:10px;color:var(--muted)">'+o.after.length+' chars</span>'}
+      if(o.reason)h+='<div class="ai-diff-reason">💡 '+esc(o.reason)+'</div>';
+      h+='</div>';
+    });
+    h+='<button class="btn-sm" style="margin-top:8px" onclick="var o=window._lastOpts||[];var l=[];o.forEach(function(c){l.push(\'--- \'+c.type.toUpperCase()+\' ---\');if(c.before)l.push(\'BEFORE: \'+c.before);l.push(\'AFTER: \'+c.after);if(c.reason)l.push(\'REASON: \'+c.reason);l.push(\'\')});navigator.clipboard.writeText(l.join(\'\\n\'));this.textContent=\'✓ Copied!\';setTimeout(function(){event.target.textContent=\'📋 Copy all changes\'},1500)">📋 Copy all changes</button>';
+    window._lastOpts=opts;
+  }
+  // Keyword coverage
+  if(r.keywords){var kws=r.keywords;
+    h+='<div class="ai-card" style="margin-top:12px"><h4>Keyword Coverage</h4>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:6px 0">';
+    h+='<span class="badge '+(kws.inTitle?'ok':'err')+'">Title: '+(kws.inTitle?'✓':'✕')+'</span>';
+    h+='<span class="badge '+(kws.inH1?'ok':'err')+'">H1: '+(kws.inH1?'✓':'✕')+'</span>';
+    h+='<span class="badge '+(kws.inDesc?'ok':'err')+'">Description: '+(kws.inDesc?'✓':'✕')+'</span>';
+    h+='<span class="badge '+(kws.inFirst100Words?'ok':'err')+'">First 100 words: '+(kws.inFirst100Words?'✓':'✕')+'</span></div></div>';
+  }
+  // Readability
+  if(r.readability){h+='<div class="ai-card"><h4>📖 Readability</h4><p style="font-size:13px"><strong>Level:</strong> '+esc(r.readability.level||'')+'</p><p style="font-size:12px;color:var(--muted)">'+esc(r.readability.suggestion||'')+'</p></div>'}
+  el.innerHTML=h;
+}
+
+function renderMetaAlts(el,ma){
+  if(!ma)return;
+  var h='<div class="section-label">🏷️ Alternative Meta Tags</div>';
+  [['title1','Title — Option A',true],['title2','Title — Option B',true],['desc1','Description — Option A',false],['desc2','Description — Option B',false]].forEach(function(pair){
+    var val=ma[pair[0]]||'';if(!val)return;var isTitle=pair[2];
+    var px=pxMeasure(val,isTitle?'20px Arial':'14px Arial');
+    var maxPx=isTitle?580:920;var warnPx=isTitle?520:820;
+    h+='<div class="meta-card"><div class="mh">'+pair[1]+' <span class="badge '+(val.length<=(isTitle?55:150)?'ok':'warn')+'">'+val.length+' chars</span></div><p>'+esc(val)+'</p>'+pxBar(px,maxPx,warnPx)+'<button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector(\'p\').textContent);this.textContent=\'✓\';setTimeout(function(){event.target.textContent=\'Copy\'},1500)">Copy</button></div>';
+  });
+  el.innerHTML=h;
+}
+
+/* ── Loading step helpers ── */
+function setStep(id,state){
+  var el=document.getElementById(id);if(!el)return;
+  el.className='step-item '+(state==='active'?'active':state==='done'?'done':'');
+  if(state==='active')el.innerHTML='<span class="step-spinner"></span> '+el.textContent.replace(/^[✓⏳🔍📊🕷️✨\s]+/,'');
+  else if(state==='done')el.innerHTML='<span class="step-check">✓</span> '+el.textContent.replace(/^[✓⏳🔍📊🕷️✨\s]+/,'');
+}
+
+/* ── Main: Analyze & Optimize (SERP-driven) ── */
 async function analyzeAndOptimize(){
   var text=document.getElementById('contentIn').value.trim();
   if(!text){alert('Please paste content or fetch from a URL first.');return}
   var btn=document.getElementById('btnAnalyze');
-  btn.disabled=true;
-  // Step 1: Auto-detect keywords if none set
+  var btnDetect=document.getElementById('btnDetectKw');
+  btn.disabled=true;btnDetect.disabled=true;
+  var loading=document.getElementById('loading');loading.style.display='block';
+  document.getElementById('res').style.display='none';
+  // Reset steps
+  ['stepKw','stepSerp','stepComp','stepAi'].forEach(function(id){setStep(id,'')});
   var primary=document.getElementById('kwPrimary').value.trim();
-  if(!primary){
-    btn.textContent='⏳ Detecting keywords…';
-    try{
+  var secondary=document.getElementById('kwSecondary').value.trim();
+  var url=document.getElementById('urlIn').value.trim();
+  var lp=getLocParts();
+  var headings=_fetchedHeadings||[];
+  var gscCtx=gscContextForPrompt();
+  try{
+    // Step 1: Auto-detect keywords if needed
+    if(!primary){
+      setStep('stepKw','active');
       var snippet=text.substring(0,2000);
       var locLabel=document.getElementById('locSelect').selectedOptions[0].textContent+' ('+document.getElementById('langSelect').value+')';
-      var kwData=await aiCall({messages:[{role:'system',content:'You extract the most important SEO target keywords from webpage content AND suggest semantic alternatives.\nTarget market: '+locLabel+'\n\nRules:\n- Return 6-10 keywords/phrases this page should rank for IN THE LANGUAGE OF THE CONTENT\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- ALSO include 3-5 semantic synonyms/alternatives\n- Order by likely importance (primary keyword first)\n- Focus on commercial/transactional intent where possible\n- Keywords must match the content language and target market\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],model:'gpt-4.1-mini',max_tokens:300});
+      var kwData=await aiCall({messages:[{role:'system',content:'Extract 6-10 SEO target keywords from this content. Target market: '+locLabel+'. Return IN THE CONTENT LANGUAGE. Order by importance. Respond ONLY with JSON: {"keywords":["kw1","kw2",...]}'},{role:'user',content:'CONTENT:\n'+snippet}],model:'gpt-4.1-mini',max_tokens:300});
       var raw=kwData.choices[0].message.content.replace(/```json|```/g,'').trim();
       var kws=JSON.parse(raw).keywords||[];
       if(kws.length){
-        document.getElementById('kwPrimary').value=kws[0];
-        if(kws.length>1)document.getElementById('kwSecondary').value=kws.slice(1,4).join(', ');
-        _kwData=kws.map(function(k){return{keyword:k}});
-        renderChips();
-        primary=kws[0];
+        document.getElementById('kwPrimary').value=kws[0];primary=kws[0];
+        if(kws.length>1){document.getElementById('kwSecondary').value=kws.slice(1,4).join(', ');secondary=kws.slice(1,4).join(', ')}
+        _kwData=kws.map(function(k){return{keyword:k}});renderChips();
       }
-    }catch(e){console.warn('Keyword detection failed:',e)}
+      setStep('stepKw','done');
+    }else{setStep('stepKw','done')}
+    if(!primary){throw new Error('Could not detect keywords. Please enter a primary keyword manually.')}
+
+    // Step 2: Fetch SERP data
+    setStep('stepSerp','active');
+    var serpData=await fetchSERP(primary,lp.loc,lp.lang);
+    setStep('stepSerp','done');
+
+    // Step 3: Fetch competitor content (top 3, parallel)
+    setStep('stepComp','active');
+    var userUrl=(url||'').replace(/\/$/,'').toLowerCase();
+    var compUrls=serpData.results.filter(function(r){return r.url.replace(/\/$/,'').toLowerCase()!==userUrl}).slice(0,3).map(function(r){return r.url});
+    var compPages=(await Promise.all(compUrls.map(fetchCompetitorPage))).filter(Boolean);
+    setStep('stepComp','done');
+
+    // Step 4: AI analysis with full SERP context
+    setStep('stepAi','active');
+    var compCtx='';
+    compPages.forEach(function(c,i){
+      compCtx+='\n--- COMPETITOR #'+(i+1)+' ('+c.wordCount+' words) '+c.url+' ---\n';
+      compCtx+='Headings: '+c.headings.map(function(h){return h.tag.toUpperCase()+': '+h.text}).join(' | ')+'\n';
+      compCtx+='Content: '+c.text.substring(0,1200)+'\n';
+    });
+    var paaCtx=serpData.paa.length?'\nPEOPLE ALSO ASK:\n'+serpData.paa.map(function(q){return'- '+q}).join('\n'):'';
+    var userHeadingsCtx=headings.length?'\nUSER HEADINGS:\n'+headings.map(function(h){return h.tag.toUpperCase()+': '+h.text}).join('\n'):'';
+
+    var data=await aiCall({messages:[{role:'system',content:'You are a senior SEO content strategist. Analyze the user\'s content against their SERP competitors. Language: "'+lp.lang+'". WRITE ALL TEXT IN THE SAME LANGUAGE AS THE CONTENT.\n\n'+
+      'Primary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+
+      '\nANALYSIS RULES:\n'+
+      '1. SERP BENCHMARK: Compare user\'s word count, heading count against competitor averages. Be precise.\n'+
+      '2. SEARCH INTENT: Classify SERP intent (informational/commercial/transactional/navigational). Check if user\'s content matches.\n'+
+      '3. TERM CHECKLIST: Extract the 15-25 most important terms/phrases/entities from competitors. For each, count occurrences in user\'s content and competitor average. Status: missing (0 in user), weak (below avg), good (at or above avg), overused (2x+ above avg). Only include MEANINGFUL terms, not stop words.\n'+
+      '4. CONTENT GAPS: Identify H2-level topics that 2+ competitors cover but user doesn\'t. Suggest specific heading text.\n'+
+      '5. PAA COVERAGE: For each People Also Ask question, determine if user\'s content answers it.\n'+
+      '6. OPTIMIZATIONS: Title (max 55 chars), description (max 150 chars), H1, weak H2s, key paragraphs. Before=EXACT original text. Provide concrete rewrites.\n'+
+      '7. SEMANTIC MATCHING: Google uses BERT/MUM. Partial matches and semantic equivalents count. Only flag truly absent concepts.\n'+
+      '8. META ALTERNATIVES: 2 alt titles (max 55 chars each) + 2 alt descriptions (max 150 chars each).\n'+
+      '9. NO INTERNAL LINK SUGGESTIONS.\n'+
+      (gscCtx?'10. GSC DATA: Keywords marked HIGH PRIORITY have biggest ranking opportunity. Position 4-20 + high volume = strengthen. Position 1-3 = don\'t change aggressively.\n':'')+
+      '\nRESPOND ONLY WITH VALID JSON:\n'+
+      '{"serp_benchmark":{"user_words":N,"avg_words":N,"user_headings":N,"avg_headings":N},'+
+      '"search_intent":{"type":"informational|commercial|transactional|navigational","label":"emoji + type","description":"what users want","user_match":bool,"suggestion":"if mismatch"},'+
+      '"term_checklist":[{"term":"term","user_count":N,"competitor_avg":N,"status":"missing|weak|good|overused","importance":"high|medium|low"}],'+
+      '"content_gaps":[{"topic":"topic name","found_in":"X/Y competitors","suggested_heading":"H2: heading text","brief":"1-2 sentence description"}],'+
+      '"paa_coverage":[{"question":"question","answered":bool,"suggestion":"how to address"}],'+
+      '"keywords":{"inTitle":bool,"inH1":bool,"inDesc":bool,"inFirst100Words":bool},'+
+      '"optimizations":[{"type":"title|description|h1|h2|paragraph|new_section","before":"exact original","after":"optimized","reason":"why"}],'+
+      '"meta_alternatives":{"title1":"","title2":"","desc1":"","desc2":""},'+
+      '"readability":{"level":"CEFR level","suggestion":"tip"}}'
+    },{role:'user',content:'URL: '+(url||'(none)')+'\nPrimary keyword: "'+primary+'"\n'+(secondary?'Secondary keywords: '+secondary+'\n':'')+
+      '\nUSER CONTENT ('+countWords(text)+' words):\n'+text.substring(0,3500)+
+      userHeadingsCtx+
+      '\n\n=== TOP COMPETITORS ==='+compCtx+
+      paaCtx+
+      (gscCtx?'\n\n=== GSC DATA ==='+gscCtx:'')}],
+    max_tokens:3500});
+    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    var r=JSON.parse(raw);
+    setStep('stepAi','done');
+
+    // Store analysis data
+    analysisData={text:text,kw:primary,sec:secondary,url:url,result:r,competitors:compPages,serpResults:serpData.results,paa:serpData.paa};
+
+    // Render all sections
+    loading.style.display='none';
+    document.getElementById('res').style.display='block';
+    renderBenchmark(document.getElementById('serpBenchmark'),r);
+    renderTerms(document.getElementById('termChecklist'),r.term_checklist);
+    renderGaps(document.getElementById('contentGaps'),r.content_gaps);
+    renderPAA(document.getElementById('paaQuestions'),r.paa_coverage);
+    renderOptimizations(document.getElementById('aiOptimizations'),r);
+    renderMetaAlts(document.getElementById('metaAlts'),r.meta_alternatives);
+
+    // Toolbar + cross-links
+    document.getElementById('analysisToolbar').style.display='flex';
+    if(url){var cl=document.getElementById('crossLinks');cl.innerHTML='<a href="/tools/meta-tag-analyzer/?url='+encodeURIComponent(url)+'">🔍 Meta Analysis</a><a href="/tools/serp-preview/?url='+encodeURIComponent(url)+'">📱 Snippet Preview</a><a href="/tools/heading-checker/?url='+encodeURIComponent(url)+'">📑 Heading Check</a><a href="/tools/semantic-checker/?url='+encodeURIComponent(url)+'">🏷️ Semantic HTML</a>';cl.style.display='flex'}
+
+  }catch(e){
+    loading.style.display='none';
+    document.getElementById('res').style.display='block';
+    document.getElementById('serpBenchmark').innerHTML='<p style="color:var(--err);padding:16px">❌ '+esc(e.message)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px;padding:0 16px">💡 Add your API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.</p>';
+  }finally{
+    btn.disabled=false;btn.textContent='✨ Analyze & Optimize';
+    btnDetect.disabled=false;
   }
-  if(!primary){btn.disabled=false;btn.textContent='✨ Analyze & Optimize';alert('Could not detect keywords. Please enter a primary keyword manually.');return}
-  // Step 2: Client-side analysis
-  btn.textContent='⏳ Analyzing…';
-  runAnalysis();
-  // Step 3: AI Optimization
-  document.getElementById('btnOptimize').click();
-  btn.disabled=false;btn.textContent='✨ Analyze & Optimize';
 }
+
 document.getElementById('btnAnalyze').addEventListener('click',analyzeAndOptimize);
 document.getElementById('contentIn').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.ctrlKey)analyzeAndOptimize()});
 document.getElementById('urlIn').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('btnFetchUrl').click()});
 
 document.getElementById('btnCopyAnalysis').addEventListener('click',function(){
-  if(!analysisData)return;
-  var d=analysisData;
-  var txt='Content Analysis'+(d.url?' — '+d.url:'')+'\n';
-  txt+='Score: '+d.score+'/100\n';
-  txt+='Words: '+d.wc+' | Sentences: '+d.sc+' | Readability: '+d.read+'\n';
-  if(d.kw)txt+='Keyword: "'+d.kw+'" | Density: '+d.dens.pct.toFixed(1)+'% ('+d.dens.count+'×)\n';
-  if(d.headings&&d.headings.length){txt+='\nHeading Structure:\n';d.headings.forEach(function(h){var indent=h.tag==='h1'?'':h.tag==='h2'?'  ':h.tag==='h3'?'    ':'      ';txt+=indent+h.tag.toUpperCase()+': '+h.text+'\n'})}
+  if(!analysisData||!analysisData.result)return;
+  var d=analysisData,r=d.result;
+  var txt='Content Optimization Report'+(d.url?' — '+d.url:'')+'\nKeyword: "'+d.kw+'"\n';
+  if(r.serp_benchmark)txt+='\nSERP Benchmark:\nYour words: '+r.serp_benchmark.user_words+' | Avg: '+r.serp_benchmark.avg_words+'\nYour headings: '+r.serp_benchmark.user_headings+' | Avg: '+r.serp_benchmark.avg_headings+'\n';
+  if(r.search_intent)txt+='\nSearch Intent: '+r.search_intent.type+(r.search_intent.user_match?' (match)':' (MISMATCH)')+'\n';
+  if(r.term_checklist){var missing=r.term_checklist.filter(function(t){return t.status==='missing'});if(missing.length){txt+='\nMissing Terms:\n';missing.forEach(function(t){txt+='- '+t.term+' (Ø '+t.competitor_avg+'×)\n'})}}
+  if(r.optimizations){txt+='\nOptimizations:\n';r.optimizations.forEach(function(o){txt+='--- '+o.type.toUpperCase()+' ---\n';if(o.before)txt+='BEFORE: '+o.before+'\n';txt+='AFTER: '+o.after+'\n';if(o.reason)txt+='REASON: '+o.reason+'\n\n'})}
   navigator.clipboard.writeText(txt).then(function(){var b=document.getElementById('btnCopyAnalysis');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy'},1500)});
 });
 
 document.getElementById('btnReport').addEventListener('click',function(){
-  if(!analysisData)return;
-  var d=analysisData;
-  var sCol=d.score>=70?'#22c55e':d.score>=40?'#f59e0b':'#ef4444';
+  if(!analysisData||!analysisData.result)return;
+  var d=analysisData,r=d.result;
   var w=window.open('','_blank');
-  var h='<html><head><title>Content Analysis Report'+(d.url?' — '+d.url:'')+'</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a2e;line-height:1.6}h1{font-size:22px;margin-bottom:4px}h2{font-size:16px;margin-top:28px;border-bottom:2px solid #eca550;padding-bottom:4px}.meta{color:#666;font-size:13px;margin-bottom:24px}.score-box{text-align:center;margin:20px 0}.score-num{display:inline-flex;width:80px;height:80px;border-radius:50%;align-items:center;justify-content:center;font-size:28px;font-weight:800;border:4px solid}.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}.metric-box{background:#f8f8f8;border-radius:10px;padding:12px;text-align:center}.metric-box .label{font-size:10px;font-weight:700;text-transform:uppercase;color:#888;letter-spacing:.5px}.metric-box .val{font-size:20px;font-weight:800;margin-top:4px}.ht{margin:12px 0;padding:12px;background:#f8f8f8;border-radius:8px;font-family:monospace;font-size:12px;line-height:1.8}.ht .h1{font-weight:800;font-size:13px}.ht .h2{padding-left:16px}.ht .h3{padding-left:32px;color:#666}.ht .h4{padding-left:48px;color:#999;font-size:11px}.tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px;border:1px solid #ddd;color:#888;margin-right:4px;min-width:20px;text-align:center}.warn{color:#f59e0b}.err{color:#ef4444}.ok{color:#22c55e}</style></head><body>';
-  h+='<h1>Content Analysis Report</h1>';
-  h+='<p class="meta">'+(d.url?'URL: '+d.url+'<br>':'')+'Keyword: "'+esc(d.kw||'—')+'"<br>Date: '+new Date().toLocaleDateString()+' · Generated by Lumina SEO</p>';
-  h+='<div class="score-box"><div class="score-num" style="color:'+sCol+';border-color:'+sCol+'">'+d.score+'</div><div style="font-size:11px;color:#888;margin-top:4px">SEO Score / 100</div></div>';
-  h+='<h2>Metrics</h2><div class="metrics-grid">';
-  h+='<div class="metric-box"><div class="label">Words</div><div class="val">'+d.wc.toLocaleString()+'</div></div>';
-  h+='<div class="metric-box"><div class="label">Sentences</div><div class="val">'+d.sc+'</div></div>';
-  var rCol=d.read>=60?'ok':d.read>=40?'warn':'err';
-  h+='<div class="metric-box"><div class="label">Readability</div><div class="val '+rCol+'">'+d.read+'</div></div>';
-  if(d.kw){var dCol=d.dens.pct>=0.5&&d.dens.pct<=3?'ok':d.dens.pct>3?'warn':'err';h+='<div class="metric-box"><div class="label">KW Density</div><div class="val '+dCol+'">'+d.dens.pct.toFixed(1)+'%</div></div>'}
-  h+='</div>';
-  if(d.headings&&d.headings.length){
-    var h1c=d.headings.filter(function(x){return x.tag==='h1'}).length;
-    h+='<h2>Heading Structure ('+d.headings.length+' headings)</h2>';
-    if(h1c===0)h+='<p class="err">⚠ No H1 tag found</p>';
-    else if(h1c>1)h+='<p class="warn">⚠ Multiple H1 tags ('+h1c+')</p>';
-    h+='<div class="ht">';
-    d.headings.forEach(function(x){h+='<div class="'+x.tag+'"><span class="tag">'+x.tag.toUpperCase()+'</span>'+esc(x.text)+'</div>'});
-    h+='</div>';
+  var h='<html><head><title>Content Optimization Report'+(d.url?' — '+d.url:'')+'</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#1a1a2e;line-height:1.6}h1{font-size:22px;margin-bottom:4px}h2{font-size:16px;margin-top:28px;border-bottom:2px solid #eca550;padding-bottom:4px}.meta{color:#666;font-size:13px;margin-bottom:24px}.bar-wrap{display:flex;align-items:center;gap:8px;margin:4px 0}.bar-track{flex:1;height:10px;background:#eee;border-radius:5px;overflow:hidden}.bar-fill{height:100%;border-radius:5px}.miss{color:#ef4444}.good{color:#22c55e}.warn{color:#f59e0b}table{width:100%;border-collapse:collapse;margin:8px 0}td,th{padding:6px 8px;text-align:left;font-size:13px;border-bottom:1px solid #eee}th{font-weight:700;font-size:11px;text-transform:uppercase;color:#888}.diff{margin:8px 0;padding:10px;border:1px solid #eee;border-radius:8px}.diff-label{font-size:10px;font-weight:700;text-transform:uppercase;color:#eca550;margin-bottom:4px}.diff-before{color:#888;text-decoration:line-through;font-size:13px;margin-bottom:4px}.diff-after{font-weight:600;font-size:13px;margin-bottom:4px}.diff-reason{font-size:11px;color:#666;border-top:1px dashed #ddd;padding-top:4px;margin-top:4px}</style></head><body>';
+  h+='<h1>Content Optimization Report</h1>';
+  h+='<p class="meta">'+(d.url?'URL: '+d.url+'<br>':'')+'Keyword: "'+esc(d.kw)+'"<br>Date: '+new Date().toLocaleDateString()+' · Generated by <a href="https://lumina-seo.com">Lumina SEO</a></p>';
+  if(r.serp_benchmark){var sb=r.serp_benchmark;var maxW=Math.max(sb.user_words||1,sb.avg_words||1);
+    h+='<h2>SERP Benchmark</h2>';
+    h+='<div class="bar-wrap"><strong style="width:80px;font-size:12px">Words</strong><div class="bar-track"><div class="bar-fill" style="width:'+Math.round((sb.user_words||0)/maxW*100)+'%;background:#eca550"></div></div><span>'+sb.user_words+'</span><span style="color:#888">vs Ø '+sb.avg_words+'</span></div>';
+  }
+  if(r.search_intent){h+='<p><strong>Search Intent:</strong> '+esc(r.search_intent.type)+' — '+(r.search_intent.user_match?'<span class="good">✓ Match</span>':'<span class="miss">⚠ Mismatch</span>')+'</p>'}
+  if(r.term_checklist&&r.term_checklist.length){
+    h+='<h2>Term Checklist</h2><table><tr><th>Term</th><th>You</th><th>Avg</th><th>Status</th></tr>';
+    r.term_checklist.forEach(function(t){var cls=t.status==='missing'?'miss':t.status==='good'?'good':'warn';h+='<tr><td>'+esc(t.term)+'</td><td>'+t.user_count+'×</td><td>Ø '+t.competitor_avg+'×</td><td class="'+cls+'">'+t.status+'</td></tr>'});
+    h+='</table>';
+  }
+  if(r.optimizations&&r.optimizations.length){
+    h+='<h2>Optimizations ('+r.optimizations.length+')</h2>';
+    r.optimizations.forEach(function(o){h+='<div class="diff"><div class="diff-label">'+o.type+'</div>'+(o.before?'<div class="diff-before">'+esc(o.before)+'</div>':'')+'<div class="diff-after">'+esc(o.after)+'</div>'+(o.reason?'<div class="diff-reason">'+esc(o.reason)+'</div>':'')+'</div>'});
   }
   h+='</body></html>';
   w.document.write(h);w.document.close();
