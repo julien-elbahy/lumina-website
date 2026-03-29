@@ -377,8 +377,8 @@ document.addEventListener('DOMContentLoaded',function(){
     '.cs-trigger:hover{border-color:var(--accent)}.cs-trigger:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}'+
     '.cs-trigger::after{content:"";position:absolute;right:10px;top:50%;transform:translateY(-50%);border:4px solid transparent;border-top:5px solid var(--muted);pointer-events:none}'+
     '.cs-wrap.open .cs-trigger::after{border-top:none;border-bottom:5px solid var(--accent)}'+
-    '.cs-panel{display:none;position:absolute;top:calc(100% + 4px);left:0;min-width:100%;width:max-content;max-width:280px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:500;overflow:hidden}'+
-    '.cs-wrap.open .cs-panel{display:block}'+
+    '.cs-panel{display:none;position:fixed;min-width:100%;width:max-content;max-width:280px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:99999;overflow:hidden}'+
+    '.cs-panel.cs-open{display:block}'+
     '.cs-search{width:100%;border:none;border-bottom:1px solid var(--border);background:var(--input-bg);color:var(--text);font-size:12px;font-family:var(--font);padding:8px 10px;outline:none;box-sizing:border-box}'+
     '.cs-search::placeholder{color:var(--muted)}'+
     '.cs-opts{max-height:220px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}'+
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded',function(){
     '[data-theme="light"] .cs-search{background:rgba(245,240,233,.8)}'+
     '[data-theme="light"] .cs-opt:hover,[data-theme="light"] .cs-opt.hl{background:rgba(200,122,48,.08)}'+
     '.cs-wrap select{display:none!important;position:absolute;opacity:0;pointer-events:none}'+
-    '.kw-input .cs-trigger{border-radius:12px;padding:10px 30px 10px 12px}.kw-input .cs-panel{border-radius:12px}'+
+    '.kw-input .cs-trigger{border-radius:12px;padding:10px 30px 10px 12px}'+
     '.loc-row .cs-trigger{border-radius:8px}'+
     '.gsc-bar .cs-trigger{font-family:var(--mono);font-size:11px;padding:6px 28px 6px 10px;min-width:140px}';
   document.head.appendChild(csStyle);
@@ -406,28 +406,25 @@ document.addEventListener('DOMContentLoaded',function(){
     sel.tabIndex=-1;
     // Trigger button
     var btn=document.createElement('button');btn.type='button';btn.className='cs-trigger';
-    // Inherit sizing from original select
     if(sel.style.minWidth)btn.style.minWidth=sel.style.minWidth;
-    var origCS=window.getComputedStyle(sel);
     btn.textContent=sel.selectedOptions[0]?sel.selectedOptions[0].textContent:'';
     wrap.appendChild(btn);
-    // Panel
+    // Panel — appended to body to escape backdrop-filter stacking contexts
     var panel=document.createElement('div');panel.className='cs-panel';
     var hasSearch=sel.options.length>6;
     panel.innerHTML=(hasSearch?'<input class="cs-search" placeholder="'+(isDE?'Suchen…':'Search…')+'" type="text" autocomplete="off">':'')+'<div class="cs-opts"></div>';
-    wrap.appendChild(panel);
+    document.body.appendChild(panel);
     var searchIn=panel.querySelector('.cs-search');
     var optBox=panel.querySelector('.cs-opts');
     var hlIdx=-1;
     function getOpts(){return Array.from(optBox.querySelectorAll('.cs-opt'))}
     function render(filter){
-      var h='',count=0;
+      var h='';
       Array.from(sel.options).forEach(function(o,i){
         var txt=o.textContent;
         if(filter&&txt.toLowerCase().indexOf(filter)===-1)return;
         var cls='cs-opt'+(o.selected?' sel':'');
         h+='<div class="'+cls+'" data-i="'+i+'">'+txt+'</div>';
-        count++;
       });
       optBox.innerHTML=h||(hasSearch?'<div class="cs-no">'+(isDE?'Keine Ergebnisse':'No results')+'</div>':'');
       hlIdx=-1;
@@ -444,22 +441,35 @@ document.addEventListener('DOMContentLoaded',function(){
       btn.textContent=sel.selectedOptions[0].textContent;
       close();
     }
-    // Boost stacking context of ancestor cards so panel floats above page content
-    function boostZ(){var el=wrap.parentElement;while(el){if(el.classList&&(el.classList.contains('cd')||el.classList.contains('kw-input')||el.classList.contains('ai-kw-row')||el.classList.contains('card'))){el._csOldZ=el.style.zIndex;el.style.position='relative';el.style.zIndex='999';wrap._boosted=el;break}el=el.parentElement}}
-    function restoreZ(){if(wrap._boosted){wrap._boosted.style.zIndex=wrap._boosted._csOldZ||'';delete wrap._boosted._csOldZ;delete wrap._boosted}}
+    function positionPanel(){
+      var r=btn.getBoundingClientRect();
+      var pw=panel.offsetWidth||200;
+      var ph=panel.offsetHeight||260;
+      var left=r.left;
+      if(left+pw>window.innerWidth)left=window.innerWidth-pw-8;
+      if(left<4)left=4;
+      // Flip up if not enough room below
+      if(r.bottom+ph+8>window.innerHeight){
+        panel.style.top=(r.top-ph-4)+'px';
+      }else{
+        panel.style.top=(r.bottom+4)+'px';
+      }
+      panel.style.left=left+'px';
+      panel.style.minWidth=r.width+'px';
+    }
     function open(){
       wrap.classList.add('open');
       render();
-      boostZ();
+      panel.classList.add('cs-open');
+      positionPanel();
       if(searchIn){searchIn.value='';searchIn.focus()}
-      // Measure actual panel height, flip up if near bottom
-      var rect=wrap.getBoundingClientRect();
-      var panelH=panel.offsetHeight||260;
-      if(rect.bottom+panelH+8>window.innerHeight){panel.style.top='auto';panel.style.bottom='calc(100% + 4px)'}
-      else{panel.style.top='calc(100% + 4px)';panel.style.bottom='auto'}
     }
-    function close(){wrap.classList.remove('open');hlIdx=-1;restoreZ()}
-    function isOpen(){return wrap.classList.contains('open')}
+    function close(){
+      wrap.classList.remove('open');
+      panel.classList.remove('cs-open');
+      hlIdx=-1;
+    }
+    function isOpen(){return panel.classList.contains('cs-open')}
     btn.addEventListener('click',function(e){e.stopPropagation();if(isOpen())close();else open()});
     if(searchIn){searchIn.addEventListener('input',function(){render(this.value.toLowerCase())});
       searchIn.addEventListener('keydown',function(e){
@@ -471,7 +481,11 @@ document.addEventListener('DOMContentLoaded',function(){
       });
     }
     optBox.addEventListener('click',function(e){var o=e.target.closest('.cs-opt');if(o)pick(o)});
-    document.addEventListener('click',function(e){if(!wrap.contains(e.target))close()});
+    // Close on click outside — check both wrap and panel since panel is in body
+    document.addEventListener('click',function(e){if(!wrap.contains(e.target)&&!panel.contains(e.target))close()});
+    // Reposition on scroll/resize while open
+    window.addEventListener('scroll',function(){if(isOpen())positionPanel()},true);
+    window.addEventListener('resize',function(){if(isOpen())positionPanel()});
     // Allow programmatic updates to sync the trigger text
     var origDesc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value');
     Object.defineProperty(sel,'value',{
