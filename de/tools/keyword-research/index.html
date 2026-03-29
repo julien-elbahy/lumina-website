@@ -297,7 +297,7 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 </div>
 <!-- Search -->
 <div class="cd">
-<div class="kw-input"><input type="text" id="kwIn" placeholder="Seed Keywords eingeben, kommagetrennt (max 10)…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><button class="ab" id="btnGo">Keywords finden</button></div>
+<div class="kw-input"><input type="text" id="kwIn" placeholder="Seed Keywords eingeben, kommagetrennt (max 10)…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2250">France</option><option value="2380">Italy</option><option value="2724">Spain</option><option value="2528">Netherlands</option><option value="2616">Poland</option><option value="2392">Japan</option><option value="2036">Australia</option><option value="2124">Canada</option><option value="2356">India</option><option value="2076">Brazil</option></select><select id="langSelect" title="Suchsprache" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="nl">NL</option><option value="pl">PL</option><option value="ja">JA</option><option value="pt">PT</option></select><button class="ab" id="btnGo">Keywords finden</button></div>
 <div class="neg-kw-row"><label>🚫 Negative Keywords:</label><input type="text" id="negKwIn" placeholder="Keywords ausschließen die diese Wörter enthalten, kommagetrennt…"><span class="neg-kw-count" id="negKwCount"></span></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <div id="res" style="display:none">
@@ -461,12 +461,16 @@ btn.addEventListener('click',function(){go()});
 kwIn.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 document.getElementById('kwFilter').addEventListener('input',function(){filterText=this.value.toLowerCase();renderTable()});
 
-// ── Country sync for GSC ──
+// ── Country sync for GSC + Language ──
+var defaultLangMap={'2040':'de','2276':'de','2756':'de','2826':'en','2840':'en','2250':'fr','2380':'it','2724':'es','2528':'nl','2616':'pl','2392':'ja','2036':'en','2124':'en','2356':'en','2076':'pt'};
 document.getElementById('locSelect').addEventListener('change',function(){
   var cn=countryNames[this.value]||'';
   var el=document.getElementById('gscCountry');
   if(el)el.textContent='📍 '+cn;
+  var langSel=document.getElementById('langSelect');
+  if(!langSel._userChanged){var dl=defaultLangMap[this.value]||'en';langSel.value=dl}
 });
+document.getElementById('langSelect').addEventListener('change',function(){this._userChanged=true});
 
 // ── Exclude restore ──
 document.getElementById('btnRestoreAll').addEventListener('click',function(){
@@ -488,8 +492,7 @@ function go(){
   if(!seeds.length)return;
   var loc=document.getElementById('locSelect').value;
   currentGoogleDomain=googleDomains[loc]||'www.google.com';
-  var langMap={'2040':'de','2276':'de','2756':'de','2826':'en','2840':'en','2250':'fr','2380':'it','2724':'es','2528':'nl','2616':'pl','2392':'ja','2036':'en','2124':'en','2356':'en','2076':'pt'};
-  var lang=langMap[loc]||'en';
+  var lang=document.getElementById('langSelect').value||'en';
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Suche läuft…';
@@ -853,10 +856,17 @@ async function gscApiFetch(url,body){
 }
 
 async function gscLoadSites(){
-  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites');
-  if(!d||!d.siteEntry)return;
-  var sel=document.getElementById('gscSite');sel.innerHTML='';
-  d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+  document.getElementById('gscStatus').textContent='GSC-Properties laden…';
+  try{
+    var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites');
+    console.log('GSC sites response:',d);
+    if(!d){document.getElementById('gscStatus').textContent='GSC-Auth fehlgeschlagen — bitte neu verbinden.';return}
+    if(d.error){document.getElementById('gscStatus').textContent='GSC-Fehler: '+(d.error.message||JSON.stringify(d.error));return}
+    if(!d.siteEntry||!d.siteEntry.length){document.getElementById('gscStatus').textContent='Keine Properties gefunden. Stelle sicher, dass dein Google-Konto GSC-Zugriff hat.';return}
+    var sel=document.getElementById('gscSite');sel.innerHTML='';
+    d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+    document.getElementById('gscStatus').textContent='✓ '+d.siteEntry.length+' Properties geladen';
+  }catch(e){document.getElementById('gscStatus').textContent='GSC-Anfrage fehlgeschlagen: '+e.message;console.error('GSC loadSites error:',e)}
 }
 
 async function fetchGscQueries(){

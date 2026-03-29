@@ -401,10 +401,15 @@ async function gscApiFetch(url,body){
   return r.json();
 }
 async function gscLoadSites(){
-  var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites');
-  if(!d||!d.siteEntry)return;
-  var sel=document.getElementById('gscSite');sel.innerHTML='';
-  d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+  try{
+    var d=await gscApiFetch('https://www.googleapis.com/webmasters/v3/sites');
+    console.log('GSC sites response:',d);
+    if(!d){console.warn('GSC: null response');return}
+    if(d.error){console.error('GSC error:',d.error);return}
+    if(!d.siteEntry||!d.siteEntry.length){console.warn('GSC: no siteEntry found');return}
+    var sel=document.getElementById('gscSite');sel.innerHTML='';
+    d.siteEntry.forEach(function(s){var o=document.createElement('option');o.value=s.siteUrl;o.textContent=s.siteUrl.replace(/^sc-domain:/,'').replace(/\/$/,'');sel.appendChild(o)});
+  }catch(e){console.error('GSC loadSites error:',e)}
 }
 document.getElementById('btnGscLoad').addEventListener('click',async function(){
   var site=document.getElementById('gscSite').value;if(!site)return;
