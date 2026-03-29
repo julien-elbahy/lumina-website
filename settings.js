@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded',function(){
     '.cs-trigger:hover{border-color:var(--accent)}.cs-trigger:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}'+
     '.cs-trigger::after{content:"";position:absolute;right:10px;top:50%;transform:translateY(-50%);border:4px solid transparent;border-top:5px solid var(--muted);pointer-events:none}'+
     '.cs-wrap.open .cs-trigger::after{border-top:none;border-bottom:5px solid var(--accent)}'+
-    '.cs-panel{display:none;position:fixed;min-width:100%;width:max-content;max-width:280px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:99999;overflow:hidden}'+
+    '.cs-panel{display:none;position:fixed;width:max-content;max-width:280px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:99999;overflow:hidden}'+
     '.cs-panel.cs-open{display:block}'+
     '.cs-search{width:100%;border:none;border-bottom:1px solid var(--border);background:var(--input-bg);color:var(--text);font-size:12px;font-family:var(--font);padding:8px 10px;outline:none;box-sizing:border-box}'+
     '.cs-search::placeholder{color:var(--muted)}'+
