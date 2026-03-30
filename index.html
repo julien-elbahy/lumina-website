@@ -971,8 +971,8 @@ function aaiSend(){
           '**[Direct answer in one bold sentence]**\n\n'+
           '[Evidence/analysis with tables and data]\n\n'+
           '[Actionable next steps backed by specific data]\n\n'+
-          '>>FOLLOWUP: [relevant follow-up question]<<\n'+
-          '>>FOLLOWUP: [different angle follow-up]<<\n\n'+
+          '>>FOLLOWUP: [a question the USER would naturally ask next, written from their perspective, e.g. "Show me the top 3 pages for this keyword" or "What content gaps does my page have?"]<<\n'+
+          '>>FOLLOWUP: [a different angle the USER might want to explore next]<<\n\n'+
           'Original user question: '+prompt;
 
         var userMsg=messages.map(function(m){return m.role==='user'?'USER: '+m.content:'ASSISTANT: '+m.content}).join('\n\n');
