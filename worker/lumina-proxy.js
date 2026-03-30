@@ -102,7 +102,7 @@ function getKvPrefix(apiType, toolName) {
 
 // ── Rate Limiter (in-memory, per-minute, all endpoints) ──
 const rateLimitMap = new Map();
-const RATE_LIMIT = 30;
+const RATE_LIMIT = 60;
 const RATE_WINDOW = 60_000;
 
 function isRateLimited(ip, limit) {
@@ -233,7 +233,7 @@ export default {
     // /check — Bot Server Check (no origin restriction)
     // ══════════════════════════════════════════════════════════
     if (url.pathname === '/check') {
-      if (isRateLimited(ip, 60)) return jsonResponse({ error: 'Rate limited.' }, 429, origin);
+      if (isRateLimited(ip)) return jsonResponse({ error: 'Rate limited.' }, 429, origin);
       const targetUrl = url.searchParams.get('url');
       const bot = (url.searchParams.get('bot') || 'googlebot').toLowerCase();
       const { error, parsed } = validateTargetUrl(targetUrl);
