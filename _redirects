@@ -2,3 +2,9 @@
 https://www.lumina-seo.com/* https://lumina-seo.com/:splat 301
 http://www.lumina-seo.com/* https://lumina-seo.com/:splat 301
 http://lumina-seo.com/* https://lumina-seo.com/:splat 301
+
+# Tool renames
+/tools/robots-txt-analyzer/ /tools/crawler-access-checker/ 301
+/tools/robots-txt-analyzer /tools/crawler-access-checker/ 301
+/de/tools/robots-txt-analyzer/ /de/tools/crawler-access-checker/ 301
+/de/tools/robots-txt-analyzer /de/tools/crawler-access-checker/ 301
