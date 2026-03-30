@@ -102,7 +102,7 @@ function getKvPrefix(apiType, toolName) {
 
 // ── Rate Limiter (in-memory, per-minute, all endpoints) ──
 const rateLimitMap = new Map();
-const RATE_LIMIT = 60;
+const RATE_LIMIT = 120;
 const RATE_WINDOW = 60_000;
 
 function isRateLimited(ip, limit) {
