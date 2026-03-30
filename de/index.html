@@ -625,8 +625,11 @@ function aaiGscOk(){
 }
 function updateGscUI(){
   if(!_gscEl)return;
-  if(aaiGscOk()){_gscEl.innerHTML='<span class="aai-gsc-dot on"></span> GSC verbunden';_gscEl.title='Verbunden'}
-  else{_gscEl.innerHTML='<span class="aai-gsc-dot off"></span> GSC nicht verbunden';_gscEl.title='Klicken zum Verbinden'}
+  if(aaiGscOk()){
+    var site=localStorage.getItem('lumina_gsc_site')||'';
+    var label=site?site.replace(/^sc-domain:/,'').replace(/^https?:\/\//,'').replace(/\/$/,''):'GSC verbunden';
+    _gscEl.innerHTML='<span class="aai-gsc-dot on"></span> '+esc(label);_gscEl.title='Klicken um Property zu ändern';
+  }else{_gscEl.innerHTML='<span class="aai-gsc-dot off"></span> GSC nicht verbunden';_gscEl.title='Klicken zum Verbinden'}
 }
 updateGscUI();
 
@@ -790,25 +793,32 @@ function aaiPageCtx(url,cb){
 function aaiGscQueries(cb){
   if(!aaiGscOk()){cb('');return}
   var token=localStorage.getItem('lumina_gsc_token');
-  /* Get sites first */
+  var savedSite=localStorage.getItem('lumina_gsc_site')||'';
+
+  function queryGsc(siteUrl){
+    var end=new Date();var start=new Date();start.setDate(end.getDate()-28);
+    fetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query',{
+      method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
+      body:JSON.stringify({startDate:start.toISOString().slice(0,10),endDate:end.toISOString().slice(0,10),dimensions:['query'],rowLimit:20,type:'web'})
+    }).then(function(r){return r.json()}).then(function(d){
+      if(!d.rows||!d.rows.length){cb('');return}
+      var txt='\u2550\u2550 GSC QUERIES for '+siteUrl+' (last 28 days) \u2550\u2550\n';
+      d.rows.forEach(function(row){
+        txt+='"'+row.keys[0]+'" \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
+      });
+      cb(txt+'\n');
+    }).catch(function(){cb('')});
+  }
+
+  if(savedSite){queryGsc(savedSite);return}
+  /* Fallback: fetch sites list and use first */
   fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
     .then(function(r){return r.json()})
     .then(function(data){
       var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
       if(!sites.length){cb('');return}
-      var siteUrl=sites[0];
-      var end=new Date();var start=new Date();start.setDate(end.getDate()-28);
-      return fetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query',{
-        method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
-        body:JSON.stringify({startDate:start.toISOString().slice(0,10),endDate:end.toISOString().slice(0,10),dimensions:['query'],rowLimit:20,type:'web'})
-      }).then(function(r){return r.json()}).then(function(d){
-        if(!d.rows||!d.rows.length){cb('');return}
-        var txt='\u2550\u2550 GSC QUERIES (last 28 days) \u2550\u2550\n';
-        d.rows.forEach(function(row){
-          txt+='"'+row.keys[0]+'" \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
-        });
-        cb(txt+'\n');
-      });
+      localStorage.setItem('lumina_gsc_site',sites[0]);
+      queryGsc(sites[0]);
     })
     .catch(function(){cb('')});
 }
