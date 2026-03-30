@@ -68,7 +68,7 @@
 /* ── Ask AI Card ── */
 .aai-card{background:rgba(255,245,225,.06);border:1px solid rgba(255,240,215,.10);border-radius:18px;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,.35),0 0 20px rgba(236,165,80,.06);backdrop-filter:blur(32px) saturate(1.4);-webkit-backdrop-filter:blur(32px) saturate(1.4);display:flex;flex-direction:column;height:460px;font-family:var(--font)}
 .aai-header{padding:14px 16px 10px;border-bottom:1px solid rgba(255,240,215,.08)}
-.aai-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.aai-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;justify-content:space-between}
 .aai-title-row h3{font-size:15px;font-weight:800;margin:0;color:var(--text)}
 .aai-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;background:linear-gradient(135deg,rgba(236,165,80,.15),rgba(236,165,80,.06));color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
 .aai-meta{display:flex;gap:12px;font-size:11px;color:var(--muted)}
@@ -127,11 +127,11 @@
 .aai-url-input:focus{border-color:var(--accent);color:var(--text)}
 .aai-url-input::placeholder{color:rgba(160,148,132,.4)}
 .aai-gsc-link{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .2s;cursor:pointer}.aai-gsc-link:hover{color:var(--accent)}
-.aai-locale-row{display:flex;gap:6px;padding:4px 14px 0}
-.aai-locale-row select{flex:1;font-size:12px;padding:5px 8px;background:rgba(0,0,0,.10);border:1px solid rgba(255,240,215,.08);border-radius:8px;color:var(--muted);font-family:var(--font);cursor:pointer;outline:none;transition:border-color .2s}
-.aai-locale-row select:focus{border-color:var(--accent);color:var(--text)}
-[data-theme="light"] .aai-locale-row select{background:rgba(255,255,255,.6);border-color:rgba(140,120,90,.10);color:#6e6256}
-[data-theme="light"] .aai-locale-row select:focus{border-color:#c87a30;color:#0d0906}
+.aai-locale-row{display:flex;gap:4px;align-items:center}
+.aai-locale-row select{font-size:10px;padding:2px 4px;background:none;border:1px solid rgba(255,240,215,.08);border-radius:5px;color:var(--muted);font-family:var(--font);cursor:pointer;outline:none;transition:border-color .2s;max-width:120px}
+.aai-locale-row select:focus,.aai-locale-row select:hover{border-color:var(--accent);color:var(--text)}
+[data-theme="light"] .aai-locale-row select{border-color:rgba(140,120,90,.10);color:#6e6256}
+[data-theme="light"] .aai-locale-row select:focus,[data-theme="light"] .aai-locale-row select:hover{border-color:#c87a30;color:#0d0906}
 .aai-info{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
 .aai-info-link{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s}.aai-info-link:hover{color:var(--accent)}
 .aai-info-sep{color:var(--border);font-size:10px}
@@ -440,7 +440,6 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="hero-right">
 <div class="aai-card">
 <div class="aai-header">
-<div class="aai-title-row"><h3>Ask AI</h3></div>
 <div class="aai-meta"><a id="aaiGsc" class="aai-gsc-link" href="javascript:void(0)" onclick="luminaSettings&&luminaSettings.open()"><span class="aai-gsc-dot off"></span> GSC nicht verbunden</a><span id="aaiQuota">10/10 verbleibend</span></div>
 </div>
 <div class="aai-thread" id="aaiThread">
@@ -452,10 +451,6 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </div>
 <div class="aai-url-row">
 <input type="url" id="aaiUrl" class="aai-url-input" placeholder="URL für Seitenkontext einfügen (optional)" spellcheck="false" autocomplete="off">
-</div>
-<div class="aai-locale-row">
-<select id="aaiLocSel"><option value="2040" selected>🇦🇹 Österreich</option><option value="2032">🇦🇷 Argentinien</option><option value="2036">🇦🇺 Australien</option><option value="2056">🇧🇪 Belgien</option><option value="2076">🇧🇷 Brasilien</option><option value="2100">🇧🇬 Bulgarien</option><option value="2124">🇨🇦 Kanada</option><option value="2152">🇨🇱 Chile</option><option value="2156">🇨🇳 China</option><option value="2170">🇨🇴 Kolumbien</option><option value="2191">🇭🇷 Kroatien</option><option value="2203">🇨🇿 Tschechien</option><option value="2208">🇩🇰 Dänemark</option><option value="2818">🇪🇬 Ägypten</option><option value="2233">🇪🇪 Estland</option><option value="2246">🇫🇮 Finnland</option><option value="2250">🇫🇷 Frankreich</option><option value="2276">🇩🇪 Deutschland</option><option value="2300">🇬🇷 Griechenland</option><option value="2344">🇭🇰 Hongkong</option><option value="2348">🇭🇺 Ungarn</option><option value="2352">🇮🇸 Island</option><option value="2356">🇮🇳 Indien</option><option value="2360">🇮🇩 Indonesien</option><option value="2372">🇮🇪 Irland</option><option value="2376">🇮🇱 Israel</option><option value="2380">🇮🇹 Italien</option><option value="2392">🇯🇵 Japan</option><option value="2410">🇰🇷 Südkorea</option><option value="2428">🇱🇻 Lettland</option><option value="2440">🇱🇹 Litauen</option><option value="2442">🇱🇺 Luxemburg</option><option value="2458">🇲🇾 Malaysia</option><option value="2484">🇲🇽 Mexiko</option><option value="2504">🇲🇦 Marokko</option><option value="2528">🇳🇱 Niederlande</option><option value="2554">🇳🇿 Neuseeland</option><option value="2566">🇳🇬 Nigeria</option><option value="2578">🇳🇴 Norwegen</option><option value="2586">🇵🇰 Pakistan</option><option value="2604">🇵🇪 Peru</option><option value="2608">🇵🇭 Philippinen</option><option value="2616">🇵🇱 Polen</option><option value="2620">🇵🇹 Portugal</option><option value="2642">🇷🇴 Rumänien</option><option value="2643">🇷🇺 Russland</option><option value="2682">🇸🇦 Saudi-Arabien</option><option value="2688">🇷🇸 Serbien</option><option value="2702">🇸🇬 Singapur</option><option value="2703">🇸🇰 Slowakei</option><option value="2705">🇸🇮 Slowenien</option><option value="2710">🇿🇦 Südafrika</option><option value="2724">🇪🇸 Spanien</option><option value="2752">🇸🇪 Schweden</option><option value="2756">🇨🇭 Schweiz</option><option value="2158">🇹🇼 Taiwan</option><option value="2764">🇹🇭 Thailand</option><option value="2792">🇹🇷 Türkei</option><option value="2784">🇦🇪 VAE</option><option value="2804">🇺🇦 Ukraine</option><option value="2826">🇬🇧 Vereinigtes Königreich</option><option value="2840">🇺🇸 Vereinigte Staaten</option><option value="2704">🇻🇳 Vietnam</option></select>
-<select id="aaiLangSel"><option value="de" selected>DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select>
 </div>
 <div class="aai-input-row">
 <input type="file" id="aaiFile" multiple accept=".txt,.csv,.json,.html,.xml,.md,.pdf" style="display:none">
