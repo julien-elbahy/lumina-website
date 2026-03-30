@@ -54,7 +54,7 @@
 .sb{padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid;backdrop-filter:blur(12px)}.sb.ok{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.sb.er{background:var(--err-bg);border-color:var(--err-border);color:var(--err)}.sb.wn{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}
 .sec{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border);letter-spacing:.8px;display:flex;justify-content:space-between;align-items:center}
 .sec-cols{display:flex;gap:10px;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);opacity:.7}.sec-cols span{min-width:60px;text-align:center}
-.cr{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;margin-bottom:4px;transition:background .15s}.cr:hover{background:var(--accent-soft)}.cr-name{font-size:13px;font-weight:700;min-width:120px;color:var(--text)}.cr-note{font-size:11px;color:var(--muted);flex:1}.cr-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid;min-width:60px;text-align:center}.cr-status.allowed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-status.blocked{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-status.partial{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}
+.cr{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;margin-bottom:4px;transition:background .15s}.cr:hover{background:var(--accent-soft)}.cr-name{font-size:13px;font-weight:700;min-width:120px;color:var(--text)}.cr-note{font-size:11px;color:var(--muted);width:140px;flex-shrink:0}.cr-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid;min-width:70px;text-align:center}.cr-status.allowed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-status.blocked{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-status.partial{background:var(--card);color:var(--muted);border-color:var(--border)}.cr-status.partial-warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}
 .raw{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
 .cr-live{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid var(--border);min-width:60px;text-align:center;color:var(--muted)}.cr-live.l200{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-live.l403{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-live.l4xx{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.cr-live.lerr{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
@@ -366,12 +366,12 @@ BOTS.forEach(function(cat){cat.bots.forEach(function(b){
 var s=checkBot(b.name).status;totalBots++;
 if(s==='blocked')blocked++;else if(s==='partial')partial++;else allowed++;
 })});
-var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p id="metricAllowed" style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Teilweise</div><p id="metricPartial" style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blockiert</div><p id="metricBlocked" style="color:var(--err)">'+blocked+'</p></div></div>';
+var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p id="metricAllowed" style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Eingeschränkt</div><p id="metricPartial" style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blockiert</div><p id="metricBlocked" style="color:var(--err)">'+blocked+'</p></div></div>';
 // Show wildcard notice if all bots inherit from *
 var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){var src=checkBot(b.name).source;if(src!=='wildcard'&&src!=='default')allWildcard=false})});
 if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];
 if(blocked===totalBots)html+='<div class="sb er">🚫 Keine bot-spezifischen Regeln. <strong>User-Agent: *</strong> hat <code>Disallow: /</code> — alle '+totalBots+' Bots sind vollständig blockiert via robots.txt.</div>';
-else if(partial>0){html+='<div class="sb wn">ℹ️ Keine bot-spezifischen Regeln — alle '+totalBots+' Bots erben von <strong>User-Agent: *</strong></div><div class="raw" style="margin-bottom:12px;max-height:120px">'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('\n')+'</div>';}}
+else if(partial>0){html+='<div class="raw" style="margin-bottom:12px;max-height:160px"><span style="color:var(--muted);font-family:var(--font);font-size:12px">ℹ️ Keine bot-spezifischen Regeln — alle '+totalBots+' Bots erben von:</span>\n\nUser-Agent: *\n'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('\n')+'</div>';}}
 // Show bot-specific block list for robots.txt
 var robotsBlocked=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).status==='blocked')robotsBlocked.push(b.name)})});
 if(robotsBlocked.length>0)html+='<div class="sb er">🚫 robots.txt blockiert '+robotsBlocked.length+' Bot'+(robotsBlocked.length!==1?'s':'')+': <strong>'+robotsBlocked.join(', ')+'</strong></div>';
@@ -388,8 +388,10 @@ html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robo
 cat.bots.forEach(function(b){
 var r=checkBot(b.name);var s=r.status;
 var paths=r.source==='wildcard'&&rulesLower['*']?rulesLower['*'].disallow:r.source==='specific'&&rulesLower[b.name.toLowerCase()]?rulesLower[b.name.toLowerCase()].disallow:[];
-var title=r.source==='wildcard'?'Erbt von User-Agent: * — blockierte Pfade: '+paths.join(', '):r.source==='specific'?'Hat spezifische Regeln — blockierte Pfade: '+paths.join(', '):'Keine Regeln gefunden — standardmäßig erlaubt';
-html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+s+'" title="'+title+'">'+(s==='blocked'?'BLOCKIERT':s==='partial'?'TEILWEISE':'ERLAUBT')+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
+var title=paths.length?'Blockierte Pfade: '+paths.join(', '):'Keine Regeln gefunden — standardmäßig erlaubt';
+var statusClass=s==='partial'?(paths.length>=5?'partial-warn':'partial'):s;
+var statusLabel=s==='blocked'?'BLOCKIERT':s==='partial'?paths.length+' Regel'+(paths.length!==1?'n':''):'ERLAUBT';
+html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+statusClass+'" title="'+title+'">'+statusLabel+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
 });
 var delayKeys=Object.keys(crawlDelays);
 if(delayKeys.length){html+='<div class="sec">⏱️ Crawl-Delay ('+delayKeys.length+')</div>';delayKeys.forEach(function(k){html+='<div class="cr"><span class="cr-name">'+esc(k)+'</span><span class="cr-status partial" style="background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)">'+esc(crawlDelays[k])+'s</span></div>'})}
@@ -409,7 +411,7 @@ var btnL=document.getElementById('btnLive');btnL.disabled=true;btnL.textContent=
 var btnGo=document.getElementById('btnGo');btnGo.disabled=true;
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-var BATCH=3;var DELAY=2000;
+var BATCH=5;var DELAY=800;
 
 function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
