@@ -429,7 +429,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </div>
 <div class="aai-input-row">
 <input type="file" id="aaiFile" multiple accept=".txt,.csv,.json,.html,.xml,.md,.pdf" style="display:none">
-<button id="aaiFileBtn" class="aai-file-btn" title="Upload files for context">&#128206;</button>
+<button id="aaiFileBtn" class="aai-file-btn" title="Upload files for context"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg></button>
 <textarea id="aaiInput" class="aai-input" placeholder="Ask anything about SEO..." rows="1" spellcheck="false"></textarea>
 <button id="aaiSend" class="aai-send" title="Send">&#9654;</button>
 </div>
@@ -682,7 +682,7 @@ function aaiRenderThread(scrollToIdx){
   });
   /* Bind followups */
   _thread.querySelectorAll('.aai-followup-chip').forEach(function(fb){
-    fb.onclick=function(){var q=fb.dataset.question||'';if(q){_input.value=q;_input.focus();_input.dispatchEvent(new Event('input'))}};
+    fb.onclick=function(){var q=fb.dataset.question||'';if(q){_input.value=q;aaiSend()}};
   });
   if(typeof scrollToIdx==='number'&&scrollToIdx>=0){var el=document.getElementById('aaiMsg'+scrollToIdx);if(el)_thread.scrollTop=el.offsetTop-_thread.offsetTop}
   else{_thread.scrollTop=_thread.scrollHeight}
