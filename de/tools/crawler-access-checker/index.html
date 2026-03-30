@@ -422,9 +422,10 @@ html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'
 });
 var delayKeys=Object.keys(crawlDelays);
 if(delayKeys.length){html+='<div class="sec">⏱️ Crawl-Delay ('+delayKeys.length+')</div><div style="font-size:11px;color:var(--muted);margin-bottom:8px">Begrenzt die Crawling-Geschwindigkeit. Google ignoriert diese Direktive — nutze stattdessen die Search Console.</div>';delayKeys.forEach(function(k){html+='<div class="cr"><span class="cr-name">'+esc(k)+'</span><span class="cr-status partial" style="background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border);cursor:default" title="Dieser Bot muss '+esc(crawlDelays[k])+' Sekunden zwischen Requests warten (max '+Math.floor(60/parseFloat(crawlDelays[k]))+' Req/Min)">'+esc(crawlDelays[k])+'s</span></div>'})}
+html+='<div id="inlineToolbar" style="display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px"></div>';
 var uniqueSitemaps=sitemaps.filter(function(s,i){return sitemaps.indexOf(s)===i});
 if(uniqueSitemaps.length){html+='<div class="sec">📍 Sitemaps ('+uniqueSitemaps.length+')</div>';uniqueSitemaps.forEach(function(s){html+='<div style="padding:4px 0;font-size:12px"><a href="'+esc(s)+'" target="_blank" rel="noopener" style="font-family:var(--mono)">'+esc(s)+'</a></div>'})}
-html+='<div class="sec">📄 Raw robots.txt</div><div class="raw">'+esc(raw)+'</div>';
+html+='<div class="sec">📄 Raw robots.txt</div><div class="raw" id="rawRobots">'+esc(raw)+'</div>';
 document.getElementById('res').innerHTML=html;
 window._lastResults={bots:BOTS,checkBot:checkBotStatus,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,partial:partial,blocked:blocked,raw:raw};
 runLiveCheck();
@@ -521,9 +522,8 @@ if(p<1)requestAnimationFrame(tick)}
 requestAnimationFrame(tick)});
 }
 function showToolbar(){
-var tb=document.getElementById('toolbar');
-tb.style.display='flex';
-tb.innerHTML='<button class="tb-btn" onclick="copyText()">📋 Kopieren</button><button class="tb-btn" onclick="copyCSV()">📊 CSV</button>';
+var tb=document.getElementById('inlineToolbar');
+if(tb)tb.innerHTML='<button class="tb-btn" onclick="copyText()">📋 Kopieren</button><button class="tb-btn" onclick="copyCSV()">📊 CSV</button><button class="tb-btn" onclick="copyRobots()">📄 robots.txt</button>';
 }
 function copyText(){
 var r=window._lastResults;if(!r)return;
@@ -547,7 +547,11 @@ var liveStr=live&&live.textContent&&live.textContent!=='…'?live.textContent:''
 rows.push('"'+b.name+'","'+b.label+'","'+cat.cat.replace(/[^\w\s&]/g,'').trim()+'","'+s.toUpperCase()+'","'+liveStr+'"')})});
 navigator.clipboard.writeText(rows.join('\n')).then(function(){flashBtn(1)});
 }
-function flashBtn(i){var b=document.querySelectorAll('.tb-btn')[i];if(!b)return;b.classList.add('copied');b.textContent='✓ Kopiert';setTimeout(function(){b.classList.remove('copied');b.textContent=i===0?'📋 Kopieren':'📊 CSV'},1500)}
+function copyRobots(){
+var r=window._lastResults;if(!r||!r.raw)return;
+navigator.clipboard.writeText(r.raw).then(function(){flashBtn(2)});
+}
+function flashBtn(i){var b=document.querySelectorAll('#inlineToolbar .tb-btn')[i];if(!b)return;var orig=b.textContent;b.classList.add('copied');b.textContent='✓ Kopiert';setTimeout(function(){b.classList.remove('copied');b.textContent=orig},1500)}
 
 function renderCrossLinks(){
 var u=encodeURIComponent(urlIn.value);if(!u)return;
