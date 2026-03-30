@@ -62,6 +62,16 @@ const BOT_AGENTS = {
   bravebot: 'Mozilla/5.0 (compatible; BraveBot/1.0; +https://brave.com/)',
   youbot: 'Mozilla/5.0 (compatible; YouBot/1.0; +https://you.com)',
   'google-agent': 'Google-Agent',
+  'anthropic-ai': 'Mozilla/5.0 (compatible; anthropic-ai/1.0; +https://anthropic.com)',
+  deepseekbot: 'Mozilla/5.0 (compatible; DeepSeekBot/1.0; +https://deepseek.com)',
+  facebookbot: 'Mozilla/5.0 (compatible; FacebookBot/1.0; +https://developers.facebook.com/docs/sharing/webmasters/crawler)',
+  petalbot: 'Mozilla/5.0 (compatible; PetalBot; +https://webmaster.petalsearch.com/)',
+  diffbot: 'Mozilla/5.0 (compatible; Diffbot/1.0; +https://diffbot.com)',
+  'perplexity-user': 'Mozilla/5.0 (compatible; Perplexity-User/1.0; +https://perplexity.ai)',
+  pinterest: 'Mozilla/5.0 (compatible; Pinterest/0.2; +https://www.pinterest.com/bot/)',
+  linkedinbot: 'Mozilla/5.0 (compatible; LinkedInBot/1.0; +http://www.linkedin.com)',
+  twitterbot: 'Mozilla/5.0 (compatible; Twitterbot/1.0)',
+  slackbot: 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)',
 };
 
 const CF_ACCOUNT_ID = '045957bc690a89607c5ced094e3d11e4';

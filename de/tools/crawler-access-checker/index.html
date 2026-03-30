@@ -7,7 +7,7 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
 <title>Kostenloser Crawler Access Checker – Robots.txt & Live Bot Test | Lumina SEO</title>
-<meta name="description" content="Prüfe welche Crawler auf deine Seite zugreifen können. Analysiere robots.txt-Regeln für 23 Bots (GPTBot, ClaudeBot, Googlebot) und verifiziere mit Live User-Agent Checks. Kostenlos.">
+<meta name="description" content="Prüfe welche Crawler auf deine Seite zugreifen können. Analysiere robots.txt-Regeln für 35 Bots (GPTBot, ClaudeBot, Googlebot) und verifiziere mit Live User-Agent Checks. Kostenlos.">
 <meta name="keywords" content="robots.txt analyzer, robots.txt checker, AI crawler checker, GPTBot blocked, ClaudeBot checker, robots.txt validator, crawl rules">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/de/tools/crawler-access-checker/">
@@ -258,14 +258,14 @@
 <div id="crossLinks" style="display:none"></div>
 <div class="content">
 <h2>So funktioniert dieses Tool</h2>
-<p>Dieses Tool ruft die robots.txt deiner Website ab und prüft 23 Crawler aus den Bereichen Suchmaschinen, AI-Bots und weitere Dienste. Es analysiert User-Agent-Regeln und Disallow-Pfade und verifiziert jeden Bot mit einem echten Server-Request unter dem jeweiligen User-Agent-String.</p>
+<p>Dieses Tool ruft die robots.txt deiner Website ab und prüft 35 Crawler aus den Bereichen Suchmaschinen, AI-Bots und weitere Dienste. Es analysiert User-Agent-Regeln und Disallow-Pfade und verifiziert jeden Bot mit einem echten Server-Request unter dem jeweiligen User-Agent-String.</p>
 <h2 style="margin-top:28px">Weitere Tools entdecken</h2>
 <div class="other-tools"><a href="/de/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Full meta tag audit for any URL.</p></a><a href="/de/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides.</p></a><a href="/de/tools/heading-checker/"><h3>Heading Checker</h3><p>Analyze H1-H6 hierarchy.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">Was ist eine robots.txt-Datei?<span class="arrow">+</span></div><div class="faq-a">Eine Textdatei im Root-Verzeichnis deiner Website (beispiel.de/robots.txt), die Crawlern mitteilt, welche Seiten sie aufrufen dürfen. Sie verwendet User-Agent-, Allow- und Disallow-Direktiven zur Steuerung pro Bot.</div></div>
 <div class="faq-item"><div class="faq-q">Was bedeutet „Regeln" vs. „BLOCKIERT"?<span class="arrow">+</span></div><div class="faq-a">„Regeln" bedeutet, der Bot darf deine Seite crawlen, aber bestimmte Pfade sind eingeschränkt (z.B. /admin/, /api/). Das ist normal. „BLOCKIERT" bedeutet Disallow: / — der Bot kann keine einzige Seite aufrufen.</div></div>
 <div class="faq-item"><div class="faq-q">Warum zeigt der Server-Check 403 bei manchen Bots?<span class="arrow">+</span></div><div class="faq-a">Ein 403 bedeutet, dass der Server diesen Bot aktiv ablehnt — unabhängig von den robots.txt-Regeln. Dies geschieht typischerweise über Firewall-Regeln, CDN-Einstellungen oder serverseitige Bot-Erkennung.</div></div>
-<div class="faq-item"><div class="faq-q">Was passiert ohne eine robots.txt?<span class="arrow">+</span></div><div class="faq-a">Alle Crawler gehen davon aus, dass sie auf jede Seite zugreifen dürfen. Dieses Tool zeigt dann alle 23 Bots als „erlaubt" an. Der Zugriff kann trotzdem serverseitig eingeschränkt sein (was der Live-Check aufdeckt).</div></div>
+<div class="faq-item"><div class="faq-q">Was passiert ohne eine robots.txt?<span class="arrow">+</span></div><div class="faq-a">Alle Crawler gehen davon aus, dass sie auf jede Seite zugreifen dürfen. Dieses Tool zeigt dann alle 35 Bots als „erlaubt" an. Der Zugriff kann trotzdem serverseitig eingeschränkt sein (was der Live-Check aufdeckt).</div></div>
 <div class="faq-item"><div class="faq-q">Was ist Crawl-Delay?<span class="arrow">+</span></div><div class="faq-a">Eine robots.txt-Direktive, die Bots vorschreibt, eine bestimmte Anzahl Sekunden zwischen Requests zu warten. Sie begrenzt die Crawling-Geschwindigkeit. Google ignoriert Crawl-Delay — nutze stattdessen die Crawling-Rate in der Search Console.</div></div>
 <div class="cta-box"><div class="cta-t">AI-Crawler-Check auf jeder Seite</div><p>Lumina shows robots.txt rules, X-Robots-Tag, and AI traffic sources — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Kostenlos</a></div>
 </div></div>
@@ -303,13 +303,18 @@ var BOTS=[
 {name:'GPTBot',label:'OpenAI (Training)'},{name:'OAI-SearchBot',label:'OpenAI (Suche)'},
 {name:'ChatGPT-User',label:'ChatGPT Browser'},{name:'ClaudeBot',label:'Anthropic (Claude)'},
 {name:'Claude-SearchBot',label:'Claude Suche'},{name:'Claude-User',label:'Claude Browser'},
-{name:'PerplexityBot',label:'Perplexity'},{name:'Google-Extended',label:'Google (Gemini AI)'},
-{name:'Meta-ExternalAgent',label:'Meta AI'},{name:'xAI-Web-Crawler',label:'xAI (Grok)'},
-{name:'MistralAI-User',label:'Mistral AI'},{name:'Applebot-Extended',label:'Apple AI'},
-{name:'CCBot',label:'Common Crawl'},{name:'Bytespider',label:'TikTok / ByteDance'}
+{name:'anthropic-ai',label:'Anthropic (Training)'},{name:'PerplexityBot',label:'Perplexity'},
+{name:'Perplexity-User',label:'Perplexity Browser'},{name:'Google-Extended',label:'Google (Gemini AI)'},
+{name:'Google-Agent',label:'Google Agent'},{name:'DeepSeekBot',label:'DeepSeek'},
+{name:'Meta-ExternalAgent',label:'Meta AI'},{name:'FacebookBot',label:'Meta (Sharing)'},
+{name:'xAI-Web-Crawler',label:'xAI (Grok)'},{name:'MistralAI-User',label:'Mistral AI'},
+{name:'Applebot-Extended',label:'Apple AI'},{name:'cohere-ai',label:'Cohere'},
+{name:'CCBot',label:'Common Crawl'},{name:'Bytespider',label:'TikTok / ByteDance'},
+{name:'Diffbot',label:'Diffbot'},{name:'PetalBot',label:'Huawei / Petal Search'}
 ]},
 {cat:'🔎 Weitere Bots',bots:[
-{name:'Amazonbot',label:'Amazon Alexa'},{name:'BraveBot',label:'Brave Search'},{name:'YouBot',label:'You.com'}
+{name:'Amazonbot',label:'Amazon'},{name:'BraveBot',label:'Brave Search'},{name:'YouBot',label:'You.com'},
+{name:'Pinterest',label:'Pinterest'},{name:'LinkedInBot',label:'LinkedIn'},{name:'Twitterbot',label:'X / Twitter'},{name:'Slackbot',label:'Slack'}
 ]}
 ];
 var siteOrigin='';
@@ -342,7 +347,7 @@ nfHtml+='<div class="sb ok">✅ Alle AI-Crawler sind erlaubt</div>';
 nfHtml+='<div id="serverSummary"></div>';
 BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ERLAUBT</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
 document.getElementById('res').innerHTML=nfHtml;
-window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:23,allowed:23,blocked:0,raw:''};
+window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:35,allowed:35,blocked:0,raw:''};
 runLiveCheck();return}
 var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
@@ -413,10 +418,10 @@ function runLiveCheck(){
 if(!siteOrigin)return;
 var btnGo=document.getElementById('btnGo');
 var lp=document.getElementById('liveProgress');
-lp.style.display='block';lp.textContent='Server werden geprüft… 0/23';
+lp.style.display='block';lp.textContent='Server werden geprüft… 0/35';
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-var BATCH=23;var DELAY=0;
+var BATCH=35;var DELAY=0;
 
 function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
