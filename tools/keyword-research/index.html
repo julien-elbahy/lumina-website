@@ -1029,7 +1029,7 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
   var c=localStorage.getItem('lumina_consent');
   if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
   if(c==='denied')return;
-  var b=document.getElementById('consentBanner');if(b)b.style.display='block';
+  var b=document.getElementById('consentBanner');if(b)b.style.display='flex';
   document.getElementById('consentAccept').addEventListener('click',function(){
     gtag('consent','update',{'analytics_storage':'granted'});
     localStorage.setItem('lumina_consent','granted');b.style.display='none';
