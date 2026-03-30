@@ -129,7 +129,7 @@
 [data-theme="light"] .tf-h{color:#1e1814}
 [data-theme="light"] .tf a{color:#7a6e62}
 [data-theme="light"] .tf a:hover{color:var(--accent)}
-[data-theme="light"] .consent-inner{background:rgba(255,255,255,.96);border-color:rgba(140,120,90,.10);box-shadow:0 -4px 32px rgba(80,60,30,.1)}
+[data-theme="light"] .consent-inner{background:rgba(255,255,255,.96);border-color:rgba(140,120,90,.10);box-shadow:0 8px 40px rgba(80,60,30,.15)}
 [data-theme="light"] .consent-btn.reject{background:rgba(245,240,233,.9);color:#5a5046;border-color:rgba(140,120,90,.15)}
 [data-theme="light"] .consent-btn.accept{box-shadow:0 2px 12px rgba(200,122,48,.2)}
 [data-theme="light"] .toggles{background:rgba(255,255,255,.7);border-color:rgba(140,120,90,.10)}
@@ -162,7 +162,7 @@
 [data-theme="light"] .compare-table .cross{color:#c4b8aa}
 [data-theme="light"] .demo-info .val{color:#3d342c}
 [data-theme="light"] .demo-stat .label{color:#908476}
-[data-theme="light"] .consent-inner{box-shadow:0 -4px 32px rgba(80,60,30,.12)}
+[data-theme="light"] .consent-inner{box-shadow:0 8px 40px rgba(80,60,30,.15)}
 [data-theme="light"] .about-teaser{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.10);box-shadow:0 3px 16px rgba(100,70,30,.07)}
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
@@ -339,7 +339,7 @@ cl.style.display='block';
 }
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
 </script>
-<style id="cc">.consent-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:16px;pointer-events:none}.consent-inner{max-width:680px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 -4px 32px rgba(0,0,0,.5);pointer-events:auto;backdrop-filter:blur(20px)}.consent-text{flex:1;font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:8px}.consent-btn{border:none;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{flex-direction:column;text-align:center}.consent-btns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}}
+<style id="cc">.consent-banner{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.consent-inner{max-width:440px;width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;box-shadow:0 12px 48px rgba(0,0,0,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.consent-text{font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:10px;width:100%}.consent-btn{border:none;padding:12px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s;flex:1}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}(max-width:600px){.consent-inner{padding:24px 20px;max-width:calc(100% - 32px)}.consent-btns{flex-direction:column}}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 </style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>(function(){var c=localStorage.getItem('lumina_consent');if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}if(c==='denied')return;var b=document.getElementById('consentBanner');if(b)b.style.display='block';document.getElementById('consentAccept').addEventListener('click',function(){gtag('consent','update',{'analytics_storage':'granted'});localStorage.setItem('lumina_consent','granted');b.style.display='none'});document.getElementById('consentReject').addEventListener('click',function(){localStorage.setItem('lumina_consent','denied');b.style.display='none'})})()</script>
