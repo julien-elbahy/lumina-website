@@ -126,6 +126,10 @@
 .aai-url-input{flex:1;background:rgba(0,0,0,.10);border:1px solid rgba(255,240,215,.08);border-radius:8px;padding:6px 10px;color:var(--muted);font-family:var(--font);font-size:12px;outline:none;transition:border-color .2s;width:100%}
 .aai-url-input:focus{border-color:var(--accent);color:var(--text)}
 .aai-url-input::placeholder{color:rgba(160,148,132,.4)}
+.aai-locale{cursor:pointer;position:relative;border-radius:4px;padding:0 4px;transition:background .2s}.aai-locale:hover{background:var(--accent-soft);color:var(--accent)}
+.aai-loc-dd{position:absolute;top:100%;left:0;z-index:99;background:var(--card);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);padding:6px 0;max-height:220px;overflow-y:auto;min-width:160px;scrollbar-width:thin;scrollbar-color:var(--accent-soft) transparent;display:none}
+.aai-loc-dd.open{display:block}
+.aai-loc-dd button{display:block;width:100%;text-align:left;background:none;border:none;padding:5px 12px;font-size:11px;color:var(--text2);cursor:pointer;font-family:var(--font);transition:background .15s}.aai-loc-dd button:hover{background:var(--accent-soft);color:var(--accent)}.aai-loc-dd button.active{color:var(--accent);font-weight:700}
 .aai-info{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
 .aai-info-link{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s}.aai-info-link:hover{color:var(--accent)}
 .aai-info-sep{color:var(--border);font-size:10px}
@@ -435,7 +439,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="aai-card">
 <div class="aai-header">
 <div class="aai-title-row"><h3>Ask AI</h3></div>
-<div class="aai-meta"><span id="aaiGsc"><span class="aai-gsc-dot off"></span> GSC nicht verbunden</span><span id="aaiQuota">10/10 verbleibend</span></div>
+<div class="aai-meta"><span id="aaiGsc"><span class="aai-gsc-dot off"></span> GSC nicht verbunden</span><span id="aaiLocale" class="aai-locale" title="Klicken zum Ändern">📍 US · en</span><span id="aaiQuota">10/10 verbleibend</span></div>
 </div>
 <div class="aai-thread" id="aaiThread">
 <div class="aai-welcome"><strong>Dein SEO-Copilot</strong>Frag mich alles \x{00fc}ber SEO \x{2014} ich hole Live-SERP-Daten, Keyword-Volumen und gebe datenbasierte Antworten. 10 kostenlose Fragen pro Tag.</div>
@@ -625,6 +629,76 @@ function updateGscUI(){
 }
 updateGscUI();
 
+/* ── Locale (country/language) ── */
+var _localeEl=document.getElementById('aaiLocale');
+var _aaiCountries=[
+  {c:2040,n:'Österreich',f:'🇦🇹',l:'de'},{c:2036,n:'Australien',f:'🇦🇺',l:'en'},{c:2056,n:'Belgien',f:'🇧🇪',l:'nl'},
+  {c:2076,n:'Brasilien',f:'🇧🇷',l:'pt'},{c:2124,n:'Kanada',f:'🇨🇦',l:'en'},{c:2756,n:'Schweiz',f:'🇨🇭',l:'de'},
+  {c:2156,n:'China',f:'🇨🇳',l:'zh'},{c:2203,n:'Tschechien',f:'🇨🇿',l:'cs'},{c:2276,n:'Deutschland',f:'🇩🇪',l:'de'},
+  {c:2208,n:'Dänemark',f:'🇩🇰',l:'da'},{c:2724,n:'Spanien',f:'🇪🇸',l:'es'},{c:2246,n:'Finnland',f:'🇫🇮',l:'fi'},
+  {c:2250,n:'Frankreich',f:'🇫🇷',l:'fr'},{c:2826,n:'Vereinigtes Königreich',f:'🇬🇧',l:'en'},{c:2300,n:'Griechenland',f:'🇬🇷',l:'el'},
+  {c:2348,n:'Ungarn',f:'🇭🇺',l:'hu'},{c:2360,n:'Indonesien',f:'🇮🇩',l:'id'},{c:2356,n:'Indien',f:'🇮🇳',l:'en'},
+  {c:2372,n:'Irland',f:'🇮🇪',l:'en'},{c:2376,n:'Israel',f:'🇮🇱',l:'he'},{c:2380,n:'Italien',f:'🇮🇹',l:'it'},
+  {c:2392,n:'Japan',f:'🇯🇵',l:'ja'},{c:2410,n:'Südkorea',f:'🇰🇷',l:'ko'},{c:2484,n:'Mexiko',f:'🇲🇽',l:'es'},
+  {c:2528,n:'Niederlande',f:'🇳🇱',l:'nl'},{c:2578,n:'Norwegen',f:'🇳🇴',l:'no'},{c:2554,n:'Neuseeland',f:'🇳🇿',l:'en'},
+  {c:2616,n:'Polen',f:'🇵🇱',l:'pl'},{c:2620,n:'Portugal',f:'🇵🇹',l:'pt'},{c:2642,n:'Rumänien',f:'🇷🇴',l:'ro'},
+  {c:2643,n:'Russland',f:'🇷🇺',l:'ru'},{c:2752,n:'Schweden',f:'🇸🇪',l:'sv'},{c:2702,n:'Singapur',f:'🇸🇬',l:'en'},
+  {c:2764,n:'Thailand',f:'🇹🇭',l:'th'},{c:2792,n:'Türkei',f:'🇹🇷',l:'tr'},{c:2804,n:'Ukraine',f:'🇺🇦',l:'uk'},
+  {c:2840,n:'Vereinigte Staaten',f:'🇺🇸',l:'en'},{c:2704,n:'Vietnam',f:'🇻🇳',l:'vi'}
+];
+var _browserToLoc={'AT':2040,'AU':2036,'BE':2056,'BR':2076,'CA':2124,'CH':2756,'CN':2156,'CZ':2203,'DE':2276,'DK':2208,'ES':2724,'FI':2246,'FR':2250,'GB':2826,'GR':2300,'HU':2348,'ID':2360,'IN':2356,'IE':2372,'IL':2376,'IT':2380,'JP':2392,'KR':2410,'MX':2484,'NL':2528,'NO':2578,'NZ':2554,'PL':2616,'PT':2620,'RO':2642,'RU':2643,'SE':2752,'SG':2702,'TH':2764,'TR':2792,'UA':2804,'US':2840,'VN':2704};
+var _aaiLoc=parseInt(localStorage.getItem('lumina_askai_loc'))||0;
+var _aaiLang=localStorage.getItem('lumina_askai_lang')||'';
+
+function aaiDetectLocale(){
+  if(_aaiLoc&&_aaiLang)return;
+  var nav=(navigator.language||navigator.userLanguage||'de-DE');
+  var parts=nav.split('-');
+  var langPart=parts[0].toLowerCase();
+  var regionPart=(parts[1]||'').toUpperCase();
+  if(regionPart&&_browserToLoc[regionPart]){_aaiLoc=_browserToLoc[regionPart]}
+  else{
+    var match=_aaiCountries.find(function(c){return c.l===langPart});
+    _aaiLoc=match?match.c:2276;
+  }
+  var entry=_aaiCountries.find(function(c){return c.c===_aaiLoc});
+  _aaiLang=entry?entry.l:'de';
+}
+aaiDetectLocale();
+
+function aaiGetCountry(){return _aaiCountries.find(function(c){return c.c===_aaiLoc})||_aaiCountries[8]}
+
+function aaiUpdateLocaleUI(){
+  if(!_localeEl)return;
+  var c=aaiGetCountry();
+  _localeEl.textContent=c.f+' '+c.n.split(' ')[0]+' · '+_aaiLang;
+}
+aaiUpdateLocaleUI();
+
+function aaiSaveLocale(code,lang){
+  _aaiLoc=code;_aaiLang=lang;
+  localStorage.setItem('lumina_askai_loc',code);
+  localStorage.setItem('lumina_askai_lang',lang);
+  aaiUpdateLocaleUI();
+}
+
+if(_localeEl){
+  var _locDd=document.createElement('div');_locDd.className='aai-loc-dd';
+  _aaiCountries.forEach(function(c){
+    var b=document.createElement('button');
+    b.textContent=c.f+' '+c.n;
+    b.onclick=function(e){e.stopPropagation();aaiSaveLocale(c.c,c.l);_locDd.classList.remove('open')};
+    _locDd.appendChild(b);
+  });
+  _localeEl.appendChild(_locDd);
+  _localeEl.addEventListener('click',function(e){
+    e.stopPropagation();
+    _locDd.classList.toggle('open');
+    _locDd.querySelectorAll('button').forEach(function(b,i){b.classList.toggle('active',_aaiCountries[i].c===_aaiLoc)});
+  });
+  document.addEventListener('click',function(){_locDd.classList.remove('open')});
+}
+
 /* ── Markdown renderer ── */
 function aaiRenderMd(text){
   var codeBlocks=[];
@@ -766,7 +840,7 @@ function aaiDfs(endpoint,postData,toolName,cb){
 }
 
 function aaiSerp(keyword,cb){
-  aaiDfs('serp/google/organic/live/regular',[{keyword:keyword,location_code:2840,language_code:'en',device:'desktop',depth:10}],'ask-ai-dfs',function(resp){
+  aaiDfs('serp/google/organic/live/regular',[{keyword:keyword,location_code:_aaiLoc,language_code:_aaiLang,device:'desktop',depth:10}],'ask-ai-dfs',function(resp){
     var result='';
     try{
       var items=(resp.tasks[0].result[0].items)||[];
@@ -782,7 +856,7 @@ function aaiSerp(keyword,cb){
 }
 
 function aaiKwVol(keywords,cb){
-  aaiDfs('keywords_data/google_ads/search_volume/live',[{keywords:keywords,location_code:2840,language_code:'en'}],'ask-ai-dfs',function(resp){
+  aaiDfs('keywords_data/google_ads/search_volume/live',[{keywords:keywords,location_code:_aaiLoc,language_code:_aaiLang}],'ask-ai-dfs',function(resp){
     var result='';
     try{
       var items=(resp.tasks[0].result)||[];
@@ -797,7 +871,7 @@ function aaiKwVol(keywords,cb){
 }
 
 function aaiKwSugg(seed,cb){
-  aaiDfs('dataforseo_labs/google/keyword_suggestions/live',[{keyword:seed,location_code:2840,language_code:'en',limit:15,include_seed_keyword:false,filters:['keyword_info.search_volume','>','50']}],'ask-ai-dfs',function(resp){
+  aaiDfs('dataforseo_labs/google/keyword_suggestions/live',[{keyword:seed,location_code:_aaiLoc,language_code:_aaiLang,limit:15,include_seed_keyword:false,filters:['keyword_info.search_volume','>','50']}],'ask-ai-dfs',function(resp){
     var result='';
     try{
       var items=(resp.tasks[0].result[0].items)||[];
@@ -960,7 +1034,9 @@ function aaiSend(){
         _hist.slice(-4).forEach(function(m){messages.push(m)});
         messages.push({role:'user',content:optimizedPrompt+'\n\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nDATA:\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n'+fullCtx});
 
-        var sysPrompt='You are Lumina AI, an SEO copilot on lumina-seo.com. You analyze SEO data and give actionable advice.\n\n'+
+        var locInfo=aaiGetCountry();
+        var sysPrompt='You are Lumina AI, an SEO copilot on lumina-seo.com. You analyze SEO data and give actionable advice.\n'+
+          'User market: '+locInfo.n+' ('+_aaiLang+'). All SERP and keyword data is for this market. Consider local search behavior and language.\n\n'+
           '\u2550\u2550\u2550 DO \u2550\u2550\u2550\n'+
           '- Start EVERY response with one **bold sentence** that directly answers the question\n'+
           '- Cite specific data: position **18.3**, CTR **0.3%**, keyword volume **1,300/mo**\n'+
