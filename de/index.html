@@ -126,7 +126,13 @@
 .aai-url-input{flex:1;background:rgba(0,0,0,.10);border:1px solid rgba(255,240,215,.08);border-radius:8px;padding:6px 10px;color:var(--muted);font-family:var(--font);font-size:12px;outline:none;transition:border-color .2s;width:100%}
 .aai-url-input:focus{border-color:var(--accent);color:var(--text)}
 .aai-url-input::placeholder{color:rgba(160,148,132,.4)}
+.aai-gsc-wrap{display:inline-flex;align-items:center;gap:4px}
 .aai-gsc-link{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:color .2s;cursor:pointer}.aai-gsc-link:hover{color:var(--accent)}
+.aai-gsc-wrap select{font-size:10px;padding:1px 4px;background:none;border:1px solid rgba(255,240,215,.08);border-radius:5px;color:var(--muted);font-family:var(--font);cursor:pointer;outline:none;transition:border-color .2s;max-width:130px}
+.aai-gsc-wrap select:hover,.aai-gsc-wrap select:focus{border-color:var(--accent);color:var(--text)}
+.aai-gsc-wrap .aai-gsc-label{font-size:10px;color:var(--muted);white-space:nowrap}
+[data-theme="light"] .aai-gsc-wrap select{border-color:rgba(140,120,90,.10);color:#6e6256}
+[data-theme="light"] .aai-gsc-wrap select:hover,[data-theme="light"] .aai-gsc-wrap select:focus{border-color:#c87a30;color:#0d0906}
 .aai-locale-row{display:flex;gap:4px;align-items:center}
 .aai-locale-row select{font-size:10px;padding:2px 4px;background:none;border:1px solid rgba(255,240,215,.08);border-radius:5px;color:var(--muted);font-family:var(--font);cursor:pointer;outline:none;transition:border-color .2s;max-width:120px}
 .aai-locale-row select:focus,.aai-locale-row select:hover{border-color:var(--accent);color:var(--text)}
@@ -440,7 +446,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="hero-right">
 <div class="aai-card">
 <div class="aai-header">
-<div class="aai-meta"><a id="aaiGsc" class="aai-gsc-link" href="javascript:void(0)" onclick="luminaSettings&&luminaSettings.open()"><span class="aai-gsc-dot off"></span> GSC nicht verbunden</a><span id="aaiQuota">10/10 verbleibend</span></div>
+<div class="aai-meta"><span id="aaiGsc" class="aai-gsc-wrap"><a class="aai-gsc-link" href="javascript:void(0)" onclick="luminaSettings&&luminaSettings.open()"><span class="aai-gsc-dot off"></span> GSC nicht verbunden</a></span><span id="aaiQuota">10/10 verbleibend</span></div>
 </div>
 <div class="aai-thread" id="aaiThread">
 <div class="aai-welcome"><strong>Dein SEO-Copilot</strong>Frag mich alles \x{00fc}ber SEO \x{2014} ich hole Live-SERP-Daten, Keyword-Volumen und gebe datenbasierte Antworten. 10 kostenlose Fragen pro Tag.</div>
@@ -626,10 +632,30 @@ function aaiGscOk(){
 function updateGscUI(){
   if(!_gscEl)return;
   if(aaiGscOk()){
-    var site=localStorage.getItem('lumina_gsc_site')||'';
-    var label=site?site.replace(/^sc-domain:/,'').replace(/^https?:\/\//,'').replace(/\/$/,''):'GSC verbunden';
-    _gscEl.innerHTML='<span class="aai-gsc-dot on"></span> '+esc(label);_gscEl.title='Klicken um Property zu ändern';
-  }else{_gscEl.innerHTML='<span class="aai-gsc-dot off"></span> GSC nicht verbunden';_gscEl.title='Klicken zum Verbinden'}
+    var token=localStorage.getItem('lumina_gsc_token');
+    _gscEl.innerHTML='<span class="aai-gsc-dot on"></span><span class="aai-gsc-label">GSC:</span> <select id="aaiGscSite"><option>…</option></select>';
+    var sel=document.getElementById('aaiGscSite');
+    fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
+      .then(function(r){return r.json()})
+      .then(function(data){
+        var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
+        if(!sites.length){sel.innerHTML='<option>Keine Properties</option>';return}
+        var saved=localStorage.getItem('lumina_gsc_site')||'';
+        sel.innerHTML='';
+        sites.forEach(function(s){
+          var opt=document.createElement('option');
+          opt.value=s;
+          opt.textContent=s.replace(/^sc-domain:/,'').replace(/^https?:\/\//,'').replace(/\/$/,'');
+          if(s===saved)opt.selected=true;
+          sel.appendChild(opt);
+        });
+        if(!saved||sites.indexOf(saved)===-1)localStorage.setItem('lumina_gsc_site',sites[0]);
+        sel.addEventListener('change',function(){localStorage.setItem('lumina_gsc_site',sel.value)});
+      })
+      .catch(function(){sel.innerHTML='<option>Fehler</option>'});
+  }else{
+    _gscEl.innerHTML='<a class="aai-gsc-link" href="javascript:void(0)" onclick="luminaSettings&&luminaSettings.open()"><span class="aai-gsc-dot off"></span> GSC nicht verbunden</a>';
+  }
 }
 updateGscUI();
 

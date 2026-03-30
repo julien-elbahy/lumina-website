@@ -14,19 +14,24 @@ p{font-size:14px;color:var(--muted);line-height:1.6}
 .spinner{width:32px;height:32px;border:3px solid rgba(236,165,80,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
 a{color:var(--accent)}
+.site-list{text-align:left;margin:16px 0;display:none}
+.site-btn{display:block;width:100%;padding:10px 14px;margin:6px 0;background:rgba(255,245,225,.06);border:1px solid rgba(255,240,215,.10);border-radius:10px;color:var(--text);font-family:var(--font);font-size:14px;cursor:pointer;transition:all .2s;text-align:left}
+.site-btn:hover{border-color:var(--accent);background:rgba(236,165,80,.1)}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="spinner"></div>
-<h1>Authenticating…</h1>
+<div class="spinner" id="spinner"></div>
+<h1 id="title">Authenticating…</h1>
 <p id="msg">Saving your Google credentials and redirecting…</p>
+<div class="site-list" id="siteList"></div>
 </div>
 <script>
 (function(){
   var hash=window.location.hash;
   if(!hash||hash.indexOf('access_token')===-1){
     document.getElementById('msg').innerHTML='No authentication data found. <a href="/">Return to Lumina SEO</a>';
+    document.getElementById('spinner').style.display='none';
     return;
   }
 
@@ -37,22 +42,51 @@ a{color:var(--accent)}
 
   if(!token){
     document.getElementById('msg').innerHTML='Authentication failed. <a href="/">Return to Lumina SEO</a>';
+    document.getElementById('spinner').style.display='none';
     return;
   }
 
-  // Store token in localStorage (same keys used by all GSC tools)
+  // Store token in localStorage
   localStorage.setItem('lumina_gsc_token',token);
   localStorage.setItem('lumina_gsc_expiry',String(Date.now()+expires*1000));
 
-  // Redirect back to the originating tool page
-  try{
-    var returnPath=decodeURIComponent(state);
-    // Safety: only allow same-origin paths
-    if(returnPath.startsWith('/'))window.location.replace(returnPath);
-    else window.location.replace('/');
-  }catch(e){
-    window.location.replace('/');
-  }
+  var returnPath='/';
+  try{returnPath=decodeURIComponent(state);if(!returnPath.startsWith('/'))returnPath='/'}catch(e){returnPath='/'}
+
+  // Fetch GSC properties to check count
+  fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
+
+      if(sites.length<=1){
+        // Single property or none: auto-save and redirect
+        if(sites.length===1)localStorage.setItem('lumina_gsc_site',sites[0]);
+        window.location.replace(returnPath);
+        return;
+      }
+
+      // Multiple properties: show picker
+      document.getElementById('spinner').style.display='none';
+      document.getElementById('title').textContent='Select a property';
+      document.getElementById('msg').textContent='You have '+sites.length+' GSC properties. Choose which one to use:';
+      var list=document.getElementById('siteList');
+      list.style.display='block';
+      sites.forEach(function(s){
+        var btn=document.createElement('button');
+        btn.className='site-btn';
+        btn.textContent=s.replace(/^sc-domain:/,'📊 ').replace(/^https?:\/\//,'🌐 ');
+        btn.addEventListener('click',function(){
+          localStorage.setItem('lumina_gsc_site',s);
+          window.location.replace(returnPath);
+        });
+        list.appendChild(btn);
+      });
+    })
+    .catch(function(){
+      // If site fetch fails, just redirect
+      window.location.replace(returnPath);
+    });
 })();
 </script>
 </body>
