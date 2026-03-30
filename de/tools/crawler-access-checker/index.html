@@ -342,7 +342,7 @@ nfHtml+='<div class="sb ok">✅ Alle AI-Crawler sind erlaubt</div>';
 nfHtml+='<div id="serverSummary"></div>';
 BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ERLAUBT</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
 document.getElementById('res').innerHTML=nfHtml;
-window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:23,allowed:23,blocked:0,partial:0,raw:''};
+window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:23,allowed:23,blocked:0,raw:''};
 runLiveCheck();return}
 var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
@@ -398,7 +398,7 @@ if(delayKeys.length){html+='<div class="sec">⏱️ Crawl-Delay ('+delayKeys.len
 if(sitemaps.length){html+='<div class="sec">📍 Sitemaps ('+sitemaps.length+')</div>';sitemaps.forEach(function(s){html+='<div style="padding:4px 0;font-size:12px"><a href="'+esc(s)+'" target="_blank" rel="noopener" style="font-family:var(--mono)">'+esc(s)+'</a></div>'})}
 html+='<div class="sec">📄 Raw robots.txt</div><div class="raw">'+esc(raw)+'</div>';
 document.getElementById('res').innerHTML=html;
-window._lastResults={bots:BOTS,checkBot:checkBotStatus,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,blocked:blocked,partial:partial,raw:raw};
+window._lastResults={bots:BOTS,checkBot:checkBotStatus,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,blocked:blocked,raw:raw};
 runLiveCheck();
 }).catch(function(e){
 document.getElementById('loading').style.display='none';
@@ -485,7 +485,7 @@ tb.innerHTML='<button class="tb-btn" onclick="copyText()">📋 Kopieren</button>
 function copyText(){
 var r=window._lastResults;if(!r)return;
 var t=r.siteOrigin+' — Crawler Access Check\n';
-t+='Erlaubt: '+r.allowed+' | Teilweise: '+r.partial+' | Blockiert: '+r.blocked+' ('+r.totalBots+' gesamt)\n\n';
+t+='Erlaubt: '+r.allowed+' | Blockiert: '+r.blocked+' ('+r.totalBots+' gesamt)\n\n';
 r.bots.forEach(function(cat){t+=cat.cat+'\n';cat.bots.forEach(function(b){
 var s=r.checkBot(b.name);
 var live=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));
