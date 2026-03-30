@@ -415,7 +415,7 @@ var lp=document.getElementById('liveProgress');
 lp.style.display='block';lp.textContent='Checking servers… 0/23';
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-var BATCH=6;var DELAY=300;
+var BATCH=12;var DELAY=200;
 
 function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');

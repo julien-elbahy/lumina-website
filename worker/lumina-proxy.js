@@ -105,7 +105,8 @@ const rateLimitMap = new Map();
 const RATE_LIMIT = 30;
 const RATE_WINDOW = 60_000;
 
-function isRateLimited(ip) {
+function isRateLimited(ip, limit) {
+  const max = limit || RATE_LIMIT;
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
   if (!entry || now - entry.start > RATE_WINDOW) {
@@ -118,7 +119,7 @@ function isRateLimited(ip) {
     return false;
   }
   entry.count++;
-  return entry.count > RATE_LIMIT;
+  return entry.count > max;
 }
 
 // ── KV Daily Rate Limiter (for paid APIs: DFS, OpenAI, PSI) ──
@@ -232,7 +233,7 @@ export default {
     // /check — Bot Server Check (no origin restriction)
     // ══════════════════════════════════════════════════════════
     if (url.pathname === '/check') {
-      if (isRateLimited(ip)) return jsonResponse({ error: 'Rate limited.' }, 429, origin);
+      if (isRateLimited(ip, 60)) return jsonResponse({ error: 'Rate limited.' }, 429, origin);
       const targetUrl = url.searchParams.get('url');
       const bot = (url.searchParams.get('bot') || 'googlebot').toLowerCase();
       const { error, parsed } = validateTargetUrl(targetUrl);
