@@ -53,8 +53,8 @@
 .skel{height:12px;background:var(--border);border-radius:6px;animation:shimmer 1.5s infinite;margin-bottom:10px}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
 .sb{padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid;backdrop-filter:blur(12px)}.sb.ok{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.sb.er{background:var(--err-bg);border-color:var(--err-border);color:var(--err)}.sb.wn{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}
 .sec{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;padding-bottom:5px;border-bottom:1px solid var(--border);letter-spacing:.8px;display:flex;justify-content:space-between;align-items:center}
-.sec-cols{display:flex;gap:8px;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);opacity:.7}.sec-cols span{width:70px;text-align:center}.sec-cols span:last-child{width:60px}
-.cr{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;margin-bottom:4px;transition:background .15s}.cr:hover{background:var(--accent-soft)}.cr-name{font-size:13px;font-weight:700;width:160px;flex-shrink:0;color:var(--text)}.cr-note{font-size:11px;color:var(--muted);flex:1}@media(max-width:640px){.cr-name{width:auto;min-width:100px;flex-shrink:1}}.cr-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid;width:70px;flex-shrink:0;text-align:center}.cr-status.allowed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-status.blocked{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-status.partial{background:var(--card);color:var(--muted);border-color:var(--border)}.cr-status.partial-warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}
+.sec-cols{display:flex;gap:8px;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);opacity:.7}.sec-cols span{width:80px;text-align:center}.sec-cols span:last-child{width:60px}
+.cr{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;margin-bottom:4px;transition:background .15s}.cr:hover{background:var(--accent-soft)}.cr-name{font-size:13px;font-weight:700;width:160px;flex-shrink:0;color:var(--text)}.cr-note{font-size:11px;color:var(--muted);flex:1}@media(max-width:640px){.cr-name{width:auto;min-width:100px;flex-shrink:1}}.cr-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid;width:80px;flex-shrink:0;text-align:center;cursor:default}.cr-status.allowed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-status.blocked{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .raw{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
 .cr-live{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid var(--border);width:60px;flex-shrink:0;text-align:center;color:var(--muted)}.cr-live.l200{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-live.l403{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-live.l4xx{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.cr-live.lerr{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
@@ -361,17 +361,17 @@ if(specific){if(specific.disallow.some(function(d){return d==='/'}))return{statu
 if(wildcard){if(wildcard.disallow.some(function(d){return d==='/'}))return{status:'blocked',source:'wildcard'};if(wildcard.disallow.length>0)return{status:'partial',source:'wildcard',count:wildcard.disallow.length}}
 return{status:'allowed',source:'default'}}
 function checkBotStatus(name){return checkBot(name).status}
-var totalBots=0,blocked=0,allowed=0,partial=0;
+var totalBots=0,blocked=0,allowed=0;
 BOTS.forEach(function(cat){cat.bots.forEach(function(b){
 var s=checkBot(b.name).status;totalBots++;
-if(s==='blocked')blocked++;else if(s==='partial')partial++;else allowed++;
+if(s==='blocked')blocked++;else allowed++;
 })});
-var html='<div class="metrics" style="grid-template-columns:repeat(5,1fr)"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p id="metricAllowed" style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Eingeschränkt</div><p id="metricPartial" style="color:var(--warn)">'+partial+'</p></div><div class="metric"><div class="mh">Blockiert</div><p id="metricBlocked" style="color:var(--err)">'+blocked+'</p></div></div>';
+var html='<div class="metrics"><div class="metric"><div class="mh">HTTP Status</div><p style="color:'+(httpStatus>=200&&httpStatus<300?'var(--ok)':httpStatus===404?'var(--warn)':'var(--err)')+'">'+httpStatus+'</p></div><div class="metric"><div class="mh">Bots gesamt</div><p>'+totalBots+'</p></div><div class="metric"><div class="mh">Erlaubt</div><p id="metricAllowed" style="color:var(--ok)">'+allowed+'</p></div><div class="metric"><div class="mh">Blockiert</div><p id="metricBlocked" style="color:var(--err)">'+blocked+'</p></div></div>';
 // Show wildcard notice if all bots inherit from *
 var allWildcard=true;BOTS.forEach(function(cat){cat.bots.forEach(function(b){var src=checkBot(b.name).source;if(src!=='wildcard'&&src!=='default')allWildcard=false})});
 if(allWildcard&&rulesLower['*']){var wc=rulesLower['*'];
 if(blocked===totalBots)html+='<div class="sb er">🚫 Keine bot-spezifischen Regeln. <strong>User-Agent: *</strong> hat <code>Disallow: /</code> — alle '+totalBots+' Bots sind vollständig blockiert via robots.txt.</div>';
-else if(partial>0){html+='<div class="raw" style="margin-bottom:12px;max-height:160px"><span style="color:var(--muted);font-family:var(--font);font-size:12px">ℹ️ Keine bot-spezifischen Regeln — alle '+totalBots+' Bots erben von:</span>\n\nUser-Agent: *\n'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('\n')+'</div>';}}
+else if(wc.disallow.length>0){html+='<div class="raw" style="margin-bottom:12px;max-height:160px"><span style="color:var(--muted);font-family:var(--font);font-size:12px">ℹ️ Keine bot-spezifischen Regeln — alle '+totalBots+' Bots erben von:</span>\n\nUser-Agent: *\n'+wc.disallow.map(function(d){return'Disallow: '+esc(d)}).join('\n')+'</div>';}}
 // Show bot-specific block list for robots.txt
 var robotsBlocked=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){if(checkBot(b.name).status==='blocked')robotsBlocked.push(b.name)})});
 if(robotsBlocked.length>0)html+='<div class="sb er">🚫 robots.txt blockiert '+robotsBlocked.length+' Bot'+(robotsBlocked.length!==1?'s':'')+': <strong>'+robotsBlocked.join(', ')+'</strong></div>';
@@ -388,9 +388,9 @@ html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robo
 cat.bots.forEach(function(b){
 var r=checkBot(b.name);var s=r.status;
 var paths=r.source==='wildcard'&&rulesLower['*']?rulesLower['*'].disallow:r.source==='specific'&&rulesLower[b.name.toLowerCase()]?rulesLower[b.name.toLowerCase()].disallow:[];
-var title=paths.length?'Blockierte Pfade: '+paths.join(', '):'Keine Regeln gefunden — standardmäßig erlaubt';
-var statusClass=s==='partial'?(paths.length>=5?'partial-warn':'partial'):s;
-var statusLabel=s==='blocked'?'BLOCKIERT':s==='partial'?paths.length+' Regel'+(paths.length!==1?'n':''):'ERLAUBT';
+var statusClass=s==='blocked'?'blocked':'allowed';
+var statusLabel=s==='blocked'?'BLOCKIERT':paths.length?'ERLAUBT ('+paths.length+')':'ERLAUBT';
+var title=s==='blocked'?'Vollständig blockiert — Disallow: /':paths.length?'Erlaubt mit '+paths.length+' eingeschränkten Pfad'+(paths.length!==1?'en':'')+':\n'+paths.join('\n'):'Keine Einschränkungen — vollständig erlaubt';
 html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+statusClass+'" title="'+title+'">'+statusLabel+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
 });
 var delayKeys=Object.keys(crawlDelays);
@@ -414,7 +414,7 @@ var lp=document.getElementById('liveProgress');
 lp.style.display='block';lp.textContent='Server werden geprüft… 0/23';
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-var BATCH=8;var DELAY=400;
+var BATCH=3;var DELAY=1500;
 
 function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
@@ -426,10 +426,10 @@ return r.json()})
 .then(function(data){
 if(!data||!el)return;
 var sc=data.statusCode||0;var err=data.error||'';
-if(sc>=200&&sc<300){el.textContent=sc;el.className='cr-live l200';ok200++}
-else if(sc===403){el.textContent='403';el.className='cr-live l403';blocked403++}
-else if(sc>0){el.textContent=sc;el.className='cr-live l4xx'}
-else{el.textContent=err==='Timeout'?'TMO':'ERR';el.className='cr-live lerr';errors++}
+if(sc>=200&&sc<300){el.textContent=sc;el.className='cr-live l200';el.title='Server antwortet normal auf diesen Bot';ok200++}
+else if(sc===403){el.textContent='403';el.className='cr-live l403';el.title='Server lehnt diesen Bot mit HTTP 403 ab';blocked403++}
+else if(sc>0){el.textContent=sc;el.className='cr-live l4xx';el.title='Server antwortete mit HTTP '+sc}
+else{el.textContent=err==='Timeout'?'TMO':'ERR';el.className='cr-live lerr';el.title=err==='Timeout'?'Server hat nicht innerhalb von 10 Sekunden geantwortet':'Netzwerkfehler';errors++}
 })
 .catch(function(){if(el){el.textContent='ERR';el.className='cr-live lerr';errors++}})
 .finally(function(){done++;lp.textContent='Server werden geprüft… '+done+'/'+allBots.length});
@@ -442,9 +442,12 @@ var serverBlockedNames=[];allBots.forEach(function(b){var el=document.getElement
 var ss=document.getElementById('serverSummary');
 if(ss&&serverBlockedNames.length>0){ss.innerHTML='<div class="sb er">🚫 Server blockiert '+serverBlockedNames.length+' von '+allBots.length+' Bots mit HTTP 403: <strong>'+serverBlockedNames.join(', ')+'</strong></div>'}
 // Metriken mit Server-Blocks aktualisieren
-var mb=document.getElementById('metricBlocked');if(mb&&serverBlockedNames.length>0){mb.textContent=serverBlockedNames.length}
-var ma=document.getElementById('metricAllowed');var mp=document.getElementById('metricPartial');
-if(ma&&mp&&serverBlockedNames.length>0){var sOk=0,sPart=0;allBots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent!=='403'&&el.textContent!=='ERR'&&el.textContent!=='TMO'&&el.textContent!=='LIMIT'){var rs=window._lastResults.checkBot(b.name);if(rs==='partial')sPart++;else sOk++}});ma.textContent=sOk;mp.textContent=sPart}
+var mb=document.getElementById('metricBlocked');
+var ma=document.getElementById('metricAllowed');
+if(mb&&ma&&serverBlockedNames.length>0){
+var robotsBlocked=0;allBots.forEach(function(b){if(window._lastResults.checkBot(b.name)==='blocked')robotsBlocked++});
+mb.textContent=Math.max(serverBlockedNames.length,robotsBlocked);
+ma.textContent=allBots.length-parseInt(mb.textContent)}
 // AI-Zusammenfassung mit Server-Realität aktualisieren
 var aiSummary=document.getElementById('aiSummary');
 if(aiSummary){var aiServerBlocked=[];BOTS[1].bots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent==='403')aiServerBlocked.push(b.name)});
