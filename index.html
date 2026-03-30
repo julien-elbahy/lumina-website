@@ -137,10 +137,11 @@ footer{padding:40px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 .aai-url-input{flex:1;background:rgba(0,0,0,.10);border:1px solid rgba(255,240,215,.08);border-radius:8px;padding:6px 10px;color:var(--muted);font-family:var(--font);font-size:12px;outline:none;transition:border-color .2s;width:100%}
 .aai-url-input:focus{border-color:var(--accent);color:var(--text)}
 .aai-url-input::placeholder{color:rgba(160,148,132,.4)}
-.aai-locale{cursor:pointer;position:relative;border-radius:4px;padding:0 4px;transition:background .2s}.aai-locale:hover{background:var(--accent-soft);color:var(--accent)}
-.aai-loc-dd{position:absolute;top:100%;left:0;z-index:99;background:var(--card);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.4);padding:6px 0;max-height:220px;overflow-y:auto;min-width:160px;scrollbar-width:thin;scrollbar-color:var(--accent-soft) transparent;display:none}
-.aai-loc-dd.open{display:block}
-.aai-loc-dd button{display:block;width:100%;text-align:left;background:none;border:none;padding:5px 12px;font-size:11px;color:var(--text2);cursor:pointer;font-family:var(--font);transition:background .15s}.aai-loc-dd button:hover{background:var(--accent-soft);color:var(--accent)}.aai-loc-dd button.active{color:var(--accent);font-weight:700}
+.aai-loc-wrap{display:inline-flex;align-items:center}
+.aai-loc-wrap select{font-size:11px;padding:0 2px;background:none;border:none;color:var(--muted);font-family:var(--font);cursor:pointer;outline:none}
+.aai-loc-wrap .cs-wrap{display:inline-flex!important}
+.aai-loc-wrap .cs-trigger{font-size:11px!important;padding:1px 6px!important;height:auto!important;min-height:0!important;background:none!important;border:1px solid transparent!important;color:var(--muted)!important;border-radius:4px!important}
+.aai-loc-wrap .cs-trigger:hover{border-color:var(--accent)!important;color:var(--accent)!important}
 .aai-info{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
 .aai-info-link{font-size:11px;color:var(--muted);text-decoration:none;transition:color .2s}.aai-info-link:hover{color:var(--accent)}
 .aai-info-sep{color:var(--border);font-size:10px}
@@ -419,7 +420,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="aai-card">
 <div class="aai-header">
 <div class="aai-title-row"><h3>Ask AI</h3></div>
-<div class="aai-meta"><span id="aaiGsc"><span class="aai-gsc-dot off"></span> GSC not connected</span><span id="aaiLocale" class="aai-locale" title="Click to change">📍 US · en</span><span id="aaiQuota">10/10 remaining</span></div>
+<div class="aai-meta"><span id="aaiGsc"><span class="aai-gsc-dot off"></span> GSC not connected</span><span class="aai-loc-wrap"><select id="aaiLocSel"><option value="2040">🇦🇹 Austria</option><option value="2032">🇦🇷 Argentina</option><option value="2036">🇦🇺 Australia</option><option value="2056">🇧🇪 Belgium</option><option value="2076">🇧🇷 Brazil</option><option value="2100">🇧🇬 Bulgaria</option><option value="2124">🇨🇦 Canada</option><option value="2152">🇨🇱 Chile</option><option value="2156">🇨🇳 China</option><option value="2170">🇨🇴 Colombia</option><option value="2191">🇭🇷 Croatia</option><option value="2203">🇨🇿 Czech Republic</option><option value="2208">🇩🇰 Denmark</option><option value="2818">🇪🇬 Egypt</option><option value="2233">🇪🇪 Estonia</option><option value="2246">🇫🇮 Finland</option><option value="2250">🇫🇷 France</option><option value="2276">🇩🇪 Germany</option><option value="2300">🇬🇷 Greece</option><option value="2344">🇭🇰 Hong Kong</option><option value="2348">🇭🇺 Hungary</option><option value="2352">🇮🇸 Iceland</option><option value="2356">🇮🇳 India</option><option value="2360">🇮🇩 Indonesia</option><option value="2372">🇮🇪 Ireland</option><option value="2376">🇮🇱 Israel</option><option value="2380">🇮🇹 Italy</option><option value="2392">🇯🇵 Japan</option><option value="2410">🇰🇷 South Korea</option><option value="2428">🇱🇻 Latvia</option><option value="2440">🇱🇹 Lithuania</option><option value="2442">🇱🇺 Luxembourg</option><option value="2458">🇲🇾 Malaysia</option><option value="2484">🇲🇽 Mexico</option><option value="2504">🇲🇦 Morocco</option><option value="2528">🇳🇱 Netherlands</option><option value="2554">🇳🇿 New Zealand</option><option value="2566">🇳🇬 Nigeria</option><option value="2578">🇳🇴 Norway</option><option value="2586">🇵🇰 Pakistan</option><option value="2604">🇵🇪 Peru</option><option value="2608">🇵🇭 Philippines</option><option value="2616">🇵🇱 Poland</option><option value="2620">🇵🇹 Portugal</option><option value="2642">🇷🇴 Romania</option><option value="2643">🇷🇺 Russia</option><option value="2682">🇸🇦 Saudi Arabia</option><option value="2688">🇷🇸 Serbia</option><option value="2702">🇸🇬 Singapore</option><option value="2703">🇸🇰 Slovakia</option><option value="2705">🇸🇮 Slovenia</option><option value="2710">🇿🇦 South Africa</option><option value="2724">🇪🇸 Spain</option><option value="2752">🇸🇪 Sweden</option><option value="2756">🇨🇭 Switzerland</option><option value="2158">🇹🇼 Taiwan</option><option value="2764">🇹🇭 Thailand</option><option value="2792">🇹🇷 Turkey</option><option value="2784">🇦🇪 UAE</option><option value="2804">🇺🇦 Ukraine</option><option value="2826">🇬🇧 United Kingdom</option><option value="2840" selected>🇺🇸 United States</option><option value="2704">🇻🇳 Vietnam</option></select></span><span id="aaiQuota">10/10 remaining</span></div>
 </div>
 <div class="aai-thread" id="aaiThread">
 <div class="aai-welcome"><strong>Your SEO copilot</strong>Ask any SEO question — I'll fetch live SERP data, keyword volumes, and give you data-backed answers. 10 free questions per day.</div>
@@ -619,73 +620,43 @@ function updateGscUI(){
 updateGscUI();
 
 /* ── Locale (country/language) ── */
-var _localeEl=document.getElementById('aaiLocale');
-var _aaiCountries=[
-  {c:2040,n:'Austria',f:'🇦🇹',l:'de'},{c:2036,n:'Australia',f:'🇦🇺',l:'en'},{c:2056,n:'Belgium',f:'🇧🇪',l:'nl'},
-  {c:2076,n:'Brazil',f:'🇧🇷',l:'pt'},{c:2124,n:'Canada',f:'🇨🇦',l:'en'},{c:2756,n:'Switzerland',f:'🇨🇭',l:'de'},
-  {c:2156,n:'China',f:'🇨🇳',l:'zh'},{c:2203,n:'Czechia',f:'🇨🇿',l:'cs'},{c:2276,n:'Germany',f:'🇩🇪',l:'de'},
-  {c:2208,n:'Denmark',f:'🇩🇰',l:'da'},{c:2724,n:'Spain',f:'🇪🇸',l:'es'},{c:2246,n:'Finland',f:'🇫🇮',l:'fi'},
-  {c:2250,n:'France',f:'🇫🇷',l:'fr'},{c:2826,n:'United Kingdom',f:'🇬🇧',l:'en'},{c:2300,n:'Greece',f:'🇬🇷',l:'el'},
-  {c:2348,n:'Hungary',f:'🇭🇺',l:'hu'},{c:2360,n:'Indonesia',f:'🇮🇩',l:'id'},{c:2356,n:'India',f:'🇮🇳',l:'en'},
-  {c:2372,n:'Ireland',f:'🇮🇪',l:'en'},{c:2376,n:'Israel',f:'🇮🇱',l:'he'},{c:2380,n:'Italy',f:'🇮🇹',l:'it'},
-  {c:2392,n:'Japan',f:'🇯🇵',l:'ja'},{c:2410,n:'South Korea',f:'🇰🇷',l:'ko'},{c:2484,n:'Mexico',f:'🇲🇽',l:'es'},
-  {c:2528,n:'Netherlands',f:'🇳🇱',l:'nl'},{c:2578,n:'Norway',f:'🇳🇴',l:'no'},{c:2554,n:'New Zealand',f:'🇳🇿',l:'en'},
-  {c:2616,n:'Poland',f:'🇵🇱',l:'pl'},{c:2620,n:'Portugal',f:'🇵🇹',l:'pt'},{c:2642,n:'Romania',f:'🇷🇴',l:'ro'},
-  {c:2643,n:'Russia',f:'🇷🇺',l:'ru'},{c:2752,n:'Sweden',f:'🇸🇪',l:'sv'},{c:2702,n:'Singapore',f:'🇸🇬',l:'en'},
-  {c:2764,n:'Thailand',f:'🇹🇭',l:'th'},{c:2792,n:'Turkey',f:'🇹🇷',l:'tr'},{c:2804,n:'Ukraine',f:'🇺🇦',l:'uk'},
-  {c:2840,n:'United States',f:'🇺🇸',l:'en'},{c:2704,n:'Vietnam',f:'🇻🇳',l:'vi'}
-];
-var _browserToLoc={'AT':2040,'AU':2036,'BE':2056,'BR':2076,'CA':2124,'CH':2756,'CN':2156,'CZ':2203,'DE':2276,'DK':2208,'ES':2724,'FI':2246,'FR':2250,'GB':2826,'GR':2300,'HU':2348,'ID':2360,'IN':2356,'IE':2372,'IL':2376,'IT':2380,'JP':2392,'KR':2410,'MX':2484,'NL':2528,'NO':2578,'NZ':2554,'PL':2616,'PT':2620,'RO':2642,'RU':2643,'SE':2752,'SG':2702,'TH':2764,'TR':2792,'UA':2804,'US':2840,'VN':2704};
+var _defaultLangMap={2032:'es',2036:'en',2040:'de',2056:'nl',2076:'pt',2100:'bg',2124:'en',2152:'es',2156:'zh',2158:'zh',2170:'es',2191:'hr',2203:'cs',2208:'da',2233:'et',2246:'fi',2250:'fr',2276:'de',2300:'el',2344:'zh',2348:'hu',2352:'is',2356:'en',2360:'id',2372:'en',2376:'he',2380:'it',2392:'ja',2410:'ko',2428:'lv',2440:'lt',2442:'fr',2458:'ms',2484:'es',2504:'fr',2528:'nl',2554:'en',2566:'en',2578:'no',2586:'ur',2604:'es',2608:'en',2616:'pl',2620:'pt',2642:'ro',2643:'ru',2682:'ar',2688:'sr',2702:'en',2703:'sk',2705:'sl',2710:'en',2724:'es',2752:'sv',2756:'de',2764:'th',2784:'ar',2792:'tr',2804:'uk',2818:'ar',2826:'en',2840:'en',2704:'vi'};
+var _browserToLoc={'AT':2040,'AU':2036,'AR':2032,'BE':2056,'BR':2076,'BG':2100,'CA':2124,'CL':2152,'CN':2156,'CO':2170,'HR':2191,'CZ':2203,'DK':2208,'EG':2818,'EE':2233,'FI':2246,'FR':2250,'DE':2276,'GR':2300,'HK':2344,'HU':2348,'IS':2352,'IN':2356,'ID':2360,'IE':2372,'IL':2376,'IT':2380,'JP':2392,'KR':2410,'LV':2428,'LT':2440,'LU':2442,'MY':2458,'MX':2484,'MA':2504,'NL':2528,'NZ':2554,'NG':2566,'NO':2578,'PK':2586,'PE':2604,'PH':2608,'PL':2616,'PT':2620,'RO':2642,'RU':2643,'SA':2682,'RS':2688,'SG':2702,'SK':2703,'SI':2705,'ZA':2710,'ES':2724,'SE':2752,'CH':2756,'TW':2158,'TH':2764,'TR':2792,'AE':2784,'UA':2804,'GB':2826,'US':2840,'VN':2704};
+var _locSel=document.getElementById('aaiLocSel');
 var _aaiLoc=parseInt(localStorage.getItem('lumina_askai_loc'))||0;
 var _aaiLang=localStorage.getItem('lumina_askai_lang')||'';
 
-function aaiDetectLocale(){
-  if(_aaiLoc&&_aaiLang)return;
+/* Auto-detect from browser if no saved preference */
+if(!_aaiLoc){
   var nav=(navigator.language||navigator.userLanguage||'en-US');
   var parts=nav.split('-');
-  var langPart=parts[0].toLowerCase();
   var regionPart=(parts[1]||'').toUpperCase();
   if(regionPart&&_browserToLoc[regionPart]){_aaiLoc=_browserToLoc[regionPart]}
   else{
-    var match=_aaiCountries.find(function(c){return c.l===langPart});
-    _aaiLoc=match?match.c:2840;
+    var langPart=parts[0].toLowerCase();
+    for(var k in _defaultLangMap){if(_defaultLangMap[k]===langPart){_aaiLoc=parseInt(k);break}}
   }
-  var entry=_aaiCountries.find(function(c){return c.c===_aaiLoc});
-  _aaiLang=entry?entry.l:'en';
+  if(!_aaiLoc)_aaiLoc=2840;
+  _aaiLang=_defaultLangMap[_aaiLoc]||'en';
 }
-aaiDetectLocale();
+if(!_aaiLang)_aaiLang=_defaultLangMap[_aaiLoc]||'en';
 
-function aaiGetCountry(){return _aaiCountries.find(function(c){return c.c===_aaiLoc})||_aaiCountries[_aaiCountries.length-2]}
-
-function aaiUpdateLocaleUI(){
-  if(!_localeEl)return;
-  var c=aaiGetCountry();
-  _localeEl.textContent=c.f+' '+c.n.split(' ')[0]+' · '+_aaiLang;
-}
-aaiUpdateLocaleUI();
-
-function aaiSaveLocale(code,lang){
-  _aaiLoc=code;_aaiLang=lang;
-  localStorage.setItem('lumina_askai_loc',code);
-  localStorage.setItem('lumina_askai_lang',lang);
-  aaiUpdateLocaleUI();
-}
-
-if(_localeEl){
-  var _locDd=document.createElement('div');_locDd.className='aai-loc-dd';
-  _aaiCountries.forEach(function(c){
-    var b=document.createElement('button');
-    b.textContent=c.f+' '+c.n;
-    b.onclick=function(e){e.stopPropagation();aaiSaveLocale(c.c,c.l);_locDd.classList.remove('open')};
-    _locDd.appendChild(b);
+/* Set select to detected/saved value */
+if(_locSel){
+  _locSel.value=String(_aaiLoc);
+  _locSel.addEventListener('change',function(){
+    _aaiLoc=parseInt(_locSel.value);
+    _aaiLang=_defaultLangMap[_aaiLoc]||'en';
+    localStorage.setItem('lumina_askai_loc',_aaiLoc);
+    localStorage.setItem('lumina_askai_lang',_aaiLang);
   });
-  _localeEl.appendChild(_locDd);
-  _localeEl.addEventListener('click',function(e){
-    e.stopPropagation();
-    _locDd.classList.toggle('open');
-    _locDd.querySelectorAll('button').forEach(function(b,i){b.classList.toggle('active',_aaiCountries[i].c===_aaiLoc)});
-  });
-  document.addEventListener('click',function(){_locDd.classList.remove('open')});
+  /* csUpgrade is applied by settings.js on DOMContentLoaded */
+}
+
+function aaiGetCountry(){
+  if(!_locSel)return{n:'United States',l:'en'};
+  var opt=_locSel.options[_locSel.selectedIndex];
+  return{n:opt?opt.textContent.replace(/^.{2}\s*/,''):'United States',l:_aaiLang};
 }
 
 /* ── Markdown renderer ── */
