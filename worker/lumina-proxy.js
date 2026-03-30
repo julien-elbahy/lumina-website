@@ -91,6 +91,10 @@ const TOOL_LIMITS = {
   'schema-validator': { type: 'ai', limit: 10 },
   'heading-checker':  { type: 'ai', limit: 10 },
   'content-optimizer':{ type: 'ai', limit: 10 },
+  // Ask AI (homepage copilot)
+  'ask-ai':           { type: 'ai',  limit: 10 },
+  'ask-ai-plan':      { type: 'ai',  limit: 30 },
+  'ask-ai-dfs':       { type: 'dfs', limit: 30 },
 };
 
 // Fallback limits for unknown tools (backwards compatibility)
