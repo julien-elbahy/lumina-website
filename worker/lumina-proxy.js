@@ -72,6 +72,7 @@ const BOT_AGENTS = {
   linkedinbot: 'Mozilla/5.0 (compatible; LinkedInBot/1.0; +http://www.linkedin.com)',
   twitterbot: 'Mozilla/5.0 (compatible; Twitterbot/1.0)',
   slackbot: 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)',
+  facebookexternalhit: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
 };
 
 const CF_ACCOUNT_ID = '045957bc690a89607c5ced094e3d11e4';

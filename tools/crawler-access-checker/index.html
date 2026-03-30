@@ -7,7 +7,7 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
 <title>Free Crawler Access Checker – Robots.txt & Live Bot Test | Lumina SEO</title>
-<meta name="description" content="Check which crawlers can access your site. Analyze robots.txt rules for 35 bots (GPTBot, ClaudeBot, Googlebot) and verify with live User-Agent checks. Free, no signup.">
+<meta name="description" content="Check which crawlers can access your site. Analyze robots.txt rules for 36 bots (GPTBot, ClaudeBot, Googlebot) and verify with live User-Agent checks. Free, no signup.">
 <meta name="keywords" content="robots.txt analyzer, robots.txt checker, AI crawler checker, GPTBot blocked, ClaudeBot checker, robots.txt validator, crawl rules">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lumina-seo.com/tools/crawler-access-checker/">
@@ -258,14 +258,14 @@
 <div id="crossLinks" style="display:none"></div>
 <div class="content">
 <h2>How this tool works</h2>
-<p>This tool fetches your site's robots.txt and checks 35 crawlers across search engines, AI bots, and other services. It parses User-Agent rules and Disallow paths, then verifies each bot with a live server request using the bot's real User-Agent string.</p>
+<p>This tool fetches your site's robots.txt and checks 36 crawlers across search engines, AI bots, and other services. It parses User-Agent rules and Disallow paths, then verifies each bot with a live server request using the bot's real User-Agent string.</p>
 <h2 style="margin-top:28px">Explore more tools</h2>
 <div class="other-tools"><a href="/tools/meta-tag-analyzer/"><h3>Meta Tag Analyzer</h3><p>Full meta tag audit for any URL.</p></a><a href="/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides.</p></a><a href="/tools/heading-checker/"><h3>Heading Checker</h3><p>Analyze H1-H6 hierarchy.</p></a></div>
 <h2 style="margin-top:28px">FAQ</h2>
 <div class="faq-item"><div class="faq-q">What is a robots.txt file?<span class="arrow">+</span></div><div class="faq-a">A text file at your site's root (example.com/robots.txt) that tells crawlers which pages they can or cannot access. It uses User-Agent, Allow, and Disallow directives to control crawling behavior per bot.</div></div>
 <div class="faq-item"><div class="faq-q">What does "rules" mean vs "BLOCKED"?<span class="arrow">+</span></div><div class="faq-a">"Rules" means the bot can crawl your site but certain paths are restricted (e.g. /admin/, /api/). This is normal and healthy. "BLOCKED" means Disallow: / — the bot cannot access any page at all.</div></div>
 <div class="faq-item"><div class="faq-q">Why does the server check show 403 for some bots?<span class="arrow">+</span></div><div class="faq-a">A 403 means the server actively rejects that bot regardless of robots.txt rules. This is typically done via firewall rules, CDN settings, or server-side bot detection. The bot cannot access your site even if robots.txt allows it.</div></div>
-<div class="faq-item"><div class="faq-q">What happens without a robots.txt?<span class="arrow">+</span></div><div class="faq-a">All crawlers assume they have permission to access every page. This tool shows all 35 bots as "allowed" in that case. You can still control access via server-side rules (which the live check reveals).</div></div>
+<div class="faq-item"><div class="faq-q">What happens without a robots.txt?<span class="arrow">+</span></div><div class="faq-a">All crawlers assume they have permission to access every page. This tool shows all 36 bots as "allowed" in that case. You can still control access via server-side rules (which the live check reveals).</div></div>
 <div class="faq-item"><div class="faq-q">What is Crawl-Delay?<span class="arrow">+</span></div><div class="faq-a">A robots.txt directive that tells bots to wait a certain number of seconds between requests. It limits crawling speed to reduce server load. Google ignores Crawl-Delay — use Search Console's crawl rate setting instead.</div></div>
 <div class="cta-box"><div class="cta-t">AI crawler check on every page</div><p>Lumina shows robots.txt rules, X-Robots-Tag, and AI traffic sources — automatically, for free.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
@@ -297,7 +297,8 @@ var W='https://lumina-proxy.julien-elbahy.workers.dev';
 var BOTS=[
 {cat:'🔍 Search Engines',bots:[
 {name:'Googlebot',label:'Google'},{name:'Bingbot',label:'Bing'},{name:'DuckDuckBot',label:'DuckDuckGo'},
-{name:'YandexBot',label:'Yandex'},{name:'Baiduspider',label:'Baidu'},{name:'Applebot',label:'Apple'}
+{name:'YandexBot',label:'Yandex'},{name:'Baiduspider',label:'Baidu'},{name:'Applebot',label:'Apple'},
+{name:'PetalBot',label:'Huawei / Petal'},{name:'BraveBot',label:'Brave'},{name:'YouBot',label:'You.com'}
 ]},
 {cat:'🤖 AI & LLM Crawlers',bots:[
 {name:'GPTBot',label:'OpenAI (training)'},{name:'OAI-SearchBot',label:'OpenAI (search)'},
@@ -306,15 +307,18 @@ var BOTS=[
 {name:'anthropic-ai',label:'Anthropic (training)'},{name:'PerplexityBot',label:'Perplexity'},
 {name:'Perplexity-User',label:'Perplexity browser'},{name:'Google-Extended',label:'Google (Gemini AI)'},
 {name:'Google-Agent',label:'Google Agent'},{name:'DeepSeekBot',label:'DeepSeek'},
-{name:'Meta-ExternalAgent',label:'Meta AI'},{name:'FacebookBot',label:'Meta (sharing)'},
-{name:'xAI-Web-Crawler',label:'xAI (Grok)'},{name:'MistralAI-User',label:'Mistral AI'},
-{name:'Applebot-Extended',label:'Apple AI'},{name:'cohere-ai',label:'Cohere'},
-{name:'CCBot',label:'Common Crawl'},{name:'Bytespider',label:'TikTok / ByteDance'},
-{name:'Diffbot',label:'Diffbot'},{name:'PetalBot',label:'Huawei / Petal Search'}
+{name:'Meta-ExternalAgent',label:'Meta AI'},{name:'xAI-Web-Crawler',label:'xAI (Grok)'},
+{name:'MistralAI-User',label:'Mistral AI'},{name:'Applebot-Extended',label:'Apple AI'},
+{name:'cohere-ai',label:'Cohere'},{name:'CCBot',label:'Common Crawl'},
+{name:'Bytespider',label:'TikTok / ByteDance'},{name:'Diffbot',label:'Diffbot'}
+]},
+{cat:'📱 Social & Sharing',bots:[
+{name:'FacebookBot',label:'Meta / Facebook'},{name:'facebookexternalhit',label:'Facebook link preview'},
+{name:'Pinterest',label:'Pinterest'},{name:'LinkedInBot',label:'LinkedIn'},
+{name:'Twitterbot',label:'X / Twitter'},{name:'Slackbot',label:'Slack'}
 ]},
 {cat:'🔎 Other Bots',bots:[
-{name:'Amazonbot',label:'Amazon'},{name:'BraveBot',label:'Brave Search'},{name:'YouBot',label:'You.com'},
-{name:'Pinterest',label:'Pinterest'},{name:'LinkedInBot',label:'LinkedIn'},{name:'Twitterbot',label:'X / Twitter'},{name:'Slackbot',label:'Slack'}
+{name:'Amazonbot',label:'Amazon'}
 ]}
 ];
 var siteOrigin='';
@@ -347,7 +351,7 @@ nfHtml+='<div class="sb ok">✅ All AI crawlers are allowed</div>';
 nfHtml+='<div id="serverSummary"></div>';
 BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ALLOWED</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
 document.getElementById('res').innerHTML=nfHtml;
-window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:35,allowed:35,blocked:0,raw:''};
+window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:36,allowed:36,blocked:0,raw:''};
 runLiveCheck();return}
 var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
@@ -389,6 +393,7 @@ else if(aiBlocked>0)html+='<div class="sb wn" id="aiSummary">⚠️ robots.txt b
 else html+='<div class="sb ok" id="aiSummary">✅ All AI crawlers are allowed via robots.txt</div>';
 html+='<div id="serverSummary"></div>';
 html+='<div id="legend" style="display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 4px;font-size:10px;color:var(--muted)"></div>';
+html+='<div style="margin:10px 0"><input type="text" id="botFilter" placeholder="Filter bots…" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--font);font-size:12px"></div>';
 BOTS.forEach(function(cat){
 html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';
 cat.bots.forEach(function(b){
@@ -418,10 +423,10 @@ function runLiveCheck(){
 if(!siteOrigin)return;
 var btnGo=document.getElementById('btnGo');
 var lp=document.getElementById('liveProgress');
-lp.style.display='block';lp.textContent='Checking servers… 0/35';
+lp.style.display='block';lp.textContent='Checking servers… 0/36';
 var allBots=[];BOTS.forEach(function(cat){cat.bots.forEach(function(b){allBots.push(b)})});
 var done=0,ok200=0,blocked403=0,errors=0;
-var BATCH=35;var DELAY=0;
+var BATCH=36;var DELAY=0;
 
 function checkOne(b){
 var elId='live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');
@@ -477,6 +482,7 @@ lp.style.display='none';
 document.getElementById('res').style.display='block';
 btnGo.disabled=false;btnGo.textContent='Analyze';
 showToolbar();animateMetrics();renderCrossLinks();
+var bf=document.getElementById('botFilter');if(bf){bf.value='';bf.addEventListener('input',function(){filterBots(this.value)})}
 return}
 var batch=allBots.slice(i,i+BATCH);
 Promise.all(batch.map(checkOne)).then(function(){setTimeout(function(){runBatches(i+BATCH)},DELAY)});
@@ -534,6 +540,23 @@ links.push('<a class="cross-link" href="/tools/tech-stack/?url='+u+'">⚙️ Det
 var cl=document.getElementById('crossLinks');
 cl.innerHTML='<div class="section-head">Continue analysis</div><div class="cross-links">'+links.join('')+'</div>';
 cl.style.display='block';
+}
+function filterBots(q){
+q=q.toLowerCase();
+document.querySelectorAll('.cr').forEach(function(row){
+var name=row.querySelector('.cr-name');var note=row.querySelector('.cr-note');
+if(!name)return;
+var match=!q||name.textContent.toLowerCase().indexOf(q)>=0||(note&&note.textContent.toLowerCase().indexOf(q)>=0);
+row.style.display=match?'':'none';
+});
+document.querySelectorAll('.sec').forEach(function(sec){
+var next=sec.nextElementSibling;var anyVisible=false;
+while(next&&!next.classList.contains('sec')&&next.id!=='botFilter'){
+if(next.classList.contains('cr')&&next.style.display!=='none')anyVisible=true;
+next=next.nextElementSibling;
+}
+sec.style.display=anyVisible||!q?'':'none';
+});
 }
 var params=new URLSearchParams(window.location.search);if(params.get('url')){document.getElementById('urlIn').value=params.get('url');go(params.get('url'))}
 
