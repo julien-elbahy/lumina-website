@@ -17,6 +17,10 @@ var T={
   gscConnect:isDE?'Mit Google verbinden':'Connect with Google',
   gscDisconnect:isDE?'Trennen':'Disconnect',
   gscHelp:isDE?'Für Keyword-Daten mit echten Klicks, Impressionen und Positionen aus deiner Search Console.':'For keyword data with real clicks, impressions, and positions from your Search Console.',
+  gscSite:isDE?'Property':'Property',
+  gscSiteHelp:isDE?'Wähle die GSC-Property für Datenabfragen.':'Select the GSC property for data queries.',
+  gscLoading:isDE?'Lade Properties…':'Loading properties…',
+  gscNoSites:isDE?'Keine Properties gefunden':'No properties found',
   save:isDE?'Speichern':'Save',
   del:isDE?'Löschen':'Delete',
   saved:isDE?'Gespeichert':'Saved',
@@ -202,6 +206,7 @@ function gscRow(){
     '<div class="ls-btns" id="lsGscBtns">'+
     (connected?'<button class="ls-btn ls-btn-del" id="lsGscDisconnect">'+T.gscDisconnect+'</button>':'<button class="ls-btn ls-btn-save" id="lsGscConnect">'+T.gscConnect+'</button>')+
     '</div>'+
+    (connected?'<div class="ls-gsc-site" id="lsGscSiteWrap"><label class="ls-help" style="margin-bottom:4px;display:block">'+T.gscSite+'</label><select id="lsGscSite"><option value="">'+T.gscLoading+'</option></select></div>':'')+
     '<p class="ls-help">'+T.gscHelp+'</p></div>';
 }
 
@@ -221,12 +226,46 @@ function wireGsc(){
     disconnectBtn.addEventListener('click',function(){
       localStorage.removeItem('lumina_gsc_token');
       localStorage.removeItem('lumina_gsc_expiry');
+      localStorage.removeItem('lumina_gsc_site');
       var badge=document.getElementById('lsGscBadge');
       badge.textContent=T.gscNot;badge.className='ls-badge off';
+      var siteWrap=document.getElementById('lsGscSiteWrap');
+      if(siteWrap)siteWrap.remove();
       var btns=document.getElementById('lsGscBtns');
       btns.innerHTML='<button class="ls-btn ls-btn-save" id="lsGscConnect">'+T.gscConnect+'</button>';
       wireGsc();
     });
+  }
+
+  /* Fetch GSC properties when connected */
+  var siteSel=document.getElementById('lsGscSite');
+  if(siteSel){
+    var token=localStorage.getItem('lumina_gsc_token');
+    if(token){
+      fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
+        .then(function(r){return r.json()})
+        .then(function(data){
+          var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
+          if(!sites.length){siteSel.innerHTML='<option value="">'+T.gscNoSites+'</option>';return}
+          var saved=localStorage.getItem('lumina_gsc_site')||'';
+          siteSel.innerHTML='';
+          sites.forEach(function(s){
+            var opt=document.createElement('option');
+            opt.value=s;opt.textContent=s.replace(/^sc-domain:/,'').replace(/\/$/,'');
+            if(s===saved)opt.selected=true;
+            siteSel.appendChild(opt);
+          });
+          /* If nothing saved, save the first one */
+          if(!saved||sites.indexOf(saved)===-1){
+            localStorage.setItem('lumina_gsc_site',sites[0]);
+          }
+          siteSel.addEventListener('change',function(){
+            localStorage.setItem('lumina_gsc_site',siteSel.value);
+          });
+          if(window.csUpgrade)csUpgrade(siteSel);
+        })
+        .catch(function(){siteSel.innerHTML='<option value="">Error</option>'});
+    }
   }
 }
 
