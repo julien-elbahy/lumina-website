@@ -383,13 +383,14 @@ if(aiBlocked>=Math.floor(aiTotal*.6))html+='<div class="sb er" id="aiSummary">�
 else if(aiBlocked>0)html+='<div class="sb wn" id="aiSummary">⚠️ robots.txt blocks '+aiBlocked+'/'+aiTotal+' AI crawlers: <strong>'+aiBlockedNames.join(', ')+'</strong></div>';
 else html+='<div class="sb ok" id="aiSummary">✅ All AI crawlers are allowed via robots.txt</div>';
 html+='<div id="serverSummary"></div>';
+html+='<div style="display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 4px;font-size:10px;color:var(--muted)"><span><span class="cr-status allowed" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">allowed</span> Can crawl</span><span><span class="cr-status allowed" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">3 rules</span> Partial restrictions</span><span><span class="cr-status blocked" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">BLOCKED</span> Fully blocked</span><span><span class="cr-live l200" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">200</span> Server OK</span><span><span class="cr-live l403" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">403</span> Server denies</span></div>';
 BOTS.forEach(function(cat){
 html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';
 cat.bots.forEach(function(b){
 var r=checkBot(b.name);var s=r.status;
 var paths=r.source==='wildcard'&&rulesLower['*']?rulesLower['*'].disallow:r.source==='specific'&&rulesLower[b.name.toLowerCase()]?rulesLower[b.name.toLowerCase()].disallow:[];
 var statusClass=s==='blocked'?'blocked':'allowed';
-var statusLabel=s==='blocked'?'BLOCKED':paths.length?'✓ '+paths.length+' rule'+(paths.length!==1?'s':''):'✓ allowed';
+var statusLabel=s==='blocked'?'BLOCKED':paths.length?paths.length+' rule'+(paths.length!==1?'s':''):'allowed';
 var title=s==='blocked'?'Fully blocked — Disallow: /':paths.length?'Allowed with '+paths.length+' restricted path'+(paths.length!==1?'s':'')+':\n'+paths.join('\n'):'No restrictions — fully allowed';
 html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+statusClass+'" title="'+title+'">'+statusLabel+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
 });
