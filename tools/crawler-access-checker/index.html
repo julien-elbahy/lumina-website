@@ -383,7 +383,7 @@ if(aiBlocked>=Math.floor(aiTotal*.6))html+='<div class="sb er" id="aiSummary">�
 else if(aiBlocked>0)html+='<div class="sb wn" id="aiSummary">⚠️ robots.txt blocks '+aiBlocked+'/'+aiTotal+' AI crawlers: <strong>'+aiBlockedNames.join(', ')+'</strong></div>';
 else html+='<div class="sb ok" id="aiSummary">✅ All AI crawlers are allowed via robots.txt</div>';
 html+='<div id="serverSummary"></div>';
-html+='<div style="display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 4px;font-size:10px;color:var(--muted)"><span><span class="cr-status allowed" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">allowed</span> Can crawl</span><span><span class="cr-status allowed" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">rules</span> Allowed, some paths restricted</span><span><span class="cr-status blocked" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">BLOCKED</span> Fully blocked</span><span><span class="cr-live l200" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">200</span> Server OK</span><span><span class="cr-live l403" style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle">403</span> Server denies</span></div>';
+html+='<div id="legend" style="display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 4px;font-size:10px;color:var(--muted)"></div>';
 BOTS.forEach(function(cat){
 html+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';
 cat.bots.forEach(function(b){
@@ -454,6 +454,17 @@ var aiSummary=document.getElementById('aiSummary');
 if(aiSummary){var aiServerBlocked=[];BOTS[1].bots.forEach(function(b){var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));if(el&&el.textContent==='403')aiServerBlocked.push(b.name)});
 if(aiServerBlocked.length>0){aiSummary.className='sb er';aiSummary.innerHTML='🚫 '+aiServerBlocked.length+'/'+BOTS[1].bots.length+' AI crawlers blocked by server (HTTP 403): <strong>'+aiServerBlocked.join(', ')+'</strong>'}
 }
+// Build dynamic legend based on actual results
+var leg=document.getElementById('legend');if(leg){var lh='',bs='<span style="display:inline-block;width:auto;padding:2px 6px;font-size:9px;vertical-align:middle;border-radius:5px;font-weight:700;border:1px solid;';
+var hasAllowed=false,hasRules=false,hasBlocked=false,has200=false,has403=false,hasErr=false;
+allBots.forEach(function(b){var bid='cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-');var row=document.getElementById(bid);var el=document.getElementById('live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-'));var rs=window._lastResults.checkBot(b.name);if(rs==='blocked')hasBlocked=true;else{var badge=row?row.querySelector('.cr-status'):null;var label=badge?badge.textContent:'';if(label.match(/\d+\s*(rule|Regel)/))hasRules=true;else hasAllowed=true}if(el){if(el.classList.contains('l200'))has200=true;if(el.classList.contains('l403'))has403=true;if(el.classList.contains('lerr'))hasErr=true}});
+if(hasAllowed)lh+='<span>'+bs+'background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)">allowed</span> Can crawl</span>';
+if(hasRules)lh+='<span>'+bs+'background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)">rules</span> Allowed, some paths restricted</span>';
+if(hasBlocked)lh+='<span>'+bs+'background:var(--err-bg);color:var(--err);border-color:var(--err-border)">BLOCKED</span> Fully blocked</span>';
+if(has200)lh+='<span>'+bs+'background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)">200</span> Server OK</span>';
+if(has403)lh+='<span>'+bs+'background:var(--err-bg);color:var(--err);border-color:var(--err-border)">403</span> Server denies</span>';
+if(hasErr)lh+='<span>'+bs+'background:var(--err-bg);color:var(--err);border-color:var(--err-border)">ERR</span> Connection failed</span>';
+leg.innerHTML=lh}
 // Show everything now
 document.getElementById('loading').style.display='none';
 lp.style.display='none';
