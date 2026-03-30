@@ -201,12 +201,16 @@ function gscRow(){
   var gscToken=localStorage.getItem('lumina_gsc_token');
   var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
   var connected=!!gscToken&&Date.now()<gscExpiry;
+  if(!connected){
+    return '<div class="ls-section">'+
+      '<div class="ls-row-header"><span class="ls-label">'+T.gscLabel+'</span><span class="ls-badge off" id="lsGscBadge">'+T.gscNot+'</span></div>'+
+      '<div class="ls-btns" id="lsGscBtns"><button class="ls-btn ls-btn-save" id="lsGscConnect">'+T.gscConnect+'</button></div>'+
+      '<p class="ls-help">'+T.gscHelp+'</p></div>';
+  }
   return '<div class="ls-section">'+
-    '<div class="ls-row-header"><span class="ls-label">'+T.gscLabel+'</span><span class="ls-badge '+(connected?'on':'off')+'" id="lsGscBadge">'+(connected?T.gscConnected:T.gscNot)+'</span></div>'+
-    '<div class="ls-btns" id="lsGscBtns">'+
-    (connected?'<button class="ls-btn ls-btn-del" id="lsGscDisconnect">'+T.gscDisconnect+'</button>':'<button class="ls-btn ls-btn-save" id="lsGscConnect">'+T.gscConnect+'</button>')+
-    '</div>'+
-    (connected?'<div class="ls-gsc-site" id="lsGscSiteWrap"><label class="ls-help" style="margin-bottom:4px;display:block">'+T.gscSite+'</label><select id="lsGscSite"><option value="">'+T.gscLoading+'</option></select></div>':'')+
+    '<div class="ls-row-header"><span class="ls-label">'+T.gscLabel+'</span><span class="ls-badge on" id="lsGscBadge">'+T.gscConnected+'</span></div>'+
+    '<div class="ls-gsc-prop" id="lsGscSiteWrap"><span class="ls-label" style="font-size:10px;margin-bottom:4px;display:block">'+T.gscSite+'</span><select id="lsGscSite" style="width:100%;padding:8px 10px;background:var(--input-bg,rgba(0,0,0,.15));border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;outline:none;cursor:pointer"><option value="">'+T.gscLoading+'</option></select></div>'+
+    '<div class="ls-btns" id="lsGscBtns" style="margin-top:8px"><button class="ls-btn ls-btn-del" id="lsGscDisconnect">'+T.gscDisconnect+'</button></div>'+
     '<p class="ls-help">'+T.gscHelp+'</p></div>';
 }
 
