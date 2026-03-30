@@ -389,7 +389,7 @@ cat.bots.forEach(function(b){
 var r=checkBot(b.name);var s=r.status;
 var paths=r.source==='wildcard'&&rulesLower['*']?rulesLower['*'].disallow:r.source==='specific'&&rulesLower[b.name.toLowerCase()]?rulesLower[b.name.toLowerCase()].disallow:[];
 var statusClass=s==='blocked'?'blocked':'allowed';
-var statusLabel=s==='blocked'?'BLOCKED':paths.length?'ALLOWED ('+paths.length+')':'ALLOWED';
+var statusLabel=s==='blocked'?'BLOCKED':paths.length?'✓ '+paths.length+' rule'+(paths.length!==1?'s':''):'✓ allowed';
 var title=s==='blocked'?'Fully blocked — Disallow: /':paths.length?'Allowed with '+paths.length+' restricted path'+(paths.length!==1?'s':'')+':\n'+paths.join('\n'):'No restrictions — fully allowed';
 html+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status '+statusClass+'" title="'+title+'">'+statusLabel+'</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'});
 });
