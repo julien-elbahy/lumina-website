@@ -460,7 +460,7 @@ function renderComparison(nojs,js,info){
       h+='<div class="score-sublabel">'+scoreLabel(pct)+'</div></div>';
     }
     // Crawler info line
-    h+='<div style="text-align:center;font-size:10px;color:var(--muted);margin-bottom:4px;line-height:1.6"><span style="color:var(--err)">GPTBot, ClaudeBot, CCBot → No-JS</span> · <span style="color:var(--ok)">GoogleBot → JS <span style="font-size:9px">(verzögert)</span></span></div>';
+    h+='<div style="text-align:center;font-size:10px;color:var(--muted);margin-bottom:4px;line-height:1.6">GPTBot, ClaudeBot, CCBot sehen die <strong style="color:var(--text2)">No-JS</strong>-Version · GoogleBot rendert <strong style="color:var(--text2)">JS</strong> <span style="font-size:9px">(verzögert)</span></div>';
     // Framework badge (only if detected)
     if(info&&info.frameworks&&info.frameworks.length>0)h+='<div style="text-align:center;margin-bottom:6px"><span style="font-size:11px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-weight:700">⚙️ '+info.frameworks.join(', ')+'</span></div>';
     h+='<div class="mc-toggle"><label class="mc-switch"><input type="checkbox" id="mcToggle"'+(mainContent?' checked':'')+'><span class="mc-slider"></span></label><label for="mcToggle">Nur Hauptinhalt <span style="font-weight:400;color:var(--muted)">(Nav, Header, Footer ignorieren)</span></label></div>';
