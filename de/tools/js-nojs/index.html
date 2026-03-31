@@ -325,13 +325,17 @@ urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)}
 function go(url){
   url=(url||'').trim();if(!url)return;if(!/^https?:\/\//i.test(url))url='https://'+url;urlIn.value=url;
   document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
+  document.getElementById('toolbar').style.display='none';document.getElementById('aiCard').style.display='none';
   btn.disabled=true;btn.textContent='Vergleiche…';
-  var results={};var done=0;
-  fetch(WORKER_FETCH+'?url='+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(d){results.nojs=d;done++;if(done>=2)compare()}).catch(function(){results.nojs={error:'Failed'};done++;if(done>=2)compare()});
-  fetch(WORKER_DEEP+'?url='+encodeURIComponent(url)).then(function(r){return r.json()}).then(function(d){results.js=d;done++;if(done>=2)compare()}).catch(function(){results.js={error:'Failed'};done++;if(done>=2)compare()});
+  var results={};var done=0;var aborted=false;
+  var ctrl=new AbortController();var timer=setTimeout(function(){aborted=true;ctrl.abort()},30000);
+  fetch(WORKER_FETCH+'?url='+encodeURIComponent(url),{signal:ctrl.signal}).then(function(r){return r.json()}).then(function(d){results.nojs=d;done++;if(done>=2)compare()}).catch(function(e){results.nojs={error:aborted?'Timeout':'Failed'};done++;if(done>=2)compare()});
+  fetch(WORKER_DEEP+'?url='+encodeURIComponent(url),{signal:ctrl.signal}).then(function(r){return r.json()}).then(function(d){results.js=d;done++;if(done>=2)compare()}).catch(function(e){results.js={error:aborted?'Timeout':'Failed'};done++;if(done>=2)compare()});
   function compare(){
+    clearTimeout(timer);
     btn.disabled=false;btn.textContent='JS / No-JS vergleichen';document.getElementById('loading').style.display='none';
-    if(results.nojs.error&&results.js.error){document.getElementById('res').style.display='block';document.getElementById('compResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>Seite konnte nicht geladen werden.</p></div>';return}
+    if(results.nojs.error&&results.js.error){document.getElementById('res').style.display='block';document.getElementById('compResults').innerHTML='<div class="sb er" style="text-align:center">'+(aborted?'⏱️ Zeitüberschreitung nach 30 Sekunden. Die Seite ist möglicherweise zu langsam oder blockiert automatisierte Anfragen.':'⚠️ Seite konnte nicht geladen werden. Überprüfe die URL und versuche es erneut.')+'</div>';return}
+    if(results.nojs.error||results.js.error){var which=results.nojs.error?'No-JS (HTML-Quellcode)':'JS (gerendert)';document.getElementById('res').style.display='block';var warnHtml='<div class="sb wn" style="margin-bottom:12px">⚠️ '+which+'-Abruf fehlgeschlagen'+(aborted?' (Timeout)':'')+'. Teilergebnisse werden angezeigt — einige Vergleiche können ungenau sein.</div>';document.getElementById('compResults').innerHTML=warnHtml}
     lastNojs=parseContent(results.nojs.html||'');
     lastJs=parseContent(results.js.html||'');
     renderComparison(lastNojs,lastJs);
@@ -391,6 +395,18 @@ function buildRing(pct){
   return'<div class="score-ring-wrap"><svg width="120" height="120" viewBox="0 0 120 120"><circle class="score-ring-track" cx="60" cy="60" r="'+r+'"/><circle class="score-ring-fill" cx="60" cy="60" r="'+r+'" stroke="'+col+'" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+offset.toFixed(1)+'"/></svg><div class="score-ring-text" style="color:'+col+'">'+pct+'<small>%</small></div></div>'
 }
 
+function diffHighlight(text,other){
+  if(!text)return'';if(!other)return esc(text);
+  var tw=text.replace(/\s+/g,' ').trim().split(' ');
+  var ow=new Set(other.replace(/\s+/g,' ').trim().split(' '));
+  var out='';
+  tw.forEach(function(w,i){
+    if(i>0)out+=' ';
+    if(!ow.has(w))out+='<span style="background:var(--accent-soft);border-radius:2px;padding:0 2px">'+esc(w)+'</span>';
+    else out+=esc(w);
+  });
+  return out;
+}
 function renderComparison(nojs,js){
   var mcOn=true;
   render(mcOn);
@@ -406,7 +422,7 @@ function renderComparison(nojs,js){
       {label:'Headings',nojs:mainContent?nj.headings:nojs.headings,js:mainContent?jw.headings:js.headings},
       {label:'Links',nojs:mainContent?nj.links:nojs.links,js:mainContent?jw.links:js.links},
       {label:'Bilder',nojs:mainContent?nj.imgs:nojs.imgs,js:mainContent?jw.imgs:js.imgs},
-      {label:'Schema',nojs:nojs.schemas,js:Math.max(nojs.schemas,js.schemas)},
+      {label:'Schema',nojs:nojs.schemas,js:js.schemas},
     ];
     if(!mainContent){
       metrics.push({label:'Zeichen',nojs:nojs.chars,js:js.chars});
@@ -421,6 +437,10 @@ function renderComparison(nojs,js){
     if(diff>5)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% des '+(mainContent?'Hauptinhalts':'Inhalts')+' benötigt JavaScript</p>';
     else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Hauptinhalt':'Inhalt')+' ist vollständig ohne JavaScript zugänglich</p>';
     else h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Nur '+diff+'% Unterschied — Inhalt ist gut zugänglich</p>';
+    // SPA-Erkennung
+    if(njWords<50&&jsWords>200)h+='<div class="sb wn" style="margin:10px 0;font-size:12px">⚡ Diese Seite scheint <strong>Client-Side Rendering</strong> (SPA) zu verwenden. Die meisten Inhalte sind erst nach JavaScript-Ausführung sichtbar. Per Lazy Loading oder Client-Side Routing geladene Inhalte werden möglicherweise nicht vollständig erfasst.</div>';
+    // JS-injiziertes Schema
+    if(js.schemas>nojs.schemas)h+='<div class="sb wn" style="margin:10px 0;font-size:12px">📋 '+((js.schemas-nojs.schemas))+' Structured-Data-Schema'+(js.schemas-nojs.schemas>1?'s':'')+' per JavaScript eingefügt — KI-Crawler ohne JS '+(js.schemas-nojs.schemas>1?'sehen diese nicht':'sieht dieses nicht')+'.</div>';
     h+='<button class="detail-toggle open" id="detailToggle">Detailvergleich <span class="arrow">▼</span></button>';
     h+='<div class="detail-body open" id="detailBody">';
     h+='<div style="display:flex;justify-content:flex-end;gap:16px;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:4px 0;margin-bottom:2px"><span style="min-width:40px;text-align:right">No-JS</span><span style="min-width:40px;text-align:right;color:var(--ok)">JS</span></div>';
@@ -522,8 +542,8 @@ function renderComparison(nojs,js){
       h+='<div class="missing-section">';
       h+='<button class="detail-toggle" id="previewToggle">Textvorschau <span class="arrow">▼</span></button>';
       h+='<div class="detail-body" id="previewBody"><div class="preview-grid">';
-      h+='<div class="preview-box" style="border-color:var(--err-border)"><div class="pv-label">🚫 No-JS (KI-Crawler)</div>'+(njPrev?esc(njPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
-      h+='<div class="preview-box" style="border-color:var(--ok-border)"><div class="pv-label">✅ Mit JS (Browser)</div>'+(jsPrev?esc(jsPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
+      h+='<div class="preview-box" style="border-color:var(--err-border)"><div class="pv-label">🚫 No-JS (KI-Crawler)</div>'+(njPrev?diffHighlight(njPrev,jsPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
+      h+='<div class="preview-box" style="border-color:var(--ok-border)"><div class="pv-label">✅ Mit JS (Browser)</div>'+(jsPrev?diffHighlight(jsPrev,njPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
       h+='</div></div></div>';
     }
     document.getElementById('compResults').innerHTML=h;
@@ -590,8 +610,8 @@ function renderComparison(nojs,js){
     var jsPrev2=mainContent?js.mc.preview:js.preview;
     if(njPrev2||jsPrev2){
       lastReport+='\n--- Textvorschau ---\n';
-      lastReport+='No-JS: '+(njPrev2?njPrev2+'…':'[leer]')+'\n';
-      lastReport+='JS: '+(jsPrev2?jsPrev2+'…':'[leer]')+'\n';
+      lastReport+='No-JS: '+(njPrev2?njPrev2.replace(/\s+/g,' ').trim()+'…':'[leer]')+'\n';
+      lastReport+='JS: '+(jsPrev2?jsPrev2.replace(/\s+/g,' ').trim()+'…':'[leer]')+'\n';
     }
   }
 }
