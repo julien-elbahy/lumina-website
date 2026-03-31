@@ -682,13 +682,11 @@ function renderComparison(nojs,js,info){
         });
       }
     }
-    // Text preview
+    // Text preview (No-JS only)
     var njPrev2=mainContent?nojs.mc.preview:nojs.preview;
-    var jsPrev2=mainContent?js.mc.preview:js.preview;
-    if(njPrev2||jsPrev2){
-      lastReport+='\n--- Text Preview ---\n';
-      lastReport+='No-JS: '+(njPrev2?njPrev2.replace(/\s+/g,' ').trim()+'…':'[empty]')+'\n';
-      lastReport+='JS: '+(jsPrev2?jsPrev2.replace(/\s+/g,' ').trim()+'…':'[empty]')+'\n';
+    if(njPrev2){
+      lastReport+='\n--- No-JS Text Preview (what AI crawlers see) ---\n';
+      lastReport+=njPrev2.replace(/\n/g,' ').replace(/\s+/g,' ').trim()+'…\n';
     }
   }
 }
