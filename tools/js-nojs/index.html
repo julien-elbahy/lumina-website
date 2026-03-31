@@ -316,6 +316,7 @@ var WORKER_FETCH='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
 var lastReport='',lastNojs=null,lastJs=null;
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function normUrl(href,base){if(!href)return'';try{return new URL(href,base).pathname+new URL(href,base).search+new URL(href,base).hash}catch(e){return href}}
 
 btn.addEventListener('click',function(){go(urlIn.value)});
 urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)});
@@ -436,12 +437,13 @@ function renderComparison(nojs,js){
     });
     h+='</div>';
     // Missing content section
-    var njItems=mainContent?(nojs.mc.items||nojs.mc):nojs.items;
-    var jsItems=mainContent?(js.mc.items||js.mc):js.items;
+    var njItems=mainContent?nojs.mc.items:nojs.items;
+    var jsItems=mainContent?js.mc.items:js.items;
+    var baseUrl=urlIn.value;
     if(njItems&&jsItems){
       var missingH=diffList(jsItems.headingList||[],njItems.headingList||[],function(a,b){return a.tag===b.tag&&a.text===b.text});
-      var missingL=diffList(jsItems.linkList||[],njItems.linkList||[],function(a,b){return a.href===b.href});
-      var missingI=diffList(jsItems.imgList||[],njItems.imgList||[],function(a,b){return a.src===b.src});
+      var missingL=diffList(jsItems.linkList||[],njItems.linkList||[],function(a,b){return normUrl(a.href,baseUrl)===normUrl(b.href,baseUrl)});
+      var missingI=diffList(jsItems.imgList||[],njItems.imgList||[],function(a,b){return normUrl(a.src,baseUrl)===normUrl(b.src,baseUrl)});
       var totalMissing=missingH.length+missingL.length+missingI.length;
       h+='<div class="missing-section">';
       h+='<button class="detail-toggle'+(totalMissing>0?' open':'')+'" id="missingToggle">Missing without JS'+(totalMissing>0?' <span style="color:var(--err)">('+totalMissing+' items)</span>':' <span style="color:var(--ok)">✓</span>')+' <span class="arrow">▼</span></button>';
@@ -470,17 +472,19 @@ function renderComparison(nojs,js){
     // Meta & SEO Tags comparison
     if(nojs.meta&&js.meta){
       var nm=nojs.meta,jm=js.meta;
+      // Detect if JS version returned no <head> data (headless browser often strips it)
+      var jsMetaEmpty=!jm.title&&!jm.desc&&!jm.canonical&&!jm.robots&&!jm.ogTitle&&!jm.ogDesc&&(jm.hreflangs||[]).length===0;
       var metaTags=[
-        {label:'Title',nj:nm.title,js:jm.title},
-        {label:'Description',nj:nm.desc,js:jm.desc},
-        {label:'Canonical',nj:nm.canonical,js:jm.canonical},
-        {label:'Robots',nj:nm.robots,js:jm.robots},
-        {label:'OG Title',nj:nm.ogTitle,js:jm.ogTitle},
-        {label:'OG Description',nj:nm.ogDesc,js:jm.ogDesc}
+        {label:'Title',nj:nm.title,js:jsMetaEmpty?nm.title:jm.title},
+        {label:'Description',nj:nm.desc,js:jsMetaEmpty?nm.desc:jm.desc},
+        {label:'Canonical',nj:nm.canonical,js:jsMetaEmpty?nm.canonical:jm.canonical},
+        {label:'Robots',nj:nm.robots,js:jsMetaEmpty?nm.robots:jm.robots},
+        {label:'OG Title',nj:nm.ogTitle,js:jsMetaEmpty?nm.ogTitle:jm.ogTitle},
+        {label:'OG Description',nj:nm.ogDesc,js:jsMetaEmpty?nm.ogDesc:jm.ogDesc}
       ];
       var metaIssues=metaTags.filter(function(t){return t.nj!==t.js}).length;
       var hrefIssues=0;
-      var jsHrefMap={};(jm.hreflangs||[]).forEach(function(h){jsHrefMap[h.lang]=h.href});
+      var jsHrefMap={};(jsMetaEmpty?nm.hreflangs:jm.hreflangs||[]).forEach(function(h){jsHrefMap[h.lang]=h.href});
       var njHrefMap={};(nm.hreflangs||[]).forEach(function(h){njHrefMap[h.lang]=h.href});
       var allLangs={};Object.keys(jsHrefMap).forEach(function(k){allLangs[k]=1});Object.keys(njHrefMap).forEach(function(k){allLangs[k]=1});
       Object.keys(allLangs).forEach(function(lang){if(jsHrefMap[lang]!==njHrefMap[lang])hrefIssues++});
@@ -488,6 +492,9 @@ function renderComparison(nojs,js){
       h+='<div class="missing-section">';
       h+='<button class="detail-toggle" id="metaToggle">Meta & SEO Tags'+(totalMetaIssues>0?' <span style="color:var(--err)">('+totalMetaIssues+' differences)</span>':' <span style="color:var(--ok)">✓ identical</span>')+' <span class="arrow">▼</span></button>';
       h+='<div class="detail-body" id="metaBody">';
+      if(jsMetaEmpty){
+        h+='<div style="font-size:12px;color:var(--muted);padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:10px">ℹ️ The JS-rendered version did not return &lt;head&gt; meta tags — this is normal for headless rendering. Meta tags below are from the HTML source, which is what all crawlers see.</div>';
+      }
       metaTags.forEach(function(t){
         var match=t.nj===t.js;
         var njEmpty=!t.nj,jsEmpty=!t.js;
@@ -551,17 +558,17 @@ function renderComparison(nojs,js){
     lastReport+='\n--- Metrics ---\n';
     metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' lost)':'')+'\n'});
     // Missing content
-    var njItems2=mainContent?(nojs.mc.items||nojs.mc):nojs.items;
-    var jsItems2=mainContent?(js.mc.items||js.mc):js.items;
+    var njItems2=mainContent?nojs.mc.items:nojs.items;
+    var jsItems2=mainContent?js.mc.items:js.items;
     if(njItems2&&jsItems2){
       var mH=diffList(jsItems2.headingList||[],njItems2.headingList||[],function(a,b){return a.tag===b.tag&&a.text===b.text});
-      var mL=diffList(jsItems2.linkList||[],njItems2.linkList||[],function(a,b){return a.href===b.href});
-      var mI=diffList(jsItems2.imgList||[],njItems2.imgList||[],function(a,b){return a.src===b.src});
+      var mL=diffList(jsItems2.linkList||[],njItems2.linkList||[],function(a,b){return normUrl(a.href,baseUrl)===normUrl(b.href,baseUrl)});
+      var mI=diffList(jsItems2.imgList||[],njItems2.imgList||[],function(a,b){return normUrl(a.src,baseUrl)===normUrl(b.src,baseUrl)});
       if(mH.length+mL.length+mI.length>0){
         lastReport+='\n--- Missing without JS ---\n';
         if(mH.length>0){lastReport+='Missing Headings ('+mH.length+'):\n';mH.forEach(function(i){lastReport+='  ['+i.tag+'] '+i.text+'\n'})}
-        if(mL.length>0){lastReport+='Missing Links ('+mL.length+'):\n';mL.forEach(function(i){lastReport+='  '+i.text+' → '+i.href+'\n'})}
-        if(mI.length>0){lastReport+='Missing Images ('+mI.length+'):\n';mI.forEach(function(i){lastReport+='  '+(i.alt||'[no alt]')+' → '+i.src+'\n'})}
+        if(mL.length>0){lastReport+='Missing Links ('+mL.length+'):\n';mL.forEach(function(i){var lt=i.text.replace(/\s*→\s*$/,'');lastReport+='  '+lt+': '+i.href+'\n'})}
+        if(mI.length>0){lastReport+='Missing Images ('+mI.length+'):\n';mI.forEach(function(i){lastReport+='  '+(i.alt||'[no alt]')+': '+i.src+'\n'})}
       } else {
         lastReport+='\n--- Missing without JS ---\nNo content is missing — AI crawlers see everything.\n';
       }
@@ -569,22 +576,24 @@ function renderComparison(nojs,js){
     // Meta tags
     if(nojs.meta&&js.meta){
       var nm2=nojs.meta,jm2=js.meta;
-      var mTags=[{label:'Title',nj:nm2.title,js:jm2.title},{label:'Description',nj:nm2.desc,js:jm2.desc},{label:'Canonical',nj:nm2.canonical,js:jm2.canonical},{label:'Robots',nj:nm2.robots,js:jm2.robots},{label:'OG Title',nj:nm2.ogTitle,js:jm2.ogTitle},{label:'OG Description',nj:nm2.ogDesc,js:jm2.ogDesc}];
+      var jsMetaEmpty2=!jm2.title&&!jm2.desc&&!jm2.canonical&&!jm2.robots&&!jm2.ogTitle&&!jm2.ogDesc&&(jm2.hreflangs||[]).length===0;
+      var mTags=[{label:'Title',nj:nm2.title,js:jsMetaEmpty2?nm2.title:jm2.title},{label:'Description',nj:nm2.desc,js:jsMetaEmpty2?nm2.desc:jm2.desc},{label:'Canonical',nj:nm2.canonical,js:jsMetaEmpty2?nm2.canonical:jm2.canonical},{label:'Robots',nj:nm2.robots,js:jsMetaEmpty2?nm2.robots:jm2.robots},{label:'OG Title',nj:nm2.ogTitle,js:jsMetaEmpty2?nm2.ogTitle:jm2.ogTitle},{label:'OG Description',nj:nm2.ogDesc,js:jsMetaEmpty2?nm2.ogDesc:jm2.ogDesc}];
       lastReport+='\n--- Meta & SEO Tags ---\n';
+      if(jsMetaEmpty2)lastReport+='(JS version returned no <head> tags — using HTML source for both)\n';
       mTags.forEach(function(t){
         if(t.nj===t.js&&t.nj)lastReport+=t.label+': '+t.nj+' (identical)\n';
         else if(t.nj===t.js&&!t.nj)lastReport+=t.label+': Not set\n';
-        else lastReport+=t.label+': No-JS="'+(t.nj||'missing')+'" / JS="'+(t.js||'missing')+'" (DIFFERENT)\n';
+        else lastReport+=t.label+': No-JS: '+(t.nj||'missing')+' / JS: '+(t.js||'missing')+' (DIFFERENT)\n';
       });
-      var jsHM={};(jm2.hreflangs||[]).forEach(function(h){jsHM[h.lang]=h.href});
-      var njHM={};(nm2.hreflangs||[]).forEach(function(h){njHM[h.lang]=h.href});
-      var aL={};Object.keys(jsHM).forEach(function(k){aL[k]=1});Object.keys(njHM).forEach(function(k){aL[k]=1});
-      if(Object.keys(aL).length>0){
+      var jsHM2={};(jsMetaEmpty2?nm2.hreflangs:jm2.hreflangs||[]).forEach(function(h){jsHM2[h.lang]=h.href});
+      var njHM2={};(nm2.hreflangs||[]).forEach(function(h){njHM2[h.lang]=h.href});
+      var aL2={};Object.keys(jsHM2).forEach(function(k){aL2[k]=1});Object.keys(njHM2).forEach(function(k){aL2[k]=1});
+      if(Object.keys(aL2).length>0){
         lastReport+='Hreflang:\n';
-        Object.keys(aL).sort().forEach(function(lang){
-          var nV=njHM[lang]||'',jV=jsHM[lang]||'';
+        Object.keys(aL2).sort().forEach(function(lang){
+          var nV=njHM2[lang]||'',jV=jsHM2[lang]||'';
           if(nV===jV)lastReport+='  ['+lang+'] '+nV+' (identical)\n';
-          else lastReport+='  ['+lang+'] No-JS='+(nV||'missing')+' / JS='+(jV||'missing')+' (DIFFERENT)\n';
+          else lastReport+='  ['+lang+'] No-JS: '+(nV||'missing')+' / JS: '+(jV||'missing')+' (DIFFERENT)\n';
         });
       }
     }
