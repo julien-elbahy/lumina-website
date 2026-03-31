@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Meta Tag Analyzer","url":"https://lumina-seo.com/tools/meta-tag-analyzer/","description":"Free meta tag analyzer. Check title, description, canonical, robots, OG tags, Twitter Cards, Schema, hreflang for any URL.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Meta Tag Analyzer","url":"https://lumina-seo.com/tools/meta-tag-analyzer/","description":"Free meta tag analyzer. Check title, description, canonical, robots, OG tags, Twitter Cards, Schema, hreflang for any URL.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"datePublished":"2026-03-16","dateModified":"2026-03-31","author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What meta tags does this tool check?","acceptedAnswer":{"@type":"Answer","text":"Title, description, canonical, robots, H1, all Open Graph tags, Twitter Card tags, Schema.org JSON-LD, hreflang, viewport, charset, lang attribute, and favicon."}},{"@type":"Question","name":"How is the SEO score calculated?","acceptedAnswer":{"@type":"Answer","text":"The score is based on 15 weighted checks: title presence and length (pixel-based), meta description presence and length, H1 count, canonical URL, robots directive, Open Graph tags, Schema.org markup, viewport, and language attribute."}},{"@type":"Question","name":"Does this tool work with JavaScript-heavy websites?","acceptedAnswer":{"@type":"Answer","text":"Yes. If the initial fetch returns incomplete data, the tool automatically falls back to a headless browser that renders JavaScript — so you see the page exactly as search engines do."}},{"@type":"Question","name":"Why do pixel widths matter for titles and descriptions?","acceptedAnswer":{"@type":"Answer","text":"Google truncates search snippets based on pixel width, not character count. This tool measures actual rendered pixels for more accurate truncation predictions than character counting alone."}},{"@type":"Question","name":"Can I analyze pages behind a login?","acceptedAnswer":{"@type":"Answer","text":"No, this tool can only analyze publicly accessible pages. For pages behind authentication, use the Lumina Chrome extension which runs directly in your browser."}}]}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -218,6 +218,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 [data-theme="light"] .about-teaser{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.10);box-shadow:0 3px 16px rgba(100,70,30,.07)}
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
+.tool-updated{font-size:12px;color:var(--muted);margin-top:6px}
 
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -301,6 +302,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 <div class="label">Free SEO Tool</div>
 <h1>Meta Tag Analyzer</h1>
 <p>Enter any URL to analyze its meta tags, Open Graph, Twitter Cards, Schema.org, hreflang, and more — exactly like the Lumina extension.</p>
+<div class="tool-updated">Last updated: March 2026</div>
 </div>
 <div class="url-bar" style="display:flex;gap:8px;margin-bottom:16px">
 <input type="text" class="url-input" id="urlInput" placeholder="https://example.com" value="https://lumina-seo.com" spellcheck="false" style="flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px">
