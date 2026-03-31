@@ -389,7 +389,7 @@ function parseContent(html){
   var links=doc.querySelectorAll('a[href]').length;
   var imgs=doc.querySelectorAll('img').length;
   var fullItems=extractItems(doc);
-  var preview=text.replace(/\\"/g,'').replace(/\b[\w-]+="[^"]*"/g,'').replace(/\b(data-[\w-]+|class|id|style|role|aria-[\w-]+|tabindex)=[^\s]*/g,'').replace(/\b[a-z]+[A-Z]\w*\b/g,'').replace(/\b\w+_\w+[\w_]*\b/g,'').replace(/\b[\w-]*:[\w_-]+\b/g,'').replace(/\b[a-z]+-[a-z]+-[a-z]+[\w-]*\b/g,'').replace(/\\n/g,'\n').replace(/[<>]/g,' ').replace(/\b\d+:\d+\b/g,'').replace(/\s*\n\s*/g,'\n').replace(/\n{2,}/g,'\n').replace(/[ \t]+/g,' ').trim().substring(0,400);
+  var preview=text.replace(/\\"/g,' ').replace(/\b[\w-]+="[^"]*"/g,'').replace(/\b(data-[\w-]+|class|id|style|role|aria-[\w-]+|tabindex)=\S*/g,'').replace(/\\/g,' ').replace(/\b\w+_\w+[\w_]*\b/g,'').replace(/\b[\w-]*:[\w_-]+\b/g,'').replace(/\b[a-z]+-[a-z]+[\w-]*\b/g,'').replace(/\\n/g,'\n').replace(/[<>]/g,' ').replace(/\b\d+:\d+\b/g,'').replace(/\s*\n\s*/g,'\n').replace(/\n{2,}/g,'\n').replace(/[ \t]+/g,' ').trim().substring(0,400);
   // Main content only
   var clone=doc.cloneNode(true);
   clone.querySelectorAll('nav,header,footer,aside,[role="navigation"],[role="banner"],[role="contentinfo"],.nav,.navbar,.header,.footer,.sidebar,.menu,.cookie-banner,.cookie-consent').forEach(function(el){el.remove()});
@@ -401,7 +401,7 @@ function parseContent(html){
   var mcLinks=mcRoot?mcRoot.querySelectorAll('a[href]').length:0;
   var mcImgs=mcRoot?mcRoot.querySelectorAll('img').length:0;
   var mcItems=extractItems(mcRoot);
-  var mcPreview=mcText.replace(/\\"/g,'').replace(/\b[\w-]+="[^"]*"/g,'').replace(/\b(data-[\w-]+|class|id|style|role|aria-[\w-]+|tabindex)=[^\s]*/g,'').replace(/\b[a-z]+[A-Z]\w*\b/g,'').replace(/\b\w+_\w+[\w_]*\b/g,'').replace(/\b[\w-]*:[\w_-]+\b/g,'').replace(/\b[a-z]+-[a-z]+-[a-z]+[\w-]*\b/g,'').replace(/\\n/g,'\n').replace(/[<>]/g,' ').replace(/\b\d+:\d+\b/g,'').replace(/\s*\n\s*/g,'\n').replace(/\n{2,}/g,'\n').replace(/[ \t]+/g,' ').trim().substring(0,400);
+  var mcPreview=mcText.replace(/\\"/g,' ').replace(/\b[\w-]+="[^"]*"/g,'').replace(/\b(data-[\w-]+|class|id|style|role|aria-[\w-]+|tabindex)=\S*/g,'').replace(/\\/g,' ').replace(/\b\w+_\w+[\w_]*\b/g,'').replace(/\b[\w-]*:[\w_-]+\b/g,'').replace(/\b[a-z]+-[a-z]+[\w-]*\b/g,'').replace(/\\n/g,'\n').replace(/[<>]/g,' ').replace(/\b\d+:\d+\b/g,'').replace(/\s*\n\s*/g,'\n').replace(/\n{2,}/g,'\n').replace(/[ \t]+/g,' ').trim().substring(0,400);
   return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,schemaTypes:schemaTypes,chars:text.length,items:fullItems,meta:meta,preview:preview,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs,schemas:schemas,items:mcItems,preview:mcPreview}}
 }
 
