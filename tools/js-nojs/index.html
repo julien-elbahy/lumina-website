@@ -316,7 +316,7 @@ var WORKER_FETCH='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
 var lastReport='',lastNojs=null,lastJs=null;
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function normUrl(href,base){if(!href)return'';try{return new URL(href,base).pathname+new URL(href,base).search+new URL(href,base).hash}catch(e){return href}}
+function normUrl(href,base){if(!href)return'';try{return new URL(href,base).href}catch(e){return href}}
 
 btn.addEventListener('click',function(){go(urlIn.value)});
 urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)});
@@ -473,7 +473,7 @@ function renderComparison(nojs,js){
     if(nojs.meta&&js.meta){
       var nm=nojs.meta,jm=js.meta;
       // Detect if JS version returned no <head> data (headless browser often strips it)
-      var jsMetaEmpty=!jm.title&&!jm.desc&&!jm.canonical&&!jm.robots&&!jm.ogTitle&&!jm.ogDesc&&(jm.hreflangs||[]).length===0;
+      var jsMetaEmpty=!jm.desc&&!jm.canonical&&!jm.robots&&!jm.ogTitle&&!jm.ogDesc&&(jm.hreflangs||[]).length===0;
       var metaTags=[
         {label:'Title',nj:nm.title,js:jsMetaEmpty?nm.title:jm.title},
         {label:'Description',nj:nm.desc,js:jsMetaEmpty?nm.desc:jm.desc},
@@ -576,7 +576,7 @@ function renderComparison(nojs,js){
     // Meta tags
     if(nojs.meta&&js.meta){
       var nm2=nojs.meta,jm2=js.meta;
-      var jsMetaEmpty2=!jm2.title&&!jm2.desc&&!jm2.canonical&&!jm2.robots&&!jm2.ogTitle&&!jm2.ogDesc&&(jm2.hreflangs||[]).length===0;
+      var jsMetaEmpty2=!jm2.desc&&!jm2.canonical&&!jm2.robots&&!jm2.ogTitle&&!jm2.ogDesc&&(jm2.hreflangs||[]).length===0;
       var mTags=[{label:'Title',nj:nm2.title,js:jsMetaEmpty2?nm2.title:jm2.title},{label:'Description',nj:nm2.desc,js:jsMetaEmpty2?nm2.desc:jm2.desc},{label:'Canonical',nj:nm2.canonical,js:jsMetaEmpty2?nm2.canonical:jm2.canonical},{label:'Robots',nj:nm2.robots,js:jsMetaEmpty2?nm2.robots:jm2.robots},{label:'OG Title',nj:nm2.ogTitle,js:jsMetaEmpty2?nm2.ogTitle:jm2.ogTitle},{label:'OG Description',nj:nm2.ogDesc,js:jsMetaEmpty2?nm2.ogDesc:jm2.ogDesc}];
       lastReport+='\n--- Meta & SEO Tags ---\n';
       if(jsMetaEmpty2)lastReport+='(JS version returned no <head> tags — using HTML source for both)\n';
