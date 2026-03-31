@@ -380,6 +380,8 @@ function parseContent(html){
   var schemaTypes=[];schemaEls.forEach(function(el){try{var j=JSON.parse(el.textContent);var t=j['@type'];if(Array.isArray(t))schemaTypes=schemaTypes.concat(t);else if(t)schemaTypes.push(t);if(j['@graph'])j['@graph'].forEach(function(g){if(g['@type'])schemaTypes.push(g['@type'])})}catch(e){}});
   var meta=extractMeta(doc);
   doc.querySelectorAll('script,style,noscript').forEach(function(el){el.remove()});
+  // Insert spaces between block elements so textContent doesn't merge words
+  doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,div,li,br,tr,section,article,blockquote').forEach(function(el){el.insertAdjacentText('beforebegin',' ')});
   var text=doc.body?doc.body.textContent||'':'';
   var words=text.split(/\s+/).filter(function(w){return w.length>0}).length;
   var headings=doc.querySelectorAll('h1,h2,h3,h4,h5,h6').length;
