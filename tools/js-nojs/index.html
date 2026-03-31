@@ -521,8 +521,11 @@ function renderComparison(nojs,js,info){
       h+='<div class="missing-section">';
       h+='<button class="detail-toggle'+(totalMissing>0?' open':'')+'" id="missingToggle">Missing without JS'+(totalMissing>0?' <span style="color:var(--err)">('+totalMissing+' items)</span>':' <span style="color:var(--ok)">✓</span>')+' <span class="arrow">▼</span></button>';
       h+='<div class="detail-body'+(totalMissing>0?' open':'')+'" id="missingBody">';
-      if(totalMissing===0){
+      var wordGap=jsWords-njWords;
+      if(totalMissing===0&&wordGap<=50){
         h+='<div class="missing-none">✓ No content is missing without JavaScript — AI crawlers see everything</div>';
+      } else if(totalMissing===0&&wordGap>50){
+        h+='<div style="padding:10px 0;font-size:12px"><p style="color:var(--warn);font-weight:700;margin-bottom:4px">⚠️ '+wordGap.toLocaleString()+' words are only visible with JavaScript</p><p style="color:var(--muted)">Headings, links, and images match — but the JS version contains significantly more text content that AI crawlers cannot see.</p></div>';
       } else {
         if(missingH.length>0){
           h+='<div class="missing-head"><span>Missing Headings</span><span class="count">'+missingH.length+' hidden from AI crawlers</span></div><div class="missing-list">';
@@ -729,7 +732,9 @@ function aiAnalyze(){
   var pct=Math.round((rr(nj.words,jw.words)*40+rr(njH,jsH)*20+rr(njL,jsL)*20+rr(njI,jsI)*10+rr(lastNojs.schemas,lastNojs.schemas)*10));
   var prompt='URL: '+urlIn.value+'\n';
   prompt+='Mode: '+(mc?'Main Content Only':'Full Page')+'\n';
-  prompt+='Weighted Readability Score: '+pct+'% (Words 40%, Headings 20%, Links 20%, Images 10%, Schema 10%)\n\n';
+  prompt+='Weighted Readability Score: '+pct+'% (gap: '+(100-pct)+'%)\n';
+  prompt+='Score weights: Words 40%, Headings 20%, Links 20%, Images 10%, Schema 10%\n';
+  prompt+='IMPORTANT: Always reference the weighted gap of '+(100-pct)+'% — do NOT calculate your own percentage from raw word counts.\n\n';
   prompt+='Metrics:\n';
   prompt+='  Words: No-JS='+nj.words+' / JS='+jw.words+' (diff: '+(jw.words-nj.words)+')\n';
   prompt+='  Headings: No-JS='+njH+' / JS='+jsH+'\n';
