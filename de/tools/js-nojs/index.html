@@ -268,10 +268,10 @@
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">JS / No-JS vergleichen</button></div>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Beide Versionen werden geladen… (HTML + JS-gerendert)</p></div>
-<div id="toolbar" style="display:none;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>
 <div id="res" style="display:none">
 <div id="compResults"></div>
 </div>
+<div id="toolbar" style="display:none;gap:6px;margin-top:10px;flex-wrap:wrap"></div>
 <div class="ai-card" id="aiCard" style="display:none">
 <div class="ai-card-header"><div class="ai-badge">KI-gestützt</div>
 <div class="ai-card-title">🧠 KI-Zugänglichkeitsanalyse</div>
@@ -531,8 +531,59 @@ function renderComparison(nojs,js){
     var prevT=document.getElementById('previewToggle');if(prevT)prevT.addEventListener('click',function(){this.classList.toggle('open');document.getElementById('previewBody').classList.toggle('open')});
     lastReport='JS vs No-JS: '+urlIn.value+'\n';
     lastReport+='Modus: '+(mainContent?'Nur Hauptinhalt':'Gesamte Seite')+'\n';
-    lastReport+='KI Content Lesbarkeit: '+pct+'%\n\n';
+    lastReport+='KI-Content-Lesbarkeit: '+pct+'%\n';
+    var diff2=jsWords>0?Math.round(((jsWords-njWords)/jsWords)*100):0;
+    if(diff2>5)lastReport+='Status: '+diff2+'% des '+(mainContent?'Haupt-':'')+'Contents benötigt JavaScript\n';
+    else if(diff2<=0)lastReport+='Status: '+(mainContent?'Hauptinhalt':'Inhalt')+' ist vollständig ohne JavaScript zugänglich\n';
+    else lastReport+='Status: Nur '+diff2+'% Unterschied — Content ist gut zugänglich\n';
+    lastReport+='\n--- Metriken ---\n';
     metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' fehlen)':'')+'\n'});
+    // Missing content
+    var njItems2=mainContent?(nojs.mc.items||nojs.mc):nojs.items;
+    var jsItems2=mainContent?(js.mc.items||js.mc):js.items;
+    if(njItems2&&jsItems2){
+      var mH=diffList(jsItems2.headingList||[],njItems2.headingList||[],function(a,b){return a.tag===b.tag&&a.text===b.text});
+      var mL=diffList(jsItems2.linkList||[],njItems2.linkList||[],function(a,b){return a.href===b.href});
+      var mI=diffList(jsItems2.imgList||[],njItems2.imgList||[],function(a,b){return a.src===b.src});
+      if(mH.length+mL.length+mI.length>0){
+        lastReport+='\n--- Fehlend ohne JS ---\n';
+        if(mH.length>0){lastReport+='Fehlende Headings ('+mH.length+'):\n';mH.forEach(function(i){lastReport+='  ['+i.tag+'] '+i.text+'\n'})}
+        if(mL.length>0){lastReport+='Fehlende Links ('+mL.length+'):\n';mL.forEach(function(i){lastReport+='  '+i.text+' → '+i.href+'\n'})}
+        if(mI.length>0){lastReport+='Fehlende Bilder ('+mI.length+'):\n';mI.forEach(function(i){lastReport+='  '+(i.alt||'[kein Alt]')+' → '+i.src+'\n'})}
+      } else {
+        lastReport+='\n--- Fehlend ohne JS ---\nKeine Inhalte fehlen — KI-Crawler sehen alles.\n';
+      }
+    }
+    // Meta tags
+    if(nojs.meta&&js.meta){
+      var nm2=nojs.meta,jm2=js.meta;
+      var mTags=[{label:'Title',nj:nm2.title,js:jm2.title},{label:'Description',nj:nm2.desc,js:jm2.desc},{label:'Canonical',nj:nm2.canonical,js:jm2.canonical},{label:'Robots',nj:nm2.robots,js:jm2.robots},{label:'OG Title',nj:nm2.ogTitle,js:jm2.ogTitle},{label:'OG Description',nj:nm2.ogDesc,js:jm2.ogDesc}];
+      lastReport+='\n--- Meta- & SEO-Tags ---\n';
+      mTags.forEach(function(t){
+        if(t.nj===t.js&&t.nj)lastReport+=t.label+': '+t.nj+' (identisch)\n';
+        else if(t.nj===t.js&&!t.nj)lastReport+=t.label+': Nicht gesetzt\n';
+        else lastReport+=t.label+': No-JS="'+(t.nj||'fehlt')+'" / JS="'+(t.js||'fehlt')+'" (UNTERSCHIEDLICH)\n';
+      });
+      var jsHM={};(jm2.hreflangs||[]).forEach(function(h){jsHM[h.lang]=h.href});
+      var njHM={};(nm2.hreflangs||[]).forEach(function(h){njHM[h.lang]=h.href});
+      var aL={};Object.keys(jsHM).forEach(function(k){aL[k]=1});Object.keys(njHM).forEach(function(k){aL[k]=1});
+      if(Object.keys(aL).length>0){
+        lastReport+='Hreflang:\n';
+        Object.keys(aL).sort().forEach(function(lang){
+          var nV=njHM[lang]||'',jV=jsHM[lang]||'';
+          if(nV===jV)lastReport+='  ['+lang+'] '+nV+' (identisch)\n';
+          else lastReport+='  ['+lang+'] No-JS='+(nV||'fehlt')+' / JS='+(jV||'fehlt')+' (UNTERSCHIEDLICH)\n';
+        });
+      }
+    }
+    // Text preview
+    var njPrev2=mainContent?nojs.mc.preview:nojs.preview;
+    var jsPrev2=mainContent?js.mc.preview:js.preview;
+    if(njPrev2||jsPrev2){
+      lastReport+='\n--- Textvorschau ---\n';
+      lastReport+='No-JS: '+(njPrev2?njPrev2+'…':'[leer]')+'\n';
+      lastReport+='JS: '+(jsPrev2?jsPrev2+'…':'[leer]')+'\n';
+    }
   }
 }
 function showToolbar(){

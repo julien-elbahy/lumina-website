@@ -268,10 +268,10 @@
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Compare JS / No-JS</button></div>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Fetching both versions… (raw HTML + JS-rendered)</p></div>
-<div id="toolbar" style="display:none;gap:6px;margin-bottom:10px;flex-wrap:wrap"></div>
 <div id="res" style="display:none">
 <div id="compResults"></div>
 </div>
+<div id="toolbar" style="display:none;gap:6px;margin-top:10px;flex-wrap:wrap"></div>
 <div class="ai-card" id="aiCard" style="display:none">
 <div class="ai-card-header"><div class="ai-badge">AI-Powered</div>
 <div class="ai-card-title">🧠 AI Accessibility Analysis</div>
@@ -543,8 +543,59 @@ function renderComparison(nojs,js){
     // Build report text
     lastReport='JS vs No-JS: '+urlIn.value+'\n';
     lastReport+='Mode: '+(mainContent?'Main Content Only':'Full Page')+'\n';
-    lastReport+='AI Content Readability: '+pct+'%\n\n';
+    lastReport+='AI Content Readability: '+pct+'%\n';
+    var diff2=jsWords>0?Math.round(((jsWords-njWords)/jsWords)*100):0;
+    if(diff2>5)lastReport+='Status: '+diff2+'% of '+(mainContent?'main ':'')+'content requires JavaScript\n';
+    else if(diff2<=0)lastReport+='Status: '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript\n';
+    else lastReport+='Status: Only '+diff2+'% difference — content is well accessible\n';
+    lastReport+='\n--- Metrics ---\n';
     metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' lost)':'')+'\n'});
+    // Missing content
+    var njItems2=mainContent?(nojs.mc.items||nojs.mc):nojs.items;
+    var jsItems2=mainContent?(js.mc.items||js.mc):js.items;
+    if(njItems2&&jsItems2){
+      var mH=diffList(jsItems2.headingList||[],njItems2.headingList||[],function(a,b){return a.tag===b.tag&&a.text===b.text});
+      var mL=diffList(jsItems2.linkList||[],njItems2.linkList||[],function(a,b){return a.href===b.href});
+      var mI=diffList(jsItems2.imgList||[],njItems2.imgList||[],function(a,b){return a.src===b.src});
+      if(mH.length+mL.length+mI.length>0){
+        lastReport+='\n--- Missing without JS ---\n';
+        if(mH.length>0){lastReport+='Missing Headings ('+mH.length+'):\n';mH.forEach(function(i){lastReport+='  ['+i.tag+'] '+i.text+'\n'})}
+        if(mL.length>0){lastReport+='Missing Links ('+mL.length+'):\n';mL.forEach(function(i){lastReport+='  '+i.text+' → '+i.href+'\n'})}
+        if(mI.length>0){lastReport+='Missing Images ('+mI.length+'):\n';mI.forEach(function(i){lastReport+='  '+(i.alt||'[no alt]')+' → '+i.src+'\n'})}
+      } else {
+        lastReport+='\n--- Missing without JS ---\nNo content is missing — AI crawlers see everything.\n';
+      }
+    }
+    // Meta tags
+    if(nojs.meta&&js.meta){
+      var nm2=nojs.meta,jm2=js.meta;
+      var mTags=[{label:'Title',nj:nm2.title,js:jm2.title},{label:'Description',nj:nm2.desc,js:jm2.desc},{label:'Canonical',nj:nm2.canonical,js:jm2.canonical},{label:'Robots',nj:nm2.robots,js:jm2.robots},{label:'OG Title',nj:nm2.ogTitle,js:jm2.ogTitle},{label:'OG Description',nj:nm2.ogDesc,js:jm2.ogDesc}];
+      lastReport+='\n--- Meta & SEO Tags ---\n';
+      mTags.forEach(function(t){
+        if(t.nj===t.js&&t.nj)lastReport+=t.label+': '+t.nj+' (identical)\n';
+        else if(t.nj===t.js&&!t.nj)lastReport+=t.label+': Not set\n';
+        else lastReport+=t.label+': No-JS="'+(t.nj||'missing')+'" / JS="'+(t.js||'missing')+'" (DIFFERENT)\n';
+      });
+      var jsHM={};(jm2.hreflangs||[]).forEach(function(h){jsHM[h.lang]=h.href});
+      var njHM={};(nm2.hreflangs||[]).forEach(function(h){njHM[h.lang]=h.href});
+      var aL={};Object.keys(jsHM).forEach(function(k){aL[k]=1});Object.keys(njHM).forEach(function(k){aL[k]=1});
+      if(Object.keys(aL).length>0){
+        lastReport+='Hreflang:\n';
+        Object.keys(aL).sort().forEach(function(lang){
+          var nV=njHM[lang]||'',jV=jsHM[lang]||'';
+          if(nV===jV)lastReport+='  ['+lang+'] '+nV+' (identical)\n';
+          else lastReport+='  ['+lang+'] No-JS='+(nV||'missing')+' / JS='+(jV||'missing')+' (DIFFERENT)\n';
+        });
+      }
+    }
+    // Text preview
+    var njPrev2=mainContent?nojs.mc.preview:nojs.preview;
+    var jsPrev2=mainContent?js.mc.preview:js.preview;
+    if(njPrev2||jsPrev2){
+      lastReport+='\n--- Text Preview ---\n';
+      lastReport+='No-JS: '+(njPrev2?njPrev2+'…':'[empty]')+'\n';
+      lastReport+='JS: '+(jsPrev2?jsPrev2+'…':'[empty]')+'\n';
+    }
   }
 }
 function showToolbar(){
