@@ -604,24 +604,12 @@ function renderComparison(nojs,js,info){
     // Text Preview with diff highlighting
     var njPrev=mainContent?nojs.mc.preview:nojs.preview;
     var jsPrev=mainContent?js.mc.preview:js.preview;
-    // Strip leaked HTML artifacts from JS preview by finding where real content starts
-    if(njPrev&&jsPrev&&njPrev!==jsPrev){
-      var probe=njPrev.substring(0,40).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      try{var idx=jsPrev.search(new RegExp(probe.substring(0,25)));if(idx>0)jsPrev=jsPrev.substring(idx)}catch(e){}
-    }
-    if(njPrev||jsPrev){
-      var previewIdentical=njPrev&&jsPrev&&njPrev===jsPrev;
+    if(njPrev){
       h+='<div class="missing-section">';
-      h+='<button class="detail-toggle" id="previewToggle">Text Preview'+(previewIdentical?' <span style="color:var(--ok)">✓ identical</span>':'')+' <span class="arrow">▼</span></button>';
+      h+='<button class="detail-toggle" id="previewToggle">No-JS Text Preview <span style="color:var(--muted);font-weight:400;font-size:10px">(what AI crawlers see)</span> <span class="arrow">▼</span></button>';
       h+='<div class="detail-body" id="previewBody">';
-      if(previewIdentical){
-        h+='<div style="font-size:12px;color:var(--text2);line-height:1.6;padding:8px 0">'+fmtPreview(njPrev)+'…</div>';
-      } else {
-        h+='<div class="preview-grid">';
-        h+='<div class="preview-box" style="border-color:var(--err-border)"><div class="pv-label">🚫 No-JS (AI Crawlers)</div>'+(njPrev?diffHighlight(njPrev,jsPrev)+'…':'<em style="color:var(--err)">Empty — no text content</em>')+'</div>';
-        h+='<div class="preview-box" style="border-color:var(--ok-border)"><div class="pv-label">✅ With JS (Browsers)</div>'+(jsPrev?diffHighlight(jsPrev,njPrev)+'…':'<em style="color:var(--err)">Empty — no text content</em>')+'</div>';
-        h+='</div>';
-      }
+      h+='<div style="font-size:12px;color:var(--text2);line-height:1.6;padding:8px 0">'+fmtPreview(njPrev)+'…</div>';
+      if(wordGap>50)h+='<div style="font-size:11px;color:var(--muted);padding-top:6px;border-top:1px solid var(--border)">The JS version contains '+wordGap.toLocaleString()+' additional words not shown here.</div>';
       h+='</div></div>';
     }
     // Timing footer
