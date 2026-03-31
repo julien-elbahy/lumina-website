@@ -709,24 +709,44 @@ function aiAnalyze(){
   var aiRes=document.getElementById('aiResult');aiRes.innerHTML='';
   var mc=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked;
   var nj=mc?lastNojs.mc:lastNojs;var jw=mc?lastJs.mc:lastJs;
-  var pct=jw.words>0?Math.min(100,Math.round((nj.words/jw.words)*100)):nj.words>0?100:0;
-  var dw=jw.words-nj.words,dh=(jw.headings||0)-(nj.headings||0),dl=(jw.links||0)-(nj.links||0),di=(jw.imgs||0)-(nj.imgs||0);
+  var njH=mc?nj.headings:lastNojs.headings,jsH=mc?jw.headings:lastJs.headings;
+  var njL=mc?nj.links:lastNojs.links,jsL=mc?jw.links:lastJs.links;
+  var njI=mc?nj.imgs:lastNojs.imgs,jsI=mc?jw.imgs:lastJs.imgs;
+  function rr(a,b){return b>0?Math.min(a/b,1):a>0?1:1}
+  var pct=Math.round((rr(nj.words,jw.words)*40+rr(njH,jsH)*20+rr(njL,jsL)*20+rr(njI,jsI)*10+rr(lastNojs.schemas,lastNojs.schemas)*10));
   var prompt='URL: '+urlIn.value+'\n';
   prompt+='Modus: '+(mc?'Nur Hauptinhalt':'Gesamte Seite')+'\n';
-  prompt+='Readability Score: '+pct+'%\n\n';
-  prompt+='| Metrik    | No-JS | JS   | Diff  |\n';
-  prompt+='| Wörter    | '+nj.words+' | '+jw.words+' | '+(dw>0?'+':'')+dw+' |\n';
-  prompt+='| Headings  | '+(nj.headings||0)+' | '+(jw.headings||0)+' | '+(dh>0?'+':'')+dh+' |\n';
-  prompt+='| Links     | '+(nj.links||0)+' | '+(jw.links||0)+' | '+(dl>0?'+':'')+dl+' |\n';
-  prompt+='| Bilder    | '+(nj.imgs||0)+' | '+(jw.imgs||0)+' | '+(di>0?'+':'')+di+' |\n';
-  prompt+='| Schema    | '+(nj.schemas||0)+' | '+(jw.schemas||0)+' | 0 |\n';
+  prompt+='Gewichteter Readability Score: '+pct+'% (Wörter 40%, Headings 20%, Links 20%, Bilder 10%, Schema 10%)\n\n';
+  prompt+='Metriken:\n';
+  prompt+='  Wörter: No-JS='+nj.words+' / JS='+jw.words+' (Diff: '+(jw.words-nj.words)+')\n';
+  prompt+='  Headings: No-JS='+njH+' / JS='+jsH+'\n';
+  prompt+='  Links: No-JS='+njL+' / JS='+jsL+'\n';
+  prompt+='  Bilder: No-JS='+njI+' / JS='+jsI+'\n';
+  prompt+='  Schema: '+lastNojs.schemas+' (JSON-LD im HTML-Quellcode)\n';
+  if(lastNojs.schemaTypes&&lastNojs.schemaTypes.length>0)prompt+='  Schema-Typen: '+lastNojs.schemaTypes.join(', ')+'\n';
+  var baseUrl=urlIn.value;
+  var njItems=mc?lastNojs.mc.items:lastNojs.items;
+  var jsItems=mc?lastJs.mc.items:lastJs.items;
+  if(njItems&&jsItems){
+    var mH=diffList(jsItems.headingList||[],njItems.headingList||[],function(a,b){return a.tag===b.tag&&a.text===b.text});
+    var mL=diffList(jsItems.linkList||[],njItems.linkList||[],function(a,b){return normUrl(a.href,baseUrl)===normUrl(b.href,baseUrl)});
+    var mI=diffList(jsItems.imgList||[],njItems.imgList||[],function(a,b){return normUrl(a.src,baseUrl)===normUrl(b.src,baseUrl)});
+    if(mH.length+mL.length+mI.length>0){
+      prompt+='\nFehlend ohne JS:\n';
+      if(mH.length>0)prompt+='  '+mH.length+' Headings versteckt\n';
+      if(mL.length>0)prompt+='  '+mL.length+' Links versteckt\n';
+      if(mI.length>0)prompt+='  '+mI.length+' Bilder versteckt\n';
+    }
+  }
+  prompt+='\nCrawler-Kontext: GPTBot, ClaudeBot, CCBot sehen No-JS-Version. GoogleBot rendert JS (verzögert).\n';
   var W='https://lumina-proxy.julien-elbahy.workers.dev';
-  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'Du analysierst JS vs No-JS Vergleiche für Websites. Der User gibt dir Metriken, die zeigen was KI-Crawler sehen (No-JS) vs was Browser sehen (JS). Deine Aufgabe:\n\n1. Nenne die KONKRETEN Zahlen. Schreibe "929 Wörter in No-JS vs 876 in JS" statt "Wortzahlen sind ähnlich".\n2. Passe deinen Ton an den Score an:\n   - 90-100%: Kurz gratulieren, dann Feinoptimierungen oder Randszenarien.\n   - 60-89%: Hervorheben was fehlt, Fixes priorisieren.\n   - Unter 60%: Dringender Ton. SEO/GEO-Risiko klar erklären.\n3. Sei spezifisch für diese Seite. Keine generischen "nutze SSR"-Tipps wenn die Seite bereits guten No-JS Content hat.\n4. Schema-Counts sind in beiden Modi identisch (JSON-LD ist im HTML-Quellcode). Behaupte nicht, ein Modus hätte mehr Schema als der andere.\n5. Max 150 Wörter. Kein Fülltext. Jeder Satz muss Daten referenzieren oder eine konkrete Aktion nennen.\n\nFormat: Nur HTML (kein Markdown). Verwende <h4> für 2-3 Abschnittsüberschriften, <ul><li> für Punkte. Halte es knapp.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
+  fetch(W+'/ai',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'js-nojs','X-OAI-Key':localStorage.getItem('lumina_key_openai')||''},body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:'Du bist ein GEO-Experte (Generative Engine Optimization) und analysierst JS vs No-JS Vergleiche. Du bewertest, wie gut Website-Inhalte für KI-Crawler (GPTBot, ClaudeBot, CCBot) zugänglich sind, die KEIN JavaScript ausführen.\n\nRegeln:\n1. Nenne KONKRETE Zahlen. Schreibe "1097 Wörter in No-JS vs 1115 in JS" statt vage Formulierungen.\n2. Passe den Ton an den gewichteten Score an:\n   - 90-100%: Kurz positiv, dann GEO-spezifische Optimierungen (KI-Zitierbarkeit, Schema-Qualität, Content-Klarheit für LLMs).\n   - 60-89%: Was KI-Crawler verpassen, Fixes nach SEO/GEO-Impact priorisieren.\n   - Unter 60%: Dringend. Risiko erklären: KI-Suchmaschinen (ChatGPT, Perplexity, Gemini) können Content nicht zitieren den sie nicht sehen.\n3. Sei spezifisch für DIESE Seite. Keine generischen Tipps. Wenn Content identisch ist, kein SSR empfehlen.\n4. Schema ist immer aus dem HTML-Quellcode (identisch in beiden Modi). Fokus auf Schema-TYP-Qualität.\n5. GEO-Fokus: Können KI-Systeme diesen Content zitieren? Ist die No-JS-Version klar, strukturiert, faktisch?\n6. Max 180 Wörter. Jeder Satz muss Daten referenzieren oder eine konkrete Handlungsempfehlung geben.\n\nFormat: Nur HTML. <h4> für 2-3 Abschnittsüberschriften. <ul><li> für Punkte. Direkt und knapp.'},{role:'user',content:prompt}],max_tokens:1024})}).then(function(r){return r.json()}).then(function(d){
     if(d.error){aiRes.innerHTML='<p style="color:var(--err)">'+esc(d.error)+'. <a href="#" onclick="luminaSettings.open();return false">API-Einstellungen prüfen</a></p>';return}
     var msg=d.choices&&d.choices[0]&&d.choices[0].message?d.choices[0].message.content:'Keine Antwort';
-    aiRes.innerHTML=msg;
+    aiRes.innerHTML='<div id="aiContent">'+msg+'</div><button class="tb-btn" style="margin-top:10px" onclick="copyAi()">📋 Analyse kopieren</button>';
   }).catch(function(e){aiRes.innerHTML='<p style="color:var(--err)">Fehler: '+esc(e.message)+'. <a href="#" onclick="luminaSettings.open();return false">Einstellungen prüfen</a></p>'}).finally(function(){btnAi.disabled=false;btnAi.textContent='✨ Mit KI analysieren'});
 }
+function copyAi(){var el=document.getElementById('aiContent');if(!el)return;navigator.clipboard.writeText(el.innerText).then(function(){var b=el.nextElementSibling;b.textContent='✓ Kopiert!';b.classList.add('copied');setTimeout(function(){b.textContent='📋 Analyse kopieren';b.classList.remove('copied')},1500)})}
 
 function renderCrossLinks(){
   var u=encodeURIComponent(urlIn.value);
