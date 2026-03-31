@@ -462,18 +462,19 @@ function renderComparison(nojs,js,info){
       h+='<div class="score-label">AI Content Readability</div>';
       h+='<div class="score-sublabel">'+scoreLabel(pct)+'</div></div>';
     }
-    // Crawler info line
-    h+='<div style="text-align:center;font-size:10px;color:var(--muted);margin-bottom:4px;line-height:1.6">GPTBot, ClaudeBot, CCBot see the <strong style="color:var(--text2)">No-JS</strong> version · GoogleBot renders <strong style="color:var(--text2)">JS</strong> <span style="font-size:9px">(with delay)</span></div>';
     // Framework badge (only if detected)
     if(info&&info.frameworks&&info.frameworks.length>0)h+='<div style="text-align:center;margin-bottom:6px"><span style="font-size:11px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-weight:700">⚙️ '+info.frameworks.join(', ')+'</span></div>';
     // Toggle
-    h+='<div class="mc-toggle"><label class="mc-switch"><input type="checkbox" id="mcToggle"'+(mainContent?' checked':'')+'><span class="mc-slider"></span></label><label for="mcToggle">Main content only <span style="font-weight:400;color:var(--muted)">(ignore nav, header, footer)</span></label></div>';
+    h+='<div class="mc-toggle" style="margin:14px 0"><label class="mc-switch"><input type="checkbox" id="mcToggle"'+(mainContent?' checked':'')+'><span class="mc-slider"></span></label><label for="mcToggle">Main content only <span style="font-weight:400;color:var(--muted)">(ignore nav, header, footer)</span></label></div>';
     // Word count hero with diff
     h+='<div class="comp-grid"><div class="comp-col" style="border-color:var(--err-border)"><div class="mh">🚫 No-JS (AI Crawlers)</div><p style="color:var(--err)">'+njWords.toLocaleString()+' words</p></div><div class="comp-col" style="border-color:var(--ok-border)"><div class="mh">✅ With JS (Browsers)</div><p style="color:var(--ok)">'+jsWords.toLocaleString()+' words</p></div></div>';
+    // Crawler info line (below the boxes)
+    h+='<div style="text-align:center;font-size:10px;color:var(--muted);margin:6px 0 2px;line-height:1.6">GPTBot, ClaudeBot, CCBot see the <strong style="color:var(--text2)">No-JS</strong> version · GoogleBot renders <strong style="color:var(--text2)">JS</strong> <span style="font-size:9px">(with delay)</span></div>';
     // Status message with word diff
     var diffLabel=wDiff>0?'(+'+wDiff+' in No-JS)':wDiff<0?'('+wDiff+' missing without JS)':'';
+    var fullyMatch=wDiff===0;
     if(diff>5)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% of '+(mainContent?'main ':'')+'content requires JavaScript <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span></p>';
-    else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript'+(diffLabel?' <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span>':'')+'</p>';
+    else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Main content':'Content')+' is '+(fullyMatch?'fully ':'')+'accessible without JavaScript'+(diffLabel?' <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span>':'')+'</p>';
     else h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Only '+diff+'% difference — content is well accessible <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span></p>';
     // SPA detection
     if(njWords<50&&jsWords>200)h+='<div class="sb wn" style="margin:10px 0;font-size:12px">⚡ This site appears to use <strong>client-side rendering</strong> (SPA). Most content is only visible after JavaScript executes. Content loaded via lazy loading or client-side routing may not be fully captured.</div>';
