@@ -316,7 +316,8 @@ var WORKER_FETCH='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
 var lastReport='',lastNojs=null,lastJs=null;
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function normUrl(href,base){if(!href)return'';try{return new URL(href,base).href}catch(e){return href}}
+function stripQ(s){return(s||'').replace(/^["']+|["']+$/g,'')}
+function normUrl(href,base){if(!href)return'';href=stripQ(href);try{return new URL(href,base).href}catch(e){return href}}
 
 btn.addEventListener('click',function(){go(urlIn.value)});
 urlIn.addEventListener('keydown',function(e){if(e.key==='Enter')go(urlIn.value)});
@@ -339,8 +340,8 @@ function go(url){
 
 function extractItems(root){
   var hList=[];root.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(el){var t=el.textContent.trim();if(t)hList.push({tag:el.tagName,text:t})});
-  var lList=[];root.querySelectorAll('a[href]').forEach(function(el){var t=el.textContent.trim(),href=el.getAttribute('href')||'';if(href)lList.push({text:t||'[no text]',href:href})});
-  var iList=[];root.querySelectorAll('img').forEach(function(el){var src=el.getAttribute('src')||el.getAttribute('data-src')||'';var alt=el.getAttribute('alt')||'';if(src)iList.push({src:src,alt:alt})});
+  var lList=[];root.querySelectorAll('a[href]').forEach(function(el){var t=el.textContent.trim(),href=stripQ(el.getAttribute('href')||'');if(href)lList.push({text:t||'[no text]',href:href})});
+  var iList=[];root.querySelectorAll('img').forEach(function(el){var src=stripQ(el.getAttribute('src')||el.getAttribute('data-src')||'');var alt=stripQ(el.getAttribute('alt')||'');if(src)iList.push({src:src,alt:alt})});
   return{headingList:hList,linkList:lList,imgList:iList}
 }
 function extractMeta(doc){
@@ -348,8 +349,8 @@ function extractMeta(doc){
   var descEl=doc.querySelector('meta[name="description"]');
   var desc=descEl?descEl.getAttribute('content')||'':'';
   var canEl=doc.querySelector('link[rel="canonical"]');
-  var canonical=canEl?canEl.getAttribute('href')||'':'';
-  var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(el){hreflangs.push({lang:el.getAttribute('hreflang'),href:el.getAttribute('href')||''})});
+  var canonical=canEl?stripQ(canEl.getAttribute('href')||''):'';
+  var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(el){hreflangs.push({lang:el.getAttribute('hreflang'),href:stripQ(el.getAttribute('href')||'')})});
   var ogTitle=(doc.querySelector('meta[property="og:title"]')||{getAttribute:function(){return ''}}).getAttribute('content')||'';
   var ogDesc=(doc.querySelector('meta[property="og:description"]')||{getAttribute:function(){return ''}}).getAttribute('content')||'';
   var robots=(doc.querySelector('meta[name="robots"]')||{getAttribute:function(){return ''}}).getAttribute('content')||'';
