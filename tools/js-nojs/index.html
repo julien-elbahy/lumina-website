@@ -74,7 +74,7 @@
 .section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
 @media(max-width:640px){.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.url-bar{flex-direction:column}.ct{padding:16px}}
-.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:14px 0}.comp-col{text-align:center;padding:10px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}.comp-col .mh{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.comp-col p{font-size:20px;font-weight:800}.comp-diff{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}.comp-label{font-weight:700;min-width:100px}.comp-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;min-width:60px}.comp-fill{height:100%;border-radius:3px}.comp-val{font-family:var(--mono);font-size:12px;text-align:right;min-width:40px}
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:14px 0}.comp-col{text-align:center;padding:10px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}.comp-col .mh{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.comp-col p{font-size:20px;font-weight:800}.comp-diff{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}.comp-label{font-weight:700;min-width:100px}.comp-bars{display:flex;flex-direction:column;gap:2px;min-width:60px}.comp-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}.comp-fill{height:100%;border-radius:3px}.comp-val{font-family:var(--mono);font-size:12px;text-align:right;min-width:40px}
 .score-hero{text-align:center;margin:14px 0 10px;padding:24px 16px;background:var(--bg);border:1px solid var(--border);border-radius:16px}
 .score-ring-wrap{position:relative;width:120px;height:120px;margin:0 auto 10px}
 .score-ring-wrap svg{transform:rotate(-90deg)}
@@ -338,7 +338,20 @@ function go(url){
     if(results.nojs.error||results.js.error){var which=results.nojs.error?'No-JS (raw HTML)':'JS (rendered)';document.getElementById('res').style.display='block';var warnHtml='<div class="sb wn" style="margin-bottom:12px">⚠️ '+which+' fetch failed'+(aborted?' (timeout)':'')+'. Showing partial results — some comparisons may be inaccurate.</div>';document.getElementById('compResults').innerHTML=warnHtml}
     lastNojs=parseContent(results.nojs.html||'');
     lastJs=parseContent(results.js.html||'');
-    renderComparison(lastNojs,lastJs);
+    var fetchInfo={fetchMs:results.nojs.time||0,renderMs:results.js.time||0,browserMs:results.js.browserMs||0};
+    // Detect JS framework from HTML
+    var allHtml=(results.js.html||'')+(results.nojs.html||'');
+    var fw=[];
+    if(/\bnext[\/\-]data\b|__NEXT_DATA__|_next\//i.test(allHtml))fw.push('Next.js');
+    else if(/\breact[.-]dom\b|data-reactroot|__react/i.test(allHtml))fw.push('React');
+    if(/vue[.-]?(\d|router|meta)|__vue__|v-app|data-v-/i.test(allHtml))fw.push('Vue');
+    if(/ng-version|ng-app|angular[./]/i.test(allHtml))fw.push('Angular');
+    if(/__sveltekit|svelte-/i.test(allHtml))fw.push('Svelte');
+    if(/nuxt|__nuxt/i.test(allHtml))fw.push('Nuxt');
+    if(/gatsby/i.test(allHtml))fw.push('Gatsby');
+    if(/astro-/i.test(allHtml))fw.push('Astro');
+    fetchInfo.frameworks=fw;
+    renderComparison(lastNojs,lastJs,fetchInfo);
   }
 }
 
@@ -403,12 +416,12 @@ function diffHighlight(text,other){
   var out='';
   tw.forEach(function(w,i){
     if(i>0)out+=' ';
-    if(!ow.has(w))out+='<span style="background:var(--accent-soft);border-radius:2px;padding:0 2px">'+esc(w)+'</span>';
+    if(!ow.has(w))out+='<span style="background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:2px;padding:0 2px">'+esc(w)+'</span>';
     else out+=esc(w);
   });
   return out;
 }
-function renderComparison(nojs,js){
+function renderComparison(nojs,js,info){
   var mcOn=true; // default to main content
   render(mcOn);
 
@@ -431,19 +444,33 @@ function renderComparison(nojs,js){
     }
     // Build HTML
     var h='';
-    // Score ring hero
-    h+='<div class="score-hero">'+buildRing(pct);
-    h+='<div class="score-label">AI Content Readability</div>';
-    h+='<div class="score-sublabel">'+scoreLabel(pct)+'</div></div>';
+    var diff=jsWords>0?Math.round(((jsWords-njWords)/jsWords)*100):0;
+    var wDiff=njWords-jsWords;
+    // Compact score for high scores, full ring otherwise
+    if(pct>=90){
+      h+='<div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 0">';
+      h+='<div style="font-size:36px;font-weight:800;color:'+scoreColor(pct)+'">'+pct+'<small style="font-size:16px">%</small></div>';
+      h+='<div><div class="score-label">AI Content Readability</div><div class="score-sublabel">'+scoreLabel(pct)+'</div></div></div>';
+    } else {
+      h+='<div class="score-hero">'+buildRing(pct);
+      h+='<div class="score-label">AI Content Readability</div>';
+      h+='<div class="score-sublabel">'+scoreLabel(pct)+'</div></div>';
+    }
+    // Framework + timing info bar
+    var infoParts=[];
+    if(info&&info.frameworks&&info.frameworks.length>0)infoParts.push('⚙️ '+info.frameworks.join(', '));
+    if(info&&info.fetchMs)infoParts.push('📥 HTML '+Math.round(info.fetchMs)+'ms');
+    if(info&&info.renderMs)infoParts.push('🖥️ Render '+Math.round(info.renderMs)+'ms');
+    if(infoParts.length>0)h+='<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:8px">'+infoParts.map(function(p){return'<span style="font-size:10px;padding:3px 8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-weight:600">'+p+'</span>'}).join('')+'</div>';
     // Toggle
     h+='<div class="mc-toggle"><label class="mc-switch"><input type="checkbox" id="mcToggle"'+(mainContent?' checked':'')+'><span class="mc-slider"></span></label><label for="mcToggle">Main content only <span style="font-weight:400;color:var(--muted)">(ignore nav, header, footer)</span></label></div>';
-    // Word count hero
+    // Word count hero with diff
     h+='<div class="comp-grid"><div class="comp-col" style="border-color:var(--err-border)"><div class="mh">🚫 No-JS (AI Crawlers)</div><p style="color:var(--err)">'+njWords.toLocaleString()+' words</p></div><div class="comp-col" style="border-color:var(--ok-border)"><div class="mh">✅ With JS (Browsers)</div><p style="color:var(--ok)">'+jsWords.toLocaleString()+' words</p></div></div>';
-    // Status message
-    var diff=jsWords>0?Math.round(((jsWords-njWords)/jsWords)*100):0;
-    if(diff>5)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% of '+(mainContent?'main ':'')+'content requires JavaScript</p>';
-    else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript</p>';
-    else h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Only '+diff+'% difference — content is well accessible</p>';
+    // Status message with word diff
+    var diffLabel=wDiff>0?'(+'+wDiff+' in No-JS)':wDiff<0?'('+wDiff+' missing without JS)':'';
+    if(diff>5)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--warn);margin:12px 0">⚠️ '+diff+'% of '+(mainContent?'main ':'')+'content requires JavaScript <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span></p>';
+    else if(diff<=0)h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript'+(diffLabel?' <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span>':'')+'</p>';
+    else h+='<p style="text-align:center;font-size:14px;font-weight:700;color:var(--ok);margin:12px 0">✓ Only '+diff+'% difference — content is well accessible <span style="font-weight:500;font-size:12px;color:var(--muted)">'+diffLabel+'</span></p>';
     // SPA detection
     if(njWords<50&&jsWords>200)h+='<div class="sb wn" style="margin:10px 0;font-size:12px">⚡ This site appears to use <strong>client-side rendering</strong> (SPA). Most content is only visible after JavaScript executes. Content loaded via lazy loading or client-side routing may not be fully captured.</div>';
     // JS-injected schema warning
@@ -453,8 +480,11 @@ function renderComparison(nojs,js){
     h+='<div class="detail-body open" id="detailBody">';
     h+='<div style="display:flex;justify-content:flex-end;gap:16px;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:4px 0;margin-bottom:2px"><span style="min-width:40px;text-align:right">No-JS</span><span style="min-width:40px;text-align:right;color:var(--ok)">JS</span></div>';
     metrics.forEach(function(m){
-      var max=Math.max(m.nojs,m.js,1);
-      h+='<div class="comp-diff"><span class="comp-label">'+m.label+'</span><div class="comp-bar"><div class="comp-fill" style="width:'+Math.round(m.nojs/max*100)+'%;background:var(--err)"></div></div><span class="comp-val">'+m.nojs.toLocaleString()+'</span><span class="comp-val" style="color:var(--ok)">'+m.js.toLocaleString()+'</span></div>';
+      var max=Math.max(m.nojs,m.js,1);var identical=m.nojs===m.js;
+      h+='<div class="comp-diff"><span class="comp-label">'+m.label+'</span><div class="comp-bars">';
+      if(identical){h+='<div class="comp-bar"><div class="comp-fill" style="width:100%;background:var(--ok);opacity:.7"></div></div>'}
+      else{h+='<div class="comp-bar"><div class="comp-fill" style="width:'+Math.round(m.nojs/max*100)+'%;background:var(--err)"></div></div><div class="comp-bar"><div class="comp-fill" style="width:'+Math.round(m.js/max*100)+'%;background:var(--ok);opacity:.7"></div></div>'}
+      h+='</div><span class="comp-val">'+m.nojs.toLocaleString()+'</span><span class="comp-val" style="color:var(--ok)">'+m.js.toLocaleString()+'</span></div>';
     });
     h+='</div>';
     // Missing content section
