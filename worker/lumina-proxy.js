@@ -181,7 +181,7 @@ function getCorsHeaders(origin) {
   return {
     'Access-Control-Allow-Origin': isAllowedOrigin(origin) ? origin : 'https://lumina-seo.com',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, X-DFS-Key, X-OAI-Key, X-Lumina-Tool',
+    'Access-Control-Allow-Headers': 'Content-Type, X-DFS-Key, X-OAI-Key, X-PSI-Key, X-Lumina-Tool',
     'Access-Control-Max-Age': '86400',
   };
 }
@@ -606,6 +606,7 @@ export default {
         'keywords_data/google_ads/keywords_for_keywords/live',
         'dataforseo_labs/google/keyword_suggestions/live',
         'dataforseo_labs/google/related_keywords/live',
+        'dataforseo_labs/locations_and_languages',
       ];
       if (!allowedEndpoints.includes(endpoint)) return jsonResponse({ error: 'Endpoint not allowed' }, 403, origin);
 
@@ -693,7 +694,7 @@ export default {
       }
 
       // Security: enforce limits on the request
-      const allowedModels = ['gpt-4.1', 'gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini', 'gpt-3.5-turbo'];
+      const allowedModels = ['gpt-4.1', 'gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini', 'gpt-3.5-turbo', 'o3-mini', 'o4-mini'];
       if (body.model && !allowedModels.includes(body.model)) {
         body.model = 'gpt-4.1-mini';
       }
@@ -733,10 +734,17 @@ export default {
       const { error, parsed } = validateTargetUrl(url.searchParams.get('url'));
       if (error) return jsonResponse({ error }, 400, origin);
 
-      if (env.RATE_LIMITS) {
-        const limitErr = await checkDailyLimit('psi', ip, env.RATE_LIMITS, DEFAULT_LIMITS.psi, origin);
+      const userKey = request.headers.get('X-PSI-Key') || '';
+      const toolName = request.headers.get('X-Lumina-Tool') || 'pagespeed';
+      const kvPrefix = getKvPrefix('psi', toolName);
+      const toolLimit = getToolLimit(toolName, 'psi');
+      let usedCount = 0;
+
+      if (userKey) {
+        // User's own key — no limits
+      } else if (env.RATE_LIMITS) {
+        const limitErr = await checkDailyLimit(kvPrefix, ip, env.RATE_LIMITS, toolLimit, origin, toolName);
         if (limitErr) return limitErr;
-        await incrementDailyUsage('psi', ip, env.RATE_LIMITS);
       }
 
       const strategy = url.searchParams.get('strategy') || 'mobile';
@@ -745,7 +753,9 @@ export default {
       let psiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(parsed.href)}&strategy=${strategy}`;
       categories.split(',').forEach(c => { psiUrl += `&category=${c.trim()}`; });
 
-      if (env.PSI_API_KEY) {
+      if (userKey) {
+        psiUrl += `&key=${userKey}`;
+      } else if (env.PSI_API_KEY) {
         psiUrl += `&key=${env.PSI_API_KEY}`;
       }
 
@@ -756,6 +766,18 @@ export default {
         if (result.error && result.error.message) {
           result.error.message = result.error.message.replace(/key=[^&]+/, 'key=***');
         }
+
+        // Increment usage after successful call (not for user keys)
+        if (!userKey && env.RATE_LIMITS) {
+          usedCount = await incrementDailyUsage(kvPrefix, ip, env.RATE_LIMITS);
+        }
+
+        result._lumina = {
+          remaining: userKey ? toolLimit : Math.max(0, toolLimit - usedCount),
+          limit: toolLimit,
+          ownKey: !!userKey,
+          tool: toolName,
+        };
 
         return jsonResponse(result, psiResp.status, origin);
       } catch (err) {
