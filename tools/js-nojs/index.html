@@ -575,7 +575,7 @@ function renderComparison(nojs,js,info){
         if(match&&!njEmpty){
           h+='<div class="meta-val"><span class="dot" style="background:var(--ok)"></span><span>'+esc(t.nj)+'</span></div><span class="meta-match">✓ Identical</span>';
         } else if(match&&njEmpty){
-          h+='<span class="meta-empty">Not set in either version</span>';
+          h+='<span style="color:var(--muted);font-size:11px">Not set'+(t.label==='Robots'?' <span style="font-size:10px">(defaults to index, follow)</span>':'')+'</span>';
         } else {
           h+='<div class="meta-val"><span class="dot" style="background:var(--err)"></span><span><strong>No-JS:</strong> '+(t.nj?esc(t.nj):'<em class="meta-empty">missing</em>')+'</span></div>';
           h+='<div class="meta-val"><span class="dot" style="background:var(--ok)"></span><span><strong>JS:</strong> '+(t.js?esc(t.js):'<em class="meta-empty">missing</em>')+'</span></div>';
@@ -636,10 +636,10 @@ function renderComparison(nojs,js,info){
     lastReport='JS vs No-JS: '+urlIn.value+'\n';
     lastReport+='Mode: '+(mainContent?'Main Content Only':'Full Page')+'\n';
     lastReport+='AI Content Readability: '+pct+'%\n';
-    var diff2=jsWords>0?Math.round(((jsWords-njWords)/jsWords)*100):0;
-    if(diff2>5)lastReport+='Status: '+diff2+'% of '+(mainContent?'main ':'')+'content requires JavaScript\n';
-    else if(diff2<=0)lastReport+='Status: '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript\n';
-    else lastReport+='Status: Only '+diff2+'% difference — content is well accessible\n';
+    if(gap>10)lastReport+='Status: '+gap+'% of '+(mainContent?'main ':'')+'content requires JavaScript\n';
+    else if(pct===100)lastReport+='Status: '+(mainContent?'Main content':'Content')+' is fully accessible without JavaScript\n';
+    else if(gap<=5)lastReport+='Status: '+(mainContent?'Main content':'Content')+' is accessible without JavaScript\n';
+    else lastReport+='Status: Only '+gap+'% difference — content is well accessible\n';
     lastReport+='\n--- Metrics ---\n';
     metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' lost)':'')+'\n'});
     // Missing content
@@ -667,7 +667,7 @@ function renderComparison(nojs,js,info){
       if(jsMetaEmpty2)lastReport+='(JS version returned no <head> tags — using HTML source for both)\n';
       mTags.forEach(function(t){
         if(t.nj===t.js&&t.nj)lastReport+=t.label+': '+t.nj+' (identical)\n';
-        else if(t.nj===t.js&&!t.nj)lastReport+=t.label+': Not set\n';
+        else if(t.nj===t.js&&!t.nj)lastReport+=t.label+': Not set'+(t.label==='Robots'?' (defaults to index, follow)':'')+'\n';
         else lastReport+=t.label+': No-JS: '+(t.nj||'missing')+' / JS: '+(t.js||'missing')+' (DIFFERENT)\n';
       });
       var jsHM2={};(jsMetaEmpty2?nm2.hreflangs:jm2.hreflangs||[]).forEach(function(h){jsHM2[h.lang]=h.href});
