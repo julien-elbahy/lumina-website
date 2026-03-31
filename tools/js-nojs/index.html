@@ -396,7 +396,7 @@ function parseContent(html){
   var mcLinks=mcRoot?mcRoot.querySelectorAll('a[href]').length:0;
   var mcImgs=mcRoot?mcRoot.querySelectorAll('img').length:0;
   var mcItems=extractItems(mcRoot);
-  var mcPreview=mcText.replace(/\s+/g,' ').trim().substring(0,300);
+  var mcPreview=mcText.replace(/\\n/g,' ').replace(/\s+/g,' ').trim().substring(0,300);
   return{words:words,headings:headings,links:links,imgs:imgs,schemas:schemas,chars:text.length,items:fullItems,meta:meta,preview:preview,mc:{words:mcWords,headings:mcHeadings,links:mcLinks,imgs:mcImgs,schemas:schemas,items:mcItems,preview:mcPreview}}
 }
 
@@ -437,7 +437,7 @@ function renderComparison(nojs,js,info){
       {label:'Headings',nojs:mainContent?nj.headings:nojs.headings,js:mainContent?jw.headings:js.headings},
       {label:'Links',nojs:mainContent?nj.links:nojs.links,js:mainContent?jw.links:js.links},
       {label:'Images',nojs:mainContent?nj.imgs:nojs.imgs,js:mainContent?jw.imgs:js.imgs},
-      {label:'Schema',nojs:nojs.schemas,js:js.schemas},
+      {label:'Schema',nojs:nojs.schemas,js:nojs.schemas},
     ];
     if(!mainContent){
       metrics.push({label:'Characters',nojs:nojs.chars,js:js.chars});
