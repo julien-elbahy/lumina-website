@@ -371,7 +371,7 @@ function parseContent(html){
   var links=doc.querySelectorAll('a[href]').length;
   var imgs=doc.querySelectorAll('img').length;
   var fullItems=extractItems(doc);
-  var preview=text.replace(/\s+/g,' ').trim().substring(0,300);
+  var preview=text.replace(/\\n/g,' ').replace(/\s+/g,' ').trim().substring(0,300);
   // Main content only
   var clone=doc.cloneNode(true);
   clone.querySelectorAll('nav,header,footer,aside,[role="navigation"],[role="banner"],[role="contentinfo"],.nav,.navbar,.header,.footer,.sidebar,.menu,.cookie-banner,.cookie-consent').forEach(function(el){el.remove()});
@@ -630,9 +630,9 @@ function renderComparison(nojs,js){
 }
 function showToolbar(){
   var tb=document.getElementById('toolbar');tb.style.display='flex';
-  tb.innerHTML='<button class="tb-btn" onclick="copyReport()">📋 Copy Report</button><button class="tb-btn" onclick="copyCSV()">📊 CSV</button>';
+  tb.innerHTML='<button class="tb-btn" onclick="copyReport()">📋 Copy</button><button class="tb-btn" onclick="copyCSV()">📊 CSV</button>';
 }
-function copyReport(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.querySelector('#toolbar .tb-btn');b.textContent='✓ Copied!';b.classList.add('copied');setTimeout(function(){b.textContent='📋 Copy Report';b.classList.remove('copied')},1500)})}
+function copyReport(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.querySelector('#toolbar .tb-btn');b.textContent='✓ Copied!';b.classList.add('copied');setTimeout(function(){b.textContent='📋 Copy';b.classList.remove('copied')},1500)})}
 function copyCSV(){
   var csv='Metric,No-JS,JS,Difference\n';
   var nj=document.getElementById('mcToggle')&&document.getElementById('mcToggle').checked?lastNojs.mc:lastNojs;
