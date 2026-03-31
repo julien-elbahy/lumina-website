@@ -513,8 +513,11 @@ function renderComparison(nojs,js,info){
       h+='<div class="missing-section">';
       h+='<button class="detail-toggle'+(totalMissing>0?' open':'')+'" id="missingToggle">Fehlend ohne JS'+(totalMissing>0?' <span style="color:var(--err)">('+totalMissing+' Elemente)</span>':' <span style="color:var(--ok)">✓</span>')+' <span class="arrow">▼</span></button>';
       h+='<div class="detail-body'+(totalMissing>0?' open':'')+'" id="missingBody">';
-      if(totalMissing===0){
+      var wordGap=jsWords-njWords;
+      if(totalMissing===0&&wordGap<=50){
         h+='<div class="missing-none">✓ Kein Content fehlt ohne JavaScript — KI-Crawler sehen alles</div>';
+      } else if(totalMissing===0&&wordGap>50){
+        h+='<div style="padding:10px 0;font-size:12px"><p style="color:var(--warn);font-weight:700;margin-bottom:4px">⚠️ '+wordGap.toLocaleString()+' Wörter sind nur mit JavaScript sichtbar</p><p style="color:var(--muted)">Headings, Links und Bilder stimmen überein — aber die JS-Version enthält deutlich mehr Text, den KI-Crawler nicht sehen können.</p></div>';
       } else {
         if(missingH.length>0){
           h+='<div class="missing-head"><span>Fehlende Überschriften</span><span class="count">'+missingH.length+' für KI-Crawler unsichtbar</span></div><div class="missing-list">';
@@ -716,7 +719,9 @@ function aiAnalyze(){
   var pct=Math.round((rr(nj.words,jw.words)*40+rr(njH,jsH)*20+rr(njL,jsL)*20+rr(njI,jsI)*10+rr(lastNojs.schemas,lastNojs.schemas)*10));
   var prompt='URL: '+urlIn.value+'\n';
   prompt+='Modus: '+(mc?'Nur Hauptinhalt':'Gesamte Seite')+'\n';
-  prompt+='Gewichteter Readability Score: '+pct+'% (Wörter 40%, Headings 20%, Links 20%, Bilder 10%, Schema 10%)\n\n';
+  prompt+='Gewichteter Readability Score: '+pct+'% (Gap: '+(100-pct)+'%)\n';
+  prompt+='Score-Gewichtung: Wörter 40%, Headings 20%, Links 20%, Bilder 10%, Schema 10%\n';
+  prompt+='WICHTIG: Verwende immer den gewichteten Gap von '+(100-pct)+'% — berechne KEINE eigene Prozentzahl aus den rohen Wortzahlen.\n\n';
   prompt+='Metriken:\n';
   prompt+='  Wörter: No-JS='+nj.words+' / JS='+jw.words+' (Diff: '+(jw.words-nj.words)+')\n';
   prompt+='  Headings: No-JS='+njH+' / JS='+jsH+'\n';
