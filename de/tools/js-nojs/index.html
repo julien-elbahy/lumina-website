@@ -84,7 +84,7 @@
 .score-ring-text small{font-size:14px;font-weight:600}
 .score-label{font-size:14px;font-weight:800;margin-bottom:2px}.score-sublabel{font-size:12px;color:var(--muted)}
 .mc-toggle{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0;font-size:12px;color:var(--muted)}.mc-toggle label{cursor:pointer;display:flex;align-items:center;gap:6px;font-weight:600}.mc-switch{position:relative;width:36px;height:20px;display:inline-block}.mc-switch input{opacity:0;width:0;height:0}.mc-slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--border);border-radius:10px;cursor:pointer;transition:.2s}.mc-slider:before{content:'';position:absolute;height:16px;width:16px;left:2px;bottom:2px;background:var(--muted);border-radius:50%;transition:.2s}.mc-switch input:checked+.mc-slider{background:var(--accent)}.mc-switch input:checked+.mc-slider:before{transform:translateX(16px);background:#fff}
-.detail-toggle{cursor:pointer;font-size:12px;font-weight:700;color:var(--accent);text-align:center;padding:10px 0;border:none;background:none;width:100%;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px}.detail-toggle:hover{color:var(--accent-h)}.detail-toggle .arrow{transition:transform .3s}.detail-toggle.open .arrow{transform:rotate(180deg)}
+.detail-toggle{cursor:pointer;font-size:12px;font-weight:700;color:var(--accent);text-align:left;padding:10px 0;border:none;background:none;width:100%;font-family:var(--font);display:flex;align-items:center;justify-content:flex-start;gap:6px}.detail-toggle:hover{color:var(--accent-h)}.detail-toggle .arrow{transition:transform .3s}.detail-toggle.open .arrow{transform:rotate(180deg)}
 .detail-body{max-height:0;overflow:hidden;transition:max-height .4s ease}.detail-body.open{max-height:600px}
 .tb-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font);color:var(--text2);transition:all .2s}.tb-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}.tb-btn.copied{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
 .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:16px;margin-top:14px;backdrop-filter:blur(var(--blur))}.ai-card:hover{border-color:rgba(124,58,237,.35)}.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}.ai-card-body{text-align:center;margin-top:10px}.ai-card-body button{background:linear-gradient(135deg,#a855f7,#6366f1);border:none;color:#fff;padding:9px 18px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .2s}.ai-card-body button:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(168,85,247,.3)}.ai-card-body button:disabled{opacity:.5;cursor:default;transform:none}
@@ -452,12 +452,8 @@ function renderComparison(nojs,js,info){
       h+='<div class="score-label">KI Content Lesbarkeit</div>';
       h+='<div class="score-sublabel">'+scoreLabel(pct)+'</div></div>';
     }
-    // Framework + Timing Info
-    var infoParts=[];
-    if(info&&info.frameworks&&info.frameworks.length>0)infoParts.push('⚙️ '+info.frameworks.join(', '));
-    if(info&&info.fetchMs)infoParts.push('📥 HTML '+Math.round(info.fetchMs)+'ms');
-    if(info&&info.renderMs)infoParts.push('🖥️ Render '+Math.round(info.renderMs)+'ms');
-    if(infoParts.length>0)h+='<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:8px">'+infoParts.map(function(p){return'<span style="font-size:10px;padding:3px 8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-weight:600">'+p+'</span>'}).join('')+'</div>';
+    // Framework badge (only if detected)
+    if(info&&info.frameworks&&info.frameworks.length>0)h+='<div style="text-align:center;margin-bottom:6px"><span style="font-size:11px;padding:4px 10px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-weight:700">⚙️ '+info.frameworks.join(', ')+'</span></div>';
     h+='<div class="mc-toggle"><label class="mc-switch"><input type="checkbox" id="mcToggle"'+(mainContent?' checked':'')+'><span class="mc-slider"></span></label><label for="mcToggle">Nur Hauptinhalt <span style="font-weight:400;color:var(--muted)">(Nav, Header, Footer ignorieren)</span></label></div>';
     h+='<div class="comp-grid"><div class="comp-col" style="border-color:var(--err-border)"><div class="mh">🚫 No-JS (KI-Crawler)</div><p style="color:var(--err)">'+njWords.toLocaleString()+' Wörter</p></div><div class="comp-col" style="border-color:var(--ok-border)"><div class="mh">✅ Mit JS (Browser)</div><p style="color:var(--ok)">'+jsWords.toLocaleString()+' Wörter</p></div></div>';
     var diffLabel=wDiff>0?'(+'+wDiff+' in No-JS)':wDiff<0?'('+wDiff+' fehlen ohne JS)':'';
@@ -576,6 +572,11 @@ function renderComparison(nojs,js,info){
       h+='<div class="preview-box" style="border-color:var(--ok-border)"><div class="pv-label">✅ Mit JS (Browser)</div>'+(jsPrev?diffHighlight(jsPrev,njPrev)+'…':'<em style="color:var(--err)">Leer — kein Textinhalt</em>')+'</div>';
       h+='</div></div></div>';
     }
+    // Timing footer
+    var timeParts=[];
+    if(info&&info.fetchMs)timeParts.push('HTML abgerufen in '+Math.round(info.fetchMs)+'ms');
+    if(info&&info.renderMs)timeParts.push('JS gerendert in '+(info.renderMs>=1000?(info.renderMs/1000).toFixed(1)+'s':Math.round(info.renderMs)+'ms'));
+    if(timeParts.length>0)h+='<div style="text-align:right;font-size:10px;color:var(--muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">'+timeParts.join(' · ')+'</div>';
     document.getElementById('compResults').innerHTML=h;
     document.getElementById('res').style.display='block';
     showToolbar();
