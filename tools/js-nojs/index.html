@@ -448,7 +448,7 @@ function renderComparison(nojs,js,info){
     var njL=mainContent?nj.links:nojs.links,jsL=mainContent?jw.links:js.links;
     var njI=mainContent?nj.imgs:nojs.imgs,jsI=mainContent?jw.imgs:js.imgs;
     function r(a,b){return b>0?Math.min(a/b,1):a>0?1:1}
-    var pct=Math.round((r(njWords,jsWords)*40+r(njH,jsH)*20+r(njL,jsL)*20+r(njI,jsI)*10+r(nojs.schemas,nojs.schemas)*10));
+    var pct=Math.round((r(njWords,jsWords)*40+r(njH,jsH)*20+r(njL,jsL)*20+r(njI,jsI)*10+r(nojs.schemas,js.schemas)*10));
     var metrics=[
       {label:'Words',nojs:njWords,js:jsWords},
       {label:'Headings',nojs:njH,js:jsH},
