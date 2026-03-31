@@ -651,7 +651,7 @@ function renderComparison(nojs,js,info){
     else if(gap<=5)lastReport+='Status: '+(mainContent?'Main content':'Content')+' is accessible without JavaScript\n';
     else lastReport+='Status: Only '+gap+'% difference — content is well accessible\n';
     lastReport+='\n--- Metrics ---\n';
-    metrics.forEach(function(m){var lost=m.js-m.nojs;lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(lost>0?' ('+lost+' lost)':'')+'\n'});
+    metrics.forEach(function(m){lastReport+=m.label+': No-JS='+m.nojs+' / JS='+m.js+(m.nojs!==m.js?' (diff: '+(m.js-m.nojs)+')':'')+'\n'});
     // Missing content
     var njItems2=mainContent?nojs.mc.items:nojs.items;
     var jsItems2=mainContent?js.mc.items:js.items;
