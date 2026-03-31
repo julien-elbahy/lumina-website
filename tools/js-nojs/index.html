@@ -316,7 +316,7 @@ var WORKER_FETCH='https://lumina-proxy.julien-elbahy.workers.dev/fetch';
 var urlIn=document.getElementById('urlIn'),btn=document.getElementById('btnGo');
 var lastReport='',lastNojs=null,lastJs=null;
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function stripQ(s){return(s||'').replace(/^["']+|["']+$/g,'')}
+function stripQ(s){return(s||'').replace(/^[\\'"]+|[\\'"]+$/g,'')}
 function normUrl(href,base){if(!href)return'';href=stripQ(href);try{return new URL(href,base).href}catch(e){return href}}
 
 btn.addEventListener('click',function(){go(urlIn.value)});
