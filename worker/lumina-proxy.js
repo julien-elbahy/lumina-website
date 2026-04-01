@@ -84,7 +84,7 @@ const TOOL_LIMITS = {
   // DataForSEO tools
   'keyword-research': { type: 'dfs', limit: 5 },
   'serp-checker':     { type: 'dfs', limit: 5 },
-  'serp-overlap':     { type: 'dfs', limit: 5 },
+  'serp-overlap':     { type: 'dfs', limit: 10 },
   // OpenAI tools
   'serp-preview':     { type: 'ai', limit: 10 },
   'meta-analyzer':    { type: 'ai', limit: 10 },
