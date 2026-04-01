@@ -305,6 +305,7 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 </div>
 </div>
 <div id="settingsHintAi"></div>
+<div id="lq_schema-validator" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 Credits heute</div>
 <div id="crossLinks" style="display:none"></div>
 <div class="content">
 <h2>So funktioniert der Validator</h2>
@@ -565,7 +566,7 @@ function addAiFix(schemas){
 var _origRenderValidation=renderValidation;
 renderValidation=function(schemas){_origRenderValidation(schemas);addAiFix(schemas)};
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-if(window.luminaQuota){luminaQuota.createBar('schema-validator',document.querySelector('.cd'));var _el=document.getElementById('lq_schema-validator');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 Credits heute';_el.style.color='var(--muted)'}}
+if(window.luminaQuota)luminaQuota.createBar('schema-validator',document.querySelector('.cd'))
 
 /* ── AI Schema Generator ── */
 document.getElementById('btnAiGenSchema').addEventListener('click',function(){

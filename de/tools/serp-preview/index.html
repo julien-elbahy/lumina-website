@@ -297,6 +297,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <div id="aiResults" class="ai-results"></div>
 </div>
 <div id="settingsHintAi"></div>
+<div id="lq_serp-preview" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 Credits heute</div>
 <div id="crossLinks" style="display:none;margin-top:16px"></div>
 <div class="content" style="margin-top:32px">
 <h2>So verwendest du es</h2><p>Gib deine URL, deinen Titel und deine Beschreibung ein. Die Vorschau aktualisiert sich beim Tippen. Der Pixelzähler zeigt, ob Google dein Snippet abschneidet. Nutze <strong>Von URL laden</strong>, um aktuelle Werte von jeder Live-Seite zu holen.</p>
@@ -530,7 +531,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-if(window.luminaQuota){luminaQuota.createBar('serp-preview',document.querySelector('.cd'));var _el=document.getElementById('lq_serp-preview');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 Credits heute';_el.style.color='var(--muted)'}}
+if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.querySelector('.cd'))
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>

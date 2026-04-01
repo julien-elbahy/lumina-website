@@ -281,6 +281,7 @@
 <div class="ai-result" id="aiResult"></div>
 </div>
 </div>
+<div id="lq_js-nojs" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 Credits heute</div>
 <div id="crossLinks" style="display:none"></div>
 <div class="content"><h2>Warum JS vs. No-JS wichtig ist</h2><p>Viele AI-Crawler (GPTBot, ClaudeBot, CCBot) führen kein JavaScript aus. Wenn deine Seite Content client-seitig rendert (React, Vue, Angular), sehen diese Crawler möglicherweise eine leere oder unvollständige Seite. Dieses Tool zeigt genau, was sich unterscheidet.</p>
 <h2 style="margin-top:28px">Weitere Tools entdecken</h2>
@@ -765,7 +766,7 @@ function renderCrossLinks(){
   cl.style.display='block';
 }
 var params=new URLSearchParams(window.location.search);if(params.get("url")){document.getElementById("urlIn").value=params.get("url");go(params.get("url"));}
-if(window.luminaQuota){luminaQuota.createBar('js-nojs',document.querySelector('.cd'));var _el=document.getElementById('lq_js-nojs');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 Credits heute';_el.style.color='var(--muted)'}}
+if(window.luminaQuota)luminaQuota.createBar('js-nojs',document.querySelector('.cd'))
 </script>
 <style id="cc">.consent-banner{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.consent-inner{max-width:440px;width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;box-shadow:0 12px 48px rgba(0,0,0,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.consent-text{font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:10px;width:100%}.consent-btn{border:none;padding:12px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s;flex:1}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}(max-width:600px){.consent-inner{padding:24px 20px;max-width:calc(100% - 32px)}.consent-btns{flex-direction:column}}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
