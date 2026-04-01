@@ -76,8 +76,10 @@
 .cmp-mode{display:flex;gap:4px;padding:3px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin:10px 0 4px}.cmp-mode button{background:0;border:0;padding:6px 12px;font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:7px;transition:all .2s;letter-spacing:.3px;font-family:var(--font)}.cmp-mode button.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 8px var(--accent-glow)}.cmp-mode button:hover:not(.active){color:var(--text);background:var(--accent-soft)}
 /* SERP features comparison */
 .feat-grid{display:grid;grid-template-columns:1fr auto auto;gap:0;margin:12px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:12px}.feat-grid .fg-h{padding:8px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);background:var(--card);border-bottom:1px solid var(--border)}.feat-grid .fg-c{padding:7px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center}.feat-grid .fg-c:last-child{border-bottom:0}.fg-name{font-weight:600;color:var(--text2)}.fg-yes{color:var(--ok);font-weight:700}.fg-no{color:var(--muted);font-size:10px}
-/* Intent tags */
-.intent-row{display:flex;gap:10px;margin:10px 0;align-items:center;flex-wrap:wrap}.intent-kw{font-size:12px;font-weight:700;color:var(--text);min-width:100px}.intent-tags{display:flex;gap:4px;flex-wrap:wrap}.i-tag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px;border:1px solid}.i-tag.info{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}.i-tag.comm{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.i-tag.local{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.i-tag.video{background:rgba(255,80,80,.08);color:#ff6b6b;border-color:rgba(255,80,80,.2)}.i-tag.nav{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.2)}
+/* Cannibalization highlight */
+.cmp-table td.match-self{background:rgba(168,85,247,.10);border-left:3px solid #a855f7}
+.cmp-domain .self-badge{font-size:8px;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px;background:rgba(168,85,247,.15);color:#a855f7;border:1px solid rgba(168,85,247,.25);text-transform:uppercase;letter-spacing:.3px;vertical-align:middle}
+.domain-row{display:flex;gap:8px;margin-top:8px;align-items:center}.domain-row input{flex:1;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-family:var(--mono);font-size:12px;transition:all .2s}.domain-row input:focus{outline:none;border-color:#a855f7;box-shadow:0 0 0 3px rgba(168,85,247,.15)}.domain-row label{font-size:11px;color:var(--muted);white-space:nowrap;font-weight:600}
 /* PAA comparison */
 .paa-wrap{margin:12px 0}.paa-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:480px){.paa-cols{grid-template-columns:1fr}}.paa-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px}.paa-col h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}.paa-q{font-size:12px;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border);line-height:1.5}.paa-q:last-child{border-bottom:0}.paa-shared{margin-top:8px;padding:8px 10px;background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:8px}.paa-shared h4{color:var(--ok)}
 /* Score cards */
@@ -285,6 +287,7 @@
 <div class="th"><div class="lb">Free SERP Tool</div><h1>SERP Overlap Checker</h1><p>Vergleiche Google-Suchergebnisse für zwei Keywords. Finde Domains, die für beide ranken — entscheidend für das Verständnis von Keyword-Kannibalisierung und Topic-Clustering.</p><div class="tool-updated">Zuletzt aktualisiert: April 2026</div></div>
 <div class="cd">
 <div class="kw-input"><input type="text" id="kw1" placeholder="Keyword 1…" value="keyword research" style="flex:1"><input type="text" id="kw2" placeholder="Keyword 2…" value="keyword analysis" style="flex:1"><button class="ab" id="btnGo">SERPs vergleichen</button></div>
+<div class="domain-row"><label>Deine Domain (optional):</label><input type="text" id="myDomain" placeholder="example.com"></div>
 <div class="kw-input" style="margin-top:8px"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select><select id="langSelect" title="Suchsprache" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select></div>
 <div id="settingsHintDfs"></div>
 <script>if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));if(window.luminaQuota)luminaQuota.createBar('serp-overlap',document.querySelector('.cd'))</script>
@@ -353,13 +356,26 @@ var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString()
 
 var defaultLangMap={2032:'es',2036:'en',2040:'de',2056:'nl',2076:'pt',2100:'bg',2124:'en',2152:'es',2156:'zh',2158:'zh',2170:'es',2191:'hr',2203:'cs',2208:'da',2233:'et',2246:'fi',2250:'fr',2276:'de',2300:'el',2344:'zh',2348:'hu',2352:'is',2356:'en',2360:'id',2372:'en',2376:'he',2380:'it',2392:'ja',2410:'ko',2428:'lv',2440:'lt',2442:'fr',2458:'ms',2484:'es',2504:'fr',2528:'nl',2554:'en',2566:'en',2578:'no',2586:'ur',2604:'es',2608:'en',2616:'pl',2620:'pt',2642:'ro',2643:'ru',2682:'ar',2688:'sr',2702:'en',2703:'sk',2705:'sl',2710:'en',2724:'es',2752:'sv',2756:'de',2764:'th',2784:'ar',2792:'tr',2804:'uk',2818:'ar',2826:'en',2840:'en',2704:'vi'};
 document.getElementById('locSelect').addEventListener('change',function(){var lang=defaultLangMap[parseInt(this.value)];if(lang)document.getElementById('langSelect').value=lang});
-var kw1=document.getElementById('kw1'),kw2=document.getElementById('kw2'),btn=document.getElementById('btnGo');
+var kw1=document.getElementById('kw1'),kw2=document.getElementById('kw2'),btn=document.getElementById('btnGo'),myDomainEl=document.getElementById('myDomain');
 var lastReport='',lastCsvData=null,lastK1='',lastK2='';
 var compareMode='url';
 var lastCompareData=null;
 
+/* URL parameter support */
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.get('kw1'))kw1.value=p.get('kw1');
+  if(p.get('kw2'))kw2.value=p.get('kw2');
+  if(p.get('domain'))myDomainEl.value=p.get('domain');
+  if(p.get('loc')){var ls=document.getElementById('locSelect');if(ls)ls.value=p.get('loc')}
+  if(p.get('lang')){var la=document.getElementById('langSelect');if(la)la.value=p.get('lang')}
+  if(p.get('mode')&&(p.get('mode')==='domain'||p.get('mode')==='url'))compareMode=p.get('mode');
+  if(p.get('kw1')&&p.get('kw2'))setTimeout(function(){go()},300);
+})();
+
 btn.addEventListener('click',function(){go()});
 kw2.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+myDomainEl.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
 
 /* SERP feature names */
 var featNames={'featured_snippet':'Featured Snippet','people_also_ask':'People Also Ask','local_pack':'Local Pack','knowledge_graph':'Knowledge Panel','images':'Image Pack','video':'Video','shopping':'Shopping','twitter':'Twitter/X','related_searches':'Related Searches','top_stories':'Top Stories','carousel':'Carousel','answer_box':'Answer Box'};
@@ -521,11 +537,33 @@ function renderComparison(){
   scHtml+='<div class="score-card"><div class="sc-num" style="color:var(--accent)">'+relevanceScore+'%</div><div class="sc-label">Relevanz Score</div><div class="sc-desc">Gewichtet nach Position \u2014 Top 3 z\u00e4hlen mehr</div></div></div>';
   document.getElementById('scoreCards').innerHTML=scHtml;
 
+  /* Recommendation — enhanced with SERP feature context */
   var rec,recCls;
-  if(overlapScore>=60){rec='\u2705 Hohe \u00dcberlappung \u2014 eine Seite kann wahrscheinlich beide Keywords abdecken.';recCls='ok'}
-  else if(overlapScore>=30){rec='\u26a0\ufe0f Moderate \u00dcberlappung \u2014 teste zuerst mit einer Seite, trenne bei Bedarf.';recCls='warn'}
-  else{rec='\u274c Niedrige \u00dcberlappung \u2014 erstelle separate Seiten f\u00fcr jedes Keyword.';recCls='err'}
+  var featKeys1=Object.keys(feats1).filter(function(k){return k!=='related_searches'});
+  var featKeys2=Object.keys(feats2).filter(function(k){return k!=='related_searches'});
+  var featOnlyIn1=featKeys1.filter(function(k){return !feats2[k]});
+  var featOnlyIn2=featKeys2.filter(function(k){return !feats1[k]});
+  var featsDiffer=featOnlyIn1.length>0||featOnlyIn2.length>0;
+  var featNote='';
+  if(featsDiffer){
+    var diffNames=featOnlyIn1.concat(featOnlyIn2).map(function(k){return featNames[k]||k});
+    featNote=' Unterschiedliche SERP-Funktionen ('+diffNames.slice(0,3).join(', ')+') deuten auf verschiedene Suchintentionen hin.';
+  }
+  if(overlapScore>=60){rec='\u2705 Hohe \u00dcberlappung \u2014 eine Seite kann wahrscheinlich beide Keywords abdecken.';recCls='ok';if(featsDiffer)rec+=featNote}
+  else if(overlapScore>=30){rec='\u26a0\ufe0f Moderate \u00dcberlappung \u2014 teste zuerst mit einer Seite, trenne bei Bedarf.';recCls='warn';if(featsDiffer)rec+=featNote}
+  else{rec='\u274c Niedrige \u00dcberlappung \u2014 erstelle separate Seiten f\u00fcr jedes Keyword.';recCls='err';if(featsDiffer)rec+=featNote}
   document.getElementById('overlapRec').innerHTML='<div style="padding:10px 14px;margin:10px 0;border-radius:10px;font-size:13px;font-weight:700;background:var(--'+recCls+'-bg);border:1px solid var(--'+recCls+'-border);color:var(--'+recCls+')">'+rec+'</div>';
+
+  /* Update URL for sharing */
+  var shareParams=new URLSearchParams();
+  shareParams.set('kw1',k1);shareParams.set('kw2',k2);
+  var myD=(myDomainEl?myDomainEl.value.trim().replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''):'');
+  if(myD)shareParams.set('domain',myD);
+  var loc=document.getElementById('locSelect').value,lang=document.getElementById('langSelect').value;
+  if(loc!=='2040')shareParams.set('loc',loc);
+  if(lang!=='de')shareParams.set('lang',lang);
+  if(compareMode!=='url')shareParams.set('mode',compareMode);
+  history.replaceState(null,'',window.location.pathname+'?'+shareParams.toString());
 
   /* SERP-Funktionen */
   var allFeatKeys={};
@@ -593,6 +631,14 @@ function renderComparison(){
   tbl+='<div class="cmp-mode"><button id="mUrl" class="'+(compareMode==='url'?'active':'')+'">URL</button><button id="mDomain" class="'+(compareMode==='domain'?'active':'')+'">Domain</button></div>';
   tbl+='</div>';
   tbl+='<div style="font-size:11px;color:var(--muted);margin-bottom:8px">'+(compareMode==='url'?'Vergleicht exakte Seiten-URLs \u2014 gleiche Domain mit verschiedenen Pfaden z\u00e4hlt als keine \u00dcberlappung.':'Vergleicht nur Root-Domains \u2014 verschiedene Seiten derselben Domain z\u00e4hlen als \u00dcberlappung.')+'</div>';
+  /* Self-cannibalization detection */
+  var myDomain=myD;
+  var selfHits1=[],selfHits2=[];
+  if(myDomain){
+    r1.forEach(function(r){if(r.domain===myDomain||r.domain.endsWith('.'+myDomain))selfHits1.push(r)});
+    r2.forEach(function(r){if(r.domain===myDomain||r.domain.endsWith('.'+myDomain))selfHits2.push(r)});
+  }
+
   tbl+='<div style="overflow-x:auto"><table class="cmp-table"><thead><tr><th>#</th><th>'+esc(k1)+'</th><th>'+esc(k2)+'</th></tr></thead><tbody>';
   for(var pos=1;pos<=10;pos++){
     var d1=r1.find(function(r){return r.pos===pos});
@@ -602,20 +648,40 @@ function renderComparison(){
     var isMatch=d1&&d2&&matchKey1===matchKey2;
     var d1InOther=d1&&map2[matchKey1];
     var d2InOther=d2&&map1[matchKey2];
+    var d1Self=myDomain&&d1&&(d1.domain===myDomain||d1.domain.endsWith('.'+myDomain));
+    var d2Self=myDomain&&d2&&(d2.domain===myDomain||d2.domain.endsWith('.'+myDomain));
     tbl+='<tr><td>'+pos+'</td>';
     if(d1){
-      var cls1=isMatch?'match-exact':d1InOther?'match-other':'match-none';
-      tbl+='<td class="'+cls1+'"><span class="cmp-domain">'+domainIcon(d1.domain)+'<a href="'+esc(d1.url)+'" target="_blank" rel="noopener" title="'+esc(d1.url)+'">'+esc(d1.domain)+'</a></span><span class="cmp-path"><a href="'+esc(d1.url)+'" target="_blank" rel="noopener">'+esc(getPath(d1.url,d1.domain))+'</a></span></td>';
+      var cls1=d1Self?'match-self':isMatch?'match-exact':d1InOther?'match-other':'match-none';
+      var badge1=d1Self?'<span class="self-badge">Du</span>':'';
+      tbl+='<td class="'+cls1+'"><span class="cmp-domain">'+domainIcon(d1.domain)+'<a href="'+esc(d1.url)+'" target="_blank" rel="noopener" title="'+esc(d1.url)+'">'+esc(d1.domain)+'</a>'+badge1+'</span><span class="cmp-path"><a href="'+esc(d1.url)+'" target="_blank" rel="noopener">'+esc(getPath(d1.url,d1.domain))+'</a></span></td>';
     } else tbl+='<td style="color:var(--muted)">\u2014</td>';
     if(d2){
-      var cls2=isMatch?'match-exact':d2InOther?'match-other':'match-none';
-      tbl+='<td class="'+cls2+'"><span class="cmp-domain">'+domainIcon(d2.domain)+'<a href="'+esc(d2.url)+'" target="_blank" rel="noopener" title="'+esc(d2.url)+'">'+esc(d2.domain)+'</a></span><span class="cmp-path"><a href="'+esc(d2.url)+'" target="_blank" rel="noopener">'+esc(getPath(d2.url,d2.domain))+'</a></span></td>';
+      var cls2=d2Self?'match-self':isMatch?'match-exact':d2InOther?'match-other':'match-none';
+      var badge2=d2Self?'<span class="self-badge">Du</span>':'';
+      tbl+='<td class="'+cls2+'"><span class="cmp-domain">'+domainIcon(d2.domain)+'<a href="'+esc(d2.url)+'" target="_blank" rel="noopener" title="'+esc(d2.url)+'">'+esc(d2.domain)+'</a>'+badge2+'</span><span class="cmp-path"><a href="'+esc(d2.url)+'" target="_blank" rel="noopener">'+esc(getPath(d2.url,d2.domain))+'</a></span></td>';
     } else tbl+='<td style="color:var(--muted)">\u2014</td>';
     tbl+='</tr>';
   }
   tbl+='</tbody></table></div>';
   tbl+='<div class="cmp-legend"><span><span class="cmp-legend-dot" style="background:var(--ok-bg);border:1px solid var(--ok-border)"></span> Gleiche Position</span>';
-  tbl+='<span><span class="cmp-legend-dot" style="background:var(--warn-bg);border:1px solid var(--warn-border)"></span> Rankt auch f\u00fcr anderes Keyword</span></div>';
+  tbl+='<span><span class="cmp-legend-dot" style="background:var(--warn-bg);border:1px solid var(--warn-border)"></span> Rankt auch f\u00fcr anderes Keyword</span>';
+  if(myDomain)tbl+='<span><span class="cmp-legend-dot" style="background:rgba(168,85,247,.10);border:1px solid rgba(168,85,247,.25)"></span> Deine Domain</span>';
+  tbl+='</div>';
+
+  /* Cannibalization alert */
+  if(myDomain&&selfHits1.length&&selfHits2.length){
+    var samePage=false;
+    selfHits1.forEach(function(h1){selfHits2.forEach(function(h2){if(h1.url===h2.url)samePage=true})});
+    var canniHtml='<div style="padding:10px 14px;margin:10px 0;border-radius:10px;font-size:13px;font-weight:700;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:#a855f7">';
+    if(samePage){canniHtml+='\u2705 Dieselbe Seite rankt f\u00fcr beide Keywords \u2014 kein Kannibalisierungsrisiko.'}
+    else{canniHtml+='\u26a0\ufe0f Kannibalisierung erkannt: verschiedene Seiten von '+esc(myDomain)+' ranken f\u00fcr jedes Keyword. Konsolidierung empfohlen.'}
+    canniHtml+='</div>';
+    tbl+=canniHtml;
+  } else if(myDomain&&(selfHits1.length||selfHits2.length)){
+    tbl+='<div style="padding:10px 14px;margin:10px 0;border-radius:10px;font-size:12px;background:var(--card);border:1px solid var(--border);color:var(--muted)">'+esc(myDomain)+' rankt f\u00fcr '+(selfHits1.length?esc(k1):esc(k2))+' (#'+(selfHits1.length?selfHits1[0].pos:selfHits2[0].pos)+'), aber nicht f\u00fcr '+(selfHits1.length?esc(k2):esc(k1))+' in den Top 10.</div>';
+  }
+
   document.getElementById('comparisonTable').innerHTML=tbl;
 
   document.getElementById('mDomain').addEventListener('click',function(){compareMode='domain';renderComparison()});
