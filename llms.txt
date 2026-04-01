@@ -8,7 +8,7 @@ Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-B
 
 - Website: https://lumina-seo.com
 - Chrome Extension: https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe
-- Author: Julien El-Bahy (https://www.linkedin.com/in/julien-elbahy/)
+- Author: Julien El-Bahy (https://www.linkedin.com/in/julien-el-bahy-b4b71a201/)
 
 ## Free Online Tools
 
