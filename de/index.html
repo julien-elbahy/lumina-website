@@ -843,53 +843,154 @@ function aaiGscQueries(cb){
   function fetchGsc(token,siteUrl){
     var end=new Date();var start=new Date();start.setDate(end.getDate()-28);
     var sd=start.toISOString().slice(0,10),ed=end.toISOString().slice(0,10);
+    /* Previous period for comparison */
+    var prevEnd=new Date(start);prevEnd.setDate(prevEnd.getDate()-1);
+    var prevStart=new Date(prevEnd);prevStart.setDate(prevStart.getDate()-27);
+    var psd=prevStart.toISOString().slice(0,10),ped=prevEnd.toISOString().slice(0,10);
+
     var base='https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query';
     var hdrs={'Authorization':'Bearer '+token,'Content-Type':'application/json'};
+    function gscPost(body){return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(d){return d.rows||[]})}
 
-    /* Fetch 3 dimensions in parallel: queries (top 50), pages (top 30), date series */
-    var results={};var pending=3;
-    function done(){pending--;if(pending>0)return;
-      var txt='\u2550\u2550 GSC DATA for '+siteUrl+' (last 28 days) \u2550\u2550\n\n';
+    /* 8 parallel fetches */
+    var R={};var pending=8;
+    function done(){pending--;if(pending>0)return;buildContext()}
 
-      /* Aggregated totals from date series */
-      var dates=results.dates||[];
+    gscPost({startDate:sd,endDate:ed,dimensions:['query'],rowLimit:200,type:'web'}).then(function(r){R.queries=r}).catch(function(){R.queries=[]}).finally(done);
+    gscPost({startDate:sd,endDate:ed,dimensions:['page'],rowLimit:50,type:'web'}).then(function(r){R.pages=r}).catch(function(){R.pages=[]}).finally(done);
+    gscPost({startDate:sd,endDate:ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(r){R.dates=r}).catch(function(){R.dates=[]}).finally(done);
+    gscPost({startDate:sd,endDate:ed,dimensions:['country'],rowLimit:20,type:'web'}).then(function(r){R.countries=r}).catch(function(){R.countries=[]}).finally(done);
+    gscPost({startDate:sd,endDate:ed,dimensions:['device'],rowLimit:5,type:'web'}).then(function(r){R.devices=r}).catch(function(){R.devices=[]}).finally(done);
+    gscPost({startDate:sd,endDate:ed,dimensions:['query','page'],rowLimit:500,type:'web'}).then(function(r){R.queryPage=r}).catch(function(){R.queryPage=[]}).finally(done);
+    /* Previous period: queries + dates for comparison */
+    gscPost({startDate:psd,endDate:ped,dimensions:['query'],rowLimit:200,type:'web'}).then(function(r){R.prevQueries=r}).catch(function(){R.prevQueries=[]}).finally(done);
+    gscPost({startDate:psd,endDate:ped,dimensions:['date'],rowLimit:500,type:'web'}).then(function(r){R.prevDates=r}).catch(function(){R.prevDates=[]}).finally(done);
+
+    function buildContext(){
+      var txt='\u2550\u2550 GSC DATA for '+siteUrl+' \u2550\u2550\n';
+      txt+='Current period: '+sd+' to '+ed+' | Previous: '+psd+' to '+ped+'\n\n';
+
+      /* ── Totals + period comparison ── */
+      var dates=R.dates||[];var prevDates=R.prevDates||[];
       if(dates.length){
         var totC=0,totI=0,posSum=0;
         dates.forEach(function(r){totC+=r.clicks;totI+=r.impressions;posSum+=r.position});
-        var avgCtr=totI>0?(totC/totI*100):0;
-        var avgPos=dates.length>0?(posSum/dates.length):0;
-        txt+='TOTALS: '+totC+' clicks, '+totI+' impressions, CTR '+avgCtr.toFixed(1)+'%, avg position '+avgPos.toFixed(1)+'\n\n';
+        var avgCtr=totI>0?(totC/totI*100):0;var avgPos=posSum/dates.length;
+        txt+='CURRENT TOTALS: '+totC+' clicks, '+totI+' impressions, CTR '+avgCtr.toFixed(1)+'%, avg pos '+avgPos.toFixed(1)+'\n';
+        if(prevDates.length){
+          var pC=0,pI=0,pP=0;
+          prevDates.forEach(function(r){pC+=r.clicks;pI+=r.impressions;pP+=r.position});
+          var pCtr=pI>0?(pC/pI*100):0;var pPos=pP/prevDates.length;
+          var cDelta=totC-pC,iDelta=totI-pI;
+          var cPct=pC>0?((cDelta/pC)*100):0;var iPct=pI>0?((iDelta/pI)*100):0;
+          txt+='PREVIOUS TOTALS: '+pC+' clicks, '+pI+' impressions, CTR '+pCtr.toFixed(1)+'%, avg pos '+pPos.toFixed(1)+'\n';
+          txt+='CHANGE: clicks '+(cDelta>=0?'+':'')+cDelta+' ('+(cPct>=0?'+':'')+cPct.toFixed(1)+'%), impressions '+(iDelta>=0?'+':'')+iDelta+' ('+(iPct>=0?'+':'')+iPct.toFixed(1)+'%)\n';
+        }
+        txt+='\n';
       }
 
-      /* Top queries */
-      var queries=results.queries||[];
+      /* ── Top queries (up to 100) ── */
+      var queries=R.queries||[];
       if(queries.length){
-        txt+='TOP QUERIES (by clicks):\n';
-        queries.forEach(function(row){
-          txt+='"'+row.keys[0]+'" \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
+        txt+='TOP QUERIES ('+Math.min(queries.length,100)+' of '+queries.length+', by clicks):\n';
+        queries.slice(0,100).forEach(function(row){
+          txt+='"'+row.keys[0]+'" \u2014 clicks:'+row.clicks+', impr:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
         });
         txt+='\n';
       }
 
-      /* Top pages */
-      var pages=results.pages||[];
+      /* ── Top pages ── */
+      var pages=R.pages||[];
       if(pages.length){
-        txt+='TOP PAGES (by clicks):\n';
+        txt+='TOP PAGES ('+pages.length+', by clicks):\n';
         pages.forEach(function(row){
-          txt+=row.keys[0]+' \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
+          txt+=row.keys[0]+' \u2014 clicks:'+row.clicks+', impr:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
+        });
+        txt+='\n';
+      }
+
+      /* ── Devices ── */
+      var devices=R.devices||[];
+      if(devices.length){
+        txt+='DEVICE BREAKDOWN:\n';
+        devices.forEach(function(row){txt+=row.keys[0]+': '+row.clicks+' clicks, '+row.impressions+' impr, pos '+row.position.toFixed(1)+'\n'});
+        txt+='\n';
+      }
+
+      /* ── Countries ── */
+      var countries=R.countries||[];
+      if(countries.length){
+        txt+='TOP COUNTRIES ('+countries.length+'):\n';
+        countries.forEach(function(row){txt+=row.keys[0].toUpperCase()+': '+row.clicks+' clicks, '+row.impressions+' impr, pos '+row.position.toFixed(1)+'\n'});
+        txt+='\n';
+      }
+
+      /* ── Winners & Losers (keyword position changes) ── */
+      var prevMap={};(R.prevQueries||[]).forEach(function(r){prevMap[r.keys[0]]=r});
+      var winners=[],losers=[];
+      queries.forEach(function(r){
+        var q=r.keys[0],prev=prevMap[q];
+        if(!prev)return;
+        var posDelta=prev.position-r.position;
+        if(posDelta>0.5)winners.push({q:q,from:prev.position,to:r.position,delta:posDelta,clicks:r.clicks});
+        if(posDelta<-0.5)losers.push({q:q,from:prev.position,to:r.position,delta:posDelta,clicks:r.clicks});
+      });
+      winners.sort(function(a,b){return b.delta-a.delta});
+      losers.sort(function(a,b){return a.delta-b.delta});
+      if(winners.length){
+        txt+='WINNERS (position improved):\n';
+        winners.slice(0,15).forEach(function(w){txt+='"'+w.q+'" pos '+w.from.toFixed(1)+' \u2192 '+w.to.toFixed(1)+' (\u25B2'+w.delta.toFixed(1)+'), '+w.clicks+' clicks\n'});
+        txt+='\n';
+      }
+      if(losers.length){
+        txt+='LOSERS (position dropped):\n';
+        losers.slice(0,15).forEach(function(l){txt+='"'+l.q+'" pos '+l.from.toFixed(1)+' \u2192 '+l.to.toFixed(1)+' (\u25BC'+Math.abs(l.delta).toFixed(1)+'), '+l.clicks+' clicks\n'});
+        txt+='\n';
+      }
+
+      /* ── Low-hanging fruits (pos 5-25, high impressions) ── */
+      if(queries.length>5){
+        var avgCtrQ=queries.reduce(function(s,r){return s+r.ctr},0)/queries.length;
+        var sorted=queries.slice().sort(function(a,b){return a.impressions-b.impressions});
+        var medImpr=sorted[Math.floor(sorted.length/2)].impressions;
+        var fruits=queries.filter(function(r){return r.position>=5&&r.position<=25&&r.impressions>=Math.max(medImpr,5)})
+          .sort(function(a,b){return(b.impressions/b.position)-(a.impressions/a.position)});
+        if(fruits.length){
+          txt+='LOW-HANGING FRUITS (pos 5-25, high impressions, easy wins):\n';
+          fruits.slice(0,15).forEach(function(f){txt+='"'+f.keys[0]+'" pos:'+f.position.toFixed(1)+', impr:'+f.impressions+', clicks:'+f.clicks+', CTR:'+(f.ctr*100).toFixed(1)+'%\n'});
+          txt+='\n';
+        }
+      }
+
+      /* ── Keyword cannibalization (same query on 2+ pages) ── */
+      var qpMap={};(R.queryPage||[]).forEach(function(r){
+        var q=r.keys[0],p=r.keys[1];
+        if(!qpMap[q])qpMap[q]=[];
+        qpMap[q].push({page:p,clicks:r.clicks,impr:r.impressions,pos:r.position});
+      });
+      var cannib=[];
+      Object.keys(qpMap).forEach(function(q){if(qpMap[q].length>=2)cannib.push({q:q,pages:qpMap[q]})});
+      cannib.sort(function(a,b){
+        var aI=a.pages.reduce(function(s,p){return s+p.impr},0);
+        var bI=b.pages.reduce(function(s,p){return s+p.impr},0);
+        return bI-aI;
+      });
+      if(cannib.length){
+        txt+='KEYWORD CANNIBALIZATION ('+cannib.length+' keywords rank on 2+ pages):\n';
+        cannib.slice(0,20).forEach(function(c){
+          txt+='"'+c.q+'" \u2192 ';
+          c.pages.sort(function(a,b){return a.pos-b.pos});
+          c.pages.forEach(function(p,i){
+            var path='/';try{path=new URL(p.page).pathname}catch(e){}
+            txt+=(i>0?' | ':'')+path+' (pos:'+p.pos.toFixed(1)+', clicks:'+p.clicks+')';
+          });
+          txt+='\n';
         });
         txt+='\n';
       }
 
       cb(txt.length>80?txt:'');
     }
-
-    fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify({startDate:sd,endDate:ed,dimensions:['query'],rowLimit:50,type:'web'})})
-      .then(function(r){return r.json()}).then(function(d){results.queries=(d.rows||[])}).catch(function(){results.queries=[]}).finally(done);
-    fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify({startDate:sd,endDate:ed,dimensions:['page'],rowLimit:30,type:'web'})})
-      .then(function(r){return r.json()}).then(function(d){results.pages=(d.rows||[])}).catch(function(){results.pages=[]}).finally(done);
-    fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify({startDate:sd,endDate:ed,dimensions:['date'],rowLimit:500,type:'web'})})
-      .then(function(r){return r.json()}).then(function(d){results.dates=(d.rows||[])}).catch(function(){results.dates=[]}).finally(done);
   }
 }
 
