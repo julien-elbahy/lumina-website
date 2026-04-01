@@ -609,7 +609,7 @@ document.getElementById('btnAi').addEventListener('click',function(){
     rd.innerHTML='<div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="var b=this;navigator.clipboard.writeText(b.closest(\'.ai-result\')._raw).then(function(){b.textContent=\'✓ Kopiert\';setTimeout(function(){b.textContent=\'📋 Kopieren\'},1500)})" style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px">📋 Kopieren</button></div>'+rendered;
     rd._raw=rawText;
     rd.style.display='block';
-  }).catch(function(e){rd.innerHTML='<div style="color:var(--err);font-size:12px;padding:12px">❌ '+esc(e.message)+'</div><p style="font-size:12px;color:var(--muted);margin-top:8px;padding:0 12px">💡 Eigenen API-Key in <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinterlegen für unbegrenzten Zugang.</p>'})
+  }).catch(function(e){rd.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ KI-Empfehlungen erhalten'});
 });
 

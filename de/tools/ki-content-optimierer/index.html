@@ -844,7 +844,7 @@ async function analyzeAndOptimize(){
   }catch(e){
     loading.style.display='none';
     document.getElementById('res').style.display='block';
-    document.getElementById('serpBenchmark').innerHTML='<p style="color:var(--err);padding:16px">❌ '+esc(e.message)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px;padding:0 16px">💡 API-Key hinzufügen über <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> für unbegrenzten Zugriff.</p>';
+    document.getElementById('serpBenchmark').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';
   }finally{
     btn.disabled=false;btn.textContent='✨ Analysieren & Optimieren';
     btnDetect.disabled=false;

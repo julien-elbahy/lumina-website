@@ -581,7 +581,7 @@ function go(){
     document.getElementById('loading').style.display='none';
     document.getElementById('res').style.display='block';
     if(e.isQuota){
-      document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">🔒</div><p style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Tageslimit erreicht</p><p>Du hast alle 5 kostenlosen Suchen f\u00fcr heute verbraucht. Komm morgen wieder, oder f\u00fcge deinen eigenen <a href="https://dataforseo.com/" target="_blank" rel="noopener">DataForSEO</a> API-Key \u00fcber <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Einstellungen</span> hinzu f\u00fcr unbegrenzte Suchen.</p></div>';
+      document.getElementById('kwResults').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';
       if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
     }else{
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
