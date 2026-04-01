@@ -343,6 +343,11 @@ window.luminaQuota={
   }
 };
 
+// Standardized quota exhaustion error HTML
+window.luminaQuotaError=function(){
+  return '<div style="padding:14px 16px;border-radius:12px;font-size:13px;font-weight:600;background:var(--err-bg);border:1px solid var(--err-border);color:var(--err);text-align:center">'+(isDE?'Tageslimit erreicht.':'Daily limit reached.')+' <a href="javascript:void(0)" onclick="if(window.luminaSettings)luminaSettings.open()" style="color:var(--accent);text-decoration:underline">'+(isDE?'API-Key hinzuf\u00fcgen':'Add your API key')+'</a> '+(isDE?'f\u00fcr unbegrenzten Zugang.':'for unlimited access.')+'</div>';
+};
+
 // Public API
 window.luminaSettings={
   open:function(){createModal()},

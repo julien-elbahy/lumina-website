@@ -497,7 +497,7 @@ function go(){
       var errMsg=data1.error||data2.error||'Keine Ergebnisse';
       document.getElementById('res').style.display='none';
       var resWrap=document.getElementById('res');
-      resWrap.innerHTML='<div style="padding:14px 16px;border-radius:12px;font-size:13px;font-weight:700;background:var(--err-bg);border:1px solid var(--err-border);color:var(--err);text-align:center">SERP-Daten konnten nicht abgerufen werden. '+esc(errMsg)+'<br><span style="font-weight:500;font-size:12px;margin-top:4px;display:inline-block">Tageskontingent m\u00f6glicherweise ersch\u00f6pft. <a href="javascript:void(0)" onclick="if(window.luminaSettings)luminaSettings.open()" style="color:var(--accent);text-decoration:underline">Eigenen API-Key hinzuf\u00fcgen</a> f\u00fcr unbegrenzten Zugang.</span></div>';
+      resWrap.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';
       resWrap.style.display='block';
       return;
     }

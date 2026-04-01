@@ -481,7 +481,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     if(_spAiKeywords[0]){document.getElementById('aiKwPrimary').value=_spAiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_spAiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
     spRenderChips()}catch(e){}
   })
-  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:11px">'+esc(msg)+'</p><p style="font-size:11px;color:var(--muted);margin-top:6px">💡 Add your API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.</p>';document.getElementById('aiKwChips').style.display='block';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
+  .catch(function(e){document.getElementById('aiKwChips').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>';document.getElementById('aiKwChips').style.display='block';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
   .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'});
 });
 
@@ -527,7 +527,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
       upd();b.textContent='✓ Applied';setTimeout(function(){b.textContent='Apply'},1500);
     })});
   })
-  .catch(function(e){var msg=typeof e==='object'?(e.message||JSON.stringify(e)):String(e);out.innerHTML='<p style="color:var(--err);text-align:center;padding:12px">'+esc(msg)+'</p><p style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center">💡 Add your API key via <span style="cursor:pointer;color:var(--accent);text-decoration:underline" onclick="if(window.luminaSettings)luminaSettings.open()">⚙️ Settings</span> for unlimited access.</p>';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
+  .catch(function(e){out.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
