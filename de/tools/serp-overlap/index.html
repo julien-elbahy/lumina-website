@@ -494,10 +494,12 @@ function go(){
 
     /* Show error if both keywords returned no results */
     if(data1.organic.length===0&&data2.organic.length===0){
-      var errMsg=data1.error||data2.error||'Keine Ergebnisse';
-      document.getElementById('res').style.display='none';
+      var errMsg=data1.error||data2.error||'';
+      var isQuota=errMsg.toLowerCase().indexOf('limit')>-1||errMsg.toLowerCase().indexOf('quota')>-1||errMsg.toLowerCase().indexOf('key required')>-1;
+      document.getElementById('loading').style.display='none';
       var resWrap=document.getElementById('res');
-      resWrap.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';
+      if(isQuota&&window.luminaQuotaError){resWrap.innerHTML=window.luminaQuotaError()}
+      else{resWrap.innerHTML='<p style="color:var(--err);text-align:center;padding:14px 0">'+(errMsg||'Keine Ergebnisse f\u00fcr beide Keywords.')+'</p>'}
       resWrap.style.display='block';
       return;
     }

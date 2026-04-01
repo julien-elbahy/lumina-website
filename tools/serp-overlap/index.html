@@ -291,6 +291,14 @@
 <div style="font-size:11px;color:var(--muted);margin:4px 0 0 0">Enter your domain to detect keyword cannibalization — highlights your pages and flags when different URLs compete for both keywords.</div>
 <div class="kw-input" style="margin-top:8px"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select><select id="langSelect" title="Search language" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select></div>
 <div id="settingsHintDfs"></div>
+<script>
+if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
+if(window.luminaQuota){
+  luminaQuota.createBar('serp-overlap',document.querySelector('.cd'));
+  var _el=document.getElementById('lq_serp-overlap');
+  if(_el&&!_el.textContent.trim()){_el.textContent='10/10 credits today';_el.style.color='var(--muted)'}
+}
+</script>
 <div id="loading" style="display:none;margin-top:14px;text-align:center"><div class="skel w90"></div><div class="skel w50"></div><p style="font-size:12px;color:var(--muted);margin-top:8px">Fetching results for both keywords…</p></div>
 <div id="res" style="display:none">
 <div id="scoreCards"></div>
@@ -302,7 +310,6 @@
 <div class="serp-toolbar"><button class="act-btn" id="btnCopy">📋 Copy</button><button class="act-btn" id="btnExportCsv">📊 CSV</button></div>
 </div>
 </div>
-<div id="lq_serp-overlap" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 credits today</div>
 <div id="crossLinks" style="display:none"></div>
 <div class="content"><h2>What is SERP Overlap?</h2><p>SERP Overlap measures how many domains rank for both keywords. High overlap (>60%) means Google considers the keywords very similar — they might cause keyword cannibalization. Low overlap means the keywords target different intents and should have separate pages.</p>
 <h2 style="margin-top:28px">Explore more tools</h2>
@@ -493,12 +500,12 @@ function go(){
 
     /* Show error if both keywords returned no results */
     if(data1.organic.length===0&&data2.organic.length===0){
-      var errMsg=data1.error||data2.error||'No results returned';
-      document.getElementById('res').style.display='none';
+      var errMsg=data1.error||data2.error||'';
+      var isQuota=errMsg.toLowerCase().indexOf('limit')>-1||errMsg.toLowerCase().indexOf('quota')>-1||errMsg.toLowerCase().indexOf('key required')>-1;
       document.getElementById('loading').style.display='none';
-      var errEl=document.getElementById('overlapRec');
       var resWrap=document.getElementById('res');
-      resWrap.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>';
+      if(isQuota&&window.luminaQuotaError){resWrap.innerHTML=window.luminaQuotaError()}
+      else{resWrap.innerHTML='<p style="color:var(--err);text-align:center;padding:14px 0">'+(errMsg||'No results returned for either keyword.')+'</p>'}
       resWrap.style.display='block';
       return;
     }
