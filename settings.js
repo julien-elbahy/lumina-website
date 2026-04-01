@@ -562,5 +562,24 @@ document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('select').forEach(function(sel){
     if(sel.options.length>=2&&sel.id!=='gscSite')csUpgrade(sel);
   });
+
+  // ── Auto-init quota bars ──
+  // Find all static lq_* elements in the DOM and render stored quota data
+  document.querySelectorAll('[id^="lq_"]').forEach(function(el){
+    var tool=el.id.substring(3); // strip 'lq_' prefix
+    if(window.luminaQuota){
+      var d=window.luminaQuota.get(tool);
+      if(d)window.luminaQuota._render(tool);
+    }
+  });
+
+  // ── Auto-init settings hints ──
+  // Find settingsHintDfs / settingsHintAi elements and create hints
+  if(window.luminaSettings){
+    var hintDfs=document.getElementById('settingsHintDfs');
+    if(hintDfs)window.luminaSettings.createHint('dfs',hintDfs);
+    var hintAi=document.getElementById('settingsHintAi');
+    if(hintAi)window.luminaSettings.createHint('ai',hintAi);
+  }
 });
 })();
