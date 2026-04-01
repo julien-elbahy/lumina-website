@@ -319,7 +319,7 @@ window.luminaQuota={
     if(d.ownKey){el.textContent=isDE?'Eigener API-Key (unbegrenzt)':'Using your API key (unlimited)';el.style.color='var(--ok)';return}
     var r=d.remaining!=null?d.remaining:'?';
     var l=d.limit||'?';
-    el.textContent=(isDE?'Kontingent: ':'Quota: ')+r+'/'+l+(isDE?' heute verbleibend':' remaining today');
+    el.textContent=r+'/'+l+(isDE?' Credits heute':' credits today');
     el.style.color=r<=1?'var(--err)':r<=Math.ceil(l/3)?'var(--warn)':'var(--muted)';
   },
   // Create a quota display element below the container (card)

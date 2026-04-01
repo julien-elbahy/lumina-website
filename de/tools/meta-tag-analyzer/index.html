@@ -549,7 +549,7 @@ function renderAll(d){
   _lastAnalysis=d;
   document.getElementById('aiSection').style.display='block';
   if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-  if(window.luminaQuota)luminaQuota.createBar('meta-analyzer',document.querySelector('.cd'));
+  if(window.luminaQuota){luminaQuota.createBar('meta-analyzer',document.querySelector('.cd'));var _el=document.getElementById('lq_meta-analyzer');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 Credits heute';_el.style.color='var(--muted)'}}
   document.getElementById('aiResults').innerHTML='';
 }
 

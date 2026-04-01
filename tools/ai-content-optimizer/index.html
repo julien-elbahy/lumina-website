@@ -495,7 +495,7 @@ var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString()
 function updateQuota(data){if(data._lumina){luminaQuota.update('ai',data);if(window.luminaQuota)window.luminaQuota.update('content-optimizer',data)}}
 try{
 if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));}
-if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.querySelector('.cd'));}catch(_e){console.error('LUMINA_INIT_ERROR:',_e)}
+if(window.luminaQuota){luminaQuota.createBar('content-optimizer',document.querySelector('.cd'));var _el=document.getElementById('lq_content-optimizer');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 credits today';_el.style.color='var(--muted)'}}}catch(_e){console.error('LUMINA_INIT_ERROR:',_e)}
 
 async function aiCall(body){
   if(!body.model)body.model='gpt-4.1';

@@ -451,7 +451,7 @@ html+='<div class="cross-links"><a href="/tools/meta-tag-analyzer/?url='+encodeU
 html+='<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">OG Tag Generator</h2><p class="ai-card-desc">Generate optimized Open Graph and Twitter Card tags for this page.</p></div><div class="ai-card-body"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center"><button class="ai-btn" id="btnAiOg" style="font-size:11px;padding:8px 14px">✨ Generate Optimized Tags</button><span id="aiQuota" class="ai-quota"></span></div></div><div id="aiOgResult" class="ai-results" style="display:none"></div></div>';
 
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
-if(window.luminaQuota)luminaQuota.createBar('og-preview',document.querySelector('.cd'));
+if(window.luminaQuota){luminaQuota.createBar('og-preview',document.querySelector('.cd'));var _el=document.getElementById('lq_og-preview');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 credits today';_el.style.color='var(--muted)'}}
 /* Tab switching */
 document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});document.querySelectorAll('.tp').forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.getElementById('t-'+b.getAttribute('data-t')).classList.add('active')})});
 /* Image dimension check */
