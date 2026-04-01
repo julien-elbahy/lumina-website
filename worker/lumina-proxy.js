@@ -101,6 +101,8 @@ const TOOL_LIMITS = {
   'keyword-research-sub':  { type: 'dfs', limit: 100 },
   'pagespeed-sub':         { type: 'psi', limit: 100 },
   'content-optimizer-dfs': { type: 'dfs', limit: 50 },
+  'meta-analyzer-sub':     { type: 'dfs', limit: 50 },
+  'serp-preview-sub':      { type: 'dfs', limit: 50 },
 };
 
 // Fallback limits for unknown tools (backwards compatibility)

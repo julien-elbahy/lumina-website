@@ -372,15 +372,16 @@ var DFS_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/dfs';
 var AI_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/ai';
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function getDfsKey(){return localStorage.getItem('lumina_key_dataforseo')||'';}
-function dfsPost(endpoint,data){
+function dfsPost(endpoint,data,toolName){
+  var tn=toolName||'keyword-research';
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
   if(key)headers['X-DFS-Key']=key;
-  headers['X-Lumina-Tool']='keyword-research';
+  headers['X-Lumina-Tool']=tn;
   return fetch(DFS_WORKER+'?endpoint='+encodeURIComponent(endpoint),{
     method:'POST',headers:headers,body:JSON.stringify(data)
   }).then(function(r){return r.json()}).then(function(d){
-    if(d._lumina){
+    if(d._lumina&&tn==='keyword-research'){
       luminaQuota.update('dfs',d);
       if(window.luminaQuota)window.luminaQuota.update('keyword-research',d);
     }
@@ -391,7 +392,7 @@ function dfsPost(endpoint,data){
 function aiPost(system,user){
   return fetch(AI_WORKER,{
     method:'POST',
-    headers:{'Content-Type':'application/json','X-Lumina-Tool':'keyword-research'},
+    headers:{'Content-Type':'application/json','X-Lumina-Tool':'keyword-research-sub'},
     body:JSON.stringify({model:'gpt-4.1-mini',messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:300})
   }).then(function(r){return r.json()}).then(function(d){
     try{var txt=d.choices[0].message.content.trim();
@@ -513,7 +514,7 @@ function go(){
     if(ai&&ai.synonyms)volumeKws=volumeKws.concat(ai.synonyms);
     if(!volumeKws.length)return{tasks:[]};
     var unique=[],low={};volumeKws.forEach(function(k){var lk=k.toLowerCase();if(!low[lk]){low[lk]=true;unique.push(k)}});
-    return dfsPost('keywords_data/google_ads/search_volume/live',[{keywords:unique.slice(0,20),location_code:locCode,language_code:lang}]).catch(function(e){if(e.isQuota)throw e;return{tasks:[]}});
+    return dfsPost('keywords_data/google_ads/search_volume/live',[{keywords:unique.slice(0,20),location_code:locCode,language_code:lang}],'keyword-research-sub').catch(function(e){if(e.isQuota)throw e;return{tasks:[]}});
   }).catch(function(e){if(e&&e.isQuota)throw e;return{tasks:[]}});
 
   // GSC data (if connected)

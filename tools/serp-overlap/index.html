@@ -336,11 +336,11 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 var DFS_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/dfs';
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function getDfsKey(){return localStorage.getItem('lumina_key_dataforseo')||'';}
-function dfsPost(endpoint,data){
+function dfsPost(endpoint,data,toolName){
   var key=getDfsKey();
   var headers={'Content-Type':'application/json'};
   if(key)headers['X-DFS-Key']=key;
-  headers['X-Lumina-Tool']='serp-overlap';
+  headers['X-Lumina-Tool']=toolName||'serp-overlap';
   return fetch(DFS_WORKER+'?endpoint='+encodeURIComponent(endpoint),{
     method:'POST',headers:headers,body:JSON.stringify(data)
   }).then(function(r){return r.json()}).then(function(d){
@@ -459,7 +459,7 @@ function go(){
   function check(){if(++done>=2)compare()}
 
   [k1,k2].forEach(function(kw,idx){
-    dfsPost('serp/google/organic/live/regular',[{keyword:kw,location_code:parseInt(loc),language_code:lang,depth:100}])
+    dfsPost('serp/google/organic/live/regular',[{keyword:kw,location_code:parseInt(loc),language_code:lang,depth:100}],idx===0?'serp-overlap':'serp-overlap-sub')
     .then(function(data){
       var tasks=data.tasks||[];var allItems=[];
       if(tasks.length&&tasks[0].result&&tasks[0].result.length)allItems=tasks[0].result[0].items||[];

@@ -492,7 +492,7 @@ document.getElementById('btnAI').addEventListener('click',async function(){
     // Step 1: Detect tech stack via /fetch
     var techStack='Unknown';
     try{
-      var fetchResp=await fetch(AI_WORKER+'/fetch?url='+encodeURIComponent(lastUrl),{headers:{'X-Lumina-Tool':'pagespeed'}});
+      var fetchResp=await fetch(AI_WORKER+'/fetch?url='+encodeURIComponent(lastUrl),{headers:{'X-Lumina-Tool':'pagespeed-sub'}});
       var fetchData=await fetchResp.json();
       if(fetchData.headers){
         var techs=[];

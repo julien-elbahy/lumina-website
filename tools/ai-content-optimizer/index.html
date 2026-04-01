@@ -418,7 +418,7 @@ document.getElementById('btnGscLoad').addEventListener('click',async function(){
   var topKws=_gscRows.slice(0,40).map(function(r){return r.query});
   var lp=getLocParts();
   try{
-    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keywords:topKws,language_code:lp.lang,location_code:lp.loc}])});
+    var dfsResp=await fetch(WORKER+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer-dfs'},body:JSON.stringify([{keywords:topKws,language_code:lp.lang,location_code:lp.loc}])});
     var dfsData=await dfsResp.json();
     if(dfsData.tasks){dfsData.tasks.forEach(function(t){(t.result||[]).forEach(function(r){_gscRows.forEach(function(g){if(g.query.toLowerCase()===r.keyword.toLowerCase()){g.vol=r.search_volume||0}})})})}
   }catch(e){}
@@ -596,7 +596,7 @@ document.getElementById('btnDetectKw').addEventListener('click',async function()
 
 /* ── SERP + Competitor Fetching ── */
 async function fetchSERP(keyword,loc,lang){
-  var resp=await fetch(WORKER+'/dfs?endpoint=serp/google/organic/live/regular',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer'},body:JSON.stringify([{keyword:keyword,language_code:lang,location_code:loc,depth:10}])});
+  var resp=await fetch(WORKER+'/dfs?endpoint=serp/google/organic/live/regular',{method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'content-optimizer-dfs'},body:JSON.stringify([{keyword:keyword,language_code:lang,location_code:loc,depth:10}])});
   var data=await resp.json();
   var results=[],paa=[];
   if(data.tasks)data.tasks.forEach(function(t){(t.result||[]).forEach(function(r){
@@ -610,7 +610,7 @@ async function fetchSERP(keyword,loc,lang){
 
 async function fetchCompetitorPage(url){
   try{
-    var resp=await fetch(WORKER+'/fetch?url='+encodeURIComponent(url),{headers:{'X-Lumina-Tool':'content-optimizer'}});
+    var resp=await fetch(WORKER+'/fetch?url='+encodeURIComponent(url),{headers:{'X-Lumina-Tool':'content-optimizer-dfs'}});
     var data=await resp.json();
     if(!data.html)return null;
     var doc=new DOMParser().parseFromString(data.html,'text/html');
