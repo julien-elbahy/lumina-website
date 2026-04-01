@@ -293,10 +293,10 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 <button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:10px;padding:6px 12px">🔍 Auto-detect keywords</button>
 <button class="ai-btn" id="btnAiGenerate" style="font-size:10px;padding:6px 12px">✨ Generate title & description</button>
 </div>
+<div id="lq_serp-preview" style="font-size:10px;font-family:var(--mono);color:var(--muted);margin-top:6px">10/10 credits today</div>
 </div>
 <div id="aiResults" class="ai-results"></div>
 </div>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 2px"><div class="lq-hint" style="font-size:11px;color:var(--muted);cursor:pointer" onclick="if(window.luminaSettings)luminaSettings.open()">&#x1f4a1; API key &#x2192; <span style="text-decoration:underline">Settings</span></div><div id="lq_serp-preview" style="font-size:11px;font-family:var(--mono);color:var(--muted)">10/10 credits today</div></div>
 <div id="crossLinks" style="display:none;margin-top:16px"></div>
 <div class="content" style="margin-top:32px">
 <h2>How to use</h2><p>Enter your URL, title, and description. The preview updates as you type. The pixel counter shows if Google will truncate your snippet. Use <strong>Fetch from URL</strong> to pull current values from any live page.</p>
@@ -529,7 +529,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .catch(function(e){out.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
 });
-if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.querySelector('.cd'))
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
