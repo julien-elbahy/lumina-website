@@ -82,9 +82,9 @@ const BR_BASE = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/
 // Each tool gets its own independent quota
 const TOOL_LIMITS = {
   // DataForSEO tools
-  'keyword-research': { type: 'dfs', limit: 5 },
-  'serp-checker':     { type: 'dfs', limit: 5 },
-  'serp-overlap':     { type: 'dfs', limit: 10 },
+  'keyword-research': { type: 'dfs', limit: 15 },
+  'serp-checker':     { type: 'dfs', limit: 15 },
+  'serp-overlap':     { type: 'dfs', limit: 15 },
   // OpenAI tools
   'serp-preview':     { type: 'ai', limit: 10 },
   'meta-analyzer':    { type: 'ai', limit: 10 },
@@ -181,7 +181,7 @@ function getCorsHeaders(origin) {
   return {
     'Access-Control-Allow-Origin': isAllowedOrigin(origin) ? origin : 'https://lumina-seo.com',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, X-DFS-Key, X-OAI-Key, X-PSI-Key, X-Lumina-Tool',
+    'Access-Control-Allow-Headers': 'Content-Type, X-DFS-Key, X-OAI-Key, X-PSI-Key, X-Lumina-Tool, X-Lumina-Origin',
     'Access-Control-Max-Age': '86400',
   };
 }
@@ -221,7 +221,7 @@ function authCheck(origin, referer, ip) {
 
 export default {
   async fetch(request, env) {
-    const origin = request.headers.get('Origin') || '';
+    const origin = request.headers.get('Origin') || request.headers.get('X-Lumina-Origin') || '';
     const referer = request.headers.get('Referer') || '';
 
     // CORS preflight
@@ -602,6 +602,7 @@ export default {
 
       const allowedEndpoints = [
         'serp/google/organic/live/regular',
+        'serp/google/organic/live/advanced',
         'keywords_data/google_ads/search_volume/live',
         'keywords_data/google_ads/keywords_for_keywords/live',
         'dataforseo_labs/google/keyword_suggestions/live',
@@ -618,6 +619,10 @@ export default {
       // User key bypasses our limits
       const userKey = request.headers.get('X-DFS-Key') || url.searchParams.get('dfs_key') || '';
 
+      // Free reference-data endpoints (no quota consumed)
+      const freeEndpoints = ['dataforseo_labs/locations_and_languages'];
+      const isFreeEndpoint = freeEndpoints.includes(endpoint);
+
       let dfsAuth;
       if (userKey) {
         dfsAuth = userKey;
@@ -625,11 +630,13 @@ export default {
         const ourKey = env.DFS_API_KEY;
         if (!ourKey) return jsonResponse({ error: 'DataForSEO not configured. Provide your own API key.', needsKey: true }, 403, origin);
 
-        const limitErr = await checkDailyLimit(kvPrefix, ip, env.RATE_LIMITS, toolLimit, origin, toolName);
-        if (limitErr) return limitErr;
+        if (!isFreeEndpoint) {
+          const limitErr = await checkDailyLimit(kvPrefix, ip, env.RATE_LIMITS, toolLimit, origin, toolName);
+          if (limitErr) return limitErr;
+        }
 
         dfsAuth = ourKey;
-        await incrementDailyUsage(kvPrefix, ip, env.RATE_LIMITS);
+        if (!isFreeEndpoint) await incrementDailyUsage(kvPrefix, ip, env.RATE_LIMITS);
       }
 
       let body;
@@ -729,8 +736,7 @@ export default {
     // /psi — PageSpeed Insights Proxy (50/day free)
     // ══════════════════════════════════════════════════════════
     if (url.pathname === '/psi') {
-      const authErr = authCheck(origin, referer, ip);
-      if (authErr) return jsonResponse({ error: authErr }, authErr === 'Forbidden' ? 403 : 429, origin);
+      if (!checkOrigin(origin, referer)) return jsonResponse({ error: 'Forbidden' }, 403, origin);
       const { error, parsed } = validateTargetUrl(url.searchParams.get('url'));
       if (error) return jsonResponse({ error }, 400, origin);
 
