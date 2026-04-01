@@ -146,6 +146,13 @@ async function getDailyUsage(prefix, ip, kv) {
 }
 
 async function incrementDailyUsage(prefix, ip, kv) {
+  // Dedup: skip increment if same tool+IP called within last 60s (multi-call tools = 1 credit)
+  const dedupKey = `dedup:${prefix}:${ip}`;
+  const lastCall = await kv.get(dedupKey);
+  if (lastCall) return await getDailyUsage(prefix, ip, kv); // already counted this execution
+  // Mark this execution (60s TTL)
+  await kv.put(dedupKey, '1', { expirationTtl: 60 });
+  // Increment the daily counter
   const today = new Date().toISOString().split('T')[0];
   const key = `${prefix}:${ip}:${today}`;
   const current = await getDailyUsage(prefix, ip, kv);
