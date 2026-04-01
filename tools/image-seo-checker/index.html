@@ -380,6 +380,7 @@ function go(url){
   document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Checking…';
   fetchWithFallback(url).then(function(data){
+    if(window.luminaQuota)window.luminaQuota.update('image-seo-checker',data);
     btn.disabled=false;btn.textContent='Check Images';document.getElementById('loading').style.display='none';
     if(data.error){document.getElementById('res').style.display='block';document.getElementById('imgResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(data.error)+'</p></div>';return}
     parseImages(data.html,data.url||url);
