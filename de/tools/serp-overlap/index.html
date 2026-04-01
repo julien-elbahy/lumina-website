@@ -423,8 +423,8 @@ function detectIntent(features,organicItems){
 }
 
 function drawVenn(pct,n1,n2,nOverlap,k1Label,k2Label){
-  var r=80,cy=100,vw=380;
-  var cx1=130,gap=pct>=60?90:pct>=30?120:160;
+  var r=80,cy=100,vw=420;
+  var cx1=130,gap=pct>=60?110:pct>=30?130:160;
   var cx2=cx1+gap;
   var mid=(cx1+cx2)/2;
   var lx1=cx1-(gap/2+10),lx2=cx2+(gap/2+10);
@@ -491,11 +491,11 @@ function go(){
     function getDomain(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}}
     function getPath(url,domain){try{var p=url.replace(/^https?:\/\/(www\.)?/,'').substring(domain.length);return p.length>35?p.substring(0,33)+'\u2026':p}catch(e){return''}}
 
-    var r1=[],r2=[];
+    var r1=[],r2=[],seen1={},seen2={};
     items1.sort(function(a,b){return a.rank_group-b.rank_group});
     items2.sort(function(a,b){return a.rank_group-b.rank_group});
-    items1.slice(0,10).forEach(function(i,idx){r1.push({pos:idx+1,domain:getDomain(i.url),url:i.url,title:i.title})});
-    items2.slice(0,10).forEach(function(i,idx){r2.push({pos:idx+1,domain:getDomain(i.url),url:i.url,title:i.title})});
+    items1.forEach(function(i){if(r1.length>=10||seen1[i.url])return;seen1[i.url]=true;r1.push({pos:r1.length+1,domain:getDomain(i.url),url:i.url,title:i.title})});
+    items2.forEach(function(i){if(r2.length>=10||seen2[i.url])return;seen2[i.url]=true;r2.push({pos:r2.length+1,domain:getDomain(i.url),url:i.url,title:i.title})});
 
     var top10Items1=items1.slice(0,10),top10Items2=items2.slice(0,10);
     lastCompareData={r1:r1,r2:r2,k1:k1,k2:k2,feats1:feats1,feats2:feats2,paa1:paa1,paa2:paa2,items1:top10Items1,items2:top10Items2,getDomain:getDomain,getPath:getPath};
