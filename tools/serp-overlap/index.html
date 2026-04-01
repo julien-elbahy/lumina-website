@@ -294,7 +294,6 @@
 <div id="overlapRec"></div>
 <div id="serpFeatures"></div>
 <div id="paaCompare"></div>
-<div id="intentAnalysis"></div>
 <div id="vennDiagram"></div>
 <div id="comparisonTable"></div>
 <div class="serp-toolbar"><button class="act-btn" id="btnCopy">📋 Copy</button><button class="act-btn" id="btnExportCsv">📊 CSV</button></div>
@@ -596,18 +595,6 @@ function renderComparison(){
   }
   document.getElementById('paaCompare').innerHTML=paaHtml;
 
-  /* ── Search Intent ── */
-  var intent1=detectIntent(feats1,d.items1);
-  var intent2=detectIntent(feats2,d.items2);
-  var intHtml='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px">Search Intent</div>';
-  intHtml+='<div class="intent-row"><span class="intent-kw">'+esc(k1)+'</span><span class="intent-tags">';
-  intent1.forEach(function(t){intHtml+='<span class="i-tag '+t.cls+'">'+t.label+'</span>'});
-  intHtml+='</span></div>';
-  intHtml+='<div class="intent-row"><span class="intent-kw">'+esc(k2)+'</span><span class="intent-tags">';
-  intent2.forEach(function(t){intHtml+='<span class="i-tag '+t.cls+'">'+t.label+'</span>'});
-  intHtml+='</span></div>';
-  document.getElementById('intentAnalysis').innerHTML=intHtml;
-
   /* Venn diagram */
   var only1Count=set1.length-shared.length,only2Count=set2.length-shared.length;
   document.getElementById('vennDiagram').innerHTML=drawVenn(overlapScore,only1Count,only2Count,shared.length,k1,k2);
@@ -615,7 +602,7 @@ function renderComparison(){
   /* ── Side-by-side comparison table with mode toggle ── */
   var tbl='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin:14px 0 4px">';
   tbl+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)">Top 10 Comparison</div>';
-  tbl+='<div class="cmp-mode"><button id="mDomain" class="'+(compareMode==='domain'?'active':'')+'">Domain</button><button id="mUrl" class="'+(compareMode==='url'?'active':'')+'">URL</button></div>';
+  tbl+='<div class="cmp-mode"><button id="mUrl" class="'+(compareMode==='url'?'active':'')+'">URL</button><button id="mDomain" class="'+(compareMode==='domain'?'active':'')+'">Domain</button></div>';
   tbl+='</div>';
   tbl+='<div style="font-size:11px;color:var(--muted);margin-bottom:8px">'+(compareMode==='url'?'Compares exact page URLs \u2014 same domain with different paths counts as no overlap.':'Compares root domains only \u2014 different pages on the same domain count as overlap.')+'</div>';
   tbl+='<div style="overflow-x:auto"><table class="cmp-table"><thead><tr><th>#</th><th>'+esc(k1)+'</th><th>'+esc(k2)+'</th></tr></thead><tbody>';
@@ -661,9 +648,6 @@ function renderComparison(){
       lastReport+='  '+label+': '+(feats1[fk]?'KW1 yes':'KW1 no')+' | '+(feats2[fk]?'KW2 yes':'KW2 no')+'\n';
     });
   }
-  /* Intent */
-  var intent1=detectIntent(feats1,d.items1),intent2=detectIntent(feats2,d.items2);
-  lastReport+='\nSearch Intent:\n  '+k1+': '+intent1.map(function(t){return t.label}).join(', ')+'\n  '+k2+': '+intent2.map(function(t){return t.label}).join(', ')+'\n';
   /* PAA */
   if(paa1.length||paa2.length){
     lastReport+='\nPeople Also Ask:\n';
@@ -680,7 +664,7 @@ function renderComparison(){
   }
   lastReport+='\nShared '+modeLabel.toLowerCase()+' ('+shared.length+'):\n';
   shared.forEach(function(k){lastReport+='  '+k+' (#'+map1[k].pos+' / #'+map2[k].pos+')\n'});
-  lastCsvData={r1:r1,r2:r2,shared:shared,map1:map1,map2:map2,k1:k1,k2:k2,feats1:feats1,feats2:feats2,paa1:paa1,paa2:paa2,intent1:intent1,intent2:intent2};
+  lastCsvData={r1:r1,r2:r2,shared:shared,map1:map1,map2:map2,k1:k1,k2:k2,feats1:feats1,feats2:feats2,paa1:paa1,paa2:paa2};
 
   document.getElementById('res').style.display='block';
 }
@@ -701,9 +685,6 @@ document.getElementById('btnExportCsv').addEventListener('click',function(){
   csv+='\nSERP Features\nFeature,"'+d.k1+'","'+d.k2+'"\n';
   var allFK=Object.keys(d.feats1).concat(Object.keys(d.feats2)).filter(function(v,i,a){return a.indexOf(v)===i&&v!=='related_searches'});
   allFK.forEach(function(fk){csv+='"'+(featNames[fk]||fk)+'","'+(d.feats1[fk]?'Yes':'No')+'","'+(d.feats2[fk]?'Yes':'No')+'"\n'});
-  /* Intent */
-  csv+='\nSearch Intent\n"'+d.k1+'","'+d.intent1.map(function(t){return t.label}).join(', ')+'"\n';
-  csv+='"'+d.k2+'","'+d.intent2.map(function(t){return t.label}).join(', ')+'"\n';
   /* PAA */
   if(d.paa1.length||d.paa2.length){
     csv+='\nPeople Also Ask\n"'+d.k1+'","'+d.k2+'"\n';
