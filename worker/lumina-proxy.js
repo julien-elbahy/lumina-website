@@ -95,6 +95,12 @@ const TOOL_LIMITS = {
   'ask-ai':           { type: 'ai',  limit: 10 },
   'ask-ai-plan':      { type: 'ai',  limit: 30 },
   'ask-ai-dfs':       { type: 'dfs', limit: 30 },
+  // Sub-call quotas: multi-call tools only count 1 credit per click,
+  // subsequent API calls within the same action use these generous sub-limits
+  'serp-overlap-sub':      { type: 'dfs', limit: 100 },
+  'keyword-research-sub':  { type: 'dfs', limit: 100 },
+  'pagespeed-sub':         { type: 'psi', limit: 100 },
+  'content-optimizer-dfs': { type: 'dfs', limit: 50 },
 };
 
 // Fallback limits for unknown tools (backwards compatibility)
