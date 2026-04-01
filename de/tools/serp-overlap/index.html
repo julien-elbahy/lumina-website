@@ -297,7 +297,7 @@
 <div id="intentAnalysis"></div>
 <div id="vennDiagram"></div>
 <div id="comparisonTable"></div>
-<div class="serp-toolbar"><button class="act-btn" id="btnCopy">📋 Bericht kopieren</button><button class="act-btn" id="btnExportCsv">📥 CSV Export</button></div>
+<div class="serp-toolbar"><button class="act-btn" id="btnCopy">📋 Copy</button><button class="act-btn" id="btnExportCsv">📊 CSV</button></div>
 </div>
 </div>
 <div id="crossLinks" style="display:none"></div>
@@ -655,7 +655,7 @@ function renderComparison(){
   document.getElementById('res').style.display='block';
 }
 
-document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='\u2713 Kopiert!';setTimeout(function(){b.textContent='\ud83d\udccb Bericht kopieren'},1500)})});
+document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='\u2713 Copied!';setTimeout(function(){b.textContent='\ud83d\udccb Copy'},1500)})});
 document.getElementById('btnExportCsv').addEventListener('click',function(){
   if(!lastCsvData)return;var d=lastCsvData;
   var csv='Position,"'+d.k1+' Domain","'+d.k1+' URL","'+d.k2+' Domain","'+d.k2+' URL",Match\n';
