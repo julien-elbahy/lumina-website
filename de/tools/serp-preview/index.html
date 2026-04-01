@@ -533,7 +533,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.querySelector('.cd'));
+if(window.luminaQuota){luminaQuota.createBar('serp-preview',document.querySelector('.cd'));var _el=document.getElementById('lq_serp-preview');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 Credits heute';_el.style.color='var(--muted)'}}
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>

@@ -897,7 +897,7 @@ async function fetchGscQueries(){
 // Init column toggles
 renderColToggles();
 if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
-if(window.luminaQuota)luminaQuota.createBar('keyword-research',document.querySelectorAll('#main-content>.cd')[1]);
+if(window.luminaQuota){luminaQuota.createBar('keyword-research',document.querySelectorAll('#main-content>.cd')[1]);var _el=document.getElementById('lq_keyword-research');if(_el&&!_el.textContent.trim()){_el.textContent='5/5 credits today';_el.style.color='var(--muted)'}}
 
 function renderCrossLinks(){
 var links=[];
