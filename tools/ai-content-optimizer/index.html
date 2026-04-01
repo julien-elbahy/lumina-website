@@ -280,7 +280,6 @@
 </div>
 <div id="kwChips" style="display:none;margin-bottom:8px"></div>
 
-<div id="settingsHintAi"></div>
 <div class="btn-row">
 <button class="ab" id="btnAnalyze">✨ Analyze &amp; Optimize</button>
 <button class="ai-btn" id="btnDetectKw" style="background:var(--card);color:var(--accent);border:1px solid var(--border)">🔍 Auto-detect keywords</button>
@@ -306,7 +305,7 @@
 </div>
 </div>
 </div>
-<div id="lq_content-optimizer" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 credits today</div>
+<div class="lq-row"><div class="lq-hint" data-key="openai">💡 <span>API key → Settings</span></div><div id="lq_content-optimizer" class="lq-credits">10/10 credits today</div></div>
 <div id="crossLinks" style="display:none"></div>
 
 <div class="content">
@@ -495,7 +494,6 @@ function pxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col
 var luminaQuota={_k:'lumina_quota',_d:function(){return new Date().toISOString().split('T')[0]},get:function(t){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');if(d[t]&&d[t].date===this._d())return d[t]}catch(e){}return null},set:function(t,r,l,o){try{var d=JSON.parse(localStorage.getItem(this._k)||'{}');d[t]={remaining:r,limit:l,date:this._d(),ownKey:!!o};localStorage.setItem(this._k,JSON.stringify(d))}catch(e){}},update:function(t,data){if(!data||!data._lumina)return;if(data._lumina.ownKey)this.set(t,null,null,true);else if(data._lumina.remaining!=='unlimited')this.set(t,data._lumina.remaining,data._lumina.limit,false)}};
 function updateQuota(data){if(data._lumina){luminaQuota.update('ai',data);if(window.luminaQuota)window.luminaQuota.update('content-optimizer',data)}}
 try{
-if(window.luminaSettings){luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));}
 if(window.luminaQuota)luminaQuota.createBar('content-optimizer',document.querySelector('.cd'))}catch(_e){console.error('LUMINA_INIT_ERROR:',_e)}
 
 async function aiCall(body){

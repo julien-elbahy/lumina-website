@@ -296,8 +296,7 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 </div>
 <div id="aiResults" class="ai-results"></div>
 </div>
-<div id="settingsHintAi"></div>
-<div id="lq_serp-preview" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 credits today</div>
+<div class="lq-row"><div class="lq-hint" data-key="openai">💡 <span>API key → Settings</span></div><div id="lq_serp-preview" class="lq-credits">10/10 credits today</div></div>
 <div id="crossLinks" style="display:none;margin-top:16px"></div>
 <div class="content" style="margin-top:32px">
 <h2>How to use</h2><p>Enter your URL, title, and description. The preview updates as you type. The pixel counter shows if Google will truncate your snippet. Use <strong>Fetch from URL</strong> to pull current values from any live page.</p>
@@ -530,7 +529,6 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
   .catch(function(e){out.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
 });
-if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
 if(window.luminaQuota)luminaQuota.createBar('serp-preview',document.querySelector('.cd'))
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

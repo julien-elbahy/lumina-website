@@ -304,8 +304,7 @@ textarea{font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;
 <textarea id="aiGenOutput" readonly style="font-family:var(--mono);font-size:11px;min-height:140px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);width:100%;resize:vertical"></textarea>
 </div>
 </div>
-<div id="settingsHintAi"></div>
-<div id="lq_schema-validator" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 Credits heute</div>
+<div class="lq-row"><div class="lq-hint" data-key="openai">💡 <span>API-Key → Settings</span></div><div id="lq_schema-validator" class="lq-credits">10/10 Credits heute</div></div>
 <div id="crossLinks" style="display:none"></div>
 <div class="content">
 <h2>So funktioniert der Validator</h2>
@@ -565,7 +564,6 @@ function addAiFix(schemas){
 /* Patch renderValidation to add AI Fix */
 var _origRenderValidation=renderValidation;
 renderValidation=function(schemas){_origRenderValidation(schemas);addAiFix(schemas)};
-if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
 if(window.luminaQuota)luminaQuota.createBar('schema-validator',document.querySelector('.cd'))
 
 /* ── AI Schema Generator ── */

@@ -362,26 +362,9 @@ window.luminaSettings={
     if(type==='dataforseo')return !!localStorage.getItem(LS.dfs);
     return false;
   },
-  // Creates a subtle or urgent hint element
-  createHint:function(type,container){
-    if(!container)return null;
-    var keyType=type==='ai'?'openai':'dataforseo';
-    if(window.luminaSettings.hasKey(keyType))return null;
-    var el=document.createElement('div');
-    el.className='ls-hint';el.id='lsHint_'+type;
-    el.innerHTML='<span>'+T.hintSubtle+'</span>';
-    el.style.cssText='font-size:11px;color:var(--muted);text-align:center;margin-top:8px;cursor:pointer;transition:all .3s';
-    el.addEventListener('click',function(){window.luminaSettings.open()});
-    container.appendChild(el);
-    return el;
-  },
-  // Upgrades hint to urgent state (call when quota exhausted)
-  upgradeHint:function(type){
-    var el=document.getElementById('lsHint_'+type);
-    if(!el){return}
-    el.innerHTML='<span>'+T.hintUrgent+'</span>';
-    el.style.cssText='font-size:12px;color:var(--accent);text-align:center;padding:10px 14px;margin-top:10px;cursor:pointer;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;font-weight:600;transition:all .3s';
-  }
+  // Creates a subtle hint element (legacy — kept for backwards compat)
+  createHint:function(){return null},
+  upgradeHint:function(){return null}
 };
 
 // Auto-inject gear button into nav
@@ -424,6 +407,11 @@ document.addEventListener('DOMContentLoaded',function(){
   if(footer){footer.style.marginTop='0'}
 
   // ── Custom Searchable Select ──
+  // ── Quota row CSS ──
+  var lqStyle=document.createElement('style');
+  lqStyle.textContent='.lq-row{display:flex;justify-content:space-between;align-items:center;margin-top:4px;min-height:16px;font-size:11px;font-family:var(--mono)}.lq-hint{color:var(--muted);cursor:pointer;transition:color .2s}.lq-hint:hover{color:var(--accent)}.lq-hint span{text-decoration:underline}.lq-credits{color:var(--muted);transition:color .3s}';
+  document.head.appendChild(lqStyle);
+
   // Replaces native <select> with styled, searchable dropdowns
   var csStyle=document.createElement('style');
   csStyle.textContent=
@@ -570,22 +558,20 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 
   // ── Auto-init quota bars ──
-  // Find all static lq_* elements in the DOM and render stored quota data
+  // Find all lq_* elements and render stored quota from localStorage
   document.querySelectorAll('[id^="lq_"]').forEach(function(el){
-    var tool=el.id.substring(3); // strip 'lq_' prefix
+    var tool=el.id.substring(3);
     if(window.luminaQuota){
       var d=window.luminaQuota.get(tool);
       if(d)window.luminaQuota._render(tool);
     }
   });
-
-  // ── Auto-init settings hints ──
-  // Find settingsHintDfs / settingsHintAi elements and create hints
-  if(window.luminaSettings){
-    var hintDfs=document.getElementById('settingsHintDfs');
-    if(hintDfs)window.luminaSettings.createHint('dfs',hintDfs);
-    var hintAi=document.getElementById('settingsHintAi');
-    if(hintAi)window.luminaSettings.createHint('ai',hintAi);
-  }
+  // ── Auto-init API key hints ──
+  // Hide hint row if user has their own key
+  document.querySelectorAll('.lq-hint').forEach(function(el){
+    var keyType=el.dataset.key||'dataforseo';
+    if(window.luminaSettings&&window.luminaSettings.hasKey(keyType)){el.style.display='none'}
+    el.addEventListener('click',function(){if(window.luminaSettings)window.luminaSettings.open()});
+  });
 });
 })();
