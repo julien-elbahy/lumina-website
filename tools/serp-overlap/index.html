@@ -288,6 +288,7 @@
 <div class="cd">
 <div class="kw-input"><input type="text" id="kw1" placeholder="Keyword 1…" value="keyword research" style="flex:1"><input type="text" id="kw2" placeholder="Keyword 2…" value="keyword analysis" style="flex:1"><button class="ab" id="btnGo">Compare SERPs</button></div>
 <div class="domain-row"><label>Your domain (optional):</label><input type="text" id="myDomain" placeholder="example.com"></div>
+<div style="font-size:11px;color:var(--muted);margin:4px 0 0 0">Enter your domain to detect keyword cannibalization — highlights your pages and flags when different URLs compete for both keywords.</div>
 <div class="kw-input" style="margin-top:8px"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select><select id="langSelect" title="Search language" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select></div>
 <div id="settingsHintDfs"></div>
 <script>if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));if(window.luminaQuota)luminaQuota.createBar('serp-overlap',document.querySelector('.cd'))</script>
@@ -424,18 +425,25 @@ function detectIntent(features,organicItems){
 }
 
 function drawVenn(pct,n1,n2,nOverlap,k1Label,k2Label){
-  var sep=pct>=60?55:pct>=30?75:105;
+  /* Circle separation based on overlap: more overlap = closer circles */
+  var r=80,cy=100,vw=380;
+  var cx1=130,gap=pct>=60?90:pct>=30?120:160;
+  var cx2=cx1+gap;
+  var mid=(cx1+cx2)/2;
+  /* Position side labels OUTSIDE the overlap zone */
+  var lx1=cx1-(gap/2+10),lx2=cx2+(gap/2+10);
+  /* Clamp so labels don't go outside viewBox */
+  if(lx1<25)lx1=25;if(lx2>vw-25)lx2=vw-25;
   var col1='#3b82f6',col2='#f59e0b',colO=pct>=60?'#f47878':pct>=30?'#f4c44a':'#50e090';
-  var cx2=210-((105-sep)/2);
-  return '<div class="venn-wrap"><svg class="venn-svg" viewBox="0 0 360 210">'+
-    '<circle class="venn-circle" cx="130" cy="100" r="80" fill="'+col1+'" stroke="'+col1+'"/>'+
-    '<circle class="venn-circle" cx="'+cx2+'" cy="100" r="80" fill="'+col2+'" stroke="'+col2+'"/>'+
-    '<text class="venn-kw" x="85" y="198" text-anchor="middle">'+esc(k1Label.substring(0,20))+'</text>'+
-    '<text class="venn-kw" x="275" y="198" text-anchor="middle">'+esc(k2Label.substring(0,20))+'</text>'+
-    '<text class="venn-label" x="85" y="100" text-anchor="middle" fill="'+col1+'">'+n1+'</text>'+
-    '<text class="venn-label" x="275" y="100" text-anchor="middle" fill="'+col2+'">'+n2+'</text>'+
-    '<text class="venn-overlap-num" x="170" y="94" text-anchor="middle" fill="'+colO+'">'+nOverlap+'</text>'+
-    '<text class="venn-label" x="170" y="116" text-anchor="middle" fill="'+colO+'">'+pct+'%</text>'+
+  return '<div class="venn-wrap"><svg class="venn-svg" viewBox="0 0 '+vw+' 210">'+
+    '<circle class="venn-circle" cx="'+cx1+'" cy="'+cy+'" r="'+r+'" fill="'+col1+'" stroke="'+col1+'"/>'+
+    '<circle class="venn-circle" cx="'+cx2+'" cy="'+cy+'" r="'+r+'" fill="'+col2+'" stroke="'+col2+'"/>'+
+    '<text class="venn-kw" x="'+cx1+'" y="198" text-anchor="middle">'+esc(k1Label.substring(0,20))+'</text>'+
+    '<text class="venn-kw" x="'+cx2+'" y="198" text-anchor="middle">'+esc(k2Label.substring(0,20))+'</text>'+
+    '<text class="venn-label" x="'+lx1+'" y="100" text-anchor="middle" fill="'+col1+'">'+n1+'</text>'+
+    '<text class="venn-label" x="'+lx2+'" y="100" text-anchor="middle" fill="'+col2+'">'+n2+'</text>'+
+    '<text class="venn-overlap-num" x="'+mid+'" y="94" text-anchor="middle" fill="'+colO+'">'+nOverlap+'</text>'+
+    '<text class="venn-label" x="'+mid+'" y="116" text-anchor="middle" fill="'+colO+'">'+pct+'%</text>'+
     '</svg></div>';
 }
 
