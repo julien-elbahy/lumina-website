@@ -105,13 +105,22 @@ const DEFAULT_LIMITS = {
 };
 
 function getToolLimit(toolName, apiType) {
-  if (toolName && TOOL_LIMITS[toolName]) return TOOL_LIMITS[toolName].limit;
+  var norm = normalizeToolName(toolName);
+  if (norm && TOOL_LIMITS[norm]) return TOOL_LIMITS[norm].limit;
   return DEFAULT_LIMITS[apiType] || 5;
+}
+
+// Normalize tool names: strip "-sub" suffix so paired calls share the same quota bucket
+function normalizeToolName(name) {
+  if (!name) return name;
+  return name.replace(/-sub$/, '');
 }
 
 function getKvPrefix(apiType, toolName) {
   // Per-tool prefix: e.g. "dfs:keyword-research" or "ai:schema-validator"
-  if (toolName) return `${apiType}:${toolName}`;
+  // Uses normalized name so "serp-overlap-sub" shares bucket with "serp-overlap"
+  var norm = normalizeToolName(toolName);
+  if (norm) return `${apiType}:${norm}`;
   return apiType; // fallback for old clients
 }
 
