@@ -396,7 +396,7 @@ function go(){
     document.getElementById('loading').style.display='none';
     document.getElementById('res').style.display='block';
     document.getElementById('serpResults').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';
-    if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
+    ;
   });
 }
 document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Ergebnisse kopieren'},1500)})});

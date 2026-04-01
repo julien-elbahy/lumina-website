@@ -584,7 +584,7 @@ function go(){
     document.getElementById('res').style.display='block';
     if(e.isQuota){
       document.getElementById('kwResults').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>';
-      if(window.luminaSettings)luminaSettings.upgradeHint('dfs');
+      ;
     }else{
       document.getElementById('kwResults').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
     }

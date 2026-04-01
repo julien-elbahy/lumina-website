@@ -481,7 +481,7 @@ document.getElementById('btnAiDetect').addEventListener('click',function(){
     if(_spAiKeywords[0]){document.getElementById('aiKwPrimary').value=_spAiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_spAiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
     spRenderChips()}catch(e){}
   })
-  .catch(function(e){document.getElementById('aiKwChips').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';document.getElementById('aiKwChips').style.display='block';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
+  .catch(function(e){document.getElementById('aiKwChips').innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';document.getElementById('aiKwChips').style.display='block'})
   .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-Erkennung'});
 });
 
@@ -527,7 +527,7 @@ document.getElementById('btnAiGenerate').addEventListener('click',function(){
       upd();b.textContent='✓ Angewendet';setTimeout(function(){b.textContent='Anwenden'},1500);
     })});
   })
-  .catch(function(e){out.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>';if(window.luminaSettings)luminaSettings.upgradeHint('ai')})
+  .catch(function(e){out.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Tageslimit erreicht</p>'})
   .finally(function(){btn.disabled=false;btn.textContent='✨ Generieren'});
 });
 if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
