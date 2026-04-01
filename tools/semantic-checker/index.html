@@ -318,6 +318,7 @@ function go(url){
   document.getElementById('loading').style.display='block';document.getElementById('res').style.display='none';
   btn.disabled=true;btn.textContent='Checking…';
   fetchWithFallback(url).then(function(data){
+    if(window.luminaQuota)window.luminaQuota.update('semantic-checker',data);
     btn.disabled=false;btn.textContent='Check Semantics';document.getElementById('loading').style.display='none';
     if(data.error){document.getElementById('res').style.display='block';document.getElementById('landmarks').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(data.error)+'</p></div>';return}
     analyze(data.html,url);
@@ -584,6 +585,7 @@ document.getElementById('btnAi').addEventListener('click',function(){
     messages:msgs,
     max_tokens:1500
   })}).then(function(res){return res.json()}).then(function(data){
+    if(window.luminaQuota)window.luminaQuota.update('semantic-checker',data);
     if(data.error)throw new Error(typeof data.error==='object'?JSON.stringify(data.error):data.error);
     var text=data.choices[0].message.content;
     var rawText=text;

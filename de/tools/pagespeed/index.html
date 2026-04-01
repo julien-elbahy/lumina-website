@@ -352,7 +352,7 @@ function go(url){
   ['mobile','desktop'].forEach(function(strategy){
     fetch('https://lumina-proxy.julien-elbahy.workers.dev/psi?url='+encodeURIComponent(url)+'&strategy='+strategy+'&categories=performance,accessibility,best-practices,seo')
     .then(function(r){return r.json()})
-    .then(function(data){results[strategy]=data;done++;if(done>=2)render()})
+    .then(function(data){if(window.luminaQuota)window.luminaQuota.update('pagespeed',data);results[strategy]=data;done++;if(done>=2)render()})
     .catch(function(e){results[strategy]={error:e.message};done++;if(done>=2)render()});
   });
   function render(){
@@ -571,6 +571,7 @@ document.getElementById('btnAI').addEventListener('click',async function(){
     if(key)headers['X-OAI-Key']=key;
     var aiResp=await fetch(AI_WORKER+'/ai',{method:'POST',headers:headers,body:JSON.stringify({model:'gpt-4.1',max_tokens:2000,messages:[{role:'system',content:systemPrompt},{role:'user',content:userPrompt}]})});
     var aiData=await aiResp.json();
+    if(window.luminaQuota)window.luminaQuota.update('pagespeed',aiData);
     if(aiData.error)throw new Error(aiData.error);
     var content=aiData.choices&&aiData.choices[0]&&aiData.choices[0].message?aiData.choices[0].message.content:'No analysis available.';
     var rawText=content;
