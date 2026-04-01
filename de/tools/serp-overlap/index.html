@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free SERP Overlap Checker – Keyword Cannibalization Detector","url":"https://lumina-seo.com/de/tools/serp-overlap/","description":"Google-Ergebnisse fuer zwei Keywords vergleichen. Ueberlappende Domains finden, um Keyword-Kannibalisierung zu erkennen und Content-Strategie zu planen.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"datePublished":"2026-03-29","dateModified":"2026-03-31","author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free SERP Overlap Checker – Keyword Cannibalization Detector","url":"https://lumina-seo.com/de/tools/serp-overlap/","description":"Google-Ergebnisse fuer zwei Keywords vergleichen. Ueberlappende Domains finden, um Keyword-Kannibalisierung zu erkennen und Content-Strategie zu planen.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"datePublished":"2026-03-29","dateModified":"2026-04-01","author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com"}}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -69,8 +69,17 @@
 .cmp-table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}.cmp-table th{padding:8px 6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border);text-align:left}.cmp-table th:first-child{text-align:center;width:32px}.cmp-table td{padding:7px 6px;border-bottom:1px solid var(--border);vertical-align:top;max-width:200px}.cmp-table td:first-child{text-align:center;font-weight:800;color:var(--muted);font-size:13px;vertical-align:middle}
 .cmp-table td.match-exact{background:var(--ok-bg)}.cmp-table td.match-other{background:var(--warn-bg)}.cmp-table td.match-none{background:transparent}
 .cmp-domain{font-weight:700;color:var(--text);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}.cmp-path{font-family:var(--mono);font-size:10px;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cmp-domain a{color:inherit;text-decoration:none}.cmp-domain a:hover{color:var(--accent)}
+.cmp-domain a{color:inherit;text-decoration:none}.cmp-domain a:hover{color:var(--accent);text-decoration:underline}
+.cmp-path a{color:var(--muted);text-decoration:none}.cmp-path a:hover{color:var(--accent);text-decoration:underline}
 .cmp-legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin:8px 0;flex-wrap:wrap}.cmp-legend-dot{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:4px}
+.d-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:4px;font-size:9px;margin-right:4px;flex-shrink:0;vertical-align:middle}
+.cmp-mode{display:flex;gap:4px;padding:3px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin:10px 0 4px}.cmp-mode button{background:0;border:0;padding:6px 12px;font-size:10px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:7px;transition:all .2s;letter-spacing:.3px;font-family:var(--font)}.cmp-mode button.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 8px var(--accent-glow)}.cmp-mode button:hover:not(.active){color:var(--text);background:var(--accent-soft)}
+/* SERP features comparison */
+.feat-grid{display:grid;grid-template-columns:1fr auto auto;gap:0;margin:12px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:12px}.feat-grid .fg-h{padding:8px 10px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);background:var(--card);border-bottom:1px solid var(--border)}.feat-grid .fg-c{padding:7px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center}.feat-grid .fg-c:last-child{border-bottom:0}.fg-name{font-weight:600;color:var(--text2)}.fg-yes{color:var(--ok);font-weight:700}.fg-no{color:var(--muted);font-size:10px}
+/* Intent tags */
+.intent-row{display:flex;gap:10px;margin:10px 0;align-items:center;flex-wrap:wrap}.intent-kw{font-size:12px;font-weight:700;color:var(--text);min-width:100px}.intent-tags{display:flex;gap:4px;flex-wrap:wrap}.i-tag{font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px;border:1px solid}.i-tag.info{background:rgba(100,140,255,.08);color:#6e9eff;border-color:rgba(100,140,255,.2)}.i-tag.comm{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.i-tag.local{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.i-tag.video{background:rgba(255,80,80,.08);color:#ff6b6b;border-color:rgba(255,80,80,.2)}.i-tag.nav{background:var(--accent-soft);color:var(--accent);border-color:rgba(236,165,80,.2)}
+/* PAA comparison */
+.paa-wrap{margin:12px 0}.paa-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:480px){.paa-cols{grid-template-columns:1fr}}.paa-col{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px}.paa-col h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}.paa-q{font-size:12px;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border);line-height:1.5}.paa-q:last-child{border-bottom:0}.paa-shared{margin-top:8px;padding:8px 10px;background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:8px}.paa-shared h4{color:var(--ok)}
 /* Score cards */
 .score-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.score-card{text-align:center;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card)}.score-card .sc-num{font-size:28px;font-weight:800;color:var(--accent)}.score-card .sc-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:2px}.score-card .sc-desc{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}
 .exp-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:8px}.exp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -273,7 +282,7 @@
 </div>
 
 <div class="ct" id="main-content">
-<div class="th"><div class="lb">Free SERP Tool</div><h1>SERP Overlap Checker</h1><p>Vergleiche Google-Suchergebnisse für zwei Keywords. Finde Domains, die für beide ranken — entscheidend für das Verständnis von Keyword-Kannibalisierung und Topic-Clustering.</p><div class="tool-updated">Zuletzt aktualisiert: März 2026</div></div>
+<div class="th"><div class="lb">Free SERP Tool</div><h1>SERP Overlap Checker</h1><p>Vergleiche Google-Suchergebnisse für zwei Keywords. Finde Domains, die für beide ranken — entscheidend für das Verständnis von Keyword-Kannibalisierung und Topic-Clustering.</p><div class="tool-updated">Zuletzt aktualisiert: April 2026</div></div>
 <div class="cd">
 <div class="kw-input"><input type="text" id="kw1" placeholder="Keyword 1…" style="flex:1"><input type="text" id="kw2" placeholder="Keyword 2…" style="flex:1"><button class="ab" id="btnGo">SERPs vergleichen</button></div>
 <div class="kw-input" style="margin-top:8px"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select><select id="langSelect" title="Suchsprache" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select></div>
@@ -283,6 +292,9 @@
 <div id="res" style="display:none">
 <div id="scoreCards"></div>
 <div id="overlapRec"></div>
+<div id="serpFeatures"></div>
+<div id="paaCompare"></div>
+<div id="intentAnalysis"></div>
 <div id="vennDiagram"></div>
 <div id="comparisonTable"></div>
 <div class="serp-toolbar"><button class="act-btn" id="btnCopy">📋 Bericht kopieren</button><button class="act-btn" id="btnExportCsv">📥 CSV Export</button></div>
@@ -344,9 +356,47 @@ var defaultLangMap={2032:'es',2036:'en',2040:'de',2056:'nl',2076:'pt',2100:'bg',
 document.getElementById('locSelect').addEventListener('change',function(){var lang=defaultLangMap[parseInt(this.value)];if(lang)document.getElementById('langSelect').value=lang});
 var kw1=document.getElementById('kw1'),kw2=document.getElementById('kw2'),btn=document.getElementById('btnGo');
 var lastReport='',lastCsvData=null,lastK1='',lastK2='';
+var compareMode='domain';
+var lastCompareData=null;
 
 btn.addEventListener('click',function(){go()});
 kw2.addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+
+/* SERP feature names */
+var featNames={'featured_snippet':'Featured Snippet','people_also_ask':'People Also Ask','local_pack':'Local Pack','knowledge_graph':'Knowledge Panel','images':'Image Pack','video':'Video','shopping':'Shopping','twitter':'Twitter/X','related_searches':'Related Searches','top_stories':'Top Stories','carousel':'Carousel','answer_box':'Answer Box'};
+
+/* Domain type icons */
+function domainIcon(domain){
+  if(/youtube\.com|youtu\.be/.test(domain))return '<span class="d-icon" style="background:rgba(255,0,0,.12);color:#ff4444" title="YouTube">&#9654;</span>';
+  if(/reddit\.com/.test(domain))return '<span class="d-icon" style="background:rgba(255,100,0,.1);color:#ff6600" title="Reddit">R</span>';
+  if(/facebook\.com|fb\.com/.test(domain))return '<span class="d-icon" style="background:rgba(66,103,178,.1);color:#4267b2" title="Facebook">f</span>';
+  if(/tiktok\.com/.test(domain))return '<span class="d-icon" style="background:rgba(0,0,0,.08);color:var(--text)" title="TikTok">T</span>';
+  if(/pinterest\.(com|at|de)/.test(domain))return '<span class="d-icon" style="background:rgba(230,0,35,.1);color:#e60023" title="Pinterest">P</span>';
+  if(/instagram\.com/.test(domain))return '<span class="d-icon" style="background:rgba(225,48,108,.1);color:#e1306c" title="Instagram">I</span>';
+  if(/linkedin\.com/.test(domain))return '<span class="d-icon" style="background:rgba(0,119,181,.1);color:#0077b5" title="LinkedIn">in</span>';
+  if(/wikipedia\.org/.test(domain))return '<span class="d-icon" style="background:rgba(100,100,100,.08);color:var(--muted)" title="Wikipedia">W</span>';
+  if(/amazon\.(com|de|at|co)/.test(domain))return '<span class="d-icon" style="background:rgba(255,153,0,.1);color:#ff9900" title="Amazon">a</span>';
+  return '';
+}
+
+/* Search intent detection */
+function detectIntent(features,organicItems){
+  var intents=[];
+  var hasFS=!!features['featured_snippet']||!!features['answer_box'];
+  var hasPAA=!!features['people_also_ask'];
+  var hasKG=!!features['knowledge_graph'];
+  var hasLP=!!features['local_pack'];
+  var hasShop=!!features['shopping'];
+  var hasVid=!!features['video'];
+  var vidDomains=0;
+  (organicItems||[]).forEach(function(i){if(/youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com/.test(i.url||''))vidDomains++});
+  if(hasLP)intents.push({label:'Lokal',cls:'local'});
+  if(hasShop)intents.push({label:'Kommerziell',cls:'comm'});
+  if(hasFS||hasPAA||hasKG)intents.push({label:'Informational',cls:'info'});
+  if(hasVid||vidDomains>=3)intents.push({label:'Video',cls:'video'});
+  if(!intents.length)intents.push({label:'Navigational',cls:'nav'});
+  return intents;
+}
 
 function drawVenn(pct,n1,n2,nOverlap,k1Label,k2Label){
   var sep=pct>=60?60:pct>=30?80:110;
@@ -370,7 +420,7 @@ function go(){
   var lang=document.getElementById('langSelect').value;
   document.getElementById('loading').style.display='block';
   document.getElementById('res').style.display='none';
-  btn.disabled=true;btn.textContent='Vergleiche…';
+  btn.disabled=true;btn.textContent='Vergleiche\u2026';
 
   var results={};var done=0;
   function check(){if(++done>=2)compare()}
@@ -378,115 +428,254 @@ function go(){
   [k1,k2].forEach(function(kw,idx){
     dfsPost('serp/google/organic/live/regular',[{keyword:kw,location_code:parseInt(loc),language_code:lang,depth:10}])
     .then(function(data){
-      var tasks=data.tasks||[];var items=[];
-      if(tasks.length&&tasks[0].result&&tasks[0].result.length)items=(tasks[0].result[0].items||[]).filter(function(i){return i.type==='organic'});
-      results[idx]=items;check();
-    }).catch(function(e){if(window.luminaSettings)luminaSettings.upgradeHint('dfs');results[idx]=[];check()});
+      var tasks=data.tasks||[];var allItems=[];
+      if(tasks.length&&tasks[0].result&&tasks[0].result.length)allItems=tasks[0].result[0].items||[];
+      var organic=allItems.filter(function(i){return i.type==='organic'});
+      var features={};
+      allItems.forEach(function(i){
+        if(i.type!=='organic'){
+          if(!features[i.type])features[i.type]=[];
+          features[i.type].push(i);
+        }
+      });
+      var paa=[];
+      allItems.forEach(function(i){
+        if(i.type==='people_also_ask'){
+          (i.items||[]).forEach(function(q){var t=q.title||q.question||'';if(t)paa.push(t)});
+        }
+      });
+      results[idx]={organic:organic,features:features,paa:paa};
+      check();
+    }).catch(function(e){if(window.luminaSettings)luminaSettings.upgradeHint('dfs');results[idx]={organic:[],features:{},paa:[]};check()});
   });
 
   function compare(){
     btn.disabled=false;btn.textContent='SERPs vergleichen';
     document.getElementById('loading').style.display='none';
 
-    var items1=results[0]||[],items2=results[1]||[];
-    function getDomain(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}}
-    function getPath(url,domain){try{var p=url.replace(/^https?:\/\/(www\.)?/,'').substring(domain.length);return p.length>35?p.substring(0,33)+'…':p}catch(e){return''}}
+    var data1=results[0]||{organic:[],features:{},paa:[]};
+    var data2=results[1]||{organic:[],features:{},paa:[]};
+    var items1=data1.organic,items2=data2.organic;
+    var feats1=data1.features,feats2=data2.features;
+    var paa1=data1.paa,paa2=data2.paa;
 
-    /* Build position-indexed arrays */
+    function getDomain(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}}
+    function getPath(url,domain){try{var p=url.replace(/^https?:\/\/(www\.)?/,'').substring(domain.length);return p.length>35?p.substring(0,33)+'\u2026':p}catch(e){return''}}
+
     var r1=[],r2=[];
     items1.forEach(function(i){r1.push({pos:i.rank_group,domain:getDomain(i.url),url:i.url,title:i.title})});
     items2.forEach(function(i){r2.push({pos:i.rank_group,domain:getDomain(i.url),url:i.url,title:i.title})});
 
-    var domains1={},domains2={};
-    r1.forEach(function(r){if(!domains1[r.domain])domains1[r.domain]=r});
-    r2.forEach(function(r){if(!domains2[r.domain])domains2[r.domain]=r});
+    lastCompareData={r1:r1,r2:r2,k1:k1,k2:k2,feats1:feats1,feats2:feats2,paa1:paa1,paa2:paa2,items1:items1,items2:items2,getDomain:getDomain,getPath:getPath};
 
-    var set1=Object.keys(domains1),set2=Object.keys(domains2);
-    var shared=set1.filter(function(d){return domains2[d]});
-    var allUnique=set1.concat(set2.filter(function(d){return !domains1[d]}));
-
-    /* Overlap Score */
-    var overlapScore=allUnique.length>0?Math.round(shared.length/allUnique.length*100):0;
-
-    /* Relevance Score (weighted by position) */
-    var maxWeight=0,weightedOverlap=0;
-    for(var i=1;i<=10;i++)maxWeight+=(11-i);
-    shared.forEach(function(d){
-      var p1=domains1[d]?domains1[d].pos:11;
-      var p2=domains2[d]?domains2[d].pos:11;
-      weightedOverlap+=(11-Math.min((p1+p2)/2,10));
-    });
-    var relevanceScore=maxWeight>0?Math.round(weightedOverlap/maxWeight*100):0;
-
-    /* Score Cards */
-    var scCol=overlapScore>=60?'var(--ok)':overlapScore>=30?'var(--warn)':'var(--err)';
-    var scHtml='<div class="score-cards"><div class="score-card"><div class="sc-num" style="color:'+scCol+'">'+overlapScore+'%</div><div class="sc-label">Overlap Score</div><div class="sc-desc">Domains die für beide Keywords ranken</div></div>';
-    scHtml+='<div class="score-card"><div class="sc-num" style="color:var(--accent)">'+relevanceScore+'%</div><div class="sc-label">Relevanz Score</div><div class="sc-desc">Gewichtet nach Position — Top 3 zählen mehr</div></div></div>';
-    document.getElementById('scoreCards').innerHTML=scHtml;
-
-    /* Recommendation */
-    var rec,recCls;
-    if(overlapScore>=60){rec='✅ Hohe Überlappung — eine Seite kann wahrscheinlich beide Keywords abdecken.';recCls='ok'}
-    else if(overlapScore>=30){rec='⚠️ Moderate Überlappung — teste zuerst mit einer Seite, trenne bei Bedarf.';recCls='warn'}
-    else{rec='❌ Niedrige Überlappung — erstelle separate Seiten für jedes Keyword.';recCls='err'}
-    document.getElementById('overlapRec').innerHTML='<div style="padding:10px 14px;margin:10px 0;border-radius:10px;font-size:13px;font-weight:700;background:var(--'+recCls+'-bg);border:1px solid var(--'+recCls+'-border);color:var(--'+recCls+')">'+rec+'</div>';
-
-    /* Venn diagram */
-    var only1Count=set1.length-shared.length,only2Count=set2.length-shared.length;
-    document.getElementById('vennDiagram').innerHTML=drawVenn(overlapScore,only1Count,only2Count,shared.length,k1,k2);
-
-    /* Side-by-side comparison table */
-    var tbl='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px">Top 10 Vergleich</div>';
-    tbl+='<div style="overflow-x:auto"><table class="cmp-table"><thead><tr><th>#</th><th>'+esc(k1)+'</th><th>'+esc(k2)+'</th></tr></thead><tbody>';
-    for(var pos=1;pos<=10;pos++){
-      var d1=r1.find(function(r){return r.pos===pos});
-      var d2=r2.find(function(r){return r.pos===pos});
-      var isMatch=d1&&d2&&d1.domain===d2.domain;
-      var d1InOther=d1&&domains2[d1.domain];
-      var d2InOther=d2&&domains1[d2.domain];
-      tbl+='<tr><td>'+pos+'</td>';
-      if(d1){
-        var cls1=isMatch?'match-exact':d1InOther?'match-other':'match-none';
-        tbl+='<td class="'+cls1+'"><span class="cmp-domain"><a href="'+esc(d1.url)+'" target="_blank" rel="noopener" title="'+esc(d1.url)+'">'+esc(d1.domain)+'</a></span><span class="cmp-path">'+esc(getPath(d1.url,d1.domain))+'</span></td>';
-      } else tbl+='<td style="color:var(--muted)">—</td>';
-      if(d2){
-        var cls2=isMatch?'match-exact':d2InOther?'match-other':'match-none';
-        tbl+='<td class="'+cls2+'"><span class="cmp-domain"><a href="'+esc(d2.url)+'" target="_blank" rel="noopener" title="'+esc(d2.url)+'">'+esc(d2.domain)+'</a></span><span class="cmp-path">'+esc(getPath(d2.url,d2.domain))+'</span></td>';
-      } else tbl+='<td style="color:var(--muted)">—</td>';
-      tbl+='</tr>';
-    }
-    tbl+='</tbody></table></div>';
-    tbl+='<div class="cmp-legend"><span><span class="cmp-legend-dot" style="background:var(--ok-bg);border:1px solid var(--ok-border)"></span> Gleiche Position</span>';
-    tbl+='<span><span class="cmp-legend-dot" style="background:var(--warn-bg);border:1px solid var(--warn-border)"></span> Rankt auch für anderes Keyword</span></div>';
-    document.getElementById('comparisonTable').innerHTML=tbl;
-
-    /* Cross-tool links */
-    document.getElementById('crossLinks').innerHTML='<a href="/de/tools/keyword-research/?kw='+encodeURIComponent(k1)+'">🔑 Recherche "'+esc(k1)+'"</a><a href="/de/tools/keyword-research/?kw='+encodeURIComponent(k2)+'">🔑 Recherche "'+esc(k2)+'"</a><a href="/de/tools/serp-checker/?kw='+encodeURIComponent(k1)+'">📊 SERP "'+esc(k1)+'"</a>';
-
-    /* Report */
-    lastReport='SERP Overlap: "'+k1+'" vs "'+k2+'"\nOverlap Score: '+overlapScore+'%\nRelevanz Score: '+relevanceScore+'%\n'+rec+'\n\nTop 10 Vergleich:\n';
-    lastReport+='#  | '+k1+' | '+k2+'\n';
-    for(var p=1;p<=10;p++){
-      var d1=r1.find(function(r){return r.pos===p});
-      var d2=r2.find(function(r){return r.pos===p});
-      lastReport+=p+'  | '+(d1?d1.domain:'—')+' | '+(d2?d2.domain:'—')+'\n';
-    }
-    lastReport+='\nGemeinsame Domains ('+shared.length+'):\n';
-    shared.forEach(function(d){lastReport+='  '+d+' (#'+domains1[d].pos+' / #'+domains2[d].pos+')\n'});
-    lastCsvData={r1:r1,r2:r2,shared:shared,domains1:domains1,domains2:domains2,k1:k1,k2:k2};
-
-    document.getElementById('res').style.display='block';
+    renderComparison();
   }
 }
-document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='✓ Kopiert!';setTimeout(function(){b.textContent='📋 Bericht kopieren'},1500)})});
+
+function renderComparison(){
+  var d=lastCompareData;if(!d)return;
+  var r1=d.r1,r2=d.r2,k1=d.k1,k2=d.k2;
+  var feats1=d.feats1,feats2=d.feats2,paa1=d.paa1,paa2=d.paa2;
+
+  function getDomain(url){try{return new URL(url).hostname.replace(/^www\./,'')}catch(e){return url}}
+  function getPath(url,domain){try{var p=url.replace(/^https?:\/\/(www\.)?/,'').substring(domain.length);return p.length>35?p.substring(0,33)+'\u2026':p}catch(e){return''}}
+
+  var map1={},map2={};
+  if(compareMode==='url'){
+    r1.forEach(function(r){if(!map1[r.url])map1[r.url]=r});
+    r2.forEach(function(r){if(!map2[r.url])map2[r.url]=r});
+  } else {
+    r1.forEach(function(r){if(!map1[r.domain])map1[r.domain]=r});
+    r2.forEach(function(r){if(!map2[r.domain])map2[r.domain]=r});
+  }
+
+  var set1=Object.keys(map1),set2=Object.keys(map2);
+  var shared=set1.filter(function(k){return map2[k]});
+  var allUnique=set1.concat(set2.filter(function(k){return !map1[k]}));
+
+  var overlapScore=allUnique.length>0?Math.round(shared.length/allUnique.length*100):0;
+
+  var maxWeight=0,weightedOverlap=0;
+  for(var i=1;i<=10;i++)maxWeight+=(11-i);
+  shared.forEach(function(k){
+    var p1=map1[k]?map1[k].pos:11;
+    var p2=map2[k]?map2[k].pos:11;
+    weightedOverlap+=(11-Math.min((p1+p2)/2,10));
+  });
+  var relevanceScore=maxWeight>0?Math.round(weightedOverlap/maxWeight*100):0;
+
+  var modeLabel=compareMode==='url'?'URLs':'Domains';
+  var scCol=overlapScore>=60?'var(--ok)':overlapScore>=30?'var(--warn)':'var(--err)';
+  var scHtml='<div class="score-cards"><div class="score-card"><div class="sc-num" style="color:'+scCol+'">'+overlapScore+'%</div><div class="sc-label">Overlap Score</div><div class="sc-desc">'+modeLabel+' die f\u00fcr beide Keywords ranken</div></div>';
+  scHtml+='<div class="score-card"><div class="sc-num" style="color:var(--accent)">'+relevanceScore+'%</div><div class="sc-label">Relevanz Score</div><div class="sc-desc">Gewichtet nach Position \u2014 Top 3 z\u00e4hlen mehr</div></div></div>';
+  document.getElementById('scoreCards').innerHTML=scHtml;
+
+  var rec,recCls;
+  if(overlapScore>=60){rec='\u2705 Hohe \u00dcberlappung \u2014 eine Seite kann wahrscheinlich beide Keywords abdecken.';recCls='ok'}
+  else if(overlapScore>=30){rec='\u26a0\ufe0f Moderate \u00dcberlappung \u2014 teste zuerst mit einer Seite, trenne bei Bedarf.';recCls='warn'}
+  else{rec='\u274c Niedrige \u00dcberlappung \u2014 erstelle separate Seiten f\u00fcr jedes Keyword.';recCls='err'}
+  document.getElementById('overlapRec').innerHTML='<div style="padding:10px 14px;margin:10px 0;border-radius:10px;font-size:13px;font-weight:700;background:var(--'+recCls+'-bg);border:1px solid var(--'+recCls+'-border);color:var(--'+recCls+')">'+rec+'</div>';
+
+  /* SERP-Funktionen */
+  var allFeatKeys={};
+  Object.keys(feats1).forEach(function(k){allFeatKeys[k]=true});
+  Object.keys(feats2).forEach(function(k){allFeatKeys[k]=true});
+  var featKeysSorted=Object.keys(allFeatKeys).sort();
+  var sfHtml='';
+  if(featKeysSorted.length){
+    sfHtml='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px">SERP-Funktionen</div>';
+    sfHtml+='<div class="feat-grid">';
+    sfHtml+='<div class="fg-h">Funktion</div><div class="fg-h" style="text-align:center">'+esc(k1)+'</div><div class="fg-h" style="text-align:center">'+esc(k2)+'</div>';
+    featKeysSorted.forEach(function(fk){
+      if(fk==='related_searches')return;
+      var label=featNames[fk]||fk;
+      var has1=!!feats1[fk],has2=!!feats2[fk];
+      sfHtml+='<div class="fg-c fg-name">'+esc(label)+'</div>';
+      sfHtml+='<div class="fg-c" style="justify-content:center">'+(has1?'<span class="fg-yes">\u2705</span>':'<span class="fg-no">\u2014</span>')+'</div>';
+      sfHtml+='<div class="fg-c" style="justify-content:center">'+(has2?'<span class="fg-yes">\u2705</span>':'<span class="fg-no">\u2014</span>')+'</div>';
+    });
+    sfHtml+='</div>';
+  }
+  document.getElementById('serpFeatures').innerHTML=sfHtml;
+
+  /* Nutzer fragen auch */
+  var paaHtml='';
+  if(paa1.length||paa2.length){
+    var paaShared=[],paaOnly1=[],paaOnly2=[];
+    var paa2Lower=paa2.map(function(q){return q.toLowerCase()});
+    var paa1Lower=paa1.map(function(q){return q.toLowerCase()});
+    paa1.forEach(function(q){
+      if(paa2Lower.indexOf(q.toLowerCase())>=0)paaShared.push(q);
+      else paaOnly1.push(q);
+    });
+    paa2.forEach(function(q){
+      if(paa1Lower.indexOf(q.toLowerCase())<0)paaOnly2.push(q);
+    });
+    paaHtml='<div class="paa-wrap"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px">Nutzer fragen auch</div>';
+    if(paaShared.length){
+      paaHtml+='<div class="paa-shared"><h4>Gemeinsame Fragen ('+paaShared.length+')</h4>';
+      paaShared.forEach(function(q){paaHtml+='<div class="paa-q">\u2705 '+esc(q)+'</div>'});
+      paaHtml+='</div>';
+    }
+    paaHtml+='<div class="paa-cols">';
+    if(paaOnly1.length){
+      paaHtml+='<div class="paa-col"><h4>Nur '+esc(k1)+' ('+paaOnly1.length+')</h4>';
+      paaOnly1.forEach(function(q){paaHtml+='<div class="paa-q">'+esc(q)+'</div>'});
+      paaHtml+='</div>';
+    }
+    if(paaOnly2.length){
+      paaHtml+='<div class="paa-col"><h4>Nur '+esc(k2)+' ('+paaOnly2.length+')</h4>';
+      paaOnly2.forEach(function(q){paaHtml+='<div class="paa-q">'+esc(q)+'</div>'});
+      paaHtml+='</div>';
+    }
+    paaHtml+='</div></div>';
+  }
+  document.getElementById('paaCompare').innerHTML=paaHtml;
+
+  /* Suchintention */
+  var intent1=detectIntent(feats1,d.items1);
+  var intent2=detectIntent(feats2,d.items2);
+  var intHtml='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin:14px 0 6px">Suchintention</div>';
+  intHtml+='<div class="intent-row"><span class="intent-kw">'+esc(k1)+'</span><span class="intent-tags">';
+  intent1.forEach(function(t){intHtml+='<span class="i-tag '+t.cls+'">'+t.label+'</span>'});
+  intHtml+='</span></div>';
+  intHtml+='<div class="intent-row"><span class="intent-kw">'+esc(k2)+'</span><span class="intent-tags">';
+  intent2.forEach(function(t){intHtml+='<span class="i-tag '+t.cls+'">'+t.label+'</span>'});
+  intHtml+='</span></div>';
+  document.getElementById('intentAnalysis').innerHTML=intHtml;
+
+  /* Venn */
+  var only1Count=set1.length-shared.length,only2Count=set2.length-shared.length;
+  document.getElementById('vennDiagram').innerHTML=drawVenn(overlapScore,only1Count,only2Count,shared.length,k1,k2);
+
+  /* Top 10 Vergleich mit Modus-Toggle */
+  var tbl='<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin:14px 0 4px">';
+  tbl+='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)">Top 10 Vergleich</div>';
+  tbl+='<div class="cmp-mode"><button id="mDomain" class="'+(compareMode==='domain'?'active':'')+'">Domain</button><button id="mUrl" class="'+(compareMode==='url'?'active':'')+'">URL</button></div>';
+  tbl+='</div>';
+  tbl+='<div style="overflow-x:auto"><table class="cmp-table"><thead><tr><th>#</th><th>'+esc(k1)+'</th><th>'+esc(k2)+'</th></tr></thead><tbody>';
+  for(var pos=1;pos<=10;pos++){
+    var d1=r1.find(function(r){return r.pos===pos});
+    var d2=r2.find(function(r){return r.pos===pos});
+    var matchKey1=d1?(compareMode==='url'?d1.url:d1.domain):'';
+    var matchKey2=d2?(compareMode==='url'?d2.url:d2.domain):'';
+    var isMatch=d1&&d2&&matchKey1===matchKey2;
+    var d1InOther=d1&&map2[matchKey1];
+    var d2InOther=d2&&map1[matchKey2];
+    tbl+='<tr><td>'+pos+'</td>';
+    if(d1){
+      var cls1=isMatch?'match-exact':d1InOther?'match-other':'match-none';
+      tbl+='<td class="'+cls1+'"><span class="cmp-domain">'+domainIcon(d1.domain)+'<a href="'+esc(d1.url)+'" target="_blank" rel="noopener" title="'+esc(d1.url)+'">'+esc(d1.domain)+'</a></span><span class="cmp-path"><a href="'+esc(d1.url)+'" target="_blank" rel="noopener">'+esc(getPath(d1.url,d1.domain))+'</a></span></td>';
+    } else tbl+='<td style="color:var(--muted)">\u2014</td>';
+    if(d2){
+      var cls2=isMatch?'match-exact':d2InOther?'match-other':'match-none';
+      tbl+='<td class="'+cls2+'"><span class="cmp-domain">'+domainIcon(d2.domain)+'<a href="'+esc(d2.url)+'" target="_blank" rel="noopener" title="'+esc(d2.url)+'">'+esc(d2.domain)+'</a></span><span class="cmp-path"><a href="'+esc(d2.url)+'" target="_blank" rel="noopener">'+esc(getPath(d2.url,d2.domain))+'</a></span></td>';
+    } else tbl+='<td style="color:var(--muted)">\u2014</td>';
+    tbl+='</tr>';
+  }
+  tbl+='</tbody></table></div>';
+  tbl+='<div class="cmp-legend"><span><span class="cmp-legend-dot" style="background:var(--ok-bg);border:1px solid var(--ok-border)"></span> Gleiche Position</span>';
+  tbl+='<span><span class="cmp-legend-dot" style="background:var(--warn-bg);border:1px solid var(--warn-border)"></span> Rankt auch f\u00fcr anderes Keyword</span></div>';
+  document.getElementById('comparisonTable').innerHTML=tbl;
+
+  document.getElementById('mDomain').addEventListener('click',function(){compareMode='domain';renderComparison()});
+  document.getElementById('mUrl').addEventListener('click',function(){compareMode='url';renderComparison()});
+
+  /* Cross-tool links */
+  document.getElementById('crossLinks').innerHTML='<a href="/de/tools/keyword-research/?kw='+encodeURIComponent(k1)+'">\ud83d\udd11 Recherche "'+esc(k1)+'"</a><a href="/de/tools/keyword-research/?kw='+encodeURIComponent(k2)+'">\ud83d\udd11 Recherche "'+esc(k2)+'"</a><a href="/de/tools/serp-checker/?kw='+encodeURIComponent(k1)+'">\ud83d\udcca SERP "'+esc(k1)+'"</a>';
+
+  /* Bericht */
+  lastReport='SERP Overlap: "'+k1+'" vs "'+k2+'" ('+compareMode+'-Ebene)\nOverlap Score: '+overlapScore+'%\nRelevanz Score: '+relevanceScore+'%\n'+rec+'\n';
+  var allFK=Object.keys(feats1).concat(Object.keys(feats2)).filter(function(v,i,a){return a.indexOf(v)===i&&v!=='related_searches'});
+  if(allFK.length){
+    lastReport+='\nSERP-Funktionen:\n';
+    allFK.forEach(function(fk){
+      var label=featNames[fk]||fk;
+      lastReport+='  '+label+': '+(feats1[fk]?'KW1 ja':'KW1 nein')+' | '+(feats2[fk]?'KW2 ja':'KW2 nein')+'\n';
+    });
+  }
+  var intent1=detectIntent(feats1,d.items1),intent2=detectIntent(feats2,d.items2);
+  lastReport+='\nSuchintention:\n  '+k1+': '+intent1.map(function(t){return t.label}).join(', ')+'\n  '+k2+': '+intent2.map(function(t){return t.label}).join(', ')+'\n';
+  if(paa1.length||paa2.length){
+    lastReport+='\nNutzer fragen auch:\n';
+    if(paa1.length){lastReport+='  '+k1+':\n';paa1.forEach(function(q){lastReport+='    - '+q+'\n'})}
+    if(paa2.length){lastReport+='  '+k2+':\n';paa2.forEach(function(q){lastReport+='    - '+q+'\n'})}
+  }
+  lastReport+='\nTop 10 Vergleich:\n';
+  lastReport+='#  | '+k1+' | '+k2+'\n';
+  for(var p=1;p<=10;p++){
+    var d1=r1.find(function(r){return r.pos===p});
+    var d2=r2.find(function(r){return r.pos===p});
+    lastReport+=p+'  | '+(d1?d1.domain+' '+d1.url:'\u2014')+' | '+(d2?d2.domain+' '+d2.url:'\u2014')+'\n';
+  }
+  lastReport+='\nGemeinsame '+modeLabel+' ('+shared.length+'):\n';
+  shared.forEach(function(k){lastReport+='  '+k+' (#'+map1[k].pos+' / #'+map2[k].pos+')\n'});
+  lastCsvData={r1:r1,r2:r2,shared:shared,map1:map1,map2:map2,k1:k1,k2:k2,feats1:feats1,feats2:feats2,paa1:paa1,paa2:paa2,intent1:intent1,intent2:intent2};
+
+  document.getElementById('res').style.display='block';
+}
+
+document.getElementById('btnCopy').addEventListener('click',function(){navigator.clipboard.writeText(lastReport).then(function(){var b=document.getElementById('btnCopy');b.textContent='\u2713 Kopiert!';setTimeout(function(){b.textContent='\ud83d\udccb Bericht kopieren'},1500)})});
 document.getElementById('btnExportCsv').addEventListener('click',function(){
   if(!lastCsvData)return;var d=lastCsvData;
   var csv='Position,"'+d.k1+' Domain","'+d.k1+' URL","'+d.k2+' Domain","'+d.k2+' URL",Match\n';
   for(var p=1;p<=10;p++){
     var d1=d.r1.find(function(r){return r.pos===p});
     var d2=d.r2.find(function(r){return r.pos===p});
-    var match=d1&&d2&&d1.domain===d2.domain?'Exact':d1&&d.domains2[d1.domain]?'In both':'';
+    var mk1=d1?(compareMode==='url'?d1.url:d1.domain):'';
+    var mk2=d2?(compareMode==='url'?d2.url:d2.domain):'';
+    var match=d1&&d2&&mk1===mk2?'Exact':d1&&d.map2[mk1]?'In both':'';
     csv+=p+',"'+(d1?d1.domain:'')+'","'+(d1?d1.url:'')+'","'+(d2?d2.domain:'')+'","'+(d2?d2.url:'')+'","'+match+'"\n';
+  }
+  csv+='\nSERP-Funktionen\nFunktion,"'+d.k1+'","'+d.k2+'"\n';
+  var allFK=Object.keys(d.feats1).concat(Object.keys(d.feats2)).filter(function(v,i,a){return a.indexOf(v)===i&&v!=='related_searches'});
+  allFK.forEach(function(fk){csv+='"'+(featNames[fk]||fk)+'","'+(d.feats1[fk]?'Ja':'Nein')+'","'+(d.feats2[fk]?'Ja':'Nein')+'"\n'});
+  csv+='\nSuchintention\n"'+d.k1+'","'+d.intent1.map(function(t){return t.label}).join(', ')+'"\n';
+  csv+='"'+d.k2+'","'+d.intent2.map(function(t){return t.label}).join(', ')+'"\n';
+  if(d.paa1.length||d.paa2.length){
+    csv+='\nNutzer fragen auch\n"'+d.k1+'","'+d.k2+'"\n';
+    var maxPaa=Math.max(d.paa1.length,d.paa2.length);
+    for(var i=0;i<maxPaa;i++){csv+='"'+(d.paa1[i]||'')+'","'+(d.paa2[i]||'')+'"\n'}
   }
   var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='serp-overlap-'+lastK1.replace(/\s+/g,'-')+'-vs-'+lastK2.replace(/\s+/g,'-')+'.csv';a.click()
 });
