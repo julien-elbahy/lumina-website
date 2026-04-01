@@ -161,6 +161,7 @@ async function checkDailyLimit(prefix, ip, kv, limit, origin, toolName) {
     return jsonResponse({
       error: `Daily limit reached (${limit}). Provide your own API key for unlimited access.`,
       limit, used: usage, needsKey: true, tool: toolName || null,
+      _lumina: { remaining: 0, limit, ownKey: false, tool: toolName || null },
     }, 429, origin);
   }
   return null; // OK
