@@ -196,11 +196,42 @@ function wireDfs(){
 
 var GSC_CLIENT_ID='128725149604-7fjs4kr00b43bhq9jnsr0slr1fcd1fl9.apps.googleusercontent.com';
 var GSC_SCOPES='https://www.googleapis.com/auth/webmasters.readonly';
+var GSC_WORKER='https://lumina-proxy.julien-elbahy.workers.dev/gsc-token';
+
+/* ── PKCE helpers ── */
+function gscGenVerifier(){var a=new Uint8Array(32);crypto.getRandomValues(a);return btoa(String.fromCharCode.apply(null,a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function gscGenChallenge(v){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(h){return btoa(String.fromCharCode.apply(null,new Uint8Array(h))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')})}
+
+/* ── Token refresh (via Worker) ── */
+window.luminaGscRefresh=function(cb){
+  var rt=localStorage.getItem('lumina_gsc_refresh');
+  if(!rt){if(cb)cb(null);return}
+  fetch(GSC_WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({grant_type:'refresh_token',refresh_token:rt})})
+    .then(function(r){return r.json()}).then(function(d){
+      if(d.access_token){
+        localStorage.setItem('lumina_gsc_token',d.access_token);
+        localStorage.setItem('lumina_gsc_expiry',String(Date.now()+(d.expires_in||3600)*1000));
+        if(cb)cb(d.access_token);
+      }else{
+        localStorage.removeItem('lumina_gsc_token');localStorage.removeItem('lumina_gsc_expiry');localStorage.removeItem('lumina_gsc_refresh');
+        if(cb)cb(null);
+      }
+    }).catch(function(){if(cb)cb(null)});
+};
+
+/* Auto-refresh on page load if token is expired but refresh token exists */
+(function(){
+  var token=localStorage.getItem('lumina_gsc_token');
+  var expiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+  var refresh=localStorage.getItem('lumina_gsc_refresh');
+  if(refresh&&(!token||Date.now()>expiry-60000)){window.luminaGscRefresh()}
+})();
 
 function gscRow(){
   var gscToken=localStorage.getItem('lumina_gsc_token');
   var gscExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
-  var connected=!!gscToken&&Date.now()<gscExpiry;
+  var gscRefresh=localStorage.getItem('lumina_gsc_refresh');
+  var connected=(!!gscToken&&Date.now()<gscExpiry)||!!gscRefresh;
   if(!connected){
     return '<div class="ls-section">'+
       '<div class="ls-row-header"><span class="ls-label">'+T.gscLabel+'</span><span class="ls-badge off" id="lsGscBadge">'+T.gscNot+'</span></div>'+
@@ -222,7 +253,11 @@ function wireGsc(){
     connectBtn.addEventListener('click',function(){
       var redirect=window.location.origin+'/auth-handler/';
       var state=encodeURIComponent(window.location.pathname);
-      window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=token&scope='+encodeURIComponent(GSC_SCOPES)+'&state='+state+'&prompt=consent';
+      var verifier=gscGenVerifier();
+      sessionStorage.setItem('lumina_gsc_verifier',verifier);
+      gscGenChallenge(verifier).then(function(challenge){
+        window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=code&scope='+encodeURIComponent(GSC_SCOPES)+'&state='+state+'&prompt=consent&access_type=offline&code_challenge='+encodeURIComponent(challenge)+'&code_challenge_method=S256';
+      });
     });
   }
 
@@ -230,6 +265,7 @@ function wireGsc(){
     disconnectBtn.addEventListener('click',function(){
       localStorage.removeItem('lumina_gsc_token');
       localStorage.removeItem('lumina_gsc_expiry');
+      localStorage.removeItem('lumina_gsc_refresh');
       localStorage.removeItem('lumina_gsc_site');
       var badge=document.getElementById('lsGscBadge');
       badge.textContent=T.gscNot;badge.className='ls-badge off';

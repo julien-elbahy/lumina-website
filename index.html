@@ -611,34 +611,43 @@ updateQuotaUI();
 /* ── GSC check ── */
 function aaiGscOk(){
   var token=localStorage.getItem('lumina_gsc_token');
-  var expiry=localStorage.getItem('lumina_gsc_expiry');
-  if(!token||!expiry)return false;
-  return parseInt(expiry)>Date.now();
+  var expiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+  if(token&&expiry>Date.now())return true;
+  return !!localStorage.getItem('lumina_gsc_refresh');
+}
+function aaiGetGscToken(cb){
+  var token=localStorage.getItem('lumina_gsc_token');
+  var expiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+  if(token&&expiry>Date.now()+60000){cb(token);return}
+  if(window.luminaGscRefresh){window.luminaGscRefresh(function(t){cb(t||null)})}
+  else{cb(null)}
 }
 function updateGscUI(){
   if(!_gscEl)return;
   if(aaiGscOk()){
-    var token=localStorage.getItem('lumina_gsc_token');
     _gscEl.innerHTML='<span class="aai-gsc-dot on"></span><span class="aai-gsc-label">GSC:</span> <select id="aaiGscSite" aria-label="GSC site"><option>…</option></select>';
     var sel=document.getElementById('aaiGscSite');
-    fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
-      .then(function(r){return r.json()})
-      .then(function(data){
-        var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
-        if(!sites.length){sel.innerHTML='<option>No properties</option>';return}
-        var saved=localStorage.getItem('lumina_gsc_site')||'';
-        sel.innerHTML='';
-        sites.forEach(function(s){
-          var opt=document.createElement('option');
-          opt.value=s;
-          opt.textContent=s.replace(/^sc-domain:/,'').replace(/^https?:\/\//,'').replace(/\/$/,'');
-          if(s===saved)opt.selected=true;
-          sel.appendChild(opt);
-        });
-        if(!saved||sites.indexOf(saved)===-1)localStorage.setItem('lumina_gsc_site',sites[0]);
-        sel.addEventListener('change',function(){localStorage.setItem('lumina_gsc_site',sel.value)});
-      })
-      .catch(function(){sel.innerHTML='<option>Error</option>'});
+    aaiGetGscToken(function(token){
+      if(!token){sel.innerHTML='<option>Token expired</option>';return}
+      fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
+        .then(function(r){return r.json()})
+        .then(function(data){
+          var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
+          if(!sites.length){sel.innerHTML='<option>No properties</option>';return}
+          var saved=localStorage.getItem('lumina_gsc_site')||'';
+          sel.innerHTML='';
+          sites.forEach(function(s){
+            var opt=document.createElement('option');
+            opt.value=s;
+            opt.textContent=s.replace(/^sc-domain:/,'').replace(/^https?:\/\//,'').replace(/\/$/,'');
+            if(s===saved)opt.selected=true;
+            sel.appendChild(opt);
+          });
+          if(!saved||sites.indexOf(saved)===-1)localStorage.setItem('lumina_gsc_site',sites[0]);
+          sel.addEventListener('change',function(){localStorage.setItem('lumina_gsc_site',sel.value)});
+        })
+        .catch(function(){sel.innerHTML='<option>Error</option>'});
+    });
   }else{
     _gscEl.innerHTML='<a class="aai-gsc-link" href="javascript:void(0)" onclick="luminaSettings&&luminaSettings.open()"><span class="aai-gsc-dot off"></span> GSC not connected</a>';
   }
@@ -802,38 +811,76 @@ function aaiPageCtx(url,cb){
     .catch(function(){cb('')});
 }
 
-/* ── GSC queries ── */
+/* ── GSC data (queries + pages + totals) ── */
 function aaiGscQueries(cb){
   if(!aaiGscOk()){cb('');return}
-  var token=localStorage.getItem('lumina_gsc_token');
   var savedSite=localStorage.getItem('lumina_gsc_site')||'';
 
-  function queryGsc(siteUrl){
-    var end=new Date();var start=new Date();start.setDate(end.getDate()-28);
-    fetch('https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query',{
-      method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},
-      body:JSON.stringify({startDate:start.toISOString().slice(0,10),endDate:end.toISOString().slice(0,10),dimensions:['query'],rowLimit:20,type:'web'})
-    }).then(function(r){return r.json()}).then(function(d){
-      if(!d.rows||!d.rows.length){cb('');return}
-      var txt='\u2550\u2550 GSC QUERIES for '+siteUrl+' (last 28 days) \u2550\u2550\n';
-      d.rows.forEach(function(row){
-        txt+='"'+row.keys[0]+'" \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
-      });
-      cb(txt+'\n');
-    }).catch(function(){cb('')});
-  }
+  aaiGetGscToken(function(token){
+    if(!token){cb('');return}
+    if(savedSite){fetchGsc(token,savedSite);return}
+    fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
+      .then(function(r){return r.json()})
+      .then(function(data){
+        var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
+        if(!sites.length){cb('');return}
+        localStorage.setItem('lumina_gsc_site',sites[0]);
+        fetchGsc(token,sites[0]);
+      })
+      .catch(function(){cb('')});
+  });
 
-  if(savedSite){queryGsc(savedSite);return}
-  /* Fallback: fetch sites list and use first */
-  fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
-    .then(function(r){return r.json()})
-    .then(function(data){
-      var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
-      if(!sites.length){cb('');return}
-      localStorage.setItem('lumina_gsc_site',sites[0]);
-      queryGsc(sites[0]);
-    })
-    .catch(function(){cb('')});
+  function fetchGsc(token,siteUrl){
+    var end=new Date();var start=new Date();start.setDate(end.getDate()-28);
+    var sd=start.toISOString().slice(0,10),ed=end.toISOString().slice(0,10);
+    var base='https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query';
+    var hdrs={'Authorization':'Bearer '+token,'Content-Type':'application/json'};
+
+    /* Fetch 3 dimensions in parallel: queries (top 50), pages (top 30), date series */
+    var results={};var pending=3;
+    function done(){pending--;if(pending>0)return;
+      var txt='\u2550\u2550 GSC DATA for '+siteUrl+' (last 28 days) \u2550\u2550\n\n';
+
+      /* Aggregated totals from date series */
+      var dates=results.dates||[];
+      if(dates.length){
+        var totC=0,totI=0,posSum=0;
+        dates.forEach(function(r){totC+=r.clicks;totI+=r.impressions;posSum+=r.position});
+        var avgCtr=totI>0?(totC/totI*100):0;
+        var avgPos=dates.length>0?(posSum/dates.length):0;
+        txt+='TOTALS: '+totC+' clicks, '+totI+' impressions, CTR '+avgCtr.toFixed(1)+'%, avg position '+avgPos.toFixed(1)+'\n\n';
+      }
+
+      /* Top queries */
+      var queries=results.queries||[];
+      if(queries.length){
+        txt+='TOP QUERIES (by clicks):\n';
+        queries.forEach(function(row){
+          txt+='"'+row.keys[0]+'" \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
+        });
+        txt+='\n';
+      }
+
+      /* Top pages */
+      var pages=results.pages||[];
+      if(pages.length){
+        txt+='TOP PAGES (by clicks):\n';
+        pages.forEach(function(row){
+          txt+=row.keys[0]+' \u2014 clicks:'+row.clicks+', impressions:'+row.impressions+', CTR:'+(row.ctr*100).toFixed(1)+'%, pos:'+row.position.toFixed(1)+'\n';
+        });
+        txt+='\n';
+      }
+
+      cb(txt.length>80?txt:'');
+    }
+
+    fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify({startDate:sd,endDate:ed,dimensions:['query'],rowLimit:50,type:'web'})})
+      .then(function(r){return r.json()}).then(function(d){results.queries=(d.rows||[])}).catch(function(){results.queries=[]}).finally(done);
+    fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify({startDate:sd,endDate:ed,dimensions:['page'],rowLimit:30,type:'web'})})
+      .then(function(r){return r.json()}).then(function(d){results.pages=(d.rows||[])}).catch(function(){results.pages=[]}).finally(done);
+    fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify({startDate:sd,endDate:ed,dimensions:['date'],rowLimit:500,type:'web'})})
+      .then(function(r){return r.json()}).then(function(d){results.dates=(d.rows||[])}).catch(function(){results.dates=[]}).finally(done);
+  }
 }
 
 /* ── DataForSEO helpers ── */

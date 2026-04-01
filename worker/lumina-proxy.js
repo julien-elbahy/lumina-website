@@ -817,11 +817,79 @@ export default {
     }
 
     // ══════════════════════════════════════════════════════════
+    // /gsc-token — Exchange auth code or refresh token for GSC tokens
+    // ══════════════════════════════════════════════════════════
+    if (url.pathname === '/gsc-token') {
+      if (!checkOrigin(origin, referer)) return jsonResponse({ error: 'Forbidden' }, 403, origin);
+      if (request.method !== 'POST') return jsonResponse({ error: 'POST required' }, 405, origin);
+
+      const clientId = env.GSC_CLIENT_ID;
+      const clientSecret = env.GSC_CLIENT_SECRET;
+      if (!clientId || !clientSecret) return jsonResponse({ error: 'GSC not configured' }, 500, origin);
+
+      try {
+        const body = await request.json();
+        const { grant_type, code, refresh_token, redirect_uri, code_verifier } = body;
+
+        if (grant_type === 'authorization_code') {
+          if (!code || !redirect_uri) return jsonResponse({ error: 'Missing code or redirect_uri' }, 400, origin);
+          const params = new URLSearchParams({
+            grant_type: 'authorization_code',
+            code,
+            redirect_uri,
+            client_id: clientId,
+            client_secret: clientSecret,
+          });
+          if (code_verifier) params.set('code_verifier', code_verifier);
+
+          const resp = await fetch('https://oauth2.googleapis.com/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString(),
+          });
+          const data = await resp.json();
+          if (data.error) return jsonResponse({ error: data.error_description || data.error }, 400, origin);
+          return jsonResponse({
+            access_token: data.access_token,
+            refresh_token: data.refresh_token || null,
+            expires_in: data.expires_in || 3600,
+          }, 200, origin);
+        }
+
+        if (grant_type === 'refresh_token') {
+          if (!refresh_token) return jsonResponse({ error: 'Missing refresh_token' }, 400, origin);
+          const params = new URLSearchParams({
+            grant_type: 'refresh_token',
+            refresh_token,
+            client_id: clientId,
+            client_secret: clientSecret,
+          });
+
+          const resp = await fetch('https://oauth2.googleapis.com/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString(),
+          });
+          const data = await resp.json();
+          if (data.error) return jsonResponse({ error: data.error_description || data.error }, 400, origin);
+          return jsonResponse({
+            access_token: data.access_token,
+            expires_in: data.expires_in || 3600,
+          }, 200, origin);
+        }
+
+        return jsonResponse({ error: 'Invalid grant_type' }, 400, origin);
+      } catch (err) {
+        return jsonResponse({ error: 'Token exchange failed: ' + err.message }, 502, origin);
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════
     // 404
     // ══════════════════════════════════════════════════════════
     return jsonResponse({
       error: 'Not found',
-      endpoints: ['/fetch', '/check', '/headers', '/deep', '/scrape', '/links', '/markdown', '/screenshot', '/redirect', '/dfs', '/ai', '/psi'],
+      endpoints: ['/fetch', '/check', '/headers', '/deep', '/scrape', '/links', '/markdown', '/screenshot', '/redirect', '/dfs', '/ai', '/psi', '/gsc-token'],
     }, 404, origin);
   },
 };
