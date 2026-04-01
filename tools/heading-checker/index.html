@@ -290,6 +290,7 @@
 <div id="loading" style="display:none"><div class="skel w30"></div><div class="skel w90"></div><div class="skel w50"></div><div class="skel w70"></div></div>
 <div id="res" style="display:none"></div>
 </div>
+<div id="lq_heading-checker" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 credits today</div>
 <div id="crossLinks" style="display:none"></div>
 <div class="content">
 <h2>Why heading structure matters</h2>
@@ -423,7 +424,7 @@ html+='<div class="cross-links"><a href="/tools/meta-tag-analyzer/?url='+encodeU
 /* AI section */
 html+='<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">Heading Optimizer</h2><p class="ai-card-desc">Get AI suggestions to improve your heading structure for SEO and readability.</p></div><div class="ai-card-body"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center"><button class="ai-btn" id="btnAiHeadings" style="font-size:11px;padding:8px 14px">✨ Optimize Headings with AI</button></div></div><div id="aiResult" class="ai-results" style="display:none"></div></div>';
 document.getElementById('res').innerHTML=html;document.getElementById('res').style.display='block';
-if(window.luminaQuota){luminaQuota.createBar('heading-checker',document.querySelector('.cd'));var _el=document.getElementById('lq_heading-checker');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 credits today';_el.style.color='var(--muted)'}}
+if(window.luminaQuota)luminaQuota.createBar('heading-checker',document.querySelector('.cd'))
 /* Bind events */
 document.getElementById('btnCopyOutline').addEventListener('click',function(){
   var txt=headings.map(function(h){return '  '.repeat(h.l-1)+'H'+h.l+': '+h.t}).join('\n');

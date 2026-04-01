@@ -319,6 +319,7 @@ select option{background:var(--bg2);color:var(--text);padding:8px 12px;font-size
 <div id="clusterWrap" style="display:none"></div>
 </div>
 </div>
+<div id="lq_keyword-research" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">5/5 Credits heute</div>
 <div id="settingsHintDfs"></div>
 <!-- Mapping Table -->
 <div id="mapWrap" style="display:none">
@@ -895,7 +896,7 @@ async function fetchGscQueries(){
 // Init column toggles
 renderColToggles();
 if(window.luminaSettings)luminaSettings.createHint('dfs',document.getElementById('settingsHintDfs'));
-if(window.luminaQuota){luminaQuota.createBar('keyword-research',document.querySelectorAll('#main-content>.cd')[1]);var _el=document.getElementById('lq_keyword-research');if(_el&&!_el.textContent.trim()){_el.textContent='5/5 Credits heute';_el.style.color='var(--muted)'}}
+if(window.luminaQuota)luminaQuota.createBar('keyword-research',document.querySelectorAll('#main-content>.cd')[1])
 
 function renderCrossLinks(){
 var links=[];

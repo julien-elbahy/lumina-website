@@ -323,17 +323,22 @@ window.luminaQuota={
     el.style.color=r<=1?'var(--err)':r<=Math.ceil(l/3)?'var(--warn)':'var(--muted)';
   },
   // Create a quota display element below the container (card)
-  createBar:function(tool,container){
+  // If element with id lq_TOOL already exists in HTML, reuse it instead of creating new one
+  // defaultLimit: if provided, shows "X/X credits today" when no stored data exists
+  createBar:function(tool,container,defaultLimit){
     if(!container)return null;
-    var el=document.createElement('div');
-    el.id='lq_'+tool;
-    el.style.cssText='font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;transition:color .3s';
-    // Insert after the container (below the card) instead of inside it
-    if(container.nextSibling)container.parentNode.insertBefore(el,container.nextSibling);
-    else container.parentNode.appendChild(el);
-    // Load stored quota on page load
+    var el=document.getElementById('lq_'+tool);
+    if(!el){
+      el=document.createElement('div');
+      el.id='lq_'+tool;
+      el.style.cssText='font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;transition:color .3s';
+      if(container.nextSibling)container.parentNode.insertBefore(el,container.nextSibling);
+      else container.parentNode.appendChild(el);
+    }
+    // Load stored quota on page load — overrides HTML default if data exists
     var d=this.get(tool);
-    if(d)this._render(tool);
+    if(d){this._render(tool)}
+    else if(defaultLimit){el.textContent=defaultLimit+'/'+defaultLimit+(isDE?' Credits heute':' credits today');el.style.color='var(--muted)'}
     return el;
   }
 };

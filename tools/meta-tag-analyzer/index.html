@@ -345,6 +345,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 </div>
 <div id="settingsHintAi"></div>
 </div>
+<div id="lq_meta-analyzer" style="font-size:11px;text-align:right;margin-top:4px;padding-right:4px;font-family:var(--mono);min-height:16px;color:var(--muted)">10/10 credits today</div>
 <div id="crossLinks" style="display:none"></div>
 <div style="margin-top:32px">
 <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">How this tool works</h2>
@@ -548,7 +549,7 @@ function renderAll(d){
   _lastAnalysis=d;
   document.getElementById('aiSection').style.display='block';
   if(window.luminaSettings)luminaSettings.createHint('ai',document.getElementById('settingsHintAi'));
-  if(window.luminaQuota){luminaQuota.createBar('meta-analyzer',document.querySelector('.cd'));var _el=document.getElementById('lq_meta-analyzer');if(_el&&!_el.textContent.trim()){_el.textContent='10/10 credits today';_el.style.color='var(--muted)'}}
+  if(window.luminaQuota)luminaQuota.createBar('meta-analyzer',document.querySelector('.cd'))
   document.getElementById('aiResults').innerHTML='';
 }
 
