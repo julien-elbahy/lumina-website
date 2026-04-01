@@ -457,7 +457,8 @@ document.addEventListener('DOMContentLoaded',function(){
     // Panel — appended to body to escape backdrop-filter stacking contexts
     var panel=document.createElement('div');panel.className='cs-panel';
     var hasSearch=sel.options.length>6;
-    panel.innerHTML=(hasSearch?'<input class="cs-search" placeholder="'+(isDE?'Suchen…':'Search…')+'" type="text" autocomplete="off">':'')+'<div class="cs-opts"></div>';
+    var csLabel=sel.getAttribute('aria-label')||(isDE?'Suchen':'Search');
+    panel.innerHTML=(hasSearch?'<input class="cs-search" placeholder="'+(isDE?'Suchen…':'Search…')+'" type="text" autocomplete="off" aria-label="'+csLabel+'">':'')+'<div class="cs-opts"></div>';
     document.body.appendChild(panel);
     var searchIn=panel.querySelector('.cs-search');
     var optBox=panel.querySelector('.cs-opts');
