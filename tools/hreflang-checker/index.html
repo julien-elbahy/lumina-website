@@ -171,6 +171,7 @@
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
 .tool-updated{font-size:12px;color:var(--muted);margin-top:6px}
+.mode-toggle{display:flex;align-items:center;gap:6px;margin-bottom:10px}.mt-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.mt-btn{background:var(--card);border:1px solid var(--border);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);border-radius:9px;transition:all .2s;font-family:var(--font);white-space:nowrap;line-height:1}.mt-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--accent-glow)}.mt-btn:hover:not(.active){color:var(--text);border-color:var(--accent)}
 .score-ring{width:80px;height:80px;position:relative;display:flex;align-items:center;justify-content:center}.score-ring svg{transform:rotate(-90deg)}.score-ring .score-val{position:absolute;font-size:22px;font-weight:800;color:var(--text)}.score-ring .score-label{position:absolute;bottom:-2px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
 .batch-row{padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;font-size:13px}.batch-row:hover{background:var(--accent-soft)}.batch-row-head{display:flex;align-items:center;gap:8px}.batch-row-url{font-family:var(--mono);font-size:11px;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.batch-row-badges{display:flex;gap:4px;flex-shrink:0}.batch-row-detail{display:none;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:8px}.batch-row.open .batch-row-detail{display:block}.batch-row-arrow{color:var(--muted);font-size:12px;transition:transform .2s;flex-shrink:0}.batch-row.open .batch-row-arrow{transform:rotate(90deg)}
 </style>
@@ -259,10 +260,7 @@
 <div class="ct" id="main-content">
 <div class="th"><div class="lb">Free SEO Tool</div><h1>hreflang Checker</h1><p>Validate hreflang tags on any page or check your entire sitemap at once. Verify reciprocal return links, detect missing self-references, and find implementation issues across all language versions.</p><div class="tool-updated">Last updated: April 2026</div></div>
 <div class="cd">
-<div class="filters" id="modeToggle" style="margin-bottom:10px">
-<button class="fbtn active" data-mode="single">Single URL</button>
-<button class="fbtn" data-mode="sitemap">Sitemap</button>
-</div>
+<div class="mode-toggle" id="modeToggle"><span class="mt-label">Check:</span><button class="mt-btn active" data-mode="single">🔗 Single page</button><button class="mt-btn" data-mode="sitemap">🗺️ Entire sitemap</button></div>
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Check hreflang</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <!-- Single URL results -->
@@ -368,9 +366,9 @@ function normalizeUrl(u){try{var o=new URL(u);return(o.origin+o.pathname).replac
 var VALID_LANGS=/^(x-default|[a-z]{2,3}(-[a-zA-Z]{2,4})?)$/;
 
 // ── Mode toggle ──
-document.querySelectorAll('#modeToggle .fbtn').forEach(function(b){
+document.querySelectorAll('#modeToggle .mt-btn').forEach(function(b){
   b.addEventListener('click',function(){
-    document.querySelectorAll('#modeToggle .fbtn').forEach(function(x){x.classList.remove('active')});
+    document.querySelectorAll('#modeToggle .mt-btn').forEach(function(x){x.classList.remove('active')});
     b.classList.add('active');
     mode=b.getAttribute('data-mode');
     document.getElementById('res').style.display='none';
@@ -665,10 +663,9 @@ var SITEMAP_PATHS=['/sitemap.xml','/sitemap_index.xml','/sitemap/sitemap.xml','/
 
 function discoverSitemap(url){
   var origin;
-  try{origin=new URL(url).origin}catch(e){return Promise.resolve(url)}
-  if(/\.xml(\?|$)/i.test(url))return Promise.resolve(url);
+  try{origin=new URL(url).origin}catch(e){return Promise.resolve([url])}
+  if(/\.xml(\?|$)/i.test(url))return Promise.resolve([url]);
   var prog=document.getElementById('batchProgressText');
-  // Step 1: Check robots.txt for Sitemap: directives
   prog.textContent='Checking robots.txt…';
   return fetch(W+'/fetch?url='+encodeURIComponent(origin+'/robots.txt'),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
   .then(function(r){return r.json()})
@@ -682,22 +679,20 @@ function discoverSitemap(url){
     });
     if(sitemaps.length>0){
       prog.textContent='Found '+sitemaps.length+' sitemap'+(sitemaps.length>1?'s':'')+' in robots.txt';
-      return sitemaps[0];
+      return sitemaps;
     }
     throw new Error('none');
   })
   .catch(function(){
-    // Step 2: Try common sitemap paths
     prog.textContent='Trying common sitemap paths…';
-    var queue=SITEMAP_PATHS.slice();var found=null;var tried=0;
+    var queue=SITEMAP_PATHS.slice();var found=[];var tried=0;
     return new Promise(function(resolve,reject){
       function tryNext(){
-        if(found||queue.length===0){
-          if(found)resolve(found);
+        if(queue.length===0){
+          if(found.length)resolve(found);
           else reject(new Error('No sitemap found. Tried robots.txt and '+SITEMAP_PATHS.length+' common paths.'));
           return;
         }
-        // Check 3 paths in parallel
         var batch=queue.splice(0,3);
         Promise.all(batch.map(function(p){
           return fetch(W+'/fetch?url='+encodeURIComponent(origin+p),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
@@ -706,7 +701,8 @@ function discoverSitemap(url){
             tried++;
             prog.textContent='Trying common paths… ('+tried+'/'+SITEMAP_PATHS.length+')';
             if(!data.error&&data.html&&(data.html.indexOf('<urlset')!==-1||data.html.indexOf('<sitemapindex')!==-1)){
-              if(!found){found=origin+p;prog.textContent='Found sitemap at '+p}
+              found.push(origin+p);
+              prog.textContent='Found sitemap at '+p;
             }
           })
           .catch(function(){tried++});
@@ -736,9 +732,10 @@ function goSitemap(url){
   // Reset batch metrics
   ['bmTotal','bmWith','bmWithout','bmIssues','bmLangs'].forEach(function(id){document.getElementById(id).textContent='0'});
 
-  discoverSitemap(url).then(function(sitemapUrl){
-    document.getElementById('batchProgressText').textContent='Fetching '+sitemapUrl+'…';
-    return fetchSitemapUrls(sitemapUrl);
+  discoverSitemap(url).then(function(sitemapUrls){
+    document.getElementById('batchProgressText').textContent='Fetching '+sitemapUrls.length+' sitemap'+(sitemapUrls.length>1?'s':'')+'…';
+    return Promise.all(sitemapUrls.map(function(su){return fetchSitemapUrls(su).catch(function(){return[]})}))
+    .then(function(arrays){var merged=[];arrays.forEach(function(a){a.forEach(function(u){if(merged.indexOf(u)<0)merged.push(u)})});return merged});
   }).then(function(urls){
     document.getElementById('loading').style.display='none';
     if(!urls.length){
@@ -992,7 +989,7 @@ var params=new URLSearchParams(window.location.search);
 if(params.get('url')){
   urlIn.value=params.get('url');
   if(params.get('mode')==='sitemap'){
-    document.querySelectorAll('#modeToggle .fbtn').forEach(function(b){b.classList.remove('active');if(b.getAttribute('data-mode')==='sitemap')b.classList.add('active')});
+    document.querySelectorAll('#modeToggle .mt-btn').forEach(function(b){b.classList.remove('active');if(b.getAttribute('data-mode')==='sitemap')b.classList.add('active')});
     mode='sitemap';btn.textContent='Check Sitemap';urlIn.placeholder='https://example.com or sitemap.xml URL';
     goSitemap(params.get('url'));
   }else{go(params.get('url'));}
