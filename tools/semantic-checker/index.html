@@ -435,7 +435,7 @@ function analyze(html,pageUrl){
   var emptyBtns=0;doc.querySelectorAll('button').forEach(function(b){if(!b.textContent.trim()&&!b.getAttribute('aria-label'))emptyBtns++});
   if(emptyBtns>0){issues.push({t:'Buttons without text ('+emptyBtns+')',d:'Add visible text or aria-label to all buttons.',s:'warn'});score-=Math.min(emptyBtns*2,6)}
   if(!langAttr){issues.push({t:'Missing lang attribute',d:'Add lang="..." to <html> for accessibility and SEO.',s:'err'});score-=5}
-  if(!skipLink){issues.push({t:'No skip link',d:'Add a "skip to content" link for keyboard navigation.',s:'info'});score-=2}
+  if(!skipLink){issues.push({t:'Recommendation: Consider adding a skip link',d:'A "skip to content" link improves keyboard navigation (WCAG 2.4.1). Low impact for small navs.',s:'info'})}
   if(imgNoAlt>0){issues.push({t:'Images missing ALT ('+imgNoAlt+')',d:'All images need alt text for accessibility.',s:'warn'});score-=Math.min(imgNoAlt*2,10)}
   if(unlabeled>0){issues.push({t:'Form inputs without labels ('+unlabeled+')',d:'Associate <label> with each form control.',s:'warn'});score-=Math.min(unlabeled*3,9)}
   var divCount=doc.querySelectorAll('div').length,spanCount=doc.querySelectorAll('span').length;

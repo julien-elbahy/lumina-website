@@ -434,7 +434,7 @@ function analyze(html,pageUrl){
   var emptyBtns=0;doc.querySelectorAll('button').forEach(function(b){if(!b.textContent.trim()&&!b.getAttribute('aria-label'))emptyBtns++});
   if(emptyBtns>0){issues.push({t:'Buttons ohne Text ('+emptyBtns+')',d:'Füge sichtbaren Text oder aria-label zu allen Buttons hinzu.',s:'warn'});score-=Math.min(emptyBtns*2,6)}
   if(!langAttr){issues.push({t:'Fehlendes lang-Attribut',d:'Füge lang="..." zum <html>-Tag für Barrierefreiheit und SEO hinzu.',s:'err'});score-=5}
-  if(!skipLink){issues.push({t:'Kein Skip-Link',d:'Füge einen „Zum Inhalt springen"-Link für Tastaturnavigation hinzu.',s:'info'});score-=2}
+  if(!skipLink){issues.push({t:'Empfehlung: Skip-Link hinzufügen',d:'Ein „Zum Inhalt springen"-Link verbessert die Tastaturnavigation (WCAG 2.4.1). Geringer Impact bei kleinen Navigationen.',s:'info'})}
   if(imgNoAlt>0){issues.push({t:'Bilder ohne ALT ('+imgNoAlt+')',d:'Alle Bilder brauchen Alt-Text für Barrierefreiheit.',s:'warn'});score-=Math.min(imgNoAlt*2,10)}
   if(unlabeled>0){issues.push({t:'Formularfelder ohne Labels ('+unlabeled+')',d:'Verknüpfe <label> mit jedem Formularelement.',s:'warn'});score-=Math.min(unlabeled*3,9)}
   var divCount=doc.querySelectorAll('div').length,spanCount=doc.querySelectorAll('span').length;
