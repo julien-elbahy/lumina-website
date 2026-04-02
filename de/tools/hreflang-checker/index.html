@@ -963,8 +963,9 @@ function renderBatchList(){
 }
 
 document.getElementById('batchList').addEventListener('click',function(e){
-  var head=e.target.closest('.batch-row-head');
-  if(head){head.parentElement.classList.toggle('open')}
+  if(e.target.closest('a'))return;
+  var row=e.target.closest('.batch-row');
+  if(row)row.classList.toggle('open');
 });
 
 // ── Batch Copy / CSV ──
