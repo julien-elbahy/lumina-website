@@ -615,7 +615,7 @@ document.getElementById('btnReturn').addEventListener('click',function(){
       document.getElementById('returnProgress').textContent=done+' / '+targets.length+' geprüft';
       if(done===targets.length){
         btnR.disabled=false;btnR.textContent='↻ Return-Links erneut prüfen';
-        document.getElementById('returnProgress').innerHTML='Return-Links: '+ok+' OK'+(fail?' · <span style="color:var(--err)">'+fail+' fehlen</span>':'')+(errs?' · '+errs+' Fehler':'');
+        document.getElementById('returnProgress').textContent='';
         renderIssues();
         renderScoreRing(calcScore(hlData,allIssues,hlData.some(function(h){return normalizeUrl(h.href)===currentNorm}),hlData.some(function(h){return h.lang==='x-default'})));
       }
