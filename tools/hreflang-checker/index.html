@@ -893,6 +893,7 @@ function processBatch(urls,onDone){
           });
         }
         function onResult(){
+          active--;done++;
           var pct=Math.round(done/total*100);
           document.getElementById('batchProgressText').textContent='Checking '+done+' / '+total+' URLs…';
           document.getElementById('batchProgressPct').textContent=pct+'%';
