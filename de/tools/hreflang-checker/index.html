@@ -658,10 +658,14 @@ document.getElementById('btnReport').addEventListener('click',function(){
 // ── SITEMAP BATCH MODE ──
 // ══════════════════════════════
 // ── Sitemap automatisch finden ──
+var SITEMAP_PATHS=['/sitemap.xml','/sitemap_index.xml','/sitemap/sitemap.xml','/wp-sitemap.xml','/sitemap/index.xml','/sitemaps/sitemap.xml','/post-sitemap.xml','/page-sitemap.xml','/sitemap1.xml'];
+
 function discoverSitemap(url){
   var origin;
   try{origin=new URL(url).origin}catch(e){return Promise.resolve(url)}
   if(/\.xml(\?|$)/i.test(url))return Promise.resolve(url);
+  var prog=document.getElementById('batchProgressText');
+  prog.textContent='Prüfe robots.txt…';
   return fetch(W+'/fetch?url='+encodeURIComponent(origin+'/robots.txt'),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
   .then(function(r){return r.json()})
   .then(function(data){
@@ -673,14 +677,37 @@ function discoverSitemap(url){
       if(m)sitemaps.push(m[1].trim());
     });
     if(sitemaps.length>0){
-      document.getElementById('batchProgressText').textContent=sitemaps.length+' Sitemap'+(sitemaps.length>1?'s':'')+' in robots.txt gefunden';
+      prog.textContent=sitemaps.length+' Sitemap'+(sitemaps.length>1?'s':'')+' in robots.txt gefunden';
       return sitemaps[0];
     }
-    throw new Error('Keine Sitemap in robots.txt');
+    throw new Error('none');
   })
   .catch(function(){
-    document.getElementById('batchProgressText').textContent='Versuche '+origin+'/sitemap.xml…';
-    return origin+'/sitemap.xml';
+    prog.textContent='Prüfe gängige Sitemap-Pfade…';
+    var queue=SITEMAP_PATHS.slice();var found=null;var tried=0;
+    return new Promise(function(resolve,reject){
+      function tryNext(){
+        if(found||queue.length===0){
+          if(found)resolve(found);
+          else reject(new Error('Keine Sitemap gefunden. robots.txt und '+SITEMAP_PATHS.length+' gängige Pfade geprüft.'));
+          return;
+        }
+        var batch=queue.splice(0,3);
+        Promise.all(batch.map(function(p){
+          return fetch(W+'/fetch?url='+encodeURIComponent(origin+p),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
+          .then(function(r){return r.json()})
+          .then(function(data){
+            tried++;
+            prog.textContent='Prüfe gängige Pfade… ('+tried+'/'+SITEMAP_PATHS.length+')';
+            if(!data.error&&data.html&&(data.html.indexOf('<urlset')!==-1||data.html.indexOf('<sitemapindex')!==-1)){
+              if(!found){found=origin+p;prog.textContent='Sitemap gefunden: '+p}
+            }
+          })
+          .catch(function(){tried++});
+        })).then(tryNext);
+      }
+      tryNext();
+    });
   });
 }
 
@@ -728,8 +755,9 @@ function goSitemap(url){
   }).catch(function(e){
     document.getElementById('loading').style.display='none';
     btn.disabled=false;btn.textContent='Sitemap prüfen';
-    document.getElementById('batchProgressText').textContent='Fehler beim Laden der Sitemap';
-    document.getElementById('batchList').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
+    document.getElementById('batchProgressText').textContent='Sitemap nicht gefunden';
+    var isNotFound=e.message&&e.message.indexOf('Keine Sitemap gefunden')>=0;
+    document.getElementById('batchList').innerHTML='<div class="error-msg"><div class="icon">'+(isNotFound?'🔍':'⚠️')+'</div><p>'+esc(e.message)+'</p>'+(isNotFound?'<p style="margin-top:8px;font-size:12px;color:var(--muted)">Gib die Sitemap-URL direkt ein, z.B. <code>example.com/sitemap.xml</code></p>':'')+'</div>';
   });
 }
 

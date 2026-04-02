@@ -661,12 +661,15 @@ document.getElementById('btnReport').addEventListener('click',function(){
 // ── SITEMAP BATCH MODE ──
 // ══════════════════════════════
 // ── Auto-discover sitemap URL ──
+var SITEMAP_PATHS=['/sitemap.xml','/sitemap_index.xml','/sitemap/sitemap.xml','/wp-sitemap.xml','/sitemap/index.xml','/sitemaps/sitemap.xml','/post-sitemap.xml','/page-sitemap.xml','/sitemap1.xml'];
+
 function discoverSitemap(url){
   var origin;
   try{origin=new URL(url).origin}catch(e){return Promise.resolve(url)}
-  // If URL already looks like a sitemap XML, use it directly
   if(/\.xml(\?|$)/i.test(url))return Promise.resolve(url);
-  // Try robots.txt first to find Sitemap: directives
+  var prog=document.getElementById('batchProgressText');
+  // Step 1: Check robots.txt for Sitemap: directives
+  prog.textContent='Checking robots.txt…';
   return fetch(W+'/fetch?url='+encodeURIComponent(origin+'/robots.txt'),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
   .then(function(r){return r.json()})
   .then(function(data){
@@ -678,15 +681,39 @@ function discoverSitemap(url){
       if(m)sitemaps.push(m[1].trim());
     });
     if(sitemaps.length>0){
-      document.getElementById('batchProgressText').textContent='Found '+sitemaps.length+' sitemap'+(sitemaps.length>1?'s':'')+' in robots.txt';
-      return sitemaps[0]; // Use first sitemap found
+      prog.textContent='Found '+sitemaps.length+' sitemap'+(sitemaps.length>1?'s':'')+' in robots.txt';
+      return sitemaps[0];
     }
-    throw new Error('No Sitemap in robots.txt');
+    throw new Error('none');
   })
   .catch(function(){
-    // Fallback: try /sitemap.xml directly
-    document.getElementById('batchProgressText').textContent='Trying '+origin+'/sitemap.xml…';
-    return origin+'/sitemap.xml';
+    // Step 2: Try common sitemap paths
+    prog.textContent='Trying common sitemap paths…';
+    var queue=SITEMAP_PATHS.slice();var found=null;var tried=0;
+    return new Promise(function(resolve,reject){
+      function tryNext(){
+        if(found||queue.length===0){
+          if(found)resolve(found);
+          else reject(new Error('No sitemap found. Tried robots.txt and '+SITEMAP_PATHS.length+' common paths.'));
+          return;
+        }
+        // Check 3 paths in parallel
+        var batch=queue.splice(0,3);
+        Promise.all(batch.map(function(p){
+          return fetch(W+'/fetch?url='+encodeURIComponent(origin+p),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
+          .then(function(r){return r.json()})
+          .then(function(data){
+            tried++;
+            prog.textContent='Trying common paths… ('+tried+'/'+SITEMAP_PATHS.length+')';
+            if(!data.error&&data.html&&(data.html.indexOf('<urlset')!==-1||data.html.indexOf('<sitemapindex')!==-1)){
+              if(!found){found=origin+p;prog.textContent='Found sitemap at '+p}
+            }
+          })
+          .catch(function(){tried++});
+        })).then(tryNext);
+      }
+      tryNext();
+    });
   });
 }
 
@@ -735,8 +762,9 @@ function goSitemap(url){
   }).catch(function(e){
     document.getElementById('loading').style.display='none';
     btn.disabled=false;btn.textContent='Check Sitemap';
-    document.getElementById('batchProgressText').textContent='Error fetching sitemap';
-    document.getElementById('batchList').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>'+esc(e.message)+'</p></div>';
+    document.getElementById('batchProgressText').textContent='Sitemap not found';
+    var isNotFound=e.message&&e.message.indexOf('No sitemap found')>=0;
+    document.getElementById('batchList').innerHTML='<div class="error-msg"><div class="icon">'+(isNotFound?'🔍':'⚠️')+'</div><p>'+esc(e.message)+'</p>'+(isNotFound?'<p style="margin-top:8px;font-size:12px;color:var(--muted)">Try entering the sitemap URL directly, e.g. <code>example.com/sitemap.xml</code></p>':'')+'</div>';
   });
 }
 
