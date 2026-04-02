@@ -225,7 +225,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
 <div class="content" id="main-content">
 <h1>Datenschutzerklärung</h1>
-<p class="date">Letzte Aktualisierung: 23. März 2026</p>
+<p class="date">Letzte Aktualisierung: 2. April 2026</p>
 <p>Lumina – SEO & GEO ("Lumina", "die Extension") ist eine Chrome-Browser-Extension, erstellt von Julien El-Bahy. Diese Datenschutzerklärung erklärt, wie die Extension mit Ihren Daten umgeht.</p>
 <h2>Datenerhebung</h2>
 <p>Lumina erhebt, überträgt oder speichert <strong>keine</strong> personenbezogenen Daten auf externen Servern. Die Extension verwendet keine Analyse-Tools, Tracking-Skripte oder Werbung jeglicher Art.</p>
@@ -269,6 +269,15 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <li><code>clipboardWrite</code> — Text/Daten in die Zwischenablage kopieren</li>
 <li><code>downloads</code> — Screenshots und CSV-Dateien exportieren</li>
 </ul>
+<h2>Datenweitergabe</h2>
+<p>Lumina <strong>verkauft, vermietet, tauscht oder teilt</strong> Ihre personenbezogenen Daten nicht mit Dritten. Es erfolgt keine Datenweitergabe zu Werbe-, Marketing- oder Analysezwecken.</p>
+<p>Die einzigen Datenübertragungen, die stattfinden:</p>
+<ul>
+<li>API-Anfragen, die Sie explizit auslösen (z.B. Keyword-Recherche, KI-Content-Analyse), werden direkt von Ihrem Browser an den jeweiligen API-Anbieter gesendet (Google, OpenAI oder DataForSEO).</li>
+<li>Google OAuth-Tokens werden direkt zwischen Ihrem Browser und Googles Authentifizierungsservern ausgetauscht.</li>
+</ul>
+<p>Lumina betreibt keinen Backend-Server und keine Datenbank. Es findet keinerlei serverseitige Datenerhebung oder -verarbeitung statt.</p>
+
 <h2>Drittanbieter-Dienste</h2>
 <p>Bei Nutzung API-verbundener Features werden Daten an folgende Drittanbieter gesendet:</p>
 <ul>
@@ -276,12 +285,44 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <li><a href="https://openai.com/privacy/" target="_blank">OpenAI (KI-Content-Tools)</a></li>
 <li><a href="https://dataforseo.com/privacy-policy" target="_blank">DataForSEO (Keyword-Recherche, SERP-Daten)</a></li>
 </ul>
+<p>Diese Dienste werden nur kontaktiert, wenn Sie aktiv ein Feature nutzen, das sie erfordert. Es werden keine Daten im Hintergrund oder ohne Ihr Wissen gesendet.</p>
+
+<h2>Datenspeicherung und Löschung</h2>
+<p>Alle von Lumina gespeicherten Daten befinden sich lokal auf Ihrem Gerät im Chrome-Speicher. Die Aufbewahrungsfristen sind wie folgt:</p>
+<ul>
+<li><strong>Einstellungen und API-Schlüssel:</strong> Gespeichert bis Sie diese manuell entfernen oder die Extension deinstallieren.</li>
+<li><strong>Zwischengespeicherte Keyword-Daten:</strong> Gespeichert bis Sie den Cache über die Einstellungen leeren oder die Extension deinstallieren.</li>
+<li><strong>OAuth Access-Tokens:</strong> Im Session Storage gespeichert und werden beim Schließen des Browsers automatisch gelöscht.</li>
+<li><strong>OAuth Refresh-Tokens:</strong> Gespeichert bis Sie das Konto über die Einstellungen trennen oder die Extension deinstallieren.</li>
+</ul>
+<p>Sie können alle gespeicherten Daten jederzeit über die Option "Alle Daten zurücksetzen" in den Einstellungen der Extension löschen. Die Deinstallation der Extension entfernt ebenfalls alle lokal gespeicherten Daten.</p>
+
+<h2>Datensicherheit</h2>
+<p>Lumina schützt Ihre Daten durch folgende Maßnahmen:</p>
+<ul>
+<li>Alle Daten werden lokal auf Ihrem Gerät gespeichert, unter Verwendung von Chromes integrierten Storage-APIs, die sandboxed und für andere Extensions oder Websites nicht zugänglich sind.</li>
+<li>API-Schlüssel werden niemals in URLs exponiert oder an andere Server als den vorgesehenen API-Anbieter übertragen.</li>
+<li>Alle API-Kommunikation erfolgt über HTTPS-Verschlüsselung.</li>
+<li>OAuth-Tokens sind auf Lesezugriff beschränkt, um das Risiko zu minimieren.</li>
+<li>Es werden keine Daten auf externen Servern geloggt, zwischengespeichert oder gespeichert.</li>
+</ul>
+
+<h2>Ihre Rechte</h2>
+<p>Sie haben jederzeit volle Kontrolle über Ihre Daten:</p>
+<ul>
+<li><strong>Auskunft:</strong> Alle gespeicherten Daten sind im Einstellungsbereich der Extension einsehbar.</li>
+<li><strong>Löschung:</strong> Nutzen Sie "Alle Daten zurücksetzen" in den Einstellungen, um alle gespeicherten Daten zu löschen, oder trennen Sie einzelne Dienste.</li>
+<li><strong>Datenübertragbarkeit:</strong> Da alle Daten lokal gespeichert werden, verbleiben sie jederzeit auf Ihrem Gerät.</li>
+<li><strong>Widerruf:</strong> Sie können den Google OAuth-Zugriff jederzeit über die Einstellungen oder über <a href="https://myaccount.google.com/permissions" target="_blank">Googles Kontoberechtigungsseite</a> widerrufen.</li>
+</ul>
+<p>Als Einwohner der Europäischen Union stehen Ihnen Rechte gemäß der DSGVO zu, einschließlich des Rechts auf Auskunft, Berichtigung, Löschung und Datenübertragbarkeit. Da Lumina keine personenbezogenen Daten auf externen Servern erhebt oder speichert, werden diese Rechte durch das oben beschriebene lokale Speichermodell inhärent erfüllt.</p>
+
 <h2>Datenschutz von Kindern</h2>
 <p>Lumina richtet sich nicht an Kinder unter 13 Jahren. Wir erheben wissentlich keine Daten von Kindern.</p>
 <h2>Änderungen dieser Richtlinie</h2>
-<p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit aktualisiertem Datum veröffentlicht.</p>
+<p>Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit aktualisiertem Datum veröffentlicht. Bei wesentlichen Änderungen wird ein Hinweis in der Extension angezeigt.</p>
 <h2>Kontakt</h2>
-<p>Bei Fragen zur Datenschutzerklärung: <strong>julien.elbahy [at] gmail.com</strong></p>
+<p>Bei Fragen zur Datenschutzerklärung oder zum Umgang mit Ihren Daten: <strong>julien.elbahy [at] gmail.com</strong></p>
 </div>
 <footer class="tf"><div class="tf-inner">
 <div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Built by <a href="https://www.linkedin.com/in/julien-el-bahy-b4b71a201/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
