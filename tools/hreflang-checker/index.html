@@ -316,7 +316,6 @@
 <button class="tb-btn" id="btnBatchCsv">📊 CSV</button>
 </div>
 </div>
-</div>
 <!-- AI Recommendations -->
 <div class="ai-card" id="aiCard" style="display:none">
 <div class="ai-card-header">
@@ -326,6 +325,7 @@
 </div>
 <div class="ai-card-body">
 <button class="ai-btn" id="btnAiRec">✨ Get AI Recommendations</button>
+<div id="lq_hreflang-ai" style="font-size:10px;font-family:var(--mono);color:var(--muted);margin-top:8px"></div>
 </div>
 <div id="aiRecResult" class="ai-result" style="display:none"></div>
 </div>
@@ -414,8 +414,8 @@ function renderScoreRing(score){
 }
 
 function calcScore(data,issues,hasSelf,hasDefault){
-  var s=0;
-  if(data.length>0)s+=30;
+  if(data.length===0)return 0;
+  var s=30;
   if(hasSelf)s+=20;
   if(hasDefault)s+=15;
   var dupes=issues.filter(function(i){return i.text.indexOf('Duplicate')>=0}).length;
@@ -1001,7 +1001,12 @@ function renderCrossLinks(){
 }
 
 // ── AI Recommendations ──
-function showAiCard(){document.getElementById('aiCard').style.display='block';document.getElementById('aiRecResult').style.display='none'}
+function showAiCard(){
+  // Only show AI card in sitemap batch mode
+  if(mode!=='sitemap'){document.getElementById('aiCard').style.display='none';return}
+  document.getElementById('aiCard').style.display='block';
+  document.getElementById('aiRecResult').style.display='none';
+}
 
 document.getElementById('btnAiRec').addEventListener('click',function(){
   var btnAi=document.getElementById('btnAiRec');
@@ -1060,6 +1065,8 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(data.error);
+    // Update quota display
+    if(data._lumina){var lq=document.getElementById('lq_hreflang-ai');if(lq)lq.textContent=(data._lumina.remaining||0)+'/'+(data._lumina.limit||'∞')+' credits today'}
     var content=data.choices[0].message.content||'';
     content=content.replace(/```html|```/g,'').trim();
     out.innerHTML=content;

@@ -325,6 +325,7 @@
 </div>
 <div class="ai-card-body">
 <button class="ai-btn" id="btnAiRec">✨ KI-Empfehlungen abrufen</button>
+<div id="lq_hreflang-ai" style="font-size:10px;font-family:var(--mono);color:var(--muted);margin-top:8px"></div>
 </div>
 <div id="aiRecResult" class="ai-result" style="display:none"></div>
 </div>
@@ -413,8 +414,8 @@ function renderScoreRing(score){
 }
 
 function calcScore(data,issues,hasSelf,hasDefault){
-  var s=0;
-  if(data.length>0)s+=30;
+  if(data.length===0)return 0;
+  var s=30;
   if(hasSelf)s+=20;
   if(hasDefault)s+=15;
   var dupes=issues.filter(function(i){return i.text.indexOf('Duplikat')>=0}).length;
@@ -988,7 +989,11 @@ function renderCrossLinks(){
   cl.style.display='block';
 }
 // ── KI-Empfehlungen ──
-function showAiCard(){document.getElementById('aiCard').style.display='block';document.getElementById('aiRecResult').style.display='none'}
+function showAiCard(){
+  if(mode!=='sitemap'){document.getElementById('aiCard').style.display='none';return}
+  document.getElementById('aiCard').style.display='block';
+  document.getElementById('aiRecResult').style.display='none';
+}
 
 document.getElementById('btnAiRec').addEventListener('click',function(){
   var btnAi=document.getElementById('btnAiRec');
@@ -1046,6 +1051,7 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(data.error);
+    if(data._lumina){var lq=document.getElementById('lq_hreflang-ai');if(lq)lq.textContent=(data._lumina.remaining||0)+'/'+(data._lumina.limit||'∞')+' Credits heute'}
     var content=data.choices[0].message.content||'';
     content=content.replace(/```html|```/g,'').trim();
     out.innerHTML=content;
