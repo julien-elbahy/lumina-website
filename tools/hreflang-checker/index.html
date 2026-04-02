@@ -262,7 +262,7 @@
 <div class="th"><div class="lb">Free SEO Tool</div><h1>hreflang Checker</h1><p>Validate hreflang tags on any page or check your entire sitemap at once. Verify reciprocal return links, detect missing self-references, and find implementation issues across all language versions.</p><div class="tool-updated">Last updated: April 2026</div></div>
 <div class="cd">
 <div class="mode-toggle" id="modeToggle"><span class="mt-label">Check:</span><button class="mt-btn active" data-mode="single">Single page</button><button class="mt-btn" data-mode="sitemap">XML Sitemap</button></div>
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Check hreflang</button></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><select id="batchLimit" style="display:none;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:8px 10px;color:var(--text);font-family:var(--font);font-size:12px;cursor:pointer"><option value="100">100 URLs (~1 min)</option><option value="250">250 URLs (~2 min)</option><option value="500" selected>500 URLs (~4 min)</option><option value="1000">1,000 URLs (~8 min)</option><option value="2000">2,000 URLs (~15 min)</option></select><button class="ab" id="btnGo">Check hreflang</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <!-- Single URL results -->
 <div id="res" style="display:none">
@@ -395,9 +395,11 @@ document.querySelectorAll('#modeToggle .mt-btn').forEach(function(b){
     if(mode==='sitemap'){
       urlIn.placeholder='https://example.com or sitemap.xml URL';
       btn.textContent='Check Sitemap';
+      document.getElementById('batchLimit').style.display='';
     }else{
       urlIn.placeholder='https://example.com';
       btn.textContent='Check hreflang';
+      document.getElementById('batchLimit').style.display='none';
     }
   });
 });
@@ -763,7 +765,7 @@ function goSitemap(url){
       document.getElementById('batchList').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>No URLs found. Make sure this is a valid XML sitemap.</p></div>';
       return;
     }
-    var MAX=2000;
+    var MAX=parseInt(document.getElementById('batchLimit').value,10)||500;
     var capped=urls.length>MAX;
     if(capped)urls=urls.slice(0,MAX);
     document.getElementById('bmTotal').textContent=urls.length;
@@ -1102,7 +1104,7 @@ if(params.get('url')){
   urlIn.value=params.get('url');
   if(params.get('mode')==='sitemap'){
     document.querySelectorAll('#modeToggle .mt-btn').forEach(function(b){b.classList.remove('active');if(b.getAttribute('data-mode')==='sitemap')b.classList.add('active')});
-    mode='sitemap';btn.textContent='Check Sitemap';urlIn.placeholder='https://example.com or sitemap.xml URL';
+    mode='sitemap';btn.textContent='Check Sitemap';urlIn.placeholder='https://example.com or sitemap.xml URL';document.getElementById('batchLimit').style.display='';
     goSitemap(params.get('url'));
   }else{go(params.get('url'));}
 }
