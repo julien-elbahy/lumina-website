@@ -261,7 +261,7 @@
 <div class="ct" id="main-content">
 <div class="th"><div class="lb">Free SEO Tool</div><h1>hreflang Checker</h1><p>Validate hreflang tags on any page or check your entire sitemap at once. Verify reciprocal return links, detect missing self-references, and find implementation issues across all language versions.</p><div class="tool-updated">Last updated: April 2026</div></div>
 <div class="cd">
-<div class="mode-toggle" id="modeToggle"><span class="mt-label">Check:</span><button class="mt-btn active" data-mode="single">Single page</button><button class="mt-btn" data-mode="sitemap">Sitemap (up to 500)</button></div>
+<div class="mode-toggle" id="modeToggle"><span class="mt-label">Check:</span><button class="mt-btn active" data-mode="single">Single page</button><button class="mt-btn" data-mode="sitemap">XML Sitemap</button></div>
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Check hreflang</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <!-- Single URL results -->
@@ -332,7 +332,7 @@
 </div>
 <div id="crossLinks" style="display:none"></div>
 <div class="content"><h2>How it works</h2><p>Enter a URL and this tool fetches the page HTML to find all <code>&lt;link rel="alternate" hreflang="..."&gt;</code> tags. It validates language codes, checks for self-referencing tags, x-default, and lets you verify that alternate pages link back correctly (return link validation).</p>
-<p>In <strong>Sitemap mode</strong>, paste your sitemap URL to check hreflang tags across your entire site at once. The tool processes up to 500 URLs with parallel checking, giving you a complete overview of your international SEO implementation.</p>
+<p>In <strong>Sitemap mode</strong>, paste your XML sitemap URL to check hreflang tags across your entire site at once. The tool processes up to 2,000 URLs with parallel checking, giving you a complete overview of your international SEO implementation. Note: only standard XML sitemaps are supported (not HTML sitemaps).</p>
 <h2 style="margin-top:28px">Common issues detected</h2>
 <p>• Missing self-referencing tag (the page should reference itself)<br>• Missing x-default (should specify a fallback language)<br>• Non-standard language codes (e.g. "uk" instead of "en-GB")<br>• Missing return links (alternate pages don't link back)<br>• HTTP/HTTPS mismatches between hreflang URLs<br>• Duplicate language codes on the same page<br>• Trailing slash inconsistencies across hreflang URLs</p>
 <h2 style="margin-top:28px">Explore more tools</h2>
@@ -342,7 +342,7 @@
 <div class="faq-item"><div class="faq-q">What is x-default?<span class="arrow">+</span></div><div class="faq-a">x-default specifies the fallback URL for users whose language/region doesn't match any hreflang tag. It's strongly recommended for all multilingual implementations.</div></div>
 <div class="faq-item"><div class="faq-q">Can hreflang errors hurt rankings?<span class="arrow">+</span></div><div class="faq-a">Yes. Invalid hreflang tags, missing return links, or incorrect language codes can cause Google to ignore all hreflang annotations on a page. This may lead to the wrong language version appearing in search results or duplicate content issues.</div></div>
 <div class="faq-item"><div class="faq-q">How many hreflang tags do I need?<span class="arrow">+</span></div><div class="faq-a">You need one hreflang tag for each language or regional version of a page, plus a self-referencing tag for the current page. Adding an x-default tag for the fallback version is also strongly recommended.</div></div>
-<div class="faq-item"><div class="faq-q">Can I check my entire sitemap?<span class="arrow">+</span></div><div class="faq-a">Yes! Switch to Sitemap mode and enter your sitemap URL. The tool will parse all URLs (up to 500) and check hreflang tags on each page. It also supports sitemap index files with nested sitemaps.</div></div>
+<div class="faq-item"><div class="faq-q">Can I check my entire sitemap?<span class="arrow">+</span></div><div class="faq-a">Yes! Switch to Sitemap mode and enter your XML sitemap URL. The tool will parse all URLs (up to 2,000) and check hreflang tags on each page. It supports sitemap index files with nested sitemaps. Note: only standard XML sitemaps are supported — HTML sitemaps (like /sitemap pages) cannot be parsed.</div></div>
 <div class="cta-box"><div class="cta-t">hreflang validation on every page</div><p>Lumina checks hreflang tags automatically with return link verification.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
 
@@ -759,7 +759,7 @@ function goSitemap(url){
       document.getElementById('batchList').innerHTML='<div class="error-msg"><div class="icon">⚠️</div><p>No URLs found. Make sure this is a valid XML sitemap.</p></div>';
       return;
     }
-    var MAX=500;
+    var MAX=2000;
     var capped=urls.length>MAX;
     if(capped)urls=urls.slice(0,MAX);
     document.getElementById('bmTotal').textContent=urls.length;
