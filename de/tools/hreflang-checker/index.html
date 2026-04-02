@@ -377,7 +377,7 @@ document.querySelectorAll('#modeToggle .fbtn').forEach(function(b){
     document.getElementById('batchRes').style.display='none';
     document.getElementById('crossLinks').style.display='none';
     if(mode==='sitemap'){
-      urlIn.placeholder='https://example.com/sitemap.xml';
+      urlIn.placeholder='https://example.com oder Sitemap-URL';
       btn.textContent='Sitemap prüfen';
     }else{
       urlIn.placeholder='https://example.com';
@@ -657,6 +657,33 @@ document.getElementById('btnReport').addEventListener('click',function(){
 // ══════════════════════════════
 // ── SITEMAP BATCH MODE ──
 // ══════════════════════════════
+// ── Sitemap automatisch finden ──
+function discoverSitemap(url){
+  var origin;
+  try{origin=new URL(url).origin}catch(e){return Promise.resolve(url)}
+  if(/\.xml(\?|$)/i.test(url))return Promise.resolve(url);
+  return fetch(W+'/fetch?url='+encodeURIComponent(origin+'/robots.txt'),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
+  .then(function(r){return r.json()})
+  .then(function(data){
+    if(data.error)throw new Error(data.error);
+    var txt=data.html||'';
+    var sitemaps=[];
+    txt.split(/\r?\n/).forEach(function(line){
+      var m=line.match(/^Sitemap:\s*(.+)/i);
+      if(m)sitemaps.push(m[1].trim());
+    });
+    if(sitemaps.length>0){
+      document.getElementById('batchProgressText').textContent=sitemaps.length+' Sitemap'+(sitemaps.length>1?'s':'')+' in robots.txt gefunden';
+      return sitemaps[0];
+    }
+    throw new Error('Keine Sitemap in robots.txt');
+  })
+  .catch(function(){
+    document.getElementById('batchProgressText').textContent='Versuche '+origin+'/sitemap.xml…';
+    return origin+'/sitemap.xml';
+  });
+}
+
 function goSitemap(url){
   url=(url||'').trim();if(!url)return;
   if(!/^https?:\/\//i.test(url))url='https://'+url;
@@ -667,15 +694,18 @@ function goSitemap(url){
   document.getElementById('batchFilters').style.display='none';
   document.getElementById('batchToolbar').style.display='none';
   document.getElementById('batchList').innerHTML='';
-  document.getElementById('batchProgressText').textContent='Sitemap wird geladen…';
+  document.getElementById('batchProgressText').textContent='Sitemap wird gesucht…';
   document.getElementById('batchProgressPct').textContent='';
   document.getElementById('batchProgressBar').style.width='0';
-  btn.disabled=true;btn.textContent='⏳ Lade…';
+  btn.disabled=true;btn.textContent='⏳ Suche…';
   document.getElementById('loading').style.display='block';
 
   ['bmTotal','bmWith','bmWithout','bmIssues','bmLangs'].forEach(function(id){document.getElementById(id).textContent='0'});
 
-  fetchSitemapUrls(url).then(function(urls){
+  discoverSitemap(url).then(function(sitemapUrl){
+    document.getElementById('batchProgressText').textContent='Lade '+sitemapUrl+'…';
+    return fetchSitemapUrls(sitemapUrl);
+  }).then(function(urls){
     document.getElementById('loading').style.display='none';
     if(!urls.length){
       btn.disabled=false;btn.textContent='Sitemap prüfen';
@@ -920,7 +950,7 @@ if(params.get('url')){
   urlIn.value=params.get('url');
   if(params.get('mode')==='sitemap'){
     document.querySelectorAll('#modeToggle .fbtn').forEach(function(b){b.classList.remove('active');if(b.getAttribute('data-mode')==='sitemap')b.classList.add('active')});
-    mode='sitemap';btn.textContent='Sitemap prüfen';urlIn.placeholder='https://example.com/sitemap.xml';
+    mode='sitemap';btn.textContent='Sitemap prüfen';urlIn.placeholder='https://example.com oder Sitemap-URL';
     goSitemap(params.get('url'));
   }else{go(params.get('url'));}
 }
