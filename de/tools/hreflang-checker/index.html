@@ -173,6 +173,7 @@
 .tool-updated{font-size:12px;color:var(--muted);margin-top:6px}
 .mode-toggle{display:flex;align-items:center;gap:6px;margin-bottom:10px}.mt-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.mt-btn{background:var(--card);border:1px solid var(--border);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);border-radius:9px;transition:all .2s;font-family:var(--font);white-space:nowrap;line-height:1}.mt-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--accent-glow)}.mt-btn:hover:not(.active){color:var(--text);border-color:var(--accent)}
 .score-ring{width:80px;height:80px;position:relative;display:flex;align-items:center;justify-content:center}.score-ring svg{transform:rotate(-90deg)}.score-ring .score-val{position:absolute;font-size:22px;font-weight:800;color:var(--text)}.score-ring .score-label{position:absolute;bottom:-2px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.ai-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:14px;backdrop-filter:blur(var(--blur))}.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}.ai-card-body{text-align:center}.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}.ai-result{margin-top:12px;text-align:left;font-size:13px;line-height:1.7;color:var(--text2)}.ai-result h4{font-size:13px;font-weight:800;color:var(--text);margin:10px 0 4px}.ai-result ul{margin:4px 0 8px 16px;padding:0}.ai-result li{margin-bottom:3px}
 .batch-row{padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;font-size:13px}.batch-row:hover{background:var(--accent-soft)}.batch-row-head{display:flex;align-items:center;gap:8px}.batch-row-url{font-family:var(--mono);font-size:11px;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.batch-row-badges{display:flex;gap:4px;flex-shrink:0}.batch-row-detail{display:none;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:8px}.batch-row.open .batch-row-detail{display:block}.batch-row-arrow{color:var(--muted);font-size:12px;transition:transform .2s;flex-shrink:0}.batch-row.open .batch-row-arrow{transform:rotate(90deg)}
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -260,7 +261,7 @@
 <div class="ct" id="main-content">
 <div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>hreflang Checker</h1><p>Validiere hreflang-Tags auf jeder Seite oder prüfe deine gesamte Sitemap auf einmal. Verifiziere Rück-Links, erkenne fehlende Selbstverweise und finde Implementierungsprobleme über alle Sprachversionen.</p><div class="tool-updated">Zuletzt aktualisiert: April 2026</div></div>
 <div class="cd">
-<div class="mode-toggle" id="modeToggle"><span class="mt-label">Prüfen:</span><button class="mt-btn active" data-mode="single">🔗 Einzelne Seite</button><button class="mt-btn" data-mode="sitemap">🗺️ Ganze Sitemap</button></div>
+<div class="mode-toggle" id="modeToggle"><span class="mt-label">Prüfen:</span><button class="mt-btn active" data-mode="single">Einzelne Seite</button><button class="mt-btn" data-mode="sitemap">Sitemap (bis zu 500)</button></div>
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">hreflang prüfen</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
 <!-- Single URL results -->
@@ -314,6 +315,18 @@
 <button class="tb-btn" id="btnBatchCopy">📋 Alles kopieren</button>
 <button class="tb-btn" id="btnBatchCsv">📊 CSV</button>
 </div>
+</div>
+<!-- AI-Empfehlungen -->
+<div class="ai-card" id="aiCard" style="display:none">
+<div class="ai-card-header">
+<span class="ai-badge">KI-gestützt</span>
+<h2 class="ai-card-title">hreflang-Empfehlungen</h2>
+<p class="ai-card-desc">Erhalte umsetzbare Empfehlungen zur Verbesserung deiner hreflang-Implementierung basierend auf den Analyseergebnissen.</p>
+</div>
+<div class="ai-card-body">
+<button class="ai-btn" id="btnAiRec">✨ KI-Empfehlungen abrufen</button>
+</div>
+<div id="aiRecResult" class="ai-result" style="display:none"></div>
 </div>
 </div>
 <div id="crossLinks" style="display:none"></div>
@@ -562,6 +575,7 @@ function go(url){
     document.getElementById('btnReturn').disabled=!hasTargets;
     document.getElementById('res').style.display='block';
     renderCrossLinks();
+    showAiCard();
     if(hasTargets)setTimeout(function(){document.getElementById('btnReturn').click()},100);
   })
   .catch(function(e){
@@ -832,6 +846,7 @@ function processBatch(urls,onDone){
         document.getElementById('batchFilters').style.display='flex';
         document.getElementById('batchToolbar').style.display='flex';
         animateMetrics();
+        showAiCard();
         renderBatchList();onDone();
       }
       return;
@@ -972,6 +987,79 @@ function renderCrossLinks(){
   cl.innerHTML='<div class="section-head">Analyse fortsetzen</div><div class="cross-links">'+links.join('')+'</div>';
   cl.style.display='block';
 }
+// ── KI-Empfehlungen ──
+function showAiCard(){document.getElementById('aiCard').style.display='block';document.getElementById('aiRecResult').style.display='none'}
+
+document.getElementById('btnAiRec').addEventListener('click',function(){
+  var btnAi=document.getElementById('btnAiRec');
+  var out=document.getElementById('aiRecResult');
+  btnAi.disabled=true;btnAi.textContent='⏳ Analysiere…';
+  out.style.display='none';
+
+  var context='';
+  if(mode==='single'){
+    context='URL: '+pageUrl+'\n';
+    context+='hreflang tags found: '+hlData.length+'\n';
+    if(hlData.length){
+      context+='Languages: '+hlData.map(function(h){return h.lang+' → '+h.href}).join('\n')+'\n';
+    }
+    context+='Issues:\n';
+    if(allIssues.length)allIssues.forEach(function(i){context+='- ['+i.type.toUpperCase()+'] '+i.text+'\n'});
+    else context+='- None\n';
+  }else{
+    context='Sitemap batch check results:\n';
+    context+='Total URLs checked: '+batchResults.length+'\n';
+    var withHl=batchResults.filter(function(r){return r.tags.length>0}).length;
+    var withoutHl=batchResults.filter(function(r){return r.tags.length===0&&!r.error}).length;
+    var withErr=batchResults.filter(function(r){return r.error}).length;
+    var allLangs={};batchResults.forEach(function(r){r.tags.forEach(function(t){if(t.lang!=='x-default')allLangs[t.lang]=true})});
+    var missingSelf=batchResults.filter(function(r){return r.tags.length>0&&!r.hasSelf}).length;
+    var missingDefault=batchResults.filter(function(r){return r.tags.length>0&&!r.hasDefault}).length;
+    var totalIssues=0;batchResults.forEach(function(r){totalIssues+=r.issues.length});
+    context+='URLs with hreflang: '+withHl+'\n';
+    context+='URLs without hreflang: '+withoutHl+'\n';
+    context+='Fetch errors: '+withErr+'\n';
+    context+='Languages found: '+Object.keys(allLangs).join(', ')+'\n';
+    context+='URLs missing self-ref: '+missingSelf+'\n';
+    context+='URLs missing x-default: '+missingDefault+'\n';
+    context+='Total issues: '+totalIssues+'\n';
+    var samples=batchResults.filter(function(r){return r.issues.length>0}).slice(0,10);
+    if(samples.length){
+      context+='\nSample pages with issues:\n';
+      samples.forEach(function(r){
+        context+='- '+r.url+': '+r.issues.map(function(i){return i.text}).join('; ')+'\n';
+      });
+    }
+  }
+
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':'hreflang-checker'};
+  var k=localStorage.getItem('lumina_key_openai');if(k)headers['X-OAI-Key']=k;
+
+  fetch(W+'/ai',{method:'POST',headers:headers,body:JSON.stringify({
+    model:'gpt-4.1-mini',
+    messages:[
+      {role:'system',content:'You are an international SEO expert specializing in hreflang implementation. Analyze the hreflang check results and provide clear, actionable recommendations.\n\nRules:\n- Detect the language of the URLs and respond IN THAT LANGUAGE (e.g. German URLs → German response, English → English)\n- Focus on the most impactful issues first\n- Be specific: reference actual URLs and language codes from the data\n- Group recommendations by priority (Critical, Important, Recommended)\n- For sitemap batch results, identify patterns across the site\n- Keep it concise but actionable — max 8 recommendations\n- If there are no issues, confirm the implementation looks good and suggest best practices\n\nRespond in HTML using <h4> for priority headings and <ul><li> for recommendations. No wrapping div or markdown.'},
+      {role:'user',content:context}
+    ],
+    max_tokens:1500
+  })})
+  .then(function(r){return r.json()})
+  .then(function(data){
+    if(data.error)throw new Error(data.error);
+    var content=data.choices[0].message.content||'';
+    content=content.replace(/```html|```/g,'').trim();
+    out.innerHTML=content;
+    out.style.display='block';
+  })
+  .catch(function(e){
+    out.innerHTML='<p style="color:var(--err)">'+esc(e.message)+'</p>';
+    out.style.display='block';
+  })
+  .finally(function(){
+    btnAi.disabled=false;btnAi.textContent='✨ KI-Empfehlungen abrufen';
+  });
+});
+
 // ── URL param auto-start ──
 var params=new URLSearchParams(window.location.search);
 if(params.get('url')){
