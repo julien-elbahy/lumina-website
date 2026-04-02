@@ -171,7 +171,7 @@
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
 .tool-updated{font-size:12px;color:var(--muted);margin-top:6px}
-.mode-toggle{display:flex;align-items:center;gap:6px;margin-bottom:10px}.mt-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.mt-btn{background:var(--card);border:1px solid var(--border);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);border-radius:9px;transition:all .2s;font-family:var(--font);white-space:nowrap;line-height:1}.mt-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--accent-glow)}.mt-btn:hover:not(.active){color:var(--text);border-color:var(--accent)}
+.mode-toggle{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}.mode-toggle>div{display:flex;align-items:center;gap:6px}.mt-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.mt-btn{background:var(--card);border:1px solid var(--border);padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);border-radius:9px;transition:all .2s;font-family:var(--font);white-space:nowrap;line-height:1}.mt-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--accent-glow)}.mt-btn:hover:not(.active){color:var(--text);border-color:var(--accent)}
 .score-ring{width:90px;height:90px;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column}.score-ring svg{transform:rotate(-90deg)}.score-ring .score-val{position:absolute;top:22px;font-size:24px;font-weight:800;color:var(--text)}.score-ring .score-label{position:absolute;bottom:18px;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
 .ai-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-top:14px;backdrop-filter:blur(var(--blur))}.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}.ai-card-body{text-align:center}.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;letter-spacing:.2px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}.ai-result{margin-top:12px;text-align:left;font-size:13px;line-height:1.7;color:var(--text2)}.ai-result h4{font-size:13px;font-weight:800;color:var(--text);margin:10px 0 4px}.ai-result ul{margin:4px 0 8px 16px;padding:0}.ai-result li{margin-bottom:3px}
 .batch-row{padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;font-size:13px;user-select:none}.batch-row:hover{background:var(--accent-soft)}.batch-row-head{display:flex;align-items:center;gap:8px}.batch-row-url{font-family:var(--mono);font-size:11px;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.batch-row-badges{display:flex;gap:4px;flex-shrink:0}.batch-row-detail{display:none;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:8px}.batch-row.open .batch-row-detail{display:block}.batch-row-arrow{color:var(--muted);font-size:12px;transition:transform .2s;flex-shrink:0}.batch-row.open .batch-row-arrow{transform:rotate(90deg)}
@@ -261,10 +261,9 @@
 <div class="ct" id="main-content">
 <div class="th"><div class="lb">Free SEO Tool</div><h1>hreflang Checker</h1><p>Validate hreflang tags on any page or check your entire sitemap at once. Verify reciprocal return links, detect missing self-references, and find implementation issues across all language versions.</p><div class="tool-updated">Last updated: April 2026</div></div>
 <div class="cd">
-<div class="mode-toggle" id="modeToggle"><span class="mt-label">Check:</span><button class="mt-btn active" data-mode="single">Single page</button><button class="mt-btn" data-mode="sitemap">XML Sitemap</button></div>
-<div id="batchLimitRow" style="display:none;margin-bottom:10px;text-align:center">
-<span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:6px">Max URLs:</span>
-<span id="batchLimitBtns" style="display:inline-flex;gap:3px"></span>
+<div class="mode-toggle" id="modeToggle">
+<div><span class="mt-label">Check:</span><button class="mt-btn active" data-mode="single">Single page</button><button class="mt-btn" data-mode="sitemap">XML Sitemap</button></div>
+<div id="batchLimitRow" style="display:none"><span class="mt-label">Max URLs:</span><span id="batchLimitBtns" style="display:inline-flex;gap:3px"></span></div>
 </div>
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com" value="https://lumina-seo.com"><button class="ab" id="btnGo">Check hreflang</button></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w50"></div></div>
@@ -411,7 +410,7 @@ document.querySelectorAll('#modeToggle .mt-btn').forEach(function(b){
 // ── Batch limit pill buttons ──
 window._batchMax=500;
 (function(){
-  var opts=[{v:100,l:'100 (~30s)'},{v:250,l:'250 (~1 min)'},{v:500,l:'500 (~2 min)'},{v:1000,l:'1K (~4 min)'},{v:2000,l:'2K (~8 min)'}];
+  var opts=[{v:100,l:'100 (~10s)'},{v:250,l:'250 (~30s)'},{v:500,l:'500 (~1 min)'},{v:1000,l:'1K (~2 min)'},{v:2000,l:'2K (~4 min)'}];
   var wrap=document.getElementById('batchLimitBtns');
   opts.forEach(function(o){
     var b=document.createElement('button');
