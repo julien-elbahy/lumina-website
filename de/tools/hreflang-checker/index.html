@@ -297,17 +297,21 @@
 <div id="batchProgressBar" style="height:100%;background:linear-gradient(135deg,var(--accent),var(--accent-h));border-radius:3px;transition:width .3s;width:0"></div>
 </div>
 </div>
-<div class="metrics" id="batchMetrics" style="grid-template-columns:repeat(5,1fr)">
-<div class="metric"><div class="mh">URLs gesamt</div><p id="bmTotal">0</p></div>
+<div class="metrics" id="batchMetrics" style="grid-template-columns:repeat(3,1fr)">
 <div class="metric"><div class="mh">Mit hreflang</div><p id="bmWith">0</p></div>
 <div class="metric"><div class="mh">Ohne</div><p id="bmWithout">0</p></div>
+<div class="metric"><div class="mh">Fetch-Fehler</div><p id="bmErrors" style="color:var(--muted)">0</p></div>
+</div>
+<div class="metrics" style="grid-template-columns:repeat(3,1fr);margin-top:6px">
 <div class="metric"><div class="mh">Probleme</div><p id="bmIssues">0</p></div>
 <div class="metric"><div class="mh">Sprachen</div><p id="bmLangs">0</p></div>
+<div class="metric"><div class="mh">URLs gesamt</div><p id="bmTotal">0</p></div>
 </div>
 <div class="filters" id="batchFilters" style="display:none">
 <button class="fbtn active" data-filter="all">Alle</button>
 <button class="fbtn" data-filter="issues">Probleme</button>
 <button class="fbtn" data-filter="none">Kein hreflang</button>
+<button class="fbtn" data-filter="errors">Fetch-Fehler</button>
 <button class="fbtn" data-filter="ok">OK</button>
 </div>
 <div id="batchList" class="list-scroll" style="max-height:600px;overflow-y:auto"></div>
@@ -829,7 +833,7 @@ function fetchSitemapUrls(url){
 }
 
 function processBatch(urls,onDone){
-  var total=urls.length,done=0,withHl=0,withoutHl=0,totalIssues=0;
+  var total=urls.length,done=0,withHl=0,withoutHl=0,fetchErrs=0,totalIssues=0;
   var allLangs={};
   var queue=urls.slice();var active=0;
 
@@ -867,7 +871,7 @@ function processBatch(urls,onDone){
         })
         .catch(function(e){
           batchResults.push({url:pageUrl,tags:[],issues:[{type:'err',text:'Fehler: '+e.message}],hasSelf:false,hasDefault:false,langCount:{},error:true});
-          withoutHl++;totalIssues++;
+          fetchErrs++;
         })
         .finally(function(){
           active--;done++;
@@ -878,6 +882,7 @@ function processBatch(urls,onDone){
           document.getElementById('bmWith').textContent=withHl;
           document.getElementById('bmWithout').textContent=withoutHl;
           document.getElementById('bmIssues').textContent=totalIssues;
+          document.getElementById('bmErrors').textContent=fetchErrs;
           document.getElementById('bmLangs').textContent=Object.keys(allLangs).length;
           if(done%10===0||done===total)renderBatchList();
           next();
@@ -899,10 +904,16 @@ document.querySelectorAll('#batchFilters .fbtn').forEach(function(b){
 });
 
 function renderBatchList(){
+  var openUrls={};
+  document.querySelectorAll('.batch-row.open').forEach(function(row){
+    var url=row.querySelector('.batch-row-url');
+    if(url)openUrls[url.getAttribute('title')]=true;
+  });
   var filtered=batchResults.filter(function(r){
     if(batchFilter==='all')return true;
-    if(batchFilter==='issues')return r.issues.length>0;
-    if(batchFilter==='none')return r.tags.length===0;
+    if(batchFilter==='issues')return r.issues.length>0&&!r.error;
+    if(batchFilter==='none')return r.tags.length===0&&!r.error;
+    if(batchFilter==='errors')return r.error;
     if(batchFilter==='ok')return r.tags.length>0&&r.issues.length===0;
     return true;
   });
@@ -911,18 +922,20 @@ function renderBatchList(){
     var errCount=r.issues.filter(function(x){return x.type==='err'}).length;
     var warnCount=r.issues.filter(function(x){return x.type==='warn'}).length;
     var langs=r.tags.filter(function(t){return t.lang!=='x-default'}).map(function(t){return t.lang});
-    html+='<div class="batch-row" data-idx="'+i+'">';
+    var isOpen=openUrls[r.url]?' open':'';
+    html+='<div class="batch-row'+isOpen+'" data-idx="'+i+'">';
     html+='<div class="batch-row-head">';
     html+='<span class="batch-row-arrow">▶</span>';
     html+='<span class="batch-row-url" title="'+esc(r.url)+'">'+esc(r.url)+'</span>';
     html+='<span class="batch-row-badges">';
-    if(r.tags.length===0)html+='<span class="badge err">Kein hreflang</span>';
+    if(r.error)html+='<span class="badge" style="background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)">Fetch-Fehler</span>';
+    else if(r.tags.length===0)html+='<span class="badge err">Kein hreflang</span>';
     else{
       html+='<span class="badge ok">'+langs.length+' Sprache'+(langs.length!==1?'n':'')+'</span>';
       if(!r.hasSelf)html+='<span class="badge warn">Kein Self</span>';
       if(!r.hasDefault)html+='<span class="badge" style="color:var(--muted);border-color:var(--border)">Kein x-def</span>';
     }
-    if(errCount>0)html+='<span class="badge err">'+errCount+' Fehler</span>';
+    if(!r.error&&errCount>0)html+='<span class="badge err">'+errCount+' Fehler</span>';
     if(warnCount>0)html+='<span class="badge warn">'+warnCount+' Warn.</span>';
     if(r.tags.length>0&&r.issues.length===0)html+='<span class="badge ok">OK</span>';
     html+='</span></div>';
@@ -947,10 +960,12 @@ function renderBatchList(){
   });
   if(!filtered.length)html='<p style="color:var(--muted);padding:16px;text-align:center">Keine URLs entsprechen diesem Filter.</p>';
   document.getElementById('batchList').innerHTML=html;
-  document.querySelectorAll('.batch-row').forEach(function(row){
-    row.querySelector('.batch-row-head').addEventListener('click',function(){row.classList.toggle('open')});
-  });
 }
+
+document.getElementById('batchList').addEventListener('click',function(e){
+  var head=e.target.closest('.batch-row-head');
+  if(head){head.parentElement.classList.toggle('open')}
+});
 
 // ── Batch Copy / CSV ──
 document.getElementById('btnBatchCopy').addEventListener('click',function(){
