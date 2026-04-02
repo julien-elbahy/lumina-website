@@ -410,7 +410,7 @@ document.querySelectorAll('#modeToggle .mt-btn').forEach(function(b){
 // ── Batch limit pill buttons ──
 window._batchMax=500;
 (function(){
-  var opts=[{v:100,l:'100 (~10s)'},{v:250,l:'250 (~30s)'},{v:500,l:'500 (~1 min)'},{v:1000,l:'1K (~2 min)'},{v:2000,l:'2K (~4 min)'}];
+  var opts=[{v:100,l:'100 (~1 min)'},{v:250,l:'250 (~2 min)'},{v:500,l:'500 (~4 min)'},{v:1000,l:'1K (~8 min)'},{v:2000,l:'2K (~16 min)'}];
   var wrap=document.getElementById('batchLimitBtns');
   opts.forEach(function(o){
     var b=document.createElement('button');
@@ -867,61 +867,48 @@ function processBatch(urls,onDone){
   var total=urls.length,done=0,withHl=0,withoutHl=0,fetchErrs=0,totalIssues=0;
   var allLangs={};
   var queue=urls.slice();var active=0;
-
-  function next(){
-    if(batchAbort){
-      document.getElementById('batchProgressText').textContent='Stopped at '+done+' / '+total;
-      renderBatchList();onDone();return;
-    }
-    if(queue.length===0){
-      if(active===0){
+  // Dispatch 1 fetch every 500ms = 120 req/min (matching rate limit)
+  var ticker=setInterval(function(){
+    if(batchAbort){clearInterval(ticker);if(active===0){document.getElementById('batchProgressText').textContent='Stopped at '+done+' / '+total;renderBatchList();onDone()}return}
+    if(queue.length===0){clearInterval(ticker);return}
+    var pageUrl=queue.shift();
+    active++;
+    fetch(W+'/fetch?url='+encodeURIComponent(pageUrl),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
+    .then(function(r){return r.json()})
+    .then(function(data){
+      if(data.error)throw new Error(data.error);
+      var v=validatePage(data.url||pageUrl,data.html||'',data.headers||null);
+      v.tags.forEach(function(t){if(t.lang!=='x-default')allLangs[t.lang]=true});
+      batchResults.push({url:pageUrl,tags:v.tags,issues:v.issues,hasSelf:v.hasSelf,hasDefault:v.hasDefault,langCount:v.langCount});
+      if(v.tags.length>0)withHl++;else withoutHl++;
+      totalIssues+=v.issues.length;
+    })
+    .catch(function(e){
+      batchResults.push({url:pageUrl,tags:[],issues:[{type:'err',text:'Fetch error: '+e.message}],hasSelf:false,hasDefault:false,langCount:{},error:true});
+      fetchErrs++;
+    })
+    .finally(function(){
+      active--;done++;
+      var pct=Math.round(done/total*100);
+      document.getElementById('batchProgressText').textContent='Checking '+done+' / '+total+' URLs…';
+      document.getElementById('batchProgressPct').textContent=pct+'%';
+      document.getElementById('batchProgressBar').style.width=pct+'%';
+      document.getElementById('bmWith').textContent=withHl;
+      document.getElementById('bmWithout').textContent=withoutHl;
+      document.getElementById('bmIssues').textContent=totalIssues;
+      document.getElementById('bmErrors').textContent=fetchErrs;
+      document.getElementById('bmLangs').textContent=Object.keys(allLangs).length;
+      if(done%20===0||done===total)renderBatchList();
+      if(done===total){
         document.getElementById('batchProgressText').textContent='Done — '+total+' URLs checked';
         document.getElementById('batchProgressPct').textContent='100%';
         document.getElementById('batchProgressBar').style.width='100%';
-        document.getElementById('bmLangs').textContent=Object.keys(allLangs).length;
         document.getElementById('batchFilters').style.display='flex';
         document.getElementById('batchToolbar').style.display='flex';
-        showAiCard();
-        renderBatchList();onDone();
+        showAiCard();renderBatchList();onDone();
       }
-      return;
-    }
-    while(active<5&&queue.length>0){
-      active++;
-      (function(pageUrl){
-        fetch(W+'/fetch?url='+encodeURIComponent(pageUrl),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
-        .then(function(r){return r.json()})
-        .then(function(data){
-          if(data.error)throw new Error(data.error);
-          var v=validatePage(data.url||pageUrl,data.html||'',data.headers||null);
-          v.tags.forEach(function(t){if(t.lang!=='x-default')allLangs[t.lang]=true});
-          batchResults.push({url:pageUrl,tags:v.tags,issues:v.issues,hasSelf:v.hasSelf,hasDefault:v.hasDefault,langCount:v.langCount});
-          if(v.tags.length>0)withHl++;else withoutHl++;
-          totalIssues+=v.issues.length;
-        })
-        .catch(function(e){
-          batchResults.push({url:pageUrl,tags:[],issues:[{type:'err',text:'Fetch error: '+e.message}],hasSelf:false,hasDefault:false,langCount:{},error:true});
-          fetchErrs++;
-        })
-        .finally(function(){
-          active--;done++;
-          var pct=Math.round(done/total*100);
-          document.getElementById('batchProgressText').textContent='Checking '+done+' / '+total+' URLs…';
-          document.getElementById('batchProgressPct').textContent=pct+'%';
-          document.getElementById('batchProgressBar').style.width=pct+'%';
-          document.getElementById('bmWith').textContent=withHl;
-          document.getElementById('bmWithout').textContent=withoutHl;
-          document.getElementById('bmIssues').textContent=totalIssues;
-          document.getElementById('bmErrors').textContent=fetchErrs;
-          document.getElementById('bmLangs').textContent=Object.keys(allLangs).length;
-          if(done%10===0||done===total)renderBatchList();
-          // Throttle: 500ms delay between batches to stay under 120 req/min
-          setTimeout(next,500);
-        });
-      })(queue.shift());
-    }
-  }
-  next();
+    });
+  },500);
 }
 
 // ── Batch filter toggle ──
