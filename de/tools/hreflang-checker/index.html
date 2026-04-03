@@ -794,7 +794,7 @@ function goSitemap(url){
     document.getElementById('batchProgressText').textContent='Prüfe 0 / '+urls.length+' URLs…'+(capped?' (max. '+MAX+')':'');
     btn.textContent='⏹ Stopp';btn.disabled=false;
     batchAbort=false;
-    btn.onclick=function(){batchAbort=true;btn.disabled=true;btn.textContent='Stoppe…'};
+    btn.onclick=function(){batchAbort=true;btn.disabled=true;btn.textContent='Stoppe…';clearInterval(ticker);document.getElementById('batchProgress').style.display='none';document.getElementById('batchFilters').style.display='flex';document.getElementById('batchToolbar').style.display='flex';renderBatchList();onDone()};
     processBatch(urls,function(){
       btn.onclick=function(){if(mode==='sitemap')goSitemap(urlIn.value);else go(urlIn.value)};
       btn.disabled=false;btn.textContent='Sitemap prüfen';
@@ -866,11 +866,15 @@ function processBatch(urls,onDone){
   var queue=urls.slice();var active=0;
   // Dispatch 1 fetch every 500ms = 120 req/min (matching rate limit)
   var ticker=setInterval(function(){
-    if(batchAbort){clearInterval(ticker);if(active===0){document.getElementById('batchProgressText').textContent='Gestoppt bei '+done+' / '+total;renderBatchList();onDone()}return}
+    if(batchAbort){clearInterval(ticker);return}
     if(queue.length===0){clearInterval(ticker);return}
     var pageUrl=queue.shift();
     active++;
-    fetch(W+'/fetch?url='+encodeURIComponent(pageUrl),{headers:{'X-Lumina-Tool':'hreflang-checker'}})
+    var ctrl=typeof AbortController!=='undefined'?new AbortController():null;
+    var timer=ctrl?setTimeout(function(){ctrl.abort()},15000):null;
+    var fetchOpts={headers:{'X-Lumina-Tool':'hreflang-checker'}};
+    if(ctrl)fetchOpts.signal=ctrl.signal;
+    fetch(W+'/fetch?url='+encodeURIComponent(pageUrl),fetchOpts)
     .then(function(r){return r.json()})
     .then(function(data){
       if(data.error)throw new Error(data.error);
@@ -885,6 +889,7 @@ function processBatch(urls,onDone){
       fetchErrs++;
     })
     .finally(function(){
+      if(timer)clearTimeout(timer);
       active--;done++;
       var pct=Math.round(done/total*100);
       document.getElementById('batchProgressText').textContent='Prüfe '+done+' / '+total+' URLs…';
