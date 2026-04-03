@@ -671,14 +671,16 @@ function validateEntries(entries){
       return;
     }
 
-    // ── Trailing slash inconsistency ──
+    // ── Trailing slash inconsistency (skip file URLs like .html, .php, .xml) ──
     try{
       var u=new URL(e.loc);
       var path=u.pathname;
-      var norm=u.origin+path.replace(/\/$/,'');
-      var hasSlash=/\/$/.test(path)&&path!=='\/';
-      if(!trailingSlashMap[norm])trailingSlashMap[norm]=[];
-      trailingSlashMap[norm].push({loc:e.loc,hasSlash:hasSlash});
+      if(!/\.\w{2,5}$/.test(path)){
+        var norm=u.origin+path.replace(/\/$/,'');
+        var hasSlash=/\/$/.test(path)&&path!=='\/';
+        if(!trailingSlashMap[norm])trailingSlashMap[norm]=[];
+        trailingSlashMap[norm].push({loc:e.loc,hasSlash:hasSlash});
+      }
     }catch(ex){}
 
     // ── www vs non-www ──
@@ -771,7 +773,7 @@ function validateEntries(entries){
   var withSlashCount=0,withoutSlashCount=0;
   entries.forEach(function(e){
     if(!e.loc)return;
-    try{var p=new URL(e.loc).pathname;if(p==='/')return;if(/\/$/.test(p))withSlashCount++;else withoutSlashCount++}catch(ex){}
+    try{var p=new URL(e.loc).pathname;if(p==='/')return;if(/\.\w{2,5}$/.test(p))return;if(/\/$/.test(p))withSlashCount++;else withoutSlashCount++}catch(ex){}
   });
   if(withSlashCount>0&&withoutSlashCount>0&&slashConflicts.length===0){
     issues.push({type:'warn',text:'Inkonsistente Trailing Slashes: '+withSlashCount+' URLs mit "/" und '+withoutSlashCount+' ohne \u2014 Standardisierung empfohlen'});
