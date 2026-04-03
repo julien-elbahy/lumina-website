@@ -1368,8 +1368,20 @@ function go(url){
 
   discoverSitemap(url)
   .then(function(sitemapUrls){
-    document.getElementById('checkText').textContent='Fetching '+sitemapUrls.length+' sitemap'+(sitemapUrls.length>1?'s':'')+'\u2026';
-    return Promise.all(sitemapUrls.map(function(su){return parseSitemap(su).catch(function(){return[]})}));
+    document.getElementById('checkText').textContent='Parsing '+sitemapUrls.length+' sitemap'+(sitemapUrls.length>1?'s':'')+' (server-side)\u2026';
+    // Use server-side /sitemap-parse for each discovered sitemap URL
+    return Promise.all(sitemapUrls.map(function(su){
+      return fetch(W+'/sitemap-parse?url='+encodeURIComponent(su),{headers:{'X-Lumina-Tool':'sitemap-analyzer'}})
+      .then(function(r){return r.json()})
+      .then(function(data){
+        if(data.error)throw new Error(data.error);
+        // Merge sitemaps metadata
+        if(data.sitemaps)data.sitemaps.forEach(function(sm){sitemapData.sitemaps.push(sm)});
+        if(data.failed>0){sitemapData.failedSitemaps=(sitemapData.failedSitemaps||0)+data.failed;sitemapData.totalChildSitemaps=(sitemapData.totalChildSitemaps||0)+data.totalChildSitemaps}
+        return data.entries||[];
+      })
+      .catch(function(){return[]});
+    }));
   })
   .then(function(arrays){
     var allEntries=[];
@@ -1381,11 +1393,13 @@ function go(url){
 
     if(!allEntries.length){
       btn.disabled=false;btn.textContent='Analyze Sitemap';
-      document.getElementById('checkText').textContent='No URLs found in sitemap.';
+      document.getElementById('checkProgress').style.display='none';
       document.getElementById('res').style.display='block';
       renderScoreRing(0);
       document.getElementById('mTotal').textContent='0';
-      document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.length;
+      document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'}).length;
+      document.getElementById('validationSection').innerHTML='<div class="error-msg"><div class="icon">\uD83D\uDD0D</div><p>No URLs found in sitemap.</p><p style="margin-top:8px;font-size:12px;color:var(--muted)">Try entering the sitemap URL directly, e.g. <code>example.com/sitemap.xml</code></p></div>';
+      document.getElementById('validationSection').style.display='block';
       return;
     }
 
@@ -1414,10 +1428,9 @@ function go(url){
   })
   .catch(function(e){
     document.getElementById('loading').style.display='none';
-    document.getElementById('checkProgress').style.display='block';
+    document.getElementById('checkProgress').style.display='none';
     btn.disabled=false;btn.textContent='Analyze Sitemap';
     var isNotFound=e.message&&e.message.indexOf('No sitemap found')>=0;
-    document.getElementById('checkText').textContent=isNotFound?'No sitemap found':'Error';
     document.getElementById('res').style.display='block';
     document.getElementById('validationSection').innerHTML='<div class="error-msg"><div class="icon">'+(isNotFound?'\uD83D\uDD0D':'\u26A0\uFE0F')+'</div><p>'+esc(e.message)+'</p>'+(isNotFound?'<p style="margin-top:8px;font-size:12px;color:var(--muted)">Try entering the sitemap URL directly, e.g. <code>example.com/sitemap.xml</code></p>':'')+'</div>';
     document.getElementById('validationSection').style.display='block';
