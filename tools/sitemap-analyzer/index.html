@@ -737,7 +737,7 @@ function checkUrlHealth(entries,onDone){
     .then(function(r){return r.json()})
     .then(function(data){
       var elapsed=Math.round(performance.now()-startTime);
-      var status=data.status||0;
+      var status=data.statusCode||data.status||0;
       var statusText=data.statusText||'';
       if(status>=200&&status<300)ok2xx++;
       else if(status>=300&&status<400)r3xx++;
