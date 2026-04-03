@@ -700,14 +700,22 @@ export default {
         const root = await parseSingle(parsed.href);
 
         if (root.type === 'index') {
-          // Fetch all child sitemaps in parallel batches of 10
-          const BATCH = 10;
+          // Fetch child sitemaps in parallel batches of 50, with 25s total timeout
+          const BATCH = 50;
+          const TIMEOUT = 25000; // 25s — leave headroom for Worker wall time
+          const deadline = Date.now() + TIMEOUT;
           const childUrls = root.childUrls;
           const sitemaps = [{ url: root.url, type: 'index', urlCount: childUrls.length, size: root.size, loadTime: root.loadTime }];
           const allEntries = [];
           let failed = 0;
+          let skipped = 0;
 
           for (let i = 0; i < childUrls.length; i += BATCH) {
+            if (Date.now() > deadline) {
+              // Time's up — count remaining as skipped
+              skipped = childUrls.length - i;
+              break;
+            }
             const batch = childUrls.slice(i, i + BATCH);
             const results = await Promise.allSettled(batch.map(u =>
               parseSingle(u).catch(() => null)
@@ -731,7 +739,7 @@ export default {
           }
 
           return jsonResponse({
-            sitemaps, entries: allEntries, failed,
+            sitemaps, entries: allEntries, failed: failed + skipped,
             totalChildSitemaps: childUrls.length,
             time: Date.now() - start
           }, 200, origin);
