@@ -281,16 +281,17 @@ export default {
       const userAgent = BOT_AGENTS[bot] || BOT_AGENTS['googlebot'];
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
+      const start = Date.now();
       try {
         const resp = await fetch(parsed.href, {
           method: 'GET', headers: { 'User-Agent': userAgent },
           redirect: 'follow', signal: controller.signal,
         });
         clearTimeout(timeout);
-        return jsonResponse({ statusCode: resp.status, statusText: resp.statusText, bot, url: parsed.href }, 200, origin);
+        return jsonResponse({ statusCode: resp.status, statusText: resp.statusText, bot, url: parsed.href, time: Date.now() - start }, 200, origin);
       } catch (err) {
         clearTimeout(timeout);
-        return jsonResponse({ statusCode: 0, bot, error: err.name === 'AbortError' ? 'Timeout' : err.message }, 200, origin);
+        return jsonResponse({ statusCode: 0, bot, error: err.name === 'AbortError' ? 'Timeout' : err.message, time: Date.now() - start }, 200, origin);
       }
     }
 

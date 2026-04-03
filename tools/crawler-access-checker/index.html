@@ -350,10 +350,11 @@ else if(isEmpty&&httpStatus>=200&&httpStatus<300)nfHtml+='<div class="sb wn">⚠
 else nfHtml+='<div class="sb wn">⚠️ No robots.txt found'+(httpStatus?' (HTTP '+httpStatus+')':'')+'. All crawlers are allowed by default.</div>';
 nfHtml+='<div class="sb ok">✅ All AI crawlers are allowed</div>';
 nfHtml+='<div id="serverSummary"></div>';
+nfHtml+='<div id="sitePerf"></div>';
 BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ALLOWED</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
 document.getElementById('res').innerHTML=nfHtml;
 window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:36,allowed:36,blocked:0,raw:''};
-runLiveCheck();return}
+runLiveCheck();runSiteCheck();return}
 var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
 line=line.replace(/#.*/,'').trim();if(!line)return;
@@ -407,6 +408,7 @@ else if(aiBlocked>0)html+='<div class="sb wn" id="aiSummary">⚠️ robots.txt b
 else if(aiPartialAllow>0)html+='<div class="sb wn" id="aiSummary">⚠️ '+aiPartialAllow+'/'+aiTotal+' AI crawlers mostly blocked with Allow exceptions: <strong>'+aiPartialNames.join(', ')+'</strong></div>';
 else html+='<div class="sb ok" id="aiSummary">✅ All AI crawlers are allowed via robots.txt</div>';
 html+='<div id="serverSummary"></div>';
+html+='<div id="sitePerf"></div>';
 html+='<div id="legend" style="display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 4px;font-size:10px;color:var(--muted)"></div>';
 html+='<div style="margin:10px 0"><input type="text" id="botFilter" placeholder="Filter bots…" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--font);font-size:12px"></div>';
 BOTS.forEach(function(cat){
@@ -429,7 +431,7 @@ if(uniqueSitemaps.length){html+='<div class="sec">📍 Sitemaps ('+uniqueSitemap
 html+='<div class="sec">📄 Raw robots.txt</div><div class="raw" id="rawRobots">'+esc(raw)+'</div>';
 document.getElementById('res').innerHTML=html;
 window._lastResults={bots:BOTS,checkBot:checkBotStatus,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,partial:partial,blocked:blocked,raw:raw};
-runLiveCheck();
+runLiveCheck();runSiteCheck();
 }).catch(function(e){
 document.getElementById('loading').style.display='none';
 document.getElementById('liveProgress').style.display='none';
@@ -521,6 +523,33 @@ function tick(now){var p=Math.min((now-start)/dur,1);var ease=1-Math.pow(1-p,3);
 el.textContent=prefix+Math.round(target*ease)+suffix;
 if(p<1)requestAnimationFrame(tick)}
 requestAnimationFrame(tick)});
+}
+function runSiteCheck(){
+if(!siteOrigin)return;
+var sp=document.getElementById('sitePerf');
+if(!sp)return;
+sp.innerHTML='<div style="font-size:11px;color:var(--muted);margin:8px 0">⏳ Measuring server response…</div>';
+fetch(W+'/fetch?url='+encodeURIComponent(siteOrigin))
+.then(function(r){return r.json()})
+.then(function(data){
+if(data.error){sp.innerHTML='';return}
+var time=data.time||0;
+var html=data.html||'';
+var bytes=new Blob([html]).size;
+var kb=bytes<1024?bytes+' B':Math.round(bytes/1024)+' KB';
+var tokens=Math.round(html.length/4);
+var tokensK=tokens>=1000?Math.round(tokens/1000)+'k':tokens;
+var timeColor=time<2000?'var(--ok)':time<5000?'var(--warn)':'var(--err)';
+var sizeColor=bytes<512000?'var(--ok)':bytes<2097152?'var(--warn)':'var(--err)';
+var tokenColor=tokens<32000?'var(--ok)':tokens<128000?'var(--warn)':'var(--err)';
+sp.innerHTML='<div class="sec">⚡ Server Response (Homepage)</div>'+
+'<div class="metrics" style="grid-template-columns:repeat(3,1fr)">'+
+'<div class="metric"><div class="mh">Response Time</div><p style="color:'+timeColor+'">'+time+' ms</p></div>'+
+'<div class="metric"><div class="mh">HTML Size</div><p style="color:'+sizeColor+'">'+kb+'</p></div>'+
+'<div class="metric"><div class="mh">~Tokens (est.)</div><p style="color:'+tokenColor+'">~'+tokensK+'</p></div>'+
+'</div>'+
+'<div style="font-size:10px;color:var(--muted);margin:-6px 0 12px">Measured from Cloudflare edge. AI crawlers may drop responses over 5 s or 200k+ tokens.</div>';
+}).catch(function(){sp.innerHTML=''});
 }
 function showToolbar(){
 var tb=document.getElementById('inlineToolbar');
