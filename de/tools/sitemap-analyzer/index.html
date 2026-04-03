@@ -267,7 +267,7 @@
 <div class="th"><div class="lb">Kostenloses SEO-Tool</div><h1>Sitemap Analyzer</h1><p>XML-Sitemaps validieren, URL-Status prüfen, Duplikate erkennen und einen umfassenden Sitemap-Gesundheitsscore mit konkreten Empfehlungen erhalten.</p><div class="tool-updated">Letztes Update: April 2026</div></div>
 <div class="cd">
 <div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com oder Sitemap-URL" value="https://lumina-seo.com"><button class="ab" id="btnGo">Sitemap analysieren</button></div>
-<div id="limitRow" style="margin-top:8px;display:flex;align-items:center;gap:6px"><span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Max URLs:</span> <span id="limitBtns" style="display:inline-flex;gap:3px"></span></div>
+<div id="limitRow" style="margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">URL Health Check:</span> <span id="limitBtns" style="display:inline-flex;gap:3px"></span><span id="limitHint" style="font-size:10px;color:var(--muted);margin-left:4px"></span></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w30"></div></div>
 <div id="res" style="display:none">
 <!-- Score ring + metrics -->
@@ -438,7 +438,10 @@ document.querySelectorAll('.faq-q').forEach(function(q){
 // ── Batch Limit Pills ──
 (function(){
   var limits=[100,250,500,1000,2000];
+  var durations={100:'~1 Min.',250:'~2 Min.',500:'~4 Min.',1000:'~8 Min.',2000:'~17 Min.'};
   var container=document.getElementById('limitBtns');
+  var hint=document.getElementById('limitHint');
+  function updateHint(n){if(hint)hint.textContent=durations[n]||''}
   limits.forEach(function(n){
     var b=document.createElement('button');
     b.className='mt-btn'+(n===maxUrls?' active':'');
@@ -447,9 +450,11 @@ document.querySelectorAll('.faq-q').forEach(function(q){
       maxUrls=n;
       container.querySelectorAll('.mt-btn').forEach(function(x){x.classList.remove('active')});
       b.classList.add('active');
+      updateHint(n);
     });
     container.appendChild(b);
   });
+  updateHint(maxUrls);
 })();
 
 // ── Score Ring ──
