@@ -273,13 +273,20 @@
 <!-- Score ring + metrics -->
 <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:14px">
 <div id="scoreRing" style="flex-shrink:0"></div>
-<div class="metrics" style="grid-template-columns:repeat(3,1fr);flex:1">
+<div style="flex:1">
+<div class="metrics" style="grid-template-columns:repeat(3,1fr)">
 <div class="metric"><div class="mh">URLs gesamt</div><p id="mTotal">0</p></div>
+<div class="metric"><div class="mh">Duplikate</div><p id="mDupes">0</p></div>
+<div class="metric"><div class="mh">Sitemaps</div><p id="mSitemaps">0</p></div>
+</div>
+<div id="healthMetrics" style="display:none">
+<div id="healthLabel" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:10px 0 6px;display:flex;align-items:center;gap:6px">URL Health Check <span id="healthSample" style="font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0"></span></div>
+<div class="metrics" style="grid-template-columns:repeat(3,1fr)">
 <div class="metric"><div class="mh">Fehlerfrei (2xx)</div><p id="mOk">0</p></div>
 <div class="metric"><div class="mh">Weiterleitungen</div><p id="mRedirects">0</p></div>
 <div class="metric"><div class="mh">Fehler</div><p id="mErrors">0</p></div>
-<div class="metric"><div class="mh">Duplikate</div><p id="mDupes">0</p></div>
-<div class="metric"><div class="mh">Sitemaps</div><p id="mSitemaps">0</p></div>
+</div>
+</div>
 </div>
 </div>
 <!-- Progress bar for URL checking -->
@@ -864,6 +871,9 @@ function checkUrlHealth(entries,onDone){
 
   document.getElementById('checkProgress').style.display='block';
   document.getElementById('checkText').textContent='URL-Status wird gepr\u00fcft: 0 / '+total+'\u2026';
+  document.getElementById('healthMetrics').style.display='block';
+  var allTotal=sitemapData.allEntries?sitemapData.allEntries.length:entries.length;
+  document.getElementById('healthSample').textContent=total<allTotal?'('+total+' von '+allTotal+' gepr\u00fcft)':'(alle '+total+' URLs)';
 
   batchAbort=false;
   btn.textContent='\u23F9 Stopp';btn.disabled=false;
@@ -1301,6 +1311,7 @@ function go(url){
   document.getElementById('sitemapFiles').style.display='none';
   document.getElementById('urlSection').style.display='none';
   document.getElementById('toolbar').style.display='none';
+  document.getElementById('healthMetrics').style.display='none';
   document.getElementById('crossLinks').style.display='none';
   document.getElementById('aiCard').style.display='none';
   document.getElementById('aiRecResult').style.display='none';
