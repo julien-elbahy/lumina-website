@@ -103,6 +103,9 @@ const TOOL_LIMITS = {
   'content-optimizer-dfs': { type: 'dfs', limit: 50 },
   'meta-analyzer-sub':     { type: 'dfs', limit: 50 },
   'serp-preview-sub':      { type: 'dfs', limit: 50 },
+  // Query Fan Out
+  'query-fan-out':         { type: 'ai',  limit: 10 },
+  'query-fan-out-sub':     { type: 'dfs', limit: 100 },
 };
 
 // Fallback limits for unknown tools (backwards compatibility)
