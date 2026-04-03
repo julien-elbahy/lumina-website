@@ -338,6 +338,20 @@
     <lastmod>2026-03-31</lastmod>
   </url>
   <url>
+    <loc>https://lumina-seo.com/tools/sitemap-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/sitemap-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/sitemap-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/sitemap-analyzer/"/>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/sitemap-analyzer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/sitemap-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/sitemap-analyzer/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/sitemap-analyzer/"/>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
     <loc>https://lumina-seo.com/about.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/about.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ueber-uns.html"/>
