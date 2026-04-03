@@ -266,7 +266,7 @@ export default {
     if (url.pathname === '/' || url.pathname === '/health') {
       return jsonResponse({
         status: 'ok', service: 'lumina-proxy', version: '7.0',
-        endpoints: ['/fetch', '/check', '/headers', '/deep', '/scrape', '/links', '/markdown', '/screenshot', '/redirect', '/dfs', '/ai', '/psi'],
+        endpoints: ['/fetch', '/check', '/headers', '/deep', '/scrape', '/links', '/markdown', '/screenshot', '/redirect', '/dfs', '/ai', '/psi', '/sitemap-parse'],
         bots: Object.keys(BOT_AGENTS).length,
         perToolQuotas: true,
       }, 200, origin);
@@ -618,6 +618,143 @@ export default {
         chain,
         isHttpToHttps: parsed.href.startsWith('http://') && chain.length > 0 && chain[chain.length - 1].url.startsWith('https://'),
       }, 200, origin);
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // /sitemap-parse — Parse sitemap + all child sitemaps server-side
+    // Returns structured JSON with all entries, sitemap metadata, etc.
+    // This avoids 300+ client→proxy round-trips for large sitemap indexes.
+    // ══════════════════════════════════════════════════════════
+    if (url.pathname === '/sitemap-parse') {
+      const authErr = authCheck(origin, referer, ip);
+      if (authErr) return jsonResponse({ error: authErr }, authErr === 'Forbidden' ? 403 : 429, origin);
+      const targetUrl = url.searchParams.get('url');
+      if (!targetUrl) return jsonResponse({ error: 'Missing url param' }, 400, origin);
+      const { error: valErr, parsed } = validateTargetUrl(targetUrl);
+      if (valErr) return jsonResponse({ error: valErr }, 400, origin);
+
+      const FETCH_OPTS = {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; LuminaSEO/1.0; +https://lumina-seo.com)',
+          'Accept': 'text/html,application/xhtml+xml,application/xml',
+        },
+        redirect: 'follow',
+        cf: { cacheTtl: 300, cacheEverything: true },
+      };
+
+      // Fetch and parse a single sitemap URL, returns { type, url, entries[], meta }
+      async function parseSingle(sitemapUrl) {
+        const start = Date.now();
+        const resp = await fetch(sitemapUrl, FETCH_OPTS);
+        const xml = await resp.text();
+        const loadTime = Date.now() - start;
+        const size = xml.length;
+
+        // Detect sitemap index vs urlset
+        const isIndex = xml.includes('<sitemapindex');
+        const isUrlset = xml.includes('<urlset');
+
+        if (isIndex) {
+          // Extract child sitemap URLs
+          const childUrls = [];
+          const re = /<sitemap>\s*<loc>([^<]+)<\/loc>/g;
+          let m;
+          while ((m = re.exec(xml)) !== null) childUrls.push(m[1].trim());
+          return { type: 'index', url: sitemapUrl, childUrls, size, loadTime };
+        }
+
+        if (isUrlset) {
+          // Extract URL entries with metadata
+          const entries = [];
+          const ns = (xml.match(/xmlns="([^"]+)"/) || [])[1] || '';
+          const hasCorrectNs = ns === 'http://www.sitemaps.org/schemas/sitemap/0.9';
+          const parseError = xml.includes('<parsererror');
+          const hasImageNs = xml.includes('xmlns:image');
+          const hasVideoNs = xml.includes('xmlns:video');
+          const hasNewsNs = xml.includes('xmlns:news');
+          const hasHreflangNs = xml.includes('xmlns:xhtml');
+
+          // Parse <url> entries via regex (faster than DOM in Worker)
+          const urlRe = /<url>([\s\S]*?)<\/url>/g;
+          let um;
+          while ((um = urlRe.exec(xml)) !== null) {
+            const block = um[1];
+            const loc = (block.match(/<loc>([^<]*)<\/loc>/) || [])[1] || '';
+            const lastmod = (block.match(/<lastmod>([^<]*)<\/lastmod>/) || [])[1] || null;
+            const changefreq = (block.match(/<changefreq>([^<]*)<\/changefreq>/) || [])[1] || null;
+            const priority = (block.match(/<priority>([^<]*)<\/priority>/) || [])[1] || null;
+            if (loc) entries.push({ loc: loc.trim(), lastmod, changefreq, priority });
+          }
+
+          return {
+            type: 'urlset', url: sitemapUrl, entries, size, loadTime,
+            meta: { hasCorrectNs, namespace: ns, parseError, hasImageNs, hasVideoNs, hasNewsNs, hasHreflangNs, urlCount: entries.length }
+          };
+        }
+
+        return { type: 'unknown', url: sitemapUrl, error: 'Not a valid sitemap', size, loadTime };
+      }
+
+      try {
+        const start = Date.now();
+        const root = await parseSingle(parsed.href);
+
+        if (root.type === 'index') {
+          // Fetch all child sitemaps in parallel batches of 10
+          const BATCH = 10;
+          const childUrls = root.childUrls;
+          const sitemaps = [{ url: root.url, type: 'index', urlCount: childUrls.length, size: root.size, loadTime: root.loadTime }];
+          const allEntries = [];
+          let failed = 0;
+
+          for (let i = 0; i < childUrls.length; i += BATCH) {
+            const batch = childUrls.slice(i, i + BATCH);
+            const results = await Promise.allSettled(batch.map(u =>
+              parseSingle(u).catch(() => null)
+            ));
+            for (const r of results) {
+              if (r.status === 'fulfilled' && r.value && r.value.type === 'urlset') {
+                const sm = r.value;
+                sitemaps.push({
+                  url: sm.url, type: 'urlset', urlCount: sm.meta.urlCount, size: sm.size, loadTime: sm.loadTime,
+                  hasCorrectNs: sm.meta.hasCorrectNs, namespace: sm.meta.namespace, parseError: sm.meta.parseError,
+                  hasImageNs: sm.meta.hasImageNs, hasVideoNs: sm.meta.hasVideoNs, hasNewsNs: sm.meta.hasNewsNs, hasHreflangNs: sm.meta.hasHreflangNs
+                });
+                for (const e of sm.entries) {
+                  e.source = sm.url;
+                  allEntries.push(e);
+                }
+              } else {
+                failed++;
+              }
+            }
+          }
+
+          return jsonResponse({
+            sitemaps, entries: allEntries, failed,
+            totalChildSitemaps: childUrls.length,
+            time: Date.now() - start
+          }, 200, origin);
+        }
+
+        if (root.type === 'urlset') {
+          const sm = root;
+          for (const e of sm.entries) e.source = sm.url;
+          return jsonResponse({
+            sitemaps: [{
+              url: sm.url, type: 'urlset', urlCount: sm.meta.urlCount, size: sm.size, loadTime: sm.loadTime,
+              hasCorrectNs: sm.meta.hasCorrectNs, namespace: sm.meta.namespace, parseError: sm.meta.parseError,
+              hasImageNs: sm.meta.hasImageNs, hasVideoNs: sm.meta.hasVideoNs, hasNewsNs: sm.meta.hasNewsNs, hasHreflangNs: sm.meta.hasHreflangNs
+            }],
+            entries: sm.entries, failed: 0, totalChildSitemaps: 0,
+            time: Date.now() - start
+          }, 200, origin);
+        }
+
+        return jsonResponse({ error: 'Not a valid sitemap XML' }, 400, origin);
+      } catch (err) {
+        return jsonResponse({ error: 'Sitemap parse failed: ' + err.message }, 502, origin);
+      }
     }
 
     // ══════════════════════════════════════════════════════════
