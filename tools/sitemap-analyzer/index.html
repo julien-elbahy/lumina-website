@@ -1086,7 +1086,9 @@ function renderResults(){
   // Sitemap files
   var smSection=document.getElementById('sitemapFiles');
   if(sitemapData.sitemaps.length>0){
-    var h='<div class="section-head">Sitemaps Found ('+sitemapData.sitemaps.length+')</div>';
+    var smCount=sitemapData.sitemaps.length;
+    var h='<div class="section-head">Sitemaps Found ('+smCount+')</div>';
+    h+='<div class="list-scroll" style="max-height:'+(smCount>10?'350px':'none')+';overflow-y:'+(smCount>10?'auto':'visible')+'">';
     sitemapData.sitemaps.forEach(function(sm){
       var sizeKB=Math.round(sm.size/1024);
       var typeLabel=sm.type==='index'?'Index':'Sitemap';
@@ -1103,6 +1105,7 @@ function renderResults(){
       if(sm.hasHreflangNs)h+='<span class="badge info">hreflang</span>';
       h+='</span></div>';
     });
+    h+='</div>';
     smSection.innerHTML=h;
     smSection.style.display='block';
   }
