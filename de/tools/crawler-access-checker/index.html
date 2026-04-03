@@ -56,7 +56,8 @@
 .sec-cols{display:flex;gap:8px;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);opacity:.7}.sec-cols span{width:80px;text-align:center}.sec-cols span:last-child{width:60px}
 .cr{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;margin-bottom:4px;transition:background .15s}.cr:hover{background:var(--accent-soft)}.cr-name{font-size:13px;font-weight:700;width:160px;flex-shrink:0;color:var(--text)}.cr-note{font-size:11px;color:var(--muted);flex:1}@media(max-width:640px){.cr-name{width:auto;min-width:100px;flex-shrink:1}}.cr-status{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid;width:80px;flex-shrink:0;text-align:center;cursor:default}.cr-status.allowed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-status.blocked{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-status.partial-allow{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}
 .raw{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px;font-family:var(--mono);font-size:11px;line-height:1.6;color:var(--text2);max-height:300px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
-.cr-live{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid var(--border);width:60px;flex-shrink:0;text-align:center;color:var(--muted)}.cr-live.l200{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-live.l403{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-live.l4xx{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.cr-live.lerr{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
+.cr-live{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid var(--border);min-width:60px;flex-shrink:0;text-align:center;color:var(--muted);white-space:nowrap}.cr-live.l200{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border)}.cr-live.l403{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}.cr-live.l4xx{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)}.cr-live.lerr{background:var(--err-bg);color:var(--err);border-color:var(--err-border)}
+.cr-time{font-weight:400;opacity:.7;margin-left:3px}.cr-time.slow{opacity:1;color:var(--warn)}.cr-time.very-slow{opacity:1;color:var(--err)}
 .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}@media(max-width:480px){.metrics{grid-template-columns:repeat(2,1fr)}}
 .tb-btn{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:4px}.tb-btn:hover{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}.tb-btn.copied{border-color:var(--ok);color:var(--ok)}
 .cross-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.cross-link{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--accent);transition:all .2s}.cross-link:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent-h)}
@@ -350,11 +351,10 @@ else if(isEmpty&&httpStatus>=200&&httpStatus<300)nfHtml+='<div class="sb wn">⚠
 else nfHtml+='<div class="sb wn">⚠️ Keine robots.txt gefunden'+(httpStatus?' (HTTP '+httpStatus+')':'')+'. Alle Crawler sind standardmäßig erlaubt.</div>';
 nfHtml+='<div class="sb ok">✅ Alle AI-Crawler sind erlaubt</div>';
 nfHtml+='<div id="serverSummary"></div>';
-nfHtml+='<div id="sitePerf"></div>';
 BOTS.forEach(function(cat){nfHtml+='<div class="sec"><span>'+cat.cat+'</span><div class="sec-cols"><span>robots.txt</span><span>Server</span></div></div>';cat.bots.forEach(function(b){nfHtml+='<div class="cr" id="cr-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'"><span class="cr-name">'+esc(b.name)+'</span><span class="cr-note">'+esc(b.label)+'</span><span class="cr-status allowed">ERLAUBT</span><span class="cr-live" id="live-'+b.name.toLowerCase().replace(/[^a-z0-9]/g,'-')+'">…</span></div>'})});
 document.getElementById('res').innerHTML=nfHtml;
 window._lastResults={bots:BOTS,checkBot:function(){return'allowed'},siteOrigin:siteOrigin,sitemaps:[],crawlDelays:{},totalBots:36,allowed:36,blocked:0,raw:''};
-runLiveCheck();runSiteCheck();return}
+runLiveCheck();return}
 var lines=raw.split('\n');var rules={};var currentUA='*';var sitemaps=[];var crawlDelays={};
 lines.forEach(function(line){
 line=line.replace(/#.*/,'').trim();if(!line)return;
@@ -408,7 +408,6 @@ else if(aiBlocked>0)html+='<div class="sb wn" id="aiSummary">⚠️ robots.txt b
 else if(aiPartialAllow>0)html+='<div class="sb wn" id="aiSummary">⚠️ '+aiPartialAllow+'/'+aiTotal+' AI-Crawler überwiegend blockiert, aber mit Allow-Ausnahmen: <strong>'+aiPartialNames.join(', ')+'</strong></div>';
 else html+='<div class="sb ok" id="aiSummary">✅ Alle AI-Crawler sind per robots.txt erlaubt</div>';
 html+='<div id="serverSummary"></div>';
-html+='<div id="sitePerf"></div>';
 html+='<div id="legend" style="display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 4px;font-size:10px;color:var(--muted)"></div>';
 html+='<div style="margin:10px 0"><input type="text" id="botFilter" placeholder="Bots filtern…" style="width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--font);font-size:12px"></div>';
 BOTS.forEach(function(cat){
@@ -431,7 +430,7 @@ if(uniqueSitemaps.length){html+='<div class="sec">📍 Sitemaps ('+uniqueSitemap
 html+='<div class="sec">📄 Raw robots.txt</div><div class="raw" id="rawRobots">'+esc(raw)+'</div>';
 document.getElementById('res').innerHTML=html;
 window._lastResults={bots:BOTS,checkBot:checkBotStatus,siteOrigin:siteOrigin,sitemaps:sitemaps,crawlDelays:crawlDelays,totalBots:totalBots,allowed:allowed,partial:partial,blocked:blocked,raw:raw};
-runLiveCheck();runSiteCheck();
+runLiveCheck();
 }).catch(function(e){
 document.getElementById('loading').style.display='none';
 document.getElementById('liveProgress').style.display='none';
@@ -458,9 +457,13 @@ return r.json()})
 .then(function(data){
 if(!data||!el)return;
 var sc=data.statusCode||0;var err=data.error||'';
-if(sc>=200&&sc<300){el.textContent=sc;el.className='cr-live l200';el.title='Server antwortet normal auf diesen Bot';ok200++}
-else if(sc===403){el.textContent='403';el.className='cr-live l403';el.title='Server lehnt diesen Bot mit HTTP 403 ab';blocked403++}
-else if(sc>0){el.textContent=sc;el.className='cr-live l4xx';el.title='Server antwortete mit HTTP '+sc}
+var ms=data.time||0;var tStr=ms?'\nAntwortzeit: '+ms+' ms':'';
+var tLabel=ms?(ms>=1000?(ms/1000).toFixed(1)+'s':ms+'ms'):'';
+var tClass=ms>=5000?' very-slow':ms>=2000?' slow':'';
+var tSpan=tLabel?' <span class="cr-time'+tClass+'">· '+tLabel+'</span>':'';
+if(sc>=200&&sc<300){el.innerHTML=sc+tSpan;el.className='cr-live l200';el.title='Server antwortet normal auf diesen Bot'+tStr;ok200++}
+else if(sc===403){el.innerHTML='403'+tSpan;el.className='cr-live l403';el.title='Server lehnt diesen Bot mit HTTP 403 ab'+tStr;blocked403++}
+else if(sc>0){el.innerHTML=sc+tSpan;el.className='cr-live l4xx';el.title='Server antwortete mit HTTP '+sc+tStr}
 else{el.textContent=err==='Timeout'?'TMO':'ERR';el.className='cr-live lerr';el.title=err==='Timeout'?'Server hat nicht innerhalb von 10 Sekunden geantwortet':'Netzwerkfehler';errors++}
 })
 .catch(function(){if(el){el.textContent='ERR';el.className='cr-live lerr';errors++}})
@@ -523,33 +526,6 @@ function tick(now){var p=Math.min((now-start)/dur,1);var ease=1-Math.pow(1-p,3);
 el.textContent=prefix+Math.round(target*ease)+suffix;
 if(p<1)requestAnimationFrame(tick)}
 requestAnimationFrame(tick)});
-}
-function runSiteCheck(){
-if(!siteOrigin)return;
-var sp=document.getElementById('sitePerf');
-if(!sp)return;
-sp.innerHTML='<div style="font-size:11px;color:var(--muted);margin:8px 0">⏳ Server-Antwort wird gemessen…</div>';
-fetch(W+'/fetch?url='+encodeURIComponent(siteOrigin))
-.then(function(r){return r.json()})
-.then(function(data){
-if(data.error){sp.innerHTML='';return}
-var time=data.time||0;
-var html=data.html||'';
-var bytes=new Blob([html]).size;
-var kb=bytes<1024?bytes+' B':Math.round(bytes/1024)+' KB';
-var tokens=Math.round(html.length/4);
-var tokensK=tokens>=1000?Math.round(tokens/1000)+'k':tokens;
-var timeColor=time<2000?'var(--ok)':time<5000?'var(--warn)':'var(--err)';
-var sizeColor=bytes<512000?'var(--ok)':bytes<2097152?'var(--warn)':'var(--err)';
-var tokenColor=tokens<32000?'var(--ok)':tokens<128000?'var(--warn)':'var(--err)';
-sp.innerHTML='<div class="sec">⚡ Server-Antwort (Startseite)</div>'+
-'<div class="metrics" style="grid-template-columns:repeat(3,1fr)">'+
-'<div class="metric"><div class="mh">Antwortzeit</div><p style="color:'+timeColor+'">'+time+' ms</p></div>'+
-'<div class="metric"><div class="mh">HTML-Größe</div><p style="color:'+sizeColor+'">'+kb+'</p></div>'+
-'<div class="metric"><div class="mh">~Tokens (gesch.)</div><p style="color:'+tokenColor+'">~'+tokensK+'</p></div>'+
-'</div>'+
-'<div style="font-size:10px;color:var(--muted);margin:-6px 0 12px">Gemessen von Cloudflare-Edge. AI-Crawler brechen bei über 5 s oder 200k+ Tokens häufig ab.</div>';
-}).catch(function(){sp.innerHTML=''});
 }
 function showToolbar(){
 var tb=document.getElementById('inlineToolbar');
