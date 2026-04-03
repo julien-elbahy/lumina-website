@@ -313,7 +313,7 @@
 <!-- AI Card (outside .cd card) -->
 <div id="aiCard" class="ai-card" style="display:none">
 <div class="ai-card-header"><div class="ai-badge">KI-gestützt</div><div class="ai-card-title">Sitemap-Empfehlungen</div><div class="ai-card-desc">Erhalte konkrete Optimierungstipps basierend auf deiner Sitemap-Analyse.</div></div>
-<div class="ai-card-body"><button class="ai-btn" id="btnAiRec">&#10024; KI-Empfehlungen abrufen</button></div>
+<div class="ai-card-body"><button class="ai-btn" id="btnAiRec">&#10024; KI-Empfehlungen abrufen</button><div id="aiCredits" style="font-size:11px;font-family:var(--mono);color:var(--muted);margin-top:8px"></div></div>
 <div id="aiRecResult" class="ai-result" style="display:none"></div>
 </div>
 
@@ -1209,41 +1209,49 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   context+='Sitemaps gesamt: '+sitemapData.sitemaps.length+'\n';
   context+='URLs gesamt: '+entries.length+'\n';
   context+='Duplikate: '+sitemapData.dupes.length+'\n';
+  context+='Trailing-Slash-Konflikte: '+(sitemapData.slashConflicts?sitemapData.slashConflicts.length:0)+'\n';
   context+='URLs ohne lastmod: '+(sitemapData.stats?sitemapData.stats.noLastmod:0)+'\n';
-  context+='URLs ohne changefreq: '+(sitemapData.stats?sitemapData.stats.noChangefreq:0)+'\n';
-  context+='URLs ohne priority: '+(sitemapData.stats?sitemapData.stats.noPriority:0)+'\n\n';
+  context+='URLs mit Query-Parametern: '+(sitemapData.stats?sitemapData.stats.queryParamUrls:0)+'\n';
+  context+='URLs mit #-Fragmenten: '+(sitemapData.stats?sitemapData.stats.fragmentUrls:0)+'\n';
+  context+='Cross-Domain-URLs: '+(sitemapData.stats?sitemapData.stats.crossDomainUrls:0)+'\n\n';
+
+  // Sitemap-Details
+  context+='Sitemap-Dateien:\n';
+  sitemapData.sitemaps.forEach(function(sm){
+    context+='- '+sm.url+' ('+sm.type+', '+sm.urlCount+(sm.type==='index'?' Sitemaps':' URLs')+', '+Math.round(sm.size/1024)+'KB';
+    if(sm.loadTime)context+=', '+sm.loadTime+'ms';
+    var ext=[];if(sm.hasImageNs)ext.push('image');if(sm.hasVideoNs)ext.push('video');if(sm.hasNewsNs)ext.push('news');if(sm.hasHreflangNs)ext.push('hreflang');
+    if(ext.length)context+=', Erweiterungen: '+ext.join('+');
+    context+=')\n';
+  });
+
+  // Lastmod-Frische
+  if(sitemapData.stats&&sitemapData.stats.freshness){
+    var f=sitemapData.stats.freshness;
+    context+='\nLastmod-Frische: <24h: '+f.fresh24h+', <7d: '+f.fresh7d+', <30d: '+f.fresh30d+', <90d: '+f.fresh90d+', <1y: '+f.fresh1y+', \u00e4lter: '+f.older+'\n';
+  }
 
   if(sitemapData.issues.length){
-    context+='Validierungsprobleme:\n';
+    context+='\nValidierungsprobleme:\n';
     sitemapData.issues.forEach(function(i){context+='- ['+i.type.toUpperCase()+'] '+i.text+'\n'});
-    context+='\n';
   }
 
   if(urlResults.length){
     var ok=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
     var redir=urlResults.filter(function(r){return r.status>=300&&r.status<400}).length;
     var errs=urlResults.filter(function(r){return r.status>=400||r.status===0}).length;
-    context+='URL-Status-Check ('+urlResults.length+' URLs):\n';
-    context+='- 2xx OK: '+ok+'\n- 3xx Weiterleitungen: '+redir+'\n- 4xx/5xx Fehler: '+errs+'\n\n';
+    context+='\nURL-Status-Check ('+urlResults.length+' gepr\u00fcft):\n';
+    context+='- 2xx OK: '+ok+'\n- 3xx Weiterleitungen: '+redir+'\n- 4xx/5xx Fehler: '+errs+'\n';
 
     var problems=urlResults.filter(function(r){return r.status<200||r.status>=300}).slice(0,15);
     if(problems.length){
-      context+='Problematische URLs:\n';
+      context+='\nProblematische URLs:\n';
       problems.forEach(function(r){context+='- '+r.status+' '+r.url+'\n'});
     }
-  }
 
-  // Extensions found
-  var extensions=[];
-  sitemapData.sitemaps.forEach(function(s){
-    if(s.hasImageNs)extensions.push('image');
-    if(s.hasVideoNs)extensions.push('video');
-    if(s.hasNewsNs)extensions.push('news');
-    if(s.hasHreflangNs)extensions.push('hreflang');
-  });
-  if(extensions.length){
-    var unique={};extensions.forEach(function(e){unique[e]=true});
-    context+='\nGefundene Sitemap-Erweiterungen: '+Object.keys(unique).join(', ')+'\n';
+    // Durchschnittliche Antwortzeit
+    var totalTime=0;urlResults.forEach(function(r){totalTime+=r.responseTime||0});
+    context+='\nDurchschnittliche Antwortzeit: '+Math.round(totalTime/urlResults.length)+'ms\n';
   }
 
   var headers={'Content-Type':'application/json','X-Lumina-Tool':'sitemap-analyzer'};
@@ -1252,7 +1260,7 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   fetch(W+'/ai',{method:'POST',headers:headers,body:JSON.stringify({
     model:'gpt-4.1',
     messages:[
-      {role:'system',content:'Du bist ein technischer SEO-Experte, spezialisiert auf XML-Sitemaps und Crawl-Optimierung. Analysiere die Sitemap-Pr\u00fcfungsergebnisse und gib klare, umsetzbare Empfehlungen.\n\nRegeln:\n- Antworte immer auf Deutsch\n- Fokussiere dich zuerst auf die wichtigsten Probleme\n- Sei konkret: Verweise auf tats\u00e4chliche URLs und Daten aus der Analyse\n- Gruppiere Empfehlungen nach Priorit\u00e4t (Kritisch, Wichtig, Empfohlen)\n- Halte es pr\u00e4gnant aber umsetzbar \u2014 maximal 8 Empfehlungen\n- IGNORIERE Abruffehler \u2014 diese werden durch das Scan-Tool verursacht, nicht durch die Website\n- Wenn alles gut aussieht, best\u00e4tige dies und schlage Optimierungstipps vor\n\nAntworte in HTML mit <h4> f\u00fcr Priorit\u00e4ts-\u00dcberschriften und <ul><li> f\u00fcr Empfehlungen. Kein umschließendes div oder Markdown.'},
+      {role:'system',content:'Du bist ein technischer SEO-Experte, spezialisiert auf XML-Sitemaps, Crawl-Optimierung und KI-Sichtbarkeit (GEO). Analysiere die Sitemap-Pr\u00fcfungsergebnisse und gib klare, umsetzbare Empfehlungen.\n\nRegeln:\n- Antworte immer auf Deutsch\n- Fokussiere dich zuerst auf die wichtigsten Probleme\n- Sei konkret: Verweise auf tats\u00e4chliche URLs, Statuscodes und Daten aus der Analyse\n- Gruppiere Empfehlungen nach Priorit\u00e4t: Kritisch (blockiert Indexierung/Crawling), Wichtig (beeinflusst SEO), Empfohlen (nice to have)\n- Halte es pr\u00e4gnant \u2014 maximal 8 Empfehlungen\n- IGNORIERE Abruffehler (Status 0) \u2014 diese werden durch das Scan-Tool verursacht. Erw\u00e4hne sie NICHT.\n- Empfehle NICHT das Hinzuf\u00fcgen von <changefreq> oder <priority> \u2014 Google ignoriert diese Felder offiziell\n- Trailing-Slash-Konflikte bedeuten, dass dieselbe Seite mit UND ohne Trailing Slash existiert \u2014 das verursacht Duplicate Content\n- Bei Seiten mit hreflang: pr\u00fcfe ob die Sitemap alle Sprachversionen abdeckt\n- Wenn alle Lastmod-Daten identisch sind, warne vor auto-generierten Timestamps\n- Erw\u00e4hne Sitemap-Ladezeit wenn >1s \u2014 langsame Sitemaps beeintr\u00e4chtigen die Crawl-Effizienz\n- Wenn alles perfekt aussieht, sage es kurz und schlage 1-2 fortgeschrittene Optimierungstipps vor (z.B. Sitemap-Index-Splitting, Lastmod-Genauigkeit, Image/Video-Sitemaps)\n- F\u00fclle NICHT mit generischen Ratschl\u00e4gen auf wenn die Sitemap gesund ist\n\nAntworte in HTML mit <h4> f\u00fcr Priorit\u00e4ts-\u00dcberschriften und <ul><li> f\u00fcr Empfehlungen. Kein umschlie\u00dfendes div oder Markdown.'},
       {role:'user',content:context}
     ],
     max_tokens:1500
@@ -1260,6 +1268,7 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(data.error);
+    if(data._lumina){var cr=document.getElementById('aiCredits');if(cr)cr.textContent=(data._lumina.remaining||0)+'/'+(data._lumina.limit||'\u221E')+' Credits heute'}
     var content=data.choices[0].message.content||'';
     content=content.replace(/```html|```/g,'').trim();
     out.innerHTML=content;

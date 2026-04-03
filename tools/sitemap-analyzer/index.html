@@ -313,7 +313,7 @@
 <!-- AI Card (outside .cd card) -->
 <div id="aiCard" class="ai-card" style="display:none">
 <div class="ai-card-header"><div class="ai-badge">AI-Powered</div><div class="ai-card-title">Sitemap Recommendations</div><div class="ai-card-desc">Get actionable fixes and optimization tips based on your sitemap analysis.</div></div>
-<div class="ai-card-body"><button class="ai-btn" id="btnAiRec">&#10024; Get AI Recommendations</button></div>
+<div class="ai-card-body"><button class="ai-btn" id="btnAiRec">&#10024; Get AI Recommendations</button><div id="aiCredits" style="font-size:11px;font-family:var(--mono);color:var(--muted);margin-top:8px"></div></div>
 <div id="aiRecResult" class="ai-result" style="display:none"></div>
 </div>
 
@@ -1210,41 +1210,49 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   context+='Total sitemaps: '+sitemapData.sitemaps.length+'\n';
   context+='Total URLs: '+entries.length+'\n';
   context+='Duplicates: '+sitemapData.dupes.length+'\n';
+  context+='Trailing slash conflicts: '+(sitemapData.slashConflicts?sitemapData.slashConflicts.length:0)+'\n';
   context+='URLs without lastmod: '+(sitemapData.stats?sitemapData.stats.noLastmod:0)+'\n';
-  context+='URLs without changefreq: '+(sitemapData.stats?sitemapData.stats.noChangefreq:0)+'\n';
-  context+='URLs without priority: '+(sitemapData.stats?sitemapData.stats.noPriority:0)+'\n\n';
+  context+='URLs with query parameters: '+(sitemapData.stats?sitemapData.stats.queryParamUrls:0)+'\n';
+  context+='URLs with # fragments: '+(sitemapData.stats?sitemapData.stats.fragmentUrls:0)+'\n';
+  context+='Cross-domain URLs: '+(sitemapData.stats?sitemapData.stats.crossDomainUrls:0)+'\n\n';
+
+  // Sitemap file details
+  context+='Sitemap files:\n';
+  sitemapData.sitemaps.forEach(function(sm){
+    context+='- '+sm.url+' ('+sm.type+', '+sm.urlCount+(sm.type==='index'?' sitemaps':' URLs')+', '+Math.round(sm.size/1024)+'KB';
+    if(sm.loadTime)context+=', '+sm.loadTime+'ms';
+    var ext=[];if(sm.hasImageNs)ext.push('image');if(sm.hasVideoNs)ext.push('video');if(sm.hasNewsNs)ext.push('news');if(sm.hasHreflangNs)ext.push('hreflang');
+    if(ext.length)context+=', extensions: '+ext.join('+');
+    context+=')\n';
+  });
+
+  // Lastmod freshness
+  if(sitemapData.stats&&sitemapData.stats.freshness){
+    var f=sitemapData.stats.freshness;
+    context+='\nLastmod freshness: <24h: '+f.fresh24h+', <7d: '+f.fresh7d+', <30d: '+f.fresh30d+', <90d: '+f.fresh90d+', <1y: '+f.fresh1y+', older: '+f.older+'\n';
+  }
 
   if(sitemapData.issues.length){
-    context+='Validation Issues:\n';
+    context+='\nValidation Issues:\n';
     sitemapData.issues.forEach(function(i){context+='- ['+i.type.toUpperCase()+'] '+i.text+'\n'});
-    context+='\n';
   }
 
   if(urlResults.length){
     var ok=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
     var redir=urlResults.filter(function(r){return r.status>=300&&r.status<400}).length;
     var errs=urlResults.filter(function(r){return r.status>=400||r.status===0}).length;
-    context+='URL Health Check ('+urlResults.length+' URLs):\n';
-    context+='- 2xx OK: '+ok+'\n- 3xx Redirects: '+redir+'\n- 4xx/5xx Errors: '+errs+'\n\n';
+    context+='\nURL Health Check ('+urlResults.length+' checked):\n';
+    context+='- 2xx OK: '+ok+'\n- 3xx Redirects: '+redir+'\n- 4xx/5xx Errors: '+errs+'\n';
 
     var problems=urlResults.filter(function(r){return r.status<200||r.status>=300}).slice(0,15);
     if(problems.length){
-      context+='Problem URLs:\n';
+      context+='\nProblem URLs:\n';
       problems.forEach(function(r){context+='- '+r.status+' '+r.url+'\n'});
     }
-  }
 
-  // Extensions found
-  var extensions=[];
-  sitemapData.sitemaps.forEach(function(s){
-    if(s.hasImageNs)extensions.push('image');
-    if(s.hasVideoNs)extensions.push('video');
-    if(s.hasNewsNs)extensions.push('news');
-    if(s.hasHreflangNs)extensions.push('hreflang');
-  });
-  if(extensions.length){
-    var unique={};extensions.forEach(function(e){unique[e]=true});
-    context+='\nSitemap extensions found: '+Object.keys(unique).join(', ')+'\n';
+    // Avg response time
+    var totalTime=0;urlResults.forEach(function(r){totalTime+=r.responseTime||0});
+    context+='\nAvg response time: '+Math.round(totalTime/urlResults.length)+'ms\n';
   }
 
   var headers={'Content-Type':'application/json','X-Lumina-Tool':'sitemap-analyzer'};
@@ -1253,7 +1261,7 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   fetch(W+'/ai',{method:'POST',headers:headers,body:JSON.stringify({
     model:'gpt-4.1',
     messages:[
-      {role:'system',content:'You are a technical SEO expert specializing in XML sitemaps and crawl optimization. Analyze the sitemap check results and provide clear, actionable recommendations.\n\nRules:\n- Always respond in English\n- Focus on the most impactful issues first\n- Be specific: reference actual URLs and data from the analysis\n- Group recommendations by priority (Critical, Important, Recommended)\n- Keep it concise but actionable \u2014 max 8 recommendations\n- IGNORE fetch errors \u2014 they are caused by the scanning tool, not by the website\n- If everything looks good, confirm and suggest optimization tips\n\nRespond in HTML using <h4> for priority headings and <ul><li> for recommendations. No wrapping div or markdown.'},
+      {role:'system',content:'You are a technical SEO expert specializing in XML sitemaps, crawl optimization, and AI visibility (GEO). Analyze the sitemap check results and provide clear, actionable recommendations.\n\nRules:\n- Always respond in English\n- Focus on the most impactful issues first\n- Be specific: reference actual URLs, status codes, and data from the analysis\n- Group recommendations by priority: Critical (blocks indexing/crawling), Important (affects SEO), Recommended (nice to have)\n- Keep it concise \u2014 max 8 recommendations total\n- IGNORE fetch errors (status 0) \u2014 they are caused by the scanning tool, not by the website. Do NOT mention them.\n- Do NOT recommend adding <changefreq> or <priority> tags \u2014 Google officially ignores these fields\n- Trailing slash conflicts mean the same page appears with AND without trailing slash \u2014 this causes duplicate content\n- For sites with hreflang: check if the sitemap covers all language versions\n- If lastmod dates are all identical, warn about auto-generated timestamps\n- Mention sitemap load time if >1s \u2014 slow sitemaps hurt crawl efficiency\n- If everything looks perfect, say so briefly and suggest 1-2 advanced optimization tips (e.g. sitemap index splitting, lastmod accuracy, image/video sitemaps)\n- Do NOT pad with generic advice when the sitemap is healthy\n\nRespond in HTML using <h4> for priority headings and <ul><li> for recommendations. No wrapping div or markdown.'},
       {role:'user',content:context}
     ],
     max_tokens:1500
@@ -1261,6 +1269,7 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   .then(function(r){return r.json()})
   .then(function(data){
     if(data.error)throw new Error(data.error);
+    if(data._lumina){var cr=document.getElementById('aiCredits');if(cr)cr.textContent=(data._lumina.remaining||0)+'/'+(data._lumina.limit||'\u221E')+' credits today'}
     var content=data.choices[0].message.content||'';
     content=content.replace(/```html|```/g,'').trim();
     out.innerHTML=content;
