@@ -264,8 +264,8 @@
 <div class="ct" id="main-content">
 <div class="th"><div class="lb">Free SEO Tool</div><h1>Sitemap Analyzer</h1><p>Validate XML sitemaps, check URL health status, detect duplicates, and get a comprehensive sitemap health score with actionable recommendations.</p><div class="tool-updated">Last updated: April 2026</div></div>
 <div class="cd">
-<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com or sitemap.xml URL"><button class="ab" id="btnGo">Analyze Sitemap</button></div>
-<div id="limitRow" style="display:none;margin-top:8px"><span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Max URLs:</span> <span id="limitBtns" style="display:inline-flex;gap:3px"></span></div>
+<div class="url-bar"><input type="text" id="urlIn" placeholder="https://example.com or sitemap.xml URL" value="https://lumina-seo.com"><button class="ab" id="btnGo">Analyze Sitemap</button></div>
+<div id="limitRow" style="margin-top:8px;display:flex;align-items:center;gap:6px"><span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Max URLs:</span> <span id="limitBtns" style="display:inline-flex;gap:3px"></span></div>
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div><div class="skel w30"></div></div>
 <div id="res" style="display:none">
 <!-- Score ring + metrics -->
@@ -838,7 +838,6 @@ function calcHealthScore(){
 function renderResults(){
   var res=document.getElementById('res');
   res.style.display='block';
-  document.getElementById('limitRow').style.display='none';
 
   var entries=sitemapData.allEntries||[];
 
@@ -1116,7 +1115,6 @@ function go(url){
   document.getElementById('checkBar').style.width='0';
   document.getElementById('checkPct').textContent='';
   document.getElementById('loading').style.display='block';
-  document.getElementById('limitRow').style.display='';
   btn.disabled=true;btn.textContent='\u23F3 Searching\u2026';
 
   // Reset filters
