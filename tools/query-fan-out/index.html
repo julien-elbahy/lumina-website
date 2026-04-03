@@ -91,6 +91,7 @@
 .fo-serp-body{flex:1;min-width:0}.fo-serp-title{font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fo-serp-title a{color:inherit;text-decoration:none}.fo-serp-title a:hover{color:var(--accent)}.fo-serp-url{font-family:var(--mono);font-size:10px;color:var(--ok);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fo-gaps{margin-top:16px}.fo-gap-item{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2)}.fo-gap-icon{flex-shrink:0;font-size:16px}
 .fo-loading-serp{font-size:11px;color:var(--muted);padding:8px 0;font-family:var(--mono)}
+.fo-paa{margin-top:6px}.fo-paa-item{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;transition:background .15s;border-radius:6px}.fo-paa-item:hover{background:var(--accent-soft)}.fo-paa-q{font-weight:600;color:var(--text);flex:1}.fo-paa-from{font-size:10px;color:var(--muted);font-family:var(--mono);white-space:nowrap;flex-shrink:0}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
@@ -269,7 +270,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 /* ── Core Variables ── */
 var W='https://lumina-proxy.julien-elbahy.workers.dev';
 var queryIn=document.getElementById('queryIn'),btn=document.getElementById('btnGo');
-var lastData=null,lastQuery='';
+var lastData=null,lastQuery='',allPAA=[];
 
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
@@ -459,19 +460,31 @@ function renderResults(data,query){
 
 /* ── Fetch SERPs sequentially ── */
 function fetchSERPs(subs,locCode,langCode){
-  var idx=0;
+  var idx=0;allPAA=[];
   function next(){
-    if(idx>=subs.length)return;
+    if(idx>=subs.length){renderPAA();return}
     var s=subs[idx];var cardIdx=idx;idx++;
     dfsPost('serp/google/organic/live/regular',[{
-      keyword:s.query,location_code:locCode,language_code:langCode,depth:5
+      keyword:s.query,location_code:locCode,language_code:langCode,depth:10
     }]).then(function(data){
       var tasks=data.tasks||[];
-      var items=[];
+      var allItems=[];
       if(tasks.length&&tasks[0].result&&tasks[0].result.length){
-        items=(tasks[0].result[0].items||[]).filter(function(i){return i.type==='organic'}).slice(0,5);
+        allItems=tasks[0].result[0].items||[];
       }
-      renderSERP(cardIdx,items);
+      var organic=allItems.filter(function(i){return i.type==='organic'}).slice(0,5);
+      renderSERP(cardIdx,organic);
+      /* Collect PAA */
+      allItems.forEach(function(it){
+        if(it.type==='people_also_ask'&&it.items){
+          it.items.forEach(function(paa){
+            var q=paa.title||'';
+            if(q&&!allPAA.some(function(p){return p.question===q})){
+              allPAA.push({question:q,from:s.query});
+            }
+          });
+        }
+      });
     }).catch(function(){
       var el=document.getElementById('fo-serp-'+cardIdx);
       if(el)el.innerHTML='<div style="font-size:11px;color:var(--muted);padding:4px 0">SERP data unavailable</div>';
@@ -480,6 +493,18 @@ function fetchSERPs(subs,locCode,langCode){
     });
   }
   next();
+}
+
+/* ── Render PAA section ── */
+function renderPAA(){
+  if(!allPAA.length)return;
+  var container=document.getElementById('res');
+  var html='<div class="section-head">People Also Ask ('+allPAA.length+')</div><div class="fo-paa">';
+  allPAA.forEach(function(p){
+    html+='<div class="fo-paa-item"><div style="flex-shrink:0;color:var(--accent)">&#10067;</div><div class="fo-paa-q">'+esc(p.question)+'</div><div class="fo-paa-from">'+esc(p.from)+'</div></div>';
+  });
+  html+='</div>';
+  container.innerHTML+=html;
 }
 
 /* ── Render SERP data into a sub-query card ── */
@@ -505,6 +530,7 @@ document.getElementById('btnCopy').addEventListener('click',function(){
     txt+=(i+1)+'. '+s.query+'\n   Intent: '+s.intent+' | Type: '+s.type+' | Citability: '+s.citability+'%\n   '+s.reasoning+'\n\n';
   });
   if(lastData.content_gaps){txt+='Content Recommendations:\n';lastData.content_gaps.forEach(function(g){txt+='- '+g+'\n'})}
+  if(allPAA.length){txt+='\nPeople Also Ask ('+allPAA.length+'):\n';allPAA.forEach(function(p){txt+='- '+p.question+' (from: '+p.from+')\n'})}
   navigator.clipboard.writeText(txt).then(function(){
     var b=document.getElementById('btnCopy');b.textContent='\u2713 Copied!';b.classList.add('copied');
     setTimeout(function(){b.textContent='\ud83d\udccb Copy';b.classList.remove('copied')},1500);
@@ -518,6 +544,7 @@ document.getElementById('btnCsv').addEventListener('click',function(){
   (lastData.sub_queries||[]).forEach(function(s){
     csv+='"'+((s.query||'').replace(/"/g,'""'))+'","'+(s.intent||'')+'","'+(s.type||'')+'","'+(s.content_type||'')+'",'+s.citability+',"'+((s.reasoning||'').replace(/"/g,'""'))+'","'+((s.source_types||[]).join(', '))+'"\n';
   });
+  if(allPAA.length){csv+='\nPeople Also Ask,Source Sub-Query\n';allPAA.forEach(function(p){csv+='"'+p.question.replace(/"/g,'""')+'","'+p.from.replace(/"/g,'""')+'"\n'})}
   var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fan-out-'+lastQuery.replace(/\s+/g,'-').substring(0,30)+'.csv';a.click();
 });
 
@@ -528,7 +555,8 @@ document.getElementById('btnCopyAi').addEventListener('click',function(){
   (lastData.sub_queries||[]).forEach(function(s,i){
     txt+=(i+1)+'. "'+s.query+'" ('+s.intent+', citability: '+s.citability+'%)\n';
   });
-  txt+='\nMy content should cover these sub-queries to be cited by AI search. What content gaps should I focus on?';
+  if(allPAA.length){txt+='\nPeople Also Ask questions found across sub-queries:\n';allPAA.forEach(function(p){txt+='- '+p.question+'\n'})}
+  txt+='\nMy content should cover these sub-queries and PAA questions to be cited by AI search. What content gaps should I focus on?';
   navigator.clipboard.writeText(txt).then(function(){
     var b=document.getElementById('btnCopyAi');b.textContent='\u2713 Copied!';b.classList.add('copied');
     setTimeout(function(){b.textContent='\ud83e\udd16 Copy for AI';b.classList.remove('copied')},1500);
