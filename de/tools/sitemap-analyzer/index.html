@@ -298,14 +298,7 @@
 <div id="sitemapFiles" style="display:none"></div>
 <!-- Filter + URL list -->
 <div id="urlSection" style="display:none">
-<div class="filters" id="urlFilters">
-<button class="fbtn active" data-filter="all">Alle</button>
-<button class="fbtn" data-filter="ok">2xx OK</button>
-<button class="fbtn" data-filter="redirects">3xx</button>
-<button class="fbtn" data-filter="errors">4xx/5xx</button>
-<button class="fbtn" data-filter="noLastmod">Kein Lastmod</button>
-<button class="fbtn" data-filter="dupes">Duplikate</button>
-</div>
+<div class="filters" id="urlFilters"></div>
 <div id="urlList" class="list-scroll" style="max-height:500px;overflow-y:auto"></div>
 </div>
 <!-- Toolbar -->
@@ -313,15 +306,15 @@
 <button class="tb-btn" id="btnCopy">&#128203; Bericht kopieren</button>
 <button class="tb-btn" id="btnCsv">&#128202; CSV exportieren</button>
 </div>
-<!-- Cross-links -->
+</div>
+</div>
+<!-- Cross-links (outside .cd card) -->
 <div id="crossLinks" style="display:none"></div>
-<!-- AI Card -->
+<!-- AI Card (outside .cd card) -->
 <div id="aiCard" class="ai-card" style="display:none">
 <div class="ai-card-header"><div class="ai-badge">KI-gestützt</div><div class="ai-card-title">Sitemap-Empfehlungen</div><div class="ai-card-desc">Erhalte konkrete Optimierungstipps basierend auf deiner Sitemap-Analyse.</div></div>
 <div class="ai-card-body"><button class="ai-btn" id="btnAiRec">&#10024; KI-Empfehlungen abrufen</button></div>
 <div id="aiRecResult" class="ai-result" style="display:none"></div>
-</div>
-</div>
 </div>
 
 <div class="content">
@@ -534,9 +527,11 @@ function discoverSitemap(url){
 
 // ── Parse Sitemap XML ──
 function parseSitemap(url){
+  var fetchStart=performance.now();
   return fetch(W+'/fetch?url='+encodeURIComponent(url),{headers:{'X-Lumina-Tool':'sitemap-analyzer'}})
   .then(function(r){return r.json()})
   .then(function(data){
+    var loadTime=Math.round(performance.now()-fetchStart);
     if(data.error)throw new Error(data.error);
     var xml=data.html||'';
     var size=xml.length;
@@ -554,7 +549,7 @@ function parseSitemap(url){
       document.getElementById('checkText').textContent='Sitemap-Index gefunden ('+childUrls.length+' Sitemaps). Wird geladen\u2026';
 
       // Record this index file
-      sitemapData.sitemaps.push({url:url,type:'index',urlCount:childUrls.length,size:size});
+      sitemapData.sitemaps.push({url:url,type:'index',urlCount:childUrls.length,size:size,loadTime:loadTime});
 
       // Fetch child sitemaps with concurrency 3
       var allEntries=[];
@@ -615,6 +610,7 @@ function parseSitemap(url){
       type:'urlset',
       urlCount:entries.length,
       size:size,
+      loadTime:loadTime,
       hasCorrectNs:hasCorrectNs,
       namespace:ns,
       parseError:!!parseErr,
@@ -647,6 +643,7 @@ function validateEntries(entries){
       if(!sm.hasCorrectNs)issues.push({type:'warn',text:'Fehlender oder falscher Namespace in '+sm.url+(sm.namespace?' (gefunden: '+sm.namespace+')':'')});
       if(sm.size>50*1024*1024)issues.push({type:'err',text:'Sitemap \u00fcberschreitet 50 MB: '+sm.url+' ('+Math.round(sm.size/1024/1024)+' MB)'});
       if(sm.urlCount>50000)issues.push({type:'err',text:'Sitemap \u00fcberschreitet 50.000 URLs: '+sm.url+' ('+sm.urlCount+')'});
+      if(sm.loadTime&&sm.loadTime>3000)issues.push({type:'warn',text:'Langsame Sitemap: '+sm.url+' brauchte '+Math.round(sm.loadTime/1000*10)/10+'s (sollte <3s sein)'});
     }
   });
 
@@ -932,9 +929,7 @@ function checkUrlHealth(entries,onDone){
 
   function finish(){
     clearInterval(ticker);
-    document.getElementById('checkText').textContent='Fertig \u2014 '+done+' URL'+(done>1?'s':'')+' gepr\u00fcft';
-    document.getElementById('checkPct').textContent='100%';
-    document.getElementById('checkBar').style.width='100%';
+    document.getElementById('checkProgress').style.display='none';
 
     btn.onclick=function(){go(urlIn.value)};
     btn.disabled=false;btn.textContent='Sitemap analysieren';
@@ -1028,6 +1023,7 @@ function renderResults(){
       h+='<span class="badge info">'+typeLabel+'</span>';
       h+='<span class="badge'+(sm.type==='urlset'&&sm.hasCorrectNs?' ok':sm.type==='index'?' info':' warn')+'">'+sm.urlCount+(sm.type==='index'?' Sitemaps':' URLs')+'</span>';
       h+='<span class="badge" style="color:var(--muted);border-color:var(--border)">'+sizeKB+'KB</span>';
+      if(sm.loadTime){var ltClass=sm.loadTime<1000?'ok':sm.loadTime<3000?'warn':'err';h+='<span class="badge '+ltClass+'">'+sm.loadTime+'ms</span>'}
       if(sm.hasImageNs)h+='<span class="badge info">img</span>';
       if(sm.hasVideoNs)h+='<span class="badge info">video</span>';
       if(sm.hasNewsNs)h+='<span class="badge info">news</span>';
@@ -1038,9 +1034,10 @@ function renderResults(){
     smSection.style.display='block';
   }
 
-  // URL list
+  // URL list + dynamic filters
   if(urlResults.length>0){
     document.getElementById('urlSection').style.display='block';
+    buildFilters();
     renderUrlList();
   }
 
@@ -1056,6 +1053,9 @@ function renderResults(){
 
 // ── Render URL List ──
 function renderUrlList(){
+  var slashSet={};
+  if(sitemapData.slashConflicts)(sitemapData.slashConflicts).forEach(function(n){slashSet[n]=true;slashSet[n+'/']=true});
+
   var filtered=urlResults.filter(function(r){
     if(urlFilter==='all')return true;
     if(urlFilter==='ok')return r.status>=200&&r.status<300;
@@ -1063,6 +1063,9 @@ function renderUrlList(){
     if(urlFilter==='errors')return r.status>=400||r.status===0;
     if(urlFilter==='noLastmod')return !r.lastmod;
     if(urlFilter==='dupes')return r.isDupe;
+    if(urlFilter==='slash'){try{var n=new URL(r.url);var norm=n.origin+n.pathname.replace(/\/$/,'');return !!slashSet[norm]||!!slashSet[norm+'/']}catch(e){return false}}
+    if(urlFilter==='query')return r.url.indexOf('?')!==-1;
+    if(urlFilter==='fragment')return r.url.indexOf('#')!==-1;
     return true;
   });
 
@@ -1081,6 +1084,7 @@ function renderUrlList(){
       else html+='<span class="badge err">ERR</span>';
       if(r.isDupe)html+='<span class="badge warn">Duplikat</span>';
       if(!r.lastmod)html+='<span class="badge" style="color:var(--muted);border-color:var(--border)">Kein lastmod</span>';
+      if(r.url.indexOf('?')!==-1)html+='<span class="badge" style="color:var(--muted);border-color:var(--border)">?params</span>';
       html+='</span></div>';
       html+='<div class="batch-row-detail">';
       html+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;font-size:11px">';
@@ -1096,15 +1100,43 @@ function renderUrlList(){
   document.getElementById('urlList').innerHTML=html;
 }
 
-// ── Filter Buttons ──
-document.querySelectorAll('#urlFilters .fbtn').forEach(function(b){
-  b.addEventListener('click',function(){
-    document.querySelectorAll('#urlFilters .fbtn').forEach(function(x){x.classList.remove('active')});
-    b.classList.add('active');
-    urlFilter=b.getAttribute('data-filter');
-    renderUrlList();
+// ── Build Dynamic Filters ──
+function buildFilters(){
+  var container=document.getElementById('urlFilters');
+  var ok=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
+  var redir=urlResults.filter(function(r){return r.status>=300&&r.status<400}).length;
+  var errs=urlResults.filter(function(r){return r.status>=400||r.status===0}).length;
+  var noLm=urlResults.filter(function(r){return !r.lastmod}).length;
+  var dupeCount=urlResults.filter(function(r){return r.isDupe}).length;
+  var hasQuery=urlResults.filter(function(r){return r.url.indexOf('?')!==-1}).length;
+  var hasFragment=urlResults.filter(function(r){return r.url.indexOf('#')!==-1}).length;
+  var slashCount=(sitemapData.slashConflicts||[]).length;
+
+  var filters=[{key:'all',label:'Alle ('+urlResults.length+')'}];
+  if(ok>0)filters.push({key:'ok',label:'2xx ('+ok+')'});
+  if(redir>0)filters.push({key:'redirects',label:'3xx ('+redir+')'});
+  if(errs>0)filters.push({key:'errors',label:'4xx/5xx ('+errs+')'});
+  if(noLm>0)filters.push({key:'noLastmod',label:'Kein Lastmod ('+noLm+')'});
+  if(dupeCount>0)filters.push({key:'dupes',label:'Duplikate ('+dupeCount+')'});
+  if(slashCount>0)filters.push({key:'slash',label:'Slash-Konflikte ('+slashCount+')'});
+  if(hasQuery>0)filters.push({key:'query',label:'Query-Params ('+hasQuery+')'});
+  if(hasFragment>0)filters.push({key:'fragment',label:'Fragmente ('+hasFragment+')'});
+
+  container.innerHTML='';
+  filters.forEach(function(f){
+    var b=document.createElement('button');
+    b.className='fbtn'+(f.key===urlFilter?' active':'');
+    b.setAttribute('data-filter',f.key);
+    b.textContent=f.label;
+    b.addEventListener('click',function(){
+      container.querySelectorAll('.fbtn').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      urlFilter=f.key;
+      renderUrlList();
+    });
+    container.appendChild(b);
   });
-});
+}
 
 // ── Expandable Rows (event delegation) ──
 document.getElementById('urlList').addEventListener('click',function(e){
@@ -1268,7 +1300,8 @@ function go(url){
   btn.disabled=true;btn.textContent='\u23F3 Suche\u2026';
 
   // Reset filters
-  document.querySelectorAll('#urlFilters .fbtn').forEach(function(b){b.classList.remove('active');if(b.getAttribute('data-filter')==='all')b.classList.add('active')});
+  urlFilter='all';
+  document.getElementById('urlFilters').innerHTML='';
 
   discoverSitemap(url)
   .then(function(sitemapUrls){
