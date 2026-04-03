@@ -656,8 +656,9 @@ function validateEntries(entries){
   var caseDupes=[];var caseLowerMap={};
   var fragmentUrls=[],queryParamUrls=[],longUrls=[],crossDomainUrls=[];
   var sitemapOrigin='';
-  try{sitemapOrigin=new URL(entries[0].loc).origin}catch(e){}
+  try{sitemapOrigin=new URL(urlIn.value).origin}catch(e){try{sitemapOrigin=new URL(entries[0].loc).origin}catch(ex){}}
   var lastmodValues={};
+  var siteHasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
 
   entries.forEach(function(e,i){
     // Exact duplicate check
@@ -685,11 +686,12 @@ function validateEntries(entries){
       }
     }catch(ex){}
 
-    // ── www vs non-www ──
+    // ── www vs non-www (only compare same base domain) ──
     try{
       var host=new URL(e.loc).hostname;
-      if(/^www\./i.test(host))wwwDomain=host;
-      else nonWwwDomain=host;
+      var base=host.replace(/^www\./i,'');
+      if(/^www\./i.test(host))wwwDomain=base;
+      else if(host.split('.').length<=2)nonWwwDomain=base;
     }catch(ex){}
 
     // ── Case-sensitivity duplicates ──
@@ -752,9 +754,8 @@ function validateEntries(entries){
     if(!/^https?:\/\//i.test(e.loc))issues.push({type:'err',text:'Relative URL (must be absolute): '+e.loc});
 
     // HTTP on HTTPS site
-    if(/^http:\/\//i.test(e.loc)){
-      var hasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
-      if(hasHttps)issues.push({type:'warn',text:'HTTP URL on HTTPS site: '+e.loc});
+    if(siteHasHttps&&/^http:\/\//i.test(e.loc)){
+      issues.push({type:'warn',text:'HTTP URL on HTTPS site: '+e.loc});
     }
   });
 
@@ -781,9 +782,9 @@ function validateEntries(entries){
     issues.push({type:'warn',text:'Inconsistent trailing slashes: '+withSlashCount+' URLs with "/" and '+withoutSlashCount+' without \u2014 consider standardizing'});
   }
 
-  // ── www vs non-www mix ──
-  if(wwwDomain&&nonWwwDomain){
-    issues.push({type:'err',text:'Mixed www and non-www URLs: '+wwwDomain+' and '+nonWwwDomain+' \u2014 pick one canonical domain'});
+  // ── www vs non-www mix (only if same base domain) ──
+  if(wwwDomain&&nonWwwDomain&&wwwDomain===nonWwwDomain){
+    issues.push({type:'err',text:'Mixed www and non-www URLs: www.'+wwwDomain+' and '+nonWwwDomain+' \u2014 pick one canonical domain'});
   }
 
   // ── Case-sensitivity duplicates ──
@@ -954,10 +955,13 @@ function calcHealthScore(){
   var total=entries.length;
   if(total===0)return 0;
 
-  // +15: URL health (all 2xx)
-  var ok2xx=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
-  var checkedTotal=urlResults.length||1;
-  score+=Math.round(15*(ok2xx/checkedTotal));
+  // +15: URL health (all 2xx) — only if URLs were actually checked
+  if(urlResults.length>0){
+    var ok2xx=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
+    score+=Math.round(15*(ok2xx/urlResults.length));
+  }else{
+    score+=15;// no penalty if health check hasn't run
+  }
 
   // +10: correct namespace
   var urlsets=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'});

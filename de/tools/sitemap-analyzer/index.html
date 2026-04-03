@@ -656,8 +656,9 @@ function validateEntries(entries){
   var caseDupes=[];var caseLowerMap={};
   var fragmentUrls=[],queryParamUrls=[],longUrls=[],crossDomainUrls=[];
   var sitemapOrigin='';
-  try{sitemapOrigin=new URL(entries[0].loc).origin}catch(e){}
+  try{sitemapOrigin=new URL(urlIn.value).origin}catch(e){try{sitemapOrigin=new URL(entries[0].loc).origin}catch(ex){}}
   var lastmodValues={};
+  var siteHasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
 
   entries.forEach(function(e,i){
     // Exact duplicate check
@@ -688,8 +689,9 @@ function validateEntries(entries){
     // ── www vs non-www ──
     try{
       var host=new URL(e.loc).hostname;
-      if(/^www\./i.test(host))wwwDomain=host;
-      else nonWwwDomain=host;
+      var base=host.replace(/^www\./i,'');
+      if(/^www\./i.test(host))wwwDomain=base;
+      else if(host.split('.').length<=2)nonWwwDomain=base;
     }catch(ex){}
 
     // ── Case-sensitivity duplicates ──
@@ -753,8 +755,7 @@ function validateEntries(entries){
 
     // HTTP on HTTPS site
     if(/^http:\/\//i.test(e.loc)){
-      var hasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
-      if(hasHttps)issues.push({type:'warn',text:'HTTP-URL auf HTTPS-Seite: '+e.loc});
+      if(siteHasHttps)issues.push({type:'warn',text:'HTTP-URL auf HTTPS-Seite: '+e.loc});
     }
   });
 
@@ -782,8 +783,8 @@ function validateEntries(entries){
   }
 
   // ── www vs non-www mix ──
-  if(wwwDomain&&nonWwwDomain){
-    issues.push({type:'err',text:'Gemischte www- und non-www-URLs: '+wwwDomain+' und '+nonWwwDomain+' \u2014 eine kanonische Domain w\u00e4hlen'});
+  if(wwwDomain&&nonWwwDomain&&wwwDomain===nonWwwDomain){
+    issues.push({type:'err',text:'Gemischte www- und non-www-URLs: www.'+wwwDomain+' und '+nonWwwDomain+' \u2014 eine kanonische Domain w\u00e4hlen'});
   }
 
   // ── Case-sensitivity duplicates ──
@@ -954,9 +955,12 @@ function calcHealthScore(){
   if(total===0)return 0;
 
   // +15: URL health (all 2xx)
-  var ok2xx=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
-  var checkedTotal=urlResults.length||1;
-  score+=Math.round(15*(ok2xx/checkedTotal));
+  if(urlResults.length>0){
+    var ok2xx=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
+    score+=Math.round(15*(ok2xx/urlResults.length));
+  }else{
+    score+=15;
+  }
 
   // +10: correct namespace
   var urlsets=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'});
