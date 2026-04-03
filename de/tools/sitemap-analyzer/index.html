@@ -1423,6 +1423,7 @@ function go(url){
         return data.entries||[];
       })
       .catch(function(){
+        // Fallback: Index-XML lesen, Child-URLs in 20er-Batches an /sitemap-parse
         return fetch(W+'/fetch?url='+encodeURIComponent(su),{headers:{'X-Lumina-Tool':'sitemap-analyzer'}})
         .then(function(r){return r.json()})
         .then(function(data){
@@ -1432,9 +1433,28 @@ function go(url){
             var childUrls=[];var re=/<sitemap>\s*<loc>([^<]+)<\/loc>/g;var m;
             while((m=re.exec(xml))!==null)childUrls.push(m[1].trim());
             sitemapData.sitemaps.push({url:su,type:'index',urlCount:childUrls.length,size:xml.length,loadTime:0});
-            sitemapData.failedSitemaps=(sitemapData.failedSitemaps||0)+childUrls.length;
-            sitemapData.totalChildSitemaps=(sitemapData.totalChildSitemaps||0)+childUrls.length;
-            return[];
+            var CHUNK=20;var allChildEntries=[];var childFailed=0;
+            var chunks=[];
+            for(var ci=0;ci<childUrls.length;ci+=CHUNK)chunks.push(childUrls.slice(ci,ci+CHUNK));
+            document.getElementById('checkText').textContent='Child-Sitemaps werden geladen: '+childUrls.length+' in '+chunks.length+' Batches\u2026';
+            return chunks.reduce(function(chain,chunk,idx){
+              return chain.then(function(){
+                document.getElementById('checkText').textContent='Child-Sitemaps: Batch '+(idx+1)+' / '+chunks.length+'\u2026';
+                return Promise.all(chunk.map(function(cu){
+                  return fetch(W+'/sitemap-parse?url='+encodeURIComponent(cu),{headers:{'X-Lumina-Tool':'sitemap-analyzer'}})
+                  .then(function(r2){if(!r2.ok)throw new Error('HTTP '+r2.status);return r2.json()})
+                  .then(function(d2){
+                    if(d2.error)throw new Error(d2.error);
+                    if(d2.sitemaps)d2.sitemaps.forEach(function(sm){sitemapData.sitemaps.push(sm)});
+                    if(d2.entries)allChildEntries=allChildEntries.concat(d2.entries);
+                  })
+                  .catch(function(){childFailed++});
+                }));
+              });
+            },Promise.resolve()).then(function(){
+              if(childFailed>0){sitemapData.failedSitemaps=(sitemapData.failedSitemaps||0)+childFailed;sitemapData.totalChildSitemaps=(sitemapData.totalChildSitemaps||0)+childUrls.length}
+              return allChildEntries;
+            });
           }
           var parser=new DOMParser();var doc=parser.parseFromString(xml,'text/xml');
           var entries=[];
