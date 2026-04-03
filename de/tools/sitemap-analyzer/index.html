@@ -699,6 +699,8 @@ function validateEntries(entries){
   var fragmentUrls=[],queryParamUrls=[],longUrls=[],crossDomainUrls=[];
   var sitemapOrigin='';
   try{sitemapOrigin=new URL(urlIn.value).origin}catch(e){try{sitemapOrigin=new URL(entries[0].loc).origin}catch(ex){}}
+  var normalizeOrigin=function(o){return o.replace('://www.','://')};
+  var sitemapOriginNorm=normalizeOrigin(sitemapOrigin);
   var lastmodValues={};
   var siteHasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
 
@@ -756,7 +758,7 @@ function validateEntries(entries){
 
     // ── Cross-domain URLs ──
     if(sitemapOrigin){
-      try{if(new URL(e.loc).origin!==sitemapOrigin)crossDomainUrls.push(e.loc)}catch(ex){}
+      try{if(normalizeOrigin(new URL(e.loc).origin)!==sitemapOriginNorm)crossDomainUrls.push(e.loc)}catch(ex){}
     }
 
     // ── Lastmod validation ──
