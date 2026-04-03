@@ -670,8 +670,9 @@ function parseSitemap(url){
 function validateEntries(entries){
   var issues=[];
   var VALID_CHANGEFREQ=['always','hourly','daily','weekly','monthly','yearly','never'];
-  var urlMap={};
-  var dupes=[];
+  var urlMap={};// loc → {count, sources: Set}
+  var dupes=[];// URLs appearing multiple times in same sitemap
+  var crossSitemapDupes=[];// URLs appearing in multiple different sitemaps
 
   // Check for failed child sitemaps
   if(sitemapData.failedSitemaps>0){
@@ -702,12 +703,13 @@ function validateEntries(entries){
   var siteHasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
 
   entries.forEach(function(e,i){
-    // Exact duplicate check
+    // Duplicate check: track per-source to distinguish same-sitemap vs cross-sitemap dupes
     if(urlMap[e.loc]){
-      if(urlMap[e.loc]===1)dupes.push(e.loc);
-      urlMap[e.loc]++;
+      urlMap[e.loc].count++;
+      if(e.source)urlMap[e.loc].sources[e.source]=true;
     }else{
-      urlMap[e.loc]=1;
+      var s={};if(e.source)s[e.source]=true;
+      urlMap[e.loc]={count:1,sources:s};
     }
 
     if(!e.loc){
@@ -884,13 +886,29 @@ function validateEntries(entries){
     sitemapData.stats.freshness={fresh24h:fresh24h,fresh7d:fresh7d,fresh30d:fresh30d,fresh90d:fresh90d,fresh1y:fresh1y,older:older};
   }
 
+  // ── Classify duplicates: same-sitemap (error) vs cross-sitemap (info) ──
+  Object.keys(urlMap).forEach(function(loc){
+    var info=urlMap[loc];
+    if(info.count<=1)return;
+    var sourceCount=Object.keys(info.sources).length;
+    if(sourceCount===1){
+      // Same URL multiple times in the SAME sitemap file — real problem
+      dupes.push(loc);
+    }else{
+      // URL appears in multiple different sitemaps — may be intentional
+      crossSitemapDupes.push(loc);
+    }
+  });
+
   // ── Summary issues ──
   if(noLastmod>0&&noLastmod<entries.length)issues.push({type:'warn',text:noLastmod+' of '+entries.length+' URLs missing <lastmod>'});
   if(noLastmod===entries.length&&entries.length>0)issues.push({type:'warn',text:'No URLs have <lastmod> \u2014 Google uses this to prioritize crawling'});
-  if(dupes.length>0)issues.push({type:'err',text:dupes.length+' duplicate URL'+(dupes.length>1?'s':'')+' found across sitemaps'});
+  if(dupes.length>0)issues.push({type:'err',text:dupes.length+' URL'+(dupes.length>1?'s':'')+' duplicated within the same sitemap file'});
+  if(crossSitemapDupes.length>0)issues.push({type:'warn',text:crossSitemapDupes.length+' URL'+(crossSitemapDupes.length>1?'s':'')+' appear in multiple sitemaps (may be intentional for multi-region sites)'});
 
   sitemapData.issues=issues;
   sitemapData.dupes=dupes;
+  sitemapData.crossSitemapDupes=crossSitemapDupes;
   sitemapData.slashConflicts=slashConflicts;
   sitemapData.stats.noLastmod=noLastmod;sitemapData.stats.noChangefreq=noChangefreq;sitemapData.stats.noPriority=noPriority;
   sitemapData.stats.queryParamUrls=queryParamUrls.length;
@@ -942,7 +960,7 @@ function checkUrlHealth(entries,onDone){
         changefreq:entry.changefreq,
         priority:entry.priority,
         responseTime:elapsed,
-        isDupe:sitemapData.dupes.indexOf(entry.loc)!==-1,
+        isDupe:sitemapData.dupes.indexOf(entry.loc)!==-1||(sitemapData.crossSitemapDupes&&sitemapData.crossSitemapDupes.indexOf(entry.loc)!==-1),
         source:entry.source
       });
     })
@@ -956,7 +974,7 @@ function checkUrlHealth(entries,onDone){
         changefreq:entry.changefreq,
         priority:entry.priority,
         responseTime:0,
-        isDupe:sitemapData.dupes.indexOf(entry.loc)!==-1,
+        isDupe:sitemapData.dupes.indexOf(entry.loc)!==-1||(sitemapData.crossSitemapDupes&&sitemapData.crossSitemapDupes.indexOf(entry.loc)!==-1),
         error:true
       });
     })
@@ -1045,7 +1063,7 @@ function renderResults(){
 
   // Metrics
   document.getElementById('mTotal').textContent=entries.length;
-  document.getElementById('mDupes').textContent=sitemapData.dupes.length;
+  document.getElementById('mDupes').textContent=sitemapData.dupes.length+(sitemapData.crossSitemapDupes&&sitemapData.crossSitemapDupes.length>0?' (+'+sitemapData.crossSitemapDupes.length+')':'');
   document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'}).length;
   animateMetrics();
 
@@ -1218,7 +1236,8 @@ document.getElementById('btnCopy').addEventListener('click',function(){
   txt+='Score: '+calcHealthScore()+'/100\n\n';
   txt+='Sitemaps found: '+sitemapData.sitemaps.length+'\n';
   txt+='Total URLs: '+(sitemapData.allEntries||[]).length+'\n';
-  txt+='Duplicates: '+sitemapData.dupes.length+'\n\n';
+  txt+='Duplicates (same sitemap): '+sitemapData.dupes.length+'\n';
+  txt+='Duplicates (cross-sitemap): '+(sitemapData.crossSitemapDupes?sitemapData.crossSitemapDupes.length:0)+'\n\n';
   if(sitemapData.issues.length){
     txt+='Issues:\n';
     sitemapData.issues.forEach(function(i){txt+='- ['+(i.type==='err'?'ERROR':'WARN')+'] '+i.text+'\n'});
@@ -1259,7 +1278,8 @@ document.getElementById('btnAiRec').addEventListener('click',function(){
   context+='Health Score: '+calcHealthScore()+'/100\n';
   context+='Total sitemaps: '+sitemapData.sitemaps.length+'\n';
   context+='Total URLs: '+entries.length+'\n';
-  context+='Duplicates: '+sitemapData.dupes.length+'\n';
+  context+='Duplicates (same sitemap file): '+sitemapData.dupes.length+'\n';
+  context+='URLs in multiple sitemaps (may be intentional): '+(sitemapData.crossSitemapDupes?sitemapData.crossSitemapDupes.length:0)+'\n';
   context+='Trailing slash conflicts: '+(sitemapData.slashConflicts?sitemapData.slashConflicts.length:0)+'\n';
   context+='URLs without lastmod: '+(sitemapData.stats?sitemapData.stats.noLastmod:0)+'\n';
   context+='URLs with query parameters: '+(sitemapData.stats?sitemapData.stats.queryParamUrls:0)+'\n';
@@ -1409,7 +1429,7 @@ function go(url){
     // Update metrics immediately
     document.getElementById('res').style.display='block';
     document.getElementById('mTotal').textContent=allEntries.length;
-    document.getElementById('mDupes').textContent=sitemapData.dupes.length;
+    document.getElementById('mDupes').textContent=sitemapData.dupes.length+(sitemapData.crossSitemapDupes&&sitemapData.crossSitemapDupes.length>0?' (+'+sitemapData.crossSitemapDupes.length+')':'');
     document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'}).length;
 
     // Show validation issues immediately
