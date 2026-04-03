@@ -270,7 +270,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 /* ── Core Variables ── */
 var W='https://lumina-proxy.julien-elbahy.workers.dev';
 var queryIn=document.getElementById('queryIn'),btn=document.getElementById('btnGo');
-var lastData=null,lastQuery='',allPAA=[];
+var lastData=null,lastQuery='',allPAA=[],lastLoc=2040,lastLang='de';
 
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
@@ -376,9 +376,8 @@ function go(){
     var parsed;
     try{parsed=JSON.parse(content)}catch(e){throw new Error('Failed to parse AI response')}
     lastData=parsed;
+    lastLoc=parseInt(loc);lastLang=lang;
     renderResults(parsed,q);
-    /* Start SERP enrichment */
-    fetchSERPs(parsed.sub_queries||[],parseInt(loc),lang);
   }).catch(function(e){
     btn.disabled=false;btn.textContent='Fan Out analysieren';
     document.getElementById('loading').style.display='none';
@@ -439,7 +438,7 @@ function renderResults(data,query){
       s.source_types.forEach(function(src){html+='<span class="fo-src">'+esc(src)+'</span>'});
       html+='</div>';
     }
-    html+='<div class="fo-serp" id="fo-serp-'+i+'"><div class="fo-loading-serp">Loading SERP data\u2026</div></div>';
+    html+='<div class="fo-serp" id="fo-serp-'+i+'"><button class="tb-btn" onclick="loadSERP('+i+',this)">&#128270; Google Ergebnisse &amp; PAA laden</button></div>';
     html+='</div>';
   });
 
@@ -458,68 +457,70 @@ function renderResults(data,query){
   animateMetrics();
 }
 
-/* ── Fetch SERPs sequentially ── */
-function fetchSERPs(subs,locCode,langCode){
-  var idx=0;allPAA=[];
-  function next(){
-    if(idx>=subs.length){renderPAA();return}
-    var s=subs[idx];var cardIdx=idx;idx++;
-    dfsPost('serp/google/organic/live/regular',[{
-      keyword:s.query,location_code:locCode,language_code:langCode,depth:10
-    }]).then(function(data){
-      var tasks=data.tasks||[];
-      var allItems=[];
-      if(tasks.length&&tasks[0].result&&tasks[0].result.length){
-        allItems=tasks[0].result[0].items||[];
-      }
-      var organic=allItems.filter(function(i){return i.type==='organic'}).slice(0,5);
-      renderSERP(cardIdx,organic);
-      /* Collect PAA */
-      allItems.forEach(function(it){
-        if(it.type==='people_also_ask'&&it.items){
+/* ── Load SERP + PAA on demand ── */
+function loadSERP(idx,btnEl){
+  if(!lastData||!lastData.sub_queries||!lastData.sub_queries[idx])return;
+  var s=lastData.sub_queries[idx];
+  btnEl.disabled=true;btnEl.textContent='Laden\u2026';
+  dfsPost('serp/google/organic/live/regular',[{
+    keyword:s.query,location_code:lastLoc,language_code:lastLang,depth:10
+  }]).then(function(data){
+    var tasks=data.tasks||[];
+    var allItems=[];
+    if(tasks.length&&tasks[0].result&&tasks[0].result.length){
+      allItems=tasks[0].result[0].items||[];
+    }
+    var organic=allItems.filter(function(i){return i.type==='organic'}).slice(0,5);
+    /* Collect PAA from this SERP */
+    var paaItems=[];
+    allItems.forEach(function(it){
+      if(it.type==='people_also_ask'){
+        if(it.title){
+          var q=it.title;
+          if(!allPAA.some(function(p){return p.question===q})){
+            allPAA.push({question:q,from:s.query});
+            paaItems.push(q);
+          }
+        }
+        if(it.items&&it.items.length){
           it.items.forEach(function(paa){
             var q=paa.title||'';
             if(q&&!allPAA.some(function(p){return p.question===q})){
               allPAA.push({question:q,from:s.query});
+              paaItems.push(q);
             }
           });
         }
-      });
-    }).catch(function(){
-      var el=document.getElementById('fo-serp-'+cardIdx);
-      if(el)el.innerHTML='<div style="font-size:11px;color:var(--muted);padding:4px 0">SERP-Daten nicht verf\u00fcgbar</div>';
-    }).finally(function(){
-      setTimeout(next,200);
+      }
     });
-  }
-  next();
-}
-
-/* ── Render PAA section ── */
-function renderPAA(){
-  if(!allPAA.length)return;
-  var container=document.getElementById('res');
-  var html='<div class="section-head">People Also Ask ('+allPAA.length+')</div><div class="fo-paa">';
-  allPAA.forEach(function(p){
-    html+='<div class="fo-paa-item"><div style="flex-shrink:0;color:var(--accent)">&#10067;</div><div class="fo-paa-q">'+esc(p.question)+'</div><div class="fo-paa-from">'+esc(p.from)+'</div></div>';
+    /* Render into card */
+    var el=document.getElementById('fo-serp-'+idx);
+    if(!el)return;
+    var html='';
+    if(organic.length){
+      html+='<div class="fo-serp-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'span\').textContent=this.nextElementSibling.classList.contains(\'open\')?\'\u25B2\':\'\u25BC\'">Google Top '+organic.length+' <span>&#9660;</span></div>';
+      html+='<div class="fo-serp-list open">';
+      organic.forEach(function(item,i){
+        var pos=item.rank_group||i+1;
+        html+='<div class="fo-serp-item"><div class="fo-serp-pos'+(pos<=3?' top3':'')+'">'+pos+'</div><div class="fo-serp-body"><div class="fo-serp-title"><a href="'+esc(item.url||'#')+'" target="_blank" rel="noopener">'+esc(item.title||'Ohne Titel')+'</a></div><div class="fo-serp-url">'+esc(item.url||'')+'</div></div></div>';
+      });
+      html+='</div>';
+    }else{
+      html+='<div style="font-size:11px;color:var(--muted);padding:4px 0">Keine organischen Ergebnisse</div>';
+    }
+    if(paaItems.length){
+      html+='<div style="margin-top:8px"><div class="fo-serp-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'span\').textContent=this.nextElementSibling.classList.contains(\'open\')?\'\u25B2\':\'\u25BC\'">People Also Ask ('+paaItems.length+') <span>&#9660;</span></div>';
+      html+='<div class="fo-serp-list open">';
+      paaItems.forEach(function(q){
+        html+='<div class="fo-paa-item"><div style="flex-shrink:0;color:var(--accent)">&#10067;</div><div class="fo-paa-q">'+esc(q)+'</div></div>';
+      });
+      html+='</div></div>';
+    }
+    el.innerHTML=html;
+  }).catch(function(e){
+    var el=document.getElementById('fo-serp-'+idx);
+    if(el)el.innerHTML='<div style="font-size:11px;color:var(--muted);padding:4px 0">SERP-Daten nicht verf\u00fcgbar</div>';
   });
-  html+='</div>';
-  container.innerHTML+=html;
-}
-
-/* ── Render SERP data into a sub-query card ── */
-function renderSERP(idx,items){
-  var el=document.getElementById('fo-serp-'+idx);
-  if(!el)return;
-  if(!items.length){el.innerHTML='<div style="font-size:11px;color:var(--muted);padding:4px 0">No organic results</div>';return}
-  var html='<div class="fo-serp-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'span\').textContent=this.nextElementSibling.classList.contains(\'open\')?\'\u25B2\':\'\u25BC\'">Google Top '+items.length+' <span>&#9660;</span></div>';
-  html+='<div class="fo-serp-list">';
-  items.forEach(function(item,i){
-    var pos=item.rank_group||i+1;
-    html+='<div class="fo-serp-item"><div class="fo-serp-pos'+(pos<=3?' top3':'')+'">'+pos+'</div><div class="fo-serp-body"><div class="fo-serp-title"><a href="'+esc(item.url||'#')+'" target="_blank" rel="noopener">'+esc(item.title||'Untitled')+'</a></div><div class="fo-serp-url">'+esc(item.url||'')+'</div></div></div>';
-  });
-  html+='</div>';
-  el.innerHTML=html;
 }
 
 /* ── Toolbar: Copy ── */
