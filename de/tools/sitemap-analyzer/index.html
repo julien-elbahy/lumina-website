@@ -558,29 +558,61 @@ function parseSitemap(url){
       // Record this index file
       sitemapData.sitemaps.push({url:url,type:'index',urlCount:childUrls.length,size:size,loadTime:loadTime});
 
-      // Fetch child sitemaps with concurrency 3
+      // Fetch child sitemaps: concurrency 2, 200ms delay, 2 retries, 15s timeout
       var allEntries=[];
-      var fetched=0;
+      var fetched=0;var failed=0;
+      var totalChild=childUrls.length;
       return new Promise(function(resolve){
-        var queue=childUrls.slice();
-        var active=0;
+        var queue=childUrls.map(function(u){return{url:u,retries:0}});
+        var active=0;var lastDispatch=0;
         function next(){
           if(queue.length===0){
-            if(active===0)resolve(allEntries);
+            if(active===0){
+              if(failed>0){sitemapData.failedSitemaps=failed;sitemapData.totalChildSitemaps=totalChild}
+              resolve(allEntries);
+            }
             return;
           }
-          while(active<3&&queue.length>0){
-            active++;
-            var cu=queue.shift();
-            parseSitemap(cu)
-            .then(function(entries){allEntries=allEntries.concat(entries)})
-            .catch(function(){})
-            .finally(function(){
-              active--;fetched++;
-              document.getElementById('checkText').textContent='Sitemaps werden geparst: '+fetched+' / '+childUrls.length+'\u2026';
-              next();
-            });
-          }
+          var now=Date.now();var wait=Math.max(0,200-(now-lastDispatch));
+          setTimeout(function(){
+            while(active<2&&queue.length>0){
+              active++;lastDispatch=Date.now();
+              var item=queue.shift();
+              (function(it){
+                var ctrl=typeof AbortController!=='undefined'?new AbortController():null;
+                var timer=ctrl?setTimeout(function(){ctrl.abort()},15000):null;
+                var fetchOpts={headers:{'X-Lumina-Tool':'sitemap-analyzer'}};
+                if(ctrl)fetchOpts.signal=ctrl.signal;
+                fetch(W+'/fetch?url='+encodeURIComponent(it.url),fetchOpts)
+                .then(function(r){if(timer)clearTimeout(timer);return r.json()})
+                .then(function(data){
+                  if(data.error)throw new Error(data.error);
+                  var xml=data.html||'';var sz=xml.length;
+                  var parser=new DOMParser();var doc=parser.parseFromString(xml,'text/xml');
+                  var locs=doc.querySelectorAll('url > loc');
+                  var entries=[];
+                  locs.forEach(function(l){
+                    var u=l.parentElement;
+                    var lm=u.querySelector('lastmod');var cf=u.querySelector('changefreq');var pr=u.querySelector('priority');
+                    entries.push({loc:l.textContent.trim(),lastmod:lm?lm.textContent.trim():null,changefreq:cf?cf.textContent.trim():null,priority:pr?pr.textContent.trim():null,source:it.url});
+                  });
+                  var ns=doc.documentElement.getAttribute('xmlns')||'';
+                  sitemapData.sitemaps.push({url:it.url,type:'urlset',urlCount:entries.length,size:sz,loadTime:0,hasCorrectNs:ns==='http://www.sitemaps.org/schemas/sitemap/0.9',namespace:ns,parseError:!!doc.querySelector('parsererror'),hasImageNs:xml.indexOf('xmlns:image')!==-1,hasVideoNs:xml.indexOf('xmlns:video')!==-1,hasNewsNs:xml.indexOf('xmlns:news')!==-1,hasHreflangNs:xml.indexOf('xmlns:xhtml')!==-1});
+                  allEntries=allEntries.concat(entries);
+                })
+                .catch(function(){
+                  if(timer)clearTimeout(timer);
+                  if(it.retries<2){it.retries++;queue.push(it)}
+                  else{failed++}
+                })
+                .finally(function(){
+                  active--;fetched++;
+                  document.getElementById('checkText').textContent='Sitemaps werden geladen: '+fetched+' / '+totalChild+(failed>0?' ('+failed+' fehlgeschlagen)':'')+'\u2026';
+                  next();
+                });
+              })(item);
+            }
+          },wait);
         }
         next();
       });
@@ -637,6 +669,12 @@ function validateEntries(entries){
   var VALID_CHANGEFREQ=['always','hourly','daily','weekly','monthly','yearly','never'];
   var urlMap={};
   var dupes=[];
+
+  // Check for failed child sitemaps
+  if(sitemapData.failedSitemaps>0){
+    var pct=Math.round(sitemapData.failedSitemaps/sitemapData.totalChildSitemaps*100);
+    issues.push({type:'warn',text:sitemapData.failedSitemaps+' von '+sitemapData.totalChildSitemaps+' Child-Sitemaps konnten nicht geladen werden ('+pct+'%) \u2014 Ergebnisse sind m\u00f6glicherweise unvollst\u00e4ndig'});
+  }
 
   // Check each sitemap file
   sitemapData.sitemaps.forEach(function(sm){
