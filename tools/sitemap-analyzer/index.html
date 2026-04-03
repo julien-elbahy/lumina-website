@@ -934,10 +934,10 @@ function checkUrlHealth(entries,onDone){
 
   batchAbort=false;
   btn.textContent='\u23F9 Stop';btn.disabled=false;
-  btn.onclick=function(){batchAbort=true;btn.disabled=true;btn.textContent='Stopping\u2026'};
+  btn.onclick=function(){batchAbort=true;btn.disabled=true;btn.textContent='Stopping\u2026';clearInterval(ticker);finish()};
 
   var ticker=setInterval(function(){
-    if(batchAbort){clearInterval(ticker);if(done>=queue.length||queue.length===0){finish()}return}
+    if(batchAbort){clearInterval(ticker);return}
     if(queue.length===0){clearInterval(ticker);return}
     var entry=queue.shift();
     var startTime=performance.now();
