@@ -651,9 +651,17 @@ function validateEntries(entries){
   });
 
   var noLastmod=0,noChangefreq=0,noPriority=0;
+  // Trailing slash & near-dupe tracking
+  var trailingSlashMap={};// normalized path → [{loc, hasSlash}]
+  var wwwMix=false,wwwDomain='',nonWwwDomain='';
+  var caseDupes=[];var caseLowerMap={};
+  var fragmentUrls=[],queryParamUrls=[],longUrls=[],crossDomainUrls=[];
+  var sitemapOrigin='';
+  try{sitemapOrigin=new URL(entries[0].loc).origin}catch(e){}
+  var lastmodValues={};
 
   entries.forEach(function(e,i){
-    // Duplicate check
+    // Exact duplicate check
     if(urlMap[e.loc]){
       if(urlMap[e.loc]===1)dupes.push(e.loc);
       urlMap[e.loc]++;
@@ -661,7 +669,51 @@ function validateEntries(entries){
       urlMap[e.loc]=1;
     }
 
-    // Lastmod validation
+    if(!e.loc){
+      issues.push({type:'err',text:'Leerer <loc>-Tag bei Eintrag #'+(i+1)});
+      return;
+    }
+
+    // ── Trailing slash inconsistency ──
+    try{
+      var u=new URL(e.loc);
+      var path=u.pathname;
+      var norm=u.origin+path.replace(/\/$/,'');
+      var hasSlash=/\/$/.test(path)&&path!=='\/';
+      if(!trailingSlashMap[norm])trailingSlashMap[norm]=[];
+      trailingSlashMap[norm].push({loc:e.loc,hasSlash:hasSlash});
+    }catch(ex){}
+
+    // ── www vs non-www ──
+    try{
+      var host=new URL(e.loc).hostname;
+      if(/^www\./i.test(host))wwwDomain=host;
+      else nonWwwDomain=host;
+    }catch(ex){}
+
+    // ── Case-sensitivity duplicates ──
+    var lower=e.loc.toLowerCase();
+    if(caseLowerMap[lower]&&caseLowerMap[lower]!==e.loc){
+      caseDupes.push(e.loc);
+    }else{
+      caseLowerMap[lower]=e.loc;
+    }
+
+    // ── Fragment URLs (#) ──
+    if(e.loc.indexOf('#')!==-1)fragmentUrls.push(e.loc);
+
+    // ── Query parameters ──
+    if(e.loc.indexOf('?')!==-1)queryParamUrls.push(e.loc);
+
+    // ── Very long URLs ──
+    if(e.loc.length>2048)longUrls.push(e.loc);
+
+    // ── Cross-domain URLs ──
+    if(sitemapOrigin){
+      try{if(new URL(e.loc).origin!==sitemapOrigin)crossDomainUrls.push(e.loc)}catch(ex){}
+    }
+
+    // ── Lastmod validation ──
     if(e.lastmod){
       if(!/^\d{4}(-\d{2}(-\d{2}(T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:?\d{2})?)?)?)?$/.test(e.lastmod)){
         issues.push({type:'warn',text:'Ung\u00fcltiges lastmod-Format: "'+e.lastmod+'" bei '+e.loc});
@@ -669,6 +721,9 @@ function validateEntries(entries){
         var d=new Date(e.lastmod);
         if(d>new Date())issues.push({type:'warn',text:'Zuk\u00fcnftiges lastmod-Datum: '+e.lastmod+' bei '+e.loc});
       }
+      // Track for uniformity check
+      var lmDay=e.lastmod.substring(0,10);
+      lastmodValues[lmDay]=(lastmodValues[lmDay]||0)+1;
     }else{
       noLastmod++;
     }
@@ -692,27 +747,112 @@ function validateEntries(entries){
       noPriority++;
     }
 
-    // Empty loc
-    if(!e.loc)issues.push({type:'err',text:'Leerer <loc>-Tag bei Eintrag #'+(i+1)});
-
     // Relative URL
-    if(e.loc&&!/^https?:\/\//i.test(e.loc))issues.push({type:'err',text:'Relative URL (muss absolut sein): '+e.loc});
+    if(!/^https?:\/\//i.test(e.loc))issues.push({type:'err',text:'Relative URL (muss absolut sein): '+e.loc});
 
     // HTTP on HTTPS site
-    if(e.loc&&/^http:\/\//i.test(e.loc)){
+    if(/^http:\/\//i.test(e.loc)){
       var hasHttps=entries.some(function(x){return /^https:\/\//i.test(x.loc)});
       if(hasHttps)issues.push({type:'warn',text:'HTTP-URL auf HTTPS-Seite: '+e.loc});
     }
   });
 
-  // Summary issues
+  // ── Trailing slash inconsistencies (summary) ──
+  var slashConflicts=[];
+  Object.keys(trailingSlashMap).forEach(function(norm){
+    var group=trailingSlashMap[norm];
+    if(group.length>1){
+      var withSlash=group.filter(function(g){return g.hasSlash}).length;
+      var without=group.length-withSlash;
+      if(withSlash>0&&without>0)slashConflicts.push(norm);
+    }
+  });
+  if(slashConflicts.length>0){
+    issues.push({type:'err',text:slashConflicts.length+' Trailing-Slash-Konflikt'+(slashConflicts.length>1?'e':'')+': Gleicher Pfad mit und ohne "/" (z.B. '+slashConflicts[0]+')'});
+  }
+  // Also check: mixed slash policy (some with, some without — inconsistent)
+  var withSlashCount=0,withoutSlashCount=0;
+  entries.forEach(function(e){
+    if(!e.loc)return;
+    try{var p=new URL(e.loc).pathname;if(p==='/')return;if(/\/$/.test(p))withSlashCount++;else withoutSlashCount++}catch(ex){}
+  });
+  if(withSlashCount>0&&withoutSlashCount>0&&slashConflicts.length===0){
+    issues.push({type:'warn',text:'Inkonsistente Trailing Slashes: '+withSlashCount+' URLs mit "/" und '+withoutSlashCount+' ohne \u2014 Standardisierung empfohlen'});
+  }
+
+  // ── www vs non-www mix ──
+  if(wwwDomain&&nonWwwDomain){
+    issues.push({type:'err',text:'Gemischte www- und non-www-URLs: '+wwwDomain+' und '+nonWwwDomain+' \u2014 eine kanonische Domain w\u00e4hlen'});
+  }
+
+  // ── Case-sensitivity duplicates ──
+  if(caseDupes.length>0){
+    issues.push({type:'warn',text:caseDupes.length+' URL'+(caseDupes.length>1?'s':'')+' unterscheiden sich nur in Gro\u00df-/Kleinschreibung (m\u00f6gliche Duplikate)'});
+  }
+
+  // ── Fragment URLs ──
+  if(fragmentUrls.length>0){
+    issues.push({type:'err',text:fragmentUrls.length+' URL'+(fragmentUrls.length>1?'s':'')+' enthalten #-Fragmente \u2014 Fragmente geh\u00f6ren nicht in Sitemaps'});
+  }
+
+  // ── Query parameter URLs ──
+  if(queryParamUrls.length>0){
+    var trackingParams=queryParamUrls.filter(function(u){return /[?&](utm_|fbclid|gclid|sessionid|sid=|ref=)/i.test(u)});
+    if(trackingParams.length>0){
+      issues.push({type:'warn',text:trackingParams.length+' URL'+(trackingParams.length>1?'s':'')+' enthalten Tracking-/Session-Parameter (utm_, fbclid usw.)'});
+    }
+    if(queryParamUrls.length>entries.length*0.3){
+      issues.push({type:'warn',text:queryParamUrls.length+' von '+entries.length+' URLs haben Query-Parameter \u2014 pr\u00fcfen ob diese kanonisch sind'});
+    }
+  }
+
+  // ── Very long URLs ──
+  if(longUrls.length>0){
+    issues.push({type:'warn',text:longUrls.length+' URL'+(longUrls.length>1?'s':'')+' \u00fcberschreiten 2.048 Zeichen'});
+  }
+
+  // ── Cross-domain URLs ──
+  if(crossDomainUrls.length>0){
+    issues.push({type:'warn',text:crossDomainUrls.length+' URL'+(crossDomainUrls.length>1?'s':'')+' verweisen auf eine andere Domain als die Sitemap-Herkunft'});
+  }
+
+  // ── Suspiciously uniform lastmod ──
+  var lmKeys=Object.keys(lastmodValues);
+  var withLastmod=entries.length-noLastmod;
+  if(lmKeys.length===1&&withLastmod>10){
+    issues.push({type:'warn',text:'Alle '+withLastmod+' URLs haben das identische Lastmod-Datum ('+lmKeys[0]+') \u2014 vermutlich auto-generiert, spiegelt keine echten \u00c4nderungen wider'});
+  }
+
+  // ── Lastmod freshness distribution ──
+  if(withLastmod>0){
+    var now=Date.now();
+    var fresh24h=0,fresh7d=0,fresh30d=0,fresh90d=0,fresh1y=0,older=0;
+    entries.forEach(function(e){
+      if(!e.lastmod)return;
+      var d=new Date(e.lastmod).getTime();if(isNaN(d))return;
+      var age=now-d;
+      if(age<86400000)fresh24h++;
+      else if(age<604800000)fresh7d++;
+      else if(age<2592000000)fresh30d++;
+      else if(age<7776000000)fresh90d++;
+      else if(age<31536000000)fresh1y++;
+      else older++;
+    });
+    sitemapData.stats.freshness={fresh24h:fresh24h,fresh7d:fresh7d,fresh30d:fresh30d,fresh90d:fresh90d,fresh1y:fresh1y,older:older};
+  }
+
+  // ── Summary issues ──
   if(noLastmod>0&&noLastmod<entries.length)issues.push({type:'warn',text:noLastmod+' von '+entries.length+' URLs ohne <lastmod>'});
   if(noLastmod===entries.length&&entries.length>0)issues.push({type:'warn',text:'Keine URL hat <lastmod> \u2014 Google nutzt dies zur Priorisierung des Crawlings'});
   if(dupes.length>0)issues.push({type:'err',text:dupes.length+' doppelte URL'+(dupes.length>1?'s':'')+' in den Sitemaps gefunden'});
 
   sitemapData.issues=issues;
   sitemapData.dupes=dupes;
-  sitemapData.stats={noLastmod:noLastmod,noChangefreq:noChangefreq,noPriority:noPriority};
+  sitemapData.slashConflicts=slashConflicts;
+  sitemapData.stats.noLastmod=noLastmod;sitemapData.stats.noChangefreq=noChangefreq;sitemapData.stats.noPriority=noPriority;
+  sitemapData.stats.queryParamUrls=queryParamUrls.length;
+  sitemapData.stats.fragmentUrls=fragmentUrls.length;
+  sitemapData.stats.crossDomainUrls=crossDomainUrls.length;
 }
 
 // ── Check URL Health (batch) ──
@@ -811,28 +951,35 @@ function calcHealthScore(){
   var total=entries.length;
   if(total===0)return 0;
 
+  // +15: URL health (all 2xx)
   var ok2xx=urlResults.filter(function(r){return r.status>=200&&r.status<300}).length;
   var checkedTotal=urlResults.length||1;
   score+=Math.round(15*(ok2xx/checkedTotal));
 
+  // +10: correct namespace
   var urlsets=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'});
   var correctNs=urlsets.filter(function(s){return s.hasCorrectNs}).length;
   if(urlsets.length>0)score+=Math.round(10*(correctNs/urlsets.length));
 
+  // +10: lastmod coverage
   var withLastmod=entries.filter(function(e){return e.lastmod}).length;
   score+=Math.round(10*(withLastmod/total));
 
+  // +5: no exact duplicates
   if(sitemapData.dupes.length===0)score+=5;
 
-  var errs=sitemapData.issues.filter(function(i){return i.type==='err'}).length;
-  if(errs===0)score+=5;
+  // +5: no trailing slash conflicts
+  if(!sitemapData.slashConflicts||sitemapData.slashConflicts.length===0)score+=5;
 
+  // +5: within limits
   var overLimit=sitemapData.sitemaps.filter(function(s){return s.urlCount>50000||s.size>50*1024*1024}).length;
   if(overLimit===0)score+=5;
 
-  score-=Math.min(20,errs*5);
+  // Penalties
+  var errs=sitemapData.issues.filter(function(i){return i.type==='err'}).length;
+  score-=Math.min(25,errs*5);
   var warns=sitemapData.issues.filter(function(i){return i.type==='warn'}).length;
-  score-=Math.min(10,warns*2);
+  score-=Math.min(15,warns*2);
 
   return Math.max(0,Math.min(100,score));
 }
