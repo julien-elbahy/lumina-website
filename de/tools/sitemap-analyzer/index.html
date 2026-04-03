@@ -305,6 +305,7 @@
 <div id="sitemapFiles" style="display:none"></div>
 <!-- Filter + URL list -->
 <div id="urlSection" style="display:none">
+<div class="section-head" style="display:flex;justify-content:space-between;align-items:center">URL Health Check <span id="urlSectionSample" style="font-weight:400;color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0"></span></div>
 <div class="filters" id="urlFilters"></div>
 <div id="urlList" class="list-scroll" style="max-height:500px;overflow-y:auto"></div>
 </div>
@@ -676,7 +677,7 @@ function validateEntries(entries){
   // Check for failed child sitemaps
   if(sitemapData.failedSitemaps>0){
     var pct=Math.round(sitemapData.failedSitemaps/sitemapData.totalChildSitemaps*100);
-    issues.push({type:'warn',text:sitemapData.failedSitemaps+' von '+sitemapData.totalChildSitemaps+' Child-Sitemaps konnten nicht geladen werden ('+pct+'%) \u2014 Ergebnisse sind m\u00f6glicherweise unvollst\u00e4ndig'});
+    issues.push({type:'warn',text:sitemapData.failedSitemaps+' von '+sitemapData.totalChildSitemaps+' Child-Sitemaps konnten nicht tiefgehend analysiert werden (Server-Timeout) \u2014 Index-Struktur wurde gelesen, aber einzelne URLs aus diesen Sitemaps fehlen'});
   }
 
   // Check each sitemap file
@@ -812,7 +813,7 @@ function validateEntries(entries){
     }
   });
   if(slashConflicts.length>0){
-    issues.push({type:'err',text:slashConflicts.length+' Trailing-Slash-Konflikt'+(slashConflicts.length>1?'e':'')+': Gleicher Pfad mit und ohne "/" (z.B. '+slashConflicts[0]+')'});
+    issues.push({type:'err',text:slashConflicts.length+' Trailing-Slash-Konflikt'+(slashConflicts.length>1?'e':'')+': Gleicher Pfad mit und ohne "/"',urls:slashConflicts.slice(0,5)});
   }
   // Also check: mixed slash policy (some with, some without — inconsistent)
   var withSlashCount=0,withoutSlashCount=0;
@@ -836,14 +837,14 @@ function validateEntries(entries){
 
   // ── Fragment URLs ──
   if(fragmentUrls.length>0){
-    issues.push({type:'err',text:fragmentUrls.length+' URL'+(fragmentUrls.length>1?'s':'')+' enthalten #-Fragmente \u2014 Fragmente geh\u00f6ren nicht in Sitemaps'});
+    issues.push({type:'err',text:fragmentUrls.length+' URL'+(fragmentUrls.length>1?'s':'')+' enthalten #-Fragmente \u2014 Fragmente geh\u00f6ren nicht in Sitemaps',urls:fragmentUrls.slice(0,5)});
   }
 
   // ── Query parameter URLs ──
   if(queryParamUrls.length>0){
     var trackingParams=queryParamUrls.filter(function(u){return /[?&](utm_|fbclid|gclid|sessionid|sid=|ref=)/i.test(u)});
     if(trackingParams.length>0){
-      issues.push({type:'warn',text:trackingParams.length+' URL'+(trackingParams.length>1?'s':'')+' enthalten Tracking-/Session-Parameter (utm_, fbclid usw.)'});
+      issues.push({type:'warn',text:trackingParams.length+' URL'+(trackingParams.length>1?'s':'')+' enthalten Tracking-/Session-Parameter (utm_, fbclid usw.)',urls:trackingParams.slice(0,5)});
     }
     if(queryParamUrls.length>entries.length*0.3){
       issues.push({type:'warn',text:queryParamUrls.length+' von '+entries.length+' URLs haben Query-Parameter \u2014 pr\u00fcfen ob diese kanonisch sind'});
@@ -857,7 +858,7 @@ function validateEntries(entries){
 
   // ── Cross-domain URLs ──
   if(crossDomainUrls.length>0){
-    issues.push({type:'warn',text:crossDomainUrls.length+' URL'+(crossDomainUrls.length>1?'s':'')+' verweisen auf eine andere Domain als die Sitemap-Herkunft'});
+    issues.push({type:'warn',text:crossDomainUrls.length+' URL'+(crossDomainUrls.length>1?'s':'')+' verweisen auf eine andere Domain als die Sitemap-Herkunft ('+sitemapOrigin+')',urls:crossDomainUrls.slice(0,5)});
   }
 
   // ── Suspiciously uniform lastmod ──
@@ -894,11 +895,14 @@ function validateEntries(entries){
     else{crossSitemapDupes.push(loc)}
   });
 
-  // ── Summary issues ──
-  if(noLastmod>0&&noLastmod<entries.length)issues.push({type:'warn',text:noLastmod+' von '+entries.length+' URLs ohne <lastmod>'});
+  // ── Summary issues (with example URLs) ──
+  if(noLastmod>0&&noLastmod<entries.length){
+    var noLmExamples=entries.filter(function(e){return !e.lastmod}).slice(0,5).map(function(e){return e.loc});
+    issues.push({type:'warn',text:noLastmod+' von '+entries.length+' URLs ohne <lastmod>',urls:noLmExamples});
+  }
   if(noLastmod===entries.length&&entries.length>0)issues.push({type:'warn',text:'Keine URL hat <lastmod> \u2014 Google nutzt dies zur Priorisierung des Crawlings'});
-  if(dupes.length>0)issues.push({type:'err',text:dupes.length+' URL(s) innerhalb derselben Sitemap-Datei dupliziert'});
-  if(crossSitemapDupes.length>0)issues.push({type:'warn',text:crossSitemapDupes.length+' URL(s) kommen in mehreren Sitemaps vor (bei Multi-Region-Seiten oft gewollt)'});
+  if(dupes.length>0)issues.push({type:'err',text:dupes.length+' URL(s) innerhalb derselben Sitemap-Datei dupliziert',urls:dupes.slice(0,5)});
+  if(crossSitemapDupes.length>0)issues.push({type:'warn',text:crossSitemapDupes.length+' URL(s) kommen in mehreren Sitemaps vor (bei Multi-Region-Seiten oft gewollt)',urls:crossSitemapDupes.slice(0,5)});
 
   sitemapData.issues=issues;
   sitemapData.dupes=dupes;
@@ -922,7 +926,9 @@ function checkUrlHealth(entries,onDone){
   document.getElementById('checkText').textContent='URL-Status wird gepr\u00fcft: 0 / '+total+'\u2026';
   document.getElementById('healthMetrics').style.display='block';
   var allTotal=sitemapData.allEntries?sitemapData.allEntries.length:entries.length;
-  document.getElementById('healthSample').textContent=total<allTotal?'('+total+' von '+allTotal+' gepr\u00fcft)':'(alle '+total+' URLs)';
+  var sampleText=total<allTotal?'('+total+' von '+allTotal+' gepr\u00fcft)':'(alle '+total+' URLs)';
+  document.getElementById('healthSample').textContent=sampleText;
+  var usSample=document.getElementById('urlSectionSample');if(usSample)usSample.textContent=sampleText;
 
   batchAbort=false;
   btn.textContent='\u23F9 Stopp';btn.disabled=false;
@@ -1057,20 +1063,13 @@ function renderResults(){
   // Metrics
   document.getElementById('mTotal').textContent=entries.length;
   document.getElementById('mDupes').textContent=sitemapData.dupes.length;
-  document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'}).length;
+  document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.length;
   animateMetrics();
 
   // Validation issues
-  var valSection=document.getElementById('validationSection');
-  if(sitemapData.issues.length>0){
-    var h='<div class="section-head">Validierungsprobleme ('+sitemapData.issues.length+')</div>';
-    sitemapData.issues.forEach(function(iss){
-      h+='<div style="padding:6px 10px;margin-bottom:4px;border-radius:8px;font-size:12px;background:var(--'+(iss.type==='err'?'err':'warn')+'-bg);color:var(--'+(iss.type==='err'?'err':'warn')+');border:1px solid var(--'+(iss.type==='err'?'err':'warn')+'-border)">'+(iss.type==='err'?'\u274C':'\u26A0\uFE0F')+' '+esc(iss.text)+'</div>';
-    });
-    valSection.innerHTML=h;
-    valSection.style.display='block';
-  }else{
-    valSection.innerHTML='<div style="padding:10px;border-radius:8px;font-size:12px;background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)">\u2705 Keine Validierungsprobleme gefunden</div>';
+  renderIssues(sitemapData.issues);
+  if(sitemapData.issues.length===0){
+    document.getElementById('validationSection').innerHTML='<div style="padding:10px;border-radius:8px;font-size:12px;background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)">\u2705 Keine Validierungsprobleme gefunden</div>';
     valSection.style.display='block';
   }
 
@@ -1116,6 +1115,34 @@ function renderResults(){
 
   // AI Card
   document.getElementById('aiCard').style.display='block';
+}
+
+// ── Render URL List ──
+// ── Render Validation Issues (with expandable URLs) ──
+function renderIssues(issues){
+  var valSection=document.getElementById('validationSection');
+  if(!issues||!issues.length){
+    valSection.innerHTML='<div style="padding:10px;border-radius:8px;font-size:12px;background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)">\u2705 Keine Validierungsprobleme gefunden</div>';
+    valSection.style.display='block';
+    return;
+  }
+  var h='<div class="section-head">Validierungsprobleme ('+issues.length+')</div>';
+  issues.forEach(function(iss,idx){
+    var cls=iss.type==='err'?'err':'warn';
+    var icon=iss.type==='err'?'\u274C':'\u26A0\uFE0F';
+    var hasUrls=iss.urls&&iss.urls.length>0;
+    h+='<div style="margin-bottom:4px">';
+    h+='<div style="padding:6px 10px;border-radius:'+(hasUrls?'8px 8px 0 0':'8px')+';font-size:12px;background:var(--'+cls+'-bg);color:var(--'+cls+');border:1px solid var(--'+cls+'-border);'+(hasUrls?'cursor:pointer;user-select:none':'')+';" '+(hasUrls?'onclick="var d=document.getElementById(\'iss-urls-'+idx+'\');d.style.display=d.style.display===\'block\'?\'none\':\'block\'"':'')+'>'+icon+' '+esc(iss.text)+(hasUrls?' <span style="font-size:10px;opacity:.7">\u25BC</span>':'')+'</div>';
+    if(hasUrls){
+      h+='<div id="iss-urls-'+idx+'" style="display:none;padding:6px 10px 8px;background:var(--'+cls+'-bg);border:1px solid var(--'+cls+'-border);border-top:none;border-radius:0 0 8px 8px;font-family:var(--mono);font-size:10px;color:var(--'+cls+')">';
+      iss.urls.forEach(function(u){h+='<div style="padding:2px 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(u)+'</div>'});
+      if(iss.text.match(/^\d+/)&&parseInt(iss.text)>iss.urls.length)h+='<div style="padding:2px 0;opacity:.6">... und '+(parseInt(iss.text)-iss.urls.length)+' weitere</div>';
+      h+='</div>';
+    }
+    h+='</div>';
+  });
+  valSection.innerHTML=h;
+  valSection.style.display='block';
 }
 
 // ── Render URL List ──
@@ -1438,7 +1465,7 @@ function go(url){
       document.getElementById('res').style.display='block';
       renderScoreRing(0);
       document.getElementById('mTotal').textContent='0';
-      document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'}).length;
+      document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.length;
       document.getElementById('validationSection').innerHTML='<div class="error-msg"><div class="icon">\uD83D\uDD0D</div><p>Keine URLs in der Sitemap gefunden.</p><p style="margin-top:8px;font-size:12px;color:var(--muted)">Versuche die Sitemap-URL direkt einzugeben, z. B. <code>example.com/sitemap.xml</code></p></div>';
       document.getElementById('validationSection').style.display='block';
       return;
@@ -1451,18 +1478,10 @@ function go(url){
     document.getElementById('res').style.display='block';
     document.getElementById('mTotal').textContent=allEntries.length;
     document.getElementById('mDupes').textContent=sitemapData.dupes.length;
-    document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.filter(function(s){return s.type==='urlset'}).length;
+    document.getElementById('mSitemaps').textContent=sitemapData.sitemaps.length;
 
     // Show validation issues immediately
-    var valSection=document.getElementById('validationSection');
-    if(sitemapData.issues.length>0){
-      var h='<div class="section-head">Validierungsprobleme ('+sitemapData.issues.length+')</div>';
-      sitemapData.issues.forEach(function(iss){
-        h+='<div style="padding:6px 10px;margin-bottom:4px;border-radius:8px;font-size:12px;background:var(--'+(iss.type==='err'?'err':'warn')+'-bg);color:var(--'+(iss.type==='err'?'err':'warn')+');border:1px solid var(--'+(iss.type==='err'?'err':'warn')+'-border)">'+(iss.type==='err'?'\u274C':'\u26A0\uFE0F')+' '+esc(iss.text)+'</div>';
-      });
-      valSection.innerHTML=h;
-      valSection.style.display='block';
-    }
+    renderIssues(sitemapData.issues);
 
     // Start URL health checking
     checkUrlHealth(allEntries);
