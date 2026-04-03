@@ -897,9 +897,7 @@ function processBatch(urls,onDone){
       document.getElementById('bmLangs').textContent=Object.keys(allLangs).length;
       if(done%20===0||done===total)renderBatchList();
       if(done===total){
-        document.getElementById('batchProgressText').textContent='Fertig — '+total+' URLs geprüft';
-        document.getElementById('batchProgressPct').textContent='100%';
-        document.getElementById('batchProgressBar').style.width='100%';
+        document.getElementById('batchProgress').style.display='none';
         document.getElementById('batchFilters').style.display='flex';
         document.getElementById('batchToolbar').style.display='flex';
         showAiCard();renderBatchList();onDone();
