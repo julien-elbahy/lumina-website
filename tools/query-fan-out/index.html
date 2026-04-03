@@ -475,23 +475,19 @@ function loadSERP(idx,btnEl){
     var paaItems=[];
     allItems.forEach(function(it){
       if(it.type==='people_also_ask'){
-        /* DFS returns PAA as individual items with title */
-        if(it.title){
-          var q=it.title;
-          if(!allPAA.some(function(p){return p.question===q})){
+        /* DFS: one top-level item with nested items array */
+        (it.items||[]).forEach(function(paa){
+          var q=paa.title||paa.question||'';
+          if(q&&!allPAA.some(function(p){return p.question===q})){
             allPAA.push({question:q,from:s.query});
             paaItems.push(q);
           }
-        }
-        /* Or as a container with nested items */
-        if(it.items&&it.items.length){
-          it.items.forEach(function(paa){
-            var q=paa.title||'';
-            if(q&&!allPAA.some(function(p){return p.question===q})){
-              allPAA.push({question:q,from:s.query});
-              paaItems.push(q);
-            }
-          });
+        });
+        /* Fallback: title on the top-level item itself */
+        var topQ=it.title||it.question||'';
+        if(topQ&&!allPAA.some(function(p){return p.question===topQ})){
+          allPAA.push({question:topQ,from:s.query});
+          paaItems.push(topQ);
         }
       }
     });
