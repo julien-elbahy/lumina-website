@@ -638,11 +638,6 @@ function validateEntries(entries){
   var urlMap={};
   var dupes=[];
 
-  // Check total count
-  if(entries.length>50000){
-    issues.push({type:'err',text:'Sitemap \u00fcberschreitet das Limit von 50.000 URLs ('+entries.length+' URLs gefunden)'});
-  }
-
   // Check each sitemap file
   sitemapData.sitemaps.forEach(function(sm){
     if(sm.type==='urlset'){
