@@ -177,9 +177,9 @@
 .list-scroll{scrollbar-width:thin;scrollbar-color:var(--border) transparent}.list-scroll::-webkit-scrollbar{width:6px}.list-scroll::-webkit-scrollbar-track{background:transparent}.list-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}.list-scroll::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 .batch-row{padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;font-size:13px;user-select:none}.batch-row:hover{background:var(--accent-soft)}.batch-row-head{display:flex;align-items:center;gap:8px}.batch-row-url{font-family:var(--mono);font-size:11px;color:var(--muted);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.batch-row-badges{display:flex;gap:4px;flex-shrink:0}.batch-row-detail{display:none;padding:10px 0 4px;border-top:1px solid var(--border);margin-top:8px}.batch-row.open .batch-row-detail{display:block}.batch-row-arrow{color:var(--muted);font-size:12px;transition:transform .2s;flex-shrink:0}.batch-row.open .batch-row-arrow{transform:rotate(90deg)}
 /* UX Responsive */
-(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)}.psi-scores{grid-template-columns:repeat(3,1fr)}}
-(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-direction:column}.kw-input input,.kw-input select,.kw-input .ab{width:100%}}
-(max-width:400px){.metrics{grid-template-columns:1fr}}
+@media(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)}.psi-scores{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-direction:column}.kw-input input,.kw-input select,.kw-input .ab{width:100%}}
+@media(max-width:400px){.metrics{grid-template-columns:1fr}}
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
