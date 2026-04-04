@@ -77,6 +77,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 .score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset .6s ease}
 .score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--text)}
 .score-info{flex:1;min-width:0}.score-info strong{font-size:15px;color:var(--text);display:block;margin-bottom:2px}.score-info p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.score-ptype{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(236,165,80,.2);margin-right:4px}
+.score-cap{font-size:11px;color:var(--err);font-weight:600;margin-top:4px;padding:4px 8px;background:var(--err-bg);border:1px solid var(--err-border);border-radius:6px;display:inline-block}
 /* Pixel bar */
 .px-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}.px-track{flex:1;height:4px;background:var(--border);border-radius:3px;overflow:hidden}.px-fill{height:100%;border-radius:3px;transition:width .3s}.px-info{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
 /* Tip */
@@ -401,7 +403,7 @@ html{overflow-x:clip}
 <h2>FAQ</h2>
 <div class="faq-item"><div class="faq-q">What meta tags does this tool check?<span class="arrow">+</span></div><div class="faq-a">Title, description, canonical, robots, H1, all Open Graph tags (og:title, og:description, og:image, og:url, og:type, og:site_name, og:locale), Twitter Card tags, Schema.org JSON-LD, hreflang, viewport, charset, lang attribute, and favicon.</div></div>
 <div class="faq-item"><div class="faq-q">Is this tool free?<span class="arrow">+</span></div><div class="faq-a">Completely free, no signup needed. The analysis runs through our own servers — no third-party proxies. You can analyze unlimited URLs.</div></div>
-<div class="faq-item"><div class="faq-q">How is the SEO score calculated?<span class="arrow">+</span></div><div class="faq-a">The score is based on 15 weighted checks: title presence and length (pixel-based), meta description presence and length, H1 count, canonical URL, robots directive, Open Graph tags, Schema.org markup, viewport, and language attribute. Each check has a different weight based on its SEO importance.</div></div>
+<div class="faq-item"><div class="faq-q">How is the SEO score calculated?<span class="arrow">+</span></div><div class="faq-a">The score starts at 100 and uses tier-based penalties. <b>Critical failures</b> (missing title/description, noindex, HTTP errors) automatically <i>cap</i> the score at 15&#8211;40 regardless of other checks. <b>Important issues</b> (missing H1, bad canonical, broken OG tags, pixel-width overflow) subtract 4&#8211;10 points each. <b>Nice-to-have</b> issues (viewport, lang, charset, schema) subtract 2&#8211;3 points. Duplicate tags and meta-tag conflicts from the Issues Banner each subtract 2&#8211;6 more points. The scoring is also <b>page-type aware</b>: homepages are allowed short brand titles, articles are checked for article-specific signals. A score of 80+ means the meta setup is solid; 50&#8211;79 needs improvement; below 50 has critical issues.</div></div>
 <div class="faq-item"><div class="faq-q">Does this tool work with JavaScript-heavy websites?<span class="arrow">+</span></div><div class="faq-a">Yes. If the initial fetch returns incomplete data (common with React, Angular, or Vue apps), the tool automatically falls back to a headless browser that renders JavaScript — so you see the page exactly as search engines do.</div></div>
 <div class="faq-item"><div class="faq-q">Can I rewrite my meta tags with AI here?<span class="arrow">+</span></div><div class="faq-a">This tool is strictly a diagnostic analyzer &#8212; it tells you what's on the page, what's broken, and what's missing. For rewriting, use the <a href="/tools/serp-preview/">SERP Preview tool</a>: it has a live Google snippet editor with desktop/mobile previews, keyword highlighting and AI-powered title &amp; description suggestions. After every analysis we show an "Open in SERP Preview" button that passes the URL directly.</div></div>
 <div class="faq-item"><div class="faq-q">Why do pixel widths matter for titles and descriptions?<span class="arrow">+</span></div><div class="faq-a">Google truncates search snippets based on pixel width, not character count. A title with wide characters like "W" or "M" gets cut sooner than one with narrow characters. This tool measures actual rendered pixels for more accurate truncation predictions than character counting alone.</div></div>
@@ -562,6 +564,16 @@ function parseHTML(html,url,status){
   var schemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{var j=JSON.parse(s.textContent);if(j['@graph']&&Array.isArray(j['@graph']))j['@graph'].forEach(function(it){schemas.push(it['@type']||'Unknown')});else if(Array.isArray(j))j.forEach(function(it){schemas.push(it['@type']||'Unknown')});else schemas.push(j['@type']||'Unknown')}catch(e){}});
   var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(l){hreflangs.push({lang:l.getAttribute('hreflang'),href:l.getAttribute('href')})});
 
+  /* ── Page type detection ── */
+  var pageType='page';
+  var urlPath='';try{urlPath=new URL(url).pathname}catch(e){}
+  var schemaTypes=schemas.join(' ').toLowerCase();
+  if(urlPath==='/'||urlPath===''){pageType='homepage'}
+  else if(/article|blogposting|newsarticle/.test(schemaTypes)||/\/blog\//.test(urlPath)||/\/news\//.test(urlPath)||/\/article/.test(urlPath)){pageType='article'}
+  else if(/product|offer/.test(schemaTypes)||/\/product/.test(urlPath)||/\/shop\//.test(urlPath)){pageType='product'}
+  else if(/collectionpage|category/.test(schemaTypes)||/\/category\//.test(urlPath)||/\/tag\//.test(urlPath)){pageType='category'}
+  else if(/\/about/.test(urlPath)||/\/contact/.test(urlPath)||/\/imprint/.test(urlPath)||/\/impressum/.test(urlPath)||/\/privacy/.test(urlPath)){pageType='info'}
+
   /* ── Duplicate meta tag detection — scoped to <head> to avoid SVG <title> false positives ── */
   var duplicates=[];
   var head=doc.head||doc;
@@ -615,43 +627,115 @@ function parseHTML(html,url,status){
     }
   }
 
-  return{url:url,title:title,desc:desc,canonical:canonical,canonicalDeep:canonicalDeep,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status,duplicates:duplicates,conflicts:conflicts,ogImageCheck:null}
+  return{url:url,title:title,desc:desc,canonical:canonical,canonicalDeep:canonicalDeep,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status,duplicates:duplicates,conflicts:conflicts,ogImageCheck:null,pageType:pageType}
 }
 var _lastAnalysis=null;
 
 function renderAll(d){
-  /* ── Score calculation (weighted 0-100) ── */
-  var s=0,mx=0,details=[];
-  function chk(pts,ok,label){mx+=pts;if(ok){s+=pts;details.push({ok:true,t:label})}else{details.push({ok:false,t:label})}}
+  /* ── Tier-based scoring (Phase D) ──
+     Start at 100, subtract penalties. CRITICAL failures auto-cap the score.
+     Page-type aware: homepages are allowed short brand titles.
+  */
+  var score=100;var details=[];var cap=null;
   var tPx=d.title?pxMeasure(d.title,TITLE_FONT):0;
   var dPx=d.desc?pxMeasure(d.desc,DESC_FONT):0;
   var tPxM=d.title?pxMeasure(d.title,TITLE_FONT_M):0;
   var dPxM=d.desc?pxMeasure(d.desc,DESC_FONT_M):0;
   d._tPx=tPx;d._dPx=dPx;d._tPxM=tPxM;d._dPxM=dPxM;
-  chk(15,!!d.title,'Title tag present');
-  chk(5,d.title&&d.title.length<=60,'Title length ≤60 chars');
-  chk(5,d.title&&tPx<=TITLE_MAX_PX,'Title pixel width ≤580px');
-  chk(15,!!d.desc,'Meta description present');
-  chk(5,d.desc&&d.desc.length>=70&&d.desc.length<=160,'Description length 70–160 chars');
-  chk(5,d.desc&&dPx<=DESC_MAX_PX,'Description pixel width ≤920px');
-  chk(12,d.hC.h1===1,'Exactly one H1');
-  chk(8,!!d.canonical,'Canonical URL set');
-  chk(5,!(d.robots&&d.robots.toLowerCase().indexOf('noindex')!==-1),'No noindex directive');
-  chk(4,!!d.og['og:title'],'Open Graph title');
-  chk(3,!!d.og['og:description'],'Open Graph description');
-  chk(4,!!d.og['og:image'],'Open Graph image');
-  chk(4,d.schemas.length>0,'Schema.org JSON-LD');
-  chk(3,!!d.viewport,'Viewport meta tag');
-  chk(2,!!d.lang,'Language attribute');
-  var score=mx>0?Math.round(s/mx*100):0;
+
+  var noIdx=d.robots&&d.robots.toLowerCase().indexOf('noindex')!==-1;
+
+  function pass(t){details.push({ok:true,t:t})}
+  function fail(t,penalty){details.push({ok:false,t:t,penalty:penalty||0});score-=(penalty||0)}
+  function critFail(t,capVal){details.push({ok:false,t:t,critical:true});if(cap===null||capVal<cap)cap=capVal}
+
+  /* ── CRITICAL tier — any failure caps the score ── */
+  /* Title present */
+  if(!d.title)critFail('Title tag present',20);
+  else pass('Title tag present');
+  /* Description present */
+  if(!d.desc)critFail('Meta description present',35);
+  else pass('Meta description present');
+  /* Indexable (not noindex) */
+  if(noIdx)critFail('Page is indexable (no noindex directive)',15);
+  else pass('Page is indexable');
+  /* HTTP status OK */
+  if(d.status&&(d.status<200||d.status>=400))critFail('HTTP status is success code',40);
+  else pass('HTTP status OK');
+
+  /* ── IMPORTANT tier — each failure subtracts 5–10 points ── */
+  /* Title length (page-type aware) */
+  if(d.title){
+    var isHome=d.pageType==='homepage';
+    if(tPx>TITLE_MAX_PX){fail('Title fits Google desktop width (≤580px)',10)}
+    else if(isHome&&d.title.length<40){pass('Title length (homepage brand title accepted)')}
+    else if(!isHome&&tPx<TITLE_MAX_PX*0.4){fail('Title uses available SERP space',5)}
+    else pass('Title length OK');
+  }
+  /* Title mobile width */
+  if(d.title&&tPxM>TITLE_MAX_PX_M)fail('Title fits Google mobile width (≤500px)',6);
+  else if(d.title)pass('Title mobile width OK');
+  /* Description length */
+  if(d.desc){
+    if(dPx>DESC_MAX_PX)fail('Description fits Google desktop width (≤920px)',8);
+    else if(d.desc.length<70)fail('Description is substantial (≥70 chars)',5);
+    else pass('Description length OK');
+  }
+  /* Description mobile width */
+  if(d.desc&&dPxM>DESC_MAX_PX_M)fail('Description fits Google mobile width (≤680px)',4);
+  else if(d.desc)pass('Description mobile width OK');
+  /* H1 count */
+  if(d.hC.h1===0)fail('Exactly one H1 tag',10);
+  else if(d.hC.h1>1)fail('Exactly one H1 tag',6);
+  else pass('Exactly one H1');
+  /* Canonical */
+  if(!d.canonical)fail('Canonical URL set',6);
+  else if(d.canonicalDeep&&d.canonicalDeep.issues.length)fail('Canonical has no conflicts',5);
+  else pass('Canonical URL set correctly');
+  /* Open Graph essentials */
+  if(!d.og['og:title'])fail('Open Graph title',4);
+  else pass('Open Graph title');
+  if(!d.og['og:description'])fail('Open Graph description',3);
+  else pass('Open Graph description');
+  if(!d.og['og:image'])fail('Open Graph image',5);
+  else pass('Open Graph image');
+
+  /* ── NICE-TO-HAVE tier — small penalty ── */
+  if(!d.viewport)fail('Viewport meta tag',3);
+  else pass('Viewport meta tag');
+  if(!d.lang)fail('HTML lang attribute',2);
+  else pass('HTML lang attribute');
+  if(d.schemas.length===0)fail('Schema.org JSON-LD present',3);
+  else pass('Schema.org JSON-LD present');
+  if(!d.charset)fail('Charset declared',2);
+  else pass('Charset declared');
+
+  /* ── Phase C penalties: duplicates and conflicts ── */
+  d.duplicates.forEach(function(dup){
+    if(dup.severity==='err')score-=5;
+    else score-=2;
+  });
+  d.conflicts.forEach(function(c){
+    if(c.severity==='err')score-=6;
+    else score-=2;
+  });
+
+  /* Floor at 0, round, apply cap */
+  score=Math.max(0,Math.round(score));
+  if(cap!==null&&score>cap)score=cap;
+
   var scoreCol=score>=80?'var(--ok)':score>=50?'var(--warn)':'var(--err)';
   var scoreLabel=score>=80?'Great SEO setup':score>=50?'Needs improvement':'Critical issues found';
+  if(cap!==null)scoreLabel='Score capped — critical issue';
   var passed=details.filter(function(x){return x.ok}).length;
   var failed=details.filter(function(x){return!x.ok}).length;
+  d._scoreCap=cap;d._pageType=d.pageType;
   /* ── Render score circle ── */
   var circ=2*Math.PI*34;var offset=circ-(score/100*circ);
   var sb=document.getElementById('statusBar');
-  sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/></svg><div class="score-num" style="color:'+scoreCol+'">0</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p>'+passed+' of '+details.length+' checks passed'+(failed?' — '+failed+' to fix':'')+'</p></div><button class="act-btn" id="btnCopyReport" style="flex-shrink:0;align-self:center">📋 Copy Report</button></div>';
+  var ptypeLabel={'homepage':'\ud83c\udfe0 Homepage','article':'\ud83d\udcdd Article','product':'\ud83d\uded2 Product','category':'\ud83d\udcc2 Category','info':'\u2139\ufe0f Info page','page':'\ud83d\udcc4 Page'}[d.pageType]||'\ud83d\udcc4 Page';
+  var capNote=cap!==null?'<div class="score-cap">\u26a0\ufe0f Capped at '+cap+'/100 due to critical issue</div>':'';
+  sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/></svg><div class="score-num" style="color:'+scoreCol+'">0</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p><span class="score-ptype">'+ptypeLabel+'</span> &middot; '+passed+' of '+details.length+' checks passed'+(failed?' \u2014 '+failed+' to fix':'')+'</p>'+capNote+'</div><button class="act-btn" id="btnCopyReport" style="flex-shrink:0;align-self:center">\ud83d\udccb Copy Report</button></div>';
   /* Animate score */
   var _sNum=sb.querySelector('.score-num'),_sFg=sb.querySelector('.fg'),_sTarget=score,_sCur=0;
   var _sAnim=setInterval(function(){_sCur+=Math.ceil((_sTarget-_sCur)/8)||1;if(_sCur>=_sTarget){_sCur=_sTarget;clearInterval(_sAnim)}_sNum.textContent=_sCur;_sFg.setAttribute('stroke-dashoffset',circ-(_sCur/100*circ))},30);
@@ -710,11 +794,13 @@ function renderSEO(d){
   }
 
   var tl=d.title.length;var tPx=d._tPx||0;var tPxM=d._tPxM||0;
-  // Title with dual desktop/mobile pixel bar
+  var isHome=d.pageType==='homepage';
+  // Title with dual desktop/mobile pixel bar — homepage-aware (short brand titles accepted)
   if(!tl){h+=rowTip('Title',esc('—')+' <em style="color:var(--err)">Missing!</em>',badge('err','MISSING'),'Every page needs a title tag. It\'s the most important on-page SEO element and appears as the clickable headline in search results.')}
   else if(tPx>TITLE_MAX_PX){h+=rowTip('Title',esc(d.title),badge('err',tl+' chars'),'<b>Title will be truncated on desktop.</b> Google cuts at ~580px (roughly 55–60 chars). Shorten to avoid "…" in search results.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else if(tPxM>TITLE_MAX_PX_M){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'<b>Title fits on desktop but will be truncated on mobile.</b> Over 60% of Google searches happen on mobile \u2014 consider shortening.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else if(tPx>TITLE_WARN_PX){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'Title is close to the desktop pixel limit. Consider shortening slightly to be safe.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  else if(isHome&&tl>=3){h+=rowTip('Title',esc(d.title),badge('ok',tl+' chars \u00b7 homepage'),'\u2713 Short brand title \u2014 acceptable on homepages. Brand names typically dominate homepage titles and this is fine.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else if(tPx<TITLE_MAX_PX*0.4){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'Title is very short. You\'re not using the full space Google gives you \u2014 add keywords or a compelling modifier.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else{h+=rowTip('Title',esc(d.title),badge('ok',tl+' chars'),'Good length on both desktop and mobile.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   // Description with dual desktop/mobile pixel bar

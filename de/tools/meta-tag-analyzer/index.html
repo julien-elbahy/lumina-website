@@ -77,6 +77,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 .score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset .6s ease}
 .score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--text)}
 .score-info{flex:1;min-width:0}.score-info strong{font-size:15px;color:var(--text);display:block;margin-bottom:2px}.score-info p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.score-ptype{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(236,165,80,.2);margin-right:4px}
+.score-cap{font-size:11px;color:var(--err);font-weight:600;margin-top:4px;padding:4px 8px;background:var(--err-bg);border:1px solid var(--err-border);border-radius:6px;display:inline-block}
 /* Pixel bar */
 .px-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}.px-track{flex:1;height:4px;background:var(--border);border-radius:3px;overflow:hidden}.px-fill{height:100%;border-radius:3px;transition:width .3s}.px-info{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
 /* Tip */
@@ -401,7 +403,7 @@ html{overflow-x:clip}
 <h2>FAQ</h2>
 <div class="faq-item"><div class="faq-q">Welche Meta-Tags prüft dieses Tool?<span class="arrow">+</span></div><div class="faq-a">Title, Description, Canonical, Robots, H1, alle Open Graph Tags (og:title, og:description, og:image, og:url, og:type, og:site_name, og:locale), Twitter Card Tags, Schema.org JSON-LD, hreflang, Viewport, Charset, Lang-Attribut und Favicon.</div></div>
 <div class="faq-item"><div class="faq-q">Ist dieses Tool kostenlos?<span class="arrow">+</span></div><div class="faq-a">Komplett kostenlos, ohne Anmeldung. Die Analyse läuft über unsere eigenen Server — keine Drittanbieter-Proxies. Du kannst unbegrenzt viele URLs analysieren.</div></div>
-<div class="faq-item"><div class="faq-q">Wie wird der SEO-Score berechnet?<span class="arrow">+</span></div><div class="faq-a">Der Score basiert auf 15 gewichteten Checks: Title-Vorhandensein und -Länge (pixelbasiert), Meta-Description-Vorhandensein und -Länge, H1-Anzahl, Canonical-URL, Robots-Direktive, Open-Graph-Tags, Schema.org-Markup, Viewport und Sprach-Attribut. Jeder Check ist nach seiner SEO-Wichtigkeit gewichtet.</div></div>
+<div class="faq-item"><div class="faq-q">Wie wird der SEO-Score berechnet?<span class="arrow">+</span></div><div class="faq-a">Der Score startet bei 100 und nutzt tier-basierte Abz&#252;ge. <b>Kritische Fehler</b> (fehlender Title/Description, noindex, HTTP-Fehler) <i>capen</i> den Score automatisch auf 15&#8211;40, unabh&#228;ngig von den anderen Checks. <b>Wichtige Probleme</b> (fehlender H1, schlechtes Canonical, kaputte OG-Tags, Pixel-Width-Overflow) ziehen jeweils 4&#8211;10 Punkte ab. <b>Nice-to-have</b> (Viewport, Lang, Charset, Schema) ziehen 2&#8211;3 Punkte ab. Duplikate und Meta-Tag-Konflikte aus dem Issues-Banner kosten je 2&#8211;6 weitere Punkte. Das Scoring ist auch <b>seitentyp-bewusst</b>: Homepages d&#252;rfen kurze Brand-Titles haben, Artikel werden auf artikel-spezifische Signale gepr&#252;ft. Ein Score von 80+ bedeutet das Meta-Setup ist solide; 50&#8211;79 verbesserbar; unter 50 hat kritische Probleme.</div></div>
 <div class="faq-item"><div class="faq-q">Funktioniert dieses Tool mit JavaScript-lastigen Websites?<span class="arrow">+</span></div><div class="faq-a">Ja. Wenn der erste Abruf unvollständige Daten liefert (häufig bei React-, Angular- oder Vue-Apps), wechselt das Tool automatisch zu einem Headless-Browser, der JavaScript rendert — so siehst du die Seite genau wie Suchmaschinen.</div></div>
 <div class="faq-item"><div class="faq-q">Kann ich meine Meta-Tags hier mit KI umschreiben lassen?<span class="arrow">+</span></div><div class="faq-a">Dieses Tool ist ein reines Diagnose-Tool &#8212; es zeigt dir was auf der Seite ist, was fehlt und was kaputt ist. Zum Umschreiben nutzt du den <a href="/de/tools/serp-preview/">SERP Preview</a>: dort gibt&apos;s einen Live-Google-Snippet-Editor mit Desktop- &amp; Mobile-Vorschau, Keyword-Highlighting und KI-basierten Title- &amp; Description-Vorschl&#228;gen. Nach jeder Analyse zeigen wir einen &#8222;Im SERP Preview &#246;ffnen&#8220;-Button, der die URL direkt &#252;bergibt.</div></div>
 <div class="faq-item"><div class="faq-q">Warum ist die Pixelbreite bei Titeln und Beschreibungen wichtig?<span class="arrow">+</span></div><div class="faq-a">Google kürzt Suchergebnisse basierend auf Pixelbreite, nicht Zeichenanzahl. Ein Titel mit breiten Zeichen wie „W" oder „M" wird früher abgeschnitten als einer mit schmalen Zeichen. Dieses Tool misst die tatsächlich gerenderten Pixel für genauere Vorhersagen als reines Zeichenzählen.</div></div>
@@ -560,6 +562,16 @@ function parseHTML(html,url,status){
   var schemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{var j=JSON.parse(s.textContent);if(j['@graph']&&Array.isArray(j['@graph']))j['@graph'].forEach(function(it){schemas.push(it['@type']||'Unknown')});else if(Array.isArray(j))j.forEach(function(it){schemas.push(it['@type']||'Unknown')});else schemas.push(j['@type']||'Unknown')}catch(e){}});
   var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(l){hreflangs.push({lang:l.getAttribute('hreflang'),href:l.getAttribute('href')})});
 
+  /* ── Page type detection ── */
+  var pageType='page';
+  var urlPath='';try{urlPath=new URL(url).pathname}catch(e){}
+  var schemaTypes=schemas.join(' ').toLowerCase();
+  if(urlPath==='/'||urlPath===''){pageType='homepage'}
+  else if(/article|blogposting|newsarticle/.test(schemaTypes)||/\/blog\//.test(urlPath)||/\/news\//.test(urlPath)||/\/article/.test(urlPath)){pageType='article'}
+  else if(/product|offer/.test(schemaTypes)||/\/product/.test(urlPath)||/\/shop\//.test(urlPath)){pageType='product'}
+  else if(/collectionpage|category/.test(schemaTypes)||/\/category\//.test(urlPath)||/\/tag\//.test(urlPath)){pageType='category'}
+  else if(/\/about/.test(urlPath)||/\/contact/.test(urlPath)||/\/imprint/.test(urlPath)||/\/impressum/.test(urlPath)||/\/privacy/.test(urlPath)){pageType='info'}
+
   /* ── Duplicate meta tag detection — scoped to <head> to avoid SVG <title> false positives ── */
   var duplicates=[];
   var head=doc.head||doc;
@@ -612,43 +624,103 @@ function parseHTML(html,url,status){
     }
   }
 
-  return{url:url,title:title,desc:desc,canonical:canonical,canonicalDeep:canonicalDeep,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status,duplicates:duplicates,conflicts:conflicts,ogImageCheck:null}
+  return{url:url,title:title,desc:desc,canonical:canonical,canonicalDeep:canonicalDeep,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status,duplicates:duplicates,conflicts:conflicts,ogImageCheck:null,pageType:pageType}
 }
 var _lastAnalysis=null;
 
 function renderAll(d){
-  /* ── Score-Berechnung (gewichtet 0-100) ── */
-  var s=0,mx=0,details=[];
-  function chk(pts,ok,label){mx+=pts;if(ok){s+=pts;details.push({ok:true,t:label})}else{details.push({ok:false,t:label})}}
+  /* ── Tier-basiertes Scoring (Phase D) ──
+     Start bei 100, Abzüge. KRITISCHE Fehler capen den Score automatisch.
+     Seitentyp-bewusst: Homepages dürfen kurze Brand-Titles haben.
+  */
+  var score=100;var details=[];var cap=null;
   var tPx=d.title?pxMeasure(d.title,TITLE_FONT):0;
   var dPx=d.desc?pxMeasure(d.desc,DESC_FONT):0;
   var tPxM=d.title?pxMeasure(d.title,TITLE_FONT_M):0;
   var dPxM=d.desc?pxMeasure(d.desc,DESC_FONT_M):0;
   d._tPx=tPx;d._dPx=dPx;d._tPxM=tPxM;d._dPxM=dPxM;
-  chk(15,!!d.title,'Title-Tag vorhanden');
-  chk(5,d.title&&d.title.length<=60,'Title-Länge ≤60 Zeichen');
-  chk(5,d.title&&tPx<=TITLE_MAX_PX,'Title-Pixelbreite ≤580px');
-  chk(15,!!d.desc,'Meta-Description vorhanden');
-  chk(5,d.desc&&d.desc.length>=70&&d.desc.length<=160,'Description-Länge 70–160 Zeichen');
-  chk(5,d.desc&&dPx<=DESC_MAX_PX,'Description-Pixelbreite ≤920px');
-  chk(12,d.hC.h1===1,'Genau ein H1');
-  chk(8,!!d.canonical,'Canonical-URL gesetzt');
-  chk(5,!(d.robots&&d.robots.toLowerCase().indexOf('noindex')!==-1),'Kein noindex-Direktive');
-  chk(4,!!d.og['og:title'],'Open-Graph-Titel');
-  chk(3,!!d.og['og:description'],'Open-Graph-Description');
-  chk(4,!!d.og['og:image'],'Open-Graph-Bild');
-  chk(4,d.schemas.length>0,'Schema.org JSON-LD');
-  chk(3,!!d.viewport,'Viewport-Meta-Tag');
-  chk(2,!!d.lang,'Sprach-Attribut');
-  var score=mx>0?Math.round(s/mx*100):0;
+
+  var noIdx=d.robots&&d.robots.toLowerCase().indexOf('noindex')!==-1;
+
+  function pass(t){details.push({ok:true,t:t})}
+  function fail(t,penalty){details.push({ok:false,t:t,penalty:penalty||0});score-=(penalty||0)}
+  function critFail(t,capVal){details.push({ok:false,t:t,critical:true});if(cap===null||capVal<cap)cap=capVal}
+
+  /* ── KRITISCH — jeder Fehler cappt den Score ── */
+  if(!d.title)critFail('Title-Tag vorhanden',20);
+  else pass('Title-Tag vorhanden');
+  if(!d.desc)critFail('Meta-Description vorhanden',35);
+  else pass('Meta-Description vorhanden');
+  if(noIdx)critFail('Seite ist indexierbar (keine noindex-Direktive)',15);
+  else pass('Seite ist indexierbar');
+  if(d.status&&(d.status<200||d.status>=400))critFail('HTTP-Status ist Erfolgscode',40);
+  else pass('HTTP-Status OK');
+
+  /* ── WICHTIG — jeder Fehler 4-10 Punkte ── */
+  if(d.title){
+    var isHome=d.pageType==='homepage';
+    if(tPx>TITLE_MAX_PX){fail('Title passt in Google Desktop-Breite (≤580px)',10)}
+    else if(isHome&&d.title.length<40){pass('Title-Länge (Homepage Brand-Title akzeptiert)')}
+    else if(!isHome&&tPx<TITLE_MAX_PX*0.4){fail('Title nutzt verfügbaren SERP-Platz',5)}
+    else pass('Title-Länge OK');
+  }
+  if(d.title&&tPxM>TITLE_MAX_PX_M)fail('Title passt in Google Mobile-Breite (≤500px)',6);
+  else if(d.title)pass('Title Mobile-Breite OK');
+  if(d.desc){
+    if(dPx>DESC_MAX_PX)fail('Description passt in Google Desktop-Breite (≤920px)',8);
+    else if(d.desc.length<70)fail('Description ist substantiell (≥70 Zeichen)',5);
+    else pass('Description-Länge OK');
+  }
+  if(d.desc&&dPxM>DESC_MAX_PX_M)fail('Description passt in Google Mobile-Breite (≤680px)',4);
+  else if(d.desc)pass('Description Mobile-Breite OK');
+  if(d.hC.h1===0)fail('Genau ein H1-Tag',10);
+  else if(d.hC.h1>1)fail('Genau ein H1-Tag',6);
+  else pass('Genau ein H1');
+  if(!d.canonical)fail('Canonical-URL gesetzt',6);
+  else if(d.canonicalDeep&&d.canonicalDeep.issues.length)fail('Canonical ohne Konflikte',5);
+  else pass('Canonical-URL korrekt gesetzt');
+  if(!d.og['og:title'])fail('Open Graph Title',4);
+  else pass('Open Graph Title');
+  if(!d.og['og:description'])fail('Open Graph Description',3);
+  else pass('Open Graph Description');
+  if(!d.og['og:image'])fail('Open Graph Image',5);
+  else pass('Open Graph Image');
+
+  /* ── NICE-TO-HAVE — kleine Abzüge ── */
+  if(!d.viewport)fail('Viewport Meta-Tag',3);
+  else pass('Viewport Meta-Tag');
+  if(!d.lang)fail('HTML lang-Attribut',2);
+  else pass('HTML lang-Attribut');
+  if(d.schemas.length===0)fail('Schema.org JSON-LD vorhanden',3);
+  else pass('Schema.org JSON-LD vorhanden');
+  if(!d.charset)fail('Charset deklariert',2);
+  else pass('Charset deklariert');
+
+  /* ── Phase C Abzüge: Duplikate und Konflikte ── */
+  d.duplicates.forEach(function(dup){
+    if(dup.severity==='err')score-=5;
+    else score-=2;
+  });
+  d.conflicts.forEach(function(c){
+    if(c.severity==='err')score-=6;
+    else score-=2;
+  });
+
+  score=Math.max(0,Math.round(score));
+  if(cap!==null&&score>cap)score=cap;
+
   var scoreCol=score>=80?'var(--ok)':score>=50?'var(--warn)':'var(--err)';
   var scoreLabel=score>=80?'Tolles SEO-Setup':score>=50?'Verbesserungsbedarf':'Kritische Probleme';
+  if(cap!==null)scoreLabel='Score gedeckelt \u2014 kritisches Problem';
   var passed=details.filter(function(x){return x.ok}).length;
   var failed=details.filter(function(x){return!x.ok}).length;
+  d._scoreCap=cap;d._pageType=d.pageType;
   /* ── Score-Kreis rendern ── */
   var circ=2*Math.PI*34;var offset=circ-(score/100*circ);
   var sb=document.getElementById('statusBar');
-  sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/></svg><div class="score-num" style="color:'+scoreCol+'">0</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p>'+passed+' von '+details.length+' Checks bestanden'+(failed?' — '+failed+' zu beheben':'')+'</p></div><button class="act-btn" id="btnCopyReport" style="flex-shrink:0;align-self:center">📋 Report kopieren</button></div>';
+  var ptypeLabel={'homepage':'\ud83c\udfe0 Startseite','article':'\ud83d\udcdd Artikel','product':'\ud83d\uded2 Produkt','category':'\ud83d\udcc2 Kategorie','info':'\u2139\ufe0f Info-Seite','page':'\ud83d\udcc4 Seite'}[d.pageType]||'\ud83d\udcc4 Seite';
+  var capNote=cap!==null?'<div class="score-cap">\u26a0\ufe0f Gedeckelt bei '+cap+'/100 wegen kritischem Problem</div>':'';
+  sb.innerHTML='<div class="score-wrap"><div class="score-ring"><svg viewBox="0 0 80 80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="fg" cx="40" cy="40" r="34" stroke="'+scoreCol+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/></svg><div class="score-num" style="color:'+scoreCol+'">0</div></div><div class="score-info"><strong>'+scoreLabel+'</strong><p><span class="score-ptype">'+ptypeLabel+'</span> &middot; '+passed+' von '+details.length+' Checks bestanden'+(failed?' \u2014 '+failed+' zu beheben':'')+'</p>'+capNote+'</div><button class="act-btn" id="btnCopyReport" style="flex-shrink:0;align-self:center">\ud83d\udccb Report kopieren</button></div>';
   /* Animate score */
   var _sNum=sb.querySelector('.score-num'),_sFg=sb.querySelector('.fg'),_sTarget=score,_sCur=0;
   var _sAnim=setInterval(function(){_sCur+=Math.ceil((_sTarget-_sCur)/8)||1;if(_sCur>=_sTarget){_sCur=_sTarget;clearInterval(_sAnim)}_sNum.textContent=_sCur;_sFg.setAttribute('stroke-dashoffset',circ-(_sCur/100*circ))},30);
@@ -706,11 +778,13 @@ function renderSEO(d){
   }
 
   var tl=d.title.length;var tPx=d._tPx||0;var tPxM=d._tPxM||0;
-  // Title mit Desktop + Mobile Pixel-Bar
+  var isHome=d.pageType==='homepage';
+  // Title mit Desktop + Mobile Pixel-Bar — Homepage-bewusst (kurze Brand-Titles akzeptiert)
   if(!tl){h+=rowTip('Title',esc('—')+' <em style="color:var(--err)">Fehlt!</em>',badge('err','FEHLT'),'Jede Seite braucht einen Title-Tag. Er ist das wichtigste On-Page-SEO-Element und erscheint als klickbare \u00dcberschrift in den Suchergebnissen.')}
   else if(tPx>TITLE_MAX_PX){h+=rowTip('Title',esc(d.title),badge('err',tl+' Zeichen'),'<b>Title wird auf Desktop abgeschnitten.</b> Google k\u00fcrzt bei ~580px (ca. 55\u201360 Zeichen). K\u00fcrzen, um \u201e\u2026" zu vermeiden.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else if(tPxM>TITLE_MAX_PX_M){h+=rowTip('Title',esc(d.title),badge('warn',tl+' Zeichen'),'<b>Title passt auf Desktop, wird aber auf Mobile abgeschnitten.</b> \u00dcber 60% der Google-Suchen passieren mobil \u2014 evtl. k\u00fcrzen.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else if(tPx>TITLE_WARN_PX){h+=rowTip('Title',esc(d.title),badge('warn',tl+' Zeichen'),'Title ist nah am Desktop-Pixel-Limit. Leicht k\u00fcrzen, um auf der sicheren Seite zu sein.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  else if(isHome&&tl>=3){h+=rowTip('Title',esc(d.title),badge('ok',tl+' Zeichen \u00b7 Homepage'),'\u2713 Kurzer Brand-Title \u2014 auf Homepages akzeptabel. Markennamen dominieren typischerweise Homepage-Titles und das ist OK.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else if(tPx<TITLE_MAX_PX*0.4){h+=rowTip('Title',esc(d.title),badge('warn',tl+' Zeichen'),'Title ist sehr kurz. Du nutzt nicht den vollen Platz \u2014 f\u00fcge Keywords oder einen \u00fcberzeugenden Modifier hinzu.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   else{h+=rowTip('Title',esc(d.title),badge('ok',tl+' Zeichen'),'Gute L\u00e4nge auf Desktop und Mobile.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
   // Description mit Desktop + Mobile Pixel-Bar
