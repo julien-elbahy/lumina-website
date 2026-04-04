@@ -458,7 +458,8 @@ document.addEventListener('DOMContentLoaded',function(){
     '.cs-wrap.open .cs-trigger::after{border-top:none;border-bottom:5px solid var(--accent)}'+
     '.cs-panel{display:none;position:fixed;width:max-content;max-width:280px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:99999;overflow:hidden}'+
     '.cs-panel.cs-open{display:block}'+
-    '.cs-search{width:100%;border:none;border-bottom:1px solid var(--border);background:var(--input-bg);color:var(--text);font-size:12px;font-family:var(--font);padding:8px 10px;outline:none;box-sizing:border-box}'+
+    '@media(max-width:640px){.cs-panel{border-radius:14px 14px 0 0;max-height:60vh;overflow-y:auto}.cs-opts{max-height:none!important}}'+
+    '.cs-search{width:100%;border:none;border-bottom:1px solid var(--border);background:var(--input-bg);color:var(--text);font-size:16px;font-family:var(--font);padding:10px 12px;outline:none;box-sizing:border-box}'+
     '.cs-search::placeholder{color:var(--muted)}'+
     '.cs-opts{max-height:220px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}'+
     '.cs-opts::-webkit-scrollbar{display:none}'+
@@ -521,31 +522,49 @@ document.addEventListener('DOMContentLoaded',function(){
       btn.textContent=sel.selectedOptions[0].textContent;
       close();
     }
+    var isMobile=function(){return window.innerWidth<=640};
     function positionPanel(){
       var r=btn.getBoundingClientRect();
-      var pw=panel.offsetWidth||200;
-      var ph=panel.offsetHeight||260;
-      var left=r.left;
-      if(left+pw>window.innerWidth)left=window.innerWidth-pw-8;
-      if(left<4)left=4;
-      // Flip up if not enough room below
-      if(r.bottom+ph+8>window.innerHeight){
-        panel.style.top=(r.top-ph-4)+'px';
+      if(isMobile()){
+        // Mobile: bottom-sheet style, full width, anchored to bottom
+        panel.style.left='8px';
+        panel.style.right='8px';
+        panel.style.width='auto';
+        panel.style.maxWidth='none';
+        panel.style.bottom='0';
+        panel.style.top='auto';
+        panel.style.borderRadius='14px 14px 0 0';
+        panel.style.maxHeight='60vh';
       }else{
-        panel.style.top=(r.bottom+4)+'px';
+        panel.style.bottom='';
+        panel.style.right='';
+        panel.style.borderRadius='';
+        panel.style.maxHeight='';
+        var pw=panel.offsetWidth||200;
+        var ph=panel.offsetHeight||260;
+        var left=r.left;
+        if(left+pw>window.innerWidth)left=window.innerWidth-pw-8;
+        if(left<4)left=4;
+        if(r.bottom+ph+8>window.innerHeight){
+          panel.style.top=(r.top-ph-4)+'px';
+        }else{
+          panel.style.top=(r.bottom+4)+'px';
+        }
+        panel.style.left=left+'px';
+        panel.style.width='max-content';
+        panel.style.maxWidth='280px';
+        panel.style.minWidth=r.width+'px';
       }
-      panel.style.left=left+'px';
-      panel.style.minWidth=r.width+'px';
     }
     function open(){
       wrap.classList.add('open');
       render();
-      // Show invisible first to measure, then position, then reveal
       panel.style.visibility='hidden';
       panel.classList.add('cs-open');
       positionPanel();
       panel.style.visibility='';
-      if(searchIn){searchIn.value='';searchIn.focus()}
+      // On mobile: don't focus search to prevent scroll jump
+      if(searchIn){searchIn.value='';if(!isMobile())searchIn.focus()}
     }
     function close(){
       wrap.classList.remove('open');
@@ -566,9 +585,10 @@ document.addEventListener('DOMContentLoaded',function(){
     optBox.addEventListener('click',function(e){var o=e.target.closest('.cs-opt');if(o)pick(o)});
     // Close on click outside — check both wrap and panel since panel is in body
     document.addEventListener('click',function(e){if(!wrap.contains(e.target)&&!panel.contains(e.target))close()});
-    // Reposition on scroll/resize while open
-    window.addEventListener('scroll',function(){if(isOpen())positionPanel()},true);
+    // Reposition on resize (not scroll — scroll repositioning causes jitter on mobile)
     window.addEventListener('resize',function(){if(isOpen())positionPanel()});
+    // On desktop, reposition on scroll; on mobile, close dropdown on scroll
+    window.addEventListener('scroll',function(){if(!isOpen())return;if(isMobile())close();else positionPanel()},true);
     // Allow programmatic updates to sync the trigger text
     var origDesc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value');
     Object.defineProperty(sel,'value',{

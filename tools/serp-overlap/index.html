@@ -117,7 +117,7 @@
 .serp-item.highlighted{background:var(--ok-bg);border:1px solid var(--ok-border)}
 .serp-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.serp-toolbar .act-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;font-family:var(--font)}.serp-toolbar .act-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .cross-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cross-links a{display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);transition:all .2s}.cross-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-@media(max-width:480px){.kw-input{flex-direction:column}}
+@media
 /* ── Mega Menu ── */
 .tools-dd{position:relative;z-index:100}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
 .tools-sub{display:none;position:absolute;top:100%;right:-120px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px 20px;width:620px;box-shadow:0 8px 36px rgba(0,0,0,.35);z-index:500}.tools-sub::before{content:'';position:absolute;top:-12px;left:0;right:0;height:16px}
@@ -215,7 +215,7 @@
 html{overflow-x:clip}
 /* UX Responsive */
 @media(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)!important}.psi-scores{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)!important}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-direction:column}.kw-input input,.kw-input select,.kw-input .ab{width:100%}input,select,textarea{font-size:16px!important}.filters{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}}
+@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)!important}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-wrap:wrap}.kw-input input,.kw-input .ab{width:100%}.kw-input .cs-wrap{flex:0 0 auto}input,select,textarea{font-size:16px!important}.filters{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}}
 @media(max-width:400px){.metrics{grid-template-columns:1fr!important}}
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
@@ -812,7 +812,7 @@ document.getElementById('btnExportCsv').addEventListener('click',function(){
 .serp-item.highlighted{background:var(--ok-bg);border:1px solid var(--ok-border)}
 .serp-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.serp-toolbar .act-btn{background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .2s;font-family:var(--font)}.serp-toolbar .act-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .cross-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cross-links a{display:inline-flex;align-items:center;gap:4px;background:var(--card);border:1px solid var(--border);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--text2);transition:all .2s}.cross-links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-@media(max-width:480px){.kw-input{flex-direction:column}}
+@media
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 ools/serp-overlap/index.h</style>
 <div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie Settings</strong><br>We use Google Analytics to understand how visitors use this site. <a href="/privacy-policy.html">Privacy Policy</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Decline</button><button id="consentAccept" class="consent-btn accept">Accept</button></div></div></div><script>
