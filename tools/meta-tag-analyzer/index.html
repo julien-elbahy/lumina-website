@@ -95,9 +95,11 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 /* Metrics */
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:8px;text-align:center;margin-bottom:12px}.metric{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 8px}.metric .mh{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}.metric p{font-size:20px;font-weight:800;color:var(--text)}
 /* Headings */
-.hi{margin-bottom:2px;padding:5px 10px;display:flex;align-items:baseline;gap:6px;border-radius:8px;transition:background .15s}.hi:hover{background:var(--accent-soft)}.hi .ht{font-weight:800;color:var(--accent);white-space:nowrap;font-size:12px;min-width:24px;font-family:var(--mono)}.hi .hx{font-size:13px;color:var(--text2);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* In-tab cross-link banner — delegates deeper analysis to specialist tools */
+.tab-delegate{background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tab-delegate-body{flex:1;min-width:0}.tab-delegate-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}.tab-delegate-desc{font-size:11px;color:var(--muted);line-height:1.55}
+.tab-delegate-btn{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}.tab-delegate-btn:hover{background:var(--accent-h);color:#fff;transform:translateY(-1px)}
 /* OG Preview */
-.og-preview{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:8px 0}.og-preview img{width:100%;height:160px;object-fit:cover;display:block;background:var(--bg2)}.og-body{padding:12px}.og-body .og-site{font-size:11px;color:var(--muted)}.og-body .og-title{font-size:15px;font-weight:700;color:var(--text);margin-top:2px}.og-body .og-desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5}
 /* Skeleton */
 .skel{height:14px;background:var(--border);border-radius:4px;animation:shimmer 1.5s infinite;margin-bottom:10px}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.4}50%{opacity:.8}100%{opacity:.4}}
 /* Error */
@@ -330,7 +332,6 @@ html{overflow-x:clip}
 <div class="tabs" id="tabs">
 <button class="tab-btn active" data-tab="seo">SEO</button>
 <button class="tab-btn" data-tab="headings">Headings</button>
-<button class="tab-btn" data-tab="links">Links</button>
 <button class="tab-btn" data-tab="og">Open Graph</button>
 <button class="tab-btn" data-tab="twitter">Twitter</button>
 <button class="tab-btn" data-tab="schema">Schema</button>
@@ -338,7 +339,6 @@ html{overflow-x:clip}
 </div>
 <div class="tab-panel active" id="p-seo"></div>
 <div class="tab-panel" id="p-headings"></div>
-<div class="tab-panel" id="p-links"></div>
 <div class="tab-panel" id="p-og"></div>
 <div class="tab-panel" id="p-twitter"></div>
 <div class="tab-panel" id="p-schema"></div>
@@ -355,7 +355,7 @@ html{overflow-x:clip}
 <div style="margin-top:32px">
 <h2 style="font-size:18px;font-weight:800;margin-bottom:6px">How this tool works</h2>
 <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Enter any public URL and this tool fetches the page through our own servers — no browser extension needed. It parses the full HTML and extracts all SEO-relevant meta tags: title, description, canonical, robots, Open Graph, Twitter Cards, Schema.org JSON-LD, hreflang, viewport, charset, and more.</p>
-<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Results are organized in 7 tabs covering on-page SEO, heading structure, links, social tags, structured data, and technical setup. A weighted SEO score (0–100) gives you an instant overview of how well-optimized the page is, with actionable tips for every issue found.</p>
+<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Results are organized in 6 tabs covering on-page SEO (title, description, H1, canonical, robots), heading counts, Open Graph tags, Twitter Card tags, Schema.org detection, and technical setup (hreflang, viewport, charset, lang, favicon). A weighted SEO score (0&#8211;100) gives you an instant overview of how well-optimized the page is, with actionable tips for every issue found.</p>
 <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">For JavaScript-heavy sites, the tool automatically falls back to a headless browser renderer to ensure accurate results — just like a search engine would see the page.</p>
 <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">This tool is strictly a <strong>diagnostic audit</strong>. It tells you what's on the page, what's missing and what's broken. When you want to <em>rewrite</em> your title and description with live Google-snippet preview, use the <a href="/tools/serp-preview/">SERP Preview editor</a>. When you want visual social card previews, use the <a href="/tools/og-preview/">OG Preview</a>. Each specialist tool goes deeper than a generic all-in-one audit could.</p>
 </div>
@@ -488,17 +488,13 @@ function parseHTML(html,url,status){
   var viewport=g('meta[name="viewport"]','content');var charset=doc.querySelector('meta[charset]')?doc.querySelector('meta[charset]').getAttribute('charset'):'';
   var lang=doc.documentElement.getAttribute('lang')||'';
   var favicon=g('link[rel="icon"],link[rel="shortcut icon"]','href');
-  var headings=[];for(var i=1;i<=6;i++){doc.querySelectorAll('h'+i).forEach(function(h){headings.push({l:i,t:h.textContent.trim().replace(/\s+/g,' ').substring(0,120)})})}
   var hC={};for(var i=1;i<=6;i++)hC['h'+i]=doc.querySelectorAll('h'+i).length;
-  var links=doc.querySelectorAll('a[href]');var int=0,ext=0,nf=0;
-  links.forEach(function(a){var hr=a.getAttribute('href')||'';var rl=(a.getAttribute('rel')||'').toLowerCase();if(rl.indexOf('nofollow')!==-1)nf++;if(hr.startsWith('http')){try{var u=new URL(hr);if(u.hostname===base.hostname||u.hostname==='www.'+base.hostname||base.hostname==='www.'+u.hostname)int++;else ext++}catch(e){int++}}else if(hr&&!hr.startsWith('mailto:')&&!hr.startsWith('tel:')&&!hr.startsWith('javascript:'))int++});
-  var imgs=doc.querySelectorAll('img');var tI=imgs.length,mA=0;imgs.forEach(function(im){if(!im.hasAttribute('alt'))mA++});
+  var firstH1=doc.querySelector('h1');var h1Text=firstH1?firstH1.textContent.trim().replace(/\s+/g,' ').substring(0,200):'';
   var og={};['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(p){var el=doc.querySelector('meta[property="'+p+'"]');og[p]=el?el.getAttribute('content')||'':''});
   var tw={};['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(n){var el=doc.querySelector('meta[name="'+n+'"]');tw[n]=el?el.getAttribute('content')||'':''});
   var schemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{var j=JSON.parse(s.textContent);if(j['@graph']&&Array.isArray(j['@graph']))j['@graph'].forEach(function(it){schemas.push(it['@type']||'Unknown')});else if(Array.isArray(j))j.forEach(function(it){schemas.push(it['@type']||'Unknown')});else schemas.push(j['@type']||'Unknown')}catch(e){}});
   var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(l){hreflangs.push({lang:l.getAttribute('hreflang'),href:l.getAttribute('href')})});
-  var bodyText=(doc.body?doc.body.textContent:'').replace(/\s+/g,' ').trim().substring(0,1500);
-  return{url:url,title:title,desc:desc,canonical:canonical,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,headings:headings,hC:hC,links:{total:links.length,int:int,ext:ext,nf:nf},imgs:{total:tI,noAlt:mA},og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status,bodyText:bodyText}
+  return{url:url,title:title,desc:desc,canonical:canonical,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status}
 }
 var _lastAnalysis=null;
 
@@ -542,17 +538,16 @@ function renderAll(d){
     r+='DESCRIPTION: '+(d.desc||'Missing')+' ['+d.desc.length+' chars, '+dPx+'px]\n';
     r+='CANONICAL: '+(d.canonical||'Not set')+'\n';
     r+='ROBOTS: '+(d.robots||'Not set (defaults to index, follow)')+'\n';
-    r+='H1: '+d.hC.h1+' found\n';
+    r+='H1: '+(d.hC.h1||0)+' found'+(d.h1Text?' — '+d.h1Text:'')+'\n';
     r+='LANG: '+(d.lang||'Not set')+'\n\n';
-    r+='OPEN GRAPH:\n';['og:title','og:description','og:image','og:url','og:type'].forEach(function(k){r+='  '+k+': '+(d.og[k]||'Not set')+'\n'});
+    r+='OPEN GRAPH:\n';['og:title','og:description','og:image','og:url','og:type','og:site_name'].forEach(function(k){r+='  '+k+': '+(d.og[k]||'Not set')+'\n'});
+    r+='\nTWITTER:\n';['twitter:card','twitter:title','twitter:description','twitter:image'].forEach(function(k){r+='  '+k+': '+(d.tw[k]||'Not set')+'\n'});
     r+='\nSCHEMA: '+(d.schemas.length?d.schemas.join(', '):'None found')+'\n';
     r+='HREFLANG: '+(d.hreflangs.length?d.hreflangs.map(function(h){return h.lang+' → '+h.href}).join(', '):'None')+'\n';
-    r+='\nLINKS: '+d.links.total+' total ('+d.links.int+' internal, '+d.links.ext+' external, '+d.links.nf+' nofollow)\n';
-    r+='IMAGES: '+d.imgs.total+' total ('+d.imgs.noAlt+' missing ALT)\n';
     r+='\nCHECKS:\n';details.forEach(function(x){r+=(x.ok?'✓':'✗')+' '+x.t+'\n'});
     navigator.clipboard.writeText(r).then(function(){var b=document.getElementById('btnCopyReport');b.textContent='✓ Copied!';setTimeout(function(){b.textContent='📋 Copy Report'},1500)});
   });
-  renderSEO(d);renderHeadings(d);renderLinks(d);renderOG(d);renderTwitter(d);renderSchema(d);renderTech(d);renderCrossLinks(d);
+  renderSEO(d);renderHeadings(d);renderOG(d);renderTwitter(d);renderSchema(d);renderTech(d);renderCrossLinks(d);
   _lastAnalysis=d;
   /* Wire SERP Preview CTA with the analyzed URL */
   var serpCta=document.getElementById('serpPreviewCta');
@@ -579,10 +574,10 @@ function renderSEO(d){
   else if(dl<70){h+=rowTip('Meta Description',esc(d.desc),badge('warn',dl+' chars'),'Description is quite short. Aim for 130–155 characters to maximize your SERP real estate.'+pxBar(dPx,DESC_MAX_PX,DESC_WARN_PX))}
   else{h+=rowTip('Meta Description',esc(d.desc),badge('ok',dl+' chars'),'Good length. Description fits within Google\'s display limit.'+pxBar(dPx,DESC_MAX_PX,DESC_WARN_PX))}
   // H1
-  var h1s=d.headings.filter(function(x){return x.l===1});
-  if(h1s.length===1)h+=rowTip('H1',esc(h1s[0].t),badge('ok','1 found'),'Single H1 — exactly what Google recommends.');
-  else if(!h1s.length)h+=rowTip('H1','<em style="color:var(--err)">Missing</em>',badge('err','MISSING'),'Every page should have one H1 that describes the main topic. This is a key ranking signal.');
-  else h+=rowTip('H1',h1s.map(function(x){return esc(x.t)}).join('<br>'),badge('warn',h1s.length+' found'),'Multiple H1 tags. Best practice is exactly one H1 per page. Use H2–H6 for sub-sections.');
+  var h1Count=d.hC.h1||0;
+  if(h1Count===1)h+=rowTip('H1',esc(d.h1Text||''),badge('ok','1 found'),'Single H1 — exactly what Google recommends.');
+  else if(!h1Count)h+=rowTip('H1','<em style="color:var(--err)">Missing</em>',badge('err','MISSING'),'Every page should have one H1 that describes the main topic. This is a key ranking signal.');
+  else h+=rowTip('H1',esc(d.h1Text||'')+' <em style="color:var(--muted)">(+'+(h1Count-1)+' more)</em>',badge('warn',h1Count+' found'),'Multiple H1 tags. Best practice is exactly one H1 per page. Use H2–H6 for sub-sections.');
   // Canonical
   if(d.canonical)h+=rowTip('Canonical','<span class="val mono">'+esc(d.canonical)+'</span>',badge('ok','SET'),'Canonical URL is set — helps prevent duplicate content issues.');
   else h+=rowTip('Canonical','<em style="color:var(--warn)">Not set</em>',badge('warn','MISSING'),'No canonical URL found. Set one to tell Google which version of this page is the "original".');
@@ -598,35 +593,26 @@ function renderHeadings(d){
   var h='<div class="metrics">';
   for(var i=1;i<=6;i++){var c=d.hC['h'+i];h+='<div class="metric"><div class="mh">H'+i+'</div><p'+(i===1&&c!==1?' style="color:var(--'+(c===0?'err':'warn')+')"':'')+'>'+c+'</p></div>'}
   h+='</div>';
-  if(!d.headings.length)h+='<p style="color:var(--muted);text-align:center;padding:20px">No headings found.</p>';
-  else d.headings.slice(0,30).forEach(function(x){h+='<div class="hi" style="margin-left:'+(x.l-1)*16+'px"><span class="ht">H'+x.l+'</span><span class="hx">'+esc(x.t)+'</span></div>'});
-  if(d.headings.length>30)h+='<p style="color:var(--muted);font-size:12px;margin-top:8px">… and '+(d.headings.length-30)+' more</p>';
+  /* Meta tag analyzer only checks H1 count (a core SEO signal). Full hierarchy belongs in Heading Checker. */
+  var u=encodeURIComponent(d.url);
+  h+='<div class="tab-delegate"><div class="tab-delegate-body"><div class="tab-delegate-title">\ud83d\udccb Need the full heading hierarchy?</div><div class="tab-delegate-desc">This analyzer only checks the H1 count as a core SEO signal. For a full H1\u2013H6 structural analysis with nesting issues, skipped levels and accessibility checks, use the dedicated Heading Checker.</div></div><a class="tab-delegate-btn" href="/tools/heading-checker/?url='+u+'">Open in Heading Checker \u2192</a></div>';
   document.getElementById('p-headings').innerHTML=h;
 }
 
-function renderLinks(d){
-  var h='<div class="section-title">Links</div><div class="metrics">';
-  h+='<div class="metric"><div class="mh">Total</div><p>'+d.links.total+'</p></div>';
-  h+='<div class="metric"><div class="mh">Internal</div><p>'+d.links.int+'</p></div>';
-  h+='<div class="metric"><div class="mh">External</div><p>'+d.links.ext+'</p></div>';
-  if(d.links.nf)h+='<div class="metric"><div class="mh">Nofollow</div><p>'+d.links.nf+'</p></div>';
-  h+='</div><div class="section-title">Images</div><div class="metrics">';
-  h+='<div class="metric"><div class="mh">Total</div><p>'+d.imgs.total+'</p></div>';
-  h+='<div class="metric"><div class="mh">Missing ALT</div><p style="color:'+(d.imgs.noAlt?'var(--warn)':'var(--ok)')+'">'+d.imgs.noAlt+'</p></div>';
-  h+='<div class="metric"><div class="mh">With ALT</div><p>'+(d.imgs.total-d.imgs.noAlt)+'</p></div></div>';
-  document.getElementById('p-links').innerHTML=h;
-}
-
 function renderOG(d){
-  var h='';var has=d.og['og:title']||d.og['og:image'];
-  if(has){h+='<div class="og-preview">';if(d.og['og:image'])h+='<img src="'+esc(d.og['og:image'])+'" onerror="this.style.display=\'none\'" alt="">';h+='<div class="og-body"><div class="og-site">'+(d.og['og:site_name']?esc(d.og['og:site_name']):esc(new URL(d.url).hostname))+'</div><div class="og-title">'+(d.og['og:title']?esc(d.og['og:title']):'—')+'</div>';if(d.og['og:description'])h+='<div class="og-desc">'+esc(d.og['og:description'])+'</div>';h+='</div></div>'}
+  var h='';
   ['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(k){var v=d.og[k];h+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Not set</em>',v?badge('ok','SET'):badge('warn','MISSING'))});
+  /* Visual rendering of social cards belongs in the dedicated OG Preview tool */
+  var u=encodeURIComponent(d.url);
+  h+='<div class="tab-delegate"><div class="tab-delegate-body"><div class="tab-delegate-title">\ud83d\udcf1 See how your social cards actually look</div><div class="tab-delegate-desc">This analyzer extracts and validates the tags. For pixel-accurate visual previews on Facebook, Twitter/X, LinkedIn, WhatsApp, Discord and Slack, use the dedicated OG Preview tool.</div></div><a class="tab-delegate-btn" href="/tools/og-preview/?url='+u+'">Open in OG Preview \u2192</a></div>';
   document.getElementById('p-og').innerHTML=h;
 }
 
 function renderTwitter(d){
   var h='';
   ['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(k){var v=d.tw[k];h+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Not set</em>',v?badge('ok','SET'):badge('warn','MISSING'))});
+  var u=encodeURIComponent(d.url);
+  h+='<div class="tab-delegate"><div class="tab-delegate-body"><div class="tab-delegate-title">\ud83d\udc26 See how Twitter/X renders your card</div><div class="tab-delegate-desc">Twitter/X pulls its own card preview. For pixel-accurate rendering of your Twitter Card alongside Facebook, LinkedIn and WhatsApp, use the OG Preview tool.</div></div><a class="tab-delegate-btn" href="/tools/og-preview/?url='+u+'">Open in OG Preview \u2192</a></div>';
   document.getElementById('p-twitter').innerHTML=h;
 }
 
@@ -634,6 +620,10 @@ function renderSchema(d){
   var h='';
   if(d.schemas.length){d.schemas.forEach(function(t){h+=row('Schema Type','<span class="val mono">'+esc(Array.isArray(t)?t.join(', '):String(t))+'</span>',badge('ok','FOUND'))})}
   else h+='<p style="color:var(--warn);padding:16px;text-align:center">No JSON-LD schema found on this page.</p>';
+  /* Deep JSON-LD validation belongs in the dedicated Schema Validator */
+  var u=encodeURIComponent(d.url);
+  var hasSchema=d.schemas.length>0;
+  h+='<div class="tab-delegate"><div class="tab-delegate-body"><div class="tab-delegate-title">'+(hasSchema?'\ud83e\uddea Validate against Google\'s required fields':'\u2728 Generate the right schema for this page')+'</div><div class="tab-delegate-desc">'+(hasSchema?'This analyzer only detects which schema types exist. For full validation against Google\'s structured data requirements (missing fields, invalid dates, nested object checks), use the Schema Validator.':'No schema found. The Schema Validator can detect the page type and AI-generate matching JSON-LD for you.')+'</div></div><a class="tab-delegate-btn" href="/tools/schema-validator/?url='+u+'">Open in Schema Validator \u2192</a></div>';
   document.getElementById('p-schema').innerHTML=h;
 }
 
