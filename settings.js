@@ -21,6 +21,15 @@ var T={
   gscSiteHelp:isDE?'Wähle die GSC-Property für Datenabfragen.':'Select the GSC property for data queries.',
   gscLoading:isDE?'Lade Properties…':'Loading properties…',
   gscNoSites:isDE?'Keine Properties gefunden':'No properties found',
+  ga4Label:'Google Analytics 4',
+  ga4Connected:isDE?'Verbunden':'Connected',
+  ga4Not:isDE?'Nicht verbunden':'Not connected',
+  ga4Connect:isDE?'Mit Google verbinden':'Connect with Google',
+  ga4Disconnect:isDE?'Trennen':'Disconnect',
+  ga4Help:isDE?'Für echte Traffic-, Conversion- und User-Daten aus deinem GA4-Konto direkt in Ask AI.':'For real traffic, conversion, and user data from your GA4 account directly in Ask AI.',
+  ga4Property:isDE?'GA4-Property':'GA4 property',
+  ga4Loading:isDE?'Lade Properties…':'Loading properties…',
+  ga4NoProps:isDE?'Keine GA4-Properties gefunden':'No GA4 properties found',
   save:isDE?'Speichern':'Save',
   del:isDE?'Löschen':'Delete',
   saved:isDE?'Gespeichert':'Saved',
@@ -46,6 +55,7 @@ function createModal(){
     keyRow('oai',T.oaiLabel,T.oaiPlaceholder,T.oaiHelp,LS.oai)+
     dfsRow()+
     gscRow()+
+    ga4Row()+
     '</div></div>';
 
   var style=document.createElement('style');
@@ -73,6 +83,7 @@ function createModal(){
   wireKey('oai',LS.oai);
   wireDfs();
   wireGsc();
+  wireGa4();
 
   modal=overlay;
 }
@@ -305,6 +316,125 @@ function wireGsc(){
           if(window.csUpgrade)csUpgrade(siteSel);
         })
         .catch(function(){siteSel.innerHTML='<option value="">Error</option>'});
+    }
+  }
+}
+
+/* ════════════════════════════════════════════
+   GA4 OAuth (reuses GSC client ID + /gsc-token worker endpoint)
+   ════════════════════════════════════════════ */
+var GA4_SCOPES='https://www.googleapis.com/auth/analytics.readonly';
+
+window.luminaGa4Refresh=function(cb){
+  var rt=localStorage.getItem('lumina_ga4_refresh');
+  if(!rt){if(cb)cb(null);return}
+  fetch(GSC_WORKER,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({grant_type:'refresh_token',refresh_token:rt})})
+    .then(function(r){return r.json()}).then(function(d){
+      if(d.access_token){
+        localStorage.setItem('lumina_ga4_token',d.access_token);
+        localStorage.setItem('lumina_ga4_expiry',String(Date.now()+(d.expires_in||3600)*1000));
+        if(cb)cb(d.access_token);
+      }else{
+        localStorage.removeItem('lumina_ga4_token');localStorage.removeItem('lumina_ga4_expiry');localStorage.removeItem('lumina_ga4_refresh');
+        if(cb)cb(null);
+      }
+    }).catch(function(){if(cb)cb(null)});
+};
+
+/* Auto-refresh GA4 on load */
+(function(){
+  var token=localStorage.getItem('lumina_ga4_token');
+  var expiry=parseInt(localStorage.getItem('lumina_ga4_expiry')||'0');
+  var refresh=localStorage.getItem('lumina_ga4_refresh');
+  if(refresh&&(!token||Date.now()>expiry-60000)){window.luminaGa4Refresh()}
+})();
+
+function ga4Row(){
+  var ga4Token=localStorage.getItem('lumina_ga4_token');
+  var ga4Expiry=parseInt(localStorage.getItem('lumina_ga4_expiry')||'0');
+  var ga4Refresh=localStorage.getItem('lumina_ga4_refresh');
+  var connected=(!!ga4Token&&Date.now()<ga4Expiry)||!!ga4Refresh;
+  if(!connected){
+    return '<div class="ls-section">'+
+      '<div class="ls-row-header"><span class="ls-label">'+T.ga4Label+'</span><span class="ls-badge off" id="lsGa4Badge">'+T.ga4Not+'</span></div>'+
+      '<div class="ls-btns" id="lsGa4Btns"><button class="ls-btn ls-btn-save" id="lsGa4Connect">'+T.ga4Connect+'</button></div>'+
+      '<p class="ls-help">'+T.ga4Help+'</p></div>';
+  }
+  return '<div class="ls-section">'+
+    '<div class="ls-row-header"><span class="ls-label">'+T.ga4Label+'</span><span class="ls-badge on" id="lsGa4Badge">'+T.ga4Connected+'</span></div>'+
+    '<div class="ls-gsc-prop" id="lsGa4PropWrap"><span class="ls-label" style="font-size:10px;margin-bottom:4px;display:block">'+T.ga4Property+'</span><select id="lsGa4Prop" style="width:100%;padding:8px 10px;background:var(--input-bg,rgba(0,0,0,.15));border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--font);font-size:13px;outline:none;cursor:pointer"><option value="">'+T.ga4Loading+'</option></select></div>'+
+    '<div class="ls-btns" id="lsGa4Btns" style="margin-top:8px"><button class="ls-btn ls-btn-del" id="lsGa4Disconnect">'+T.ga4Disconnect+'</button></div>'+
+    '<p class="ls-help">'+T.ga4Help+'</p></div>';
+}
+
+function wireGa4(){
+  var connectBtn=document.getElementById('lsGa4Connect');
+  var disconnectBtn=document.getElementById('lsGa4Disconnect');
+
+  if(connectBtn){
+    connectBtn.addEventListener('click',function(){
+      var redirect=window.location.origin+'/auth-handler/';
+      var state=encodeURIComponent('ga4:'+window.location.pathname);
+      var verifier=gscGenVerifier();
+      sessionStorage.setItem('lumina_ga4_verifier',verifier);
+      gscGenChallenge(verifier).then(function(challenge){
+        window.location.href='https://accounts.google.com/o/oauth2/v2/auth?client_id='+encodeURIComponent(GSC_CLIENT_ID)+'&redirect_uri='+encodeURIComponent(redirect)+'&response_type=code&scope='+encodeURIComponent(GA4_SCOPES)+'&state='+state+'&prompt=consent&access_type=offline&code_challenge='+encodeURIComponent(challenge)+'&code_challenge_method=S256';
+      });
+    });
+  }
+
+  if(disconnectBtn){
+    disconnectBtn.addEventListener('click',function(){
+      localStorage.removeItem('lumina_ga4_token');
+      localStorage.removeItem('lumina_ga4_expiry');
+      localStorage.removeItem('lumina_ga4_refresh');
+      localStorage.removeItem('lumina_ga4_property');
+      localStorage.removeItem('lumina_ga4_property_name');
+      var badge=document.getElementById('lsGa4Badge');
+      badge.textContent=T.ga4Not;badge.className='ls-badge off';
+      var propWrap=document.getElementById('lsGa4PropWrap');
+      if(propWrap)propWrap.remove();
+      var btns=document.getElementById('lsGa4Btns');
+      btns.innerHTML='<button class="ls-btn ls-btn-save" id="lsGa4Connect">'+T.ga4Connect+'</button>';
+      wireGa4();
+    });
+  }
+
+  /* Fetch GA4 properties when connected */
+  var propSel=document.getElementById('lsGa4Prop');
+  if(propSel){
+    var token=localStorage.getItem('lumina_ga4_token');
+    if(token){
+      fetch('https://analyticsadmin.googleapis.com/v1beta/accountSummaries?pageSize=200',{headers:{'Authorization':'Bearer '+token}})
+        .then(function(r){return r.json()})
+        .then(function(data){
+          var props=[];
+          (data.accountSummaries||[]).forEach(function(acc){
+            (acc.propertySummaries||[]).forEach(function(p){
+              props.push({name:p.property,display:p.displayName,account:acc.displayName});
+            });
+          });
+          if(!props.length){propSel.innerHTML='<option value="">'+T.ga4NoProps+'</option>';return}
+          var saved=localStorage.getItem('lumina_ga4_property')||'';
+          propSel.innerHTML='';
+          props.forEach(function(p){
+            var opt=document.createElement('option');
+            opt.value=p.name;opt.textContent=(p.display||p.name)+' — '+p.account;
+            if(p.name===saved)opt.selected=true;
+            propSel.appendChild(opt);
+          });
+          if(!saved||!props.some(function(p){return p.name===saved})){
+            localStorage.setItem('lumina_ga4_property',props[0].name);
+            localStorage.setItem('lumina_ga4_property_name',props[0].display||props[0].name);
+          }
+          propSel.addEventListener('change',function(){
+            localStorage.setItem('lumina_ga4_property',propSel.value);
+            var p=props.find(function(x){return x.name===propSel.value});
+            if(p)localStorage.setItem('lumina_ga4_property_name',p.display||p.name);
+          });
+          if(window.csUpgrade)csUpgrade(propSel);
+        })
+        .catch(function(){propSel.innerHTML='<option value="">Error</option>'});
     }
   }
 }

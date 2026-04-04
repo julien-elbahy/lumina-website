@@ -29,24 +29,36 @@ a{color:var(--accent)}
 <script>
 (function(){
   var WORKER='https://lumina-proxy.julien-elbahy.workers.dev/gsc-token';
-  var CLIENT_ID='128725149604-7fjs4kr00b43bhq9jnsr0slr1fcd1fl9.apps.googleusercontent.com';
 
   var params=new URLSearchParams(window.location.search);
   var code=params.get('code');
-  var state=params.get('state')||'/';
+  var rawState=params.get('state')||'/';
   var hash=window.location.hash;
+
+  /* State format: "provider:returnPath" (new) or just "returnPath" (legacy GSC) */
+  var provider='gsc';var returnPath='/';
+  var stateParts=rawState.split(':');
+  if(stateParts.length>=2&&(stateParts[0]==='gsc'||stateParts[0]==='ga4')){
+    provider=stateParts[0];
+    try{returnPath=decodeURIComponent(stateParts.slice(1).join(':'));if(!returnPath.startsWith('/'))returnPath='/'}catch(e){returnPath='/'}
+  }else{
+    try{returnPath=decodeURIComponent(rawState);if(!returnPath.startsWith('/'))returnPath='/'}catch(e){returnPath='/'}
+  }
+  var TK=provider==='ga4'?{
+    token:'lumina_ga4_token',expiry:'lumina_ga4_expiry',refresh:'lumina_ga4_refresh',property:'lumina_ga4_property',verifier:'lumina_ga4_verifier',name:'GA4'
+  }:{
+    token:'lumina_gsc_token',expiry:'lumina_gsc_expiry',refresh:'lumina_gsc_refresh',property:'lumina_gsc_site',verifier:'lumina_gsc_verifier',name:'GSC'
+  };
 
   /* ── Legacy implicit flow fallback (access_token in hash) ── */
   if(!code&&hash&&hash.indexOf('access_token')!==-1){
     var hp=new URLSearchParams(hash.substring(1));
     var token=hp.get('access_token');
     var expires=parseInt(hp.get('expires_in')||'3600');
-    var hstate=hp.get('state')||'/';
     if(token){
-      localStorage.setItem('lumina_gsc_token',token);
-      localStorage.setItem('lumina_gsc_expiry',String(Date.now()+expires*1000));
-      var rp='/';try{rp=decodeURIComponent(hstate);if(!rp.startsWith('/'))rp='/'}catch(e){rp='/'}
-      finishAuth(token,rp);
+      localStorage.setItem(TK.token,token);
+      localStorage.setItem(TK.expiry,String(Date.now()+expires*1000));
+      finishAuth(token);
       return;
     }
   }
@@ -58,11 +70,8 @@ a{color:var(--accent)}
     return;
   }
 
-  var returnPath='/';
-  try{returnPath=decodeURIComponent(state);if(!returnPath.startsWith('/'))returnPath='/'}catch(e){returnPath='/'}
-
-  var verifier=sessionStorage.getItem('lumina_gsc_verifier')||'';
-  sessionStorage.removeItem('lumina_gsc_verifier');
+  var verifier=sessionStorage.getItem(TK.verifier)||'';
+  sessionStorage.removeItem(TK.verifier);
 
   var redirect=window.location.origin+'/auth-handler/';
   var body={grant_type:'authorization_code',code:code,redirect_uri:redirect};
@@ -77,10 +86,10 @@ a{color:var(--accent)}
         document.getElementById('msg').innerHTML=data.error+'. <a href="/">Return to Lumina SEO</a>';
         return;
       }
-      localStorage.setItem('lumina_gsc_token',data.access_token);
-      localStorage.setItem('lumina_gsc_expiry',String(Date.now()+(data.expires_in||3600)*1000));
-      if(data.refresh_token)localStorage.setItem('lumina_gsc_refresh',data.refresh_token);
-      finishAuth(data.access_token,returnPath);
+      localStorage.setItem(TK.token,data.access_token);
+      localStorage.setItem(TK.expiry,String(Date.now()+(data.expires_in||3600)*1000));
+      if(data.refresh_token)localStorage.setItem(TK.refresh,data.refresh_token);
+      finishAuth(data.access_token);
     })
     .catch(function(err){
       document.getElementById('spinner').style.display='none';
@@ -88,13 +97,14 @@ a{color:var(--accent)}
       document.getElementById('msg').innerHTML='Could not exchange token. <a href="/">Return to Lumina SEO</a>';
     });
 
-  function finishAuth(token,returnPath){
+  function finishAuth(token){
+    if(provider==='ga4'){return finishGa4(token)}
     fetch('https://www.googleapis.com/webmasters/v3/sites',{headers:{'Authorization':'Bearer '+token}})
       .then(function(r){return r.json()})
       .then(function(data){
         var sites=(data.siteEntry||[]).map(function(s){return s.siteUrl});
         if(sites.length<=1){
-          if(sites.length===1)localStorage.setItem('lumina_gsc_site',sites[0]);
+          if(sites.length===1)localStorage.setItem(TK.property,sites[0]);
           window.location.replace(returnPath);
           return;
         }
@@ -108,7 +118,46 @@ a{color:var(--accent)}
           btn.className='site-btn';
           btn.textContent=s.replace(/^sc-domain:/,'📊 ').replace(/^https?:\/\//,'🌐 ');
           btn.addEventListener('click',function(){
-            localStorage.setItem('lumina_gsc_site',s);
+            localStorage.setItem(TK.property,s);
+            window.location.replace(returnPath);
+          });
+          list.appendChild(btn);
+        });
+      })
+      .catch(function(){window.location.replace(returnPath)});
+  }
+
+  function finishGa4(token){
+    /* GA4 Admin API — list all properties across accounts */
+    fetch('https://analyticsadmin.googleapis.com/v1beta/accountSummaries?pageSize=200',{headers:{'Authorization':'Bearer '+token}})
+      .then(function(r){return r.json()})
+      .then(function(data){
+        var props=[];
+        (data.accountSummaries||[]).forEach(function(acc){
+          (acc.propertySummaries||[]).forEach(function(p){
+            props.push({name:p.property,display:p.displayName,account:acc.displayName});
+          });
+        });
+        if(props.length<=1){
+          if(props.length===1){
+            localStorage.setItem(TK.property,props[0].name);
+            localStorage.setItem(TK.property+'_name',props[0].display||props[0].name);
+          }
+          window.location.replace(returnPath);
+          return;
+        }
+        document.getElementById('spinner').style.display='none';
+        document.getElementById('title').textContent='Select a GA4 property';
+        document.getElementById('msg').textContent='You have '+props.length+' GA4 properties. Choose which one to use:';
+        var list=document.getElementById('siteList');
+        list.style.display='block';
+        props.forEach(function(p){
+          var btn=document.createElement('button');
+          btn.className='site-btn';
+          btn.textContent='📈 '+(p.display||p.name)+' ('+p.account+')';
+          btn.addEventListener('click',function(){
+            localStorage.setItem(TK.property,p.name);
+            localStorage.setItem(TK.property+'_name',p.display||p.name);
             window.location.replace(returnPath);
           });
           list.appendChild(btn);
