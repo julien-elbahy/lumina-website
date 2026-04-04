@@ -1560,6 +1560,39 @@ if(_chips){_chips.querySelectorAll('.aai-chip').forEach(function(chip){
   chip.addEventListener('click',function(){var q=chip.dataset.q||chip.textContent.trim();_input.value=q;_input.focus();_input.dispatchEvent(new Event('input'))});
 })}
 })();
+
+/* ── Ask AI connection indicator sync (standalone, outside IIFE) ── */
+(function(){
+  function syncDots(){
+    var g=document.getElementById('aaiGsc');
+    var a=document.getElementById('aaiGa4');
+    if(g){
+      var gToken=localStorage.getItem('lumina_gsc_token');
+      var gExpiry=parseInt(localStorage.getItem('lumina_gsc_expiry')||'0');
+      var gRefresh=localStorage.getItem('lumina_gsc_refresh');
+      var gOk=(gToken&&gExpiry>Date.now())||!!gRefresh;
+      g.classList.toggle('connected',gOk);
+      var gDot=g.querySelector('.aai-gsc-dot');
+      if(gDot){gDot.classList.toggle('on',gOk);gDot.classList.toggle('off',!gOk)}
+    }
+    if(a){
+      var aToken=localStorage.getItem('lumina_ga4_token');
+      var aExpiry=parseInt(localStorage.getItem('lumina_ga4_expiry')||'0');
+      var aRefresh=localStorage.getItem('lumina_ga4_refresh');
+      var aOk=(aToken&&aExpiry>Date.now())||!!aRefresh;
+      a.classList.toggle('connected',aOk);
+      var aDot=a.querySelector('.aai-gsc-dot');
+      if(aDot){aDot.classList.toggle('on',aOk);aDot.classList.toggle('off',!aOk)}
+    }
+  }
+  window._aaiSyncDots=syncDots;
+  syncDots();
+  setTimeout(syncDots,200);
+  setTimeout(syncDots,800);
+  setTimeout(syncDots,2000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)syncDots()});
+  window.addEventListener('storage',syncDots);
+})();
 /* ── /Ask AI ── */
 
 /* Gallery drag scroll */
