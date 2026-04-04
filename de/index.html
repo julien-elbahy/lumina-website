@@ -690,9 +690,23 @@ function updateGa4UI(){
   if(aaiGa4Ok()){
     _ga4El.innerHTML='<span class="aai-gsc-dot on"></span><span class="aai-gsc-label">GA4</span>';
     var savedName=localStorage.getItem('lumina_ga4_property_name')||'';
+    var savedProp=localStorage.getItem('lumina_ga4_property')||'';
     if(savedName){
       var shortName=savedName.length>20?savedName.slice(0,18)+'\u2026':savedName;
       _ga4El.innerHTML+=' <span class="aai-gsc-prop" title="'+savedName.replace(/"/g,'&quot;')+'" onclick="luminaSettings&&luminaSettings.open()" style="cursor:pointer;text-decoration:underline;text-decoration-style:dotted">'+shortName+'</span>';
+    }else if(savedProp){
+      aaiGetGa4Token(function(token){
+        if(!token)return;
+        fetch('https://analyticsadmin.googleapis.com/v1beta/accountSummaries?pageSize=200',{headers:{'Authorization':'Bearer '+token}})
+          .then(function(r){return r.json()})
+          .then(function(data){
+            var found=null;
+            (data.accountSummaries||[]).forEach(function(acc){
+              (acc.propertySummaries||[]).forEach(function(p){if(p.property===savedProp)found=p.displayName||p.property});
+            });
+            if(found){localStorage.setItem('lumina_ga4_property_name',found);updateGa4UI()}
+          }).catch(function(){});
+      });
     }
   }else{
     _ga4El.innerHTML='<a class="aai-gsc-link" href="javascript:void(0)" onclick="luminaSettings&&luminaSettings.open()"><span class="aai-gsc-dot off"></span> GA4</a>';
