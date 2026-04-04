@@ -180,6 +180,9 @@ select option{background:var(--bg2);color:var(--text);padding:8px}select option:
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
 
+/* Responsive UX */
+@media(min-width:641px) and (max-width:899px){.help-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){input[type="text"],input[type="email"],textarea,select{font-size:16px}.help-grid{gap:8px}}
 </style>
 <script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
 </head>
