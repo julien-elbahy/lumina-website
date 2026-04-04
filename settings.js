@@ -476,6 +476,10 @@ document.addEventListener('DOMContentLoaded',function(){
     '.gsc-bar .cs-trigger{font-family:var(--mono);font-size:11px;padding:6px 28px 6px 10px;min-width:140px}';
   document.head.appendChild(csStyle);
 
+  // Global registry: close all other dropdowns when one opens
+  var _csInstances=[];
+  function csCloseAll(except){_csInstances.forEach(function(inst){if(inst!==except&&inst.isOpen())inst.close()})}
+
   function csUpgrade(sel){
     if(sel._cs)return;
     sel._cs=true;
@@ -562,7 +566,10 @@ document.addEventListener('DOMContentLoaded',function(){
         panel.style.minWidth=r.width+'px';
       }
     }
-    function open(){
+    var inst={open:doOpen,close:doClose,isOpen:function(){return panel.classList.contains('cs-open')}};
+    _csInstances.push(inst);
+    function doOpen(){
+      csCloseAll(inst);
       wrap.classList.add('open');
       render();
       panel.style.visibility='hidden';
@@ -571,12 +578,14 @@ document.addEventListener('DOMContentLoaded',function(){
       panel.style.visibility='';
       if(searchIn){searchIn.value='';if(!isMobile())searchIn.focus()}
     }
-    function close(){
+    function doClose(){
       wrap.classList.remove('open');
       panel.classList.remove('cs-open');
       hlIdx=-1;
     }
-    function isOpen(){return panel.classList.contains('cs-open')}
+    function open(){doOpen()}
+    function close(){doClose()}
+    function isOpen(){return inst.isOpen()}
     btn.addEventListener('click',function(e){e.stopPropagation();if(isOpen())close();else open()});
     if(searchIn){searchIn.addEventListener('input',function(){render(this.value.toLowerCase())});
       searchIn.addEventListener('keydown',function(e){
