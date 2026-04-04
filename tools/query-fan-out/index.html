@@ -91,6 +91,22 @@
 .fo-serp-body{flex:1;min-width:0}.fo-serp-title{font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fo-serp-title a{color:inherit;text-decoration:none}.fo-serp-title a:hover{color:var(--accent)}.fo-serp-url{font-family:var(--mono);font-size:10px;color:var(--ok);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fo-gaps{margin-top:16px}.fo-gap-item{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2)}.fo-gap-icon{flex-shrink:0;font-size:16px}
 .fo-loading-serp{font-size:11px;color:var(--muted);padding:8px 0;font-family:var(--mono)}
+.fo-ai-card{background:linear-gradient(135deg,rgba(180,130,255,.09),rgba(236,165,80,.05));border:1px solid rgba(180,130,255,.28);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.fo-ai-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.fo-ai-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;background:linear-gradient(135deg,#b482ff,#8b5cf6);color:#fff;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.fo-ai-title{font-size:13px;font-weight:700;color:var(--text)}
+.fo-ai-note{font-size:10px;color:var(--muted);margin-left:auto}
+.fo-ai-text{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:12px;white-space:pre-wrap}
+.fo-ai-brands-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px}
+.fo-ai-brands{display:flex;flex-wrap:wrap;gap:6px}
+.fo-ai-brand{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:5px 10px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text);transition:all .15s}.fo-ai-brand:hover{border-color:rgba(180,130,255,.4)}
+.fo-ai-brand-d{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.fo-aio{margin-top:6px;background:rgba(180,130,255,.06);border:1px solid rgba(180,130,255,.18);border-radius:10px;padding:10px 12px}
+.fo-aio-text{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:8px;white-space:pre-wrap}
+.fo-aio-refs{display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(180,130,255,.15);padding-top:6px}
+.fo-aio-ref{display:flex;gap:8px;align-items:center;font-size:11px;padding:3px 0;min-width:0}
+.fo-aio-ref-d{font-family:var(--mono);font-size:9px;color:var(--ok);flex-shrink:0;max-width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fo-aio-ref a{color:var(--text2);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.fo-aio-ref a:hover{color:var(--accent)}
 .fo-paa{margin-top:6px}.fo-paa-item{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;transition:background .15s;border-radius:6px}.fo-paa-item:hover{background:var(--accent-soft)}.fo-paa-q{font-weight:600;color:var(--text);flex:1}.fo-paa-from{font-size:10px;color:var(--muted);font-family:var(--mono);white-space:nowrap;flex-shrink:0}
 .content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-top:24px;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
 .other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
@@ -219,7 +235,7 @@ html{overflow-x:clip}
 </div>
 
 <div class="ct" id="main-content">
-<div class="th"><div class="lb">Free GEO Tool</div><h1>Query Fan Out Analyzer</h1><p>See how AI search engines like Gemini, ChatGPT and Perplexity decompose your query into 8&#8211;12 sub-queries. With real Google SERP data for each sub-query.</p><div class="tool-updated">Last updated: April 2026</div></div>
+<div class="th"><div class="lb">Free GEO Tool</div><h1>Query Fan Out Analyzer</h1><p>See how AI search engines like Gemini, ChatGPT and Perplexity decompose your query into 8&#8211;12 sub-queries. Includes real Google SERP data, AI Overviews and a simulated AI chatbot answer for each query.</p><div class="tool-updated">Last updated: April 2026</div></div>
 
 <div class="cd">
 <div class="url-bar" style="margin-bottom:8px"><input type="text" id="queryIn" placeholder="Enter a search query&#8230; e.g. best noise cancelling headphones 2026"><button class="ab" id="btnGo">Analyze Fan Out</button></div>
@@ -284,7 +300,7 @@ document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('clic
 /* ── Core Variables ── */
 var W='https://lumina-proxy.julien-elbahy.workers.dev';
 var queryIn=document.getElementById('queryIn'),btn=document.getElementById('btnGo');
-var lastData=null,lastQuery='',allPAA=[],lastLoc=2040,lastLang='de';
+var lastData=null,lastQuery='',allPAA=[],allAIO=[],lastLoc=2040,lastLang='de';
 
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
@@ -363,7 +379,7 @@ function animateMetrics(){
 /* ── Main analysis ── */
 function go(){
   var q=queryIn.value.trim();if(!q)return;
-  lastQuery=q;
+  lastQuery=q;allPAA=[];allAIO=[];
   var loc=document.getElementById('locSelect').value;
   var lang=document.getElementById('langSelect').value;
   var locName=document.getElementById('locSelect').selectedOptions[0].text;
@@ -374,7 +390,7 @@ function go(){
   document.getElementById('toolbar').style.display='none';
   btn.disabled=true;btn.textContent='Analyzing\u2026';
 
-  var systemPrompt='You are an AI search engine query planning system that simulates how Google AI Mode, Gemini, ChatGPT Search, and Perplexity decompose user queries into retrieval sub-queries (query fan-out).\n\nBased on real research data:\n- Gemini 3 averages 10.7 sub-queries per prompt\n- ChatGPT generates 4-8 sub-queries\n- Google AI Mode generates 8-12 sub-queries\n- 26% of fan-out queries include brand names\n- Only ~20% of sub-queries include year modifiers — most sub-queries do NOT have a year\n- 95% of sub-queries have zero traditional search volume\n\nYear modifier rules (CRITICAL):\n- Only add a year to sub-queries where time-sensitivity is essential: product releases, pricing, regulations, rankings, statistics, market data\n- Do NOT add a year to: definitions, how-to, pros/cons, general explanations, comparisons of concepts, ethical questions, technical overviews\n- Maximum 2-4 out of 10-12 sub-queries should contain a year modifier\n- When a year IS needed, use the current year provided in the user message\n- Never use years before the current year unless the query explicitly asks about history\n\nLanguage rule (CRITICAL):\n- ALL text fields (query, reasoning, content_type, coverage_themes, content_gaps) MUST be in the same language as the target market language specified in the user message\n- If the target language is German, ALL fields must be in German. If English, all in English. No mixing.\n\nGenerate 8-12 realistic sub-queries for the given query and locale.\n\nFor each sub-query provide:\n- query: the actual sub-query text\n- type: one of [specification, generalization, follow_up, comparison, entity, temporal, clarification, equivalent]\n- intent: one of [informational, commercial, navigational, transactional]\n- content_type: what format of content best answers this (e.g. "Expertenbewertung", "Vergleichsratgeber", "Produktseite" for German)\n- source_types: array of 2-3 source categories AI would prefer (e.g. "Fachmagazin", "Tech-Blog", "Hersteller" for German)\n- citability: integer 0-100, how likely AI would cite external sources\n- reasoning: one sentence explaining why this sub-query is generated\n\nAlso provide:\n- search_intent: the overall intent of the original query\n- coverage_themes: array of 3-5 main topic clusters\n- content_gaps: array of 3-5 actionable recommendations for content creators targeting this query\n\nReturn valid JSON only. No markdown, no code fences.';
+  var systemPrompt='You are an AI search engine query planning system that simulates how Google AI Mode, Gemini, ChatGPT Search, and Perplexity decompose user queries into retrieval sub-queries (query fan-out).\n\nBased on real research data:\n- Gemini 3 averages 10.7 sub-queries per prompt\n- ChatGPT generates 4-8 sub-queries\n- Google AI Mode generates 8-12 sub-queries\n- 26% of fan-out queries include brand names\n- Only ~20% of sub-queries include year modifiers — most sub-queries do NOT have a year\n- 95% of sub-queries have zero traditional search volume\n\nYear modifier rules (CRITICAL):\n- Only add a year to sub-queries where time-sensitivity is essential: product releases, pricing, regulations, rankings, statistics, market data\n- Do NOT add a year to: definitions, how-to, pros/cons, general explanations, comparisons of concepts, ethical questions, technical overviews\n- Maximum 2-4 out of 10-12 sub-queries should contain a year modifier\n- When a year IS needed, use the current year provided in the user message\n- Never use years before the current year unless the query explicitly asks about history\n\nLanguage rule (CRITICAL):\n- ALL text fields (query, reasoning, content_type, coverage_themes, content_gaps) MUST be in the same language as the target market language specified in the user message\n- If the target language is German, ALL fields must be in German. If English, all in English. No mixing.\n\nGenerate 8-12 realistic sub-queries for the given query and locale.\n\nFor each sub-query provide:\n- query: the actual sub-query text\n- type: one of [specification, generalization, follow_up, comparison, entity, temporal, clarification, equivalent]\n- intent: one of [informational, commercial, navigational, transactional]\n- content_type: what format of content best answers this (e.g. "Expertenbewertung", "Vergleichsratgeber", "Produktseite" for German)\n- source_types: array of 2-3 source categories AI would prefer (e.g. "Fachmagazin", "Tech-Blog", "Hersteller" for German)\n- citability: integer 0-100, how likely AI would cite external sources\n- reasoning: one sentence explaining why this sub-query is generated\n\nAlso provide:\n- search_intent: the overall intent of the original query\n- coverage_themes: array of 3-5 main topic clusters\n- content_gaps: array of 3-5 actionable recommendations for content creators targeting this query\n- ai_answer_simulation: a concise 3-5 sentence synthesized answer to the ORIGINAL query, written as if an AI chatbot (like ChatGPT, Gemini, Perplexity) were directly answering the user. Natural, conversational, factual, no hedging. This MUST be in the target market language.\n- likely_citations: array of 6-10 objects with {brand, domain} representing the most likely websites/brands an AI search engine would cite when answering this query in this market. Use REAL, well-known domains relevant to the topic and region (e.g. wikipedia.org, reuters.com, theverge.com, rtings.com, chip.de for German tech). Brand is the site/company name, domain is the root domain without https:// or www.\n\nReturn valid JSON only. No markdown, no code fences.';
 
   var currentYear=new Date().getFullYear();
   var userPrompt='Query: "'+q+'"\nTarget market: '+locName+' ('+langName+')\nCurrent year: '+currentYear+'\nCurrent date: '+new Date().toISOString().split('T')[0]+'\n\nGenerate the fan-out sub-queries for this search query as it would be processed by AI search engines in this market.';
@@ -435,6 +451,29 @@ function renderResults(data,query){
     html+='</div>';
   }
 
+  /* AI Answer Simulation card */
+  if(data.ai_answer_simulation){
+    html+='<div class="fo-ai-card"><div class="fo-ai-head"><span class="fo-ai-badge">\ud83e\udd16 GPT-4.1 Simulation</span><span class="fo-ai-title">How an AI chatbot would answer</span><span class="fo-ai-note">Approximation \u2014 not live browsing</span></div>';
+    html+='<div class="fo-ai-text">'+esc(data.ai_answer_simulation)+'</div>';
+    if(data.likely_citations&&data.likely_citations.length){
+      html+='<div class="fo-ai-brands-lbl">Likely cited sources</div><div class="fo-ai-brands">';
+      data.likely_citations.forEach(function(c){
+        var brand=esc(c.brand||c.name||'');
+        var domain=c.domain||'';
+        if(!brand&&!domain)return;
+        var href=domain?('https://'+domain.replace(/^https?:\/\//,'').replace(/^www\./,'')):'';
+        var inner=brand+(domain?' <span class="fo-ai-brand-d">'+esc(domain)+'</span>':'');
+        if(href){
+          html+='<a class="fo-ai-brand" href="'+esc(href)+'" target="_blank" rel="noopener">'+inner+'</a>';
+        }else{
+          html+='<span class="fo-ai-brand">'+inner+'</span>';
+        }
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+  }
+
   /* Sub-query cards */
   html+='<div class="section-head">Fan-Out Sub-Queries ('+subs.length+')</div>';
   subs.forEach(function(s,i){
@@ -477,7 +516,7 @@ function loadSERP(idx,btnEl){
   if(!lastData||!lastData.sub_queries||!lastData.sub_queries[idx])return;
   var s=lastData.sub_queries[idx];
   btnEl.disabled=true;btnEl.textContent='Loading\u2026';
-  dfsPost('serp/google/organic/live/regular',[{
+  dfsPost('serp/google/organic/live/advanced',[{
     keyword:s.query,location_code:lastLoc,language_code:lastLang,depth:10
   }]).then(function(data){
     var tasks=data.tasks||[];
@@ -506,6 +545,29 @@ function loadSERP(idx,btnEl){
         }
       }
     });
+    /* Collect AI Overview from this SERP */
+    var aiOverview=null;
+    allItems.forEach(function(it){
+      if(it.type==='ai_overview'){
+        var aioText='';var aioRefs=[];
+        (it.items||[]).forEach(function(sub){
+          if(sub&&sub.type==='ai_overview_element'){
+            if(sub.text)aioText+=(aioText?'\n\n':'')+sub.text;
+            else if(sub.markdown)aioText+=(aioText?'\n\n':'')+sub.markdown;
+          }
+          (sub&&sub.references||[]).forEach(function(r){
+            if(r&&r.url&&!aioRefs.some(function(x){return x.url===r.url}))aioRefs.push(r);
+          });
+        });
+        (it.references||[]).forEach(function(r){
+          if(r&&r.url&&!aioRefs.some(function(x){return x.url===r.url}))aioRefs.push(r);
+        });
+        aiOverview={text:aioText,refs:aioRefs,async:!!it.asynchronous_ai_overview};
+        if(aioText||aioRefs.length){
+          allAIO.push({query:s.query,text:aioText,refs:aioRefs});
+        }
+      }
+    });
     /* Render into card */
     var el=document.getElementById('fo-serp-'+idx);
     if(!el)return;
@@ -531,6 +593,26 @@ function loadSERP(idx,btnEl){
       });
       html+='</div></div>';
     }
+    /* AI Overview inline */
+    if(aiOverview&&(aiOverview.text||aiOverview.refs.length)){
+      html+='<div style="margin-top:8px"><div class="fo-serp-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'span\').textContent=this.nextElementSibling.classList.contains(\'open\')?\'\u25B2\':\'\u25BC\'">\ud83e\udd16 AI Overview'+(aiOverview.refs.length?' ('+aiOverview.refs.length+' sources)':'')+' <span>&#9660;</span></div>';
+      html+='<div class="fo-serp-list open"><div class="fo-aio">';
+      if(aiOverview.text){
+        html+='<div class="fo-aio-text">'+esc(aiOverview.text)+'</div>';
+      }else if(aiOverview.async){
+        html+='<div style="font-size:11px;color:var(--muted);margin-bottom:6px">AI Overview loaded asynchronously \u2014 sources only</div>';
+      }
+      if(aiOverview.refs.length){
+        html+='<div class="fo-aio-refs">';
+        aiOverview.refs.forEach(function(r){
+          var d=r.domain||'';
+          var t=r.title||r.source||r.url||'';
+          html+='<div class="fo-aio-ref"><span class="fo-aio-ref-d">'+esc(d)+'</span><a href="'+esc(r.url||'#')+'" target="_blank" rel="noopener" title="'+esc(t)+'">'+esc(t)+'</a></div>';
+        });
+        html+='</div>';
+      }
+      html+='</div></div></div>';
+    }
     el.innerHTML=html;
   }).catch(function(e){
     var el=document.getElementById('fo-serp-'+idx);
@@ -542,11 +624,26 @@ function loadSERP(idx,btnEl){
 document.getElementById('btnCopy').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Query Fan Out: '+lastQuery+'\n\n';
+  if(lastData.ai_answer_simulation){
+    txt+='AI Answer Simulation (GPT-4.1):\n'+lastData.ai_answer_simulation+'\n';
+    if(lastData.likely_citations&&lastData.likely_citations.length){
+      txt+='Likely cited sources: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n';
+    }
+    txt+='\n';
+  }
   (lastData.sub_queries||[]).forEach(function(s,i){
     txt+=(i+1)+'. '+s.query+'\n   Intent: '+s.intent+' | Type: '+s.type+' | Citability: '+s.citability+'%\n   '+s.reasoning+'\n\n';
   });
   if(lastData.content_gaps){txt+='Content Recommendations:\n';lastData.content_gaps.forEach(function(g){txt+='- '+g+'\n'})}
   if(allPAA.length){txt+='\nPeople Also Ask ('+allPAA.length+'):\n';allPAA.forEach(function(p){txt+='- '+p.question+' (from: '+p.from+')\n'})}
+  if(allAIO.length){
+    txt+='\nAI Overviews found ('+allAIO.length+'):\n';
+    allAIO.forEach(function(a){
+      txt+='- Sub-query: '+a.query+'\n';
+      if(a.text)txt+='  Answer: '+a.text.replace(/\n+/g,' ').substring(0,300)+(a.text.length>300?'\u2026':'')+'\n';
+      if(a.refs&&a.refs.length)txt+='  Sources: '+a.refs.map(function(r){return r.domain||r.url}).join(', ')+'\n';
+    });
+  }
   navigator.clipboard.writeText(txt).then(function(){
     var b=document.getElementById('btnCopy');b.textContent='\u2713 Copied!';b.classList.add('copied');
     setTimeout(function(){b.textContent='\ud83d\udccb Copy';b.classList.remove('copied')},1500);
@@ -556,23 +653,60 @@ document.getElementById('btnCopy').addEventListener('click',function(){
 /* ── Toolbar: CSV ── */
 document.getElementById('btnCsv').addEventListener('click',function(){
   if(!lastData)return;
-  var csv='Sub-Query,Intent,Type,Content Type,Citability,Reasoning,Sources\n';
+  var csv='';
+  if(lastData.ai_answer_simulation){
+    csv+='AI Answer Simulation\n"'+(lastData.ai_answer_simulation||'').replace(/"/g,'""').replace(/\n/g,' ')+'"\n\n';
+    if(lastData.likely_citations&&lastData.likely_citations.length){
+      csv+='Likely Cited Brand,Domain\n';
+      lastData.likely_citations.forEach(function(c){csv+='"'+((c.brand||'').replace(/"/g,'""'))+'","'+((c.domain||'').replace(/"/g,'""'))+'"\n'});
+      csv+='\n';
+    }
+  }
+  csv+='Sub-Query,Intent,Type,Content Type,Citability,Reasoning,Sources\n';
   (lastData.sub_queries||[]).forEach(function(s){
     csv+='"'+((s.query||'').replace(/"/g,'""'))+'","'+(s.intent||'')+'","'+(s.type||'')+'","'+(s.content_type||'')+'",'+s.citability+',"'+((s.reasoning||'').replace(/"/g,'""'))+'","'+((s.source_types||[]).join(', '))+'"\n';
   });
   if(allPAA.length){csv+='\nPeople Also Ask,Source Sub-Query\n';allPAA.forEach(function(p){csv+='"'+p.question.replace(/"/g,'""')+'","'+p.from.replace(/"/g,'""')+'"\n'})}
+  if(allAIO.length){
+    csv+='\nAI Overview Sub-Query,Overview Text,Cited Domain,Cited URL,Cited Title\n';
+    allAIO.forEach(function(a){
+      var txt=(a.text||'').replace(/"/g,'""').replace(/\n+/g,' ').substring(0,500);
+      if(a.refs&&a.refs.length){
+        a.refs.forEach(function(r){
+          csv+='"'+a.query.replace(/"/g,'""')+'","'+txt+'","'+((r.domain||'').replace(/"/g,'""'))+'","'+((r.url||'').replace(/"/g,'""'))+'","'+((r.title||'').replace(/"/g,'""'))+'"\n';
+        });
+      }else{
+        csv+='"'+a.query.replace(/"/g,'""')+'","'+txt+'","","",""\n';
+      }
+    });
+  }
   var blob=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fan-out-'+lastQuery.replace(/\s+/g,'-').substring(0,30)+'.csv';a.click();
 });
 
 /* ── Toolbar: Copy for AI ── */
 document.getElementById('btnCopyAi').addEventListener('click',function(){
   if(!lastData)return;
-  var txt='I analyzed the query "'+lastQuery+'" for AI search fan-out. Here are the sub-queries that AI engines generate:\n\n';
+  var txt='I analyzed the query "'+lastQuery+'" for AI search fan-out. Here is the data:\n\n';
+  if(lastData.ai_answer_simulation){
+    txt+='How an AI chatbot would answer this query (GPT-4.1 simulation):\n'+lastData.ai_answer_simulation+'\n\n';
+    if(lastData.likely_citations&&lastData.likely_citations.length){
+      txt+='Likely cited sources: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n\n';
+    }
+  }
+  txt+='Sub-queries AI engines generate:\n';
   (lastData.sub_queries||[]).forEach(function(s,i){
     txt+=(i+1)+'. "'+s.query+'" ('+s.intent+', citability: '+s.citability+'%)\n';
   });
   if(allPAA.length){txt+='\nPeople Also Ask questions found across sub-queries:\n';allPAA.forEach(function(p){txt+='- '+p.question+'\n'})}
-  txt+='\nMy content should cover these sub-queries and PAA questions to be cited by AI search. What content gaps should I focus on?';
+  if(allAIO.length){
+    txt+='\nSub-queries that triggered a Google AI Overview ('+allAIO.length+'):\n';
+    allAIO.forEach(function(a){
+      txt+='- "'+a.query+'"';
+      if(a.refs&&a.refs.length)txt+=' \u2014 cited: '+a.refs.map(function(r){return r.domain||r.url}).slice(0,5).join(', ');
+      txt+='\n';
+    });
+  }
+  txt+='\nMy content should cover these sub-queries, PAA questions and match the AI Overview sources to be cited by AI search. What content gaps should I focus on?';
   navigator.clipboard.writeText(txt).then(function(){
     var b=document.getElementById('btnCopyAi');b.textContent='\u2713 Copied!';b.classList.add('copied');
     setTimeout(function(){b.textContent='\ud83e\udd16 Copy for AI';b.classList.remove('copied')},1500);

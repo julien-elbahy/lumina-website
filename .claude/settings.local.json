@@ -102,7 +102,8 @@
       "Bash(cd \"C:\\\\Users\\\\julien\\\\OneDrive - bazuba GmbH\\\\Dokumente\\\\GitHub\\\\lumina-website\\\\.claude\\\\worktrees\\\\thirsty-bell\" echo \"=== LANG_MAP references ===\" grep -rn 'LANG_MAP' tools/ de/tools/ --include=\"*.html\")",
       "Bash(perl -ne 'print \"\"\"\"$. $_\"\"\"\" if /class=\"\"\"\"cd\"\"\"\"|class=\"\"\"\"content\"\"\"\"|How it works|So funktioniert/' tools/meta-tag-analyzer/index.html)",
       "Bash(perl -pe 's/Robots\\\\.txt Analyzer/Crawler Access Checker/g' tools/robots-txt-analyzer/index.html)",
-      "Bash(find . -name \"*.html\" -exec perl -i -pe 's/Robots\\\\.txt Analyzer/Crawler Access Checker/g' {} +)"
+      "Bash(find . -name \"*.html\" -exec perl -i -pe 's/Robots\\\\.txt Analyzer/Crawler Access Checker/g' {} +)",
+      "mcp__plugin_context7_context7__query-docs"
     ]
   }
 }
