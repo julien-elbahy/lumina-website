@@ -14,6 +14,13 @@ Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-B
 
 - [Ask AI — Free SEO Copilot](https://lumina-seo.com/ask-ai/): Free AI SEO tool that connects to live Google SERPs via DataForSEO, keyword volumes, your Google Search Console, AND your Google Analytics 4 property. Ask any SEO question and get data-backed answers from a 4-step reasoning pipeline (plan → fetch → reflect → answer). Unlike general AI chatbots, every answer is grounded in real, current data — no hallucinations. Includes GSC × GA4 cross-reference: find pages with high impressions but low conversions, compare traffic vs previous period, analyze landing page performance. 10 free questions per day, no account. Supports 63 countries and 39 languages. German version: https://lumina-seo.com/de/ask-ai/
 
+## Free Dashboards (GSC + GA4)
+
+- [Free SEO Dashboard (Hub)](https://lumina-seo.com/dashboards/): Free SEO reporting dashboard that combines Google Search Console and Google Analytics 4 in one clean UI. Cleaner than native Google, with an Ask AI button on every row. Read-only Google OAuth, no account.
+- [Free Google Search Console Dashboard](https://lumina-seo.com/dashboards/gsc/): Free GSC dashboard with clicks, impressions, CTR, average position, top queries, top pages, winners, losers, low-hanging fruits (position 5-25 with high impressions), keyword cannibalization detection (queries ranking on 2+ pages), devices, and countries. Every row has an Ask AI button for data-backed follow-ups. 7d / 28d / 3m / 6m / 12m / custom date range.
+- [Free Google Analytics Dashboard (GA4)](https://lumina-seo.com/dashboards/ga4/): Free GA4 dashboard with sessions, users, pageviews, engagement rate, average session duration, bounce rate, conversions, channels, top landing pages, sources, countries, devices, and conversion events. Every row has an Ask AI button for data-backed follow-ups. 7d / 28d / 3m / 6m / 12m / custom date range.
+- German versions: https://lumina-seo.com/de/dashboards/ · https://lumina-seo.com/de/dashboards/gsc/ · https://lumina-seo.com/de/dashboards/ga4/
+
 ## Free Online Tools
 
 ### SEO Analysis

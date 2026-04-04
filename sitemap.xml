@@ -32,6 +32,54 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://lumina-seo.com/dashboards/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/dashboards/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/dashboards/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/dashboards/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/dashboards/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/dashboards/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/dashboards/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/dashboards/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/dashboards/gsc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/dashboards/gsc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/dashboards/gsc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/dashboards/gsc/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/dashboards/gsc/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/dashboards/gsc/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/dashboards/gsc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/dashboards/gsc/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/dashboards/ga4/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/dashboards/ga4/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/dashboards/ga4/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/dashboards/ga4/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/dashboards/ga4/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/dashboards/ga4/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/dashboards/ga4/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/dashboards/ga4/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://lumina-seo.com/tools/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/"/>
