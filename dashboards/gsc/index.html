@@ -393,8 +393,27 @@ footer{border-color:rgba(160,135,105,.12)}
 /* Tables */
 .ds-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;border-radius:8px;border:1px solid var(--border)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
-.ds-table th{background:rgba(255,245,225,.06);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;backdrop-filter:blur(8px);z-index:1}
-[data-theme="light"] .ds-table th{background:rgba(245,240,230,.95)}
+.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
+[data-theme="light"] .ds-table th{background:#faf6ed}
+.ds-cannib-row{padding:3px 0;font-size:11px;line-height:1.4}
+.ds-cannib-row code{background:rgba(255,245,225,.08);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--text);font-family:var(--mono)}
+.ds-cannib-row .ds-cannib-meta{color:var(--muted);font-size:10px;margin-left:6px}
+.ds-cannib-more{font-size:10px;color:var(--muted);padding:4px 0 0;font-style:italic}
+.ds-cannib-pages{max-width:420px}
+[data-theme="light"] .ds-cannib-row code{background:rgba(200,122,48,.08)}
+/* Filter row */
+.ds-filters-row{display:flex;gap:12px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);flex-wrap:wrap;align-items:flex-end}
+.ds-filter-group{flex:1;min-width:220px}
+.ds-filter-combo{display:flex;gap:0;align-items:stretch;position:relative}
+.ds-filter-op{flex:0 0 auto;border-top-right-radius:0;border-bottom-right-radius:0;border-right:none;min-width:120px}
+.ds-filter-input{flex:1;border-top-left-radius:0;border-bottom-left-radius:0;padding-right:30px;min-width:0;font-family:var(--font)}
+.ds-filter-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px;transition:all .15s}
+.ds-filter-clear:hover{color:var(--err);background:rgba(239,68,68,.1)}
+.ds-filter-apply{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:10px 18px;border-radius:8px;font-family:var(--font);font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;white-space:nowrap;height:36px;align-self:flex-end;box-shadow:0 2px 8px var(--accent-glow)}
+.ds-filter-apply:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--accent-glow)}
+.ds-filter-apply:active{transform:translateY(0)}
+.ds-filter-active{background:rgba(80,224,144,.12);border-color:var(--ok)!important}
+@media(max-width:900px){.ds-filters-row{flex-direction:column;align-items:stretch}.ds-filter-group{width:100%;min-width:0}.ds-filter-apply{width:100%}}
 .ds-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2);font-variant-numeric:tabular-nums;line-height:1.4}
 .ds-table tr:hover td{background:rgba(255,245,225,.04)}
 [data-theme="light"] .ds-table tr:hover td{background:rgba(245,240,230,.5)}
@@ -407,10 +426,6 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-delta.up{background:rgba(80,224,144,.14);color:var(--ok)}
 .ds-delta.down{background:rgba(239,68,68,.14);color:var(--err)}
 .ds-delta.flat{color:var(--muted)}
-.ds-ask{background:linear-gradient(135deg,rgba(236,74,153,.15),rgba(139,92,246,.15));border:1px solid rgba(139,92,246,.3);color:#c084fc;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:3px;transition:all .15s;white-space:nowrap}
-.ds-ask:hover{background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(139,92,246,.4)}
-.ds-table td .ds-ask{opacity:.7}
-.ds-table tr:hover .ds-ask{opacity:1}
 .ds-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px}
 @media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:6px 8px;font-size:11px}}
 </style>
@@ -542,6 +557,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-pill" data-range="90">3m</button>
           <button class="ds-pill" data-range="180">6m</button>
           <button class="ds-pill" data-range="365">12m</button>
+          <button class="ds-pill" data-range="480">16m</button>
           <button class="ds-pill" data-range="custom">Custom</button>
         </div>
       </div>
@@ -557,6 +573,61 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
       <div><div class="ds-label">From</div><input type="date" id="dbFromDate" class="ds-input"></div>
       <div><div class="ds-label">To</div><input type="date" id="dbToDate" class="ds-input"></div>
       <button class="ds-pill active" id="dbApplyCustom" style="margin-top:18px">Apply</button>
+    </div>
+    <!-- Filters row -->
+    <div class="ds-filters-row">
+      <div class="ds-filter-group">
+        <div class="ds-label">📄 Page filter</div>
+        <div class="ds-filter-combo">
+          <select id="dbPageOp" class="ds-select ds-filter-op">
+            <option value="contains">Contains</option>
+            <option value="exact">Exact URL</option>
+            <option value="starts">Starts with</option>
+            <option value="ends">Ends with</option>
+            <option value="notContains">Not contains</option>
+          </select>
+          <input type="text" id="dbPageVal" class="ds-input ds-filter-input" placeholder="/blog/, /tools/, …" autocomplete="off">
+          <button class="ds-filter-clear" id="dbPageClear" title="Clear">×</button>
+        </div>
+      </div>
+      <div class="ds-filter-group">
+        <div class="ds-label">🔍 Keyword filter</div>
+        <div class="ds-filter-combo">
+          <select id="dbKwOp" class="ds-select ds-filter-op">
+            <option value="contains">Contains</option>
+            <option value="exact">Exact query</option>
+            <option value="starts">Starts with</option>
+            <option value="ends">Ends with</option>
+            <option value="notContains">Not contains</option>
+          </select>
+          <input type="text" id="dbKwVal" class="ds-input ds-filter-input" placeholder="brand, niche, …" autocomplete="off">
+          <button class="ds-filter-clear" id="dbKwClear" title="Clear">×</button>
+        </div>
+      </div>
+      <div class="ds-filter-group" style="flex:0 0 auto;min-width:140px">
+        <div class="ds-label">🌍 Country</div>
+        <select id="dbCountryFilter" class="ds-select" style="width:100%">
+          <option value="all">All</option>
+          <option value="aut">🇦🇹 Austria</option>
+          <option value="deu">🇩🇪 Germany</option>
+          <option value="che">🇨🇭 Switzerland</option>
+          <option value="usa">🇺🇸 United States</option>
+          <option value="gbr">🇬🇧 United Kingdom</option>
+          <option value="fra">🇫🇷 France</option>
+          <option value="ita">🇮🇹 Italy</option>
+          <option value="esp">🇪🇸 Spain</option>
+          <option value="nld">🇳🇱 Netherlands</option>
+          <option value="pol">🇵🇱 Poland</option>
+          <option value="bel">🇧🇪 Belgium</option>
+          <option value="swe">🇸🇪 Sweden</option>
+          <option value="can">🇨🇦 Canada</option>
+          <option value="aus">🇦🇺 Australia</option>
+          <option value="ind">🇮🇳 India</option>
+          <option value="bra">🇧🇷 Brazil</option>
+          <option value="jpn">🇯🇵 Japan</option>
+        </select>
+      </div>
+      <button class="ds-filter-apply" id="dbApplyFilters">🔎 Apply filters</button>
     </div>
     <div class="ds-meta" id="dbMeta"></div>
   </div>
@@ -586,33 +657,33 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🔍 Top queries</h3><span class="ds-count" id="dbQueriesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Query</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Query</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📄 Top pages</h3><span class="ds-count" id="dbPagesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Page</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Page</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🏆 Winners <span style="font-size:11px;color:var(--muted);font-weight:500">position improved</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Query</th><th class="ds-num">From</th><th class="ds-num">To</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Query</th><th class="ds-num">From</th><th class="ds-num">To</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📉 Losers <span style="font-size:11px;color:var(--muted);font-weight:500">position dropped</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Query</th><th class="ds-num">From</th><th class="ds-num">To</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Query</th><th class="ds-num">From</th><th class="ds-num">To</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-card">
     <div class="ds-card-h"><h3>🍎 Low-hanging fruits <span style="font-size:11px;color:var(--muted);font-weight:500">position 5-25, high impressions, easy wins</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Query</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Query</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-card">
     <div class="ds-card-h"><h3>⚔️ Keyword cannibalization <span style="font-size:11px;color:var(--muted);font-weight:500">same query ranking on 2+ pages</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Query</th><th>Pages (best position first)</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Query</th><th class="ds-num">Pages</th><th>Top URLs (best position first)</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-grid-2">
@@ -702,10 +773,19 @@ var _fromDate=document.getElementById('dbFromDate');
 var _toDate=document.getElementById('dbToDate');
 var _applyCustom=document.getElementById('dbApplyCustom');
 var _compareSel=document.getElementById('dbCompare');
+var _pageOp=document.getElementById('dbPageOp');
+var _pageVal=document.getElementById('dbPageVal');
+var _pageClear=document.getElementById('dbPageClear');
+var _kwOp=document.getElementById('dbKwOp');
+var _kwVal=document.getElementById('dbKwVal');
+var _kwClear=document.getElementById('dbKwClear');
+var _countryFilter=document.getElementById('dbCountryFilter');
+var _applyFilters=document.getElementById('dbApplyFilters');
 
 var _currentRange=parseInt(localStorage.getItem('lumina_db_gsc_range')||'28');
 var _compareMode=localStorage.getItem('lumina_db_gsc_compare')||'prev';
 var _customFrom=null,_customTo=null;
+var _filters={page:{op:'contains',val:''},kw:{op:'contains',val:''},country:'all'};
 
 /* ── Auth helpers (mirror Ask AI pattern) ── */
 function gscOk(){
@@ -825,6 +905,59 @@ _applyCustom.addEventListener('click',function(){
   loadData();
 });
 
+/* ── Filter handlers ── */
+_pageClear.addEventListener('click',function(){_pageVal.value='';_filters.page.val='';updateFilterUI();loadData()});
+_kwClear.addEventListener('click',function(){_kwVal.value='';_filters.kw.val='';updateFilterUI();loadData()});
+_applyFilters.addEventListener('click',function(){
+  _filters.page.op=_pageOp.value;
+  _filters.page.val=_pageVal.value.trim();
+  _filters.kw.op=_kwOp.value;
+  _filters.kw.val=_kwVal.value.trim();
+  _filters.country=_countryFilter.value;
+  updateFilterUI();
+  loadData();
+});
+/* Enter key in filter inputs triggers apply */
+[_pageVal,_kwVal].forEach(function(inp){
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_applyFilters.click()}});
+});
+
+function updateFilterUI(){
+  var hasAny=_filters.page.val||_filters.kw.val||(_filters.country&&_filters.country!=='all');
+  _applyFilters.textContent=hasAny?'✓ Filters active':'🔎 Apply filters';
+  _applyFilters.style.background=hasAny?'linear-gradient(135deg,#22c55e,#16a34a)':'';
+}
+
+/* ── Client-side filter helpers ── */
+function matchFilter(value,op,needle){
+  if(!needle)return true;
+  var v=(value||'').toLowerCase();
+  var n=needle.toLowerCase();
+  switch(op){
+    case 'exact':return v===n;
+    case 'starts':return v.indexOf(n)===0;
+    case 'ends':return v.lastIndexOf(n)===v.length-n.length&&v.length>=n.length;
+    case 'notContains':return v.indexOf(n)===-1;
+    case 'contains':default:return v.indexOf(n)>-1;
+  }
+}
+function applyFiltersToRows(rows,kind){
+  if(!rows)return rows;
+  var filtered=rows;
+  if(_filters.kw.val&&(kind==='query'||kind==='queryPage')){
+    filtered=filtered.filter(function(r){return matchFilter(r.keys[0],_filters.kw.op,_filters.kw.val)});
+  }
+  if(_filters.page.val){
+    if(kind==='page'){
+      filtered=filtered.filter(function(r){return matchFilter(r.keys[0],_filters.page.op,_filters.page.val)});
+    }else if(kind==='queryPage'){
+      /* queryPage has [query, page] */
+      filtered=filtered.filter(function(r){return matchFilter(r.keys[1],_filters.page.op,_filters.page.val)});
+    }
+  }
+  return filtered;
+}
+
 /* ── Data loading ── */
 function loadData(){
   var siteUrl=_siteSel.value;
@@ -844,7 +977,13 @@ function loadData(){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
     var base='https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query';
     var hdrs={'Authorization':'Bearer '+token,'Content-Type':'application/json'};
-    function q(body){return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()})}
+    function q(body){
+      /* Inject country dimensionFilter when set */
+      if(_filters.country&&_filters.country!=='all'){
+        body.dimensionFilterGroups=[{filters:[{dimension:'country',operator:'equals',expression:_filters.country}]}];
+      }
+      return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()});
+    }
 
     var R={range:range,prevRange:prevRange};
     var pending=prevRange?9:6;
@@ -873,8 +1012,19 @@ function render(R){
   _loading.style.display='none';
   var range=R.range,prev=R.prevRange;
 
+  /* Apply client-side filters (page/keyword) — country is applied server-side already */
+  R.queries=applyFiltersToRows(R.queries,'query');
+  R.pages=applyFiltersToRows(R.pages,'page');
+  R.prevQueries=applyFiltersToRows(R.prevQueries,'query');
+  R.prevPages=applyFiltersToRows(R.prevPages,'page');
+  R.queryPage=applyFiltersToRows(R.queryPage,'queryPage');
+
   /* Meta line */
-  _meta.textContent=range.sd+' → '+range.ed+' ('+range.days+' days)'+(prev?' · compared to '+prev.sd+' → '+prev.ed:'');
+  var filterNote='';
+  if(_filters.country&&_filters.country!=='all')filterNote+=' · country: '+_filters.country.toUpperCase();
+  if(_filters.page.val)filterNote+=' · page '+_filters.page.op+' "'+_filters.page.val+'"';
+  if(_filters.kw.val)filterNote+=' · query '+_filters.kw.op+' "'+_filters.kw.val+'"';
+  _meta.textContent=range.sd+' → '+range.ed+' ('+range.days+' days)'+(prev?' · compared to '+prev.sd+' → '+prev.ed:'')+filterNote;
 
   /* Totals */
   var totClicks=0,totImpr=0,posSum=0;
@@ -900,7 +1050,7 @@ function render(R){
 
   /* Top queries */
   var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[r.keys[0]]=r});
-  renderQueryTable('dbQueriesTable',R.queries||[],prevQMap,_siteSel.value);
+  renderQueryTable('dbQueriesTable',R.queries||[],prevQMap);
   document.getElementById('dbQueriesCount').textContent=(R.queries||[]).length+' queries';
 
   /* Top pages */
@@ -1010,90 +1160,92 @@ function renderChart(dates){
 }
 
 /* ── Tables ── */
-function askBtn(question){
-  var q=encodeURIComponent(question);
-  return '<a class="ds-ask" href="/ask-ai/?q='+q+'" title="Ask AI about this row">💬 Ask AI</a>';
+function posCell(pos,delta){
+  var base='<strong>'+fmtPos(pos)+'</strong>';
+  if(delta==null||isNaN(delta)||Math.abs(delta)<0.1)return base;
+  var good=delta>0;
+  return base+' <span class="ds-delta '+(good?'up':'down')+'">'+(good?'▲':'▼')+Math.abs(delta).toFixed(1)+'</span>';
 }
 
-function renderQueryTable(id,rows,prevMap,siteUrl){
+function renderQueryTable(id,rows,prevMap){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="ds-empty">No queries in range</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No queries in range</td></tr>';return}
   tbody.innerHTML=rows.slice(0,100).map(function(r){
     var q=r.keys[0];
     var prev=prevMap[q];
     var posDelta=prev?(prev.position-r.position):null;
     var qEsc=esc(q);
-    var prop=siteUrl.replace(/^sc-domain:/,'').replace(/^https?:\/\//,'').replace(/\/$/,'');
-    var ask='Analyze my query "'+q.replace(/"/g,'\\"')+'" on '+prop+'. It has '+(r.clicks||0)+' clicks, '+(r.impressions||0)+' impressions, CTR '+(r.ctr*100).toFixed(1)+'%, position '+r.position.toFixed(1)+'. What should I do to improve it?';
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(r.clicks)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(r.impressions)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
-      '<td class="ds-num">'+fmtPos(r.position)+(posDelta!=null?' '+fmtDelta(posDelta):'')+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '<td class="ds-num">'+posCell(r.position,posDelta)+'</td>'+
+      '</tr>';
   }).join('');
 }
 
 function renderPageTable(id,rows,prevMap){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="ds-empty">No pages in range</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No pages in range</td></tr>';return}
   tbody.innerHTML=rows.slice(0,100).map(function(r){
     var url=r.keys[0];
     var prev=prevMap[url];
     var posDelta=prev?(prev.position-r.position):null;
     var path='/';try{path=new URL(url).pathname+new URL(url).search}catch(e){}
     var pathEsc=esc(path);
-    var ask='Analyze my page '+url+'. It has '+(r.clicks||0)+' clicks, '+(r.impressions||0)+' impressions, CTR '+(r.ctr*100).toFixed(1)+'%, avg position '+r.position.toFixed(1)+'. What content or on-page changes should I prioritize?';
     return '<tr><td><span class="ds-path" title="'+esc(url)+'">'+pathEsc+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(r.clicks)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(r.impressions)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
-      '<td class="ds-num">'+fmtPos(r.position)+(posDelta!=null?' '+fmtDelta(posDelta):'')+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '<td class="ds-num">'+posCell(r.position,posDelta)+'</td>'+
+      '</tr>';
   }).join('');
 }
 
 function renderMovementTable(id,rows,isWinners){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="ds-empty">No significant movement</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No significant movement</td></tr>';return}
   tbody.innerHTML=rows.map(function(r){
     var qEsc=esc(r.q);
-    var ask=(isWinners?'My query "'+r.q+'" improved from position '+r.from.toFixed(1)+' to '+r.to.toFixed(1)+' ('+(r.delta>0?'+':'')+r.delta.toFixed(1)+'). Why did it improve and how do I keep the momentum?':'My query "'+r.q+'" dropped from position '+r.from.toFixed(1)+' to '+r.to.toFixed(1)+' ('+r.delta.toFixed(1)+'). What could have caused this drop and how do I recover?');
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
       '<td class="ds-num">'+r.from.toFixed(1)+'</td>'+
       '<td class="ds-num"><strong>'+r.to.toFixed(1)+'</strong></td>'+
-      '<td class="ds-num"><span class="ds-delta '+(r.delta>0?'up':'down')+'">'+(r.delta>0?'▲':'▼')+' '+Math.abs(r.delta).toFixed(1)+'</span></td>'+
+      '<td class="ds-num"><span class="ds-delta '+(r.delta>0?'up':'down')+'">'+(r.delta>0?'▲':'▼')+Math.abs(r.delta).toFixed(1)+'</span></td>'+
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
 function renderFruitTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="ds-empty">No easy wins detected in this range</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No easy wins detected in this range</td></tr>';return}
   tbody.innerHTML=rows.map(function(r){
     var qEsc=esc(r.keys[0]);
-    var ask='The query "'+r.keys[0]+'" is ranking at position '+r.position.toFixed(1)+' with '+(r.impressions||0)+' impressions and only '+(r.clicks||0)+' clicks (CTR '+(r.ctr*100).toFixed(1)+'%). What specific on-page changes should I make to push it into the top 5?';
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(r.impressions)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
-      '<td class="ds-num">'+fmtPos(r.position)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '<td class="ds-num"><strong>'+fmtPos(r.position)+'</strong></td>'+
+      '</tr>';
   }).join('');
 }
 
 function renderCannibTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">No cannibalization detected 🎉</td></tr>';return}
-  tbody.innerHTML=rows.map(function(c){
+  /* Only show queries with 3+ pages in top 10 \u2014 2-page ranks are usually just brand navigation noise */
+  rows=rows.filter(function(c){return c.pages.length>=3});
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">No significant cannibalization detected 🎉</td></tr>';return}
+  tbody.innerHTML=rows.slice(0,25).map(function(c){
     c.pages.sort(function(a,b){return a.pos-b.pos});
-    var pagesHtml=c.pages.map(function(p,i){
+    var topPages=c.pages.slice(0,5);
+    var more=c.pages.length-topPages.length;
+    var pagesHtml=topPages.map(function(p){
       var path='/';try{path=new URL(p.page).pathname}catch(e){}
-      return (i>0?'<br>':'')+'<code style="font-size:10px;color:var(--text2)">'+esc(path)+'</code> <span style="color:var(--muted);font-size:10px">(pos '+p.pos.toFixed(1)+', '+fmtInt(p.clicks)+' clicks)</span>';
+      if(path.length>44)path=path.slice(0,42)+'\u2026';
+      return '<div class="ds-cannib-row"><code>'+esc(path)+'</code><span class="ds-cannib-meta">pos '+p.pos.toFixed(1)+' \u00b7 '+fmtInt(p.clicks)+' clicks</span></div>';
     }).join('');
-    var ask='My query "'+c.q+'" is ranking on '+c.pages.length+' different pages of my site (cannibalization). Which page should I consolidate onto and how?';
-    return '<tr><td><span class="ds-query">'+esc(c.q)+'</span></td><td>'+pagesHtml+'</td><td>'+askBtn(ask)+'</td></tr>';
+    if(more>0)pagesHtml+='<div class="ds-cannib-more">+ '+more+' more pages</div>';
+    return '<tr><td><span class="ds-query">'+esc(c.q)+'</span></td><td class="ds-num">'+c.pages.length+'</td><td class="ds-cannib-pages">'+pagesHtml+'</td></tr>';
   }).join('');
 }
 

@@ -623,11 +623,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>📡 Channels</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbChannelsTable"><thead><tr><th>Channel</th><th class="ds-num">Sessions</th><th class="ds-num">Users</th><th class="ds-num">Eng.</th><th class="ds-num">Conv.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbChannelsTable"><thead><tr><th>Channel</th><th class="ds-num">Sessions</th><th class="ds-num">Users</th><th class="ds-num">Eng.</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📄 Top landing pages</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbLandingTable"><thead><tr><th>Page</th><th class="ds-num">Sessions</th><th class="ds-num">Eng.</th><th class="ds-num">Bounce</th><th class="ds-num">Conv.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbLandingTable"><thead><tr><th>Page</th><th class="ds-num">Sessions</th><th class="ds-num">Eng.</th><th class="ds-num">Bounce</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -635,11 +635,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🔗 Top sources</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbSourcesTable"><thead><tr><th>Source / Medium</th><th class="ds-num">Sessions</th><th class="ds-num">Conv.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbSourcesTable"><thead><tr><th>Source / Medium</th><th class="ds-num">Sessions</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>👁 Most viewed pages</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbViewsTable"><thead><tr><th>Page</th><th class="ds-num">Views</th><th class="ds-num">Bounce</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbViewsTable"><thead><tr><th>Page</th><th class="ds-num">Views</th><th class="ds-num">Bounce</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -658,7 +658,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <!-- Conversions -->
   <div class="ds-card">
     <div class="ds-card-h"><h3>🎯 Conversion events</h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbConversionsTable"><thead><tr><th>Event</th><th class="ds-num">Events</th><th class="ds-num">Conversions</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbConversionsTable"><thead><tr><th>Event</th><th class="ds-num">Events</th><th class="ds-num">Conversions</th></tr></thead><tbody></tbody></table></div>
   </div>
 
 </div>
@@ -1041,7 +1041,7 @@ function renderChannelsTable(id,rows){
       '<td class="ds-num">'+fmtInt(users)+'</td>'+
       '<td class="ds-num">'+(eng*100).toFixed(1)+'%</td>'+
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1058,7 +1058,7 @@ function renderLandingTable(id,rows){
       '<td class="ds-num">'+(eng*100).toFixed(0)+'%</td>'+
       '<td class="ds-num">'+(bounce*100).toFixed(0)+'%</td>'+
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1074,7 +1074,7 @@ function renderSourcesTable(id,rows){
     return '<tr><td><strong>'+esc(src)+'</strong> / <span style="color:var(--muted)">'+esc(med)+'</span></td>'+
       '<td class="ds-num">'+fmtInt(sessions)+'</td>'+
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1089,7 +1089,7 @@ function renderViewsTable(id,rows){
     return '<tr><td><span class="ds-path" title="'+esc(path)+'">'+esc(path)+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(views)+'</strong></td>'+
       '<td class="ds-num">'+(bounce*100).toFixed(0)+'%</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1133,7 +1133,7 @@ function renderConversionsTable(id,rows){
     return '<tr><td><strong>'+esc(ch)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(sessions)+'</td>'+
       '<td class="ds-num"><strong>'+fmtInt(conv)+'</strong> <span style="color:var(--muted);font-size:10px">('+rate.toFixed(1)+'%)</span></td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 

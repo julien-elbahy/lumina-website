@@ -623,33 +623,33 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🔍 Top queries</h3><span class="ds-count" id="dbQueriesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Query</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Query</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📄 Top pages</h3><span class="ds-count" id="dbPagesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Page</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Page</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🏆 Winners <span style="font-size:11px;color:var(--muted);font-weight:500">position improved</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Query</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Query</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📉 Losers <span style="font-size:11px;color:var(--muted);font-weight:500">position dropped</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Query</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Query</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-card">
     <div class="ds-card-h"><h3>🍎 Low-hanging fruits <span style="font-size:11px;color:var(--muted);font-weight:500">position 5-25, high impressions, easy wins</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Query</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Query</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-card">
     <div class="ds-card-h"><h3>⚔️ Keyword cannibalization <span style="font-size:11px;color:var(--muted);font-weight:500">same query ranking on 2+ pages</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Query</th><th>Pages (best position first)</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Query</th><th>Pages (best position first)</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-grid-2">
@@ -1068,7 +1068,7 @@ function renderQueryTable(id,rows,prevMap,siteUrl){
       '<td class="ds-num">'+fmtInt(r.impressions)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
       '<td class="ds-num">'+fmtPos(r.position)+(posDelta!=null?' '+fmtDelta(posDelta):'')+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1087,7 +1087,7 @@ function renderPageTable(id,rows,prevMap){
       '<td class="ds-num">'+fmtInt(r.impressions)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
       '<td class="ds-num">'+fmtPos(r.position)+(posDelta!=null?' '+fmtDelta(posDelta):'')+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1102,7 +1102,7 @@ function renderMovementTable(id,rows,isWinners){
       '<td class="ds-num"><strong>'+r.to.toFixed(1)+'</strong></td>'+
       '<td class="ds-num"><span class="ds-delta '+(r.delta>0?'up':'down')+'">'+(r.delta>0?'▲':'▼')+' '+Math.abs(r.delta).toFixed(1)+'</span></td>'+
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1117,7 +1117,7 @@ function renderFruitTable(id,rows){
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
       '<td class="ds-num">'+fmtPos(r.position)+'</td>'+
-      '<td>'+askBtn(ask)+'</td></tr>';
+      '</tr>';
   }).join('');
 }
 
@@ -1131,7 +1131,7 @@ function renderCannibTable(id,rows){
       return (i>0?'<br>':'')+'<code style="font-size:10px;color:var(--text2)">'+esc(path)+'</code> <span style="color:var(--muted);font-size:10px">(pos '+p.pos.toFixed(1)+', '+fmtInt(p.clicks)+' clicks)</span>';
     }).join('');
     var ask='My query "'+c.q+'" is ranking on '+c.pages.length+' different pages of my site (cannibalization). Which page should I consolidate onto and how?';
-    return '<tr><td><span class="ds-query">'+esc(c.q)+'</span></td><td>'+pagesHtml+'</td><td>'+askBtn(ask)+'</td></tr>';
+    return '<tr><td><span class="ds-query">'+esc(c.q)+'</span></td><td>'+pagesHtml+'</td></tr>';
   }).join('');
 }
 
