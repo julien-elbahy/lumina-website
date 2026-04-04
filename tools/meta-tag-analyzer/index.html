@@ -97,8 +97,9 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 /* Headings */
 /* In-tab cross-link banner — delegates deeper analysis to specialist tools */
 .tab-delegate{background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.tab-delegate-body{flex:1;min-width:0}.tab-delegate-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}.tab-delegate-desc{font-size:11px;color:var(--muted);line-height:1.55}
+.tab-delegate-body{flex:1;min-width:200px}.tab-delegate-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}.tab-delegate-desc{font-size:11px;color:var(--muted);line-height:1.55}
 .tab-delegate-btn{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}.tab-delegate-btn:hover{background:var(--accent-h);color:#fff;transform:translateY(-1px)}
+@media(max-width:640px){.tab-delegate{flex-direction:column;align-items:stretch;padding:14px}.tab-delegate-body{min-width:0}.tab-delegate-btn{width:100%;justify-content:center;min-height:44px;box-sizing:border-box}}
 /* OG Preview */
 /* Skeleton */
 .skel{height:14px;background:var(--border);border-radius:4px;animation:shimmer 1.5s infinite;margin-bottom:10px}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.4}50%{opacity:.8}100%{opacity:.4}}
