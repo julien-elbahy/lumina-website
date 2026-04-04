@@ -524,22 +524,28 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     var isMobile=function(){return window.innerWidth<=640};
     function positionPanel(){
-      var r=btn.getBoundingClientRect();
       if(isMobile()){
-        // Mobile: bottom-sheet style, full width, anchored to bottom
-        panel.style.left='8px';
-        panel.style.right='8px';
-        panel.style.width='auto';
-        panel.style.maxWidth='none';
-        panel.style.bottom='0';
-        panel.style.top='auto';
-        panel.style.borderRadius='14px 14px 0 0';
-        panel.style.maxHeight='60vh';
-      }else{
-        panel.style.bottom='';
+        // Mobile: place panel inside wrap, positioned absolute below the trigger
+        if(panel.parentNode!==wrap)wrap.appendChild(panel);
+        panel.style.position='absolute';
+        panel.style.left='0';
         panel.style.right='';
+        panel.style.top='100%';
+        panel.style.bottom='';
+        panel.style.width='max-content';
+        panel.style.minWidth='100%';
+        panel.style.maxWidth='calc(100vw - 32px)';
+        panel.style.maxHeight='240px';
+        panel.style.borderRadius='10px';
+        panel.style.marginTop='4px';
+      }else{
+        // Desktop: fixed positioning in body
+        if(panel.parentNode!==document.body)document.body.appendChild(panel);
+        panel.style.position='fixed';
+        panel.style.marginTop='';
         panel.style.borderRadius='';
         panel.style.maxHeight='';
+        var r=btn.getBoundingClientRect();
         var pw=panel.offsetWidth||200;
         var ph=panel.offsetHeight||260;
         var left=r.left;
@@ -563,7 +569,6 @@ document.addEventListener('DOMContentLoaded',function(){
       panel.classList.add('cs-open');
       positionPanel();
       panel.style.visibility='';
-      // On mobile: don't focus search to prevent scroll jump
       if(searchIn){searchIn.value='';if(!isMobile())searchIn.focus()}
     }
     function close(){
@@ -585,10 +590,10 @@ document.addEventListener('DOMContentLoaded',function(){
     optBox.addEventListener('click',function(e){var o=e.target.closest('.cs-opt');if(o)pick(o)});
     // Close on click outside — check both wrap and panel since panel is in body
     document.addEventListener('click',function(e){if(!wrap.contains(e.target)&&!panel.contains(e.target))close()});
-    // Reposition on resize (not scroll — scroll repositioning causes jitter on mobile)
+    // Reposition on resize
     window.addEventListener('resize',function(){if(isOpen())positionPanel()});
-    // On desktop, reposition on scroll; on mobile, close dropdown on scroll
-    window.addEventListener('scroll',function(){if(!isOpen())return;if(isMobile())close();else positionPanel()},true);
+    // On desktop, reposition on scroll; on mobile, panel is absolute so no repositioning needed
+    window.addEventListener('scroll',function(){if(isOpen()&&!isMobile())positionPanel()},true);
     // Allow programmatic updates to sync the trigger text
     var origDesc=Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value');
     Object.defineProperty(sel,'value',{
