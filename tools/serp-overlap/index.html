@@ -832,5 +832,6 @@ ools/serp-overlap/index.h</style>
 })();
 </script>
 <script src="/settings.js?v=2" defer></script>
+<script>(function(){if(typeof gtag!=='function')return;var m=location.pathname.match(/\/(?:de\/)?tools\/([^\/]+)/);if(m){var tn=m[1];var btn=document.getElementById('btnGo')||document.getElementById('btnAnalyze');if(btn)btn.addEventListener('click',function(){gtag('event','tool_use',{tool_name:tn})})}document.addEventListener('click',function(e){var a=e.target.closest('a[href*="chromewebstore.google.com"]');if(!a)return;var loc='other';if(a.closest('.tn'))loc='nav';else if(a.closest('.mobile-menu'))loc='mobile_menu';else if(a.closest('.hero'))loc='hero';else if(a.closest('.cta-box'))loc='cta_box';else if(a.closest('.cta-section'))loc='cta_section';else if(a.closest('.tf'))loc='footer';gtag('event','cta_click',{cta_location:loc})})})()</script>
 </body>
 </html>
