@@ -824,7 +824,8 @@ function aaiPageCtx(url,cb){
   fetch(W+'/fetch?url='+encodeURIComponent(url))
     .then(function(r){return r.json()})
     .then(function(d){
-      var text=(d.content||d.text||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,3000);
+      var html=d.html||d.content||d.text||'';
+      var text=html.replace(/<script[\s\S]*?<\/script>/gi,'').replace(/<style[\s\S]*?<\/style>/gi,'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim().slice(0,4000);
       if(!text){cb('');return}
       cb('\u2550\u2550 SEITENKONTEXT: '+url+' \u2550\u2550\n'+text+'\n\n');
     })
@@ -1007,9 +1008,9 @@ function aaiGscQueries(cb){
 /* ── DataForSEO helpers ── */
 function aaiDfs(endpoint,postData,toolName,cb){
   var ownKey=localStorage.getItem('lumina_key_dataforseo')||'';
-  fetch(W+'/dfs',{
+  fetch(W+'/dfs?endpoint='+encodeURIComponent(endpoint),{
     method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':toolName,'X-DFS-Key':ownKey},
-    body:JSON.stringify({endpoint:endpoint,data:postData})
+    body:JSON.stringify(postData)
   }).then(function(r){return r.json()}).then(function(d){cb(d)}).catch(function(){cb(null)});
 }
 
@@ -1210,7 +1211,8 @@ function aaiSend(){
 
         var locInfo=aaiGetCountry();
         var sysPrompt='You are Lumina AI, an SEO copilot on lumina-seo.com. You analyze SEO data and give actionable advice.\n'+
-          'User market: '+locInfo.n+' ('+_aaiLang+'). All SERP and keyword data is for this market. Consider local search behavior and language.\n\n'+
+          'Target market for SERP/keyword data: '+locInfo.n+'. Consider local search behavior for this market.\n'+
+          'CRITICAL LANGUAGE RULE: Detect the language of the user question and respond in EXACTLY that language. If the question is in English, respond in English. If in German, respond in German. The target market above does NOT dictate your response language — only the user question does.\n\n'+
           '\u2550\u2550\u2550 DO \u2550\u2550\u2550\n'+
           '- Start EVERY response with one **bold sentence** that directly answers the question\n'+
           '- Cite specific data: position **18.3**, CTR **0.3%**, keyword volume **1,300/mo**\n'+
@@ -1218,7 +1220,7 @@ function aaiSend(){
           '- When showing keywords: include volume, CPC, competition in a table\n'+
           '- Use markdown tables when comparing multiple items\n'+
           '- Match depth to question: simple \u2192 short, complex \u2192 detailed with tables\n'+
-          '- Respond in the SAME LANGUAGE as the question\n\n'+
+          '- Respond in the SAME LANGUAGE as the user question (see CRITICAL LANGUAGE RULE above)\n\n'+
           '\u2550\u2550\u2550 DON\'T \u2550\u2550\u2550\n'+
           '- When COMPETITOR PAGE CONTENT is available, analyze it: compare content depth, structure, keyword usage, and unique angles vs the user\'s page\n'+
           '- If no competitor content was fetched, NEVER guess what\'s on a competitor page\n'+
