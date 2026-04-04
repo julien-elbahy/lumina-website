@@ -1357,8 +1357,8 @@ function aaiSend(){
       '- fetch_suggestions: for content gap / keyword expansion. Provide seed.\n'+
       '- fetch_competitors: true when the user asks what competitors do better, why pages rank, content gaps, or comparison questions. Requires fetch_serp.\n'+
       '- If question is general SEO knowledge, use empty arrays.\n'+
-      '- If question mentions "my site/queries/traffic/rankings", use GSC data.
-- If question mentions "users/sessions/conversions/bounce/funnel", use GA4 data.';
+      '- If question mentions "my site/queries/traffic/rankings", use GSC data.\n'+
+      '- If question mentions "users/sessions/conversions/bounce/funnel", use GA4 data.';
 
     aaiCall('gpt-4.1-mini',planSystem,'QUESTION: '+prompt,'ask-ai-plan',true,function(resp){
       if(_aborted){clearTimeout(_safetyTimer);return}
