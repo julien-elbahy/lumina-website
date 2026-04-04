@@ -10,6 +10,10 @@ Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-B
 - Chrome Extension: https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe
 - Author: Julien El-Bahy (https://www.linkedin.com/in/julien-el-bahy-b4b71a201/)
 
+## Free AI SEO Copilot
+
+- [Ask AI — Free SEO Copilot](https://lumina-seo.com/ask-ai/): Free AI SEO tool that connects to live Google SERPs via DataForSEO, keyword volumes, and your Google Search Console. Ask any SEO question and get data-backed answers from a 4-step reasoning pipeline (plan → fetch → reflect → answer). Unlike general AI chatbots, every answer is grounded in real, current data — no hallucinations. 10 free questions per day, no account. Supports 63 countries and 39 languages. German version: https://lumina-seo.com/de/ask-ai/
+
 ## Free Online Tools
 
 ### SEO Analysis

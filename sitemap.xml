@@ -6,14 +6,30 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/"/>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-04</lastmod>
   </url>
   <url>
     <loc>https://lumina-seo.com/de/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/"/>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-04</lastmod>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/ask-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/ask-ai/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ask-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/ask-ai/"/>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/ask-ai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/ask-ai/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/ask-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/ask-ai/"/>
+    <lastmod>2026-04-04</lastmod>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://lumina-seo.com/tools/</loc>
