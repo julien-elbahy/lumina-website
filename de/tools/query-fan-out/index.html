@@ -102,7 +102,8 @@
 .fo-ai-brand{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:5px 10px;border-radius:8px;background:var(--card);border:1px solid var(--border);color:var(--text);transition:all .15s}.fo-ai-brand:hover{border-color:rgba(180,130,255,.4)}
 .fo-ai-brand-d{font-family:var(--mono);font-size:9px;color:var(--muted)}
 .fo-aio{margin-top:6px;background:rgba(180,130,255,.06);border:1px solid rgba(180,130,255,.18);border-radius:10px;padding:10px 12px}
-.fo-aio-text{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:8px;white-space:pre-wrap}
+.fo-aio-text{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:8px}
+.fo-aio-text p{margin:0 0 8px}.fo-aio-text p:last-child{margin-bottom:0}.fo-aio-text strong{color:var(--text);font-weight:700}.fo-aio-text a{color:var(--accent);text-decoration:underline}
 .fo-aio-refs{display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(180,130,255,.15);padding-top:6px}
 .fo-aio-ref{display:flex;gap:8px;align-items:center;font-size:11px;padding:3px 0;min-width:0}
 .fo-aio-ref-d{font-family:var(--mono);font-size:9px;color:var(--ok);flex-shrink:0;max-width:38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -246,9 +247,10 @@ html{overflow-x:clip}
 <div id="res" style="display:none"></div>
 
 <div id="toolbar" style="display:none;gap:6px;flex-wrap:wrap;margin-top:12px">
-<button class="tb-btn" id="btnCopy">&#128203; Copy</button>
+<button class="tb-btn" id="btnCopyQueries">&#128221; Queries kopieren</button>
+<button class="tb-btn" id="btnCopy">&#128203; Alles kopieren</button>
 <button class="tb-btn" id="btnCsv">&#128202; CSV</button>
-<button class="tb-btn" id="btnCopyAi">&#129302; Copy for AI</button>
+<button class="tb-btn" id="btnCopyAi">&#129302; F&#252;r KI kopieren</button>
 </div>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 2px"><div class="lq-hint" style="font-size:11px;color:var(--muted);cursor:pointer" onclick="if(window.luminaSettings)luminaSettings.open()">&#128161; API Keys &#8594; <span style="text-decoration:underline">Einstellungen</span></div><div id="lq_query-fan-out" style="font-size:11px;font-family:var(--mono);color:var(--muted)">10 Analysen pro Tag</div></div>
@@ -260,7 +262,7 @@ html{overflow-x:clip}
 
 <h2 style="margin-top:28px">Warum das f&#252;r deinen Content wichtig ist</h2>
 <p>Deine Seite rankt vielleicht auf Platz 1 f&#252;r die urspr&#252;ngliche Suchanfrage. Aber wenn sie die Fan-Out Sub-Queries nicht beantwortet &#8212; also die Fragen, die die KI tats&#228;chlich f&#252;r ihre Recherche nutzt &#8212; bist du f&#252;r KI-vermittelte Suche unsichtbar. 68% der in AI Overviews zitierten Seiten sind NICHT in den Top 10 der organischen Ergebnisse.</p>
-<p>Dieses Tool simuliert den Fan-Out-Prozess und zeigt dir echte Google-Ergebnisse f&#252;r jede Sub-Query, damit du Content-L&#252;cken findest und f&#252;r AI Citability optimieren kannst.</p>
+<p>Dieses Tool simuliert den Fan-Out-Prozess, zeigt eine Vorschau wie ein KI-Chatbot deine Anfrage beantworten w&#252;rde (inkl. der wahrscheinlich zitierten Marken) und holt live echte Google SERP-Ergebnisse, People Also Ask Fragen und AI Overviews f&#252;r jede Sub-Query &#8212; damit du Content-L&#252;cken findest und f&#252;r AI Citability optimieren kannst.</p>
 
 <h2 style="margin-top:28px">Weitere Tools entdecken</h2>
 <div class="other-tools">
@@ -271,11 +273,13 @@ html{overflow-x:clip}
 </div>
 
 <h2>FAQ</h2>
-<div class="faq-item"><div class="faq-q">Wie funktioniert dieses Tool?<span class="arrow">+</span></div><div class="faq-a">Das Tool nutzt GPT-4.1, um zu simulieren, wie KI-Suchmaschinen deine Anfrage in Sub-Queries zerlegen &#8212; basierend auf realen Fan-Out-Mustern von Gemini, ChatGPT und Perplexity. Anschlie&#223;end werden &#252;ber DataForSEO echte Google SERP-Ergebnisse f&#252;r jede Sub-Query abgerufen.</div></div>
+<div class="faq-item"><div class="faq-q">Wie funktioniert dieses Tool?<span class="arrow">+</span></div><div class="faq-a">Das Tool nutzt GPT-4.1, um zu simulieren, wie KI-Suchmaschinen (Gemini, ChatGPT, Perplexity) deine Anfrage in 8&#8211;12 Sub-Queries zerlegen. Zus&#228;tzlich generiert es eine synthetisierte KI-Chatbot-Antwort auf deine Hauptanfrage plus eine Liste der wahrscheinlich zitierten Marken. F&#252;r jede Sub-Query kannst du echte Google SERP-Ergebnisse, People Also Ask Fragen und den tats&#228;chlichen Google AI Overview (wenn einer vorhanden ist) &#252;ber DataForSEO laden.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist die AI Answer Simulation?<span class="arrow">+</span></div><div class="faq-a">Die Card ganz oben zeigt, wie ein moderner KI-Chatbot deine Anfrage wahrscheinlich beantworten w&#252;rde &#8212; generiert von GPT-4.1. Es ist eine Ann&#228;herung, keine Live-Antwort von ChatGPT/Gemini. Aber sie gibt eine realistische Vorschau der synthetisierten Antwort und der Domains/Marken, die KI-Suchmaschinen typischerweise f&#252;r dieses Thema zitieren. So erkennst du, welche Wettbewerber wahrscheinlich die KI-vermittelte Suche f&#252;r deine Query dominieren werden.</div></div>
+<div class="faq-item"><div class="faq-q">Wann erscheint ein AI Overview?<span class="arrow">+</span></div><div class="faq-a">Google zeigt AI Overviews nur f&#252;r einen Teil der Anfragen &#8212; meist informationelle, recherche-orientierte Fragen. Navigationale, transaktionale oder sehr spezifische Sub-Queries bekommen selten eines. Wenn f&#252;r eine Sub-Query ein AI Overview existiert, ruft das Tool diesen live &#252;ber DataForSEO ab und zeigt den generierten Text plus die zitierten Quellen. Englische US-Anfragen triggern AI Overviews am h&#228;ufigsten; die Abdeckung in anderen M&#228;rkten variiert.</div></div>
 <div class="faq-item"><div class="faq-q">Was ist Citability?<span class="arrow">+</span></div><div class="faq-a">Citability (0&#8211;100) sch&#228;tzt, wie wahrscheinlich eine KI-Suchmaschine externe Quellen f&#252;r eine bestimmte Sub-Query zitiert. Faktische Anfragen mit klaren Antworten (z.B. Produktspezifikationen) haben hohe Citability. Subjektive oder allgemeinwissensbasierte Anfragen haben niedrigere Citability.</div></div>
-<div class="faq-item"><div class="faq-q">Wie genau sind die Sub-Queries?<span class="arrow">+</span></div><div class="faq-a">Die Sub-Queries sind KI-simuliert, nicht aus Live-Gemini/ChatGPT-Sitzungen erfasst. Sie repr&#228;sentieren realistische Fan-Out-Muster basierend auf Forschungsdaten. Die SERP-Daten f&#252;r jede Sub-Query stammen live von Google.</div></div>
+<div class="faq-item"><div class="faq-q">Wie genau sind die Sub-Queries?<span class="arrow">+</span></div><div class="faq-a">Die Sub-Queries sind KI-simuliert, nicht aus Live-Gemini/ChatGPT-Sitzungen erfasst. Sie repr&#228;sentieren realistische Fan-Out-Muster basierend auf Forschungsdaten. Die echten Google SERP-Daten, People Also Ask Fragen und AI Overviews kommen live von Google &#252;ber DataForSEO.</div></div>
 <div class="faq-item"><div class="faq-q">Was ist das Tageslimit?<span class="arrow">+</span></div><div class="faq-a">10 kostenlose Analysen pro Tag. Jede Analyse verbraucht 1 KI-Credit plus SERP-Credits f&#252;r Sub-Query-Abfragen. F&#252;r unbegrenzten Zugriff eigene OpenAI und DataForSEO API-Keys in den Einstellungen hinterlegen.</div></div>
-<div class="faq-item"><div class="faq-q">Kann ich Anfragen in verschiedenen Sprachen analysieren?<span class="arrow">+</span></div><div class="faq-a">Ja. W&#228;hle dein Zielland und die Sprache aus. Die KI generiert Sub-Queries in der passenden Sprache und die SERP-Ergebnisse spiegeln die lokalen Google-Rankings f&#252;r diesen Markt wider.</div></div>
+<div class="faq-item"><div class="faq-q">Kann ich Anfragen in verschiedenen Sprachen analysieren?<span class="arrow">+</span></div><div class="faq-a">Ja. W&#228;hle dein Zielland und die Sprache aus. Die KI generiert Sub-Queries und die AI Answer Simulation in der passenden Sprache, und die SERP-Ergebnisse spiegeln die lokalen Google-Rankings f&#252;r diesen Markt wider.</div></div>
 
 <div class="cta-box"><div class="cta-t">KI-Sichtbarkeit im Browser</div><p>Lumina analysiert KI-Crawler-Zugang, Content-Citability und mehr &#8212; automatisch auf jeder Seite.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzuf&#252;gen &#8212; Kostenlos</a></div>
 </div></div>
@@ -303,6 +307,24 @@ var queryIn=document.getElementById('queryIn'),btn=document.getElementById('btnG
 var lastData=null,lastQuery='',allPAA=[],allAIO=[],lastLoc=2040,lastLang='de';
 
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+/* Format AI Overview text: strip markdown image thumbnails, preserve paragraphs, convert **bold** + [text](url) */
+function formatAIOText(t){
+  if(!t)return '';
+  /* Strip markdown image syntax ![alt](url) — DataForSEO embeds thumbnail refs */
+  t=t.replace(/!\[[^\]]*\]\([^)]*\)/g,'');
+  /* Collapse 3+ newlines to 2 */
+  t=t.replace(/\n{3,}/g,'\n\n').trim();
+  if(!t)return '';
+  /* HTML escape */
+  var s=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  /* **bold** → <strong> */
+  s=s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  /* [text](url) → link */
+  s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  /* Wrap each paragraph in <p> for proper spacing */
+  var paras=s.split(/\n\n+/).filter(function(p){return p.trim()});
+  return paras.map(function(p){return '<p>'+p.replace(/\n/g,'<br>')+'</p>'}).join('');
+}
 
 /* ── Language auto-sync ── */
 var defaultLangMap={2032:'es',2036:'en',2040:'de',2056:'nl',2076:'pt',2100:'bg',2124:'en',2152:'es',2156:'zh',2158:'zh',2170:'es',2191:'hr',2203:'cs',2208:'da',2233:'et',2246:'fi',2250:'fr',2276:'de',2300:'el',2344:'zh',2348:'hu',2352:'is',2356:'en',2360:'id',2372:'en',2376:'he',2380:'it',2392:'ja',2410:'ko',2428:'lv',2440:'lt',2442:'fr',2458:'ms',2484:'es',2504:'fr',2528:'nl',2554:'en',2566:'en',2578:'no',2586:'ur',2604:'es',2608:'en',2616:'pl',2620:'pt',2642:'ro',2643:'ru',2682:'ar',2688:'sr',2702:'en',2703:'sk',2705:'sl',2710:'en',2724:'es',2752:'sv',2756:'de',2764:'th',2784:'ar',2792:'tr',2804:'uk',2818:'ar',2826:'en',2840:'en',2704:'vi'};
@@ -595,8 +617,9 @@ function loadSERP(idx,btnEl){
     if(aiOverview&&(aiOverview.text||aiOverview.refs.length)){
       html+='<div style="margin-top:8px"><div class="fo-serp-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'span\').textContent=this.nextElementSibling.classList.contains(\'open\')?\'\u25B2\':\'\u25BC\'">\ud83e\udd16 AI Overview'+(aiOverview.refs.length?' ('+aiOverview.refs.length+' Quellen)':'')+' <span>&#9660;</span></div>';
       html+='<div class="fo-serp-list open"><div class="fo-aio">';
-      if(aiOverview.text){
-        html+='<div class="fo-aio-text">'+esc(aiOverview.text)+'</div>';
+      var formatted=formatAIOText(aiOverview.text);
+      if(formatted){
+        html+='<div class="fo-aio-text">'+formatted+'</div>';
       }else if(aiOverview.async){
         html+='<div style="font-size:11px;color:var(--muted);margin-bottom:6px">AI Overview wird asynchron geladen \u2014 nur Quellen verf\u00fcgbar</div>';
       }
@@ -618,7 +641,17 @@ function loadSERP(idx,btnEl){
   });
 }
 
-/* ── Toolbar: Copy ── */
+/* ── Toolbar: Nur Queries kopieren ── */
+document.getElementById('btnCopyQueries').addEventListener('click',function(){
+  if(!lastData||!lastData.sub_queries)return;
+  var txt=lastData.sub_queries.map(function(s){return s.query}).join('\n');
+  navigator.clipboard.writeText(txt).then(function(){
+    var b=document.getElementById('btnCopyQueries');b.textContent='\u2713 Kopiert!';b.classList.add('copied');
+    setTimeout(function(){b.textContent='\ud83d\udcdd Queries kopieren';b.classList.remove('copied')},1500);
+  });
+});
+
+/* ── Toolbar: Alles kopieren ── */
 document.getElementById('btnCopy').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Query Fan Out: '+lastQuery+'\n\n';
@@ -643,8 +676,8 @@ document.getElementById('btnCopy').addEventListener('click',function(){
     });
   }
   navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopy');b.textContent='\u2713 Copied!';b.classList.add('copied');
-    setTimeout(function(){b.textContent='\ud83d\udccb Copy';b.classList.remove('copied')},1500);
+    var b=document.getElementById('btnCopy');b.textContent='\u2713 Kopiert!';b.classList.add('copied');
+    setTimeout(function(){b.textContent='\ud83d\udccb Alles kopieren';b.classList.remove('copied')},1500);
   });
 });
 
@@ -706,8 +739,8 @@ document.getElementById('btnCopyAi').addEventListener('click',function(){
   }
   txt+='\nMein Content sollte diese Sub-Queries, PAA-Fragen und die AI Overview Quellen abdecken, um von KI-Suche zitiert zu werden. Welche Content-L\u00fccken sollte ich priorisieren?';
   navigator.clipboard.writeText(txt).then(function(){
-    var b=document.getElementById('btnCopyAi');b.textContent='\u2713 Copied!';b.classList.add('copied');
-    setTimeout(function(){b.textContent='\ud83e\udd16 Copy for AI';b.classList.remove('copied')},1500);
+    var b=document.getElementById('btnCopyAi');b.textContent='\u2713 Kopiert!';b.classList.add('copied');
+    setTimeout(function(){b.textContent='\ud83e\udd16 F\u00fcr KI kopieren';b.classList.remove('copied')},1500);
   });
 });
 
