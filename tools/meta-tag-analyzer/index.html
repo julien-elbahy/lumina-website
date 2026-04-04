@@ -83,17 +83,13 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 .tip{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5;padding-left:2px}.tip b{color:var(--text);font-weight:600}
 /* Cross links */
 .cross-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.cross-link{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;color:var(--accent);transition:all .2s}.cross-link:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent-h)}
-/* AI Card */
-.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:16px;margin-top:16px;backdrop-filter:blur(var(--blur))}.ai-card:hover{border-color:rgba(124,58,237,.35)}
-.ai-card-header{text-align:center;margin-bottom:14px}.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px}.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6}
-.ai-card-body label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:3px}.ai-card-body input[type="text"]{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:var(--font);font-size:13px;transition:all .2s}.ai-card-body input:focus{outline:none;border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15)}
-[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.15)}
-/* AI Suggestions */
-.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:10px 20px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:all .25s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}.ai-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(124,58,237,.3)}.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
-.ai-results{margin-top:14px}.ai-opt{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;transition:border-color .2s}.ai-opt:hover{border-color:var(--accent)}.ai-opt-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.ai-opt-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}.ai-opt-text{font-size:14px;color:var(--text);line-height:1.5;margin-bottom:6px;word-break:break-word}.ai-opt-copy{background:var(--accent-soft);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:var(--accent);cursor:pointer;font-family:var(--font);transition:all .2s}.ai-opt-copy:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-.ai-quota{font-size:11px;color:var(--muted);margin-top:6px}
-/* Keyword chips */
-.kw-chip{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--card);color:var(--text2);margin:3px}.kw-chip:hover{border-color:var(--accent)}.kw-chip.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.kw-chip.secondary{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}.kw-chip .kw-vol{font-size:10px;font-weight:400;opacity:.7;margin-left:2px}
+/* SERP Preview CTA (replaces AI card — editing belongs in SERP Preview) */
+.serp-cta{background:linear-gradient(135deg,var(--accent-soft),rgba(236,165,80,.02));border:1px solid var(--accent);border-radius:18px;padding:18px 22px;margin-top:16px;text-align:center;backdrop-filter:blur(var(--blur))}
+.serp-cta-badge{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.serp-cta-title{font-size:16px;font-weight:800;margin:0 0 6px;color:var(--text)}
+.serp-cta-desc{font-size:12px;color:var(--muted);line-height:1.65;margin:0 auto 14px;max-width:520px}
+.serp-cta-btn{display:inline-flex;align-items:center;gap:6px}
+[data-theme="light"] .serp-cta{background:linear-gradient(135deg,rgba(212,132,58,.05),rgba(212,132,58,.02))}
 /* Status bar */
 .status-bar{padding:10px 14px;border-radius:14px;margin-bottom:12px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;border:1px solid;backdrop-filter:blur(12px)}.status-bar.ok{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}.status-bar.err{background:var(--err-bg);border-color:var(--err-border);color:var(--err)}.status-bar.warn{background:var(--warn-bg);border-color:var(--warn-border);color:var(--warn)}
 /* Metrics */
@@ -229,7 +225,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 html{overflow-x:clip}
 /* UX Responsive */
 @media(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)!important}.psi-scores{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)!important}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-wrap:wrap}.kw-input input{width:100%;flex:1 1 100%}.kw-input .cs-wrap{flex:1 1 calc(50% - 4px)}.kw-input .cs-wrap .cs-trigger{width:100%}.kw-input .ab{width:100%;flex:1 1 100%}input,select,textarea{font-size:16px!important}.filters{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.ai-btn{width:100%;justify-content:center;min-height:44px;box-sizing:border-box}}
+@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)!important}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-wrap:wrap}.kw-input input{width:100%;flex:1 1 100%}.kw-input .cs-wrap{flex:1 1 calc(50% - 4px)}.kw-input .cs-wrap .cs-trigger{width:100%}.kw-input .ab{width:100%;flex:1 1 100%}input,select,textarea{font-size:16px!important}.filters{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.serp-cta-btn{width:100%;justify-content:center;min-height:44px;box-sizing:border-box}}
 @media(max-width:400px){.metrics{grid-template-columns:1fr!important}}
 /* Mobile score-wrap */
 @media(max-width:480px){.score-wrap{flex-direction:column;text-align:center;gap:10px}.score-ring{margin:0 auto}.score-info{text-align:center}}
@@ -320,7 +316,7 @@ html{overflow-x:clip}
 <div class="tool-header" id="main-content">
 <div class="label">Free SEO Tool</div>
 <h1>Meta Tag Analyzer</h1>
-<p>Enter any URL to analyze its meta tags, Open Graph, Twitter Cards, Schema.org, hreflang, and more — exactly like the Lumina extension.</p>
+<p>Deep diagnostic audit of every meta tag on any URL &#8212; title, description, canonical, robots, Open Graph, Twitter Cards, Schema.org, hreflang and more. Pixel-accurate, conflict-aware, no signup.</p>
 <div class="tool-updated">Last updated: March 2026</div>
 </div>
 <div class="url-bar" style="display:flex;gap:8px;margin-bottom:16px">
@@ -347,21 +343,11 @@ html{overflow-x:clip}
 <div class="tab-panel" id="p-twitter"></div>
 <div class="tab-panel" id="p-schema"></div>
 <div class="tab-panel" id="p-tech"></div>
-<div id="aiSection" class="ai-card" style="display:none">
-<div class="ai-card-header"><span class="ai-badge">AI-Powered</span><h2 class="ai-card-title">Generate optimized titles & descriptions</h2><p class="ai-card-desc">Auto-detect keywords from the analyzed page, get search volumes, and generate SEO-optimized snippets with AI.</p></div>
-<div class="ai-card-body">
-<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
-<div style="flex:1;min-width:180px"><label>Primary Keyword</label><input type="text" id="aiKwPrimary" placeholder="e.g. SEO audit tool"></div>
-<div style="flex:1;min-width:180px"><label>Secondary Keywords</label><input type="text" id="aiKwSecondary" placeholder="e.g. meta tag checker"></div>
-</div>
-<div id="aiKwChips" style="display:none;margin-bottom:10px"></div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center">
-<button class="ai-btn" id="btnAiDetect" style="background:var(--card);color:var(--accent);border:1px solid var(--border);font-size:11px;padding:8px 14px">🔍 Auto-detect keywords</button>
-<button class="ai-btn" id="btnAiGenerate" style="font-size:11px;padding:8px 14px">✨ Generate title & description</button>
-</div>
-<div id="lq_meta-analyzer" style="font-size:10px;font-family:var(--mono);color:var(--muted);margin-top:8px;text-align:center">10 credits per day</div>
-</div>
-<div id="aiResults" class="ai-results"></div>
+<div id="serpPreviewCta" class="serp-cta" style="display:none">
+<span class="serp-cta-badge">&#9997;&#65039; Edit &amp; Preview</span>
+<h2 class="serp-cta-title">Want to rewrite your meta tags?</h2>
+<p class="serp-cta-desc">Open this URL in the SERP Preview editor for live Google snippet rendering, desktop &amp; mobile pixel previews, keyword highlighting and AI-powered title &amp; description suggestions. This analyzer gives you the diagnosis &#8212; the SERP Preview is where you fix it.</p>
+<a href="/tools/serp-preview/" class="ab serp-cta-btn" id="serpPreviewLink">Open in SERP Preview &#8594;</a>
 </div>
 </div>
 
@@ -371,12 +357,14 @@ html{overflow-x:clip}
 <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Enter any public URL and this tool fetches the page through our own servers — no browser extension needed. It parses the full HTML and extracts all SEO-relevant meta tags: title, description, canonical, robots, Open Graph, Twitter Cards, Schema.org JSON-LD, hreflang, viewport, charset, and more.</p>
 <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">Results are organized in 7 tabs covering on-page SEO, heading structure, links, social tags, structured data, and technical setup. A weighted SEO score (0–100) gives you an instant overview of how well-optimized the page is, with actionable tips for every issue found.</p>
 <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">For JavaScript-heavy sites, the tool automatically falls back to a headless browser renderer to ensure accurate results — just like a search engine would see the page.</p>
+<p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">This tool is strictly a <strong>diagnostic audit</strong>. It tells you what's on the page, what's missing and what's broken. When you want to <em>rewrite</em> your title and description with live Google-snippet preview, use the <a href="/tools/serp-preview/">SERP Preview editor</a>. When you want visual social card previews, use the <a href="/tools/og-preview/">OG Preview</a>. Each specialist tool goes deeper than a generic all-in-one audit could.</p>
 </div>
 <h2 style="font-size:18px;font-weight:800;margin:32px 0 12px">Explore more tools</h2>
 <div class="other-tools">
-<a href="/tools/serp-preview/"><h3>Snippet Preview</h3><p>Preview Google search snippets with pixel measurement.</p></a>
-<a href="/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate JSON-LD against Google required fields.</p></a>
-<a href="/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides for your site.</p></a>
+<a href="/tools/serp-preview/"><h3>Snippet Preview</h3><p>Live Google snippet editor with desktop &amp; mobile pixel preview.</p></a>
+<a href="/tools/og-preview/"><h3>OG Preview</h3><p>Render social cards for Facebook, Twitter, LinkedIn, WhatsApp.</p></a>
+<a href="/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate JSON-LD against Google's required fields.</p></a>
+<a href="/tools/llms-txt-generator/"><h3>llms.txt Generator</h3><p>Create AI crawler guides for ChatGPT, Claude, Perplexity.</p></a>
 </div>
 <div class="cta-box"><div class="cta-t">Get the full analysis in one click</div>
 <p>40+ SEO checks, AI crawler analysis, GSC & GA4 dashboards — directly in your browser.</p>
@@ -387,7 +375,7 @@ html{overflow-x:clip}
 <div class="faq-item"><div class="faq-q">Is this tool free?<span class="arrow">+</span></div><div class="faq-a">Completely free, no signup needed. The analysis runs through our own servers — no third-party proxies. You can analyze unlimited URLs.</div></div>
 <div class="faq-item"><div class="faq-q">How is the SEO score calculated?<span class="arrow">+</span></div><div class="faq-a">The score is based on 15 weighted checks: title presence and length (pixel-based), meta description presence and length, H1 count, canonical URL, robots directive, Open Graph tags, Schema.org markup, viewport, and language attribute. Each check has a different weight based on its SEO importance.</div></div>
 <div class="faq-item"><div class="faq-q">Does this tool work with JavaScript-heavy websites?<span class="arrow">+</span></div><div class="faq-a">Yes. If the initial fetch returns incomplete data (common with React, Angular, or Vue apps), the tool automatically falls back to a headless browser that renders JavaScript — so you see the page exactly as search engines do.</div></div>
-<div class="faq-item"><div class="faq-q">What does the AI suggestion feature do?<span class="arrow">+</span></div><div class="faq-a">After analyzing a page, you can use AI to automatically detect target keywords with real search volumes from Google Ads data. The AI then generates optimized title and description suggestions that fit within Google's pixel limits while incorporating your keywords.</div></div>
+<div class="faq-item"><div class="faq-q">Can I rewrite my meta tags with AI here?<span class="arrow">+</span></div><div class="faq-a">This tool is strictly a diagnostic analyzer &#8212; it tells you what's on the page, what's broken, and what's missing. For rewriting, use the <a href="/tools/serp-preview/">SERP Preview tool</a>: it has a live Google snippet editor with desktop/mobile previews, keyword highlighting and AI-powered title &amp; description suggestions. After every analysis we show an "Open in SERP Preview" button that passes the URL directly.</div></div>
 <div class="faq-item"><div class="faq-q">Why do pixel widths matter for titles and descriptions?<span class="arrow">+</span></div><div class="faq-a">Google truncates search snippets based on pixel width, not character count. A title with wide characters like "W" or "M" gets cut sooner than one with narrow characters. This tool measures actual rendered pixels for more accurate truncation predictions than character counting alone.</div></div>
 <div class="faq-item"><div class="faq-q">Can I analyze pages behind a login?<span class="arrow">+</span></div><div class="faq-a">No, this tool can only analyze publicly accessible pages. For pages behind authentication, use the Lumina Chrome extension which runs directly in your browser and can analyze any page you have access to.</div></div>
 </div>
@@ -566,9 +554,13 @@ function renderAll(d){
   });
   renderSEO(d);renderHeadings(d);renderLinks(d);renderOG(d);renderTwitter(d);renderSchema(d);renderTech(d);renderCrossLinks(d);
   _lastAnalysis=d;
-  document.getElementById('aiSection').style.display='block';
-  if(window.luminaQuota)luminaQuota.createBar('meta-analyzer',document.querySelector('.cd'))
-  document.getElementById('aiResults').innerHTML='';
+  /* Wire SERP Preview CTA with the analyzed URL */
+  var serpCta=document.getElementById('serpPreviewCta');
+  var serpLink=document.getElementById('serpPreviewLink');
+  if(serpCta&&serpLink){
+    serpLink.href='/tools/serp-preview/?url='+encodeURIComponent(d.url||'');
+    serpCta.style.display='block';
+  }
 }
 
 function renderSEO(d){
@@ -669,185 +661,6 @@ function renderCrossLinks(d){
   cl.innerHTML='<div class="section-title" style="margin-top:0">Continue analysis</div><div class="cross-links">'+links.join('')+'</div>';
   cl.style.display='block';
 }
-
-/* ── AI Title & Description Suggestions (with keyword detection) ── */
-var WORKER_BASE='https://lumina-proxy.julien-elbahy.workers.dev';
-var _aiKeywords=[];
-
-function aiRenderOption(label,text,isTitle){
-  var px=pxMeasure(text,isTitle?TITLE_FONT:DESC_FONT);
-  var maxPx=isTitle?TITLE_MAX_PX:DESC_MAX_PX;
-  var warnPx=isTitle?TITLE_WARN_PX:DESC_WARN_PX;
-  var maxChars=isTitle?60:155;
-  var h='<div class="ai-opt"><div class="ai-opt-header"><span class="ai-opt-label">'+label+' <span class="badge '+(text.length<=maxChars?'ok':'warn')+'">'+text.length+' chars</span></span>';
-  h+='<button class="ai-opt-copy" onclick="navigator.clipboard.writeText(this.closest(\'.ai-opt\').querySelector(\'.ai-opt-text\').textContent).then(function(){event.target.textContent=\'\\u2713 Copied\'});setTimeout(function(){event.target.textContent=\'Copy\'},1500)">Copy</button></div>';
-  h+='<div class="ai-opt-text">'+esc(text)+'</div>';
-  h+=pxBar(px,maxPx,warnPx);
-  h+='</div>';
-  return h;
-}
-
-function aiUpdateQuota(data){
-  if(window.luminaQuota)window.luminaQuota.update('meta-analyzer',data);
-
-}
-
-function aiGetLangLocation(lang){
-  var l=(lang||'en').toLowerCase();
-  if(l.startsWith('de'))return{lc:'de',loc:2040};
-  if(l.startsWith('fr'))return{lc:'fr',loc:2250};
-  if(l.startsWith('it'))return{lc:'it',loc:2380};
-  return{lc:'en',loc:2840};
-}
-
-function aiRenderChips(){
-  var container=document.getElementById('aiKwChips');
-  if(!_aiKeywords.length){container.style.display='none';return}
-  var primary=document.getElementById('aiKwPrimary').value.trim().toLowerCase();
-  var secRaw=document.getElementById('aiKwSecondary').value.trim().toLowerCase();
-  var secondaries=secRaw?secRaw.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
-  var h='<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:4px">Detected keywords — click to set as primary, click again for secondary</div>';
-  _aiKeywords.forEach(function(kw){
-    var k=kw.keyword.toLowerCase();
-    var isPri=k===primary;
-    var isSec=secondaries.indexOf(k)!==-1;
-    var cls=isPri?'primary':isSec?'secondary':'';
-    var vol=kw.vol!==undefined?' <span class="kw-vol">'+kw.vol.toLocaleString()+'/mo</span>':'';
-    h+='<span class="kw-chip '+cls+'" data-kw="'+esc(kw.keyword)+'">'+esc(kw.keyword)+vol+'</span>';
-  });
-  container.innerHTML=h;container.style.display='block';
-  container.querySelectorAll('.kw-chip').forEach(function(chip){
-    chip.addEventListener('click',function(){
-      var kw=chip.getAttribute('data-kw');
-      var pri=document.getElementById('aiKwPrimary');
-      var sec=document.getElementById('aiKwSecondary');
-      if(pri.value.trim().toLowerCase()===kw.toLowerCase()){
-        // Already primary → move to secondary
-        pri.value='';
-        var secs=sec.value?sec.value.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
-        if(secs.indexOf(kw)===-1)secs.push(kw);
-        sec.value=secs.join(', ');
-      } else if(sec.value.toLowerCase().indexOf(kw.toLowerCase())!==-1){
-        // Already secondary → remove
-        var secs=sec.value.split(',').map(function(s){return s.trim()}).filter(function(s){return s.toLowerCase()!==kw.toLowerCase()});
-        sec.value=secs.join(', ');
-      } else {
-        // Not selected → set as primary
-        if(pri.value.trim()){
-          // Move old primary to secondary
-          var secs=sec.value?sec.value.split(',').map(function(s){return s.trim()}).filter(Boolean):[];
-          if(pri.value.trim()&&secs.indexOf(pri.value.trim())===-1)secs.push(pri.value.trim());
-          sec.value=secs.join(', ');
-        }
-        pri.value=kw;
-      }
-      aiRenderChips();
-    });
-  });
-}
-
-/* Auto-detect keywords: AI extraction → DFS volume lookup */
-document.getElementById('btnAiDetect').addEventListener('click',function(){
-  if(!_lastAnalysis)return;
-  var d=_lastAnalysis;
-  var btn=this;btn.disabled=true;btn.textContent='⏳ Detecting…';
-  var h1s=d.headings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join('\n');
-  var headings=d.headings.map(function(x){return'H'+x.l+': '+x.t}).join('\n');
-
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'meta-analyzer'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({
-    messages:[{role:'system',content:'You are an SEO keyword analyst. Extract the most important target keywords from webpage content.\n\nRules:\n- Detect the page language and return keywords IN THAT LANGUAGE\n- Return 6-10 keywords/phrases this page should rank for\n- Include both short-tail (1-2 words) and medium-tail (2-4 words)\n- Include 3-5 semantic synonyms (different wording, same meaning)\n- Prioritize commercial and transactional intent keywords\n- Order by search volume potential (most important first)\n- Consider what real users would type into Google to find this page\n\nRespond ONLY with JSON: {"keywords":["keyword1","keyword2",...]}'},{role:'user',content:'TITLE: '+(d.title||'')+'\nMETA: '+(d.desc||'')+'\nH1: '+(h1s||'')+'\nLANGUAGE: '+(d.lang||'en')+'\nHEADINGS:\n'+headings+'\nCONTENT (first 1500 chars):\n'+d.bodyText}],
-    max_tokens:300
-  })})
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.error)throw new Error(data.error);
-    aiUpdateQuota(data);
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
-    var parsed=JSON.parse(raw);
-    var kws=parsed.keywords||[];
-    if(!kws.length)throw new Error('No keywords detected');
-    // Set first as primary
-    document.getElementById('aiKwPrimary').value=kws[0];
-    if(kws.length>1)document.getElementById('aiKwSecondary').value=kws.slice(1,4).join(', ');
-    // Fetch DFS volumes
-    _aiKeywords=kws.map(function(k){return{keyword:k}});
-    aiRenderChips();
-    btn.textContent='⏳ Getting search volumes…';
-    var ll=aiGetLangLocation(d.lang);
-    return fetch(WORKER_BASE+'/dfs?endpoint=keywords_data/google_ads/search_volume/live',{
-      method:'POST',headers:{'Content-Type':'application/json','X-Lumina-Tool':'meta-analyzer-sub'},
-      body:JSON.stringify([{keywords:kws.slice(0,20),language_code:ll.lc,location_code:ll.loc}])
-    });
-  })
-  .then(function(r){return r?r.json():null})
-  .then(function(data){
-    if(!data||data.error)return;
-    try{
-      (data.tasks||[]).forEach(function(t){(t.result||[]).forEach(function(r){
-        _aiKeywords.forEach(function(kw){if(kw.keyword.toLowerCase()===r.keyword.toLowerCase())kw.vol=r.search_volume||0});
-      })});
-      _aiKeywords.sort(function(a,b){return(b.vol||0)-(a.vol||0)});
-      // Re-set primary to highest volume
-      if(_aiKeywords[0]){document.getElementById('aiKwPrimary').value=_aiKeywords[0].keyword;document.getElementById('aiKwSecondary').value=_aiKeywords.slice(1,4).map(function(k){return k.keyword}).join(', ')}
-      aiRenderChips();
-    }catch(e){}
-  })
-  .catch(function(e){
-    document.getElementById('aiKwChips').innerHTML='<p style="color:var(--err);font-size:12px">'+esc(e.message)+'</p>';
-    document.getElementById('aiKwChips').style.display='block';
-  })
-  .finally(function(){btn.disabled=false;btn.textContent='🔍 Auto-detect keywords'});
-});
-
-/* Generate title & description suggestions */
-document.getElementById('btnAiGenerate').addEventListener('click',function(){
-  if(!_lastAnalysis)return;
-  var d=_lastAnalysis;
-  var primary=document.getElementById('aiKwPrimary').value.trim();
-  var secondary=document.getElementById('aiKwSecondary').value.trim();
-  if(!primary){alert('Enter or detect a primary keyword first.');return}
-  var btn=this;btn.disabled=true;btn.textContent='⏳ Generating…';
-  var out=document.getElementById('aiResults');
-  out.innerHTML='<div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div>';
-  var h1s=d.headings.filter(function(x){return x.l===1}).map(function(x){return x.t}).join(', ');
-  var lang=d.lang||'en';
-  var prompt='You are a senior SEO copywriter specializing in high-CTR meta tags.\n\n'+
-    'Page URL: '+d.url+'\n'+
-    'Primary keyword: "'+primary+'"\n'+
-    (secondary?'Secondary keywords: '+secondary+'\n':'')+
-    'Current title: '+(d.title||'(none)')+'\n'+
-    'Current description: '+(d.desc||'(none)')+'\n'+
-    'H1: '+(h1s||'(none)')+'\n'+
-    'Page language: '+lang+'\n'+
-    'Page content (first 1500 chars):\n'+d.bodyText+'\n\n'+
-    'RULES:\n'+
-    '- WRITE IN THE SAME LANGUAGE AS THE PAGE (language: '+lang+')\n'+
-    '- title1, title2: STRICT MAX 55 chars. Place "'+primary+'" in the first half. Use power words (Free, Best, Guide, Easy, Fast, Proven, Top).\n'+
-    '- desc1, desc2: STRICT MAX 150 chars. Include "'+primary+'", highlight unique value, end with a soft CTA.\n'+
-    '- Option A: benefit-focused (what the user gains)\n- Option B: curiosity/urgency-focused (why act now)\n'+
-    '- Use numbers, brackets [2025], or parentheses where natural\n'+
-    '- Avoid generic filler — every word must earn its place\n'+
-    '- These are mini-ads competing for clicks against 9 other results\n\n'+
-    'BEFORE OUTPUTTING: Count every character carefully. Title ≤55, description ≤150. If over limit, rewrite shorter.\n\n'+
-    'Respond with ONLY valid JSON (no markdown):\n{"title1":"...","title2":"...","desc1":"...","desc2":"..."}';
-
-  fetch(WORKER_BASE+'/ai',{method:'POST',headers:(function(){var h={'Content-Type':'application/json','X-Lumina-Tool':'meta-analyzer'};var k=localStorage.getItem('lumina_key_openai');if(k)h['X-OAI-Key']=k;return h})(),body:JSON.stringify({messages:[{role:'user',content:prompt}],max_tokens:500})})
-  .then(function(r){return r.json()})
-  .then(function(data){
-    if(data.error)throw new Error(data.error);
-    aiUpdateQuota(data);
-    var raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
-    var r=JSON.parse(raw);
-    var h='';
-    h+=aiRenderOption('Title — Option A',r.title1||'',true);
-    h+=aiRenderOption('Title — Option B',r.title2||'',true);
-    h+=aiRenderOption('Description — Option A',r.desc1||'',false);
-    h+=aiRenderOption('Description — Option B',r.desc2||'',false);
-    out.innerHTML=h;
-  })
-  .catch(function(e){out.innerHTML=window.luminaQuotaError?window.luminaQuotaError():'<p style="color:var(--err)">Daily limit reached</p>'})
-  .finally(function(){btn.disabled=false;btn.textContent='✨ Generate title & description'});
-});
 
 /* Auto-analyze if URL in query string */
 var params=new URLSearchParams(window.location.search);
