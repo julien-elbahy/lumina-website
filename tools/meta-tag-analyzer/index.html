@@ -100,6 +100,33 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
 .tab-delegate-body{flex:1;min-width:200px}.tab-delegate-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}.tab-delegate-desc{font-size:11px;color:var(--muted);line-height:1.55}
 .tab-delegate-btn{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}.tab-delegate-btn:hover{background:var(--accent-h);color:#fff;transform:translateY(-1px)}
 @media(max-width:640px){.tab-delegate{flex-direction:column;align-items:stretch;padding:14px}.tab-delegate-body{min-width:0}.tab-delegate-btn{width:100%;justify-content:center;min-height:44px;box-sizing:border-box}}
+/* Issues & Conflicts banner (Phase C) */
+.issues-banner{background:linear-gradient(135deg,var(--err-bg),rgba(244,120,120,.02));border:1px solid var(--err-border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.issues-banner.warn{background:linear-gradient(135deg,var(--warn-bg),rgba(244,196,74,.02));border-color:var(--warn-border)}
+.issues-banner-head{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--err);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.issues-banner.warn .issues-banner-head{color:var(--warn)}
+.issues-item{font-size:12px;color:var(--text2);line-height:1.65;padding:6px 0;border-top:1px solid var(--border)}.issues-item:first-of-type{border-top:none;padding-top:0}.issues-item b{color:var(--text)}
+/* Dual pixel bar (desktop + mobile) */
+.px-dual{margin-top:6px}
+.px-row{display:flex;align-items:center;gap:8px;font-size:11px;margin-top:4px}
+.px-row .px-lbl{font-weight:700;color:var(--muted);min-width:70px;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.px-row .px-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;min-width:60px}
+.px-row .px-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.px-row .px-info{font-family:var(--mono);font-size:10px;white-space:nowrap}
+@media(max-width:640px){.px-row{flex-wrap:wrap}.px-row .px-info{flex-basis:100%;text-align:right;font-size:9px}}
+/* og:image validation badges */
+.ogimg-check{margin-top:8px;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--card);display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:12px}
+.ogimg-check.ok{background:var(--ok-bg);border-color:var(--ok-border)}
+.ogimg-check.warn{background:var(--warn-bg);border-color:var(--warn-border)}
+.ogimg-check.err{background:var(--err-bg);border-color:var(--err-border)}
+.ogimg-check strong{font-weight:700}
+.ogimg-check .ogimg-pill{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--border)}
+.ogimg-check .ogimg-pill.good{color:var(--ok);border-color:var(--ok-border)}
+.ogimg-check .ogimg-pill.bad{color:var(--err);border-color:var(--err-border)}
+.ogimg-check .ogimg-pill.warn{color:var(--warn);border-color:var(--warn-border)}
+/* Canonical deep-check list */
+.canon-deep{margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:8px;font-size:11px;color:var(--text2);line-height:1.6}
+.canon-deep-issue{display:flex;gap:6px;align-items:flex-start}.canon-deep-issue::before{content:'\26a0\fe0f';flex-shrink:0}
 /* OG Preview */
 /* Skeleton */
 .skel{height:14px;background:var(--border);border-radius:4px;animation:shimmer 1.5s infinite;margin-bottom:10px}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.4}50%{opacity:.8}100%{opacity:.4}}
@@ -420,9 +447,48 @@ function badge(cls,txt){return' <span class="badge '+cls+'">'+txt+'</span>'}
 /* Pixel measurement (same method as Lumina extension) */
 var _mc=null;
 function pxMeasure(text,font){if(!_mc){_mc=document.createElement('canvas').getContext('2d')}_mc.font=font;return Math.round(_mc.measureText(text).width)}
+/* Desktop thresholds (20px Arial title, 14px Arial description) */
 var TITLE_FONT='20px Arial',DESC_FONT='14px Arial';
 var TITLE_MAX_PX=580,DESC_MAX_PX=920,TITLE_WARN_PX=520,DESC_WARN_PX=820;
+/* Mobile thresholds (16px Arial title, 13px Arial description) — smaller fonts but narrower viewport */
+var TITLE_FONT_M='16px Arial',DESC_FONT_M='13px Arial';
+var TITLE_MAX_PX_M=500,DESC_MAX_PX_M=680,TITLE_WARN_PX_M=450,DESC_WARN_PX_M=610;
 function pxBar(px,max,warn){var pct=Math.min(100,Math.round(px/max*100));var col=px>max?'var(--err)':px>warn?'var(--warn)':px<max*0.4?'var(--warn)':'var(--ok)';var lbl=px>max?'truncated':px>warn?'risky':px<max*0.4?'too short':'good';return'<div class="px-wrap"><div class="px-track"><div class="px-fill" style="width:'+pct+'%;background:'+col+'"></div></div><span class="px-info">'+px+'/'+max+'px — '+lbl+'</span></div>'}
+/* Dual desktop+mobile pixel bar */
+function pxBarDual(pxD,pxM,maxD,maxM,warnD,warnM){
+  var colD=pxD>maxD?'var(--err)':pxD>warnD?'var(--warn)':pxD<maxD*0.4?'var(--warn)':'var(--ok)';
+  var lblD=pxD>maxD?'truncated':pxD>warnD?'risky':pxD<maxD*0.4?'too short':'ok';
+  var colM=pxM>maxM?'var(--err)':pxM>warnM?'var(--warn)':'var(--ok)';
+  var lblM=pxM>maxM?'truncated':pxM>warnM?'risky':'ok';
+  var pctD=Math.min(100,Math.round(pxD/maxD*100));
+  var pctM=Math.min(100,Math.round(pxM/maxM*100));
+  return '<div class="px-dual">'+
+    '<div class="px-row"><span class="px-lbl">\ud83d\udda5\ufe0f Desktop</span><div class="px-track"><div class="px-fill" style="width:'+pctD+'%;background:'+colD+'"></div></div><span class="px-info" style="color:'+colD+'">'+pxD+'/'+maxD+'px \u00b7 '+lblD+'</span></div>'+
+    '<div class="px-row"><span class="px-lbl">\ud83d\udcf1 Mobile</span><div class="px-track"><div class="px-fill" style="width:'+pctM+'%;background:'+colM+'"></div></div><span class="px-info" style="color:'+colM+'">'+pxM+'/'+maxM+'px \u00b7 '+lblM+'</span></div>'+
+    '</div>';
+}
+/* Word-based similarity ratio for title vs og:title mismatch detection */
+function similarityRatio(a,b){
+  if(!a||!b)return 0;
+  a=a.toLowerCase().replace(/[^\w\s\u00c0-\u024f]/g,'').trim();
+  b=b.toLowerCase().replace(/[^\w\s\u00c0-\u024f]/g,'').trim();
+  if(a===b)return 1;
+  var aWords=a.split(/\s+/).filter(Boolean);
+  var bWords=b.split(/\s+/).filter(Boolean);
+  if(!aWords.length||!bWords.length)return 0;
+  var common=aWords.filter(function(w){return bWords.indexOf(w)!==-1}).length;
+  return common/Math.max(aWords.length,bWords.length);
+}
+/* Async og:image validation — checks reachability, dimensions, aspect ratio */
+function validateOgImage(imageUrl,callback){
+  if(!imageUrl){callback(null);return}
+  var img=new Image();
+  var done=false;
+  var timer=setTimeout(function(){if(done)return;done=true;callback({status:'timeout',url:imageUrl})},8000);
+  img.onload=function(){if(done)return;done=true;clearTimeout(timer);var ratio=img.naturalHeight>0?img.naturalWidth/img.naturalHeight:0;callback({status:'ok',url:imageUrl,width:img.naturalWidth,height:img.naturalHeight,ratio:ratio})};
+  img.onerror=function(){if(done)return;done=true;clearTimeout(timer);callback({status:'error',url:imageUrl})};
+  img.src=imageUrl;
+}
 function rowTip(lbl,val,badge_html,tip){return'<div class="row"><div class="lbl">'+lbl+(badge_html||'')+'</div><div class="val">'+val+'</div>'+(tip?'<div class="tip">'+tip+'</div>':'')+'</div>'}
 
 btnAnalyze.addEventListener('click',function(){analyze(urlInput.value)});
@@ -482,7 +548,7 @@ function showError(msg){
 
 function parseHTML(html,url,status){
   var doc=new DOMParser().parseFromString(html,'text/html');
-  var base;try{base=new URL(url)}catch(e){base={hostname:''}}
+  var base;try{base=new URL(url)}catch(e){base={hostname:'',protocol:'',href:url}}
   var g=function(sel,attr){var el=doc.querySelector(sel);return el?(attr?el.getAttribute(attr)||'':el.textContent.trim()):''};
   var title=g('title');var desc=g('meta[name="description"]','content');
   var canonical=g('link[rel="canonical"]','href');var robots=g('meta[name="robots"]','content');
@@ -495,7 +561,60 @@ function parseHTML(html,url,status){
   var tw={};['twitter:card','twitter:title','twitter:description','twitter:image','twitter:site','twitter:creator'].forEach(function(n){var el=doc.querySelector('meta[name="'+n+'"]');tw[n]=el?el.getAttribute('content')||'':''});
   var schemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{var j=JSON.parse(s.textContent);if(j['@graph']&&Array.isArray(j['@graph']))j['@graph'].forEach(function(it){schemas.push(it['@type']||'Unknown')});else if(Array.isArray(j))j.forEach(function(it){schemas.push(it['@type']||'Unknown')});else schemas.push(j['@type']||'Unknown')}catch(e){}});
   var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(l){hreflangs.push({lang:l.getAttribute('hreflang'),href:l.getAttribute('href')})});
-  return{url:url,title:title,desc:desc,canonical:canonical,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status}
+
+  /* ── Duplicate meta tag detection ── */
+  var duplicates=[];
+  var cnt=function(sel){return doc.querySelectorAll(sel).length};
+  if(cnt('title')>1)duplicates.push({tag:'<title>',count:cnt('title'),severity:'err'});
+  if(cnt('meta[name="description"]')>1)duplicates.push({tag:'meta description',count:cnt('meta[name="description"]'),severity:'err'});
+  if(cnt('link[rel="canonical"]')>1)duplicates.push({tag:'canonical',count:cnt('link[rel="canonical"]'),severity:'err'});
+  if(cnt('meta[name="robots"]')>1)duplicates.push({tag:'meta robots',count:cnt('meta[name="robots"]'),severity:'err'});
+  if(cnt('meta[name="viewport"]')>1)duplicates.push({tag:'meta viewport',count:cnt('meta[name="viewport"]'),severity:'warn'});
+  if(cnt('meta[charset]')>1)duplicates.push({tag:'meta charset',count:cnt('meta[charset]'),severity:'warn'});
+  if(cnt('meta[property="og:title"]')>1)duplicates.push({tag:'og:title',count:cnt('meta[property="og:title"]'),severity:'warn'});
+  if(cnt('meta[property="og:description"]')>1)duplicates.push({tag:'og:description',count:cnt('meta[property="og:description"]'),severity:'warn'});
+  if(cnt('meta[property="og:image"]')>1)duplicates.push({tag:'og:image',count:cnt('meta[property="og:image"]'),severity:'warn'});
+
+  /* ── Conflict detection ── */
+  var conflicts=[];
+  var noIdx=robots&&robots.toLowerCase().indexOf('noindex')!==-1;
+  if(noIdx&&canonical)conflicts.push({severity:'err',msg:'<b>noindex + canonical</b> \u2014 confusing signal to Google. A noindex page should not declare a canonical URL; remove one or the other.'});
+  if(noIdx&&hreflangs.length)conflicts.push({severity:'err',msg:'<b>noindex + hreflang</b> \u2014 hreflang alternates won\'t be honored for noindexed pages.'});
+  if(title&&og['og:title']){
+    var sim=similarityRatio(title,og['og:title']);
+    if(sim<0.4)conflicts.push({severity:'warn',msg:'<b>Title vs og:title mismatch</b> \u2014 social shares will show a very different headline than search results. Similarity: '+Math.round(sim*100)+'%.'});
+  }
+  if(desc&&og['og:description']){
+    var sim2=similarityRatio(desc,og['og:description']);
+    if(sim2<0.4)conflicts.push({severity:'warn',msg:'<b>Description vs og:description mismatch</b> \u2014 social previews will show different copy than Google. Similarity: '+Math.round(sim2*100)+'%.'});
+  }
+  if(og['og:title']&&og['og:title']===og['og:description'])conflicts.push({severity:'warn',msg:'<b>og:title equals og:description</b> \u2014 these should be distinct. Social cards need both a headline and a description.'});
+  if(tw['twitter:card']&&tw['twitter:image']===''&&og['og:image']==='')conflicts.push({severity:'warn',msg:'<b>Twitter card declared but no image</b> \u2014 twitter:card requires either twitter:image or og:image to render.'});
+  if(lang&&/^[a-z]{2}(-[A-Z]{2})?$/.test(lang)===false&&lang.length>0)conflicts.push({severity:'warn',msg:'<b>lang attribute format</b> \u2014 "'+esc(lang)+'" is not a valid BCP 47 language tag (expected e.g. "en", "de-AT").'});
+
+  /* ── Canonical deep check ── */
+  var canonicalDeep={issues:[],selfRef:false,protocolMatch:true,hostMatch:true};
+  if(canonical){
+    try{
+      var cUrl=new URL(canonical,url);
+      var pUrl=new URL(url);
+      /* Normalize: strip trailing slash, lowercase host */
+      var canonNorm=cUrl.origin.toLowerCase()+cUrl.pathname.replace(/\/$/,'')+(cUrl.search||'');
+      var pageNorm=pUrl.origin.toLowerCase()+pUrl.pathname.replace(/\/$/,'')+(pUrl.search||'');
+      canonicalDeep.selfRef=canonNorm===pageNorm;
+      canonicalDeep.protocolMatch=cUrl.protocol===pUrl.protocol;
+      canonicalDeep.hostMatch=(cUrl.hostname===pUrl.hostname||cUrl.hostname==='www.'+pUrl.hostname||pUrl.hostname==='www.'+cUrl.hostname);
+      canonicalDeep.resolvedUrl=cUrl.href;
+      if(!canonicalDeep.protocolMatch)canonicalDeep.issues.push('Protocol mismatch: canonical is '+cUrl.protocol+' but page is '+pUrl.protocol);
+      if(!canonicalDeep.hostMatch)canonicalDeep.issues.push('Cross-domain canonical: points to '+cUrl.hostname+' (page is on '+pUrl.hostname+')');
+      if(!/^https?:\/\//i.test(canonical))canonicalDeep.issues.push('Relative canonical URL \u2014 should be absolute to avoid ambiguity');
+      if(cUrl.protocol==='http:'&&pUrl.protocol==='https:')canonicalDeep.issues.push('Canonical points to HTTP version of HTTPS page \u2014 Google may ignore it');
+    }catch(e){
+      canonicalDeep.issues.push('Invalid canonical URL: '+canonical);
+    }
+  }
+
+  return{url:url,title:title,desc:desc,canonical:canonical,canonicalDeep:canonicalDeep,robots:robots,viewport:viewport,charset:charset,lang:lang,favicon:favicon,hC:hC,h1Text:h1Text,og:og,tw:tw,schemas:schemas,hreflangs:hreflangs,status:status,duplicates:duplicates,conflicts:conflicts,ogImageCheck:null}
 }
 var _lastAnalysis=null;
 
@@ -505,7 +624,9 @@ function renderAll(d){
   function chk(pts,ok,label){mx+=pts;if(ok){s+=pts;details.push({ok:true,t:label})}else{details.push({ok:false,t:label})}}
   var tPx=d.title?pxMeasure(d.title,TITLE_FONT):0;
   var dPx=d.desc?pxMeasure(d.desc,DESC_FONT):0;
-  d._tPx=tPx;d._dPx=dPx;
+  var tPxM=d.title?pxMeasure(d.title,TITLE_FONT_M):0;
+  var dPxM=d.desc?pxMeasure(d.desc,DESC_FONT_M):0;
+  d._tPx=tPx;d._dPx=dPx;d._tPxM=tPxM;d._dPxM=dPxM;
   chk(15,!!d.title,'Title tag present');
   chk(5,d.title&&d.title.length<=60,'Title length ≤60 chars');
   chk(5,d.title&&tPx<=TITLE_MAX_PX,'Title pixel width ≤580px');
@@ -557,30 +678,74 @@ function renderAll(d){
     serpLink.href='/tools/serp-preview/?url='+encodeURIComponent(d.url||'');
     serpCta.style.display='block';
   }
+  /* Kick off async og:image validation */
+  if(d.og['og:image']){
+    var ogImageAbs=d.og['og:image'];
+    try{ogImageAbs=new URL(d.og['og:image'],d.url).href}catch(e){}
+    validateOgImage(ogImageAbs,function(result){
+      d.ogImageCheck=result;
+      /* Re-render OG tab only to show the validation result */
+      renderOG(d);
+    });
+  }
 }
 
 function renderSEO(d){
-  var h='';var tl=d.title.length;var tPx=d._tPx||0;
-  // Title
+  var h='';
+
+  /* ── Issues & Conflicts banner at top (Phase C) ── */
+  var errDupes=d.duplicates.filter(function(x){return x.severity==='err'});
+  var warnDupes=d.duplicates.filter(function(x){return x.severity==='warn'});
+  var errConflicts=d.conflicts.filter(function(x){return x.severity==='err'});
+  var warnConflicts=d.conflicts.filter(function(x){return x.severity==='warn'});
+  var hasCrit=errDupes.length||errConflicts.length;
+  var hasWarn=warnDupes.length||warnConflicts.length;
+  if(hasCrit||hasWarn){
+    h+='<div class="issues-banner'+(hasCrit?'':' warn')+'">';
+    h+='<div class="issues-banner-head">'+(hasCrit?'\u26a0\ufe0f Critical issues detected':'\u26a0\ufe0f Warnings')+'</div>';
+    errConflicts.concat(warnConflicts).forEach(function(c){h+='<div class="issues-item">'+c.msg+'</div>'});
+    errDupes.concat(warnDupes).forEach(function(dup){h+='<div class="issues-item"><b>Duplicate '+esc(dup.tag)+'</b> \u2014 found '+dup.count+' times. Google may pick a random one; keep only one.</div>'});
+    h+='</div>';
+  }
+
+  var tl=d.title.length;var tPx=d._tPx||0;var tPxM=d._tPxM||0;
+  // Title with dual desktop/mobile pixel bar
   if(!tl){h+=rowTip('Title',esc('—')+' <em style="color:var(--err)">Missing!</em>',badge('err','MISSING'),'Every page needs a title tag. It\'s the most important on-page SEO element and appears as the clickable headline in search results.')}
-  else if(tPx>TITLE_MAX_PX){h+=rowTip('Title',esc(d.title),badge('err',tl+' chars'),'<b>Title will be truncated.</b> Google cuts at ~580px (roughly 55–60 chars). Shorten to avoid "…" in search results.'+pxBar(tPx,TITLE_MAX_PX,TITLE_WARN_PX))}
-  else if(tPx>TITLE_WARN_PX){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'Title is close to the pixel limit. Consider shortening slightly to be safe.'+pxBar(tPx,TITLE_MAX_PX,TITLE_WARN_PX))}
-  else if(tPx<TITLE_MAX_PX*0.4){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'Title is very short. You\'re not using the full space Google gives you — add keywords or a compelling modifier.'+pxBar(tPx,TITLE_MAX_PX,TITLE_WARN_PX))}
-  else{h+=rowTip('Title',esc(d.title),badge('ok',tl+' chars'),'Good length. Title fits within Google\'s display limit.'+pxBar(tPx,TITLE_MAX_PX,TITLE_WARN_PX))}
-  // Description
-  var dl=d.desc.length;var dPx=d._dPx||0;
-  if(!dl){h+=rowTip('Meta Description','<em style="color:var(--err)">Missing</em>',badge('err','MISSING'),'Without a meta description, Google auto-generates one from page content — which is often not ideal. Write a compelling 130–155 character summary.')}
-  else if(dPx>DESC_MAX_PX){h+=rowTip('Meta Description',esc(d.desc),badge('err',dl+' chars'),'<b>Description will be truncated.</b> Google cuts at ~920px (roughly 155 chars). Shorten to show your full message.'+pxBar(dPx,DESC_MAX_PX,DESC_WARN_PX))}
-  else if(dPx>DESC_WARN_PX){h+=rowTip('Meta Description',esc(d.desc),badge('warn',dl+' chars'),'Description is close to the pixel limit. A few wide characters could cause truncation.'+pxBar(dPx,DESC_MAX_PX,DESC_WARN_PX))}
-  else if(dl<70){h+=rowTip('Meta Description',esc(d.desc),badge('warn',dl+' chars'),'Description is quite short. Aim for 130–155 characters to maximize your SERP real estate.'+pxBar(dPx,DESC_MAX_PX,DESC_WARN_PX))}
-  else{h+=rowTip('Meta Description',esc(d.desc),badge('ok',dl+' chars'),'Good length. Description fits within Google\'s display limit.'+pxBar(dPx,DESC_MAX_PX,DESC_WARN_PX))}
+  else if(tPx>TITLE_MAX_PX){h+=rowTip('Title',esc(d.title),badge('err',tl+' chars'),'<b>Title will be truncated on desktop.</b> Google cuts at ~580px (roughly 55–60 chars). Shorten to avoid "…" in search results.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  else if(tPxM>TITLE_MAX_PX_M){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'<b>Title fits on desktop but will be truncated on mobile.</b> Over 60% of Google searches happen on mobile \u2014 consider shortening.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  else if(tPx>TITLE_WARN_PX){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'Title is close to the desktop pixel limit. Consider shortening slightly to be safe.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  else if(tPx<TITLE_MAX_PX*0.4){h+=rowTip('Title',esc(d.title),badge('warn',tl+' chars'),'Title is very short. You\'re not using the full space Google gives you \u2014 add keywords or a compelling modifier.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  else{h+=rowTip('Title',esc(d.title),badge('ok',tl+' chars'),'Good length on both desktop and mobile.'+pxBarDual(tPx,tPxM,TITLE_MAX_PX,TITLE_MAX_PX_M,TITLE_WARN_PX,TITLE_WARN_PX_M))}
+  // Description with dual desktop/mobile pixel bar
+  var dl=d.desc.length;var dPx=d._dPx||0;var dPxM=d._dPxM||0;
+  if(!dl){h+=rowTip('Meta Description','<em style="color:var(--err)">Missing</em>',badge('err','MISSING'),'Without a meta description, Google auto-generates one from page content \u2014 which is often not ideal. Write a compelling 130–155 character summary.')}
+  else if(dPx>DESC_MAX_PX){h+=rowTip('Meta Description',esc(d.desc),badge('err',dl+' chars'),'<b>Description will be truncated on desktop.</b> Google cuts at ~920px (roughly 155 chars). Shorten to show your full message.'+pxBarDual(dPx,dPxM,DESC_MAX_PX,DESC_MAX_PX_M,DESC_WARN_PX,DESC_WARN_PX_M))}
+  else if(dPxM>DESC_MAX_PX_M){h+=rowTip('Meta Description',esc(d.desc),badge('warn',dl+' chars'),'<b>Description fits on desktop but will be truncated on mobile.</b> Mobile Google descriptions cap at ~680px (~120 chars).'+pxBarDual(dPx,dPxM,DESC_MAX_PX,DESC_MAX_PX_M,DESC_WARN_PX,DESC_WARN_PX_M))}
+  else if(dPx>DESC_WARN_PX){h+=rowTip('Meta Description',esc(d.desc),badge('warn',dl+' chars'),'Description is close to the desktop pixel limit.'+pxBarDual(dPx,dPxM,DESC_MAX_PX,DESC_MAX_PX_M,DESC_WARN_PX,DESC_WARN_PX_M))}
+  else if(dl<70){h+=rowTip('Meta Description',esc(d.desc),badge('warn',dl+' chars'),'Description is quite short. Aim for 130–155 characters to maximize your SERP real estate.'+pxBarDual(dPx,dPxM,DESC_MAX_PX,DESC_MAX_PX_M,DESC_WARN_PX,DESC_WARN_PX_M))}
+  else{h+=rowTip('Meta Description',esc(d.desc),badge('ok',dl+' chars'),'Good length on both desktop and mobile.'+pxBarDual(dPx,dPxM,DESC_MAX_PX,DESC_MAX_PX_M,DESC_WARN_PX,DESC_WARN_PX_M))}
   // H1
   var h1Count=d.hC.h1||0;
-  if(h1Count===1)h+=rowTip('H1',esc(d.h1Text||''),badge('ok','1 found'),'Single H1 — exactly what Google recommends.');
+  if(h1Count===1)h+=rowTip('H1',esc(d.h1Text||''),badge('ok','1 found'),'Single H1 \u2014 exactly what Google recommends.');
   else if(!h1Count)h+=rowTip('H1','<em style="color:var(--err)">Missing</em>',badge('err','MISSING'),'Every page should have one H1 that describes the main topic. This is a key ranking signal.');
-  else h+=rowTip('H1',esc(d.h1Text||'')+' <em style="color:var(--muted)">(+'+(h1Count-1)+' more)</em>',badge('warn',h1Count+' found'),'Multiple H1 tags. Best practice is exactly one H1 per page. Use H2–H6 for sub-sections.');
-  // Canonical
-  if(d.canonical)h+=rowTip('Canonical','<span class="val mono">'+esc(d.canonical)+'</span>',badge('ok','SET'),'Canonical URL is set — helps prevent duplicate content issues.');
+  else h+=rowTip('H1',esc(d.h1Text||'')+' <em style="color:var(--muted)">(+'+(h1Count-1)+' more)</em>',badge('warn',h1Count+' found'),'Multiple H1 tags. Best practice is exactly one H1 per page. Use H2\u2013H6 for sub-sections.');
+  // Canonical with deep-check
+  if(d.canonical){
+    var canonTip='Canonical URL is set.';
+    var canonBadge='ok';var canonBadgeTxt='SET';
+    if(d.canonicalDeep.issues.length){
+      canonBadge='warn';canonBadgeTxt='ISSUES';
+      canonTip='<b>Canonical has issues:</b>';
+      canonTip+='<div class="canon-deep">';
+      d.canonicalDeep.issues.forEach(function(iss){canonTip+='<div class="canon-deep-issue">'+esc(iss)+'</div>'});
+      canonTip+='</div>';
+    }else if(d.canonicalDeep.selfRef){
+      canonTip='\u2713 Self-referencing canonical \u2014 best practice. Helps prevent duplicate content issues.';
+    }else{
+      canonTip='\u2713 Canonical points to a different URL (redirect/variant). Make sure the target URL is the intended "master" version.';
+    }
+    h+=rowTip('Canonical','<span class="val mono">'+esc(d.canonical)+'</span>',badge(canonBadge,canonBadgeTxt),canonTip);
+  }
   else h+=rowTip('Canonical','<em style="color:var(--warn)">Not set</em>',badge('warn','MISSING'),'No canonical URL found. Set one to tell Google which version of this page is the "original".');
   // Robots
   if(d.robots){var noIdx=d.robots.toLowerCase().indexOf('noindex')!==-1;if(noIdx)h+=rowTip('Robots',esc(d.robots),badge('err','NOINDEX'),'<b>This page is blocked from indexing!</b> Google will not show it in search results. Remove "noindex" if this is unintentional.');else h+=rowTip('Robots',esc(d.robots),badge('ok','OK'))}
@@ -603,6 +768,33 @@ function renderHeadings(d){
 function renderOG(d){
   var h='';
   ['og:title','og:description','og:image','og:url','og:type','og:site_name','og:locale'].forEach(function(k){var v=d.og[k];h+=row(k,v?esc(v.length>100?v.substring(0,100)+'…':v):'<em style="color:var(--warn)">Not set</em>',v?badge('ok','SET'):badge('warn','MISSING'))});
+  /* og:image deep validation result (async) */
+  if(d.og['og:image']){
+    if(d.ogImageCheck===null){
+      h+='<div class="ogimg-check"><strong>\u23f3 Validating og:image\u2026</strong><span style="color:var(--muted);font-size:11px">Checking reachability, dimensions and aspect ratio</span></div>';
+    }else if(d.ogImageCheck){
+      var c=d.ogImageCheck;
+      if(c.status==='ok'){
+        var w=c.width,ht=c.height,ratio=c.ratio;
+        var dimOk=w>=1200&&ht>=630;
+        var dimWarn=w>=600&&ht>=315;
+        var ratioOk=Math.abs(ratio-1.91)<0.15||Math.abs(ratio-2.0)<0.15;
+        var cls=(dimOk&&ratioOk)?'ok':(dimWarn?'warn':'err');
+        h+='<div class="ogimg-check '+cls+'">';
+        h+='<strong>\u2713 og:image loads</strong>';
+        h+='<span class="ogimg-pill '+(dimOk?'good':(dimWarn?'warn':'bad'))+'">'+w+'\u00d7'+ht+'</span>';
+        h+='<span class="ogimg-pill '+(ratioOk?'good':'warn')+'">ratio '+ratio.toFixed(2)+':1</span>';
+        if(!dimOk)h+='<span style="font-size:11px;color:var(--muted)">Recommended min: 1200\u00d7630 for LinkedIn/Facebook/WhatsApp</span>';
+        else if(!ratioOk)h+='<span style="font-size:11px;color:var(--muted)">Best aspect: 1.91:1 or 2:1 (current will crop on some platforms)</span>';
+        else h+='<span style="font-size:11px;color:var(--ok)">Dimensions and aspect ratio are optimal for all major social platforms.</span>';
+        h+='</div>';
+      }else if(c.status==='timeout'){
+        h+='<div class="ogimg-check warn"><strong>\u23f3 og:image timed out</strong><span style="font-size:11px">Image took >8s to load \u2014 may be slow or broken.</span></div>';
+      }else{
+        h+='<div class="ogimg-check err"><strong>\u274c og:image failed to load</strong><span style="font-size:11px">URL is unreachable, blocked by CORS, or the file doesn\'t exist. Social cards will be broken.</span></div>';
+      }
+    }
+  }
   /* Visual rendering of social cards belongs in the dedicated OG Preview tool */
   var u=encodeURIComponent(d.url);
   h+='<div class="tab-delegate"><div class="tab-delegate-body"><div class="tab-delegate-title">\ud83d\udcf1 See how your social cards actually look</div><div class="tab-delegate-desc">This analyzer extracts and validates the tags. For pixel-accurate visual previews on Facebook, Twitter/X, LinkedIn, WhatsApp, Discord and Slack, use the dedicated OG Preview tool.</div></div><a class="tab-delegate-btn" href="/tools/og-preview/?url='+u+'">Open in OG Preview \u2192</a></div>';
