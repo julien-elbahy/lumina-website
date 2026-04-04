@@ -562,9 +562,10 @@ function parseHTML(html,url,status){
   var schemas=[];doc.querySelectorAll('script[type="application/ld+json"]').forEach(function(s){try{var j=JSON.parse(s.textContent);if(j['@graph']&&Array.isArray(j['@graph']))j['@graph'].forEach(function(it){schemas.push(it['@type']||'Unknown')});else if(Array.isArray(j))j.forEach(function(it){schemas.push(it['@type']||'Unknown')});else schemas.push(j['@type']||'Unknown')}catch(e){}});
   var hreflangs=[];doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function(l){hreflangs.push({lang:l.getAttribute('hreflang'),href:l.getAttribute('href')})});
 
-  /* ── Duplicate meta tag detection ── */
+  /* ── Duplicate meta tag detection — scoped to <head> to avoid SVG <title> false positives ── */
   var duplicates=[];
-  var cnt=function(sel){return doc.querySelectorAll(sel).length};
+  var head=doc.head||doc;
+  var cnt=function(sel){return head.querySelectorAll(sel).length};
   if(cnt('title')>1)duplicates.push({tag:'<title>',count:cnt('title'),severity:'err'});
   if(cnt('meta[name="description"]')>1)duplicates.push({tag:'meta description',count:cnt('meta[name="description"]'),severity:'err'});
   if(cnt('link[rel="canonical"]')>1)duplicates.push({tag:'canonical',count:cnt('link[rel="canonical"]'),severity:'err'});
