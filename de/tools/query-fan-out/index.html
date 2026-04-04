@@ -273,8 +273,8 @@ html{overflow-x:clip}
 </div>
 
 <h2>FAQ</h2>
-<div class="faq-item"><div class="faq-q">Wie funktioniert dieses Tool?<span class="arrow">+</span></div><div class="faq-a">Das Tool nutzt GPT-4.1, um zu simulieren, wie KI-Suchmaschinen (Gemini, ChatGPT, Perplexity) deine Anfrage in 8&#8211;12 Sub-Queries zerlegen. Zus&#228;tzlich generiert es eine synthetisierte KI-Chatbot-Antwort auf deine Hauptanfrage plus eine Liste der wahrscheinlich zitierten Marken. F&#252;r jede Sub-Query kannst du echte Google SERP-Ergebnisse, People Also Ask Fragen und den tats&#228;chlichen Google AI Overview (wenn einer vorhanden ist) &#252;ber DataForSEO laden.</div></div>
-<div class="faq-item"><div class="faq-q">Was ist die AI Answer Simulation?<span class="arrow">+</span></div><div class="faq-a">Die Card ganz oben zeigt, wie ein moderner KI-Chatbot deine Anfrage wahrscheinlich beantworten w&#252;rde &#8212; generiert von GPT-4.1. Es ist eine Ann&#228;herung, keine Live-Antwort von ChatGPT/Gemini. Aber sie gibt eine realistische Vorschau der synthetisierten Antwort und der Domains/Marken, die KI-Suchmaschinen typischerweise f&#252;r dieses Thema zitieren. So erkennst du, welche Wettbewerber wahrscheinlich die KI-vermittelte Suche f&#252;r deine Query dominieren werden.</div></div>
+<div class="faq-item"><div class="faq-q">Wie funktioniert dieses Tool?<span class="arrow">+</span></div><div class="faq-a">Das Tool simuliert, wie KI-Suchmaschinen (Gemini, ChatGPT, Perplexity) deine Anfrage in 8&#8211;12 Sub-Queries zerlegen. Zus&#228;tzlich generiert es eine synthetisierte KI-Chatbot-Antwort auf deine Hauptanfrage plus eine Liste der wahrscheinlich zitierten Marken. F&#252;r jede Sub-Query kannst du echte Google SERP-Ergebnisse, People Also Ask Fragen und den tats&#228;chlichen Google AI Overview (wenn einer vorhanden ist) &#252;ber DataForSEO laden.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist die ChatGPT Simulation?<span class="arrow">+</span></div><div class="faq-a">Die Card ganz oben zeigt, wie ein moderner KI-Chatbot deine Anfrage wahrscheinlich beantworten w&#252;rde. Es ist eine Ann&#228;herung, keine Live-Antwort von ChatGPT/Gemini. Aber sie gibt eine realistische Vorschau der synthetisierten Antwort und der Domains/Marken, die KI-Suchmaschinen typischerweise f&#252;r dieses Thema zitieren. So erkennst du, welche Wettbewerber wahrscheinlich die KI-vermittelte Suche f&#252;r deine Query dominieren werden.</div></div>
 <div class="faq-item"><div class="faq-q">Wann erscheint ein AI Overview?<span class="arrow">+</span></div><div class="faq-a">Google zeigt AI Overviews nur f&#252;r einen Teil der Anfragen &#8212; meist informationelle, recherche-orientierte Fragen. Navigationale, transaktionale oder sehr spezifische Sub-Queries bekommen selten eines. Wenn f&#252;r eine Sub-Query ein AI Overview existiert, ruft das Tool diesen live &#252;ber DataForSEO ab und zeigt den generierten Text plus die zitierten Quellen. Englische US-Anfragen triggern AI Overviews am h&#228;ufigsten; die Abdeckung in anderen M&#228;rkten variiert.</div></div>
 <div class="faq-item"><div class="faq-q">Was ist Citability?<span class="arrow">+</span></div><div class="faq-a">Citability (0&#8211;100) sch&#228;tzt, wie wahrscheinlich eine KI-Suchmaschine externe Quellen f&#252;r eine bestimmte Sub-Query zitiert. Faktische Anfragen mit klaren Antworten (z.B. Produktspezifikationen) haben hohe Citability. Subjektive oder allgemeinwissensbasierte Anfragen haben niedrigere Citability.</div></div>
 <div class="faq-item"><div class="faq-q">Wie genau sind die Sub-Queries?<span class="arrow">+</span></div><div class="faq-a">Die Sub-Queries sind KI-simuliert, nicht aus Live-Gemini/ChatGPT-Sitzungen erfasst. Sie repr&#228;sentieren realistische Fan-Out-Muster basierend auf Forschungsdaten. Die echten Google SERP-Daten, People Also Ask Fragen und AI Overviews kommen live von Google &#252;ber DataForSEO.</div></div>
@@ -656,7 +656,7 @@ document.getElementById('btnCopy').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Query Fan Out: '+lastQuery+'\n\n';
   if(lastData.ai_answer_simulation){
-    txt+='ChatGPT Simulation (powered by GPT-4.1):\n'+lastData.ai_answer_simulation+'\n';
+    txt+='ChatGPT Simulation:\n'+lastData.ai_answer_simulation+'\n';
     if(lastData.likely_citations&&lastData.likely_citations.length){
       txt+='Wahrscheinlich zitierte Quellen: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n';
     }
@@ -719,7 +719,7 @@ document.getElementById('btnCopyAi').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Ich habe die Suchanfrage "'+lastQuery+'" auf AI Search Fan-Out analysiert. Hier sind die Daten:\n\n';
   if(lastData.ai_answer_simulation){
-    txt+='Wie ein KI-Chatbot auf diese Anfrage antworten w\u00fcrde (ChatGPT Simulation, powered by GPT-4.1):\n'+lastData.ai_answer_simulation+'\n\n';
+    txt+='Wie ein KI-Chatbot auf diese Anfrage antworten w\u00fcrde (ChatGPT Simulation):\n'+lastData.ai_answer_simulation+'\n\n';
     if(lastData.likely_citations&&lastData.likely_citations.length){
       txt+='Wahrscheinlich zitierte Quellen: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n\n';
     }
