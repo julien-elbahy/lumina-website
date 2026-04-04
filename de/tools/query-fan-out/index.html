@@ -475,7 +475,7 @@ function renderResults(data,query){
 
   /* AI Answer Simulation card */
   if(data.ai_answer_simulation){
-    html+='<div class="fo-ai-card"><div class="fo-ai-head"><span class="fo-ai-badge">\ud83e\udd16 GPT-4.1 Simulation</span><span class="fo-ai-title">Wie ein KI-Chatbot antworten w\u00fcrde</span><span class="fo-ai-note">Ann\u00e4herung \u2014 kein Live-Browsing</span></div>';
+    html+='<div class="fo-ai-card"><div class="fo-ai-head"><span class="fo-ai-badge">\ud83e\udd16 ChatGPT Simulation</span><span class="fo-ai-title">Wie ein KI-Chatbot antworten w\u00fcrde</span><span class="fo-ai-note">Ann\u00e4herung \u2014 kein Live-Browsing</span></div>';
     html+='<div class="fo-ai-text">'+esc(data.ai_answer_simulation)+'</div>';
     if(data.likely_citations&&data.likely_citations.length){
       html+='<div class="fo-ai-brands-lbl">Wahrscheinlich zitierte Quellen</div><div class="fo-ai-brands">';
@@ -656,7 +656,7 @@ document.getElementById('btnCopy').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Query Fan Out: '+lastQuery+'\n\n';
   if(lastData.ai_answer_simulation){
-    txt+='KI-Antwort Simulation (GPT-4.1):\n'+lastData.ai_answer_simulation+'\n';
+    txt+='ChatGPT Simulation (powered by GPT-4.1):\n'+lastData.ai_answer_simulation+'\n';
     if(lastData.likely_citations&&lastData.likely_citations.length){
       txt+='Wahrscheinlich zitierte Quellen: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n';
     }
@@ -719,7 +719,7 @@ document.getElementById('btnCopyAi').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Ich habe die Suchanfrage "'+lastQuery+'" auf AI Search Fan-Out analysiert. Hier sind die Daten:\n\n';
   if(lastData.ai_answer_simulation){
-    txt+='Wie ein KI-Chatbot auf diese Anfrage antworten w\u00fcrde (GPT-4.1 Simulation):\n'+lastData.ai_answer_simulation+'\n\n';
+    txt+='Wie ein KI-Chatbot auf diese Anfrage antworten w\u00fcrde (ChatGPT Simulation, powered by GPT-4.1):\n'+lastData.ai_answer_simulation+'\n\n';
     if(lastData.likely_citations&&lastData.likely_citations.length){
       txt+='Wahrscheinlich zitierte Quellen: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n\n';
     }

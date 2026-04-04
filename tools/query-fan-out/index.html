@@ -475,7 +475,7 @@ function renderResults(data,query){
 
   /* AI Answer Simulation card */
   if(data.ai_answer_simulation){
-    html+='<div class="fo-ai-card"><div class="fo-ai-head"><span class="fo-ai-badge">\ud83e\udd16 GPT-4.1 Simulation</span><span class="fo-ai-title">How an AI chatbot would answer</span><span class="fo-ai-note">Approximation \u2014 not live browsing</span></div>';
+    html+='<div class="fo-ai-card"><div class="fo-ai-head"><span class="fo-ai-badge">\ud83e\udd16 ChatGPT Simulation</span><span class="fo-ai-title">How an AI chatbot would answer</span><span class="fo-ai-note">Approximation \u2014 not live browsing</span></div>';
     html+='<div class="fo-ai-text">'+esc(data.ai_answer_simulation)+'</div>';
     if(data.likely_citations&&data.likely_citations.length){
       html+='<div class="fo-ai-brands-lbl">Likely cited sources</div><div class="fo-ai-brands">';
@@ -658,7 +658,7 @@ document.getElementById('btnCopy').addEventListener('click',function(){
   if(!lastData)return;
   var txt='Query Fan Out: '+lastQuery+'\n\n';
   if(lastData.ai_answer_simulation){
-    txt+='AI Answer Simulation (GPT-4.1):\n'+lastData.ai_answer_simulation+'\n';
+    txt+='AI Answer Simulation (ChatGPT-style, powered by GPT-4.1):\n'+lastData.ai_answer_simulation+'\n';
     if(lastData.likely_citations&&lastData.likely_citations.length){
       txt+='Likely cited sources: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n';
     }
@@ -721,7 +721,7 @@ document.getElementById('btnCopyAi').addEventListener('click',function(){
   if(!lastData)return;
   var txt='I analyzed the query "'+lastQuery+'" for AI search fan-out. Here is the data:\n\n';
   if(lastData.ai_answer_simulation){
-    txt+='How an AI chatbot would answer this query (GPT-4.1 simulation):\n'+lastData.ai_answer_simulation+'\n\n';
+    txt+='How an AI chatbot would answer this query (ChatGPT-style simulation, powered by GPT-4.1):\n'+lastData.ai_answer_simulation+'\n\n';
     if(lastData.likely_citations&&lastData.likely_citations.length){
       txt+='Likely cited sources: '+lastData.likely_citations.map(function(c){return (c.brand||'')+(c.domain?' ('+c.domain+')':'')}).join(', ')+'\n\n';
     }
