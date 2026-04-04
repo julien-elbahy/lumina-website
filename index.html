@@ -88,8 +88,14 @@ footer{padding:40px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 [data-theme="light"] .aai-controls select{background:rgba(255,255,255,.5);border-color:rgba(140,120,90,.10);color:#6e6256}
 [data-theme="light"] .aai-controls select:hover,[data-theme="light"] .aai-controls select:focus{border-color:#c87a30;color:#0d0906}
 .aai-quota{font-size:10px;color:var(--muted);margin-left:auto}
-.aai-gsc-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
-.aai-gsc-dot.on{background:var(--ok)}.aai-gsc-dot.off{background:var(--muted)}
+.aai-gsc-dot{width:8px;height:8px;border-radius:50%;display:inline-block;transition:all .2s}
+.aai-gsc-dot.on{background:var(--ok);box-shadow:0 0 0 2px rgba(80,224,144,.2),0 0 8px rgba(80,224,144,.5);animation:aaiPulse 2s ease-in-out infinite}
+.aai-gsc-dot.off{background:var(--muted)}
+@keyframes aaiPulse{0%,100%{box-shadow:0 0 0 2px rgba(80,224,144,.2),0 0 8px rgba(80,224,144,.5)}50%{box-shadow:0 0 0 3px rgba(80,224,144,.3),0 0 12px rgba(80,224,144,.7)}}
+.aai-gsc-wrap.connected{background:rgba(80,224,144,.10);border:1px solid rgba(80,224,144,.30);border-radius:8px;padding:3px 8px;display:inline-flex;align-items:center;gap:5px}
+.aai-gsc-wrap.connected .aai-gsc-link,.aai-gsc-wrap.connected .aai-gsc-label{color:var(--ok)!important;font-weight:600}
+[data-theme="light"] .aai-gsc-wrap.connected{background:rgba(40,160,90,.10);border-color:rgba(40,160,90,.30)}
+[data-theme="light"] .aai-gsc-wrap.connected .aai-gsc-link,[data-theme="light"] .aai-gsc-wrap.connected .aai-gsc-label{color:#1f9d55!important}
 .aai-thread{flex:1;overflow-y:auto;padding:14px 16px;scrollbar-width:thin;scrollbar-color:var(--accent-soft) transparent;display:flex;flex-direction:column;gap:12px}
 .aai-thread::-webkit-scrollbar{width:5px}.aai-thread::-webkit-scrollbar-track{background:transparent}.aai-thread::-webkit-scrollbar-thumb{background:var(--accent-soft);border-radius:6px}.aai-thread::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 .aai-welcome{text-align:center;padding:24px 12px;color:var(--muted);font-size:13px;line-height:1.7}
@@ -636,6 +642,7 @@ function aaiGetGscToken(cb){
 }
 function updateGscUI(){
   if(!_gscEl)return;
+  _gscEl.classList.toggle('connected',aaiGscOk());
   if(aaiGscOk()){
     _gscEl.innerHTML='<span class="aai-gsc-dot on"></span><span class="aai-gsc-label">GSC:</span> <select id="aaiGscSite" aria-label="GSC site"><option>…</option></select>';
     var sel=document.getElementById('aaiGscSite');
@@ -683,6 +690,7 @@ function aaiGetGa4Token(cb){
 }
 function updateGa4UI(){
   if(!_ga4El)return;
+  _ga4El.classList.toggle('connected',aaiGa4Ok());
   if(aaiGa4Ok()){
     var saved=localStorage.getItem("lumina_ga4_property_name")||"GA4 property";
     _ga4El.innerHTML="<span class=\"aai-gsc-dot on\"></span><span class=\"aai-gsc-label\" style=\"cursor:pointer\" onclick=\"luminaSettings&&luminaSettings.open()\" title=\""+saved.replace(/"/g,"&quot;")+"\">GA4 "+(saved.length>18?saved.slice(0,16)+"\u2026":saved)+"</span>";
