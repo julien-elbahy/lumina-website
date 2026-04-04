@@ -324,6 +324,8 @@ footer{border-color:rgba(160,135,105,.12)}
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
 
+/* Scrollbar styling */
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 /* Mobile UX */
 @media(max-width:640px){section{padding:60px 16px}.cta-section{padding:60px 16px}.hero-stats{gap:16px;flex-wrap:wrap}.btn-primary,.btn-secondary{min-height:44px;width:100%;justify-content:center}input,textarea,select{font-size:16px!important}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}

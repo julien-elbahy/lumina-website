@@ -191,6 +191,17 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:32px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
 [data-theme="light"] .cta-box{background:rgba(255,255,255,.9);box-shadow:0 3px 16px rgba(100,70,30,.07)}
 @media(max-width:640px){.tool-card{padding:14px 16px;gap:12px}.tc-icon{width:36px;height:36px;font-size:22px}.tc-text h3{font-size:14px}.tc-text p{font-size:11px}}
+/* Scrollbar styling */
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+html{overflow-x:clip}
+/* UX Responsive */
+@media(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)!important}.psi-scores{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)!important}.psi-scores{grid-template-columns:repeat(2,1fr)}.ab,.bt{min-height:44px}.url-bar .ab{width:100%}.tb-btn{min-height:36px;padding:8px 12px}.kw-input{flex-direction:column}.kw-input input,.kw-input select,.kw-input .ab{width:100%}input,select,textarea{font-size:16px!important}.filters{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}}
+@media(max-width:400px){.metrics{grid-template-columns:1fr!important}}
 </style>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>

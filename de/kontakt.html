@@ -182,7 +182,9 @@ select option{background:var(--bg2);color:var(--text);padding:8px}select option:
 
 /* Responsive UX */
 @media(min-width:641px) and (max-width:899px){.help-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){input[type="text"],input[type="email"],textarea,select{font-size:16px}.help-grid{gap:8px}}
+@media(max-width:640px){input[type="text"],input[type="email"],textarea,select{font-size:16px}.help-grid{gap:8px}}/* Scrollbar styling */
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
 </style>
 <script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
 </head>

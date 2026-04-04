@@ -126,6 +126,12 @@
 [data-theme="light"] .faq-item{border-color:rgba(140,120,90,.10)}
 [data-theme="light"] .consent-inner{background:rgba(255,255,255,.96);border-color:rgba(140,120,90,.10);box-shadow:0 8px 40px rgba(80,60,30,.15)}
 [data-theme="light"] .consent-btn.reject{background:rgba(245,240,233,.9);color:#5a5046;border-color:rgba(140,120,90,.15)}
+/* Scrollbar styling */
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 html{overflow-x:clip}
 /* UX Responsive */
 @media(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)!important}.psi-scores{grid-template-columns:repeat(3,1fr)}}

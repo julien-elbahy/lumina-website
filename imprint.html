@@ -156,6 +156,8 @@ footer{padding:32px 24px;border-top:1px solid rgba(255,255,255,.06);font-size:13
 [data-theme="light"] .about-teaser{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.10);box-shadow:0 3px 16px rgba(100,70,30,.07)}
 [data-theme="light"] .about-teaser img{border-color:var(--accent);box-shadow:0 4px 20px rgba(200,122,48,.15)}
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
+/* Scrollbar styling */
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
 </style>
 <script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>

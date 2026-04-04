@@ -170,6 +170,12 @@ input[type="text"],textarea{width:100%;background:var(--input-bg);border:1px sol
 [data-theme="light"] .about-teaser .skill-tag{background:rgba(200,122,48,.08);color:var(--accent)}
 .tool-updated{font-size:12px;color:var(--muted);margin-top:6px}
 
+/* Scrollbar styling */
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 html{overflow-x:clip}
 /* UX Responsive */
 @media(min-width:641px) and (max-width:899px){.metrics{grid-template-columns:repeat(3,1fr)!important}.psi-scores{grid-template-columns:repeat(3,1fr)}}
