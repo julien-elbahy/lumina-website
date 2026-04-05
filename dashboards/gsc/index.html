@@ -885,7 +885,7 @@ var _sortState={};
 
 /* ── Per-table row limit state (user-configurable via toolbar dropdown) ── */
 try{var savedLimits=JSON.parse(localStorage.getItem('lumina_db_gsc_limits')||'null');}catch(e){}
-var _rowLimits=savedLimits||{queries:50,pages:50};
+var _rowLimits=savedLimits||{queries:10,pages:10};
 
 /* ── Cannibalization "show all" expansion state keyed by query ── */
 var _cannibExpanded={};
@@ -1045,7 +1045,7 @@ document.querySelectorAll('.ds-limit-sel').forEach(function(sel){
   var target=sel.getAttribute('data-target');
   if(_rowLimits[target])sel.value=String(_rowLimits[target]);
   sel.addEventListener('change',function(){
-    _rowLimits[target]=parseInt(sel.value,10)||50;
+    _rowLimits[target]=parseInt(sel.value,10)||10;
     localStorage.setItem('lumina_db_gsc_limits',JSON.stringify(_rowLimits));
     /* Re-render from last loaded data (no refetch) */
     if(_lastR)render(_lastR);
@@ -1199,14 +1199,14 @@ function render(R){
   /* Top queries — user-controlled row limit */
   var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   _sortState.queries=_sortState.queries||{col:'clicks',dir:-1};
-  var qLimit=_rowLimits.queries||50;
+  var qLimit=_rowLimits.queries||10;
   renderSortableTable('dbQueriesTable',(R.queries||[]).slice(0,qLimit),prevQMap,'query',_sortState.queries);
   document.getElementById('dbQueriesCount').textContent='showing '+Math.min(qLimit,(R.queries||[]).length)+' of '+(R.queries||[]).length;
 
   /* Top pages */
   var prevPMap={};(R.prevPages||[]).forEach(function(r){prevPMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   _sortState.pages=_sortState.pages||{col:'clicks',dir:-1};
-  var pLimit=_rowLimits.pages||50;
+  var pLimit=_rowLimits.pages||10;
   renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
   document.getElementById('dbPagesCount').textContent='showing '+Math.min(pLimit,(R.pages||[]).length)+' of '+(R.pages||[]).length;
 
