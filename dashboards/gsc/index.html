@@ -754,11 +754,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🏆 Winners</h3><span class="ds-sub">position improved</span></div>
+      <div class="ds-card-h"><h3>🏆 Winners</h3><span class="ds-sub">top movers vs. previous period</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th data-sort="key">Query</th><th class="ds-num" data-sort="from">From</th><th class="ds-num" data-sort="to">To</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📉 Losers</h3><span class="ds-sub">position dropped</span></div>
+      <div class="ds-card-h"><h3>📉 Losers</h3><span class="ds-sub">top drops vs. previous period</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th data-sort="key">Query</th><th class="ds-num" data-sort="from">From</th><th class="ds-num" data-sort="to">To</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
@@ -1104,6 +1104,12 @@ function loadData(){
   if(_compareMode==='prev'){prevRange=getPrevDates(range.sd,range.ed)}
   else if(_compareMode==='yoy'){prevRange=getYoYDates(range.sd,range.ed)}
 
+  /* Winners/Losers ALWAYS use the immediate previous period, regardless of the
+     user's compare-mode choice (YoY is useful for KPI deltas but not for "what moved
+     recently"). Reuse the prevRange fetch when compareMode is already 'prev'. */
+  var wlPrevRange=getPrevDates(range.sd,range.ed);
+  var wlReusesPrev=prevRange&&prevRange.sd===wlPrevRange.sd&&prevRange.ed===wlPrevRange.ed;
+
   getGscToken(function(token){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
     var base='https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query';
@@ -1116,8 +1122,8 @@ function loadData(){
       return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()});
     }
 
-    var R={range:range,prevRange:prevRange};
-    var pending=prevRange?9:6;
+    var R={range:range,prevRange:prevRange,wlPrevRange:wlPrevRange};
+    var pending=(prevRange?9:6)+(wlReusesPrev?0:1);
     var errors=[];
     function done(){pending--;if(pending<=0)render(R)}
 
@@ -1129,11 +1135,16 @@ function loadData(){
     q({startDate:range.sd,endDate:range.ed,dimensions:['country'],rowLimit:20,type:'web'}).then(function(d){R.countries=d.rows||[]}).catch(function(e){errors.push('countries')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['query','page'],rowLimit:1000,type:'web'}).then(function(d){R.queryPage=d.rows||[]}).catch(function(e){errors.push('queryPage')}).finally(done);
 
-    /* Previous period */
+    /* Previous period (for KPI deltas, chart prev-line, sortable query/page delta columns) */
     if(prevRange){
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(d){R.prevDates=d.rows||[]}).catch(function(e){errors.push('prevDates')}).finally(done);
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.prevQueries=d.rows||[]}).catch(function(e){errors.push('prevQueries')}).finally(done);
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['page'],rowLimit:1000,type:'web'}).then(function(d){R.prevPages=d.rows||[]}).catch(function(e){errors.push('prevPages')}).finally(done);
+    }
+
+    /* Dedicated W/L previous-period fetch — skipped when the user is already comparing to prev */
+    if(!wlReusesPrev){
+      q({startDate:wlPrevRange.sd,endDate:wlPrevRange.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.wlPrevQueries=d.rows||[]}).catch(function(e){errors.push('wlPrevQueries')}).finally(done);
     }
   });
 }
@@ -1149,6 +1160,7 @@ function render(R){
   R.pages=applyFiltersToRows(R.pages,'page');
   R.prevQueries=applyFiltersToRows(R.prevQueries,'query');
   R.prevPages=applyFiltersToRows(R.prevPages,'page');
+  R.wlPrevQueries=applyFiltersToRows(R.wlPrevQueries,'query');
   R.queryPage=applyFiltersToRows(R.queryPage,'queryPage');
 
   /* Meta line */
@@ -1210,16 +1222,18 @@ function render(R){
   renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
   document.getElementById('dbPagesCount').textContent='showing '+Math.min(pLimit,(R.pages||[]).length)+' of '+(R.pages||[]).length;
 
-  /* Winners & Losers — match queries by normalized key across periods, then rank by
-     movement magnitude. No hard threshold (stable sites can shift by 0.05-0.15 positions
-     over long periods — filtering those out leaves empty tables). Instead, compute a
-     combined score that blends position delta (primary) with click delta (secondary),
-     and always surface the top 25 movers on each side if there are any matches. */
+  /* Winners & Losers — ALWAYS use the immediate previous period (R.wlPrevQueries),
+     regardless of the user's compare-mode selection. YoY or "No comparison" on the
+     KPI deltas shouldn't prevent W/L from showing "what moved recently". When the
+     user IS comparing to prev, we reused that fetch (wlPrevQueries is undefined) and
+     fall back to prevQueries which contains the same data. */
+  var wlPrevSource=R.wlPrevQueries||R.prevQueries||[];
+  var wlPrevMap={};wlPrevSource.forEach(function(r){wlPrevMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   var allMovers=[],matchedCount=0;
   (R.queries||[]).forEach(function(r){
     if(!r.keys||!r.keys[0])return;
     var key=(r.keys[0]||'').toLowerCase().trim();
-    var prevEntry=prevQMap[key];
+    var prevEntry=wlPrevMap[key];
     if(!prevEntry)return;
     matchedCount++;
     var posDelta=(prevEntry.position||0)-(r.position||0); /* positive = improved */
@@ -1232,10 +1246,10 @@ function render(R){
   });
   var winners=allMovers.filter(function(e){return e.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,25);
   var losers=allMovers.filter(function(e){return e.score<0}).sort(function(a,b){return a.score-b.score}).slice(0,25);
-  if(console&&console.log)console.log('[Lumina GSC] Winners/Losers: '+matchedCount+' matched queries of '+(R.queries||[]).length+' cur / '+(R.prevQueries||[]).length+' prev. Movers='+allMovers.length+' → Winners='+winners.length+' Losers='+losers.length);
+  if(console&&console.log)console.log('[Lumina GSC] Winners/Losers vs previous period: '+matchedCount+' matched of '+(R.queries||[]).length+' cur / '+wlPrevSource.length+' prev. Movers='+allMovers.length+' → Winners='+winners.length+' Losers='+losers.length);
   _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
   _sortState.losers=_sortState.losers||{col:'delta',dir:1};
-  var emptyMsg=matchedCount===0?(R.prevQueries&&R.prevQueries.length?'no queries matched between the two periods':'no comparison data'):null;
+  var emptyMsg=matchedCount===0?(wlPrevSource.length?'no queries matched between the two periods':'no previous-period data available yet'):null;
   renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,emptyMsg);
   renderMovementTable('dbLosersTable',losers,false,_sortState.losers,emptyMsg);
 

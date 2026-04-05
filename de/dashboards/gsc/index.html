@@ -747,11 +747,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🏆 Gewinner</h3><span class="ds-sub">Position verbessert</span></div>
+      <div class="ds-card-h"><h3>🏆 Gewinner</h3><span class="ds-sub">Top-Bewegungen vs. Vorperiode</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="from">Von</th><th class="ds-num" data-sort="to">Bis</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📉 Verlierer</h3><span class="ds-sub">Position gefallen</span></div>
+      <div class="ds-card-h"><h3>📉 Verlierer</h3><span class="ds-sub">Größte Rückgänge vs. Vorperiode</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="from">Von</th><th class="ds-num" data-sort="to">Bis</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
@@ -1088,6 +1088,13 @@ function loadData(){
   if(_compareMode==='prev'){prevRange=getPrevDates(range.sd,range.ed)}
   else if(_compareMode==='yoy'){prevRange=getYoYDates(range.sd,range.ed)}
 
+  /* Gewinner/Verlierer IMMER mit der direkten Vorperiode vergleichen, egal was der
+     User im Vergleich-Dropdown gewählt hat (Jahr-zu-Jahr ist für KPI-Deltas nützlich,
+     aber nicht für "was hat sich zuletzt bewegt"). Fetch wird wiederverwendet wenn
+     _compareMode bereits 'prev' ist. */
+  var wlPrevRange=getPrevDates(range.sd,range.ed);
+  var wlReusesPrev=prevRange&&prevRange.sd===wlPrevRange.sd&&prevRange.ed===wlPrevRange.ed;
+
   getGscToken(function(token){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
     var base='https://www.googleapis.com/webmasters/v3/sites/'+encodeURIComponent(siteUrl)+'/searchAnalytics/query';
@@ -1100,8 +1107,8 @@ function loadData(){
       return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()});
     }
 
-    var R={range:range,prevRange:prevRange};
-    var pending=prevRange?9:6;
+    var R={range:range,prevRange:prevRange,wlPrevRange:wlPrevRange};
+    var pending=(prevRange?9:6)+(wlReusesPrev?0:1);
     var errors=[];
     function done(){pending--;if(pending<=0)render(R)}
 
@@ -1113,11 +1120,16 @@ function loadData(){
     q({startDate:range.sd,endDate:range.ed,dimensions:['country'],rowLimit:20,type:'web'}).then(function(d){R.countries=d.rows||[]}).catch(function(e){errors.push('countries')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['query','page'],rowLimit:1000,type:'web'}).then(function(d){R.queryPage=d.rows||[]}).catch(function(e){errors.push('queryPage')}).finally(done);
 
-    /* Previous period */
+    /* Vorperiode (für KPI-Deltas, Chart-Vergleichslinie, Delta-Spalten in Queries/Pages) */
     if(prevRange){
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(d){R.prevDates=d.rows||[]}).catch(function(e){errors.push('prevDates')}).finally(done);
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.prevQueries=d.rows||[]}).catch(function(e){errors.push('prevQueries')}).finally(done);
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['page'],rowLimit:1000,type:'web'}).then(function(d){R.prevPages=d.rows||[]}).catch(function(e){errors.push('prevPages')}).finally(done);
+    }
+
+    /* Dedizierter Gewinner/Verlierer Vorperiode-Fetch — entfällt wenn der User bereits mit Vorperiode vergleicht */
+    if(!wlReusesPrev){
+      q({startDate:wlPrevRange.sd,endDate:wlPrevRange.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.wlPrevQueries=d.rows||[]}).catch(function(e){errors.push('wlPrevQueries')}).finally(done);
     }
   });
 }
@@ -1133,6 +1145,7 @@ function render(R){
   R.pages=applyFiltersToRows(R.pages,'page');
   R.prevQueries=applyFiltersToRows(R.prevQueries,'query');
   R.prevPages=applyFiltersToRows(R.prevPages,'page');
+  R.wlPrevQueries=applyFiltersToRows(R.wlPrevQueries,'query');
   R.queryPage=applyFiltersToRows(R.queryPage,'queryPage');
 
   /* Meta line */
@@ -1191,16 +1204,19 @@ function render(R){
   renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
   document.getElementById('dbPagesCount').textContent='zeige '+Math.min(pLimit,(R.pages||[]).length)+' von '+(R.pages||[]).length;
 
-  /* Gewinner & Verlierer — Queries periodenübergreifend normalisiert matchen, dann nach
-     Bewegungsstärke sortieren. Kein harter Schwellenwert (stabile Sites bewegen sich
-     über lange Perioden oft nur um 0.05-0.15 Positionen — ein harter Cutoff würde leere
-     Tabellen liefern). Stattdessen kombinierter Score aus Positions-Delta (primär) und
-     Click-Delta (sekundär), Top 25 Bewegungen auf jeder Seite. */
+  /* Gewinner & Verlierer — IMMER mit der direkten Vorperiode (R.wlPrevQueries)
+     vergleichen, unabhängig vom gewählten Vergleichsmodus. YoY oder "Kein Vergleich"
+     auf den KPI-Deltas soll nicht verhindern, dass Gewinner/Verlierer "was hat sich
+     zuletzt bewegt" zeigen. Wenn der User BEREITS mit Vorperiode vergleicht, wurde
+     der Fetch wiederverwendet (wlPrevQueries ist leer) und wir fallen auf prevQueries
+     zurück, die dieselben Daten enthalten. */
+  var wlPrevSource=R.wlPrevQueries||R.prevQueries||[];
+  var wlPrevMap={};wlPrevSource.forEach(function(r){wlPrevMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   var allMovers=[],matchedCount=0;
   (R.queries||[]).forEach(function(r){
     if(!r.keys||!r.keys[0])return;
     var key=(r.keys[0]||'').toLowerCase().trim();
-    var prevEntry=prevQMap[key];
+    var prevEntry=wlPrevMap[key];
     if(!prevEntry)return;
     matchedCount++;
     var posDelta=(prevEntry.position||0)-(r.position||0);
@@ -1211,10 +1227,10 @@ function render(R){
   });
   var winners=allMovers.filter(function(e){return e.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,25);
   var losers=allMovers.filter(function(e){return e.score<0}).sort(function(a,b){return a.score-b.score}).slice(0,25);
-  if(console&&console.log)console.log('[Lumina GSC] Gewinner/Verlierer: '+matchedCount+' Matches von '+(R.queries||[]).length+' akt / '+(R.prevQueries||[]).length+' vor. Bewegungen='+allMovers.length+' → Gewinner='+winners.length+' Verlierer='+losers.length);
+  if(console&&console.log)console.log('[Lumina GSC] Gewinner/Verlierer vs. Vorperiode: '+matchedCount+' Matches von '+(R.queries||[]).length+' akt / '+wlPrevSource.length+' vor. Bewegungen='+allMovers.length+' → Gewinner='+winners.length+' Verlierer='+losers.length);
   _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
   _sortState.losers=_sortState.losers||{col:'delta',dir:1};
-  var emptyReason=matchedCount===0?(R.prevQueries&&R.prevQueries.length?'keine übereinstimmenden Suchanfragen zwischen beiden Perioden':'keine Vergleichsdaten'):null;
+  var emptyReason=matchedCount===0?(wlPrevSource.length?'keine übereinstimmenden Suchanfragen zwischen beiden Perioden':'noch keine Vorperiode-Daten verfügbar'):null;
   renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,emptyReason);
   renderMovementTable('dbLosersTable',losers,false,_sortState.losers,emptyReason);
 
