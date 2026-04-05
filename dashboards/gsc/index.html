@@ -348,6 +348,22 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-count{font-size:11px;color:var(--muted)}
 .ds-filter{padding:16px 18px}
 .ds-row{display:flex;gap:16px;align-items:flex-end}
+/* Filter-bar main row: Property · Time range (flex:1) · Compare · Country */
+.ds-row-main{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.ds-row-main .ds-cell{flex:0 0 auto}
+.ds-row-main .ds-cell-property{min-width:180px;max-width:260px}
+.ds-row-main .ds-cell-property select{width:100%}
+.ds-row-main .ds-cell-range{flex:1 1 320px;min-width:0}
+.ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:150px}
+.ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%}
+@media(max-width:900px){
+  .ds-row-main{flex-wrap:wrap}
+  .ds-row-main .ds-cell-property{flex:1 1 100%;max-width:100%;min-width:0}
+  .ds-row-main .ds-cell-range{flex:1 1 100%;order:2;min-width:0}
+  .ds-row-main .ds-cell-compare{flex:1 1 calc(50% - 7px);min-width:0;order:3}
+  .ds-row-main .ds-cell-country{flex:1 1 calc(50% - 7px);min-width:0;order:4}
+  .ds-row-main .ds-pills{width:100%;justify-content:space-between}
+}
 .ds-label{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:4px}
 .ds-select,.ds-input{background:var(--input-bg,rgba(0,0,0,.12));border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:var(--font);font-size:13px;cursor:pointer;outline:none;transition:border-color .2s}
 .ds-select:focus,.ds-input:focus,.ds-select:hover,.ds-input:hover{border-color:var(--accent)}
@@ -398,27 +414,44 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:900px){.ds-grid-2{grid-template-columns:1fr}}
 /* Chart */
-.ds-chart{width:100%;height:260px;position:relative}
-.ds-chart svg{width:100%;height:100%;display:block}
+.ds-chart{width:100%;height:200px;position:relative;overflow:visible}
+.ds-chart svg{width:100%;height:100%;display:block;overflow:visible}
 .ds-chart .ds-axis{stroke:var(--border);stroke-width:1;fill:none}
 .ds-chart .ds-grid{stroke:var(--border);stroke-width:1;fill:none;opacity:.4;stroke-dasharray:2 3}
 .ds-chart .ds-tick{fill:var(--muted);font-size:10px;font-family:var(--font)}
-.ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted)}
+@media(max-width:640px){.ds-chart{height:170px}}
+.ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted);flex-wrap:wrap}
 .ds-leg-item{display:inline-flex;align-items:center;gap:4px}
 .ds-leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 /* Tables */
 .ds-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;border-radius:8px;border:1px solid var(--border)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
-.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
+.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border);white-space:nowrap}
 [data-theme="light"] .ds-table th{background:#faf6ed}
 .ds-table th[data-sort]{cursor:pointer;user-select:none;transition:color .15s}
 .ds-table th[data-sort]:hover{color:var(--accent)}
 .ds-table th .sort-arr{display:inline-block;margin-left:4px;font-size:9px;color:var(--accent);font-weight:900}
 .ds-table th.sorted{color:var(--accent)}
-.ds-cannib-row{padding:3px 0;font-size:11px;line-height:1.4}
-.ds-cannib-row code{background:rgba(255,245,225,.08);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--text);font-family:var(--mono)}
-.ds-cannib-row .ds-cannib-meta{color:var(--muted);font-size:10px;margin-left:6px}
-.ds-cannib-more{font-size:10px;color:var(--muted);padding:4px 0 0;font-style:italic}
+/* Card header: title left, subtitle right */
+.ds-card-h{align-items:baseline;gap:10px;flex-wrap:nowrap}
+.ds-card-h h3{flex:1 1 auto;min-width:0}
+.ds-card-h .ds-sub{font-size:11px;color:var(--muted);font-weight:500;margin-left:auto;text-align:right;line-height:1.3;flex:0 0 auto;white-space:normal;max-width:50%}
+.ds-card-h .ds-count{margin-left:auto;flex:0 0 auto}
+@media(max-width:640px){.ds-card-h{flex-wrap:wrap}.ds-card-h .ds-sub{text-align:left;margin-left:0;max-width:100%;font-size:10px}}
+/* Table toolbar (row-limit dropdown) */
+.ds-table-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:8px 0 6px;font-size:11px;color:var(--muted)}
+.ds-table-toolbar select{background:var(--input-bg,rgba(0,0,0,.12));border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:var(--font);font-size:11px;cursor:pointer}
+.ds-table-toolbar select:hover,.ds-table-toolbar select:focus{border-color:var(--accent);outline:none}
+.ds-cannib-row{padding:5px 0;font-size:11px;line-height:1.4;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px dashed var(--border)}
+.ds-cannib-row:last-child{border-bottom:none}
+.ds-cannib-row code{background:rgba(255,245,225,.08);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--text);font-family:var(--mono);flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ds-cannib-row .ds-cannib-meta{color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums;flex:0 0 auto;display:flex;gap:10px}
+.ds-cannib-row .ds-cannib-meta span{min-width:45px;text-align:right}
+.ds-cannib-row .ds-cannib-meta .ds-cannib-pos{color:var(--accent);font-weight:700}
+.ds-cannib-row .ds-cannib-meta .ds-cannib-clicks{color:var(--text);font-weight:700}
+.ds-cannib-more{font-size:10px;color:var(--muted);padding:6px 0 0;font-style:italic}
+.ds-cannib-more button{background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;font-family:var(--font);text-decoration:underline}
+.ds-cannib-more button:hover{color:var(--accent-h)}
 .ds-cannib-pages{max-width:420px}
 [data-theme="light"] .ds-cannib-row code{background:rgba(200,122,48,.08)}
 /* Filter row */
@@ -447,7 +480,27 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-delta.down{background:rgba(239,68,68,.14);color:var(--err)}
 .ds-delta.flat{color:var(--muted)}
 .ds-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px}
-@media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:5px 6px;font-size:10px}.ds-table .ds-query{max-width:96px}.ds-table .ds-path{max-width:100px}.ds-table .ds-delta{font-size:9px;padding:1px 4px}}
+@media(max-width:640px){
+  .ds-card{padding:14px}
+  .ds-stat-val{font-size:22px}
+  .ds-pills{width:100%}
+  .ds-row{flex-direction:column;align-items:stretch}
+  .ds-row > div{width:100%}
+  .ds-table th,.ds-table td{padding:5px 6px;font-size:10px}
+  .ds-table .ds-query{max-width:96px}
+  .ds-table .ds-path{max-width:100px}
+  .ds-table .ds-delta{font-size:9px;padding:1px 4px}
+  /* Mobile: don't use internal max-height scrolling — sticky header flickers on iOS,
+     better to let the tables flow with the page naturally */
+  .ds-table-wrap{max-height:none;overflow-y:visible}
+  /* Also disable sticky header on mobile since page scroll takes over */
+  .ds-table th{position:static}
+  .ds-cannib-pages{max-width:none}
+  .ds-cannib-row{flex-wrap:nowrap;gap:6px}
+  .ds-cannib-row code{font-size:9px}
+  .ds-cannib-row .ds-cannib-meta{font-size:9px;gap:6px}
+  .ds-cannib-row .ds-cannib-meta span{min-width:36px}
+}
 </style>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -499,7 +552,12 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/about.html">About</a>
 <a href="/support.html">Support</a>
 <a href="/blog/">Blog</a>
-<a href="/dashboards/">Dashboards</a>
+<div class="mm-cat">Dashboards <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<ul>
+<li><a href="/dashboards/gsc/">GSC Dashboard</a></li>
+<li><a href="/dashboards/ga4/">GA4 Dashboard</a></li>
+</ul></div>
 <a href="/ask-ai/">Ask AI</a>
 <div class="mm-cat">On-Page SEO <span class="mm-arrow">+</span></div>
 <div class="mm-links">
@@ -564,12 +622,12 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
   <!-- Filter bar -->
   <div class="ds-card ds-filter">
-    <div class="ds-row" style="flex-wrap:wrap;gap:14px;align-items:center">
-      <div>
+    <div class="ds-row ds-row-main">
+      <div class="ds-cell ds-cell-property">
         <div class="ds-label">🏠 Property</div>
         <select id="dbSite" class="ds-select"></select>
       </div>
-      <div style="flex:1">
+      <div class="ds-cell ds-cell-range">
         <div class="ds-label">⏱ Time range</div>
         <div class="ds-pills" id="dbRange">
           <button class="ds-pill" data-range="7">7d</button>
@@ -581,11 +639,35 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-pill" data-range="custom">Custom</button>
         </div>
       </div>
-      <div>
+      <div class="ds-cell ds-cell-compare">
         <div class="ds-label">🔀 Compare</div>
         <select id="dbCompare" class="ds-select">
           <option value="prev">Previous period</option>
+          <option value="yoy">Year over year</option>
           <option value="none">No comparison</option>
+        </select>
+      </div>
+      <div class="ds-cell ds-cell-country">
+        <div class="ds-label">🌍 Country</div>
+        <select id="dbCountryFilter" class="ds-select">
+          <option value="all">All</option>
+          <option value="aut">🇦🇹 Austria</option>
+          <option value="deu">🇩🇪 Germany</option>
+          <option value="che">🇨🇭 Switzerland</option>
+          <option value="usa">🇺🇸 United States</option>
+          <option value="gbr">🇬🇧 United Kingdom</option>
+          <option value="fra">🇫🇷 France</option>
+          <option value="ita">🇮🇹 Italy</option>
+          <option value="esp">🇪🇸 Spain</option>
+          <option value="nld">🇳🇱 Netherlands</option>
+          <option value="pol">🇵🇱 Poland</option>
+          <option value="bel">🇧🇪 Belgium</option>
+          <option value="swe">🇸🇪 Sweden</option>
+          <option value="can">🇨🇦 Canada</option>
+          <option value="aus">🇦🇺 Australia</option>
+          <option value="ind">🇮🇳 India</option>
+          <option value="bra">🇧🇷 Brazil</option>
+          <option value="jpn">🇯🇵 Japan</option>
         </select>
       </div>
     </div>
@@ -624,29 +706,6 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-filter-clear" id="dbKwClear" title="Clear">×</button>
         </div>
       </div>
-      <div class="ds-filter-group" style="flex:0 0 auto;min-width:140px">
-        <div class="ds-label">🌍 Country</div>
-        <select id="dbCountryFilter" class="ds-select" style="width:100%">
-          <option value="all">All</option>
-          <option value="aut">🇦🇹 Austria</option>
-          <option value="deu">🇩🇪 Germany</option>
-          <option value="che">🇨🇭 Switzerland</option>
-          <option value="usa">🇺🇸 United States</option>
-          <option value="gbr">🇬🇧 United Kingdom</option>
-          <option value="fra">🇫🇷 France</option>
-          <option value="ita">🇮🇹 Italy</option>
-          <option value="esp">🇪🇸 Spain</option>
-          <option value="nld">🇳🇱 Netherlands</option>
-          <option value="pol">🇵🇱 Poland</option>
-          <option value="bel">🇧🇪 Belgium</option>
-          <option value="swe">🇸🇪 Sweden</option>
-          <option value="can">🇨🇦 Canada</option>
-          <option value="aus">🇦🇺 Australia</option>
-          <option value="ind">🇮🇳 India</option>
-          <option value="bra">🇧🇷 Brazil</option>
-          <option value="jpn">🇯🇵 Japan</option>
-        </select>
-      </div>
       <button class="ds-filter-apply" id="dbApplyFilters">🔎 Apply filters</button>
     </div>
     <div class="ds-meta" id="dbMeta"></div>
@@ -674,33 +733,35 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <!-- Grids -->
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🔍 Top queries</h3><span class="ds-count" id="dbQueriesCount"></span></div>
+      <div class="ds-card-h"><h3>🔍 Top queries</h3><span class="ds-sub" id="dbQueriesCount"></span></div>
+      <div class="ds-table-toolbar">Show <select class="ds-limit-sel" data-target="queries"><option>25</option><option selected>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> rows</div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th data-sort="key">Query</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📄 Top pages</h3><span class="ds-count" id="dbPagesCount"></span></div>
+      <div class="ds-card-h"><h3>📄 Top pages</h3><span class="ds-sub" id="dbPagesCount"></span></div>
+      <div class="ds-table-toolbar">Show <select class="ds-limit-sel" data-target="pages"><option>25</option><option selected>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> rows</div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th data-sort="key">Page</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🏆 Winners <span style="font-size:11px;color:var(--muted);font-weight:500">position improved</span></h3></div>
+      <div class="ds-card-h"><h3>🏆 Winners</h3><span class="ds-sub">position improved</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th data-sort="key">Query</th><th class="ds-num" data-sort="from">From</th><th class="ds-num" data-sort="to">To</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📉 Losers <span style="font-size:11px;color:var(--muted);font-weight:500">position dropped</span></h3></div>
+      <div class="ds-card-h"><h3>📉 Losers</h3><span class="ds-sub">position dropped</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th data-sort="key">Query</th><th class="ds-num" data-sort="from">From</th><th class="ds-num" data-sort="to">To</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-card">
-    <div class="ds-card-h"><h3>🍎 Low-hanging fruits <span style="font-size:11px;color:var(--muted);font-weight:500">position 5-25, high impressions, easy wins</span></h3></div>
+    <div class="ds-card-h"><h3>🍎 Low-hanging fruits</h3><span class="ds-sub">position 5–25, high impressions, easy wins</span></div>
     <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th data-sort="key">Query</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-card">
-    <div class="ds-card-h"><h3>⚔️ Keyword cannibalization <span style="font-size:11px;color:var(--muted);font-weight:500">same query ranking on 2+ pages</span></h3></div>
+    <div class="ds-card-h"><h3>⚔️ Keyword cannibalization</h3><span class="ds-sub">same query ranking on 2+ pages</span></div>
     <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Query</th><th class="ds-num">Pages</th><th>Top URLs (best position first)</th></tr></thead><tbody></tbody></table></div>
   </div>
 
@@ -814,6 +875,13 @@ var _activeMetrics=saved||{clicks:true,impressions:true,ctr:false,position:false
 /* ── Table sort state per table ── */
 var _sortState={};
 
+/* ── Per-table row limit state (user-configurable via toolbar dropdown) ── */
+try{var savedLimits=JSON.parse(localStorage.getItem('lumina_db_gsc_limits')||'null');}catch(e){}
+var _rowLimits=savedLimits||{queries:50,pages:50};
+
+/* ── Cannibalization "show all" expansion state keyed by query ── */
+var _cannibExpanded={};
+
 /* ── Global store of last loaded data for toggle re-renders ── */
 var _lastR=null;
 
@@ -867,6 +935,12 @@ function getPrevDates(sd,ed){
   var days=Math.round((endD-startD)/86400000)+1;
   var prevEnd=new Date(startD);prevEnd.setDate(prevEnd.getDate()-1);
   var prevStart=new Date(prevEnd);prevStart.setDate(prevStart.getDate()-(days-1));
+  return {sd:toISO(prevStart),ed:toISO(prevEnd)};
+}
+function getYoYDates(sd,ed){
+  var startD=new Date(sd),endD=new Date(ed);
+  var prevStart=new Date(startD);prevStart.setFullYear(prevStart.getFullYear()-1);
+  var prevEnd=new Date(endD);prevEnd.setFullYear(prevEnd.getFullYear()-1);
   return {sd:toISO(prevStart),ed:toISO(prevEnd)};
 }
 
@@ -947,9 +1021,27 @@ _applyFilters.addEventListener('click',function(){
   updateFilterUI();
   loadData();
 });
+/* Country filter auto-applies on change (it's now on the main filter row) */
+_countryFilter.addEventListener('change',function(){
+  _filters.country=_countryFilter.value;
+  updateFilterUI();
+  loadData();
+});
 /* Enter key in filter inputs triggers apply */
 [_pageVal,_kwVal].forEach(function(inp){
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_applyFilters.click()}});
+});
+
+/* Row-limit dropdown handlers for pagination (Top Queries / Top Pages) */
+document.querySelectorAll('.ds-limit-sel').forEach(function(sel){
+  var target=sel.getAttribute('data-target');
+  if(_rowLimits[target])sel.value=String(_rowLimits[target]);
+  sel.addEventListener('change',function(){
+    _rowLimits[target]=parseInt(sel.value,10)||50;
+    localStorage.setItem('lumina_db_gsc_limits',JSON.stringify(_rowLimits));
+    /* Re-render from last loaded data (no refetch) */
+    if(_lastR)render(_lastR);
+  });
 });
 
 function updateFilterUI(){
@@ -1002,6 +1094,7 @@ function loadData(){
     range=getRangeDates(_currentRange);
   }
   if(_compareMode==='prev'){prevRange=getPrevDates(range.sd,range.ed)}
+  else if(_compareMode==='yoy'){prevRange=getYoYDates(range.sd,range.ed)}
 
   getGscToken(function(token){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
@@ -1022,8 +1115,8 @@ function loadData(){
 
     /* Current period fetches */
     q({startDate:range.sd,endDate:range.ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(d){R.dates=d.rows||[]}).catch(function(e){errors.push('dates')}).finally(done);
-    q({startDate:range.sd,endDate:range.ed,dimensions:['query'],rowLimit:200,type:'web'}).then(function(d){R.queries=d.rows||[]}).catch(function(e){errors.push('queries')}).finally(done);
-    q({startDate:range.sd,endDate:range.ed,dimensions:['page'],rowLimit:100,type:'web'}).then(function(d){R.pages=d.rows||[]}).catch(function(e){errors.push('pages')}).finally(done);
+    q({startDate:range.sd,endDate:range.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.queries=d.rows||[]}).catch(function(e){errors.push('queries')}).finally(done);
+    q({startDate:range.sd,endDate:range.ed,dimensions:['page'],rowLimit:1000,type:'web'}).then(function(d){R.pages=d.rows||[]}).catch(function(e){errors.push('pages')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['device'],rowLimit:5,type:'web'}).then(function(d){R.devices=d.rows||[]}).catch(function(e){errors.push('devices')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['country'],rowLimit:20,type:'web'}).then(function(d){R.countries=d.rows||[]}).catch(function(e){errors.push('countries')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['query','page'],rowLimit:1000,type:'web'}).then(function(d){R.queryPage=d.rows||[]}).catch(function(e){errors.push('queryPage')}).finally(done);
@@ -1031,8 +1124,8 @@ function loadData(){
     /* Previous period */
     if(prevRange){
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(d){R.prevDates=d.rows||[]}).catch(function(e){errors.push('prevDates')}).finally(done);
-      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['query'],rowLimit:500,type:'web'}).then(function(d){R.prevQueries=d.rows||[]}).catch(function(e){errors.push('prevQueries')}).finally(done);
-      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['page'],rowLimit:500,type:'web'}).then(function(d){R.prevPages=d.rows||[]}).catch(function(e){errors.push('prevPages')}).finally(done);
+      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.prevQueries=d.rows||[]}).catch(function(e){errors.push('prevQueries')}).finally(done);
+      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['page'],rowLimit:1000,type:'web'}).then(function(d){R.prevPages=d.rows||[]}).catch(function(e){errors.push('prevPages')}).finally(done);
     }
   });
 }
@@ -1095,34 +1188,42 @@ function render(R){
   renderChartLegend();
   renderChart();
 
-  /* Top queries */
-  var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[r.keys[0]]=r});
+  /* Top queries — user-controlled row limit */
+  var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   _sortState.queries=_sortState.queries||{col:'clicks',dir:-1};
-  renderSortableTable('dbQueriesTable',(R.queries||[]).slice(0,100),prevQMap,'query',_sortState.queries);
-  document.getElementById('dbQueriesCount').textContent=(R.queries||[]).length+' queries';
+  var qLimit=_rowLimits.queries||50;
+  renderSortableTable('dbQueriesTable',(R.queries||[]).slice(0,qLimit),prevQMap,'query',_sortState.queries);
+  document.getElementById('dbQueriesCount').textContent='showing '+Math.min(qLimit,(R.queries||[]).length)+' of '+(R.queries||[]).length;
 
   /* Top pages */
-  var prevPMap={};(R.prevPages||[]).forEach(function(r){prevPMap[r.keys[0]]=r});
+  var prevPMap={};(R.prevPages||[]).forEach(function(r){prevPMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   _sortState.pages=_sortState.pages||{col:'clicks',dir:-1};
-  renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,100),prevPMap,'page',_sortState.pages);
-  document.getElementById('dbPagesCount').textContent=(R.pages||[]).length+' pages';
+  var pLimit=_rowLimits.pages||50;
+  renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
+  document.getElementById('dbPagesCount').textContent='showing '+Math.min(pLimit,(R.pages||[]).length)+' of '+(R.pages||[]).length;
 
-  /* Winners & Losers — threshold lowered to 0.3 for more sensitivity */
-  var winners=[],losers=[];
+  /* Winners & Losers — use ALL of R.queries + R.prevQueries with normalized key matching.
+     Threshold: 0.2 for small movements; also require min 1 impression in current period to avoid noise. */
+  var winners=[],losers=[],matchedCount=0;
   (R.queries||[]).forEach(function(r){
-    var prev=prevQMap[r.keys[0]];
-    if(!prev)return;
-    var delta=(prev.position||0)-(r.position||0); /* positive = improved */
-    if(Math.abs(delta)<0.3)return;
-    var entry={q:r.keys[0],from:prev.position,to:r.position,delta:delta,clicks:r.clicks||0,prevClicks:prev.clicks||0};
+    if(!r.keys||!r.keys[0])return;
+    if((r.impressions||0)<1)return;
+    var key=(r.keys[0]||'').toLowerCase().trim();
+    var prevEntry=prevQMap[key];
+    if(!prevEntry)return;
+    matchedCount++;
+    var delta=(prevEntry.position||0)-(r.position||0); /* positive = improved */
+    if(Math.abs(delta)<0.2)return;
+    var entry={q:r.keys[0],from:prevEntry.position||0,to:r.position||0,delta:delta,clicks:r.clicks||0,prevClicks:prevEntry.clicks||0};
     if(delta>0)winners.push(entry);else losers.push(entry);
   });
   winners.sort(function(a,b){return b.delta-a.delta});
   losers.sort(function(a,b){return a.delta-b.delta});
+  if(console&&console.log)console.log('[Lumina GSC] Winners/Losers: '+matchedCount+' matched queries out of '+(R.queries||[]).length+' current / '+(R.prevQueries||[]).length+' prev. Threshold 0.2. Winners='+winners.length+' Losers='+losers.length);
   _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
   _sortState.losers=_sortState.losers||{col:'delta',dir:1};
-  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners);
-  renderMovementTable('dbLosersTable',losers,false,_sortState.losers);
+  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,matchedCount===0?(R.prevQueries&&R.prevQueries.length?'no matched queries':'no comparison data'):null);
+  renderMovementTable('dbLosersTable',losers,false,_sortState.losers,matchedCount===0?(R.prevQueries&&R.prevQueries.length?'no matched queries':'no comparison data'):null);
 
   /* Low-hanging fruits */
   var queries=R.queries||[];
@@ -1185,9 +1286,13 @@ function fmtMetric(v,mk){
 }
 function renderChart(){
   if(!_lastR||!_lastR.dates||!_lastR.dates.length){_chart.innerHTML='<div class="ds-empty">No data in range</div>';return}
+  /* If the chart container hasn't been measured yet (e.g. parent display:block just toggled),
+     retry on the next frame to avoid clipped SVG on first render */
+  var cw=_chart.clientWidth;
+  if(!cw||cw<50){requestAnimationFrame(renderChart);return}
   var dates=_lastR.dates;
   var prevDates=_lastR.prevDates||[];
-  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:14,b:28};
+  var W=cw,H=_chart.clientHeight||200,pad={l:40,r:40,t:12,b:24};
   var innerW=W-pad.l-pad.r,innerH=H-pad.t-pad.b;
   var n=dates.length;
   var activeKeys=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]});
@@ -1430,7 +1535,7 @@ function attachSortHeadersToTable(id,kind,state,renderFn){
   });
 }
 
-function renderMovementTable(id,rows,isWinners,state){
+function renderMovementTable(id,rows,isWinners,state,emptyReason){
   var getters={
     key:function(r){return r.q||''},
     from:function(r){return r.from||0},
@@ -1440,7 +1545,12 @@ function renderMovementTable(id,rows,isWinners,state){
   };
   var sorted=sortRowsGeneric(rows,state.col,state.dir,getters).slice(0,20);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No significant movement (threshold 0.3 positions)</td></tr>';attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state)});return;}
+  if(!sorted.length){
+    var msg=emptyReason?('No significant movement ('+emptyReason+')'):'No significant movement (threshold 0.2 positions)';
+    tbody.innerHTML='<tr><td colspan="5" class="ds-empty">'+msg+'</td></tr>';
+    attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state,emptyReason)});
+    return;
+  }
   tbody.innerHTML=sorted.map(function(r){
     var qEsc=esc(r.q);
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
@@ -1450,7 +1560,7 @@ function renderMovementTable(id,rows,isWinners,state){
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
       '</tr>';
   }).join('');
-  attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state)});
+  attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state,emptyReason)});
 }
 
 function renderFruitTable(id,rows,state){
@@ -1478,21 +1588,36 @@ function renderFruitTable(id,rows,state){
 
 function renderCannibTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  /* Only show queries with 3+ pages in top 10 \u2014 2-page ranks are usually just brand navigation noise */
+  /* Only show queries with 3+ pages in top 10 — 2-page ranks are usually just brand navigation noise */
   rows=rows.filter(function(c){return c.pages.length>=3});
   if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">No significant cannibalization detected 🎉</td></tr>';return}
   tbody.innerHTML=rows.slice(0,25).map(function(c){
     c.pages.sort(function(a,b){return a.pos-b.pos});
-    var topPages=c.pages.slice(0,5);
+    var isExpanded=_cannibExpanded[c.q]===true;
+    var topPages=isExpanded?c.pages:c.pages.slice(0,5);
     var more=c.pages.length-topPages.length;
     var pagesHtml=topPages.map(function(p){
       var path='/';try{path=new URL(p.page).pathname}catch(e){}
-      if(path.length>44)path=path.slice(0,42)+'\u2026';
-      return '<div class="ds-cannib-row"><code>'+esc(path)+'</code><span class="ds-cannib-meta">pos '+p.pos.toFixed(1)+' \u00b7 '+fmtInt(p.clicks)+' clicks</span></div>';
+      if(path.length>52)path=path.slice(0,50)+'…';
+      return '<div class="ds-cannib-row"><code title="'+esc(p.page)+'">'+esc(path)+'</code><span class="ds-cannib-meta"><span class="ds-cannib-pos">'+p.pos.toFixed(1)+'</span><span class="ds-cannib-clicks">'+fmtInt(p.clicks)+'</span></span></div>';
     }).join('');
-    if(more>0)pagesHtml+='<div class="ds-cannib-more">+ '+more+' more pages</div>';
+    var qAttr=esc(c.q).replace(/"/g,'&quot;');
+    if(more>0){
+      pagesHtml+='<div class="ds-cannib-more"><button data-cannib-q="'+qAttr+'">Show '+more+' more</button></div>';
+    }else if(isExpanded&&c.pages.length>5){
+      pagesHtml+='<div class="ds-cannib-more"><button data-cannib-q="'+qAttr+'" data-collapse="1">Show less</button></div>';
+    }
     return '<tr><td><span class="ds-query">'+esc(c.q)+'</span></td><td class="ds-num">'+c.pages.length+'</td><td class="ds-cannib-pages">'+pagesHtml+'</td></tr>';
   }).join('');
+  /* Wire expand/collapse buttons */
+  tbody.querySelectorAll('button[data-cannib-q]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var q=btn.getAttribute('data-cannib-q');
+      if(btn.getAttribute('data-collapse'))_cannibExpanded[q]=false;
+      else _cannibExpanded[q]=true;
+      renderCannibTable(id,rows);
+    });
+  });
 }
 
 function renderSimpleTable(id,rows,kind,state){
