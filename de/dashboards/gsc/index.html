@@ -363,12 +363,14 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
 @media(max-width:900px){.ds-totals{grid-template-columns:repeat(2,1fr)}}
 /* 2-per-row metrics stays all the way down - even on iPhone */
-.ds-stat{background:rgba(255,245,225,.05);border:2px solid rgba(255,240,215,.10);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
+.ds-stat{background:rgba(255,245,225,.05);border:2px solid rgba(255,240,215,.10);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;cursor:pointer;transition:all .2s;user-select:none;opacity:.55}
 [data-theme="light"] .ds-stat{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.14)}
-.ds-stat[data-color="blue"]{border-color:rgba(109,157,255,.35)}
-.ds-stat[data-color="purple"]{border-color:rgba(192,132,252,.35)}
-.ds-stat[data-color="green"]{border-color:rgba(80,224,144,.35)}
-.ds-stat[data-color="orange"]{border-color:rgba(236,165,80,.35)}
+.ds-stat:hover{transform:translateY(-2px)}
+.ds-stat.active{opacity:1}
+.ds-stat[data-color="blue"].active{border-color:rgba(109,157,255,.85);box-shadow:0 4px 14px rgba(109,157,255,.18)}
+.ds-stat[data-color="purple"].active{border-color:rgba(192,132,252,.85);box-shadow:0 4px 14px rgba(192,132,252,.18)}
+.ds-stat[data-color="green"].active{border-color:rgba(80,224,144,.85);box-shadow:0 4px 14px rgba(80,224,144,.18)}
+.ds-stat[data-color="orange"].active{border-color:rgba(236,165,80,.85);box-shadow:0 4px 14px rgba(236,165,80,.18)}
 .ds-stat-lbl{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--muted);letter-spacing:.7px;margin-bottom:6px}
 .ds-stat-val{font-size:28px;font-weight:800;color:var(--text);line-height:1;font-variant-numeric:tabular-nums}
 .ds-stat[data-color="blue"] .ds-stat-val{color:#6d9dff}
@@ -379,6 +381,18 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-stat-delta.up{color:var(--ok)}
 .ds-stat-delta.down{color:var(--err)}
 .ds-stat-delta.flat{color:var(--muted)}
+.ds-stat-hint{font-size:10px;color:var(--muted);text-align:center;margin:-6px 0 12px;font-style:italic}
+.ds-chart{position:relative}
+.ds-chart-crosshair{position:absolute;display:none;top:12px;width:1px;background:var(--text);opacity:.3;pointer-events:none;z-index:5}
+.ds-chart-tooltip{position:absolute;display:none;background:var(--bg2);border:1px solid var(--border-h);border-radius:10px;padding:10px 14px;font-size:11px;font-family:var(--font);pointer-events:none;z-index:10;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap;min-width:160px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+[data-theme="light"] .ds-chart-tooltip{background:rgba(255,255,255,.98);box-shadow:0 4px 20px rgba(100,70,30,.15)}
+.ds-chart-tooltip .tt-date{font-weight:800;color:var(--text);margin-bottom:5px;font-size:12px}
+.ds-chart-tooltip .tt-row{display:flex;align-items:center;gap:6px;padding:2px 0;line-height:1.4}
+.ds-chart-tooltip .tt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ds-chart-tooltip .tt-lbl{color:var(--muted)}
+.ds-chart-tooltip .tt-val{font-weight:700;color:var(--text);margin-left:auto;font-variant-numeric:tabular-nums}
+.ds-chart-tooltip .tt-prev{color:var(--muted);font-size:10px;margin-left:4px}
+.ds-chart-dot{opacity:0;transition:all .15s}
 /* Grid layouts */
 .ds-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:900px){.ds-grid-2{grid-template-columns:1fr}}
@@ -396,6 +410,10 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
 .ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
 [data-theme="light"] .ds-table th{background:#faf6ed}
+.ds-table th[data-sort]{cursor:pointer;user-select:none;transition:color .15s}
+.ds-table th[data-sort]:hover{color:var(--accent)}
+.ds-table th .sort-arr{display:inline-block;margin-left:4px;font-size:9px;color:var(--accent);font-weight:900}
+.ds-table th.sorted{color:var(--accent)}
 .ds-cannib-row{padding:3px 0;font-size:11px;line-height:1.4}
 .ds-cannib-row code{background:rgba(255,245,225,.08);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--text);font-family:var(--mono)}
 .ds-cannib-row .ds-cannib-meta{color:var(--muted);font-size:10px;margin-left:6px}
@@ -640,16 +658,14 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   </div>
   <div id="dbError" class="ds-card" style="display:none;border-color:var(--err);color:var(--err);text-align:center;padding:20px"></div>
 
-  <!-- Totals row -->
+  <!-- Totals row (click to toggle metric in chart) -->
   <div class="ds-totals" id="dbTotals"></div>
+  <div class="ds-stat-hint">💡 Klicke eine Metrik an um sie im Chart unten ein- oder auszublenden</div>
 
   <!-- Line chart -->
   <div class="ds-card">
     <div class="ds-card-h"><h3>Performance im Zeitverlauf</h3>
-      <div class="ds-legend">
-        <span class="ds-leg-item"><span class="ds-leg-dot" style="background:#6d9dff"></span>Clicks</span>
-        <span class="ds-leg-item"><span class="ds-leg-dot" style="background:#c084fc"></span>Impressions</span>
-      </div>
+      <div class="ds-legend" id="dbChartLegend"></div>
     </div>
     <div id="dbChart" class="ds-chart"></div>
   </div>
@@ -658,28 +674,28 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🔍 Top Suchanfragen</h3><span class="ds-count" id="dbQueriesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📄 Top Seiten</h3><span class="ds-count" id="dbPagesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Seite</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th data-sort="key">Seite</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🏆 Gewinner <span style="font-size:11px;color:var(--muted);font-weight:500">Position verbessert</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="from">Von</th><th class="ds-num" data-sort="to">Bis</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📉 Verlierer <span style="font-size:11px;color:var(--muted);font-weight:500">Position gefallen</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="from">Von</th><th class="ds-num" data-sort="to">Bis</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-card">
     <div class="ds-card-h"><h3>🍎 Einfache Gewinne <span style="font-size:11px;color:var(--muted);font-weight:500">Position 5-25, hohe Impressions, schnelle Erfolge</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-card">
@@ -690,11 +706,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>📱 Geräte</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbDevicesTable"><thead><tr><th>Gerät</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbDevicesTable"><thead><tr><th data-sort="key">Gerät</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>🌍 Top Länder</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbCountriesTable"><thead><tr><th>Land</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbCountriesTable"><thead><tr><th data-sort="key">Land</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -788,6 +804,13 @@ var _currentRange=parseInt(localStorage.getItem('lumina_db_gsc_range')||'28');
 var _compareMode=localStorage.getItem('lumina_db_gsc_compare')||'prev';
 var _customFrom=null,_customTo=null;
 var _filters={page:{op:'contains',val:''},kw:{op:'contains',val:''},country:'all'};
+
+var METRIC_COLORS={clicks:'#6d9dff',impressions:'#c084fc',ctr:'#22c55e',position:'#f59e0b'};
+var METRIC_LABELS={clicks:'Clicks',impressions:'Impressions',ctr:'CTR',position:'Position'};
+try{var saved=JSON.parse(localStorage.getItem('lumina_db_gsc_metrics')||'null');}catch(e){}
+var _activeMetrics=saved||{clicks:true,impressions:true,ctr:false,position:false};
+var _sortState={};
+var _lastR=null;
 
 /* ── Auth helpers (mirror Ask AI pattern) ── */
 function gscOk(){
@@ -1012,6 +1035,7 @@ function loadData(){
 /* ── Rendering ── */
 function render(R){
   _loading.style.display='none';
+  _lastR=R;
   var range=R.range,prev=R.prevRange;
 
   /* Apply client-side filters (page/keyword) — country is applied server-side already */
@@ -1042,49 +1066,68 @@ function render(R){
   var pPos=R.prevDates&&R.prevDates.length?pPosSum/R.prevDates.length:0;
 
   _totals.innerHTML=
-    statCard('Clicks',fmtInt(totClicks),prev?fmtDeltaPct(totClicks,pClicks):'','blue')+
-    statCard('Impressions',fmtInt(totImpr),prev?fmtDeltaPct(totImpr,pImpr):'','purple')+
-    statCard('CTR',fmtPct(avgCtr),prev?fmtDeltaPct(avgCtr,pCtr):'','green')+
-    statCard('Avg position',fmtPos(avgPos),prev?fmtDeltaPct(avgPos,pPos,true):'','orange');
+    statCard('clicks','Clicks',fmtInt(totClicks),prev?fmtDeltaPct(totClicks,pClicks):'','blue')+
+    statCard('impressions','Impressions',fmtInt(totImpr),prev?fmtDeltaPct(totImpr,pImpr):'','purple')+
+    statCard('ctr','CTR',fmtPct(avgCtr),prev?fmtDeltaPct(avgCtr,pCtr):'','green')+
+    statCard('position','Ø Position',fmtPos(avgPos),prev?fmtDeltaPct(avgPos,pPos,true):'','orange');
 
-  /* Chart */
-  renderChart(R.dates||[]);
+  Array.prototype.forEach.call(_totals.querySelectorAll('.ds-stat[data-metric]'),function(card){
+    card.addEventListener('click',function(){
+      var m=card.getAttribute('data-metric');
+      _activeMetrics[m]=!_activeMetrics[m];
+      var anyActive=Object.keys(_activeMetrics).some(function(k){return _activeMetrics[k]});
+      if(!anyActive){_activeMetrics[m]=true;return;}
+      localStorage.setItem('lumina_db_gsc_metrics',JSON.stringify(_activeMetrics));
+      card.classList.toggle('active');
+      renderChart();
+      renderChartLegend();
+    });
+  });
+
+  renderChartLegend();
+  renderChart();
 
   /* Top queries */
   var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[r.keys[0]]=r});
-  renderQueryTable('dbQueriesTable',R.queries||[],prevQMap);
+  _sortState.queries=_sortState.queries||{col:'clicks',dir:-1};
+  renderSortableTable('dbQueriesTable',(R.queries||[]).slice(0,100),prevQMap,'query',_sortState.queries);
   document.getElementById('dbQueriesCount').textContent=(R.queries||[]).length+' Queries';
 
   /* Top pages */
   var prevPMap={};(R.prevPages||[]).forEach(function(r){prevPMap[r.keys[0]]=r});
-  renderPageTable('dbPagesTable',R.pages||[],prevPMap);
+  _sortState.pages=_sortState.pages||{col:'clicks',dir:-1};
+  renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,100),prevPMap,'page',_sortState.pages);
   document.getElementById('dbPagesCount').textContent=(R.pages||[]).length+' Seiten';
 
-  /* Winners & Losers */
+  /* Winners & Losers (threshold lowered to 0.3) */
   var winners=[],losers=[];
   (R.queries||[]).forEach(function(r){
     var prev=prevQMap[r.keys[0]];
     if(!prev)return;
-    var delta=(prev.position||0)-(r.position||0); /* positive = improved */
-    if(Math.abs(delta)<0.5)return;
-    var entry={q:r.keys[0],from:prev.position,to:r.position,delta:delta,clicks:r.clicks||0};
+    var delta=(prev.position||0)-(r.position||0);
+    if(Math.abs(delta)<0.3)return;
+    var entry={q:r.keys[0],from:prev.position,to:r.position,delta:delta,clicks:r.clicks||0,prevClicks:prev.clicks||0};
     if(delta>0)winners.push(entry);else losers.push(entry);
   });
   winners.sort(function(a,b){return b.delta-a.delta});
   losers.sort(function(a,b){return a.delta-b.delta});
-  renderMovementTable('dbWinnersTable',winners.slice(0,20),true);
-  renderMovementTable('dbLosersTable',losers.slice(0,20),false);
+  _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
+  _sortState.losers=_sortState.losers||{col:'delta',dir:1};
+  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners);
+  renderMovementTable('dbLosersTable',losers,false,_sortState.losers);
 
   /* Low-hanging fruits */
   var queries=R.queries||[];
+  var fruits=[];
   if(queries.length>5){
     var sorted=queries.slice().sort(function(a,b){return (a.impressions||0)-(b.impressions||0)});
     var medImpr=sorted[Math.floor(sorted.length/2)].impressions||0;
-    var fruits=queries.filter(function(r){return (r.position||0)>=5&&(r.position||0)<=25&&(r.impressions||0)>=Math.max(medImpr,5)})
+    fruits=queries.filter(function(r){return (r.position||0)>=5&&(r.position||0)<=25&&(r.impressions||0)>=Math.max(medImpr,5)})
       .sort(function(a,b){return ((b.impressions||0)/(b.position||1))-((a.impressions||0)/(a.position||1))})
       .slice(0,30);
-    renderFruitTable('dbFruitsTable',fruits);
-  }else{renderFruitTable('dbFruitsTable',[])}
+  }
+  _sortState.fruits=_sortState.fruits||{col:'impressions',dir:-1};
+  renderFruitTable('dbFruitsTable',fruits,_sortState.fruits);
 
   /* Cannibalization */
   var qpMap={};(R.queryPage||[]).forEach(function(r){
@@ -1101,65 +1144,181 @@ function render(R){
   renderCannibTable('dbCannibTable',cannib.slice(0,30));
 
   /* Devices + Countries */
-  renderSimpleTable('dbDevicesTable',R.devices||[],'device');
-  renderSimpleTable('dbCountriesTable',R.countries||[],'country');
+  _sortState.devices=_sortState.devices||{col:'clicks',dir:-1};
+  _sortState.countries=_sortState.countries||{col:'clicks',dir:-1};
+  renderSimpleTable('dbDevicesTable',R.devices||[],'device',_sortState.devices);
+  renderSimpleTable('dbCountriesTable',R.countries||[],'country',_sortState.countries);
 }
 
-function statCard(label,value,delta,color){
-  return '<div class="ds-stat" data-color="'+color+'"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
+function statCard(metric,label,value,delta,color){
+  var active=_activeMetrics[metric]?' active':'';
+  return '<div class="ds-stat'+active+'" data-color="'+color+'" data-metric="'+metric+'" title="Klicke um im Chart ein/auszublenden"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
 }
 
-/* ── Chart (inline SVG) ── */
-function renderChart(dates){
-  if(!dates.length){_chart.innerHTML='<div class="ds-empty">Keine Daten im Zeitraum</div>';return}
-  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:12,b:28};
+function renderChartLegend(){
+  var el=document.getElementById('dbChartLegend');if(!el)return;
+  el.innerHTML=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]}).map(function(k){
+    return '<span class="ds-leg-item"><span class="ds-leg-dot" style="background:'+METRIC_COLORS[k]+'"></span>'+METRIC_LABELS[k]+'</span>';
+  }).join('');
+}
+
+/* ── Chart (multi-metric, toggleable, hover tooltip + crosshair) ── */
+function getMetricVal(row,mk){
+  if(mk==='clicks')return row.clicks||0;
+  if(mk==='impressions')return row.impressions||0;
+  if(mk==='ctr')return (row.ctr||0)*100;
+  if(mk==='position')return row.position||0;
+  return 0;
+}
+function fmtMetric(v,mk){
+  if(mk==='ctr')return v.toFixed(1)+'%';
+  if(mk==='position')return v.toFixed(1);
+  return fmtInt(v);
+}
+function renderChart(){
+  if(!_lastR||!_lastR.dates||!_lastR.dates.length){_chart.innerHTML='<div class="ds-empty">Keine Daten im Zeitraum</div>';return}
+  var dates=_lastR.dates;
+  var prevDates=_lastR.prevDates||[];
+  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:14,b:28};
   var innerW=W-pad.l-pad.r,innerH=H-pad.t-pad.b;
-  var maxC=0,maxI=0;
-  dates.forEach(function(r){if(r.clicks>maxC)maxC=r.clicks;if(r.impressions>maxI)maxI=r.impressions});
-  maxC=maxC||1;maxI=maxI||1;
   var n=dates.length;
-  function x(i){return pad.l+(n===1?innerW/2:(i*innerW/(n-1)))}
-  function yC(v){return pad.t+innerH-(v/maxC)*innerH}
-  function yI(v){return pad.t+innerH-(v/maxI)*innerH}
-  var clicksPath='',imprPath='';
-  dates.forEach(function(r,i){
-    var cx=x(i);
-    clicksPath+=(i===0?'M':'L')+cx+','+yC(r.clicks||0);
-    imprPath+=(i===0?'M':'L')+cx+','+yI(r.impressions||0);
+  var activeKeys=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]});
+  if(!activeKeys.length){_chart.innerHTML='<div class="ds-empty">Klicke eine Metrik-Karte oben um sie im Chart zu zeigen</div>';return}
+
+  var svg='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="overflow:visible">';
+  for(var g=0;g<=4;g++){var gy=pad.t+(innerH*g/4);svg+='<line class="ds-grid" x1="'+pad.l+'" y1="'+gy+'" x2="'+(W-pad.r)+'" y2="'+gy+'"/>';}
+  svg+='<defs>';
+  activeKeys.forEach(function(mk){
+    svg+='<linearGradient id="dbgrad-'+mk+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+METRIC_COLORS[mk]+'" stop-opacity=".25"/><stop offset="100%" stop-color="'+METRIC_COLORS[mk]+'" stop-opacity="0"/></linearGradient>';
   });
-  /* Gridlines */
-  var gridLines='';
-  for(var g=0;g<=4;g++){
-    var gy=pad.t+(innerH*g/4);
-    gridLines+='<line class="ds-grid" x1="'+pad.l+'" y1="'+gy+'" x2="'+(W-pad.r)+'" y2="'+gy+'"/>';
+  svg+='</defs>';
+
+  var scales={};
+  activeKeys.forEach(function(mk){
+    var vals=dates.map(function(r){return getMetricVal(r,mk)});
+    var prevVals=prevDates.map(function(r){return getMetricVal(r,mk)});
+    var all=vals.concat(prevVals);
+    var minV=Math.min.apply(null,all),maxV=Math.max.apply(null,all);
+    if(maxV===minV)maxV=minV+1;
+    scales[mk]={min:minV,max:maxV,invert:mk==='position'};
+  });
+
+  function xAt(i){return pad.l+(n===1?innerW/2:(i*innerW/(n-1)))}
+  function yAt(v,mk){
+    var s=scales[mk];
+    var ny=(v-s.min)/(s.max-s.min);
+    if(s.invert)ny=1-ny;
+    return pad.t+(1-ny)*innerH;
   }
-  /* X-axis date ticks (show ~6) */
+
+  if(prevDates.length>1){
+    activeKeys.forEach(function(mk){
+      var pn=prevDates.length;
+      var pts=prevDates.map(function(r,i){
+        return {x:pad.l+(pn===1?innerW/2:(i*innerW/(pn-1))),y:yAt(getMetricVal(r,mk),mk)};
+      });
+      var ln='M'+pts.map(function(p){return p.x+','+p.y}).join('L');
+      svg+='<path d="'+ln+'" stroke="'+METRIC_COLORS[mk]+'" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="5,4" fill="none"/>';
+    });
+  }
+
+  activeKeys.forEach(function(mk){
+    var pts=dates.map(function(r,i){return {x:xAt(i),y:yAt(getMetricVal(r,mk),mk),val:getMetricVal(r,mk),date:r.keys[0]}});
+    var area='M'+pts[0].x+','+pts[0].y;
+    for(var i=1;i<pts.length;i++)area+='L'+pts[i].x+','+pts[i].y;
+    area+='L'+pts[pts.length-1].x+','+(pad.t+innerH)+'L'+pts[0].x+','+(pad.t+innerH)+'Z';
+    svg+='<path d="'+area+'" fill="url(#dbgrad-'+mk+')"/>';
+    var ln='M'+pts.map(function(p){return p.x+','+p.y}).join('L');
+    svg+='<path d="'+ln+'" stroke="'+METRIC_COLORS[mk]+'" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+    pts.forEach(function(p,pi){
+      svg+='<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="'+METRIC_COLORS[mk]+'" class="ds-chart-dot" data-metric="'+mk+'" data-idx="'+pi+'"/>';
+    });
+  });
+
   var tickCount=Math.min(6,n);
-  var ticks='';
   for(var t=0;t<tickCount;t++){
-    var idx=Math.floor(t*(n-1)/(tickCount-1));
-    if(tickCount===1)idx=0;
-    var tx=x(idx);
-    var d=dates[idx].keys[0];
-    var short=d.slice(5); /* MM-DD */
-    ticks+='<text class="ds-tick" x="'+tx+'" y="'+(H-8)+'" text-anchor="middle">'+short+'</text>';
+    var idx=tickCount===1?0:Math.floor(t*(n-1)/(tickCount-1));
+    svg+='<text class="ds-tick" x="'+xAt(idx)+'" y="'+(H-8)+'" text-anchor="middle">'+dates[idx].keys[0].slice(5)+'</text>';
   }
-  /* Y-axis labels */
-  var yLabels='';
-  for(var g=0;g<=4;g++){
-    var gy=pad.t+(innerH*g/4);
-    var valC=Math.round(maxC*(1-g/4));
-    var valI=Math.round(maxI*(1-g/4));
-    yLabels+='<text class="ds-tick" x="'+(pad.l-6)+'" y="'+(gy+3)+'" text-anchor="end" fill="#6d9dff">'+fmtNum(valC)+'</text>';
-    yLabels+='<text class="ds-tick" x="'+(W-pad.r+6)+'" y="'+(gy+3)+'" text-anchor="start" fill="#c084fc">'+fmtNum(valI)+'</text>';
+
+  var colW=n>1?innerW/(n-1):innerW;
+  for(var hi=0;hi<n;hi++){
+    var hx=xAt(hi);
+    svg+='<rect x="'+(hx-colW/2)+'" y="'+pad.t+'" width="'+colW+'" height="'+innerH+'" fill="transparent" class="ds-hover-col" data-idx="'+hi+'" style="cursor:crosshair"/>';
   }
-  _chart.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'+
-    gridLines+
-    '<path d="'+imprPath+'" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-    '<path d="'+clicksPath+'" fill="none" stroke="#6d9dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-    ticks+yLabels+
-    '</svg>';
+
+  svg+='</svg>';
+  _chart.innerHTML=svg;
+
+  var crosshair=document.createElement('div');
+  crosshair.className='ds-chart-crosshair';
+  crosshair.style.top=pad.t+'px';
+  crosshair.style.height=innerH+'px';
+  _chart.appendChild(crosshair);
+  var tooltip=document.createElement('div');
+  tooltip.className='ds-chart-tooltip';
+  _chart.appendChild(tooltip);
+
+  var prevByIdx={};
+  if(prevDates.length){
+    prevDates.forEach(function(r,i){
+      var mapped=n>1?Math.round(i/(prevDates.length-1||1)*(n-1)):0;
+      prevByIdx[mapped]=r;
+    });
+  }
+
+  var svgEl=_chart.querySelector('svg');
+  _chart.querySelectorAll('.ds-hover-col').forEach(function(col){
+    col.addEventListener('mouseenter',function(){
+      var idx=parseInt(col.dataset.idx);
+      var row=dates[idx];if(!row)return;
+      var prevRow=prevByIdx[idx];
+      var svgRect=svgEl.getBoundingClientRect();
+      var ratio=svgRect.width/W;
+      var cx=xAt(idx)*ratio;
+      crosshair.style.display='block';
+      crosshair.style.left=cx+'px';
+      crosshair.style.top=(pad.t*ratio)+'px';
+      crosshair.style.height=(innerH*ratio)+'px';
+      _chart.querySelectorAll('.ds-chart-dot').forEach(function(dot){
+        if(parseInt(dot.dataset.idx)===idx){dot.style.opacity='1';dot.setAttribute('r','5');}
+        else{dot.style.opacity='0';dot.setAttribute('r','3.5');}
+      });
+      var html='<div class="tt-date">'+row.keys[0]+'</div>';
+      ['clicks','impressions','ctr','position'].forEach(function(mk){
+        if(!_activeMetrics[mk])return;
+        var v=getMetricVal(row,mk);
+        html+='<div class="tt-row"><span class="tt-dot" style="background:'+METRIC_COLORS[mk]+'"></span><span class="tt-lbl">'+METRIC_LABELS[mk]+'</span><span class="tt-val">'+fmtMetric(v,mk)+'</span>';
+        if(prevRow){
+          var pv=getMetricVal(prevRow,mk);
+          html+='<span class="tt-prev">vs '+fmtMetric(pv,mk)+'</span>';
+        }
+        html+='</div>';
+      });
+      if(prevRow)html+='<div style="font-size:10px;color:var(--muted);margin-top:4px;border-top:1px solid var(--border);padding-top:4px">vs '+prevRow.keys[0]+'</div>';
+      tooltip.innerHTML=html;
+      tooltip.style.display='block';
+      var tipW=tooltip.offsetWidth||160;
+      var tipL=cx-tipW/2;
+      var maxL=svgRect.width-tipW-2;
+      if(tipL<2)tipL=2;
+      if(tipL>maxL)tipL=maxL;
+      tooltip.style.left=tipL+'px';
+      tooltip.style.top=(pad.t*ratio+2)+'px';
+    });
+    col.addEventListener('mouseleave',function(){
+      crosshair.style.display='none';
+      tooltip.style.display='none';
+      _chart.querySelectorAll('.ds-chart-dot').forEach(function(dot){dot.style.opacity='0';dot.setAttribute('r','3.5');});
+    });
+  });
 }
+
+var _chartResizeTO;
+window.addEventListener('resize',function(){
+  clearTimeout(_chartResizeTO);
+  _chartResizeTO=setTimeout(function(){if(_lastR)renderChart();},150);
+});
 
 /* ── Tables ── */
 function posCell(pos,delta){
@@ -1169,45 +1328,81 @@ function posCell(pos,delta){
   return base+' <span class="ds-delta '+(good?'up':'down')+'">'+(good?'▲':'▼')+Math.abs(delta).toFixed(1)+'</span>';
 }
 
-function renderQueryTable(id,rows,prevMap){
+function sortRowsGeneric(rows,col,dir,getters){
+  var getter=getters[col]||function(r){return r[col]||0};
+  return rows.slice().sort(function(a,b){
+    var va=getter(a),vb=getter(b);
+    if(typeof va==='string')return dir*va.localeCompare(vb);
+    return dir*((va||0)-(vb||0));
+  });
+}
+
+function attachSortHeadersToTable(id,kind,state,renderFn){
+  var thead=document.querySelector('#'+id+' thead');
+  if(!thead)return;
+  thead.querySelectorAll('th').forEach(function(th){
+    th.classList.remove('sorted');
+    var ar=th.querySelector('.sort-arr');if(ar)ar.remove();
+    var col=th.getAttribute('data-sort');
+    if(col&&col===state.col){
+      th.classList.add('sorted');
+      th.insertAdjacentHTML('beforeend','<span class="sort-arr">'+(state.dir<0?'▼':'▲')+'</span>');
+    }
+  });
+  thead.querySelectorAll('th[data-sort]').forEach(function(th){
+    var col=th.getAttribute('data-sort');
+    th.onclick=function(){
+      if(state.col===col){state.dir=-state.dir;}else{state.col=col;state.dir=-1;}
+      renderFn();
+    };
+  });
+}
+
+function renderSortableTable(id,rows,prevMap,kind,state){
+  var getters={
+    key:function(r){return r.keys[0]||''},
+    clicks:function(r){return r.clicks||0},
+    impressions:function(r){return r.impressions||0},
+    ctr:function(r){return r.ctr||0},
+    position:function(r){return r.position||0}
+  };
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Queries im Zeitraum</td></tr>';return}
-  tbody.innerHTML=rows.slice(0,100).map(function(r){
-    var q=r.keys[0];
-    var prev=prevMap[q];
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten im Zeitraum</td></tr>';attachSortHeadersToTable(id,kind,state,function(){renderSortableTable(id,rows,prevMap,kind,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
+    var prev=prevMap[r.keys[0]];
     var posDelta=prev?(prev.position-r.position):null;
-    var qEsc=esc(q);
-    return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
+    var label;
+    if(kind==='page'){
+      var url=r.keys[0];
+      var path='/';try{path=new URL(url).pathname+new URL(url).search}catch(e){}
+      label='<span class="ds-path" title="'+esc(url)+'">'+esc(path)+'</span>';
+    }else{
+      var q=r.keys[0];
+      label='<span class="ds-query" title="'+esc(q)+'">'+esc(q)+'</span>';
+    }
+    return '<tr><td>'+label+'</td>'+
       '<td class="ds-num"><strong>'+fmtInt(r.clicks)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(r.impressions)+'</td>'+
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
       '<td class="ds-num">'+posCell(r.position,posDelta)+'</td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,kind,state,function(){renderSortableTable(id,rows,prevMap,kind,state)});
 }
 
-function renderPageTable(id,rows,prevMap){
+function renderMovementTable(id,rows,isWinners,state){
+  var getters={
+    key:function(r){return r.q||''},
+    from:function(r){return r.from||0},
+    to:function(r){return r.to||0},
+    delta:function(r){return r.delta||0},
+    clicks:function(r){return r.clicks||0}
+  };
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters).slice(0,20);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Seiten im Zeitraum</td></tr>';return}
-  tbody.innerHTML=rows.slice(0,100).map(function(r){
-    var url=r.keys[0];
-    var prev=prevMap[url];
-    var posDelta=prev?(prev.position-r.position):null;
-    var path='/';try{path=new URL(url).pathname+new URL(url).search}catch(e){}
-    var pathEsc=esc(path);
-    return '<tr><td><span class="ds-path" title="'+esc(url)+'">'+pathEsc+'</span></td>'+
-      '<td class="ds-num"><strong>'+fmtInt(r.clicks)+'</strong></td>'+
-      '<td class="ds-num">'+fmtInt(r.impressions)+'</td>'+
-      '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
-      '<td class="ds-num">'+posCell(r.position,posDelta)+'</td>'+
-      '</tr>';
-  }).join('');
-}
-
-function renderMovementTable(id,rows,isWinners){
-  var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine signifikante Bewegung</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine signifikante Bewegung (Schwelle 0.3 Positionen)</td></tr>';attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var qEsc=esc(r.q);
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
       '<td class="ds-num">'+r.from.toFixed(1)+'</td>'+
@@ -1216,12 +1411,21 @@ function renderMovementTable(id,rows,isWinners){
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state)});
 }
 
-function renderFruitTable(id,rows){
+function renderFruitTable(id,rows,state){
+  var getters={
+    key:function(r){return r.keys[0]||''},
+    impressions:function(r){return r.impressions||0},
+    clicks:function(r){return r.clicks||0},
+    ctr:function(r){return r.ctr||0},
+    position:function(r){return r.position||0}
+  };
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine einfachen Gewinne im Zeitraum</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine einfachen Gewinne im Zeitraum</td></tr>';attachSortHeadersToTable(id,'fruit',state,function(){renderFruitTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var qEsc=esc(r.keys[0]);
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(r.impressions)+'</strong></td>'+
@@ -1230,6 +1434,7 @@ function renderFruitTable(id,rows){
       '<td class="ds-num"><strong>'+fmtPos(r.position)+'</strong></td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,'fruit',state,function(){renderFruitTable(id,rows,state)});
 }
 
 function renderCannibTable(id,rows){
@@ -1251,10 +1456,18 @@ function renderCannibTable(id,rows){
   }).join('');
 }
 
-function renderSimpleTable(id,rows,kind){
+function renderSimpleTable(id,rows,kind,state){
+  var getters={
+    key:function(r){return r.keys[0]||''},
+    clicks:function(r){return r.clicks||0},
+    impressions:function(r){return r.impressions||0},
+    ctr:function(r){return r.ctr||0},
+    position:function(r){return r.position||0}
+  };
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,kind,state,function(){renderSimpleTable(id,rows,kind,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var name=r.keys[0];
     if(kind==='country')name=name.toUpperCase();
     if(kind==='device')name=name.charAt(0).toUpperCase()+name.slice(1).toLowerCase();
@@ -1264,6 +1477,7 @@ function renderSimpleTable(id,rows,kind){
       '<td class="ds-num">'+fmtPct(r.ctr)+'</td>'+
       '<td class="ds-num">'+fmtPos(r.position)+'</td></tr>';
   }).join('');
+  attachSortHeadersToTable(id,kind,state,function(){renderSimpleTable(id,rows,kind,state)});
 }
 
 function showError(msg){
