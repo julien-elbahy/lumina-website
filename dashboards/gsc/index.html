@@ -357,11 +357,12 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:150px}
 .ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%}
 @media(max-width:900px){
-  .ds-row-main{flex-wrap:wrap;gap:12px}
-  .ds-row-main .ds-cell-property{flex:0 0 100%;width:100%;max-width:100%;min-width:0;order:1}
-  .ds-row-main .ds-cell-range{flex:0 0 100%;width:100%;order:2;min-width:0}
-  .ds-row-main .ds-cell-compare{flex:0 0 calc(50% - 8px);width:calc(50% - 8px);min-width:0;order:3}
-  .ds-row-main .ds-cell-country{flex:0 0 calc(50% - 8px);width:calc(50% - 8px);min-width:0;order:4}
+  .ds-row-main{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+  .ds-row-main .ds-cell{max-width:none;min-width:0}
+  .ds-row-main .ds-cell-property{grid-column:1/-1}
+  .ds-row-main .ds-cell-range{grid-column:1/-1}
+  .ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:0}
+  .ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%;min-width:0}
   .ds-row-main .ds-pills{width:100%;justify-content:space-between}
 }
 .ds-label{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--muted);letter-spacing:.5px;margin-bottom:4px}
