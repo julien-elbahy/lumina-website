@@ -361,7 +361,7 @@ footer{border-color:rgba(160,135,105,.12)}
 /* Totals cards */
 .ds-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
 @media(max-width:900px){.ds-totals{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.ds-totals{grid-template-columns:1fr}}
+/* 2-per-row metrics stays all the way down - even on iPhone */
 .ds-stat{background:rgba(255,245,225,.05);border:2px solid rgba(255,240,215,.10);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
 [data-theme="light"] .ds-stat{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.14)}
 .ds-stat[data-color="blue"]{border-color:rgba(109,157,255,.35)}
@@ -421,7 +421,7 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-delta.down{background:rgba(239,68,68,.14);color:var(--err)}
 .ds-delta.flat{color:var(--muted)}
 .ds-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px}
-@media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:6px 8px;font-size:11px}}
+@media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:6px 8px;font-size:11px}.ds-table{min-width:520px}.ds-table .ds-query{max-width:180px}.ds-table .ds-path{max-width:200px}}
 </style>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
