@@ -411,23 +411,47 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:900px){.ds-grid-2{grid-template-columns:1fr}}
 /* Chart */
-.ds-chart{width:100%;height:260px;position:relative}
-.ds-chart svg{width:100%;height:100%;display:block}
+.ds-chart{width:100%;height:200px;position:relative;overflow:visible}
+.ds-chart svg{width:100%;height:100%;display:block;overflow:visible}
 .ds-chart .ds-axis{stroke:var(--border);stroke-width:1;fill:none}
 .ds-chart .ds-grid{stroke:var(--border);stroke-width:1;fill:none;opacity:.4;stroke-dasharray:2 3}
 .ds-chart .ds-tick{fill:var(--muted);font-size:10px;font-family:var(--font)}
-.ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted)}
+@media(max-width:640px){.ds-chart{height:170px}}
+.ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted);flex-wrap:wrap}
 .ds-leg-item{display:inline-flex;align-items:center;gap:4px}
 .ds-leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 /* Tables */
 .ds-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;border-radius:8px;border:1px solid var(--border)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
-.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
+.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border);white-space:nowrap}
 [data-theme="light"] .ds-table th{background:#faf6ed}
 .ds-table th[data-sort]{cursor:pointer;user-select:none;transition:color .15s}
 .ds-table th[data-sort]:hover{color:var(--accent)}
 .ds-table th .sort-arr{display:inline-block;margin-left:4px;font-size:9px;color:var(--accent);font-weight:900}
 .ds-table th.sorted{color:var(--accent)}
+.ds-card-h{align-items:baseline;gap:10px;flex-wrap:nowrap}
+.ds-card-h h3{flex:1 1 auto;min-width:0}
+.ds-card-h .ds-sub{font-size:11px;color:var(--muted);font-weight:500;margin-left:auto;text-align:right;line-height:1.3;flex:0 0 auto;white-space:normal;max-width:50%}
+.ds-card-h .ds-count{margin-left:auto;flex:0 0 auto}
+@media(max-width:640px){.ds-card-h{flex-wrap:wrap}.ds-card-h .ds-sub{text-align:left;margin-left:0;max-width:100%;font-size:10px}}
+.ds-table-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:8px 0 6px;font-size:11px;color:var(--muted)}
+.ds-table-toolbar select{background:var(--input-bg,rgba(0,0,0,.12));border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:var(--font);font-size:11px;cursor:pointer}
+.ds-table-toolbar select:hover,.ds-table-toolbar select:focus{border-color:var(--accent);outline:none}
+.ds-row-main{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.ds-row-main .ds-cell{flex:0 0 auto}
+.ds-row-main .ds-cell-property{min-width:220px;max-width:300px}
+.ds-row-main .ds-cell-property select{width:100%}
+.ds-row-main .ds-cell-range{flex:1 1 320px;min-width:0}
+.ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:150px}
+.ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%}
+@media(max-width:900px){
+  .ds-row-main{flex-wrap:wrap}
+  .ds-row-main .ds-cell-property{flex:1 1 100%;max-width:100%;min-width:0}
+  .ds-row-main .ds-cell-range{flex:1 1 100%;order:2;min-width:0}
+  .ds-row-main .ds-cell-compare{flex:1 1 calc(50% - 7px);min-width:0;order:3}
+  .ds-row-main .ds-cell-country{flex:1 1 calc(50% - 7px);min-width:0;order:4}
+  .ds-row-main .ds-pills{width:100%;justify-content:space-between}
+}
 /* Filter row */
 .ds-filters-row{display:flex;gap:12px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);flex-wrap:wrap;align-items:flex-end}
 .ds-filter-group{flex:1;min-width:220px}
@@ -454,7 +478,19 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-delta.down{background:rgba(239,68,68,.14);color:var(--err)}
 .ds-delta.flat{color:var(--muted)}
 .ds-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px}
-@media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:5px 6px;font-size:10px}.ds-table .ds-query{max-width:96px}.ds-table .ds-path{max-width:100px}.ds-table .ds-delta{font-size:9px;padding:1px 4px}}
+@media(max-width:640px){
+  .ds-card{padding:14px}
+  .ds-stat-val{font-size:22px}
+  .ds-pills{width:100%}
+  .ds-row{flex-direction:column;align-items:stretch}
+  .ds-row > div{width:100%}
+  .ds-table th,.ds-table td{padding:5px 6px;font-size:10px}
+  .ds-table .ds-query{max-width:96px}
+  .ds-table .ds-path{max-width:100px}
+  .ds-table .ds-delta{font-size:9px;padding:1px 4px}
+  .ds-table-wrap{max-height:none;overflow-y:visible}
+  .ds-table th{position:static}
+}
 </style>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -576,12 +612,12 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
   <!-- Filter bar -->
   <div class="ds-card ds-filter">
-    <div class="ds-row" style="flex-wrap:wrap;gap:14px;align-items:center">
-      <div>
+    <div class="ds-row ds-row-main">
+      <div class="ds-cell ds-cell-property">
         <div class="ds-label">📈 Property</div>
         <select id="dbSite" class="ds-select"></select>
       </div>
-      <div style="flex:1">
+      <div class="ds-cell ds-cell-range">
         <div class="ds-label">⏱ Zeitraum</div>
         <div class="ds-pills" id="dbRange">
           <button class="ds-pill" data-range="7">7d</button>
@@ -593,11 +629,35 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-pill" data-range="custom">Individuell</button>
         </div>
       </div>
-      <div>
+      <div class="ds-cell ds-cell-compare">
         <div class="ds-label">🔀 Vergleich</div>
         <select id="dbCompare" class="ds-select">
           <option value="prev">Vorperiode</option>
+          <option value="yoy">Jahr zu Jahr</option>
           <option value="none">Kein Vergleich</option>
+        </select>
+      </div>
+      <div class="ds-cell ds-cell-country">
+        <div class="ds-label">🌍 Land</div>
+        <select id="dbCountryFilter" class="ds-select">
+          <option value="all">Alle</option>
+          <option value="Austria">🇦🇹 Österreich</option>
+          <option value="Germany">🇩🇪 Deutschland</option>
+          <option value="Switzerland">🇨🇭 Schweiz</option>
+          <option value="United States">🇺🇸 USA</option>
+          <option value="United Kingdom">🇬🇧 Großbritannien</option>
+          <option value="France">🇫🇷 Frankreich</option>
+          <option value="Italy">🇮🇹 Italien</option>
+          <option value="Spain">🇪🇸 Spanien</option>
+          <option value="Netherlands">🇳🇱 Niederlande</option>
+          <option value="Poland">🇵🇱 Polen</option>
+          <option value="Belgium">🇧🇪 Belgien</option>
+          <option value="Sweden">🇸🇪 Schweden</option>
+          <option value="Canada">🇨🇦 Kanada</option>
+          <option value="Australia">🇦🇺 Australien</option>
+          <option value="India">🇮🇳 Indien</option>
+          <option value="Brazil">🇧🇷 Brasilien</option>
+          <option value="Japan">🇯🇵 Japan</option>
         </select>
       </div>
     </div>
@@ -635,29 +695,6 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <input type="text" id="dbKwVal" class="ds-input ds-filter-input" placeholder="google, linkedin, direct, …" autocomplete="off">
           <button class="ds-filter-clear" id="dbKwClear" title="Löschen">×</button>
         </div>
-      </div>
-      <div class="ds-filter-group" style="flex:0 0 auto;min-width:140px">
-        <div class="ds-label">🌍 Land</div>
-        <select id="dbCountryFilter" class="ds-select" style="width:100%">
-          <option value="all">Alle</option>
-          <option value="Austria">🇦🇹 Österreich</option>
-          <option value="Germany">🇩🇪 Deutschland</option>
-          <option value="Switzerland">🇨🇭 Schweiz</option>
-          <option value="United States">🇺🇸 USA</option>
-          <option value="United Kingdom">🇬🇧 Großbritannien</option>
-          <option value="France">🇫🇷 Frankreich</option>
-          <option value="Italy">🇮🇹 Italien</option>
-          <option value="Spain">🇪🇸 Spanien</option>
-          <option value="Netherlands">🇳🇱 Niederlande</option>
-          <option value="Poland">🇵🇱 Polen</option>
-          <option value="Belgium">🇧🇪 Belgien</option>
-          <option value="Sweden">🇸🇪 Schweden</option>
-          <option value="Canada">🇨🇦 Kanada</option>
-          <option value="Australia">🇦🇺 Australien</option>
-          <option value="India">🇮🇳 Indien</option>
-          <option value="Brazil">🇧🇷 Brasilien</option>
-          <option value="Japan">🇯🇵 Japan</option>
-        </select>
       </div>
       <button class="ds-filter-apply" id="dbApplyFilters">🔎 Filter anwenden</button>
     </div>
@@ -932,6 +969,12 @@ function getPrevDates(sd,ed){
   var prevStart=new Date(prevEnd);prevStart.setDate(prevStart.getDate()-(days-1));
   return {sd:toISO(prevStart),ed:toISO(prevEnd)};
 }
+function getYoYDates(sd,ed){
+  var startD=new Date(sd),endD=new Date(ed);
+  var prevStart=new Date(startD);prevStart.setFullYear(prevStart.getFullYear()-1);
+  var prevEnd=new Date(endD);prevEnd.setFullYear(prevEnd.getFullYear()-1);
+  return {sd:toISO(prevStart),ed:toISO(prevEnd)};
+}
 
 /* ── Init ── */
 function init(){
@@ -1019,6 +1062,12 @@ _applyFilters.addEventListener('click',function(){
   updateFilterUI();
   loadData();
 });
+/* Länder-Filter löst sofort aus */
+_countryFilter.addEventListener('change',function(){
+  _filters.country=_countryFilter.value;
+  updateFilterUI();
+  loadData();
+});
 /* Enter key in filter inputs triggers apply */
 [_pageVal,_kwVal].forEach(function(inp){
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_applyFilters.click()}});
@@ -1066,6 +1115,7 @@ function loadData(){
     range=getRangeDates(_currentRange);
   }
   if(_compareMode==='prev'){prev=getPrevDates(range.sd,range.ed)}
+  else if(_compareMode==='yoy'){prev=getYoYDates(range.sd,range.ed)}
 
   getGa4Token(function(token){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
@@ -1226,9 +1276,11 @@ function parseGa4Date(s){return s.slice(0,4)+'-'+s.slice(4,6)+'-'+s.slice(6,8)}
 
 function renderChart(){
   if(!_lastR||!_lastR.daily||!_lastR.daily.length){_chart.innerHTML='<div class="ds-empty">Keine Daten im Zeitraum</div>';return}
+  var cw=_chart.clientWidth;
+  if(!cw||cw<50){requestAnimationFrame(renderChart);return}
   var rows=_lastR.daily.slice().sort(function(a,b){return a.dimensionValues[0].value.localeCompare(b.dimensionValues[0].value)});
   var prevRows=(_lastR.prevDaily||[]).slice().sort(function(a,b){return a.dimensionValues[0].value.localeCompare(b.dimensionValues[0].value)});
-  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:14,b:28};
+  var W=cw,H=_chart.clientHeight||200,pad={l:40,r:40,t:12,b:24};
   var innerW=W-pad.l-pad.r,innerH=H-pad.t-pad.b;
   var n=rows.length;
   var activeKeys=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]});
