@@ -520,7 +520,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Extension Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><div class="tools-dd"><a href="/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Free Dashboards</div><ul><li><a href="/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><a href="/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Extension Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><a href="/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Free Dashboards</div><ul><li><a href="/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <ul>
 <li><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a></li>
@@ -560,13 +560,13 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/about.html">About</a>
 <a href="/support.html">Support</a>
 <a href="/blog/">Blog</a>
+<a href="/ask-ai/">Ask AI</a>
 <div class="mm-cat">Dashboards <span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <ul>
 <li><a href="/dashboards/gsc/">GSC Dashboard</a></li>
 <li><a href="/dashboards/ga4/">GA4 Dashboard</a></li>
 </ul></div>
-<a href="/ask-ai/">Ask AI</a>
 <div class="mm-cat">On-Page SEO <span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <ul>
@@ -1210,28 +1210,34 @@ function render(R){
   renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
   document.getElementById('dbPagesCount').textContent='showing '+Math.min(pLimit,(R.pages||[]).length)+' of '+(R.pages||[]).length;
 
-  /* Winners & Losers — use ALL of R.queries + R.prevQueries with normalized key matching.
-     Threshold: 0.2 for small movements; also require min 1 impression in current period to avoid noise. */
-  var winners=[],losers=[],matchedCount=0;
+  /* Winners & Losers — match queries by normalized key across periods, then rank by
+     movement magnitude. No hard threshold (stable sites can shift by 0.05-0.15 positions
+     over long periods — filtering those out leaves empty tables). Instead, compute a
+     combined score that blends position delta (primary) with click delta (secondary),
+     and always surface the top 25 movers on each side if there are any matches. */
+  var allMovers=[],matchedCount=0;
   (R.queries||[]).forEach(function(r){
     if(!r.keys||!r.keys[0])return;
-    if((r.impressions||0)<1)return;
     var key=(r.keys[0]||'').toLowerCase().trim();
     var prevEntry=prevQMap[key];
     if(!prevEntry)return;
     matchedCount++;
-    var delta=(prevEntry.position||0)-(r.position||0); /* positive = improved */
-    if(Math.abs(delta)<0.2)return;
-    var entry={q:r.keys[0],from:prevEntry.position||0,to:r.position||0,delta:delta,clicks:r.clicks||0,prevClicks:prevEntry.clicks||0};
-    if(delta>0)winners.push(entry);else losers.push(entry);
+    var posDelta=(prevEntry.position||0)-(r.position||0); /* positive = improved */
+    var clickDelta=(r.clicks||0)-(prevEntry.clicks||0);
+    /* Skip only when absolutely nothing moved (exact zeros in both) */
+    if(posDelta===0&&clickDelta===0)return;
+    /* Combined signed score: position change weighted heavier, click change as tiebreaker */
+    var score=posDelta*10+clickDelta*0.1;
+    allMovers.push({q:r.keys[0],from:prevEntry.position||0,to:r.position||0,delta:posDelta,clicks:r.clicks||0,prevClicks:prevEntry.clicks||0,clickDelta:clickDelta,score:score});
   });
-  winners.sort(function(a,b){return b.delta-a.delta});
-  losers.sort(function(a,b){return a.delta-b.delta});
-  if(console&&console.log)console.log('[Lumina GSC] Winners/Losers: '+matchedCount+' matched queries out of '+(R.queries||[]).length+' current / '+(R.prevQueries||[]).length+' prev. Threshold 0.2. Winners='+winners.length+' Losers='+losers.length);
+  var winners=allMovers.filter(function(e){return e.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,25);
+  var losers=allMovers.filter(function(e){return e.score<0}).sort(function(a,b){return a.score-b.score}).slice(0,25);
+  if(console&&console.log)console.log('[Lumina GSC] Winners/Losers: '+matchedCount+' matched queries of '+(R.queries||[]).length+' cur / '+(R.prevQueries||[]).length+' prev. Movers='+allMovers.length+' → Winners='+winners.length+' Losers='+losers.length);
   _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
   _sortState.losers=_sortState.losers||{col:'delta',dir:1};
-  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,matchedCount===0?(R.prevQueries&&R.prevQueries.length?'no matched queries':'no comparison data'):null);
-  renderMovementTable('dbLosersTable',losers,false,_sortState.losers,matchedCount===0?(R.prevQueries&&R.prevQueries.length?'no matched queries':'no comparison data'):null);
+  var emptyMsg=matchedCount===0?(R.prevQueries&&R.prevQueries.length?'no queries matched between the two periods':'no comparison data'):null;
+  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,emptyMsg);
+  renderMovementTable('dbLosersTable',losers,false,_sortState.losers,emptyMsg);
 
   /* Low-hanging fruits */
   var queries=R.queries||[];

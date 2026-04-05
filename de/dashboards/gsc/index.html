@@ -513,7 +513,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Extension Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a><div class="tools-dd"><a href="/de/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Kostenlose Dashboards</div><ul><li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><a href="/de/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEU</span></a><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Extension Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a><a href="/de/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEU</span></a><div class="tools-dd"><a href="/de/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Kostenlose Dashboards</div><ul><li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <ul>
 <li><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a></li>
@@ -553,13 +553,13 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/de/ueber-uns.html">Über uns</a>
 <a href="/de/kontakt.html">Kontakt</a>
 <a href="/de/blog/">Blog</a>
+<a href="/de/ask-ai/">Ask AI</a>
 <div class="mm-cat">Dashboards <span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <ul>
 <li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li>
 <li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li>
 </ul></div>
-<a href="/de/ask-ai/">Ask AI</a>
 <div class="mm-cat">On-Page SEO <span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <ul>
@@ -1191,26 +1191,30 @@ function render(R){
   renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
   document.getElementById('dbPagesCount').textContent='zeige '+Math.min(pLimit,(R.pages||[]).length)+' von '+(R.pages||[]).length;
 
-  /* Gewinner & Verlierer — robuste Matching-Logik */
-  var winners=[],losers=[],matchedCount=0;
+  /* Gewinner & Verlierer — Queries periodenübergreifend normalisiert matchen, dann nach
+     Bewegungsstärke sortieren. Kein harter Schwellenwert (stabile Sites bewegen sich
+     über lange Perioden oft nur um 0.05-0.15 Positionen — ein harter Cutoff würde leere
+     Tabellen liefern). Stattdessen kombinierter Score aus Positions-Delta (primär) und
+     Click-Delta (sekundär), Top 25 Bewegungen auf jeder Seite. */
+  var allMovers=[],matchedCount=0;
   (R.queries||[]).forEach(function(r){
     if(!r.keys||!r.keys[0])return;
-    if((r.impressions||0)<1)return;
     var key=(r.keys[0]||'').toLowerCase().trim();
     var prevEntry=prevQMap[key];
     if(!prevEntry)return;
     matchedCount++;
-    var delta=(prevEntry.position||0)-(r.position||0);
-    if(Math.abs(delta)<0.2)return;
-    var entry={q:r.keys[0],from:prevEntry.position||0,to:r.position||0,delta:delta,clicks:r.clicks||0,prevClicks:prevEntry.clicks||0};
-    if(delta>0)winners.push(entry);else losers.push(entry);
+    var posDelta=(prevEntry.position||0)-(r.position||0);
+    var clickDelta=(r.clicks||0)-(prevEntry.clicks||0);
+    if(posDelta===0&&clickDelta===0)return;
+    var score=posDelta*10+clickDelta*0.1;
+    allMovers.push({q:r.keys[0],from:prevEntry.position||0,to:r.position||0,delta:posDelta,clicks:r.clicks||0,prevClicks:prevEntry.clicks||0,clickDelta:clickDelta,score:score});
   });
-  winners.sort(function(a,b){return b.delta-a.delta});
-  losers.sort(function(a,b){return a.delta-b.delta});
-  if(console&&console.log)console.log('[Lumina GSC] Gewinner/Verlierer: '+matchedCount+' Matches von '+(R.queries||[]).length+' aktuell / '+(R.prevQueries||[]).length+' vorher. Schwelle 0.2. Gewinner='+winners.length+' Verlierer='+losers.length);
+  var winners=allMovers.filter(function(e){return e.score>0}).sort(function(a,b){return b.score-a.score}).slice(0,25);
+  var losers=allMovers.filter(function(e){return e.score<0}).sort(function(a,b){return a.score-b.score}).slice(0,25);
+  if(console&&console.log)console.log('[Lumina GSC] Gewinner/Verlierer: '+matchedCount+' Matches von '+(R.queries||[]).length+' akt / '+(R.prevQueries||[]).length+' vor. Bewegungen='+allMovers.length+' → Gewinner='+winners.length+' Verlierer='+losers.length);
   _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
   _sortState.losers=_sortState.losers||{col:'delta',dir:1};
-  var emptyReason=matchedCount===0?(R.prevQueries&&R.prevQueries.length?'keine Übereinstimmungen':'keine Vergleichsdaten'):null;
+  var emptyReason=matchedCount===0?(R.prevQueries&&R.prevQueries.length?'keine übereinstimmenden Suchanfragen zwischen beiden Perioden':'keine Vergleichsdaten'):null;
   renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,emptyReason);
   renderMovementTable('dbLosersTable',losers,false,_sortState.losers,emptyReason);
 
