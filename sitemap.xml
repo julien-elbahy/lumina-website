@@ -206,6 +206,22 @@
     <lastmod>2026-03-31</lastmod>
   </url>
   <url>
+    <loc>https://lumina-seo.com/tools/paa-research/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/paa-research/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/paa-research/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/paa-research/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lumina-seo.com/de/tools/paa-research/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/paa-research/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/paa-research/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/paa-research/"/>
+    <lastmod>2026-04-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://lumina-seo.com/tools/tech-stack/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/tech-stack/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/tech-stack/"/>
