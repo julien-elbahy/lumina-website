@@ -393,8 +393,21 @@ footer{border-color:rgba(160,135,105,.12)}
 /* Tables */
 .ds-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;border-radius:8px;border:1px solid var(--border)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
-.ds-table th{background:rgba(255,245,225,.06);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;backdrop-filter:blur(8px);z-index:1}
-[data-theme="light"] .ds-table th{background:rgba(245,240,230,.95)}
+.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
+[data-theme="light"] .ds-table th{background:#faf6ed}
+/* Filter row */
+.ds-filters-row{display:flex;gap:12px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);flex-wrap:wrap;align-items:flex-end}
+.ds-filter-group{flex:1;min-width:220px}
+.ds-filter-combo{display:flex;gap:0;align-items:stretch;position:relative}
+.ds-filter-op{flex:0 0 auto;border-top-right-radius:0;border-bottom-right-radius:0;border-right:none;min-width:120px}
+.ds-filter-input{flex:1;border-top-left-radius:0;border-bottom-left-radius:0;padding-right:30px;min-width:0;font-family:var(--font)}
+.ds-filter-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:4px;transition:all .15s}
+.ds-filter-clear:hover{color:var(--err);background:rgba(239,68,68,.1)}
+.ds-filter-apply{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:10px 18px;border-radius:8px;font-family:var(--font);font-size:13px;font-weight:800;cursor:pointer;transition:all .2s;white-space:nowrap;height:36px;align-self:flex-end;box-shadow:0 2px 8px var(--accent-glow)}
+.ds-filter-apply:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--accent-glow)}
+.ds-filter-apply:active{transform:translateY(0)}
+.ds-filter-active{background:rgba(80,224,144,.12);border-color:var(--ok)!important}
+@media(max-width:900px){.ds-filters-row{flex-direction:column;align-items:stretch}.ds-filter-group{width:100%;min-width:0}.ds-filter-apply{width:100%}}
 .ds-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2);font-variant-numeric:tabular-nums;line-height:1.4}
 .ds-table tr:hover td{background:rgba(255,245,225,.04)}
 [data-theme="light"] .ds-table tr:hover td{background:rgba(245,240,230,.5)}
@@ -407,10 +420,6 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-delta.up{background:rgba(80,224,144,.14);color:var(--ok)}
 .ds-delta.down{background:rgba(239,68,68,.14);color:var(--err)}
 .ds-delta.flat{color:var(--muted)}
-.ds-ask{background:linear-gradient(135deg,rgba(236,74,153,.15),rgba(139,92,246,.15));border:1px solid rgba(139,92,246,.3);color:#c084fc;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:3px;transition:all .15s;white-space:nowrap}
-.ds-ask:hover{background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(139,92,246,.4)}
-.ds-table td .ds-ask{opacity:.7}
-.ds-table tr:hover .ds-ask{opacity:1}
 .ds-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px}
 @media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:6px 8px;font-size:11px}}
 </style>
@@ -542,6 +551,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-pill" data-range="90">3m</button>
           <button class="ds-pill" data-range="180">6m</button>
           <button class="ds-pill" data-range="365">12m</button>
+          <button class="ds-pill" data-range="480">16m</button>
           <button class="ds-pill" data-range="custom">Custom</button>
         </div>
       </div>
@@ -557,6 +567,61 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
       <div><div class="ds-label">From</div><input type="date" id="dbFromDate" class="ds-input"></div>
       <div><div class="ds-label">To</div><input type="date" id="dbToDate" class="ds-input"></div>
       <button class="ds-pill active" id="dbApplyCustom" style="margin-top:18px">Apply</button>
+    </div>
+    <!-- Filters row -->
+    <div class="ds-filters-row">
+      <div class="ds-filter-group">
+        <div class="ds-label">📄 Page filter</div>
+        <div class="ds-filter-combo">
+          <select id="dbPageOp" class="ds-select ds-filter-op">
+            <option value="contains">Contains</option>
+            <option value="exact">Exact URL</option>
+            <option value="starts">Starts with</option>
+            <option value="ends">Ends with</option>
+            <option value="notContains">Doesn't contain</option>
+          </select>
+          <input type="text" id="dbPageVal" class="ds-input ds-filter-input" placeholder="/blog/, /tools/, …" autocomplete="off">
+          <button class="ds-filter-clear" id="dbPageClear" title="Clear">×</button>
+        </div>
+      </div>
+      <div class="ds-filter-group">
+        <div class="ds-label">🔗 Source filter</div>
+        <div class="ds-filter-combo">
+          <select id="dbKwOp" class="ds-select ds-filter-op">
+            <option value="contains">Contains</option>
+            <option value="exact">Exact source</option>
+            <option value="starts">Starts with</option>
+            <option value="ends">Ends with</option>
+            <option value="notContains">Doesn't contain</option>
+          </select>
+          <input type="text" id="dbKwVal" class="ds-input ds-filter-input" placeholder="google, linkedin, direct, …" autocomplete="off">
+          <button class="ds-filter-clear" id="dbKwClear" title="Clear">×</button>
+        </div>
+      </div>
+      <div class="ds-filter-group" style="flex:0 0 auto;min-width:140px">
+        <div class="ds-label">🌍 Country</div>
+        <select id="dbCountryFilter" class="ds-select" style="width:100%">
+          <option value="all">All</option>
+          <option value="Austria">🇦🇹 Austria</option>
+          <option value="Germany">🇩🇪 Germany</option>
+          <option value="Switzerland">🇨🇭 Switzerland</option>
+          <option value="United States">🇺🇸 United States</option>
+          <option value="United Kingdom">🇬🇧 United Kingdom</option>
+          <option value="France">🇫🇷 France</option>
+          <option value="Italy">🇮🇹 Italy</option>
+          <option value="Spain">🇪🇸 Spain</option>
+          <option value="Netherlands">🇳🇱 Netherlands</option>
+          <option value="Poland">🇵🇱 Poland</option>
+          <option value="Belgium">🇧🇪 Belgium</option>
+          <option value="Sweden">🇸🇪 Sweden</option>
+          <option value="Canada">🇨🇦 Canada</option>
+          <option value="Australia">🇦🇺 Australia</option>
+          <option value="India">🇮🇳 India</option>
+          <option value="Brazil">🇧🇷 Brazil</option>
+          <option value="Japan">🇯🇵 Japan</option>
+        </select>
+      </div>
+      <button class="ds-filter-apply" id="dbApplyFilters">🔎 Apply filters</button>
     </div>
     <div class="ds-meta" id="dbMeta"></div>
   </div>
@@ -700,11 +765,20 @@ var _fromDate=document.getElementById('dbFromDate');
 var _toDate=document.getElementById('dbToDate');
 var _applyCustom=document.getElementById('dbApplyCustom');
 var _compareSel=document.getElementById('dbCompare');
+var _pageOp=document.getElementById('dbPageOp');
+var _pageVal=document.getElementById('dbPageVal');
+var _pageClear=document.getElementById('dbPageClear');
+var _kwOp=document.getElementById('dbKwOp');
+var _kwVal=document.getElementById('dbKwVal');
+var _kwClear=document.getElementById('dbKwClear');
+var _countryFilter=document.getElementById('dbCountryFilter');
+var _applyFilters=document.getElementById('dbApplyFilters');
 
 var _currentRange=parseInt(localStorage.getItem('lumina_db_ga4_range')||'28');
 var _compareMode=localStorage.getItem('lumina_db_ga4_compare')||'prev';
 var _customFrom=null,_customTo=null;
 var _propertyNames={}; /* property name -> display name */
+var _filters={page:{op:'contains',val:''},src:{op:'contains',val:''},country:'all'};
 
 /* ── Auth helpers ── */
 function ga4Ok(){
@@ -824,6 +898,51 @@ _applyCustom.addEventListener('click',function(){
   loadData();
 });
 
+/* ── Filter handlers ── */
+_pageClear.addEventListener('click',function(){_pageVal.value='';_filters.page.val='';updateFilterUI();loadData()});
+_kwClear.addEventListener('click',function(){_kwVal.value='';_filters.src.val='';updateFilterUI();loadData()});
+_applyFilters.addEventListener('click',function(){
+  _filters.page.op=_pageOp.value;
+  _filters.page.val=_pageVal.value.trim();
+  _filters.src.op=_kwOp.value;
+  _filters.src.val=_kwVal.value.trim();
+  _filters.country=_countryFilter.value;
+  updateFilterUI();
+  loadData();
+});
+/* Enter key in filter inputs triggers apply */
+[_pageVal,_kwVal].forEach(function(inp){
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_applyFilters.click()}});
+});
+
+function updateFilterUI(){
+  var hasAny=_filters.page.val||_filters.src.val||(_filters.country&&_filters.country!=='all');
+  _applyFilters.textContent=hasAny?'✓ Filters active':'🔎 Apply filters';
+  _applyFilters.style.background=hasAny?'linear-gradient(135deg,#22c55e,#16a34a)':'';
+}
+
+/* ── Client-side filter helpers ── */
+function matchFilter(value,op,needle){
+  if(!needle)return true;
+  var v=(value||'').toLowerCase();
+  var n=needle.toLowerCase();
+  switch(op){
+    case 'exact':return v===n;
+    case 'starts':return v.indexOf(n)===0;
+    case 'ends':return v.lastIndexOf(n)===v.length-n.length&&v.length>=n.length;
+    case 'notContains':return v.indexOf(n)===-1;
+    case 'contains':default:return v.indexOf(n)>-1;
+  }
+}
+function filterByPage(rows){
+  if(!rows||!_filters.page.val)return rows;
+  return rows.filter(function(r){return matchFilter((r.dimensionValues&&r.dimensionValues[0]&&r.dimensionValues[0].value)||'',_filters.page.op,_filters.page.val)});
+}
+function filterBySource(rows){
+  if(!rows||!_filters.src.val)return rows;
+  return rows.filter(function(r){return matchFilter((r.dimensionValues&&r.dimensionValues[0]&&r.dimensionValues[0].value)||'',_filters.src.op,_filters.src.val)});
+}
+
 /* ── Data loading ── */
 function loadData(){
   var propertyId=_siteSel.value;
@@ -843,7 +962,13 @@ function loadData(){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
     var base='https://analyticsdata.googleapis.com/v1beta/'+propertyId+':runReport';
     var hdrs={'Authorization':'Bearer '+token,'Content-Type':'application/json'};
-    function q(body){return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()})}
+    function q(body){
+      /* Inject country dimensionFilter when set (server-side). GA4 uses country display names. */
+      if(_filters.country&&_filters.country!=='all'){
+        body.dimensionFilter={filter:{fieldName:'country',stringFilter:{matchType:'EXACT',value:_filters.country}}};
+      }
+      return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()});
+    }
 
     var R={range:range,prev:prev,property:propertyId};
     var pending=8;
@@ -878,7 +1003,19 @@ function loadData(){
 function render(R){
   _loading.style.display='none';
   var range=R.range,prev=R.prev;
-  _meta.textContent=range.sd+' → '+range.ed+' ('+range.days+' days)'+(prev?' · compared to '+prev.sd+' → '+prev.ed:'');
+
+  /* Apply client-side filters (page filter → landing + views; source filter → channels + sources) */
+  R.landing=filterByPage(R.landing);
+  R.views=filterByPage(R.views);
+  R.channels=filterBySource(R.channels);
+  R.sources=filterBySource(R.sources);
+
+  /* Meta line */
+  var filterNote='';
+  if(_filters.country&&_filters.country!=='all')filterNote+=' · country: '+_filters.country;
+  if(_filters.page.val)filterNote+=' · page '+_filters.page.op+' "'+_filters.page.val+'"';
+  if(_filters.src.val)filterNote+=' · source '+_filters.src.op+' "'+_filters.src.val+'"';
+  _meta.textContent=range.sd+' → '+range.ed+' ('+range.days+' days)'+(prev?' · compared to '+prev.sd+' → '+prev.ed:'')+filterNote;
 
   /* Totals */
   var cur={sessions:0,users:0,views:0,eng:0,dur:0,bounce:0,conv:0};
@@ -985,19 +1122,13 @@ function renderChart(rows){
 }
 
 /* ── Tables ── */
-function askBtn(question){
-  var q=encodeURIComponent(question);
-  return '<a class="ds-ask" href="/ask-ai/?q='+q+'" title="Ask AI about this row">💬 Ask AI</a>';
-}
-
 function renderChannelsTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="ds-empty">No data</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No data</td></tr>';return}
   tbody.innerHTML=rows.map(function(r){
     var ch=r.dimensionValues[0].value;
     var m=r.metricValues;
     var sessions=parseFloat(m[0].value),users=parseFloat(m[1].value),eng=parseFloat(m[2].value),conv=parseFloat(m[3].value);
-    var ask='Analyze my GA4 '+ch+' channel. It has '+Math.round(sessions)+' sessions, '+Math.round(users)+' users, engagement rate '+(eng*100).toFixed(1)+'%, and '+Math.round(conv)+' conversions. How does this compare to expectations and what should I change?';
     return '<tr><td><strong>'+esc(ch)+'</strong></td>'+
       '<td class="ds-num"><strong>'+fmtInt(sessions)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(users)+'</td>'+
@@ -1009,12 +1140,11 @@ function renderChannelsTable(id,rows){
 
 function renderLandingTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="6" class="ds-empty">No data</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">No data</td></tr>';return}
   tbody.innerHTML=rows.slice(0,50).map(function(r){
     var path=r.dimensionValues[0].value||'/';
     var m=r.metricValues;
     var sessions=parseFloat(m[0].value),eng=parseFloat(m[1].value),bounce=parseFloat(m[2].value),conv=parseFloat(m[3].value);
-    var ask='My GA4 landing page '+path+' has '+Math.round(sessions)+' sessions, engagement rate '+(eng*100).toFixed(1)+'%, bounce rate '+(bounce*100).toFixed(1)+'%, and '+Math.round(conv)+' conversions. What would you change on this page to improve performance?';
     return '<tr><td><span class="ds-path" title="'+esc(path)+'">'+esc(path)+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(sessions)+'</strong></td>'+
       '<td class="ds-num">'+(eng*100).toFixed(0)+'%</td>'+
@@ -1026,13 +1156,12 @@ function renderLandingTable(id,rows){
 
 function renderSourcesTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="4" class="ds-empty">No data</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">No data</td></tr>';return}
   tbody.innerHTML=rows.map(function(r){
     var src=r.dimensionValues[0].value||'(direct)';
     var med=r.dimensionValues[1].value||'(none)';
     var sessions=parseFloat(r.metricValues[0].value);
     var conv=parseFloat(r.metricValues[1].value);
-    var ask='Analyze my GA4 traffic from source "'+src+'" via medium "'+med+'". It has '+Math.round(sessions)+' sessions and '+Math.round(conv)+' conversions. What should I do with this traffic?';
     return '<tr><td><strong>'+esc(src)+'</strong> / <span style="color:var(--muted)">'+esc(med)+'</span></td>'+
       '<td class="ds-num">'+fmtInt(sessions)+'</td>'+
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
@@ -1042,12 +1171,11 @@ function renderSourcesTable(id,rows){
 
 function renderViewsTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="4" class="ds-empty">No data</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">No data</td></tr>';return}
   tbody.innerHTML=rows.slice(0,50).map(function(r){
     var path=r.dimensionValues[0].value||'/';
     var views=parseFloat(r.metricValues[0].value);
     var bounce=parseFloat(r.metricValues[1].value);
-    var ask='My most viewed GA4 page '+path+' has '+Math.round(views)+' pageviews and a bounce rate of '+(bounce*100).toFixed(1)+'%. Is the bounce rate a problem and how can I reduce it?';
     return '<tr><td><span class="ds-path" title="'+esc(path)+'">'+esc(path)+'</span></td>'+
       '<td class="ds-num"><strong>'+fmtInt(views)+'</strong></td>'+
       '<td class="ds-num">'+(bounce*100).toFixed(0)+'%</td>'+
@@ -1085,13 +1213,12 @@ function renderDevicesTable(id,rows){
 
 function renderConversionsTable(id,rows){
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="4" class="ds-empty">No conversions tracked in this period</td></tr>';return}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">No conversions tracked in this period</td></tr>';return}
   tbody.innerHTML=rows.map(function(r){
     var ch=r.dimensionValues[0].value;
     var sessions=parseFloat(r.metricValues[0].value);
     var conv=parseFloat(r.metricValues[3].value);
     var rate=sessions>0?(conv/sessions*100):0;
-    var ask='My GA4 '+ch+' channel generated '+Math.round(conv)+' conversions from '+Math.round(sessions)+' sessions (conversion rate '+rate.toFixed(2)+'%). How do I improve this?';
     return '<tr><td><strong>'+esc(ch)+'</strong></td>'+
       '<td class="ds-num">'+fmtInt(sessions)+'</td>'+
       '<td class="ds-num"><strong>'+fmtInt(conv)+'</strong> <span style="color:var(--muted);font-size:10px">('+rate.toFixed(1)+'%)</span></td>'+
