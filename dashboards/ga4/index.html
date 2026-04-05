@@ -223,6 +223,7 @@ footer{border-color:rgba(160,135,105,.12)}
 .ts-cat:first-child{margin-top:0}
 .tools-sub ul,.mm-links ul,.tf-col ul{list-style:none;padding:0;margin:0}
 .tools-sub a{display:block;padding:4px 0;font-size:12px;color:var(--text2);white-space:nowrap}.tools-sub a:hover{color:var(--accent)}
+.tools-sub--dash{width:auto;min-width:220px;right:auto;left:-20px}
 @media(max-width:640px){.tools-sub{display:none!important}}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 /* Bridge: map new CSS vars to old theme vars */
@@ -433,7 +434,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Extension Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><a href="/dashboards/">Dashboards</a><a href="/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Extension Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><div class="tools-dd"><a href="/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Free Dashboards</div><ul><li><a href="/dashboards/">Overview</a></li><li><a href="/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><a href="/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <ul>
 <li><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a></li>
@@ -518,7 +519,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="container" style="max-width:1080px;margin:0 auto;text-align:center">
 <div class="hero-badge"><span class="dot"></span> Free Google Analytics 4 Dashboard · Read-only OAuth</div>
 <h1 style="font-size:clamp(28px,4.5vw,44px);margin:16px auto 12px;max-width:860px">Free <span class="accent">Google Analytics Dashboard</span><br>for GA4, actually usable</h1>
-<p style="font-size:16px;color:var(--muted);max-width:720px;margin:0 auto 4px">A cleaner, faster GA4 UI with sessions, users, conversions, channels, landing pages, sources, and countries in one scroll — plus an <strong style="color:var(--text)">Ask AI</strong> button on every row.</p>
+<p style="font-size:16px;color:var(--muted);max-width:720px;margin:0 auto 4px">A cleaner, faster GA4 UI with sessions, users, conversions, channels, landing pages, sources, and countries in one scroll — with built-in <strong style="color:var(--text)">page, source and country filters</strong> that apply to every report.</p>
 </div>
 </header>
 
@@ -694,22 +695,22 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
 <main id="main-content">
 
-<section id="how" style="padding:60px 24px;background:var(--dark2)"><div class="container"><div class="section-label fade-in">Why a second GA4 UI</div><h2 class="section-title fade-in">All your GA4 essentials, in one scroll</h2><p class="section-desc fade-in">Native GA4 is powerful but takes 5+ clicks to see anything useful. Lumina loads sessions, users, conversions, channels, landing pages, sources, devices, and countries in a single view — and every row launches a data-backed AI analysis.</p>
+<section id="how" style="padding:60px 24px;background:var(--dark2)"><div class="container"><div class="section-label fade-in">Why a second GA4 UI</div><h2 class="section-title fade-in">All your GA4 essentials, in one scroll</h2><p class="section-desc fade-in">Native GA4 is powerful but takes 5+ clicks to see anything useful. Lumina loads sessions, users, conversions, channels, landing pages, sources, devices, and countries in a single view — with built-in filters for pages, sources and countries.</p>
 <div class="tools-cat-grid">
 <div class="tools-cat fade-in"><div class="tools-cat-h">📊 Core KPIs</div><ul><li>Sessions, users, pageviews</li><li>Engagement rate &amp; avg session duration</li><li>Bounce rate &amp; conversions</li><li>Period comparison on every metric</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">📡 Channel breakdown</div><ul><li>Organic, Direct, Referral, Social, Paid</li><li>Sessions + conversions per channel</li><li>Engagement rate comparison</li><li>Ask AI about channel shifts</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">📄 Landing pages</div><ul><li>Top 20 landing pages by sessions</li><li>Engagement and bounce per page</li><li>Conversions per landing page</li><li>Ask AI which pages to prioritize</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">🎯 Conversion events</div><ul><li>All conversion events ranked</li><li>Event count vs conversion count</li><li>Ask AI about conversion drops</li><li>Funnel-level insights</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">⏱ Any date range</div><ul><li>7d / 28d / 3m / 6m / 12m presets</li><li>Custom date range picker</li><li>Automatic previous-period comparison</li><li>All delta metrics computed client-side</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">💬 AI on every row</div><ul><li>Every channel, page, source has an Ask AI button</li><li>Opens /ask-ai/ with a pre-filled question</li><li>Uses your real GA4 data as context</li><li>Turn insights into action in one click</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">📡 Channel breakdown</div><ul><li>Organic, Direct, Referral, Social, Paid</li><li>Sessions + conversions per channel</li><li>Engagement rate comparison</li><li>Source filter for targeted analysis</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">📄 Landing pages</div><ul><li>Top 30 landing pages by sessions</li><li>Engagement and bounce per page</li><li>Conversions per landing page</li><li>Page filter for targeted analysis</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">🎯 Conversion events</div><ul><li>All conversion events ranked</li><li>Event count vs conversion count</li><li>Conversion rate per channel</li><li>Funnel-level insights</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">⏱ Any date range</div><ul><li>7d / 28d / 3m / 6m / 12m / 16m presets</li><li>Custom date range picker</li><li>Automatic previous-period comparison</li><li>All delta metrics computed client-side</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">🔎 Powerful filters</div><ul><li>Page, source and country filters</li><li>Contains, Exact, Starts with, Ends with, Doesn't contain</li><li>Filters apply to every report at once</li><li>Country filter is applied server-side</li></ul></div>
 </div></div></section>
 
 <section id="faq" style="padding:80px 24px"><div class="container"><div class="section-label fade-in">FAQ</div><h2 class="section-title fade-in">Google Analytics 4 dashboard FAQ</h2><div class="faq-list fade-in">
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">How is this different from native GA4?<span class="arrow">+</span></div><div class="faq-a">Native GA4 is complex and takes many clicks to compare periods. Lumina loads the most-used reports in one scroll, lets you change the period with a click, and lets you send any row to the AI copilot for an instant data-backed analysis.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">How is this different from native GA4?<span class="arrow">+</span></div><div class="faq-a">Native GA4 is complex and takes many clicks to compare periods. Lumina loads the most-used reports in one scroll and lets you change the period with a click.</div></div>
 <div class="faq-item"><div class="faq-q" role="button" tabindex="0">Is the dashboard really free?<span class="arrow">+</span></div><div class="faq-a">Yes. Free, read-only, no account beyond your existing Google account. The OAuth connection uses the sensitive analytics.readonly scope so tokens stay in your browser localStorage.</div></div>
 <div class="faq-item"><div class="faq-q" role="button" tabindex="0">What data does Lumina access?<span class="arrow">+</span></div><div class="faq-a">Only the analytics.readonly OAuth scope — read access to your GA4 reports. Lumina cannot modify anything, cannot access other Google services, and your tokens stay in your browser.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">How does the Ask AI button work?<span class="arrow">+</span></div><div class="faq-a">Every row in every table has a small Ask AI button. Clicking it opens the Lumina Ask AI page with a pre-filled question that references that specific row. The AI copilot then fetches your full GA4 and GSC context and returns a data-backed answer.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Which date ranges work?<span class="arrow">+</span></div><div class="faq-a">7 days, 28 days, 3 months, 6 months, 12 months, and a custom date range picker.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Which filters are available?<span class="arrow">+</span></div><div class="faq-a">You can filter by page (landing page + path), source and country. Every filter supports Contains, Exact, Starts with, Ends with and Doesn't contain. Country is applied server-side, page and source client-side.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Which date ranges work?<span class="arrow">+</span></div><div class="faq-a">7 days, 28 days, 3 months, 6 months, 12 months, 16 months, and a custom date range picker.</div></div>
 <div class="faq-item"><div class="faq-q" role="button" tabindex="0">Can I switch between GA4 properties?<span class="arrow">+</span></div><div class="faq-a">Yes. The property dropdown at the top of the dashboard lists all GA4 properties from your connected Google account. Switch any time — the dashboard reloads with fresh data.</div></div>
 </div></div></section>
 

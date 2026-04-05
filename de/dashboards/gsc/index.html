@@ -223,6 +223,7 @@ footer{border-color:rgba(160,135,105,.12)}
 .ts-cat:first-child{margin-top:0}
 .tools-sub ul,.mm-links ul,.tf-col ul{list-style:none;padding:0;margin:0}
 .tools-sub a{display:block;padding:4px 0;font-size:12px;color:var(--text2);white-space:nowrap}.tools-sub a:hover{color:var(--accent)}
+.tools-sub--dash{width:auto;min-width:220px;right:auto;left:-20px}
 @media(max-width:640px){.tools-sub{display:none!important}}
 .lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 /* Bridge: map new CSS vars to old theme vars */
@@ -439,7 +440,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Extension Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a><a href="/de/dashboards/">Dashboards</a><a href="/de/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEU</span></a><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<nav class="tn"><a href="/de/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Extension Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a><div class="tools-dd"><a href="/de/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Kostenlose Dashboards</div><ul><li><a href="/de/dashboards/">Übersicht</a></li><li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><a href="/de/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEU</span></a><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <ul>
 <li><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a></li>
@@ -524,7 +525,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <div class="container" style="max-width:1080px;margin:0 auto;text-align:center">
 <div class="hero-badge"><span class="dot"></span> Kostenloses GSC Dashboard · Nur Lesezugriff OAuth</div>
 <h1 style="font-size:clamp(28px,4.5vw,44px);margin:16px auto 12px;max-width:860px">Kostenloses <span class="accent">Google Search Console Dashboard</span><br>wirklich bedienbar</h1>
-<p style="font-size:16px;color:var(--muted);max-width:720px;margin:0 auto 4px">Eine sauberere, schnellere GSC UI mit Klicks, Impressionen, CTR, Positions-Deltas, Winners, Losers, Kannibalisierung und Low-Hanging-Fruits — plus einem <strong style="color:var(--text)">Ask AI</strong> Button in jeder Zeile.</p>
+<p style="font-size:16px;color:var(--muted);max-width:720px;margin:0 auto 4px">Eine sauberere, schnellere GSC UI mit Klicks, Impressionen, CTR, Positions-Deltas, Gewinnern, Verlierern, Kannibalisierung und Low-Hanging-Fruits — plus <strong style="color:var(--text)">mächtigen Filtern</strong> für Seiten, Keywords und Länder.</p>
 </div>
 </header>
 
@@ -644,7 +645,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
   <!-- Line chart -->
   <div class="ds-card">
-    <div class="ds-card-h"><h3>Performance over time</h3>
+    <div class="ds-card-h"><h3>Performance im Zeitverlauf</h3>
       <div class="ds-legend">
         <span class="ds-leg-item"><span class="ds-leg-dot" style="background:#6d9dff"></span>Clicks</span>
         <span class="ds-leg-item"><span class="ds-leg-dot" style="background:#c084fc"></span>Impressions</span>
@@ -656,44 +657,44 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <!-- Grids -->
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🔍 Top queries</h3><span class="ds-count" id="dbQueriesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Query</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-card-h"><h3>🔍 Top Suchanfragen</h3><span class="ds-count" id="dbQueriesCount"></span></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📄 Top pages</h3><span class="ds-count" id="dbPagesCount"></span></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Page</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-card-h"><h3>📄 Top Seiten</h3><span class="ds-count" id="dbPagesCount"></span></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th>Seite</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🏆 Winners <span style="font-size:11px;color:var(--muted);font-weight:500">position improved</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Query</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-card-h"><h3>🏆 Gewinner <span style="font-size:11px;color:var(--muted);font-weight:500">Position verbessert</span></h3></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📉 Losers <span style="font-size:11px;color:var(--muted);font-weight:500">position dropped</span></h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Query</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-card-h"><h3>📉 Verlierer <span style="font-size:11px;color:var(--muted);font-weight:500">Position gefallen</span></h3></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Von</th><th class="ds-num">Bis</th><th class="ds-num">Δ</th><th class="ds-num">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-card">
-    <div class="ds-card-h"><h3>🍎 Low-hanging fruits <span style="font-size:11px;color:var(--muted);font-weight:500">position 5-25, high impressions, easy wins</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Query</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-card-h"><h3>🍎 Einfache Gewinne <span style="font-size:11px;color:var(--muted);font-weight:500">Position 5-25, hohe Impressions, schnelle Erfolge</span></h3></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Impr.</th><th class="ds-num">Clicks</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-card">
-    <div class="ds-card-h"><h3>⚔️ Keyword cannibalization <span style="font-size:11px;color:var(--muted);font-weight:500">same query ranking on 2+ pages</span></h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Query</th><th class="ds-num">Pages</th><th>Top URLs (best position first)</th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-card-h"><h3>⚔️ Keyword-Kannibalisierung <span style="font-size:11px;color:var(--muted);font-weight:500">gleiche Suchanfrage auf 2+ Seiten</span></h3></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Seiten</th><th>Top URLs (beste Position zuerst)</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📱 Devices</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbDevicesTable"><thead><tr><th>Device</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-card-h"><h3>📱 Geräte</h3></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbDevicesTable"><thead><tr><th>Gerät</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🌍 Top countries</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbCountriesTable"><thead><tr><th>Country</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-card-h"><h3>🌍 Top Länder</h3></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbCountriesTable"><thead><tr><th>Land</th><th class="ds-num">Clicks</th><th class="ds-num">Impr.</th><th class="ds-num">CTR</th><th class="ds-num">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -702,23 +703,23 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
 <main id="main-content">
 
-<section id="how" style="padding:60px 24px;background:var(--dark2)"><div class="container"><div class="section-label fade-in">Warum eine zweite GSC UI</div><h2 class="section-title fade-in">Alles was Google GSC sein könnte — in einem Screen</h2><p class="section-desc fade-in">Native Search Console is powerful but slow, hides context behind clicks, and has no AI follow-up. Lumina loads clicks, impressions, CTR, position, winners, losers, cannibalization, and low-hanging fruit in a single scroll — and every row launches a data-backed AI analysis.</p>
+<section id="how" style="padding:60px 24px;background:var(--dark2)"><div class="container"><div class="section-label fade-in">Warum eine zweite GSC UI</div><h2 class="section-title fade-in">Alles was Google GSC sein könnte — in einem Screen</h2><p class="section-desc fade-in">Die native Search Console ist mächtig, aber langsam, versteckt Kontext hinter vielen Klicks und bietet keine KI-Follow-ups. Lumina lädt Klicks, Impressionen, CTR, Position, Gewinner, Verlierer, Kannibalisierung und Low-Hanging-Fruits in einem einzigen Scroll — und jede Zeile liefert filterbare Insights.</p>
 <div class="tools-cat-grid">
-<div class="tools-cat fade-in"><div class="tools-cat-h">🏆 Winners &amp; losers</div><ul><li>Queries whose average position improved vs previous period</li><li>Queries that dropped (sorted by biggest loss)</li><li>Click deltas next to each row</li><li>Ask AI about any movement</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">🍎 Low-hanging fruit</div><ul><li>Queries in positions 5–25 with high impressions</li><li>Sorted by impressions/position ratio</li><li>Instant CTR gain potential</li><li>Perfect backlog for content updates</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">⚔️ Cannibalization</div><ul><li>Queries where 2+ of your pages rank in the top 10</li><li>See both positions and click split</li><li>Ask AI which page to consolidate onto</li><li>One of the highest-leverage SEO fixes</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">⏱ Any date range</div><ul><li>7d / 28d / 3m / 6m / 12m quick presets</li><li>Individuell date range picker</li><li>Automatic previous-period comparison</li><li>All delta metrics computed client-side</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">💬 AI on every row</div><ul><li>Every query, page, winner, loser has an Ask AI button</li><li>Opens /ask-ai/ with a pre-filled question</li><li>Uses your real GSC + SERP data as context</li><li>Turn insights into action in one click</li></ul></div>
-<div class="tools-cat fade-in"><div class="tools-cat-h">🔐 Privacy-first</div><ul><li>Read-only Google OAuth</li><li>Tokens stay in your browser localStorage</li><li>No backend, no tracking, no account</li><li>Disconnect any time from Settings</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">🏆 Gewinner &amp; Verlierer</div><ul><li>Suchanfragen mit verbesserter Position vs. Vorperiode</li><li>Suchanfragen die gefallen sind (sortiert nach größtem Verlust)</li><li>Click-Deltas neben jeder Zeile</li><li>Schnelle Analyse jeder Bewegung</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">🍎 Low-Hanging Fruits</div><ul><li>Suchanfragen auf Position 5–25 mit hohen Impressionen</li><li>Sortiert nach Impressionen/Position Ratio</li><li>Sofortiges CTR-Gain Potenzial</li><li>Perfektes Backlog für Content-Updates</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">⚔️ Kannibalisierung</div><ul><li>Suchanfragen wo 2+ Seiten in den Top 10 ranken</li><li>Positionen und Click-Split im Überblick</li><li>Klarheit welche Seite konsolidiert werden sollte</li><li>Einer der wirkungsvollsten SEO-Fixes</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">⏱ Jeder Zeitraum</div><ul><li>7d / 28d / 3m / 6m / 12m / 16m Presets</li><li>Individueller Date-Range Picker</li><li>Automatischer Vorperioden-Vergleich</li><li>Alle Delta-Metriken client-side berechnet</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">🔎 Mächtige Filter</div><ul><li>Seiten-, Keyword- und Länder-Filter</li><li>Exakt, Enthält, Beginnt mit, Endet mit, Enthält nicht</li><li>Filter werden auf alle Tabellen angewendet</li><li>Länder-Filter wird server-seitig angewendet</li></ul></div>
+<div class="tools-cat fade-in"><div class="tools-cat-h">🔐 Privacy-First</div><ul><li>Lesezugriff-only Google OAuth</li><li>Tokens bleiben in deinem Browser localStorage</li><li>Kein Backend, kein Tracking, kein Account</li><li>Jederzeit in den Einstellungen trennbar</li></ul></div>
 </div></div></section>
 
 <section id="faq" style="padding:80px 24px"><div class="container"><div class="section-label fade-in">Häufige Fragen</div><h2 class="section-title fade-in">Google Search Console Dashboard FAQ</h2><div class="faq-list fade-in">
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">How is this different from native Search Console?<span class="arrow">+</span></div><div class="faq-a">Native GSC is slow, requires many clicks to compare periods, and has no winners/losers, no low-hanging fruit, no cannibalization detection, and no AI follow-up. Lumina loads all of that in one scroll.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Is the dashboard really free?<span class="arrow">+</span></div><div class="faq-a">Yes. Free and read-only. The only requirement is an existing Google account with Search Console access. No Lumina account, no subscription, no limits.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">What data does Lumina access?<span class="arrow">+</span></div><div class="faq-a">Only the webmasters.readonly OAuth scope — enough to read your GSC Search Analytics data. Lumina cannot modify anything, cannot access other Google services, and your OAuth tokens stay in your browser localStorage on your device.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">How does the Ask AI button work?<span class="arrow">+</span></div><div class="faq-a">Every row in every table has a small button. Clicking it opens the Lumina Ask AI page with a pre-filled question that references that specific row. The AI copilot then fetches your full GSC context + live SERP data and returns a data-backed answer.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Which date ranges work?<span class="arrow">+</span></div><div class="faq-a">7 days, 28 days, 3 months, 6 months, 12 months, and a custom date range picker. Google's Search Console API returns a maximum of 16 months of historical data.</div></div>
-<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Can I switch between GSC properties?<span class="arrow">+</span></div><div class="faq-a">Yes. The property dropdown at the top of the dashboard lists all properties from your connected Google account. Switch any time — the dashboard reloads with fresh data.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Wie unterscheidet sich das von der nativen Search Console?<span class="arrow">+</span></div><div class="faq-a">Die native GSC ist langsam, braucht viele Klicks um Zeiträume zu vergleichen, und hat weder Gewinner/Verlierer, noch Low-Hanging-Fruits, noch Kannibalisierungs-Erkennung. Lumina lädt all das in einem einzigen Scroll.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Ist das Dashboard wirklich kostenlos?<span class="arrow">+</span></div><div class="faq-a">Ja. Kostenlos und lesezugriff-only. Einzige Voraussetzung ist ein bestehender Google Account mit Search Console Zugriff. Kein Lumina Account, kein Abo, keine Limits.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Auf welche Daten greift Lumina zu?<span class="arrow">+</span></div><div class="faq-a">Nur der webmasters.readonly OAuth Scope — genug um deine GSC Search Analytics Daten zu lesen. Lumina kann nichts verändern, keine anderen Google Services nutzen, und deine OAuth Tokens bleiben in deinem Browser localStorage auf deinem Gerät.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Welche Filter sind verfügbar?<span class="arrow">+</span></div><div class="faq-a">Du kannst nach Seite (URL), Keyword (Suchanfrage) und Land filtern. Jeder Filter unterstützt Contains, Exakt, Beginnt mit, Endet mit und Enthält nicht. Land wird server-seitig angewendet, Seite und Keyword client-seitig auf alle Tabellen.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Welche Zeiträume funktionieren?<span class="arrow">+</span></div><div class="faq-a">7 Tage, 28 Tage, 3 Monate, 6 Monate, 12 Monate, 16 Monate und ein individueller Date-Range Picker. Die Google Search Console API liefert maximal 16 Monate an historischen Daten.</div></div>
+<div class="faq-item"><div class="faq-q" role="button" tabindex="0">Kann ich zwischen GSC Properties wechseln?<span class="arrow">+</span></div><div class="faq-a">Ja. Das Property Dropdown oben im Dashboard listet alle Properties deines verbundenen Google Accounts. Wechsle jederzeit — das Dashboard lädt mit frischen Daten neu.</div></div>
 </div></div></section>
 
 <section class="cta-section" style="padding:80px 24px"><div class="container"><h2 class="fade-in">Kombiniere es mit Ask AI und GA4</h2><p class="fade-in">Drei kostenlose Tools die miteinander reden. Sieh die Daten, cross-reference mit GA4, frag dann die KI was zu tun ist.</p><div class="fade-in" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a href="/dashboards/ga4/" class="btn-primary">GA4 Dashboard →</a><a href="/ask-ai/" class="btn-secondary">Ask AI öffnen</a></div></div></section>
