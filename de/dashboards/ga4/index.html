@@ -363,12 +363,15 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
 @media(max-width:900px){.ds-totals{grid-template-columns:repeat(2,1fr)}}
 /* 2-per-row metrics stays all the way down - even on iPhone */
-.ds-stat{background:rgba(255,245,225,.05);border:2px solid rgba(255,240,215,.10);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
+.ds-stat{background:rgba(255,245,225,.05);border:2px solid rgba(255,240,215,.10);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;cursor:pointer;transition:all .2s;user-select:none;opacity:.55}
 [data-theme="light"] .ds-stat{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.14)}
-.ds-stat[data-color="blue"]{border-color:rgba(109,157,255,.35)}
-.ds-stat[data-color="purple"]{border-color:rgba(192,132,252,.35)}
-.ds-stat[data-color="green"]{border-color:rgba(80,224,144,.35)}
-.ds-stat[data-color="orange"]{border-color:rgba(236,165,80,.35)}
+.ds-stat:hover{transform:translateY(-2px)}
+.ds-stat.active{opacity:1}
+.ds-stat:not([data-metric]){cursor:default;opacity:1}
+.ds-stat[data-color="blue"].active{border-color:rgba(109,157,255,.85);box-shadow:0 4px 14px rgba(109,157,255,.18)}
+.ds-stat[data-color="purple"].active{border-color:rgba(192,132,252,.85);box-shadow:0 4px 14px rgba(192,132,252,.18)}
+.ds-stat[data-color="green"].active{border-color:rgba(80,224,144,.85);box-shadow:0 4px 14px rgba(80,224,144,.18)}
+.ds-stat[data-color="orange"].active{border-color:rgba(236,165,80,.85);box-shadow:0 4px 14px rgba(236,165,80,.18)}
 .ds-stat-lbl{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--muted);letter-spacing:.7px;margin-bottom:6px}
 .ds-stat-val{font-size:28px;font-weight:800;color:var(--text);line-height:1;font-variant-numeric:tabular-nums}
 .ds-stat[data-color="blue"] .ds-stat-val{color:#6d9dff}
@@ -379,6 +382,31 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-stat-delta.up{color:var(--ok)}
 .ds-stat-delta.down{color:var(--err)}
 .ds-stat-delta.flat{color:var(--muted)}
+.ds-stat-hint{font-size:10px;color:var(--muted);text-align:center;margin:-6px 0 12px;font-style:italic}
+.ds-chart{position:relative}
+.ds-chart-crosshair{position:absolute;display:none;top:12px;width:1px;background:var(--text);opacity:.3;pointer-events:none;z-index:5}
+.ds-chart-tooltip{position:absolute;display:none;background:var(--bg2);border:1px solid var(--border-h);border-radius:10px;padding:10px 14px;font-size:11px;font-family:var(--font);pointer-events:none;z-index:10;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap;min-width:170px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+[data-theme="light"] .ds-chart-tooltip{background:rgba(255,255,255,.98);box-shadow:0 4px 20px rgba(100,70,30,.15)}
+.ds-chart-tooltip .tt-date{font-weight:800;color:var(--text);margin-bottom:5px;font-size:12px}
+.ds-chart-tooltip .tt-row{display:flex;align-items:center;gap:6px;padding:2px 0;line-height:1.4}
+.ds-chart-tooltip .tt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ds-chart-tooltip .tt-lbl{color:var(--muted)}
+.ds-chart-tooltip .tt-val{font-weight:700;color:var(--text);margin-left:auto;font-variant-numeric:tabular-nums}
+.ds-chart-tooltip .tt-prev{color:var(--muted);font-size:10px;margin-left:4px}
+.ds-chart-dot{opacity:0;transition:all .15s}
+.ds-ai-card{background:linear-gradient(135deg,rgba(16,163,127,.08),rgba(192,132,252,.08));border:1px solid rgba(16,163,127,.3);border-radius:16px;padding:20px;margin-top:16px}
+[data-theme="light"] .ds-ai-card{background:linear-gradient(135deg,rgba(16,163,127,.05),rgba(192,132,252,.05));border-color:rgba(16,163,127,.25)}
+.ds-ai-card h3{color:var(--text)!important}
+.ds-ai-range{display:flex;gap:4px;margin-left:auto}
+.ds-ai-range-btn{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .15s}
+.ds-ai-range-btn:hover{border-color:var(--accent);color:var(--text)}
+.ds-ai-range-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ds-ai-totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0 18px}
+@media(max-width:900px){.ds-ai-totals{grid-template-columns:repeat(2,1fr)}}
+.ds-ai-chart{width:100%;height:200px;position:relative;margin-bottom:6px}
+.ds-ai-chart svg{width:100%;height:100%;display:block}
+.ds-ai-sub{font-size:12px;font-weight:700;color:var(--text);margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+.ds-ai-caveat{font-size:11px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-top:12px;line-height:1.5}
 /* Grid layouts */
 .ds-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:900px){.ds-grid-2{grid-template-columns:1fr}}
@@ -396,6 +424,10 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
 .ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
 [data-theme="light"] .ds-table th{background:#faf6ed}
+.ds-table th[data-sort]{cursor:pointer;user-select:none;transition:color .15s}
+.ds-table th[data-sort]:hover{color:var(--accent)}
+.ds-table th .sort-arr{display:inline-block;margin-left:4px;font-size:9px;color:var(--accent);font-weight:900}
+.ds-table th.sorted{color:var(--accent)}
 /* Filter row */
 .ds-filters-row{display:flex;gap:12px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);flex-wrap:wrap;align-items:flex-end}
 .ds-filter-group{flex:1;min-width:220px}
@@ -634,16 +666,14 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   </div>
   <div id="dbError" class="ds-card" style="display:none;border-color:var(--err);color:var(--err);text-align:center;padding:20px"></div>
 
-  <!-- Totals row -->
+  <!-- Totals row (click to toggle metric in chart) -->
   <div class="ds-totals" id="dbTotals"></div>
+  <div class="ds-stat-hint">💡 Klicke eine Metrik an um sie im Chart unten ein- oder auszublenden</div>
 
   <!-- Line chart -->
   <div class="ds-card">
     <div class="ds-card-h"><h3>Traffic im Zeitverlauf</h3>
-      <div class="ds-legend">
-        <span class="ds-leg-item"><span class="ds-leg-dot" style="background:#6d9dff"></span>Sessions</span>
-        <span class="ds-leg-item"><span class="ds-leg-dot" style="background:#c084fc"></span>Users</span>
-      </div>
+      <div class="ds-legend" id="dbChartLegend"></div>
     </div>
     <div id="dbChart" class="ds-chart"></div>
   </div>
@@ -652,11 +682,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>📡 Kanäle</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbChannelsTable"><thead><tr><th>Kanal</th><th class="ds-num">Sessions</th><th class="ds-num">Nutzer</th><th class="ds-num">Eng.</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbChannelsTable"><thead><tr><th data-sort="key">Kanal</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="users">Nutzer</th><th class="ds-num" data-sort="eng">Eng.</th><th class="ds-num" data-sort="conv">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📄 Top Landing Pages</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbLandingTable"><thead><tr><th>Seite</th><th class="ds-num">Sessions</th><th class="ds-num">Eng.</th><th class="ds-num">Bounce</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbLandingTable"><thead><tr><th data-sort="key">Seite</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="eng">Eng.</th><th class="ds-num" data-sort="bounce">Bounce</th><th class="ds-num" data-sort="conv">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -664,11 +694,11 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🔗 Top Quellen</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbSourcesTable"><thead><tr><th>Quelle / Medium</th><th class="ds-num">Sessions</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbSourcesTable"><thead><tr><th data-sort="key">Quelle / Medium</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="conv">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>👁 Meistbesuchte Seiten</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbViewsTable"><thead><tr><th>Seite</th><th class="ds-num">Views</th><th class="ds-num">Bounce</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbViewsTable"><thead><tr><th data-sort="key">Seite</th><th class="ds-num" data-sort="views">Views</th><th class="ds-num" data-sort="bounce">Bounce</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
@@ -676,18 +706,52 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🌍 Top Länder</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbCountriesTable"><thead><tr><th>Land</th><th class="ds-num">Sessions</th><th class="ds-num">Conv.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbCountriesTable"><thead><tr><th data-sort="key">Land</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="conv">Conv.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📱 Geräte</h3></div>
-      <div class="ds-table-wrap"><table class="ds-table" id="dbDevicesTable"><thead><tr><th>Gerät</th><th class="ds-num">Sessions</th><th class="ds-num">Conv.</th><th class="ds-num">Eng.</th></tr></thead><tbody></tbody></table></div>
+      <div class="ds-table-wrap"><table class="ds-table" id="dbDevicesTable"><thead><tr><th data-sort="key">Gerät</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="conv">Conv.</th><th class="ds-num" data-sort="eng">Eng.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <!-- Conversions -->
   <div class="ds-card">
     <div class="ds-card-h"><h3>🎯 Conversion Events</h3></div>
-    <div class="ds-table-wrap"><table class="ds-table" id="dbConversionsTable"><thead><tr><th>Event</th><th class="ds-num">Events</th><th class="ds-num">Conversions</th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-table-wrap"><table class="ds-table" id="dbConversionsTable"><thead><tr><th data-sort="key">Event</th><th class="ds-num" data-sort="sessions">Events</th><th class="ds-num" data-sort="conv">Conversions</th></tr></thead><tbody></tbody></table></div>
+  </div>
+
+  <!-- ═══ AI Traffic Dashboard ═══ -->
+  <div class="ds-card ds-ai-card">
+    <div class="ds-card-h">
+      <h3>🤖 AI Traffic <span style="font-size:11px;color:var(--muted);font-weight:500">Sessions von KI-Plattformen die deine Seiten zitieren</span></h3>
+      <div class="ds-ai-range">
+        <button class="ds-ai-range-btn" data-ai-range="90">3m</button>
+        <button class="ds-ai-range-btn" data-ai-range="180">6m</button>
+        <button class="ds-ai-range-btn active" data-ai-range="365">12m</button>
+        <button class="ds-ai-range-btn" data-ai-range="480">16m</button>
+      </div>
+    </div>
+    <div class="ds-ai-totals" id="dbAiTotals">
+      <div class="ds-stat" data-color="green"><div class="ds-stat-lbl">AI Sessions</div><div class="ds-stat-val" id="dbAiSessions">—</div></div>
+      <div class="ds-stat" data-color="purple"><div class="ds-stat-lbl">AI Nutzer</div><div class="ds-stat-val" id="dbAiUsers">—</div></div>
+      <div class="ds-stat" data-color="blue"><div class="ds-stat-lbl">AI Conversions</div><div class="ds-stat-val" id="dbAiConversions">—</div></div>
+      <div class="ds-stat" data-color="orange"><div class="ds-stat-lbl">AI Anteil</div><div class="ds-stat-val" id="dbAiShare">—</div></div>
+    </div>
+    <div class="ds-ai-sub">📈 AI Sessions pro Monat</div>
+    <div id="dbAiChart" class="ds-ai-chart"></div>
+    <div class="ds-grid-2" style="margin-top:14px">
+      <div>
+        <div class="ds-ai-sub">🌐 Pro Plattform</div>
+        <div class="ds-table-wrap" style="max-height:280px"><table class="ds-table" id="dbAiPlatformsTable"><thead><tr><th data-sort="key">Plattform</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="users">Nutzer</th><th class="ds-num" data-sort="conv">Conv.</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div>
+        <div class="ds-ai-sub">📄 Top Landing Pages von AI</div>
+        <div class="ds-table-wrap" style="max-height:280px"><table class="ds-table" id="dbAiLandingTable"><thead><tr><th data-sort="key">Seite</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="conv">Conv.</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+    <div class="ds-ai-sub">⚡ AI vs. andere Kanäle</div>
+    <div class="ds-table-wrap" style="max-height:240px"><table class="ds-table" id="dbAiComparisonTable"><thead><tr><th data-sort="key">Kanal</th><th class="ds-num" data-sort="sessions">Sessions</th><th class="ds-num" data-sort="conv">Conv.</th><th class="ds-num" data-sort="rate">Conv-Rate</th></tr></thead><tbody></tbody></table></div>
+    <div class="ds-ai-caveat">⚠️ Gemessener AI-Traffic ist eine <strong>Unterzählung</strong>. Mobile Apps und In-App-Browser erscheinen oft als "Direct", weil sie keine Referrer-Header übermitteln.</div>
   </div>
 
 </div>
@@ -779,8 +843,46 @@ var _applyFilters=document.getElementById('dbApplyFilters');
 var _currentRange=parseInt(localStorage.getItem('lumina_db_ga4_range')||'28');
 var _compareMode=localStorage.getItem('lumina_db_ga4_compare')||'prev';
 var _customFrom=null,_customTo=null;
-var _propertyNames={}; /* property name -> display name */
+var _propertyNames={};
 var _filters={page:{op:'contains',val:''},src:{op:'contains',val:''},country:'all'};
+
+var METRIC_COLORS={sessions:'#6d9dff',users:'#c084fc',views:'#22c55e',engagement:'#f59e0b'};
+var METRIC_LABELS={sessions:'Sessions',users:'Nutzer',views:'Seitenaufrufe',engagement:'Engagement'};
+try{var saved=JSON.parse(localStorage.getItem('lumina_db_ga4_metrics')||'null');}catch(e){}
+var _activeMetrics=saved||{sessions:true,users:true,views:false,engagement:false};
+var _sortState={};
+var _lastR=null;
+var _aiRange=parseInt(localStorage.getItem('lumina_db_ga4_ai_range')||'365');
+var _aiData=null;
+
+var AI_PLATFORMS={
+  'chatgpt.com':{name:'ChatGPT',icon:'🟢'},
+  'chat.openai.com':{name:'ChatGPT',icon:'🟢'},
+  'perplexity.ai':{name:'Perplexity',icon:'🔵'},
+  'claude.ai':{name:'Claude',icon:'🟠'},
+  'anthropic.com':{name:'Claude',icon:'🟠'},
+  'gemini.google.com':{name:'Gemini',icon:'🔷'},
+  'bard.google.com':{name:'Gemini',icon:'🔷'},
+  'copilot.microsoft.com':{name:'Copilot',icon:'🟣'},
+  'copilot.cloud.microsoft':{name:'Copilot',icon:'🟣'},
+  'edgeservices.bing.com':{name:'Copilot',icon:'🟣'},
+  'deepseek.com':{name:'DeepSeek',icon:'🔹'},
+  'meta.ai':{name:'Meta AI',icon:'Ⓜ️'},
+  'you.com':{name:'You.com',icon:'🟪'},
+  'phind.com':{name:'Phind',icon:'🟩'},
+  'poe.com':{name:'Poe',icon:'💬'},
+  'kagi.com':{name:'Kagi',icon:'🔶'},
+  'grok.x.com':{name:'Grok',icon:'✖️'},
+  'x.ai':{name:'Grok',icon:'✖️'},
+  'coze.com':{name:'Coze',icon:'🤖'}
+};
+var AI_REGEX_STR='chatgpt\\.com|chat\\.openai\\.com|perplexity\\.ai|claude\\.ai|anthropic\\.com|gemini\\.google\\.com|bard\\.google\\.com|copilot\\.microsoft\\.com|copilot\\.cloud\\.microsoft|edgeservices\\.bing\\.com|deepseek\\.com|meta\\.ai|you\\.com|phind\\.com|poe\\.com|kagi\\.com|grok\\.x\\.com|x\\.ai|coze\\.com';
+
+function identifyAiPlatform(src){
+  var r=(src||'').toLowerCase();
+  for(var d in AI_PLATFORMS){if(r.indexOf(d)>=0)return AI_PLATFORMS[d];}
+  return {name:src||'Unknown',icon:'🔗'};
+}
 
 /* ── Auth helpers ── */
 function ga4Ok(){
@@ -980,8 +1082,12 @@ function loadData(){
     var dateRanges=prev?[{startDate:range.sd,endDate:range.ed,name:'current'},{startDate:prev.sd,endDate:prev.ed,name:'previous'}]:[{startDate:range.sd,endDate:range.ed,name:'current'}];
     q({dateRanges:dateRanges,metrics:[{name:'sessions'},{name:'activeUsers'},{name:'screenPageViews'},{name:'engagementRate'},{name:'averageSessionDuration'},{name:'bounceRate'},{name:'conversions'}]}).then(function(d){R.totals=d.rows||[]}).catch(function(){R.totals=[]}).finally(done);
 
-    /* 2. Daily trends for chart */
-    q({dateRanges:[{startDate:range.sd,endDate:range.ed}],dimensions:[{name:'date'}],metrics:[{name:'sessions'},{name:'activeUsers'}],orderBys:[{dimension:{dimensionName:'date'}}],limit:400}).then(function(d){R.daily=d.rows||[]}).catch(function(){R.daily=[]}).finally(done);
+    /* 2. Daily trends for chart — now with 4 metrics */
+    q({dateRanges:[{startDate:range.sd,endDate:range.ed}],dimensions:[{name:'date'}],metrics:[{name:'sessions'},{name:'activeUsers'},{name:'screenPageViews'},{name:'engagementRate'}],orderBys:[{dimension:{dimensionName:'date'}}],limit:400}).then(function(d){R.daily=d.rows||[]}).catch(function(){R.daily=[]}).finally(done);
+    if(prev){
+      pending++;
+      q({dateRanges:[{startDate:prev.sd,endDate:prev.ed}],dimensions:[{name:'date'}],metrics:[{name:'sessions'},{name:'activeUsers'},{name:'screenPageViews'},{name:'engagementRate'}],orderBys:[{dimension:{dimensionName:'date'}}],limit:400}).then(function(d){R.prevDaily=d.rows||[]}).catch(function(){R.prevDaily=[]}).finally(done);
+    }
 
     /* 3. Channels */
     q({dateRanges:[{startDate:range.sd,endDate:range.ed}],dimensions:[{name:'sessionDefaultChannelGroup'}],metrics:[{name:'sessions'},{name:'activeUsers'},{name:'engagementRate'},{name:'conversions'}],orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:15}).then(function(d){R.channels=d.rows||[]}).catch(function(){R.channels=[]}).finally(done);
@@ -1034,100 +1140,264 @@ function render(R){
     target.conv=parseFloat(m[6]&&m[6].value||0);
   });
   _totals.innerHTML=
-    statCard('Sessions',fmtInt(cur.sessions),prev?fmtDeltaPct(cur.sessions,pre.sessions):'','blue')+
-    statCard('Users',fmtInt(cur.users),prev?fmtDeltaPct(cur.users,pre.users):'','purple')+
-    statCard('Pageviews',fmtInt(cur.views),prev?fmtDeltaPct(cur.views,pre.views):'','green')+
-    statCard('Conversions',fmtInt(cur.conv),prev?fmtDeltaPct(cur.conv,pre.conv):'','orange');
+    statCard('sessions','Sessions',fmtInt(cur.sessions),prev?fmtDeltaPct(cur.sessions,pre.sessions):'','blue')+
+    statCard('users','Nutzer',fmtInt(cur.users),prev?fmtDeltaPct(cur.users,pre.users):'','purple')+
+    statCard('views','Seitenaufrufe',fmtInt(cur.views),prev?fmtDeltaPct(cur.views,pre.views):'','green')+
+    statCard('engagement','Engagement',(cur.eng*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.eng,pre.eng):'','orange')+
+    statCardStatic('Conversions',fmtInt(cur.conv),prev?fmtDeltaPct(cur.conv,pre.conv):'','orange')+
+    statCardStatic('Ø Dauer',fmtDuration(cur.dur),prev?fmtDeltaPct(cur.dur,pre.dur):'','blue')+
+    statCardStatic('Absprungrate',(cur.bounce*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.bounce,pre.bounce,true):'','green')+
+    statCardStatic('Pro Session',cur.sessions?(cur.views/cur.sessions).toFixed(1):'—','','purple');
 
-  /* Second row of totals */
-  _totals.innerHTML+=
-    statCard('Engagement',(cur.eng*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.eng,pre.eng):'','green')+
-    statCard('Avg session',fmtDuration(cur.dur),prev?fmtDeltaPct(cur.dur,pre.dur):'','blue')+
-    statCard('Bounce rate',(cur.bounce*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.bounce,pre.bounce,true):'','orange')+
-    statCard('Per session',cur.sessions?(cur.views/cur.sessions).toFixed(1):'—','','purple');
-
-  /* Chart */
-  renderChart(R.daily||[]);
-
-  /* Channels */
-  renderChannelsTable('dbChannelsTable',R.channels||[]);
-
-  /* Landing pages */
-  renderLandingTable('dbLandingTable',R.landing||[]);
-
-  /* Sources */
-  renderSourcesTable('dbSourcesTable',R.sources||[]);
-
-  /* Views */
-  renderViewsTable('dbViewsTable',R.views||[]);
-
-  /* Countries + Devices */
-  renderCountriesTable('dbCountriesTable',R.countries||[]);
-  renderDevicesTable('dbDevicesTable',R.devices||[]);
-
-  /* Conversions — derive from channels or landing pages if explicit not available. For simplicity use a separate query would double calls; we compute from channels */
-  var convRows=(R.channels||[]).filter(function(r){return parseFloat(r.metricValues[3]&&r.metricValues[3].value||0)>0}).sort(function(a,b){return parseFloat(b.metricValues[3].value)-parseFloat(a.metricValues[3].value)});
-  /* Actually we want event-level conversions, but Admin API doesn't expose them here easily. Show channels-as-conversions summary. */
-  renderConversionsTable('dbConversionsTable',convRows);
-}
-
-function statCard(label,value,delta,color){
-  return '<div class="ds-stat" data-color="'+color+'"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
-}
-
-/* ── Chart ── */
-function renderChart(rows){
-  if(!rows.length){_chart.innerHTML='<div class="ds-empty">Keine Daten im Zeitraum</div>';return}
-  /* Normalize: date is YYYYMMDD */
-  rows=rows.slice().sort(function(a,b){return a.dimensionValues[0].value.localeCompare(b.dimensionValues[0].value)});
-  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:12,b:28};
-  var innerW=W-pad.l-pad.r,innerH=H-pad.t-pad.b;
-  var maxS=0,maxU=0;
-  rows.forEach(function(r){var s=parseFloat(r.metricValues[0].value);var u=parseFloat(r.metricValues[1].value);if(s>maxS)maxS=s;if(u>maxU)maxU=u});
-  maxS=maxS||1;maxU=maxU||1;
-  var n=rows.length;
-  function x(i){return pad.l+(n===1?innerW/2:(i*innerW/(n-1)))}
-  function yS(v){return pad.t+innerH-(v/maxS)*innerH}
-  function yU(v){return pad.t+innerH-(v/maxU)*innerH}
-  var sessPath='',userPath='';
-  rows.forEach(function(r,i){
-    var cx=x(i);
-    sessPath+=(i===0?'M':'L')+cx+','+yS(parseFloat(r.metricValues[0].value));
-    userPath+=(i===0?'M':'L')+cx+','+yU(parseFloat(r.metricValues[1].value));
+  Array.prototype.forEach.call(_totals.querySelectorAll('.ds-stat[data-metric]'),function(card){
+    card.addEventListener('click',function(){
+      var m=card.getAttribute('data-metric');
+      _activeMetrics[m]=!_activeMetrics[m];
+      var anyActive=Object.keys(_activeMetrics).some(function(k){return _activeMetrics[k]});
+      if(!anyActive){_activeMetrics[m]=true;return;}
+      localStorage.setItem('lumina_db_ga4_metrics',JSON.stringify(_activeMetrics));
+      card.classList.toggle('active');
+      renderChart();
+      renderChartLegend();
+    });
   });
-  var gridLines='';
-  for(var g=0;g<=4;g++){var gy=pad.t+(innerH*g/4);gridLines+='<line class="ds-grid" x1="'+pad.l+'" y1="'+gy+'" x2="'+(W-pad.r)+'" y2="'+gy+'"/>'}
-  var tickCount=Math.min(6,n);
-  var ticks='';
-  for(var t=0;t<tickCount;t++){
-    var idx=Math.floor(t*(n-1)/(tickCount-1));
-    if(tickCount===1)idx=0;
-    var tx=x(idx);
-    var d=rows[idx].dimensionValues[0].value;
-    var short=d.slice(4,6)+'-'+d.slice(6,8);
-    ticks+='<text class="ds-tick" x="'+tx+'" y="'+(H-8)+'" text-anchor="middle">'+short+'</text>';
-  }
-  var yLabels='';
-  for(var g=0;g<=4;g++){
-    var gy=pad.t+(innerH*g/4);
-    var valS=Math.round(maxS*(1-g/4));
-    var valU=Math.round(maxU*(1-g/4));
-    yLabels+='<text class="ds-tick" x="'+(pad.l-6)+'" y="'+(gy+3)+'" text-anchor="end" fill="#6d9dff">'+fmtNum(valS)+'</text>';
-    yLabels+='<text class="ds-tick" x="'+(W-pad.r+6)+'" y="'+(gy+3)+'" text-anchor="start" fill="#c084fc">'+fmtNum(valU)+'</text>';
-  }
-  _chart.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'+
-    gridLines+
-    '<path d="'+userPath+'" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-    '<path d="'+sessPath+'" fill="none" stroke="#6d9dff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
-    ticks+yLabels+
-    '</svg>';
+
+  renderChartLegend();
+  renderChart();
+
+  _sortState.channels=_sortState.channels||{col:'sessions',dir:-1};
+  renderChannelsTable('dbChannelsTable',R.channels||[],_sortState.channels);
+
+  _sortState.landing=_sortState.landing||{col:'sessions',dir:-1};
+  renderLandingTable('dbLandingTable',R.landing||[],_sortState.landing);
+
+  _sortState.sources=_sortState.sources||{col:'sessions',dir:-1};
+  renderSourcesTable('dbSourcesTable',R.sources||[],_sortState.sources);
+
+  _sortState.views=_sortState.views||{col:'views',dir:-1};
+  renderViewsTable('dbViewsTable',R.views||[],_sortState.views);
+
+  _sortState.countries=_sortState.countries||{col:'sessions',dir:-1};
+  _sortState.devices=_sortState.devices||{col:'sessions',dir:-1};
+  renderCountriesTable('dbCountriesTable',R.countries||[],_sortState.countries);
+  renderDevicesTable('dbDevicesTable',R.devices||[],_sortState.devices);
+
+  var convRows=(R.channels||[]).filter(function(r){return parseFloat(r.metricValues[3]&&r.metricValues[3].value||0)>0}).sort(function(a,b){return parseFloat(b.metricValues[3].value)-parseFloat(a.metricValues[3].value)});
+  _sortState.conversions=_sortState.conversions||{col:'conv',dir:-1};
+  renderConversionsTable('dbConversionsTable',convRows,_sortState.conversions);
+
+  loadAiTraffic();
 }
 
-/* ── Tables ── */
-function renderChannelsTable(id,rows){
+function statCard(metric,label,value,delta,color){
+  var active=_activeMetrics[metric]?' active':'';
+  return '<div class="ds-stat'+active+'" data-color="'+color+'" data-metric="'+metric+'" title="Klicke um im Chart ein/auszublenden"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
+}
+function statCardStatic(label,value,delta,color){
+  return '<div class="ds-stat active" data-color="'+color+'"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
+}
+
+function renderChartLegend(){
+  var el=document.getElementById('dbChartLegend');if(!el)return;
+  el.innerHTML=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]}).map(function(k){
+    return '<span class="ds-leg-item"><span class="ds-leg-dot" style="background:'+METRIC_COLORS[k]+'"></span>'+METRIC_LABELS[k]+'</span>';
+  }).join('');
+}
+
+/* ── Chart (multi-metric, toggleable, hover tooltip + crosshair) ── */
+function getMetricVal(row,mk){
+  var m=row.metricValues||[];
+  if(mk==='sessions')return parseFloat(m[0]&&m[0].value||0);
+  if(mk==='users')return parseFloat(m[1]&&m[1].value||0);
+  if(mk==='views')return parseFloat(m[2]&&m[2].value||0);
+  if(mk==='engagement')return parseFloat(m[3]&&m[3].value||0)*100;
+  return 0;
+}
+function fmtMetric(v,mk){
+  if(mk==='engagement')return v.toFixed(1)+'%';
+  return fmtInt(v);
+}
+function parseGa4Date(s){return s.slice(0,4)+'-'+s.slice(4,6)+'-'+s.slice(6,8)}
+
+function renderChart(){
+  if(!_lastR||!_lastR.daily||!_lastR.daily.length){_chart.innerHTML='<div class="ds-empty">Keine Daten im Zeitraum</div>';return}
+  var rows=_lastR.daily.slice().sort(function(a,b){return a.dimensionValues[0].value.localeCompare(b.dimensionValues[0].value)});
+  var prevRows=(_lastR.prevDaily||[]).slice().sort(function(a,b){return a.dimensionValues[0].value.localeCompare(b.dimensionValues[0].value)});
+  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:14,b:28};
+  var innerW=W-pad.l-pad.r,innerH=H-pad.t-pad.b;
+  var n=rows.length;
+  var activeKeys=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]});
+  if(!activeKeys.length){_chart.innerHTML='<div class="ds-empty">Klicke eine Metrik-Karte oben um sie im Chart zu zeigen</div>';return}
+
+  var svg='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="overflow:visible">';
+  for(var g=0;g<=4;g++){var gy=pad.t+(innerH*g/4);svg+='<line class="ds-grid" x1="'+pad.l+'" y1="'+gy+'" x2="'+(W-pad.r)+'" y2="'+gy+'"/>';}
+  svg+='<defs>';
+  activeKeys.forEach(function(mk){
+    svg+='<linearGradient id="dbgrad-'+mk+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="'+METRIC_COLORS[mk]+'" stop-opacity=".25"/><stop offset="100%" stop-color="'+METRIC_COLORS[mk]+'" stop-opacity="0"/></linearGradient>';
+  });
+  svg+='</defs>';
+
+  var scales={};
+  activeKeys.forEach(function(mk){
+    var vals=rows.map(function(r){return getMetricVal(r,mk)});
+    var prevVals=prevRows.map(function(r){return getMetricVal(r,mk)});
+    var all=vals.concat(prevVals);
+    var minV=Math.min.apply(null,all),maxV=Math.max.apply(null,all);
+    if(maxV===minV)maxV=minV+1;
+    scales[mk]={min:minV,max:maxV};
+  });
+
+  function xAt(i){return pad.l+(n===1?innerW/2:(i*innerW/(n-1)))}
+  function yAt(v,mk){
+    var s=scales[mk];
+    var ny=(v-s.min)/(s.max-s.min);
+    return pad.t+(1-ny)*innerH;
+  }
+
+  if(prevRows.length>1){
+    activeKeys.forEach(function(mk){
+      var pn=prevRows.length;
+      var pts=prevRows.map(function(r,i){
+        return {x:pad.l+(pn===1?innerW/2:(i*innerW/(pn-1))),y:yAt(getMetricVal(r,mk),mk)};
+      });
+      var ln='M'+pts.map(function(p){return p.x+','+p.y}).join('L');
+      svg+='<path d="'+ln+'" stroke="'+METRIC_COLORS[mk]+'" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="5,4" fill="none"/>';
+    });
+  }
+
+  activeKeys.forEach(function(mk){
+    var pts=rows.map(function(r,i){return {x:xAt(i),y:yAt(getMetricVal(r,mk),mk),val:getMetricVal(r,mk),date:r.dimensionValues[0].value}});
+    var area='M'+pts[0].x+','+pts[0].y;
+    for(var i=1;i<pts.length;i++)area+='L'+pts[i].x+','+pts[i].y;
+    area+='L'+pts[pts.length-1].x+','+(pad.t+innerH)+'L'+pts[0].x+','+(pad.t+innerH)+'Z';
+    svg+='<path d="'+area+'" fill="url(#dbgrad-'+mk+')"/>';
+    var ln='M'+pts.map(function(p){return p.x+','+p.y}).join('L');
+    svg+='<path d="'+ln+'" stroke="'+METRIC_COLORS[mk]+'" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+    pts.forEach(function(p,pi){
+      svg+='<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="'+METRIC_COLORS[mk]+'" class="ds-chart-dot" data-metric="'+mk+'" data-idx="'+pi+'"/>';
+    });
+  });
+
+  var tickCount=Math.min(6,n);
+  for(var t=0;t<tickCount;t++){
+    var idx=tickCount===1?0:Math.floor(t*(n-1)/(tickCount-1));
+    svg+='<text class="ds-tick" x="'+xAt(idx)+'" y="'+(H-8)+'" text-anchor="middle">'+parseGa4Date(rows[idx].dimensionValues[0].value).slice(5)+'</text>';
+  }
+
+  var colW=n>1?innerW/(n-1):innerW;
+  for(var hi=0;hi<n;hi++){
+    var hx=xAt(hi);
+    svg+='<rect x="'+(hx-colW/2)+'" y="'+pad.t+'" width="'+colW+'" height="'+innerH+'" fill="transparent" class="ds-hover-col" data-idx="'+hi+'" style="cursor:crosshair"/>';
+  }
+
+  svg+='</svg>';
+  _chart.innerHTML=svg;
+
+  var crosshair=document.createElement('div');
+  crosshair.className='ds-chart-crosshair';
+  _chart.appendChild(crosshair);
+  var tooltip=document.createElement('div');
+  tooltip.className='ds-chart-tooltip';
+  _chart.appendChild(tooltip);
+
+  var prevByIdx={};
+  if(prevRows.length){
+    prevRows.forEach(function(r,i){
+      var mapped=n>1?Math.round(i/(prevRows.length-1||1)*(n-1)):0;
+      prevByIdx[mapped]=r;
+    });
+  }
+
+  var svgEl=_chart.querySelector('svg');
+  _chart.querySelectorAll('.ds-hover-col').forEach(function(col){
+    col.addEventListener('mouseenter',function(){
+      var idx=parseInt(col.dataset.idx);
+      var row=rows[idx];if(!row)return;
+      var prevRow=prevByIdx[idx];
+      var svgRect=svgEl.getBoundingClientRect();
+      var ratio=svgRect.width/W;
+      var cx=xAt(idx)*ratio;
+      crosshair.style.display='block';
+      crosshair.style.left=cx+'px';
+      crosshair.style.top=(pad.t*ratio)+'px';
+      crosshair.style.height=(innerH*ratio)+'px';
+      _chart.querySelectorAll('.ds-chart-dot').forEach(function(dot){
+        if(parseInt(dot.dataset.idx)===idx){dot.style.opacity='1';dot.setAttribute('r','5');}
+        else{dot.style.opacity='0';dot.setAttribute('r','3.5');}
+      });
+      var html='<div class="tt-date">'+parseGa4Date(row.dimensionValues[0].value)+'</div>';
+      ['sessions','users','views','engagement'].forEach(function(mk){
+        if(!_activeMetrics[mk])return;
+        var v=getMetricVal(row,mk);
+        html+='<div class="tt-row"><span class="tt-dot" style="background:'+METRIC_COLORS[mk]+'"></span><span class="tt-lbl">'+METRIC_LABELS[mk]+'</span><span class="tt-val">'+fmtMetric(v,mk)+'</span>';
+        if(prevRow){
+          var pv=getMetricVal(prevRow,mk);
+          html+='<span class="tt-prev">vs '+fmtMetric(pv,mk)+'</span>';
+        }
+        html+='</div>';
+      });
+      if(prevRow)html+='<div style="font-size:10px;color:var(--muted);margin-top:4px;border-top:1px solid var(--border);padding-top:4px">vs '+parseGa4Date(prevRow.dimensionValues[0].value)+'</div>';
+      tooltip.innerHTML=html;
+      tooltip.style.display='block';
+      var tipW=tooltip.offsetWidth||170;
+      var tipL=cx-tipW/2;
+      var maxL=svgRect.width-tipW-2;
+      if(tipL<2)tipL=2;
+      if(tipL>maxL)tipL=maxL;
+      tooltip.style.left=tipL+'px';
+      tooltip.style.top=(pad.t*ratio+2)+'px';
+    });
+    col.addEventListener('mouseleave',function(){
+      crosshair.style.display='none';
+      tooltip.style.display='none';
+      _chart.querySelectorAll('.ds-chart-dot').forEach(function(dot){dot.style.opacity='0';dot.setAttribute('r','3.5');});
+    });
+  });
+}
+
+var _chartResizeTO;
+window.addEventListener('resize',function(){
+  clearTimeout(_chartResizeTO);
+  _chartResizeTO=setTimeout(function(){if(_lastR)renderChart();},150);
+});
+
+/* ── Sort helpers ── */
+function sortRowsGeneric(rows,col,dir,getters){
+  var getter=getters[col]||function(r){return 0};
+  return rows.slice().sort(function(a,b){
+    var va=getter(a),vb=getter(b);
+    if(typeof va==='string')return dir*va.localeCompare(vb);
+    return dir*((va||0)-(vb||0));
+  });
+}
+function attachSortHeadersToTable(id,state,renderFn){
+  var thead=document.querySelector('#'+id+' thead');
+  if(!thead)return;
+  thead.querySelectorAll('th').forEach(function(th){
+    th.classList.remove('sorted');
+    var ar=th.querySelector('.sort-arr');if(ar)ar.remove();
+    var col=th.getAttribute('data-sort');
+    if(col&&col===state.col){
+      th.classList.add('sorted');
+      th.insertAdjacentHTML('beforeend','<span class="sort-arr">'+(state.dir<0?'▼':'▲')+'</span>');
+    }
+  });
+  thead.querySelectorAll('th[data-sort]').forEach(function(th){
+    var col=th.getAttribute('data-sort');
+    th.onclick=function(){
+      if(state.col===col){state.dir=-state.dir;}else{state.col=col;state.dir=-1;}
+      renderFn();
+    };
+  });
+}
+
+/* ── Tables (sortable) ── */
+function renderChannelsTable(id,rows,state){
+  var getters={key:function(r){return r.dimensionValues[0].value||''},sessions:function(r){return parseFloat(r.metricValues[0].value)||0},users:function(r){return parseFloat(r.metricValues[1].value)||0},eng:function(r){return parseFloat(r.metricValues[2].value)||0},conv:function(r){return parseFloat(r.metricValues[3].value)||0}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,state,function(){renderChannelsTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var ch=r.dimensionValues[0].value;
     var m=r.metricValues;
     var sessions=parseFloat(m[0].value),users=parseFloat(m[1].value),eng=parseFloat(m[2].value),conv=parseFloat(m[3].value);
@@ -1138,12 +1408,15 @@ function renderChannelsTable(id,rows){
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderChannelsTable(id,rows,state)});
 }
 
-function renderLandingTable(id,rows){
+function renderLandingTable(id,rows,state){
+  var getters={key:function(r){return r.dimensionValues[0].value||''},sessions:function(r){return parseFloat(r.metricValues[0].value)||0},eng:function(r){return parseFloat(r.metricValues[1].value)||0},bounce:function(r){return parseFloat(r.metricValues[2].value)||0},conv:function(r){return parseFloat(r.metricValues[3].value)||0}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters).slice(0,50);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.slice(0,50).map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,state,function(){renderLandingTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var path=r.dimensionValues[0].value||'/';
     var m=r.metricValues;
     var sessions=parseFloat(m[0].value),eng=parseFloat(m[1].value),bounce=parseFloat(m[2].value),conv=parseFloat(m[3].value);
@@ -1154,12 +1427,15 @@ function renderLandingTable(id,rows){
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderLandingTable(id,rows,state)});
 }
 
-function renderSourcesTable(id,rows){
+function renderSourcesTable(id,rows,state){
+  var getters={key:function(r){return (r.dimensionValues[0].value||'')+'/'+(r.dimensionValues[1].value||'')},sessions:function(r){return parseFloat(r.metricValues[0].value)||0},conv:function(r){return parseFloat(r.metricValues[1].value)||0}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,state,function(){renderSourcesTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var src=r.dimensionValues[0].value||'(direct)';
     var med=r.dimensionValues[1].value||'(none)';
     var sessions=parseFloat(r.metricValues[0].value);
@@ -1169,12 +1445,15 @@ function renderSourcesTable(id,rows){
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderSourcesTable(id,rows,state)});
 }
 
-function renderViewsTable(id,rows){
+function renderViewsTable(id,rows,state){
+  var getters={key:function(r){return r.dimensionValues[0].value||''},views:function(r){return parseFloat(r.metricValues[0].value)||0},bounce:function(r){return parseFloat(r.metricValues[1].value)||0}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters).slice(0,50);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.slice(0,50).map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,state,function(){renderViewsTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var path=r.dimensionValues[0].value||'/';
     var views=parseFloat(r.metricValues[0].value);
     var bounce=parseFloat(r.metricValues[1].value);
@@ -1183,12 +1462,15 @@ function renderViewsTable(id,rows){
       '<td class="ds-num">'+(bounce*100).toFixed(0)+'%</td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderViewsTable(id,rows,state)});
 }
 
-function renderCountriesTable(id,rows){
+function renderCountriesTable(id,rows,state){
+  var getters={key:function(r){return r.dimensionValues[0].value||''},sessions:function(r){return parseFloat(r.metricValues[0].value)||0},conv:function(r){return parseFloat(r.metricValues[1].value)||0}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters).slice(0,15);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.slice(0,15).map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,state,function(){renderCountriesTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var c=r.dimensionValues[0].value;
     var sessions=parseFloat(r.metricValues[0].value);
     var conv=parseFloat(r.metricValues[1].value);
@@ -1196,12 +1478,15 @@ function renderCountriesTable(id,rows){
       '<td class="ds-num">'+fmtInt(sessions)+'</td>'+
       '<td class="ds-num">'+fmtInt(conv)+'</td></tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderCountriesTable(id,rows,state)});
 }
 
-function renderDevicesTable(id,rows){
+function renderDevicesTable(id,rows,state){
+  var getters={key:function(r){return r.dimensionValues[0].value||''},sessions:function(r){return parseFloat(r.metricValues[0].value)||0},conv:function(r){return parseFloat(r.metricValues[1].value)||0},eng:function(r){return parseFloat(r.metricValues[2].value)||0}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="4" class="ds-empty">Keine Daten</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="4" class="ds-empty">Keine Daten</td></tr>';attachSortHeadersToTable(id,state,function(){renderDevicesTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var d=r.dimensionValues[0].value;
     var sessions=parseFloat(r.metricValues[0].value);
     var conv=parseFloat(r.metricValues[1].value);
@@ -1211,12 +1496,15 @@ function renderDevicesTable(id,rows){
       '<td class="ds-num">'+fmtInt(conv)+'</td>'+
       '<td class="ds-num">'+(eng*100).toFixed(1)+'%</td></tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderDevicesTable(id,rows,state)});
 }
 
-function renderConversionsTable(id,rows){
+function renderConversionsTable(id,rows,state){
+  var getters={key:function(r){return r.dimensionValues[0].value||''},sessions:function(r){return parseFloat(r.metricValues[0].value)||0},conv:function(r){return parseFloat(r.metricValues[3]&&r.metricValues[3].value||0)}};
+  var sorted=sortRowsGeneric(rows,state.col,state.dir,getters);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Conversions in diesem Zeitraum</td></tr>';return}
-  tbody.innerHTML=rows.map(function(r){
+  if(!sorted.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Conversions in diesem Zeitraum</td></tr>';attachSortHeadersToTable(id,state,function(){renderConversionsTable(id,rows,state)});return;}
+  tbody.innerHTML=sorted.map(function(r){
     var ch=r.dimensionValues[0].value;
     var sessions=parseFloat(r.metricValues[0].value);
     var conv=parseFloat(r.metricValues[3].value);
@@ -1226,7 +1514,185 @@ function renderConversionsTable(id,rows){
       '<td class="ds-num"><strong>'+fmtInt(conv)+'</strong> <span style="color:var(--muted);font-size:10px">('+rate.toFixed(1)+'%)</span></td>'+
       '</tr>';
   }).join('');
+  attachSortHeadersToTable(id,state,function(){renderConversionsTable(id,rows,state)});
 }
+
+/* ── AI Traffic Dashboard ── */
+function getAiRangeDates(days){
+  var end=new Date();end.setDate(end.getDate()-1);
+  var start=new Date(end);start.setDate(start.getDate()-(days-1));
+  function iso(d){return d.toISOString().slice(0,10)}
+  return {sd:iso(start),ed:iso(end),days:days};
+}
+function loadAiTraffic(){
+  var propId=_siteSel.value;if(!propId)return;
+  var r=getAiRangeDates(_aiRange);
+  ['dbAiSessions','dbAiUsers','dbAiConversions','dbAiShare'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent='…'});
+  document.querySelector('#dbAiPlatformsTable tbody').innerHTML='<tr><td colspan="4" class="ds-empty">Lädt…</td></tr>';
+  document.querySelector('#dbAiLandingTable tbody').innerHTML='<tr><td colspan="3" class="ds-empty">Lädt…</td></tr>';
+  document.querySelector('#dbAiComparisonTable tbody').innerHTML='<tr><td colspan="4" class="ds-empty">Lädt…</td></tr>';
+  document.getElementById('dbAiChart').innerHTML='<div class="ds-empty">Lädt…</div>';
+  getGa4Token(function(token){
+    if(!token)return;
+    var base='https://analyticsdata.googleapis.com/v1beta/'+propId+':runReport';
+    var hdrs={'Authorization':'Bearer '+token,'Content-Type':'application/json'};
+    function q(body){return fetch(base,{method:'POST',headers:hdrs,body:JSON.stringify(body)}).then(function(r){return r.json()})}
+
+    q({dateRanges:[{startDate:r.sd,endDate:r.ed}],dimensions:[{name:'sessionSource'}],metrics:[{name:'sessions'},{name:'totalUsers'},{name:'conversions'}],dimensionFilter:{filter:{fieldName:'sessionSource',stringFilter:{matchType:'PARTIAL_REGEXP',value:AI_REGEX_STR}}},orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:30}).then(function(d){
+      var rows=(d&&d.rows)||[];
+      var platforms={},totS=0,totU=0,totC=0;
+      rows.forEach(function(row){
+        var s=parseFloat(row.metricValues[0].value)||0;
+        var u=parseFloat(row.metricValues[1].value)||0;
+        var c=parseFloat(row.metricValues[2].value)||0;
+        var p=identifyAiPlatform(row.dimensionValues[0].value);
+        if(!platforms[p.name])platforms[p.name]={name:p.name,icon:p.icon,sessions:0,users:0,conv:0};
+        platforms[p.name].sessions+=s;
+        platforms[p.name].users+=u;
+        platforms[p.name].conv+=c;
+        totS+=s;totU+=u;totC+=c;
+      });
+      var list=Object.keys(platforms).map(function(k){return platforms[k]}).sort(function(a,b){return b.sessions-a.sessions});
+      _aiData=_aiData||{};
+      _aiData.totalSessions=totS;_aiData.totalUsers=totU;_aiData.totalConversions=totC;_aiData.platforms=list;
+      document.getElementById('dbAiSessions').textContent=fmtInt(totS);
+      document.getElementById('dbAiUsers').textContent=fmtInt(totU);
+      document.getElementById('dbAiConversions').textContent=fmtInt(totC);
+      var tbody=document.querySelector('#dbAiPlatformsTable tbody');
+      if(!list.length){tbody.innerHTML='<tr><td colspan="4" class="ds-empty">Kein AI-Referral-Traffic erkannt</td></tr>';}
+      else{
+        tbody.innerHTML=list.map(function(p){
+          return '<tr><td>'+p.icon+' <strong>'+esc(p.name)+'</strong></td><td class="ds-num"><strong>'+fmtInt(p.sessions)+'</strong></td><td class="ds-num">'+fmtInt(p.users)+'</td><td class="ds-num">'+fmtInt(p.conv)+'</td></tr>';
+        }).join('');
+      }
+      q({dateRanges:[{startDate:r.sd,endDate:r.ed}],metrics:[{name:'sessions'}]}).then(function(d2){
+        var total=d2&&d2.rows&&d2.rows[0]?parseFloat(d2.rows[0].metricValues[0].value)||0:0;
+        _aiData.totalSiteSessions=total;
+        var sh=total>0?(totS/total):0;
+        document.getElementById('dbAiShare').textContent=sh>0?(sh<0.001?'<0,1%':(sh*100).toFixed(2)+'%'):'0%';
+      });
+    }).catch(function(){document.querySelector('#dbAiPlatformsTable tbody').innerHTML='<tr><td colspan="4" class="ds-empty">Fehler beim Laden</td></tr>';});
+
+    q({dateRanges:[{startDate:r.sd,endDate:r.ed}],dimensions:[{name:'landingPage'}],metrics:[{name:'sessions'},{name:'conversions'}],dimensionFilter:{filter:{fieldName:'sessionSource',stringFilter:{matchType:'PARTIAL_REGEXP',value:AI_REGEX_STR}}},orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:20}).then(function(d){
+      var rows=(d&&d.rows)||[];
+      var tbody=document.querySelector('#dbAiLandingTable tbody');
+      if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine Landing-Page-Daten</td></tr>';return;}
+      tbody.innerHTML=rows.map(function(row){
+        var p=row.dimensionValues[0].value||'/';
+        var s=parseFloat(row.metricValues[0].value)||0;
+        var c=parseFloat(row.metricValues[1].value)||0;
+        return '<tr><td><span class="ds-path" title="'+esc(p)+'">'+esc(p)+'</span></td><td class="ds-num"><strong>'+fmtInt(s)+'</strong></td><td class="ds-num">'+fmtInt(c)+'</td></tr>';
+      }).join('');
+    }).catch(function(){});
+
+    q({dateRanges:[{startDate:r.sd,endDate:r.ed}],dimensions:[{name:'yearMonth'},{name:'sessionSource'}],metrics:[{name:'sessions'}],dimensionFilter:{filter:{fieldName:'sessionSource',stringFilter:{matchType:'PARTIAL_REGEXP',value:AI_REGEX_STR}}},orderBys:[{dimension:{dimensionName:'yearMonth'}}],limit:500}).then(function(d){
+      var rows=(d&&d.rows)||[];
+      var months={};
+      rows.forEach(function(row){
+        var ym=row.dimensionValues[0].value;
+        var src=row.dimensionValues[1].value;
+        var s=parseFloat(row.metricValues[0].value)||0;
+        if(!months[ym])months[ym]={total:0,platforms:{}};
+        months[ym].total+=s;
+        var pName=identifyAiPlatform(src).name;
+        months[ym].platforms[pName]=(months[ym].platforms[pName]||0)+s;
+      });
+      var sorted=Object.keys(months).sort();
+      var data=sorted.map(function(ym){return {month:ym.slice(0,4)+'-'+ym.slice(4,6),total:months[ym].total,platforms:months[ym].platforms}});
+      drawAiBarChart(data);
+    }).catch(function(){document.getElementById('dbAiChart').innerHTML='<div class="ds-empty">Keine Monatsdaten</div>';});
+
+    q({dateRanges:[{startDate:r.sd,endDate:r.ed}],dimensions:[{name:'sessionDefaultChannelGroup'}],metrics:[{name:'sessions'},{name:'conversions'}],orderBys:[{metric:{metricName:'sessions'},desc:true}],limit:15}).then(function(d){
+      var rows=(d&&d.rows)||[];
+      var tbody=document.querySelector('#dbAiComparisonTable tbody');
+      var html='';
+      if(_aiData&&_aiData.totalSessions>0){
+        var aiRate=((_aiData.totalConversions/_aiData.totalSessions)*100).toFixed(1);
+        html+='<tr style="background:rgba(16,163,127,.12);font-weight:700"><td>🤖 <strong>AI Traffic</strong></td><td class="ds-num">'+fmtInt(_aiData.totalSessions)+'</td><td class="ds-num">'+fmtInt(_aiData.totalConversions)+'</td><td class="ds-num">'+aiRate+'%</td></tr>';
+      }
+      rows.forEach(function(row){
+        var ch=row.dimensionValues[0].value;
+        var s=parseFloat(row.metricValues[0].value)||0;
+        var c=parseFloat(row.metricValues[1].value)||0;
+        if(s===0)return;
+        var rate=s>0?((c/s)*100).toFixed(1):'–';
+        html+='<tr><td>'+esc(ch)+'</td><td class="ds-num">'+fmtInt(s)+'</td><td class="ds-num">'+fmtInt(c)+'</td><td class="ds-num">'+rate+'%</td></tr>';
+      });
+      tbody.innerHTML=html||'<tr><td colspan="4" class="ds-empty">Keine Daten</td></tr>';
+    }).catch(function(){document.querySelector('#dbAiComparisonTable tbody').innerHTML='<tr><td colspan="4" class="ds-empty">Fehler beim Laden</td></tr>';});
+  });
+}
+
+function drawAiBarChart(data){
+  var el=document.getElementById('dbAiChart');
+  if(!data.length){el.innerHTML='<div class="ds-empty">Keine Monatsdaten</div>';return;}
+  var W=el.clientWidth||800,H=180,pad={t:12,r:12,b:28,l:12};
+  var cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
+  var n=data.length;
+  var maxV=Math.max.apply(null,data.map(function(d){return d.total}))||1;
+  var barW=Math.max(14,Math.min(48,(cw/n)*0.65));
+  var gap=(cw-barW*n)/(n+1);
+  var svg='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="overflow:visible">';
+  for(var gi=0;gi<=3;gi++){var gy=pad.t+(gi/3)*ch;svg+='<line x1="'+pad.l+'" y1="'+gy+'" x2="'+(W-pad.r)+'" y2="'+gy+'" stroke="var(--border)" stroke-width=".5" stroke-dasharray="3,3"/>';}
+  svg+='<defs><linearGradient id="aiBarGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10a37f"/><stop offset="100%" stop-color="#10a37f" stop-opacity=".5"/></linearGradient></defs>';
+  var positions=[];
+  data.forEach(function(d,i){
+    var bx=pad.l+gap+i*(barW+gap);
+    var bh=d.total>0?(d.total/maxV)*ch:0;
+    var by=pad.t+ch-bh;
+    positions.push({x:bx+barW/2,bx:bx,by:by,bh:bh});
+    svg+='<rect x="'+bx+'" y="'+by+'" width="'+barW+'" height="'+bh+'" rx="3" fill="url(#aiBarGrad)" class="ds-ai-bar" data-idx="'+i+'"/>';
+    if(d.total>0)svg+='<text x="'+(bx+barW/2)+'" y="'+(by-4)+'" font-size="10" fill="#10a37f" text-anchor="middle" font-weight="700" font-family="JetBrains Mono,monospace">'+d.total+'</text>';
+    svg+='<text x="'+(bx+barW/2)+'" y="'+(H-4)+'" font-size="9" fill="var(--muted)" text-anchor="middle" font-family="JetBrains Mono,monospace">'+d.month.slice(5)+'</text>';
+  });
+  data.forEach(function(d,i){
+    var bx=positions[i].bx;
+    svg+='<rect x="'+(bx-gap/2)+'" y="'+pad.t+'" width="'+(barW+gap)+'" height="'+ch+'" fill="transparent" class="ds-ai-hcol" data-idx="'+i+'" style="cursor:pointer"/>';
+  });
+  svg+='</svg>';
+  el.innerHTML=svg;
+  el.style.position='relative';
+  var tip=document.createElement('div');
+  tip.className='ds-chart-tooltip';
+  tip.style.minWidth='180px';
+  el.appendChild(tip);
+  el.querySelectorAll('.ds-ai-hcol').forEach(function(col){
+    col.addEventListener('mouseenter',function(){
+      var idx=parseInt(col.dataset.idx);
+      var d=data[idx];if(!d)return;
+      var svgRect=el.querySelector('svg').getBoundingClientRect();
+      var ratio=svgRect.width/W;
+      var cx=positions[idx].x*ratio;
+      var html='<div class="tt-date">'+d.month+'</div><div class="tt-row"><span class="tt-dot" style="background:#10a37f"></span><span class="tt-lbl">Gesamt</span><span class="tt-val">'+d.total+' Sessions</span></div>';
+      var pList=Object.keys(d.platforms).map(function(k){return {name:k,s:d.platforms[k]}}).sort(function(a,b){return b.s-a.s});
+      pList.forEach(function(p){
+        var pInfo=null;
+        for(var dom in AI_PLATFORMS){if(AI_PLATFORMS[dom].name===p.name){pInfo=AI_PLATFORMS[dom];break;}}
+        var icon=pInfo?pInfo.icon:'🔗';
+        var pct=d.total>0?Math.round(p.s/d.total*100):0;
+        html+='<div class="tt-row"><span style="width:10px;text-align:center">'+icon+'</span><span class="tt-lbl">'+esc(p.name)+'</span><span class="tt-val">'+p.s+'</span><span class="tt-prev">('+pct+'%)</span></div>';
+      });
+      tip.innerHTML=html;
+      tip.style.display='block';
+      var tipW=tip.offsetWidth||180;
+      var tipL=cx-tipW/2;if(tipL<2)tipL=2;if(tipL+tipW>svgRect.width-2)tipL=svgRect.width-tipW-2;
+      tip.style.left=tipL+'px';
+      tip.style.top='4px';
+    });
+    col.addEventListener('mouseleave',function(){tip.style.display='none'});
+  });
+}
+
+document.querySelectorAll('[data-ai-range]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('[data-ai-range]').forEach(function(b){b.classList.remove('active')});
+    btn.classList.add('active');
+    _aiRange=parseInt(btn.getAttribute('data-ai-range'));
+    localStorage.setItem('lumina_db_ga4_ai_range',String(_aiRange));
+    loadAiTraffic();
+  });
+});
+(function(){var b=document.querySelector('[data-ai-range="'+_aiRange+'"]');if(b){document.querySelectorAll('[data-ai-range]').forEach(function(x){x.classList.remove('active')});b.classList.add('active');}})();
 
 function showError(msg){
   _loading.style.display='none';
