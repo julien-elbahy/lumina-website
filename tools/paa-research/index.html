@@ -6,8 +6,8 @@
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
-<title>Free People Also Ask Tool – PAA Tree + GEO Content Brief | Lumina SEO</title>
-<meta name="description" content="Extract Google People Also Ask questions with 4-level expansion, score answer quality with AI, and generate GEO-ready content briefs + FAQ schema. 15 free queries per day.">
+<title>Free People Also Ask Tool – Extract PAA + GEO Brief | Lumina SEO</title>
+<meta name="description" content="Extract Google People Also Ask questions with 4-level depth, cluster by intent with AI, and generate GEO content briefs with FAQ schema. Free, 15 queries/day.">
 <meta name="robots" content="index, follow">
 
 <link rel="canonical" href="https://lumina-seo.com/tools/paa-research/">
@@ -17,13 +17,14 @@
 <meta name="theme-color" content="#d4843a">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lumina-seo.com/tools/paa-research/">
-<meta property="og:title" content="Free People Also Ask Tool – PAA Tree + GEO Content Brief | Lumina SEO">
-<meta property="og:description" content="Extract Google People Also Ask questions with 4-level expansion, score answer quality with AI, and generate GEO-ready content briefs + FAQ schema. 15 free queries per day.">
+<meta property="og:title" content="Free People Also Ask Tool – Extract PAA + GEO Brief | Lumina SEO">
+<meta property="og:description" content="Extract Google People Also Ask questions with 4-level depth, cluster by intent with AI, and generate GEO content briefs with FAQ schema. Free, 15 queries/day.">
 <meta property="og:image" content="https://lumina-seo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/svg+xml" href="/icon.svg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free People Also Ask Research Tool","url":"https://lumina-seo.com/tools/paa-research/","description":"Extract Google People Also Ask questions with 4-level expansion, score answer quality with AI, and generate GEO-ready content briefs and FAQ schema.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"datePublished":"2026-04-05","dateModified":"2026-04-05","author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Free People Also Ask Tool","alternateName":["PAA Research Tool","PAA Extractor","People Also Ask Extractor"],"url":"https://lumina-seo.com/tools/paa-research/","description":"Free People Also Ask tool that extracts Google PAA questions with 4-level click-depth expansion via DataForSEO, clusters them by search intent with GPT-4.1-mini, and generates GEO-ready content briefs with FAQ schema (JSON-LD).","applicationCategory":"SEOApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["4-level PAA click-depth expansion","AI intent clustering","GEO content brief generation","FAQ schema (JSON-LD) export","Google Autocomplete expansion","CSV export","63 countries + 39 languages"],"datePublished":"2026-04-05","dateModified":"2026-04-05","author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a People Also Ask tool?","acceptedAnswer":{"@type":"Answer","text":"A People Also Ask (PAA) tool extracts the questions Google shows in the 'People also ask' box for any given keyword. The Lumina PAA Research tool goes further by recursively expanding each question four levels deep via the DataForSEO serp/google/organic/live/advanced endpoint, returning a complete hierarchical tree of 10–50+ questions per keyword."}},{"@type":"Question","name":"How do I extract People Also Ask questions for free?","acceptedAnswer":{"@type":"Answer","text":"Use the Lumina People Also Ask Research tool. Enter a keyword, select country and language, and click Extract PAAs. You get 15 free queries per day per IP address. No signup or credit card required. For unlimited access, add your own DataForSEO API key in Settings."}},{"@type":"Question","name":"Is this a free AlsoAsked alternative?","acceptedAnswer":{"@type":"Answer","text":"Yes. Lumina PAA Research is a free alternative to AlsoAsked with additional features they don't offer: AI intent clustering, GEO-ready content brief generation with FAQ schema (JSON-LD), and Google AI Overview detection. AlsoAsked costs $12–47/month; Lumina is free for 15 queries/day."}},{"@type":"Question","name":"What is the people_also_ask_click_depth parameter?","acceptedAnswer":{"@type":"Answer","text":"people_also_ask_click_depth is a DataForSEO SERP API parameter (values 1–4) that tells the API to simulate clicking PAA questions recursively. At depth 4 — the Lumina default — the API expands every visible question up to 4 levels deep, revealing the full question tree that would otherwise require dozens of manual clicks."}}]}</script>
 <style>/* Plus Jakarta Sans — latin-ext */
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -113,8 +114,6 @@ html{overflow-x:clip}
 .sel-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}
 .sel-row label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
 .sel-row select{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:8px 10px;color:var(--text);font-size:12px;font-family:var(--font)}
-.info-pills{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.info-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:4px 10px;border-radius:12px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(236,165,80,.2);font-weight:700}
 .paa-tabs{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}
 .paa-tab{background:0;border:0;padding:9px 14px;font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:8px;transition:all .2s;letter-spacing:.4px;font-family:var(--font);white-space:nowrap}
 .paa-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 12px var(--accent-glow)}
@@ -130,11 +129,8 @@ html{overflow-x:clip}
 .paa-q{flex:1;font-size:13px;font-weight:700;color:var(--text);line-height:1.5;word-break:break-word}
 .paa-domain-chip{font-family:var(--mono);font-size:9px;color:var(--muted);background:var(--card);padding:3px 7px;border-radius:10px;border:1px solid var(--border);flex-shrink:0;margin-top:1px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ai-overview-badge{font-size:8px;font-weight:800;padding:3px 7px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0;margin-top:1px}
-.score-chip{font-size:10px;font-weight:800;padding:3px 8px;border-radius:10px;flex-shrink:0;margin-top:1px;font-family:var(--mono);cursor:help}
-.score-chip.score-high{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
-.score-chip.score-mid{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}
-.score-chip.score-low{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border)}
 .paa-body{padding:0 14px 12px 36px;border-top:0}
+.paa-async-note{font-size:11px;color:var(--muted);font-style:italic;line-height:1.6;padding:8px 12px;background:rgba(124,58,237,.05);border-left:2px solid #a855f7;border-radius:6px;margin-top:6px}
 .paa-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:6px}
 .paa-url{font-family:var(--mono);font-size:11px;color:var(--ok);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;max-width:100%}
 .paa-refs{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
@@ -142,7 +138,6 @@ html{overflow-x:clip}
 .paa-refs a{font-size:10px;color:var(--accent);text-decoration:underline}
 .paa-children{padding:0 8px 8px 24px;border-left:1px dashed var(--border);margin-left:18px}
 .paa-node.collapsed .paa-body,.paa-node.collapsed .paa-children{display:none}
-.paa-reasoning{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;line-height:1.5;padding:6px 10px;background:var(--card);border-radius:8px;border-left:2px solid var(--warn)}
 .related-box{margin-top:16px;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
 .related-box h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
 .chip{display:inline-block;font-size:11px;padding:5px 11px;border-radius:15px;background:var(--card);border:1px solid var(--border);color:var(--text2);margin:2px 4px 2px 0;cursor:pointer;transition:all .15s}
@@ -152,13 +147,15 @@ html{overflow-x:clip}
 .tb-btn.copied{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
 .tb-btn:disabled{opacity:.4;cursor:default}
 #toolbar{display:none;gap:6px;flex-wrap:wrap;margin:12px 0}
-.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:14px;padding:14px;margin-bottom:10px}
-[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.18)}
-.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;padding:3px 10px;border-radius:20px;letter-spacing:.4px;margin-bottom:8px}
-.ai-card-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px}
-.ai-card-desc{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5}
-.ai-card-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .2s}
+.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:16px;margin-top:14px;backdrop-filter:blur(var(--blur))}
+.ai-card:hover{border-color:rgba(124,58,237,.35)}
+[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.15)}
+.ai-card-header{text-align:center;margin-bottom:14px}
+.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+.ai-card-title{font-size:17px;font-weight:800;margin-bottom:4px;color:var(--text)}
+.ai-card-desc{font-size:12px;color:var(--muted);line-height:1.6;max-width:520px;margin:0 auto}
+.ai-card-body{text-align:center;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center}
+.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:all .2s}
 .ai-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.3)}
 .ai-btn:disabled{opacity:.5;cursor:default;transform:none}
 .ai-cost{font-size:10px;color:var(--muted);font-family:var(--mono)}
@@ -174,19 +171,6 @@ html{overflow-x:clip}
 .cluster-questions{list-style:none;padding:0;margin:0}
 .cluster-questions li{font-size:12px;color:var(--text2);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.5}
 .cluster-questions li:last-child{border-bottom:none}
-.sim-grid{display:grid;grid-template-columns:1fr;gap:12px}
-.sim-item{border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--bg)}
-.sim-q{font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.5}
-.sim-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:640px){.sim-cols{grid-template-columns:1fr}}
-.sim-col{border:1px solid var(--border);border-radius:10px;padding:10px;background:var(--card)}
-.sim-col-head{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.sim-col-head.google{color:#4285f4}
-.sim-col-head.ai{color:#a855f7}
-.sim-answer{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px}
-.sim-domains{display:flex;gap:4px;flex-wrap:wrap}
-.sim-dom{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text2)}
-.sim-dom.overlap{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
 .brief-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:10px;font-size:12px;line-height:1.7;color:var(--text2);max-height:560px;overflow-y:auto}
 .brief-box h4{font-size:13px;font-weight:800;color:var(--text);margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .brief-box h4:first-child{margin-top:0}
@@ -296,11 +280,10 @@ html{overflow-x:clip}
 </div>
 
 <div class="ct" id="main-content">
-<div class="th"><div class="lb">Free SEO &amp; GEO Tool</div><h1>People Also Ask Research</h1><p>Extract Google PAA questions with 4-level expansion, score answer quality with AI, compare Google vs AI-engine answers, and auto-generate GEO-ready content briefs + FAQ schema.</p><div class="tool-updated">Last updated: April 2026</div></div>
+<div class="th"><div class="lb">Free SEO &amp; GEO Tool</div><h1>People Also Ask Tool</h1><p>Extract Google People Also Ask questions with 4-level click-depth expansion via DataForSEO, cluster them by intent with AI, and generate a GEO-ready content brief with FAQ schema. Free, 15 queries per day, no signup.</p><div class="tool-updated">Last updated: April 2026</div></div>
 
 <div class="cd">
 <div class="kw-input"><input type="text" id="kwIn" placeholder="Enter a keyword, e.g. 'how to bake sourdough'…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select><select id="langSelect" title="Search language" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select><select id="deviceSelect" title="Device"><option value="desktop">Desktop</option><option value="mobile">Mobile</option></select><button class="ab" id="btnGo">Extract PAAs</button></div>
-<div class="info-pills"><span class="info-pill">🌳 4-level expansion</span><span class="info-pill">🤖 AI clustering</span><span class="info-pill">📊 Quality scoring</span><span class="info-pill">📄 GEO brief</span></div>
 
 <div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
 
@@ -308,52 +291,38 @@ html{overflow-x:clip}
 
 <div id="res" style="display:none">
 <div class="metrics"><div class="metric"><div class="mh">Questions</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">Domains</div><p id="mDomains">0</p></div><div class="metric"><div class="mh">AI Overviews</div><p id="mAI">0</p></div><div class="metric"><div class="mh">Related</div><p id="mRelated">0</p></div></div>
-<div class="paa-tabs"><button class="paa-tab active" data-tab="tree">🌳 Tree View</button><button class="paa-tab" data-tab="cluster" id="tabCluster" style="display:none">🧩 Clusters</button><button class="paa-tab" data-tab="sim" id="tabSim" style="display:none">🆚 AI Simulation</button><button class="paa-tab" data-tab="brief" id="tabBrief" style="display:none">📄 GEO Brief</button></div>
+<div class="paa-tabs"><button class="paa-tab active" data-tab="tree">🌳 Tree View</button><button class="paa-tab" data-tab="cluster" id="tabCluster" style="display:none">🧩 Clusters</button><button class="paa-tab" data-tab="brief" id="tabBrief" style="display:none">📄 GEO Brief</button></div>
 <div id="treeView" class="paa-tree"></div>
 <div id="clusterView" style="display:none"></div>
-<div id="simView" style="display:none"></div>
 <div id="briefView" style="display:none"></div>
 <div id="autocompleteView" style="display:none"></div>
 <div id="relatedView" style="display:none"></div>
+
+<div id="aiCards" style="display:none">
+<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">AI-Powered</span><div class="ai-card-title">Cluster questions by intent</div><div class="ai-card-desc">Groups all PAA questions into 3–6 topical clusters with search intent labels (informational, commercial, navigational, transactional). Essential for content structure planning.</div></div><div class="ai-card-body"><button class="ai-btn" id="btnCluster">🧩 Cluster by Intent</button></div></div>
+
+<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">AI-Powered</span><div class="ai-card-title">Generate a GEO-ready content brief</div><div class="ai-card-desc">Turns the PAA tree into a ready-to-write content brief: H2/H3 structure, 134–167 word passages (AI-Overview optimal), FAQ schema (JSON-LD), entity checklist, and citation hooks.</div></div><div class="ai-card-body"><button class="ai-btn" id="btnBrief">📄 Generate GEO Brief</button></div></div>
+
+<div class="ai-card"><div class="ai-card-header"><span class="ai-badge">Optional</span><div class="ai-card-title">Expand with Google Autocomplete</div><div class="ai-card-desc">Fires 33 Google Autocomplete calls (a–z + question modifiers) to discover long-tail questions around your keyword. <strong style="color:var(--warn)">Uses ~33 DataForSEO credits</strong> from a separate 100/day bucket.</div></div><div class="ai-card-body"><button class="ai-btn" id="btnExpand">🔤 Expand with Autocomplete</button></div></div>
+</div>
 </div>
 </div>
 <script>if(window.luminaQuota)luminaQuota.createBar('paa-research',document.querySelector('.cd'))</script>
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 2px"><div class="lq-hint" onclick="if(window.luminaSettings)luminaSettings.open()">&#x1f4a1; API key &#x2192; <span>Settings</span></div><div id="lq_paa-research" style="font-size:11px;font-family:var(--mono);color:var(--muted)">15 credits per day</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 2px;gap:12px;flex-wrap:wrap"><div class="lq-hint" onclick="if(window.luminaSettings)luminaSettings.open()">&#x1f4a1; API key &#x2192; <span>Settings</span></div><div style="display:flex;gap:12px;font-size:11px;font-family:var(--mono);color:var(--muted)"><div id="lq_paa-research">15 PAA / day</div><div id="lq_paa-research-ai">10 AI / day</div></div></div>
 
-<div class="cd" id="aiCards" style="display:none">
-<div class="sec-head">AI-powered actions</div>
-<div class="ai-card"><span class="ai-badge">AI Clustering</span><div class="ai-card-title">Group questions by intent</div><div class="ai-card-desc">Clusters all PAA questions into 3–6 topic groups with search intent labels (informational / commercial / navigational / transactional). Uses GPT-4.1-mini.</div><div class="ai-card-body"><button class="ai-btn" id="btnCluster">🧩 Cluster by Intent</button><span class="ai-cost">~1 AI credit</span></div></div>
+<div class="content"><h2>How the PAA Research tool works</h2><p>Enter a keyword and this tool extracts the full Google <strong>People Also Ask</strong> tree via the DataForSEO <code>serp/google/organic/live/advanced</code> endpoint with <code>people_also_ask_click_depth: 4</code> — four levels deep instead of the 3–4 questions you see on the initial SERP. Each node includes the question, answer snippet, source URL, and ranking domain. Related Searches and Google AI Overview detection are bundled for free in the same response. One-click AI Clustering (GPT-4.1-mini) groups questions by search intent, and the GEO Content Brief generator (GPT-4.1) turns them into a ready-to-write content structure with 134–167 word passages, an entity checklist, and FAQ schema (JSON-LD) you can paste straight into your CMS.</p>
+<p>The tool targets 63 countries and 39 languages using DataForSEO location and language codes. It works as a free alternative to <strong>AlsoAsked</strong>, <strong>AnswerThePublic</strong>, and <strong>KeywordTool.io Questions</strong> — the key difference is that Lumina combines the real PAA tree with AI intent clustering and a GEO-ready content brief in one workflow, where the others focus only on visualization.</p>
 
-<div class="ai-card"><span class="ai-badge">Answer Quality</span><div class="ai-card-title">Score the current top answer</div><div class="ai-card-desc">Rates each PAA's current Google answer 0–100 on completeness, specificity, E-E-A-T signals, and freshness. Finds the weak spots you can easily beat. Uses GPT-4.1.</div><div class="ai-card-body"><button class="ai-btn" id="btnScore">📊 Score Answer Quality</button><span class="ai-cost">~1 AI credit</span></div></div>
-
-<div class="ai-card"><span class="ai-badge">GEO Content Brief</span><div class="ai-card-title">Generate a ready-to-write content brief</div><div class="ai-card-desc">Turns PAAs into an H2/H3 structure, 134-167 word passages per question (AI-Overview optimal), FAQ schema (JSON-LD), entity checklist, and citation hooks for GEO. Uses GPT-4.1.</div><div class="ai-card-body"><button class="ai-btn" id="btnBrief">📄 Generate GEO Brief</button><span class="ai-cost">~1 AI credit</span></div></div>
-
-<div class="ai-card"><span class="ai-badge">Prompt Simulation</span><div class="ai-card-title">Compare Google PAA vs AI-engine answer</div><div class="ai-card-desc">Sends the top 5 PAAs to GPT-4.1 as if it were generating a Google AI Overview, then compares the cited domains against Google's sources. See the gap between SERP dominance and AI visibility.</div><div class="ai-card-body"><button class="ai-btn" id="btnSim">🆚 Simulate Top 5 PAAs</button><span class="ai-cost">~1 AI credit</span></div></div>
-
-<div class="ai-card"><span class="ai-badge">Alphabet Expansion</span><div class="ai-card-title">Find 100+ more questions from Google Autocomplete</div><div class="ai-card-desc">Fires 33 Google Autocomplete calls (a–z + question words) to discover long-tail questions around your keyword. Separate from the main PAA tree. <strong style="color:var(--warn)">Uses ~33 extra DataForSEO credits</strong>.</div><div class="ai-card-body"><button class="ai-btn" id="btnExpand">🔤 Expand with Autocomplete</button><span class="ai-cost">~33 DFS credits</span></div></div>
-</div>
-
-<div class="content"><h2>How PAA Research works</h2>
-<p>This tool queries the Google SERP via the DataForSEO API with <code>people_also_ask_click_depth: 4</code>, which simulates clicking every People Also Ask box up to four levels deep. That delivers a complete hierarchical tree of questions Google surfaces for your keyword — not just the 3–4 questions you see on the initial SERP. Each node includes the question, Google's answer snippet, the source URL, and the ranking domain.</p>
-<p>For AI-Overview-enabled queries, the tool also captures the AI Overview text and its cited references. Related Searches are included as a free bonus in the same response.</p>
-
-<h2>Why answer quality scoring matters for GEO</h2>
-<p>Generative search engines like Google's AI Overviews, ChatGPT Search, and Perplexity don't just show the top-ranked page — they synthesize an answer from the most <em>complete</em>, <em>specific</em>, and <em>authoritative</em> sources. A thin 50-word snippet rarely gets picked, even if it ranks #1 organically. The AI Quality Score identifies PAAs where Google's current top answer is mediocre (score &lt; 60) — those are your highest-leverage opportunities to win both classic SERP positions and AI-engine citations.</p>
-
-<h2>From PAAs to GEO-ready content brief</h2>
-<p>The GEO Content Brief feature bundles the PAA tree, clusters, and top answers into a single prompt and asks GPT-4.1 to generate: an H2/H3 structure grouped by topic, 134–167 word passages per question (the length Google's AI Overviews favor), a ready-to-paste FAQ schema (JSON-LD), an entity checklist the content must mention, and citation hooks (statistics, data points, expert quotes) that boost citability in AI-generated answers.</p>
-
-<h2>Explore more tools</h2>
+<h2 style="margin-top:28px">Explore more tools</h2>
 <div class="other-tools"><a href="/tools/keyword-research/"><h3>Keyword Research</h3><p>Find related keywords with volume, CPC, and competition.</p></a><a href="/tools/serp-checker/"><h3>SERP Checker</h3><p>Check Google rankings for any keyword.</p></a><a href="/tools/serp-overlap/"><h3>SERP Overlap</h3><p>Compare top rankings for two keywords.</p></a><a href="/tools/query-fan-out/"><h3>Query Fan Out</h3><p>See how Google expands your query into sub-queries.</p></a><a href="/tools/ai-content-optimizer/"><h3>AI Content Optimizer</h3><p>Optimize existing content for GEO and SEO.</p></a><a href="/tools/schema-validator/"><h3>Schema Validator</h3><p>Validate structured data and rich snippets.</p></a></div>
 
 <h2>FAQ</h2>
-<div class="faq-item"><div class="faq-q">What is the daily limit?<span class="arrow">+</span></div><div class="faq-a">15 free PAA queries per day per IP address. Each AI feature (clustering, scoring, brief, simulation) uses a separate AI quota (20/day). Alphabet Expansion has its own higher limit (100/day) because it fires many sub-calls. Enter your own DataForSEO and OpenAI API keys in Settings for unlimited access.</div></div>
+<div class="faq-item"><div class="faq-q">What is the daily limit?<span class="arrow">+</span></div><div class="faq-a">15 free PAA queries per day per IP address. The AI features (clustering + GEO content brief) share a single 10/day AI quota. Alphabet Expansion has its own 100/day bucket because each click fires ~33 sub-requests. Enter your own DataForSEO and OpenAI API keys in Settings for unlimited access.</div></div>
 <div class="faq-item"><div class="faq-q">What is <code>people_also_ask_click_depth</code>?<span class="arrow">+</span></div><div class="faq-a">A DataForSEO parameter that simulates clicking PAA questions recursively. At depth 4 (our default), the API expands every visible question up to 4 levels deep — first the initial 3-4 questions, then each reveals more, and so on. This gives you a complete question tree, which would take dozens of manual clicks to reproduce.</div></div>
 <div class="faq-item"><div class="faq-q">Are these real Google PAAs or synthetic?<span class="arrow">+</span></div><div class="faq-a">100% real. The data comes directly from Google's SERP via DataForSEO's <code>serp/google/organic/live/advanced</code> endpoint. Unlike AnswerThePublic (which uses autocomplete), this tool extracts the actual People Also Ask box Google shows to real users in your selected country and language.</div></div>
-<div class="faq-item"><div class="faq-q">How does AI Answer Quality Scoring work?<span class="arrow">+</span></div><div class="faq-a">The tool sends each PAA (question + current top answer snippet + source URL) to GPT-4.1 as a batch. The model evaluates completeness, specificity, E-E-A-T signals, and freshness, returning a 0–100 score plus a short reasoning line per question. Scores under 60 (red) are "easy to beat" opportunities; scores 60-79 (yellow) require more effort; 80+ (green) are dominated.</div></div>
+<div class="faq-item"><div class="faq-q">Why do some AI Overview questions have no answer?<span class="arrow">+</span></div><div class="faq-a">Google generates AI Overviews <em>on-demand</em> per session in the browser. DataForSEO flags these as <code>asynchronous_ai_overview</code> with no pre-rendered text or references. The question itself is still valuable for your content strategy — it tells you what Google considers important enough to surface as an AI Overview prompt.</div></div>
 <div class="faq-item"><div class="faq-q">What's included in the GEO Content Brief?<span class="arrow">+</span></div><div class="faq-a">(1) H2/H3 structure organized by cluster/topic; (2) 134-167 word passages per question (optimal for AI Overview citation); (3) FAQ Schema (ready-to-paste JSON-LD) with all questions and concise answers; (4) an entity checklist (named concepts to mention for topical depth); (5) citation hooks — specific stats, dates, or data points to include for GEO citability. Downloadable as Markdown (.md) and JSON (.json).</div></div>
-<div class="faq-item"><div class="faq-q">What does Prompt Simulation compare?<span class="arrow">+</span></div><div class="faq-a">It takes the top 5 PAAs and sends each to GPT-4.1 with a system prompt that instructs it to answer as if generating a Google AI Overview with sources. Then it compares the AI-cited domains against Google's own cited domains (from the PAA's <code>domain</code> field). Overlap domains appear in both; Google-only domains dominate the SERP but lose in AI; AI-only domains are winning AI visibility that you can target.</div></div>
-<div class="faq-item"><div class="faq-q">How is this different from AlsoAsked or AnswerThePublic?<span class="arrow">+</span></div><div class="faq-a">AlsoAsked shows the PAA tree but has no AI features, no quality scoring, no GEO brief, and no AI-engine simulation. AnswerThePublic uses autocomplete suggestions (not real PAAs). This tool combines the real PAA tree with AI-powered analysis for both classic SEO and GEO optimization — all in one workflow.</div></div>
+<div class="faq-item"><div class="faq-q">How is this different from AlsoAsked or AnswerThePublic?<span class="arrow">+</span></div><div class="faq-a">AlsoAsked shows the PAA tree but has no AI clustering, no GEO content brief, and no FAQ schema export. AnswerThePublic uses autocomplete suggestions (not real PAAs). This tool combines the real PAA tree with AI-powered intent clustering and a one-click GEO-ready content brief — all in one workflow.</div></div>
 
 <div class="cta-box"><div class="cta-t">PAA research in every analysis</div><p>Lumina shows People Also Ask data, search volume, and competitor insights directly in your browser as you research.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Add Lumina to Chrome — Free</a></div>
 </div></div>
@@ -427,7 +396,7 @@ function parseAiJson(text){
 }
 
 // ── State ──
-var state={keyword:'',loc:2040,lang:'de',device:'desktop',country:'Austria',rawItems:[],paaTree:[],flatPAAs:[],relatedSearches:[],autocompletePAAs:[],clusters:null,scores:null,brief:null,simulation:null,currentTab:'tree'};
+var state={keyword:'',loc:2040,lang:'de',device:'desktop',country:'Austria',rawItems:[],paaTree:[],flatPAAs:[],relatedSearches:[],autocompletePAAs:[],clusters:null,brief:null,currentTab:'tree'};
 
 var countryNames={2032:'Argentina',2036:'Australia',2040:'Austria',2056:'Belgium',2076:'Brazil',2100:'Bulgaria',2124:'Canada',2152:'Chile',2156:'China',2158:'Taiwan',2170:'Colombia',2191:'Croatia',2203:'Czech Republic',2208:'Denmark',2233:'Estonia',2246:'Finland',2250:'France',2276:'Germany',2300:'Greece',2344:'Hong Kong',2348:'Hungary',2352:'Iceland',2356:'India',2360:'Indonesia',2372:'Ireland',2376:'Israel',2380:'Italy',2392:'Japan',2410:'South Korea',2428:'Latvia',2440:'Lithuania',2442:'Luxembourg',2458:'Malaysia',2484:'Mexico',2504:'Morocco',2528:'Netherlands',2554:'New Zealand',2566:'Nigeria',2578:'Norway',2586:'Pakistan',2604:'Peru',2608:'Philippines',2616:'Poland',2620:'Portugal',2642:'Romania',2643:'Russia',2682:'Saudi Arabia',2688:'Serbia',2702:'Singapore',2703:'Slovakia',2704:'Vietnam',2705:'Slovenia',2710:'South Africa',2724:'Spain',2752:'Sweden',2756:'Switzerland',2764:'Thailand',2784:'UAE',2792:'Turkey',2804:'Ukraine',2818:'Egypt',2826:'United Kingdom',2840:'United States'};
 var defaultLangMap={2032:'es',2036:'en',2040:'de',2056:'nl',2076:'pt',2100:'bg',2124:'en',2152:'es',2156:'zh',2158:'zh',2170:'es',2191:'hr',2203:'cs',2208:'da',2233:'et',2246:'fi',2250:'fr',2276:'de',2300:'el',2344:'zh',2348:'hu',2352:'is',2356:'en',2360:'id',2372:'en',2376:'he',2380:'it',2392:'ja',2410:'ko',2428:'lv',2440:'lt',2442:'fr',2458:'ms',2484:'es',2504:'fr',2528:'nl',2554:'en',2566:'en',2578:'no',2586:'ur',2604:'es',2608:'en',2616:'pl',2620:'pt',2642:'ro',2643:'ru',2682:'ar',2688:'sr',2702:'en',2703:'sk',2705:'sl',2710:'en',2724:'es',2752:'sv',2756:'de',2764:'th',2784:'ar',2792:'tr',2804:'uk',2818:'ar',2826:'en',2840:'en',2704:'vi'};
@@ -453,10 +422,9 @@ function analyze(){
   state.lang=document.getElementById('langSelect').value;
   state.device=document.getElementById('deviceSelect').value;
   state.country=countryNames[state.loc]||'';
-  state.clusters=null;state.scores=null;state.brief=null;state.simulation=null;state.autocompletePAAs=[];
+  state.clusters=null;state.brief=null;state.autocompletePAAs=[];
   // Reset UI
   document.getElementById('tabCluster').style.display='none';
-  document.getElementById('tabSim').style.display='none';
   document.getElementById('tabBrief').style.display='none';
   document.getElementById('autocompleteView').style.display='none';
   document.getElementById('loading').style.display='block';
@@ -550,7 +518,15 @@ function renderMetrics(){
   state.flatPAAs.forEach(function(q){
     (q.expanded_element||[]).forEach(function(e){
       if(e.domain)domains[e.domain]=1;
-      if(e.type==='people_also_ask_ai_overview_expanded_element')aiCount++;
+      if(e.type==='people_also_ask_ai_overview_expanded_element'){
+        aiCount++;
+        // Also count domains from AI Overview references
+        (e.references||[]).forEach(function(r){
+          var u=r.url||'';
+          var m=u.match(/^https?:\/\/([^\/]+)/i);
+          if(m)domains[m[1].replace(/^www\./,'')]=1;
+        });
+      }
     });
   });
   document.getElementById('mTotal').textContent=total;
@@ -590,42 +566,37 @@ function renderNode(node,level,id){
   var exp=node.expanded_element||[];
   var first=exp[0]||{};
   var isAI=first.type==='people_also_ask_ai_overview_expanded_element';
+  var isAsync=isAI&&first.asynchronous_ai_overview===true;
   var description='',url='',domain='',refs=[];
   if(isAI){description=first.text||'';refs=first.references||[]}
   else{description=first.description||'';url=first.url||'';domain=first.domain||''}
-  var scoreChip='';
-  if(state.scores&&state.scores[node.title]){
-    var sc=state.scores[node.title];
-    var cls=sc.score>=80?'score-high':(sc.score>=60?'score-mid':'score-low');
-    scoreChip='<span class="score-chip '+cls+'" title="'+esc(sc.reason||'')+'">'+sc.score+'/100</span>';
-  }
   var domainChip=domain?'<span class="paa-domain-chip">'+esc(domain)+'</span>':'';
-  var aiBadge=isAI?'<span class="ai-overview-badge">AI Overview</span>':'';
+  var aiBadge=isAI?'<span class="ai-overview-badge" title="Google returned an AI Overview for this question">AI Overview</span>':'';
   var childrenHtml='';
   if(node.children&&node.children.length){
     childrenHtml='<div class="paa-children">'+node.children.map(function(c,i){return renderNode(c,level+1,id+'-'+i)}).join('')+'</div>';
   }
   var refsHtml='';
-  if(refs.length){
-    refsHtml='<div class="paa-refs"><strong>References:</strong> '+refs.slice(0,6).map(function(r){return'<a href="'+esc(r.url||'#')+'" target="_blank" rel="noopener">'+esc(r.title||r.source||r.url||'')+'</a>'}).join(' · ')+'</div>';
+  if(refs&&refs.length){
+    refsHtml='<div class="paa-refs"><strong>Cited sources:</strong> '+refs.slice(0,6).map(function(r){return'<a href="'+esc(r.url||'#')+'" target="_blank" rel="noopener">'+esc(r.title||r.source||r.url||'')+'</a>'}).join(' · ')+'</div>';
   }
-  var reasoningHtml='';
-  if(state.scores&&state.scores[node.title]&&state.scores[node.title].reason){
-    reasoningHtml='<div class="paa-reasoning">💡 '+esc(state.scores[node.title].reason)+'</div>';
+  var asyncNote='';
+  if(isAsync&&!description&&!refsHtml){
+    asyncNote='<div class="paa-async-note">⏳ Google generates this AI Overview on-demand per session — answer content is not available in the API response. The question itself is still valid for your content strategy.</div>';
   }
   var body='';
-  if(description||url||refsHtml||reasoningHtml){
+  if(description||url||refsHtml||asyncNote){
     body='<div class="paa-body">'+
       (description?'<p class="paa-desc">'+esc(description.substring(0,500))+(description.length>500?'…':'')+'</p>':'')+
       (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" class="paa-url">'+esc(url)+'</a>':'')+
-      refsHtml+reasoningHtml+
+      refsHtml+asyncNote+
     '</div>';
   }
   return '<div class="paa-node level-'+level+'" data-title="'+esc(node.title)+'">'+
     '<div class="paa-node-header">'+
     '<span class="paa-toggle">▸</span>'+
     '<span class="paa-q">'+esc(node.title)+'</span>'+
-    aiBadge+scoreChip+domainChip+
+    aiBadge+domainChip+
     '</div>'+
     body+childrenHtml+
   '</div>';
@@ -649,7 +620,6 @@ function switchTab(tab){
   document.querySelectorAll('.paa-tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});
   document.getElementById('treeView').style.display=tab==='tree'?'block':'none';
   document.getElementById('clusterView').style.display=tab==='cluster'?'block':'none';
-  document.getElementById('simView').style.display=tab==='sim'?'block':'none';
   document.getElementById('briefView').style.display=tab==='brief'?'block':'none';
 }
 
@@ -696,21 +666,25 @@ function copyTree(){
 }
 
 function exportCsv(){
-  var rows=[['Question','Parent','Answer Snippet','Source URL','Domain','Cluster','Quality Score','Intent']];
+  var rows=[['Question','Parent','Answer Snippet','Source URL','Domain','Cluster','Intent','AI Overview']];
   var flat=flattenTree(state.paaTree);
   flat.forEach(function(n){
     var exp=(n.expanded_element||[])[0]||{};
+    var isAI=exp.type==='people_also_ask_ai_overview_expanded_element';
     var answer=(exp.description||exp.text||'').replace(/\s+/g,' ').substring(0,300);
     var url=exp.url||'';
     var domain=exp.domain||'';
+    if(!domain&&isAI&&exp.references&&exp.references.length){
+      var m=(exp.references[0].url||'').match(/^https?:\/\/([^\/]+)/i);
+      if(m)domain=m[1].replace(/^www\./,'');
+    }
     var cluster='';var intent='';
     if(state.clusters){
       for(var i=0;i<state.clusters.length;i++){
         if((state.clusters[i].questions||[]).indexOf(n.title)>=0){cluster=state.clusters[i].name;intent=state.clusters[i].intent||'';break}
       }
     }
-    var score=(state.scores&&state.scores[n.title])?state.scores[n.title].score:'';
-    rows.push([n.title,n._parent||'',answer,url,domain,cluster,score,intent]);
+    rows.push([n.title,n._parent||'',answer,url,domain,cluster,intent,isAI?'yes':'']);
   });
   var csv=rows.map(function(r){return r.map(function(c){return'"'+String(c||'').replace(/"/g,'""')+'"'}).join(',')}).join('\n');
   var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
@@ -782,44 +756,7 @@ function renderClusters(){
 }
 
 // ══════════════════════════════════════════════════════════
-// AI Card 2: Answer Quality Scoring
-// ══════════════════════════════════════════════════════════
-document.getElementById('btnScore').addEventListener('click',runScoring);
-function runScoring(){
-  if(!state.flatPAAs.length)return;
-  var btn=document.getElementById('btnScore');
-  btn.disabled=true;btn.textContent='Scoring…';
-  var items=state.flatPAAs.map(function(q,i){
-    var exp=(q.expanded_element||[])[0]||{};
-    var ans=(exp.description||exp.text||'').substring(0,350);
-    var dom=exp.domain||'unknown';
-    return(i+1)+'. Q: '+q.title+'\n   A: '+ans+'\n   Source: '+dom;
-  }).join('\n\n');
-  var system='You are an SEO content quality expert. Given a list of questions from Google People Also Ask and their current top answers, score EACH answer 0-100 on these criteria combined: completeness (does it fully answer?), specificity (concrete data, numbers, examples?), E-E-A-T signals (authoritative source?), freshness (recent data?). Return ONLY valid JSON — no markdown — in this exact format: {"scores":[{"index":1,"score":42,"reason":"brief 1-sentence reason in English"}]}. Use the same index numbering as the input. Reasoning must be concise (max 18 words) and reveal opportunities or strengths.';
-  var user='Keyword: "'+state.keyword+'"\nMarket: '+state.country+'\n\nQuestions + top answers:\n\n'+items;
-  aiPost(system,user,'gpt-4.1',3500,'paa-research-ai').then(function(text){
-    var parsed=parseAiJson(text);
-    if(parsed&&parsed.scores){
-      state.scores={};
-      parsed.scores.forEach(function(s){
-        var idx=s.index-1;
-        if(state.flatPAAs[idx]){
-          state.scores[state.flatPAAs[idx].title]={score:s.score,reason:s.reason||''};
-        }
-      });
-      renderTree();
-      btn.textContent='✓ Scored';setTimeout(function(){btn.textContent='📊 Re-score'},1800);
-    }else{
-      btn.textContent='⚠️ Failed — retry';
-    }
-  }).catch(function(e){
-    btn.textContent='⚠️ Error';
-    if(e.isQuota)alert(e.message);
-  }).finally(function(){btn.disabled=false});
-}
-
-// ══════════════════════════════════════════════════════════
-// AI Card 3: GEO Content Brief
+// AI Card 2: GEO Content Brief
 // ══════════════════════════════════════════════════════════
 document.getElementById('btnBrief').addEventListener('click',runBrief);
 function runBrief(){
@@ -900,57 +837,7 @@ function renderBrief(){
 }
 
 // ══════════════════════════════════════════════════════════
-// AI Card 4: Prompt Simulation
-// ══════════════════════════════════════════════════════════
-document.getElementById('btnSim').addEventListener('click',runSimulation);
-function runSimulation(){
-  if(!state.flatPAAs.length)return;
-  var btn=document.getElementById('btnSim');
-  btn.disabled=true;btn.textContent='Simulating…';
-  var topRoots=state.paaTree.slice(0,5);
-  if(!topRoots.length)topRoots=state.flatPAAs.slice(0,5);
-  var qList=topRoots.map(function(q,i){return(i+1)+'. '+q.title}).join('\n');
-  var system='You are simulating a generative search engine (like Google AI Overview, Perplexity, or ChatGPT Search). For EACH question, generate a 60-100 word authoritative answer and list 3-5 hypothetical source domains that such an answer would cite (well-known authoritative sites in that domain). Return ONLY valid JSON — no markdown fences — in this exact format: {"answers":[{"index":1,"answer":"60-100 word answer","domains":["domain1.com","domain2.com","domain3.com"]}]}.';
-  var user='Keyword: "'+state.keyword+'"\nMarket: '+state.country+' ('+state.lang+')\n\nQuestions:\n'+qList;
-  aiPost(system,user,'gpt-4.1',3000,'paa-research-ai').then(function(text){
-    var parsed=parseAiJson(text);
-    if(parsed&&parsed.answers){
-      state.simulation=parsed.answers.map(function(a){
-        var q=topRoots[a.index-1];
-        if(!q)return null;
-        var exp=(q.expanded_element||[])[0]||{};
-        return{question:q.title,googleAnswer:(exp.description||exp.text||'').substring(0,400),googleDomain:exp.domain||'',aiAnswer:a.answer,aiDomains:a.domains||[]};
-      }).filter(Boolean);
-      renderSimulation();
-      document.getElementById('tabSim').style.display='inline-block';
-      switchTab('sim');
-      btn.textContent='✓ Simulated';setTimeout(function(){btn.textContent='🆚 Re-simulate'},1800);
-    }else{
-      btn.textContent='⚠️ Failed — retry';
-    }
-  }).catch(function(e){
-    btn.textContent='⚠️ Error';
-    if(e.isQuota)alert(e.message);
-  }).finally(function(){btn.disabled=false});
-}
-
-function renderSimulation(){
-  if(!state.simulation)return;
-  var html='<div class="sim-grid">'+state.simulation.map(function(s){
-    var overlapSet={};
-    if(s.googleDomain)overlapSet[s.googleDomain.toLowerCase()]=1;
-    var aiDomHtml=(s.aiDomains||[]).map(function(d){
-      var isOverlap=overlapSet[(d||'').toLowerCase()];
-      return'<span class="sim-dom'+(isOverlap?' overlap':'')+'">'+esc(d)+'</span>';
-    }).join('');
-    var gDomHtml=s.googleDomain?'<span class="sim-dom overlap">'+esc(s.googleDomain)+'</span>':'<span class="sim-dom" style="opacity:.5">none</span>';
-    return'<div class="sim-item"><div class="sim-q">'+esc(s.question)+'</div><div class="sim-cols"><div class="sim-col"><div class="sim-col-head google">🔍 Google PAA</div><div class="sim-answer">'+esc((s.googleAnswer||'').substring(0,240)||'(no answer)')+'</div><div class="sim-domains">'+gDomHtml+'</div></div><div class="sim-col"><div class="sim-col-head ai">🤖 AI-simulated</div><div class="sim-answer">'+esc(s.aiAnswer||'')+'</div><div class="sim-domains">'+aiDomHtml+'</div></div></div></div>';
-  }).join('')+'</div><p style="font-size:11px;color:var(--muted);margin-top:10px">Green chips are domains that appear in both Google and the AI simulation (overlap). Others are AI-only predictions — hypothetical citation candidates worth targeting.</p>';
-  document.getElementById('simView').innerHTML=html;
-}
-
-// ══════════════════════════════════════════════════════════
-// AI Card 5: Alphabet Expansion via Autocomplete
+// AI Card 3: Alphabet Expansion via Autocomplete
 // ══════════════════════════════════════════════════════════
 document.getElementById('btnExpand').addEventListener('click',runAlphabetExpansion);
 function runAlphabetExpansion(){
@@ -1036,6 +923,6 @@ function renderAutocomplete(){
 })();
 </script>
 <script src="/settings.js?v=3" defer></script>
-<script>(function(){if(typeof gtag!=='function')return;var path=location.pathname;var lang=path.indexOf('/de/')===0?'de':'en';var tn='paa-research';function fire(action){var d={tool_name:tn,language:lang};if(action)d.action=action;gtag('event','tool_use',d)}var bGo=document.getElementById('btnGo');if(bGo)bGo.addEventListener('click',function(){fire('extract')});var aiBtns={btnCluster:'ai_cluster',btnScore:'ai_score',btnBrief:'ai_brief',btnSim:'ai_simulate',btnExpand:'ai_autocomplete'};Object.keys(aiBtns).forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener('click',function(){fire(aiBtns[id])})});var exportBtns={tbCopy:'export_copy',tbCsv:'export_csv',tbMd:'export_markdown',tbSchema:'export_schema',tbShare:'export_share'};document.addEventListener('click',function(e){var t=e.target.closest('button.tb-btn');if(t&&t.id&&exportBtns[t.id])fire(exportBtns[t.id])});document.addEventListener('click',function(e){var a=e.target.closest('a[href*="chromewebstore.google.com"]');if(!a)return;var loc='other';if(a.closest('.tn'))loc='nav';else if(a.closest('.mobile-menu'))loc='mobile_menu';else if(a.closest('.cta-box'))loc='cta_box';else if(a.closest('.tf'))loc='footer';gtag('event','cta_click',{cta_location:loc,language:lang})})})()</script>
+<script>(function(){if(typeof gtag!=='function')return;var path=location.pathname;var lang=path.indexOf('/de/')===0?'de':'en';var tn='paa-research';function fire(action){var d={tool_name:tn,language:lang};if(action)d.action=action;gtag('event','tool_use',d)}var bGo=document.getElementById('btnGo');if(bGo)bGo.addEventListener('click',function(){fire('extract')});var aiBtns={btnCluster:'ai_cluster',btnBrief:'ai_brief',btnExpand:'ai_autocomplete'};Object.keys(aiBtns).forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener('click',function(){fire(aiBtns[id])})});var exportBtns={tbCopy:'export_copy',tbCsv:'export_csv',tbMd:'export_markdown',tbSchema:'export_schema',tbShare:'export_share'};document.addEventListener('click',function(e){var t=e.target.closest('button.tb-btn');if(t&&t.id&&exportBtns[t.id])fire(exportBtns[t.id])});document.addEventListener('click',function(e){var a=e.target.closest('a[href*="chromewebstore.google.com"]');if(!a)return;var loc='other';if(a.closest('.tn'))loc='nav';else if(a.closest('.mobile-menu'))loc='mobile_menu';else if(a.closest('.cta-box'))loc='cta_box';else if(a.closest('.tf'))loc='footer';gtag('event','cta_click',{cta_location:loc,language:lang})})})()</script>
 </body>
 </html>
