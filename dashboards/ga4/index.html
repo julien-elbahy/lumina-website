@@ -364,6 +364,8 @@ body:has(.mobile-menu.open) .tn{position:fixed!important;left:0;right:0}.tn{tran
 @media(max-width:900px){.ds-totals{grid-template-columns:repeat(2,1fr)}}
 /* 2-per-row metrics stays all the way down - even on iPhone */
 .ds-stat{background:rgba(255,245,225,.05);border:2px solid rgba(255,240,215,.10);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;cursor:pointer;transition:all .2s;user-select:none;opacity:.55}
+.ds-stat:not([data-metric]) .ds-stat-val{color:var(--text)!important}
+.ds-stat:not([data-metric]){border-color:var(--border)!important;box-shadow:none!important}
 [data-theme="light"] .ds-stat{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.14)}
 .ds-stat:hover{transform:translateY(-2px)}
 .ds-stat.active{opacity:1}
@@ -511,7 +513,7 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Extension Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><div class="tools-dd"><a href="/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Free Dashboards</div><ul><li><a href="/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><a href="/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/#features">Extension Features</a><a href="/about.html">About</a><a href="/support.html">Support</a><a href="/blog/">Blog</a><a href="/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Free Dashboards</div><ul><li><a href="/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><div class="tools-dd"><a href="/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
 <div class="ts-col"><div class="ts-cat">On-Page SEO</div>
 <ul>
 <li><a href="/tools/meta-tag-analyzer/">Meta Tag Analyzer</a></li>
@@ -551,13 +553,13 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 <a href="/about.html">About</a>
 <a href="/support.html">Support</a>
 <a href="/blog/">Blog</a>
+<a href="/ask-ai/">Ask AI</a>
 <div class="mm-cat">Dashboards <span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <ul>
 <li><a href="/dashboards/gsc/">GSC Dashboard</a></li>
 <li><a href="/dashboards/ga4/">GA4 Dashboard</a></li>
 </ul></div>
-<a href="/ask-ai/">Ask AI</a>
 <div class="mm-cat">On-Page SEO <span class="mm-arrow">+</span></div>
 <div class="mm-links">
 <ul>
@@ -1211,10 +1213,10 @@ function render(R){
     statCard('users','Users',fmtInt(cur.users),prev?fmtDeltaPct(cur.users,pre.users):'','purple')+
     statCard('views','Pageviews',fmtInt(cur.views),prev?fmtDeltaPct(cur.views,pre.views):'','green')+
     statCard('engagement','Engagement',(cur.eng*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.eng,pre.eng):'','orange')+
-    statCardStatic('Conversions',fmtInt(cur.conv),prev?fmtDeltaPct(cur.conv,pre.conv):'','orange')+
-    statCardStatic('Avg session',fmtDuration(cur.dur),prev?fmtDeltaPct(cur.dur,pre.dur):'','blue')+
-    statCardStatic('Bounce rate',(cur.bounce*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.bounce,pre.bounce,true):'','green')+
-    statCardStatic('Per session',cur.sessions?(cur.views/cur.sessions).toFixed(1):'—','','purple');
+    statCardStatic('Conversions',fmtInt(cur.conv),prev?fmtDeltaPct(cur.conv,pre.conv):'')+
+    statCardStatic('Avg session',fmtDuration(cur.dur),prev?fmtDeltaPct(cur.dur,pre.dur):'')+
+    statCardStatic('Bounce rate',(cur.bounce*100).toFixed(1)+'%',prev?fmtDeltaPct(cur.bounce,pre.bounce,true):'')+
+    statCardStatic('Per session',cur.sessions?(cur.views/cur.sessions).toFixed(1):'—','');
 
   Array.prototype.forEach.call(_totals.querySelectorAll('.ds-stat[data-metric]'),function(card){
     card.addEventListener('click',function(){
@@ -1266,8 +1268,8 @@ function statCard(metric,label,value,delta,color){
   var active=_activeMetrics[metric]?' active':'';
   return '<div class="ds-stat'+active+'" data-color="'+color+'" data-metric="'+metric+'" title="Click to toggle in chart"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
 }
-function statCardStatic(label,value,delta,color){
-  return '<div class="ds-stat active" data-color="'+color+'"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
+function statCardStatic(label,value,delta){
+  return '<div class="ds-stat"><div class="ds-stat-lbl">'+label+'</div><div class="ds-stat-val">'+value+'</div>'+(delta||'')+'</div>';
 }
 
 function renderChartLegend(){
