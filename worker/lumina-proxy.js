@@ -85,12 +85,14 @@ const TOOL_LIMITS = {
   'keyword-research': { type: 'dfs', limit: 15 },
   'serp-checker':     { type: 'dfs', limit: 15 },
   'serp-overlap':     { type: 'dfs', limit: 15 },
+  'paa-research':     { type: 'dfs', limit: 15 },
   // OpenAI tools
   'serp-preview':     { type: 'ai', limit: 10 },
   'meta-analyzer':    { type: 'ai', limit: 10 },
   'schema-validator': { type: 'ai', limit: 10 },
   'heading-checker':  { type: 'ai', limit: 10 },
   'content-optimizer':{ type: 'ai', limit: 10 },
+  'paa-research-ai':  { type: 'ai', limit: 20 },
   // Ask AI (homepage copilot)
   'ask-ai':           { type: 'ai',  limit: 10 },
   'ask-ai-plan':      { type: 'ai',  limit: 30 },
@@ -103,6 +105,7 @@ const TOOL_LIMITS = {
   'content-optimizer-dfs': { type: 'dfs', limit: 50 },
   'meta-analyzer-sub':     { type: 'dfs', limit: 50 },
   'serp-preview-sub':      { type: 'dfs', limit: 50 },
+  'paa-autocomplete':      { type: 'dfs', limit: 100 },
   // Query Fan Out
   'query-fan-out':         { type: 'ai',  limit: 10 },
   'query-fan-out-sub':     { type: 'dfs', limit: 100 },
@@ -777,6 +780,7 @@ export default {
       const allowedEndpoints = [
         'serp/google/organic/live/regular',
         'serp/google/organic/live/advanced',
+        'serp/google/autocomplete/live/advanced',
         'keywords_data/google_ads/search_volume/live',
         'keywords_data/google_ads/keywords_for_keywords/live',
         'dataforseo_labs/google/keyword_suggestions/live',

@@ -34,6 +34,7 @@ Lumina is a free Chrome extension and web-based SEO toolkit built by Julien El-B
 - [Keyword Research](https://lumina-seo.com/tools/keyword-research/): Find related keywords with search volume, CPC, intent classification, SERP features, trend data, and AI clustering.
 - [SERP Checker](https://lumina-seo.com/tools/serp-checker/): Check Google top 10 results for any keyword with SERP feature detection and domain highlighting.
 - [SERP Overlap](https://lumina-seo.com/tools/serp-overlap/): Compare search results for two keywords with Venn diagram visualization and cannibalization score.
+- [PAA Research](https://lumina-seo.com/tools/paa-research/): Extract Google People Also Ask questions with 4-level expansion, AI answer quality scoring, cluster by intent, prompt simulation vs AI engines, and auto-generate GEO-ready content briefs with FAQ schema (JSON-LD). Uses DataForSEO + GPT-4.1.
 
 ### Technical SEO
 - [Tech Stack Detector](https://lumina-seo.com/tools/tech-stack/): Identify CMS, frameworks, analytics, and other technologies used on any website.

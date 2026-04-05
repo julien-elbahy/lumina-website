@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" href="/fonts/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="dns-prefetch" href="https://lumina-proxy.julien-elbahy.workers.dev">
+<title>Kostenloses People Also Ask Tool – PAA-Baum + GEO Content Brief | Lumina SEO</title>
+<meta name="description" content="Extrahiere Google People-Also-Ask-Fragen mit 4-Level-Expansion, bewerte die Antwort-Qualität mit KI und generiere GEO-fertige Content-Briefs + FAQ-Schema. 15 Abfragen/Tag gratis.">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical" href="https://lumina-seo.com/de/tools/paa-research/">
+<link rel="alternate" hreflang="en" href="https://lumina-seo.com/tools/paa-research/">
+<link rel="alternate" hreflang="de" href="https://lumina-seo.com/de/tools/paa-research/">
+<link rel="alternate" hreflang="x-default" href="https://lumina-seo.com/tools/paa-research/">
+<meta name="theme-color" content="#d4843a">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lumina-seo.com/de/tools/paa-research/">
+<meta property="og:title" content="Kostenloses People Also Ask Tool – PAA-Baum + GEO Content Brief | Lumina SEO">
+<meta property="og:description" content="Extrahiere Google People-Also-Ask-Fragen mit 4-Level-Expansion, bewerte die Antwort-Qualität mit KI und generiere GEO-fertige Content-Briefs + FAQ-Schema. 15 Abfragen/Tag gratis.">
+<meta property="og:image" content="https://lumina-seo.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Kostenloses People Also Ask Research Tool","url":"https://lumina-seo.com/de/tools/paa-research/","description":"Extrahiere Google People-Also-Ask-Fragen mit 4-Level-Expansion, bewerte Antwort-Qualität mit KI und generiere GEO-fertige Content-Briefs und FAQ-Schema.","applicationCategory":"SEO Tool","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"datePublished":"2026-04-05","dateModified":"2026-04-05","author":{"@type":"Organization","name":"Lumina SEO","url":"https://lumina-seo.com"}}</script>
+<style>/* Plus Jakarta Sans — latin-ext */
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:600;src:url('/fonts/plus-jakarta-sans-latin-ext-600-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:700;src:url('/fonts/plus-jakarta-sans-latin-ext-700-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:800;src:url('/fonts/plus-jakarta-sans-latin-ext-800-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+/* Plus Jakarta Sans — latin */
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/plus-jakarta-sans-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/plus-jakarta-sans-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:600;src:url('/fonts/plus-jakarta-sans-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:700;src:url('/fonts/plus-jakarta-sans-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-display:swap;font-weight:800;src:url('/fonts/plus-jakarta-sans-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* JetBrains Mono — latin-ext */
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/jetbrains-mono-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/jetbrains-mono-latin-ext-500-normal.woff2') format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+/* JetBrains Mono — latin */
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:400;src:url('/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:500;src:url('/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}</style>
+<style>
+:root,[data-theme="dark"]{--bg:#1c1914;--bg2:#262119;--card:rgba(255,245,225,.06);--card-h:rgba(255,245,225,.10);--text:#faf7f2;--text2:#e0d6c6;--muted:#a09484;--accent:#eca550;--accent-h:#f4ba6e;--accent-soft:rgba(236,165,80,.08);--accent-glow:rgba(236,165,80,.18);--border:rgba(255,240,215,.10);--border-h:rgba(255,240,215,.20);--ok:#50e090;--warn:#f4c44a;--err:#f47878;--ok-bg:rgba(80,224,144,.08);--warn-bg:rgba(244,196,74,.07);--err-bg:rgba(244,120,120,.07);--ok-border:rgba(80,224,144,.18);--warn-border:rgba(244,196,74,.17);--err-border:rgba(244,120,120,.17);--blur:32px;--shadow-s:0 1px 4px rgba(0,0,0,.25);--shadow-m:0 8px 36px rgba(0,0,0,.35);--input-bg:rgba(0,0,0,.15);--font:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+[data-theme="light"]{--bg:#faf8f5;--bg2:#f0ece6;--card:rgba(255,255,255,.85);--card-h:rgba(255,255,255,.95);--text:#0d0906;--text2:#2c241c;--muted:#6e6256;--accent:#c87a30;--accent-h:#b06820;--accent-soft:rgba(212,132,58,.08);--accent-glow:rgba(212,132,58,.22);--border:rgba(140,120,90,.12);--border-h:rgba(140,120,90,.22);--ok:#279e5e;--warn:#bf8310;--err:#c53e3e;--ok-bg:rgba(39,158,94,.07);--warn-bg:rgba(191,131,16,.07);--err-bg:rgba(197,62,62,.06);--ok-border:rgba(39,158,94,.20);--warn-border:rgba(191,131,16,.20);--err-border:rgba(197,62,62,.18);--blur:18px;--shadow-s:0 1px 4px rgba(100,70,30,.06);--shadow-m:0 6px 24px rgba(100,70,30,.08);--input-bg:rgba(255,255,255,.7)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{transition:background .3s ease,color .3s ease;font-family:var(--font);background:var(--bg);overflow-x:clip;color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E")}a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-h)}
+.skip-link{position:absolute;top:-100px;left:16px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;z-index:999;transition:top .2s}.skip-link:focus{top:8px}
+body:has(.mobile-menu.open) .tn{position:fixed!important;left:0;right:0}.tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:19px;color:var(--text);line-height:1.1}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-top:-2px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
+.tools-dd{position:relative;z-index:100}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
+.burger-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:301;flex-direction:column;gap:5px}.burger-btn span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}.burger-btn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.burger-btn.open span:nth-child(2){opacity:0}.burger-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none!important;position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--bg);z-index:300;padding:16px 24px 100px;overflow-y:auto;overscroll-behavior:contain;flex-direction:column;gap:0;align-items:stretch}.mobile-menu.open{display:flex!important}.mobile-menu a{flex-shrink:0;font-size:17px;font-weight:600;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--text2);display:block}.mobile-menu a:hover{color:var(--accent)}.mobile-menu .mm-cws{display:none;text-align:center;margin-top:20px;background:var(--accent);color:#fff!important;padding:14px;border-radius:12px;font-weight:700;font-size:15px}
+.mobile-menu .mm-actions{display:flex;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}.mobile-menu .mm-actions button{flex:1;padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.mobile-menu .mm-actions button:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:1024px){.burger-btn{display:flex}.nr>*:not(.lang-sw){display:none!important}.nr{margin-left:auto;gap:0}.nl img{display:none}.nr::after{content:"|";color:var(--muted);font-weight:300;font-size:16px;margin:0 6px}.tools-sub{display:none!important}}
+.ct{max-width:820px;margin:0 auto;padding:24px}
+.th{text-align:center;margin-bottom:24px}.th .lb{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}.th h1{font-size:clamp(24px,4vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:8px}.th p{font-size:15px;color:var(--muted);max-width:640px;margin:0 auto;line-height:1.7}
+.cd{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:16px;backdrop-filter:blur(var(--blur)) saturate(1.4);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.4);box-shadow:var(--shadow-s)}
+.kw-input{display:flex;gap:8px;flex-wrap:wrap}.kw-input input{flex:1;min-width:200px;background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13px;transition:all .2s}.kw-input input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}.kw-input select{background:var(--input-bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;color:var(--text);font-size:12px;font-family:var(--font)}
+.ab{background:linear-gradient(135deg,var(--accent),var(--accent-h));border:none;color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .25s}.ab:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}.ab:disabled{opacity:.5;cursor:default;transform:none}
+.skel{height:12px;background:var(--border);border-radius:6px;margin-bottom:8px;animation:shimmer 1.5s infinite}.skel.w30{width:30%}.skel.w50{width:50%}.skel.w70{width:70%}.skel.w90{width:90%}@keyframes shimmer{0%{opacity:.3}50%{opacity:.7}100%{opacity:.3}}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.metric{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center}.metric .mh{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:4px}.metric p{font-size:22px;font-weight:800;color:var(--text)}
+.content{margin-top:32px}.content h2{font-size:18px;font-weight:800;margin-top:24px;margin-bottom:8px}.content p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:14px}
+.other-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px}.other-tools a{display:block;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;backdrop-filter:blur(var(--blur))}.other-tools a:hover{border-color:var(--accent);transform:translateY(-2px)}.other-tools h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}.other-tools p{font-size:11px;color:var(--muted)}
+.cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;margin:24px 0;backdrop-filter:blur(var(--blur))}.cta-box .cta-t{font-size:20px;font-weight:800;margin-bottom:6px}.cta-box p{color:var(--muted);font-size:14px;margin-bottom:16px}.cta-box .bp{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;padding:12px 24px;border-radius:13px;font-weight:700;font-size:15px;transition:all .25s;border:none;cursor:pointer}.cta-box .bp:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--accent-glow);color:#fff}
+.faq-item{border-bottom:1px solid var(--border);padding:14px 0}.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--text)}.faq-q:hover{color:var(--accent)}.faq-q .arrow{color:var(--muted);transition:transform .3s}.faq-item.open .faq-q .arrow{transform:rotate(45deg)}.faq-a{max-height:0;overflow:hidden;transition:max-height .3s;font-size:13px;color:var(--muted);line-height:1.8}.faq-item.open .faq-a{max-height:500px;padding-top:8px}
+.tf{padding:32px 24px;border-top:1px solid var(--border);margin-top:32px;font-size:12px;color:var(--muted)}.tf a{color:var(--muted);display:block;padding:2px 0;transition:color .15s}.tf a:hover{color:var(--accent)}.tf-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:24px}.tf-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text);margin-bottom:8px}.tf p{line-height:1.6}
+.tools-dd{position:relative;z-index:100}.tools-sub{display:none;position:absolute;top:100%;right:-120px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px 20px;width:620px;box-shadow:0 8px 36px rgba(0,0,0,.35);z-index:500}.tools-sub::before{content:'';position:absolute;top:-12px;left:0;right:0;height:16px}
+.tools-dd:hover .tools-sub{display:flex;gap:24px}
+.ts-col{min-width:0}
+.ts-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:10px 0 4px;padding-bottom:3px;border-bottom:1px solid var(--border)}
+.ts-cat:first-child{margin-top:0}
+.tools-sub ul,.mm-links ul,.tf-col ul{list-style:none;padding:0;margin:0}
+.tools-sub a{display:block;padding:4px 0;font-size:12px;color:var(--text2);white-space:nowrap}.tools-sub a:hover{color:var(--accent)}
+.tools-sub--dash{width:auto;min-width:220px;right:auto;left:-20px}
+@media(max-width:640px){.tools-sub{display:none!important}}
+.lang-sw{position:relative;z-index:60;font-size:11px;font-weight:700;padding:0 10px;border:1px solid var(--border-h);border-radius:8px;color:var(--text2);letter-spacing:.5px;transition:all .2s;line-height:1;height:32px;display:inline-flex;align-items:center}.lang-sw:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.mobile-menu .mm-cat{flex-shrink:0;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:14px 0 4px;border-bottom:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.mobile-menu .mm-cat .mm-arrow{font-size:14px;transition:transform .3s;color:var(--muted)}
+.mobile-menu .mm-cat.open .mm-arrow{transform:rotate(45deg)}
+.mobile-menu .mm-links{display:none;flex-shrink:0}
+.mobile-menu .mm-cat.open+.mm-links{display:block}
+.tool-updated{font-size:12px;color:var(--muted);margin-top:6px}
+*{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+html{overflow-x:clip}
+
+/* ── Light Mode ── */
+[data-theme="light"] body{background:linear-gradient(168deg,#efe8dc 0%,#e7ddd0 40%,#e0d5c7 100%)}
+[data-theme="light"] .tn{background:rgba(255,255,255,.88);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border-bottom:1px solid rgba(140,120,90,.08);box-shadow:0 1px 8px rgba(120,90,50,.05)}
+[data-theme="light"] .cd{background:rgba(255,255,255,.92);border-color:rgba(140,120,90,.10);box-shadow:0 3px 16px rgba(100,70,30,.09),0 0 0 1px rgba(255,255,255,.6) inset}
+[data-theme="light"] input[type="text"],[data-theme="light"] textarea,[data-theme="light"] select{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.15)}
+[data-theme="light"] input[type="text"]:focus,[data-theme="light"] textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(200,122,48,.12);background:#fff}
+[data-theme="light"] .cta-box{background:rgba(255,255,255,.9);border-color:rgba(140,120,90,.10);box-shadow:0 3px 16px rgba(100,70,30,.07)}
+[data-theme="light"] .faq-item{border-color:rgba(140,120,90,.10)}
+[data-theme="light"] .other-tools a{background:rgba(255,255,255,.9);border-color:rgba(140,120,90,.10);box-shadow:0 2px 10px rgba(100,70,30,.07)}
+[data-theme="light"] .other-tools a:hover{border-color:rgba(200,122,48,.25);box-shadow:0 6px 24px rgba(200,122,48,.12);transform:translateY(-2px)}
+[data-theme="light"] .bc{background:var(--accent);color:#fff!important;box-shadow:0 2px 10px rgba(200,122,48,.15)}
+[data-theme="light"] .mobile-menu{background:rgba(250,248,245,.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+[data-theme="light"] .mobile-menu a{border-color:rgba(140,120,90,.08);color:#4a4038}
+[data-theme="light"] .mm-cws{background:var(--accent)!important;color:#fff!important}
+[data-theme="light"] .tf{border-color:rgba(140,120,90,.10);background:rgba(245,240,233,.5)}
+[data-theme="light"] .tf-h{color:#1e1814}
+[data-theme="light"] .tf a{color:#7a6e62}
+[data-theme="light"] .bt{background:rgba(255,255,255,.85);border-color:rgba(140,120,90,.18);color:#4a4038}
+[data-theme="light"] .lang-sw{border-color:rgba(140,120,90,.18);color:#5a5046}
+[data-theme="light"] .metric{background:rgba(255,255,255,.85)}
+
+/* ── PAA-specific ── */
+.sel-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}
+.sel-row label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.sel-row select{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:8px 10px;color:var(--text);font-size:12px;font-family:var(--font)}
+.info-pills{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.info-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:4px 10px;border-radius:12px;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(236,165,80,.2);font-weight:700}
+.paa-tabs{display:flex;gap:3px;padding:4px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;flex-wrap:wrap;justify-content:center}
+.paa-tab{background:0;border:0;padding:9px 14px;font-size:11px;font-weight:700;cursor:pointer;color:var(--muted);text-transform:uppercase;border-radius:8px;transition:all .2s;letter-spacing:.4px;font-family:var(--font);white-space:nowrap}
+.paa-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent-h));color:#fff;box-shadow:0 2px 12px var(--accent-glow)}
+.paa-tab:hover:not(.active){color:var(--text);background:var(--accent-soft)}
+.paa-tree{margin-top:8px}
+.paa-node{border:1px solid var(--border);border-radius:12px;margin-bottom:8px;background:var(--bg);transition:all .2s}
+.paa-node:hover{border-color:var(--border-h)}
+.paa-node.level-0{border-left:3px solid var(--accent)}
+.paa-node-header{display:flex;align-items:flex-start;gap:8px;padding:12px 14px;cursor:pointer;user-select:none}
+.paa-toggle{font-size:13px;color:var(--accent);transition:transform .2s;flex-shrink:0;margin-top:2px;font-family:var(--mono);width:14px;display:inline-block;text-align:center}
+.paa-node.collapsed .paa-toggle{transform:rotate(0deg)}
+.paa-node:not(.collapsed) .paa-toggle{transform:rotate(90deg)}
+.paa-q{flex:1;font-size:13px;font-weight:700;color:var(--text);line-height:1.5;word-break:break-word}
+.paa-domain-chip{font-family:var(--mono);font-size:9px;color:var(--muted);background:var(--card);padding:3px 7px;border-radius:10px;border:1px solid var(--border);flex-shrink:0;margin-top:1px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ai-overview-badge{font-size:8px;font-weight:800;padding:3px 7px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;text-transform:uppercase;letter-spacing:.3px;flex-shrink:0;margin-top:1px}
+.score-chip{font-size:10px;font-weight:800;padding:3px 8px;border-radius:10px;flex-shrink:0;margin-top:1px;font-family:var(--mono);cursor:help}
+.score-chip.score-high{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
+.score-chip.score-mid{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}
+.score-chip.score-low{background:var(--err-bg);color:var(--err);border:1px solid var(--err-border)}
+.paa-body{padding:0 14px 12px 36px;border-top:0}
+.paa-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:6px}
+.paa-url{font-family:var(--mono);font-size:11px;color:var(--ok);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;max-width:100%}
+.paa-refs{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
+.paa-refs strong{color:var(--text2);font-weight:700}
+.paa-refs a{font-size:10px;color:var(--accent);text-decoration:underline}
+.paa-children{padding:0 8px 8px 24px;border-left:1px dashed var(--border);margin-left:18px}
+.paa-node.collapsed .paa-body,.paa-node.collapsed .paa-children{display:none}
+.paa-reasoning{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;line-height:1.5;padding:6px 10px;background:var(--card);border-radius:8px;border-left:2px solid var(--warn)}
+.related-box{margin-top:16px;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+.related-box h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.chip{display:inline-block;font-size:11px;padding:5px 11px;border-radius:15px;background:var(--card);border:1px solid var(--border);color:var(--text2);margin:2px 4px 2px 0;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.tb-btn{background:var(--card);border:1px solid var(--border);padding:7px 12px;border-radius:8px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:var(--font);transition:all .2s}
+.tb-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.tb-btn.copied{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
+.tb-btn:disabled{opacity:.4;cursor:default}
+#toolbar{display:none;gap:6px;flex-wrap:wrap;margin:12px 0}
+.ai-card{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(168,85,247,.04));border:1px solid rgba(124,58,237,.2);border-radius:14px;padding:14px;margin-bottom:10px}
+[data-theme="light"] .ai-card{background:linear-gradient(135deg,rgba(124,58,237,.04),rgba(168,85,247,.03));border-color:rgba(124,58,237,.18)}
+.ai-badge{display:inline-block;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:9px;font-weight:800;text-transform:uppercase;padding:3px 10px;border-radius:20px;letter-spacing:.4px;margin-bottom:8px}
+.ai-card-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:4px}
+.ai-card-desc{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5}
+.ai-card-body{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ai-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);border:none;color:#fff;padding:9px 16px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font);transition:all .2s}
+.ai-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,58,237,.3)}
+.ai-btn:disabled{opacity:.5;cursor:default;transform:none}
+.ai-cost{font-size:10px;color:var(--muted);font-family:var(--mono)}
+.cluster-card{border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;background:var(--bg)}
+.cluster-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.cluster-name{font-size:14px;font-weight:800;color:var(--text);flex:1;min-width:0}
+.intent-badge{font-size:9px;font-weight:800;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
+.intent-informational{background:rgba(100,140,255,.12);color:#6e9eff;border:1px solid rgba(100,140,255,.3)}
+.intent-commercial{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}
+.intent-transactional{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
+.intent-navigational{background:rgba(236,72,153,.1);color:#ec4899;border:1px solid rgba(236,72,153,.25)}
+.cluster-count{font-size:10px;color:var(--muted);font-family:var(--mono)}
+.cluster-questions{list-style:none;padding:0;margin:0}
+.cluster-questions li{font-size:12px;color:var(--text2);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.5}
+.cluster-questions li:last-child{border-bottom:none}
+.sim-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.sim-item{border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--bg)}
+.sim-q{font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.5}
+.sim-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.sim-cols{grid-template-columns:1fr}}
+.sim-col{border:1px solid var(--border);border-radius:10px;padding:10px;background:var(--card)}
+.sim-col-head{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.sim-col-head.google{color:#4285f4}
+.sim-col-head.ai{color:#a855f7}
+.sim-answer{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.sim-domains{display:flex;gap:4px;flex-wrap:wrap}
+.sim-dom{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:10px;background:var(--card);border:1px solid var(--border);color:var(--text2)}
+.sim-dom.overlap{background:var(--ok-bg);border-color:var(--ok-border);color:var(--ok)}
+.brief-box{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-top:10px;font-size:12px;line-height:1.7;color:var(--text2);max-height:560px;overflow-y:auto}
+.brief-box h4{font-size:13px;font-weight:800;color:var(--text);margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.brief-box h4:first-child{margin-top:0}
+.brief-box h5{font-size:12px;font-weight:700;color:var(--accent);margin:10px 0 4px}
+.brief-box ul{padding-left:18px;margin:6px 0}
+.brief-box li{margin-bottom:4px}
+.brief-box .passage{background:var(--card);border-left:3px solid var(--accent);padding:8px 10px;margin:6px 0;border-radius:6px;font-size:11px;font-style:italic}
+.err-box{background:var(--err-bg);border:1px solid var(--err-border);color:var(--err);padding:12px 14px;border-radius:12px;font-size:12px;margin-top:10px;line-height:1.6}
+.err-box a{color:var(--err);text-decoration:underline;font-weight:700;cursor:pointer}
+.ai-progress{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:8px;display:none}
+.ai-progress-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#a855f7);width:0;transition:width .3s}
+.ac-section{border:1px solid var(--border);border-radius:12px;padding:12px;margin-top:10px;background:var(--bg)}
+.ac-section h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.sec-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.lq-hint{font-size:11px;color:var(--muted);cursor:pointer}
+.lq-hint span{text-decoration:underline}
+@media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)!important}.tf-inner{grid-template-columns:1fr 1fr;gap:24px 16px}.kw-input{flex-direction:column}.kw-input input,.kw-input .ab{width:100%;flex:1 1 100%}.sel-row{flex-direction:column;align-items:stretch}.sel-row select{width:100%}.ab,.bt{min-height:44px}.ct{padding:16px}input,select,textarea{font-size:16px!important}}
+@media(max-width:400px){.metrics{grid-template-columns:1fr!important}}
+</style>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E85DVMJHXV"></script>
+<script>gtag('js',new Date());gtag('config','G-E85DVMJHXV');</script>
+<script>(function(){var t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',t)})()</script>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+<nav class="tn"><a href="/" class="nl"><img src="/icon128.png" alt="Lumina" width="28" height="28"><span>Lumina<em>SEO &amp; GEO</em></span></a><div class="nr"><a href="/de/#features">Extension Features</a><a href="/de/ueber-uns.html">Über uns</a><a href="/de/kontakt.html">Kontakt</a><a href="/de/blog/">Blog</a><a href="/de/ask-ai/">Ask AI <span style="background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;margin-left:3px;vertical-align:1px;letter-spacing:.3px">NEW</span></a><div class="tools-dd"><a href="/de/dashboards/" class="tools-trigger">Dashboards ▾</a><div class="tools-sub tools-sub--dash"><div class="ts-col"><div class="ts-cat">Gratis Dashboards</div><ul><li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li></ul></div></div></div><div class="tools-dd"><a href="/de/tools/" class="tools-trigger">Tools ▾</a><div class="tools-sub">
+<div class="ts-col"><div class="ts-cat">On-Page SEO</div>
+<a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
+<a href="/de/tools/heading-checker/">Heading Checker</a>
+<a href="/de/tools/schema-validator/">Schema Validator</a>
+<a href="/de/tools/og-preview/">OG Preview</a>
+<a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
+<a href="/de/tools/semantic-checker/">Semantic HTML</a>
+<a href="/de/tools/link-analyzer/">Link Analyzer</a>
+</div>
+<div class="ts-col"><div class="ts-cat">Technisches SEO</div>
+<a href="/de/tools/pagespeed/">PageSpeed Insights</a>
+<a href="/de/tools/tech-stack/">Tech Stack Detector</a>
+<a href="/de/tools/security-headers/">Security Headers</a>
+<a href="/de/tools/redirect-checker/">Redirect Checker</a>
+<a href="/de/tools/crawler-access-checker/">Crawler Access Checker</a>
+<a href="/de/tools/js-nojs/">JS vs No-JS</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/sitemap-analyzer/">Sitemap Analyzer</a>
+</div>
+<div class="ts-col"><div class="ts-cat">SERP &amp; Content</div>
+<a href="/de/tools/serp-preview/">Snippet Preview</a>
+<a href="/de/tools/serp-checker/">SERP Checker</a>
+<a href="/de/tools/keyword-research/">Keyword Research</a>
+<a href="/de/tools/serp-overlap/">SERP Overlap</a>
+<a href="/de/tools/paa-research/">PAA Research</a>
+<a href="/de/tools/word-counter/">Word Counter</a>
+<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
+<a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/de/tools/query-fan-out/">Query Fan Out</a>
+</div>
+</div></div><button class="bt" id="themeToggle" title="Theme">☀️</button><a href="/tools/paa-research/" class="lang-sw" title="English">EN</a><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bc" target="_blank" rel="noopener">Chrome Extension holen</a></div><button class="burger-btn" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="/de/">Home</a>
+<a href="/de/#features">Extension Features</a>
+<a href="/de/ueber-uns.html">Über uns</a>
+<a href="/de/kontakt.html">Kontakt</a>
+<a href="/de/blog/">Blog</a>
+<a href="/de/ask-ai/">Ask AI</a>
+<div class="mm-cat">Dashboards <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<ul>
+<li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li>
+<li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li>
+</ul></div>
+<div class="mm-cat">On-Page SEO <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a>
+<a href="/de/tools/heading-checker/">Heading Checker</a>
+<a href="/de/tools/schema-validator/">Schema Validator</a>
+<a href="/de/tools/og-preview/">OG Preview</a>
+<a href="/de/tools/image-seo-checker/">Image SEO Checker</a>
+<a href="/de/tools/semantic-checker/">Semantic HTML</a>
+<a href="/de/tools/link-analyzer/">Link Analyzer</a>
+</div>
+<div class="mm-cat">Technisches SEO <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/de/tools/pagespeed/">PageSpeed Insights</a>
+<a href="/de/tools/tech-stack/">Tech Stack Detector</a>
+<a href="/de/tools/security-headers/">Security Headers</a>
+<a href="/de/tools/redirect-checker/">Redirect Checker</a>
+<a href="/de/tools/crawler-access-checker/">Crawler Access Checker</a>
+<a href="/de/tools/js-nojs/">JS vs No-JS</a>
+<a href="/de/tools/hreflang-checker/">hreflang Checker</a>
+<a href="/de/tools/sitemap-analyzer/">Sitemap Analyzer</a>
+</div>
+<div class="mm-cat">SERP &amp; Content <span class="mm-arrow">+</span></div>
+<div class="mm-links">
+<a href="/de/tools/serp-preview/">Snippet Preview</a>
+<a href="/de/tools/serp-checker/">SERP Checker</a>
+<a href="/de/tools/keyword-research/">Keyword Research</a>
+<a href="/de/tools/serp-overlap/">SERP Overlap</a>
+<a href="/de/tools/paa-research/">PAA Research</a>
+<a href="/de/tools/word-counter/">Word Counter</a>
+<a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a>
+<a href="/de/tools/llms-txt-generator/">llms.txt Generator</a>
+<a href="/de/tools/query-fan-out/">Query Fan Out</a>
+</div>
+<div class="mm-actions"><button class="mm-theme" onclick="document.getElementById('themeToggle').click()">&#9728;&#65039; Hell / Dunkel</button><button class="mm-settings" onclick="luminaSettings.open()">&#9881;&#65039; Einstellungen</button></div>
+<a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="mm-cws" target="_blank" rel="noopener">Chrome Extension holen — Gratis</a>
+</div>
+
+<div class="ct" id="main-content">
+<div class="th"><div class="lb">Gratis SEO &amp; GEO Tool</div><h1>People Also Ask Research</h1><p>Extrahiere Google PAA-Fragen mit 4-Level-Expansion, bewerte Antwort-Qualität mit KI, vergleiche Google vs. KI-Engine-Antworten und generiere automatisch GEO-fertige Content-Briefs + FAQ-Schema.</p><div class="tool-updated">Zuletzt aktualisiert: April 2026</div></div>
+
+<div class="cd">
+<div class="kw-input"><input type="text" id="kwIn" placeholder="Keyword eingeben, z.B. 'Sauerteig backen'…"><select id="locSelect"><option value="2040" selected>Austria</option><option value="2276">Germany</option><option value="2756">Switzerland</option><option value="2826">United Kingdom</option><option value="2840">United States</option><option value="2032">Argentina</option><option value="2036">Australia</option><option value="2056">Belgium</option><option value="2076">Brazil</option><option value="2100">Bulgaria</option><option value="2124">Canada</option><option value="2152">Chile</option><option value="2156">China</option><option value="2170">Colombia</option><option value="2191">Croatia</option><option value="2203">Czech Republic</option><option value="2208">Denmark</option><option value="2818">Egypt</option><option value="2233">Estonia</option><option value="2246">Finland</option><option value="2250">France</option><option value="2300">Greece</option><option value="2344">Hong Kong</option><option value="2348">Hungary</option><option value="2352">Iceland</option><option value="2356">India</option><option value="2360">Indonesia</option><option value="2372">Ireland</option><option value="2376">Israel</option><option value="2380">Italy</option><option value="2392">Japan</option><option value="2410">South Korea</option><option value="2428">Latvia</option><option value="2440">Lithuania</option><option value="2442">Luxembourg</option><option value="2458">Malaysia</option><option value="2484">Mexico</option><option value="2504">Morocco</option><option value="2528">Netherlands</option><option value="2554">New Zealand</option><option value="2566">Nigeria</option><option value="2578">Norway</option><option value="2586">Pakistan</option><option value="2604">Peru</option><option value="2608">Philippines</option><option value="2616">Poland</option><option value="2620">Portugal</option><option value="2642">Romania</option><option value="2643">Russia</option><option value="2682">Saudi Arabia</option><option value="2688">Serbia</option><option value="2702">Singapore</option><option value="2703">Slovakia</option><option value="2705">Slovenia</option><option value="2710">South Africa</option><option value="2724">Spain</option><option value="2752">Sweden</option><option value="2158">Taiwan</option><option value="2764">Thailand</option><option value="2792">Turkey</option><option value="2784">UAE</option><option value="2804">Ukraine</option><option value="2704">Vietnam</option></select><select id="langSelect" title="Search language" style="min-width:50px"><option value="de">DE</option><option value="en">EN</option><option value="fr">FR</option><option value="it">IT</option><option value="es">ES</option><option value="pt">PT</option><option value="nl">NL</option><option value="pl">PL</option><option value="sv">SV</option><option value="da">DA</option><option value="no">NO</option><option value="fi">FI</option><option value="cs">CS</option><option value="hu">HU</option><option value="ro">RO</option><option value="bg">BG</option><option value="sk">SK</option><option value="hr">HR</option><option value="sl">SL</option><option value="el">EL</option><option value="tr">TR</option><option value="ru">RU</option><option value="uk">UK</option><option value="ar">AR</option><option value="he">HE</option><option value="hi">HI</option><option value="th">TH</option><option value="vi">VI</option><option value="id">ID</option><option value="ms">MS</option><option value="ja">JA</option><option value="ko">KO</option><option value="zh">ZH</option><option value="et">ET</option><option value="is">IS</option><option value="lv">LV</option><option value="lt">LT</option><option value="sr">SR</option><option value="ur">UR</option></select><select id="deviceSelect" title="Gerät"><option value="desktop">Desktop</option><option value="mobile">Mobile</option></select><button class="ab" id="btnGo">PAAs extrahieren</button></div>
+<div class="info-pills"><span class="info-pill">🌳 4-Level-Expansion</span><span class="info-pill">🤖 KI-Clustering</span><span class="info-pill">📊 Qualitätsscoring</span><span class="info-pill">📄 GEO-Brief</span></div>
+
+<div id="loading" style="display:none;margin-top:14px"><div class="skel w90"></div><div class="skel w70"></div><div class="skel w50"></div></div>
+
+<div id="toolbar"></div>
+
+<div id="res" style="display:none">
+<div class="metrics"><div class="metric"><div class="mh">Fragen</div><p id="mTotal">0</p></div><div class="metric"><div class="mh">Domains</div><p id="mDomains">0</p></div><div class="metric"><div class="mh">KI-Overviews</div><p id="mAI">0</p></div><div class="metric"><div class="mh">Related</div><p id="mRelated">0</p></div></div>
+<div class="paa-tabs"><button class="paa-tab active" data-tab="tree">🌳 Baum-Ansicht</button><button class="paa-tab" data-tab="cluster" id="tabCluster" style="display:none">🧩 Cluster</button><button class="paa-tab" data-tab="sim" id="tabSim" style="display:none">🆚 KI-Simulation</button><button class="paa-tab" data-tab="brief" id="tabBrief" style="display:none">📄 GEO-Brief</button></div>
+<div id="treeView" class="paa-tree"></div>
+<div id="clusterView" style="display:none"></div>
+<div id="simView" style="display:none"></div>
+<div id="briefView" style="display:none"></div>
+<div id="autocompleteView" style="display:none"></div>
+<div id="relatedView" style="display:none"></div>
+</div>
+</div>
+<script>if(window.luminaQuota)luminaQuota.createBar('paa-research',document.querySelector('.cd'))</script>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:0 2px"><div class="lq-hint" onclick="if(window.luminaSettings)luminaSettings.open()">&#x1f4a1; API-Key &#x2192; <span>Einstellungen</span></div><div id="lq_paa-research" style="font-size:11px;font-family:var(--mono);color:var(--muted)">15 Credits pro Tag</div></div>
+
+<div class="cd" id="aiCards" style="display:none">
+<div class="sec-head">KI-gestützte Aktionen</div>
+<div class="ai-card"><span class="ai-badge">KI Clustering</span><div class="ai-card-title">Fragen nach Intent gruppieren</div><div class="ai-card-desc">Gruppiert alle PAA-Fragen in 3–6 Themen-Cluster mit Intent-Labels (informational / commercial / navigational / transactional). Nutzt GPT-4.1-mini.</div><div class="ai-card-body"><button class="ai-btn" id="btnCluster">🧩 Nach Intent clustern</button><span class="ai-cost">~1 KI-Credit</span></div></div>
+
+<div class="ai-card"><span class="ai-badge">Antwort-Qualität</span><div class="ai-card-title">Aktuelle Top-Antwort bewerten</div><div class="ai-card-desc">Bewertet jede PAA-Google-Top-Antwort 0–100 nach Vollständigkeit, Spezifität, E-E-A-T-Signalen und Frische. Findet leicht schlagbare Schwachstellen. Nutzt GPT-4.1.</div><div class="ai-card-body"><button class="ai-btn" id="btnScore">📊 Antwort-Qualität bewerten</button><span class="ai-cost">~1 KI-Credit</span></div></div>
+
+<div class="ai-card"><span class="ai-badge">GEO Content Brief</span><div class="ai-card-title">Schreibfertigen Content-Brief generieren</div><div class="ai-card-desc">Wandelt PAAs in eine H2/H3-Struktur um, mit 134-167-Wörter-Passages pro Frage (AI-Overview-optimal), FAQ-Schema (JSON-LD), Entity-Checklist und Zitat-Hooks für GEO. Nutzt GPT-4.1.</div><div class="ai-card-body"><button class="ai-btn" id="btnBrief">📄 GEO-Brief generieren</button><span class="ai-cost">~1 KI-Credit</span></div></div>
+
+<div class="ai-card"><span class="ai-badge">Prompt-Simulation</span><div class="ai-card-title">Google PAA vs. KI-Engine-Antwort vergleichen</div><div class="ai-card-desc">Sendet die Top-5-PAAs an GPT-4.1, als würde eine Google AI Overview generiert, und vergleicht die zitierten Domains mit Googles Quellen. Zeigt die Lücke zwischen SERP-Dominanz und KI-Sichtbarkeit.</div><div class="ai-card-body"><button class="ai-btn" id="btnSim">🆚 Top 5 PAAs simulieren</button><span class="ai-cost">~1 KI-Credit</span></div></div>
+
+<div class="ai-card"><span class="ai-badge">Alphabet-Expansion</span><div class="ai-card-title">100+ weitere Fragen aus Google Autocomplete finden</div><div class="ai-card-desc">Feuert 33 Google-Autocomplete-Calls (a–z + Fragewörter), um Long-Tail-Fragen rund um dein Keyword zu entdecken. Läuft separat zum PAA-Baum. <strong style="color:var(--warn)">Nutzt ~33 zusätzliche DataForSEO-Credits</strong>.</div><div class="ai-card-body"><button class="ai-btn" id="btnExpand">🔤 Mit Autocomplete erweitern</button><span class="ai-cost">~33 DFS-Credits</span></div></div>
+</div>
+
+<div class="content"><h2>Wie PAA Research funktioniert</h2>
+<p>Dieses Tool fragt Googles SERP über die DataForSEO API mit <code>people_also_ask_click_depth: 4</code> ab, was simuliert, jede People-Also-Ask-Box vier Ebenen tief anzuklicken. Das Ergebnis: ein vollständiger hierarchischer Fragen-Baum, den Google für dein Keyword zeigt — nicht nur die 3–4 Fragen, die auf der ersten SERP sichtbar sind. Jeder Knoten enthält Frage, Antwort-Snippet von Google, Quell-URL und Ranking-Domain.</p>
+<p>Für Queries mit Google AI Overviews erfasst das Tool auch den Overview-Text und die zitierten Referenzen. Related Searches werden gratis im selben Response mitgeliefert.</p>
+
+<h2>Warum Antwort-Qualität für GEO entscheidend ist</h2>
+<p>Generative Suchmaschinen wie Googles AI Overviews, ChatGPT Search und Perplexity zeigen nicht einfach die Top-Platzierung — sie synthetisieren eine Antwort aus den <em>vollständigsten</em>, <em>spezifischsten</em> und <em>autoritärsten</em> Quellen. Ein dünner 50-Wort-Snippet wird selten ausgewählt, selbst wenn er organisch auf Platz 1 rankt. Der AI-Quality-Score identifiziert PAAs, bei denen Googles aktuelle Top-Antwort mittelmäßig ist (Score &lt; 60) — genau dort hast du die höchsten Chancen, sowohl klassische SERP-Positionen als auch KI-Engine-Zitationen zu gewinnen.</p>
+
+<h2>Von PAAs zum GEO-fertigen Content-Brief</h2>
+<p>Das GEO-Content-Brief-Feature bündelt den PAA-Baum, die Cluster und die Top-Antworten in einen einzigen Prompt und lässt GPT-4.1 generieren: eine H2/H3-Struktur nach Thema gruppiert, 134–167 Wörter Passages pro Frage (die Länge, die Googles AI Overviews bevorzugen), ein fertiges FAQ-Schema (JSON-LD), eine Entity-Checkliste die der Content erwähnen muss, und Citation-Hooks (Statistiken, Datenpunkte, Experten-Zitate), die die Zitierbarkeit in KI-Antworten erhöhen.</p>
+
+<h2>Weitere Tools entdecken</h2>
+<div class="other-tools"><a href="/de/tools/keyword-research/"><h3>Keyword Research</h3><p>Finde verwandte Keywords mit Volumen, CPC und Konkurrenz.</p></a><a href="/de/tools/serp-checker/"><h3>SERP Checker</h3><p>Prüfe Google-Rankings für jedes Keyword.</p></a><a href="/de/tools/serp-overlap/"><h3>SERP Overlap</h3><p>Top-Rankings zweier Keywords vergleichen.</p></a><a href="/de/tools/query-fan-out/"><h3>Query Fan Out</h3><p>Sieh, wie Google deine Query in Sub-Queries erweitert.</p></a><a href="/de/tools/ki-content-optimierer/"><h3>KI Content Optimierer</h3><p>Optimize existing content for GEO and SEO.</p></a><a href="/de/tools/schema-validator/"><h3>Schema Validator</h3><p>Strukturierte Daten und Rich Snippets validieren.</p></a></div>
+
+<h2>FAQ</h2>
+<div class="faq-item"><div class="faq-q">Was ist das tägliche Limit?<span class="arrow">+</span></div><div class="faq-a">15 kostenlose PAA-Abfragen pro Tag pro IP-Adresse. Jedes KI-Feature (Clustering, Scoring, Brief, Simulation) nutzt ein separates KI-Kontingent (20/Tag). Alphabet-Expansion hat ihr eigenes höheres Limit (100/Tag), weil sie viele Sub-Calls feuert. Trage deine eigenen DataForSEO- und OpenAI-API-Keys in den Einstellungen ein für unbegrenzten Zugriff.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist <code>people_also_ask_click_depth</code>?<span class="arrow">+</span></div><div class="faq-a">Ein DataForSEO-Parameter, der das rekursive Anklicken von PAA-Fragen simuliert. Bei Tiefe 4 (unserem Standard) expandiert die API jede sichtbare Frage bis zu 4 Ebenen tief — erst die initialen 3-4 Fragen, dann zeigt jede weitere, und so weiter. Das liefert einen kompletten Fragen-Baum, der manuell Dutzende Klicks erfordern würde.</div></div>
+<div class="faq-item"><div class="faq-q">Sind das echte Google-PAAs oder synthetisch?<span class="arrow">+</span></div><div class="faq-a">100% echt. Die Daten kommen direkt von Googles SERP über DataForSEOs <code>serp/google/organic/live/advanced</code>-Endpoint. Anders als AnswerThePublic (das Autocomplete nutzt), extrahiert dieses Tool die tatsächliche People-Also-Ask-Box, die Google echten Nutzern im gewählten Land und der Sprache zeigt.</div></div>
+<div class="faq-item"><div class="faq-q">Wie funktioniert das KI-Answer-Quality-Scoring?<span class="arrow">+</span></div><div class="faq-a">Das Tool sendet jede PAA (Frage + aktuelles Top-Answer-Snippet + Quell-URL) als Batch an GPT-4.1. Das Modell bewertet Vollständigkeit, Spezifität, E-E-A-T-Signale und Frische und gibt einen 0–100 Score plus eine kurze Reasoning-Zeile pro Frage zurück. Scores unter 60 (rot) sind „leicht zu schlagen"-Opportunities; Scores 60-79 (gelb) brauchen mehr Aufwand; 80+ (grün) sind dominiert.</div></div>
+<div class="faq-item"><div class="faq-q">Was ist im GEO Content Brief enthalten?<span class="arrow">+</span></div><div class="faq-a">(1) H2/H3-Struktur nach Cluster/Thema organisiert; (2) 134-167 Wörter Passages pro Frage (optimal für AI-Overview-Zitation); (3) FAQ-Schema (copy-and-paste-fertiges JSON-LD) mit allen Fragen und kompakten Antworten; (4) eine Entity-Checklist (Named Concepts für topische Tiefe); (5) Citation-Hooks — konkrete Stats, Daten oder Datenpunkte für GEO-Zitierbarkeit. Downloadbar als Markdown (.md) und JSON (.json).</div></div>
+<div class="faq-item"><div class="faq-q">Was vergleicht die Prompt-Simulation?<span class="arrow">+</span></div><div class="faq-a">Sie nimmt die Top 5 PAAs und sendet jede an GPT-4.1 mit einem System-Prompt, der anweist, die Antwort zu generieren, als würde eine Google AI Overview mit Quellen erstellt. Dann vergleicht sie die KI-zitierten Domains mit Googles eigenen zitierten Domains (aus dem <code>domain</code>-Feld der PAA). Überlappende Domains erscheinen in beiden; Google-only-Domains dominieren die SERP, verlieren aber in KI; KI-only-Domains gewinnen KI-Sichtbarkeit, die du targetieren kannst.</div></div>
+<div class="faq-item"><div class="faq-q">Wie unterscheidet sich dieses Tool von AlsoAsked oder AnswerThePublic?<span class="arrow">+</span></div><div class="faq-a">AlsoAsked zeigt den PAA-Baum, hat aber keine KI-Features, kein Quality-Scoring, keinen GEO-Brief und keine KI-Engine-Simulation. AnswerThePublic nutzt Autocomplete-Suggestions (keine echten PAAs). Dieses Tool kombiniert den echten PAA-Baum mit KI-gestützter Analyse für klassisches SEO UND GEO-Optimierung — alles in einem Workflow.</div></div>
+
+<div class="cta-box"><div class="cta-t">PAA-Research in jeder Analyse</div><p>Lumina zeigt People-Also-Ask-Daten, Suchvolumen und Competitor-Insights direkt im Browser während du recherchierst.</p><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" class="bp" target="_blank" rel="noopener">Lumina zu Chrome hinzufügen — Gratis</a></div>
+</div></div>
+
+<footer class="tf"><div class="tf-inner">
+<div class="tf-col"><div class="tf-h">Lumina SEO</div><p>&copy; 2026 Lumina SEO &amp; GEO</p><p>Entwickelt von <a href="https://www.linkedin.com/in/julien-el-bahy-b4b71a201/" target="_blank" rel="noopener">Julien El-Bahy</a></p></div>
+<div class="tf-col"><div class="tf-h">On-Page SEO</div><ul><li><a href="/de/tools/meta-tag-analyzer/">Meta Tag Analyzer</a></li><li><a href="/de/tools/heading-checker/">Heading Checker</a></li><li><a href="/de/tools/schema-validator/">Schema Validator</a></li><li><a href="/de/tools/og-preview/">OG Preview</a></li><li><a href="/de/tools/image-seo-checker/">Image SEO Checker</a></li><li><a href="/de/tools/semantic-checker/">Semantic HTML</a></li><li><a href="/de/tools/link-analyzer/">Link Analyzer</a></li></ul></div>
+<div class="tf-col"><div class="tf-h">Technisches SEO</div><ul><li><a href="/de/tools/pagespeed/">PageSpeed Insights</a></li><li><a href="/de/tools/tech-stack/">Tech Stack Detector</a></li><li><a href="/de/tools/security-headers/">Security Headers</a></li><li><a href="/de/tools/redirect-checker/">Redirect Checker</a></li><li><a href="/de/tools/crawler-access-checker/">Crawler Access Checker</a></li><li><a href="/de/tools/js-nojs/">JS vs No-JS</a></li><li><a href="/de/tools/hreflang-checker/">hreflang Checker</a></li><li><a href="/de/tools/sitemap-analyzer/">Sitemap Analyzer</a></li></ul></div>
+<div class="tf-col"><div class="tf-h">SERP &amp; Content</div><ul><li><a href="/de/tools/serp-preview/">Snippet Preview</a></li><li><a href="/de/tools/serp-checker/">SERP Checker</a></li><li><a href="/de/tools/keyword-research/">Keyword Research</a></li><li><a href="/de/tools/serp-overlap/">SERP Overlap</a></li><li><a href="/de/tools/paa-research/">PAA Research</a></li><li><a href="/de/tools/word-counter/">Word Counter</a></li><li><a href="/de/tools/ki-content-optimierer/">KI Content Optimierer</a></li><li><a href="/de/tools/llms-txt-generator/">llms.txt Generator</a></li><li><a href="/de/tools/query-fan-out/">Query Fan Out</a></li></ul></div>
+<div class="tf-col"><div class="tf-h">Unternehmen</div><ul><li><a href="/de/ueber-uns.html">Über uns</a></li><li><a href="/de/kontakt.html">Kontakt</a></li><li><a href="/de/blog/">Blog</a></li><li><a href="/de/ask-ai/">Ask AI</a></li><li><a href="/de/dashboards/">Dashboards</a></li><li><a href="/de/dashboards/gsc/">GSC Dashboard</a></li><li><a href="/de/dashboards/ga4/">GA4 Dashboard</a></li><li><a href="https://chromewebstore.google.com/detail/lumina-seo-geo/infdhcbgmealoflmoakmnecgngaeihoe" target="_blank" rel="noopener">Chrome Web Store</a></li></ul><div class="tf-h" style="margin-top:12px">Rechtliches</div><ul><li><a href="/de/impressum.html">Impressum</a></li><li><a href="/de/datenschutz.html">Datenschutz</a></li></ul></div>
+</div></footer>
+
+<script>
+(function(){var _t=localStorage.getItem('lumina_theme')||'dark';document.documentElement.setAttribute('data-theme',_t);
+var _tb=document.getElementById('themeToggle');if(_tb){_tb.textContent=_t==='dark'?'\u2600\ufe0f':'\ud83c\udf19';_tb.addEventListener('click',function(){_t=_t==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',_t);_tb.textContent=_t==='dark'?'\u2600\ufe0f':'\ud83c\udf19';localStorage.setItem('lumina_theme',_t)})}})()
+var _bb=document.getElementById('burgerBtn'),_mm=document.getElementById('mobileMenu'),_scrollY=0;
+if(_bb&&_mm){_bb.addEventListener('click',function(){_bb.classList.toggle('open');_mm.classList.toggle('open');if(_mm.classList.contains('open')){_scrollY=window.scrollY;document.body.style.position='fixed';document.body.style.top='-'+_scrollY+'px';document.body.style.left='0';document.body.style.right='0';document.body.style.overflow='hidden'}else{document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.overflow='';window.scrollTo(0,_scrollY)}})}
+_mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){_bb.classList.remove('open');_mm.classList.remove('open');document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.overflow='';window.scrollTo(0,_scrollY)})})
+document.querySelectorAll('.mm-cat').forEach(function(c){c.addEventListener('click',function(){c.classList.toggle('open')})})
+document.querySelectorAll('.faq-q').forEach(function(q){q.addEventListener('click',function(){var i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(x){x.classList.remove('open')});if(!w)i.classList.add('open')});});
+
+// ══════════════════════════════════════════════════════════
+// PAA Research Tool — Core logic
+// ══════════════════════════════════════════════════════════
+var W='https://lumina-proxy.julien-elbahy.workers.dev';
+var DFS_WORKER=W+'/dfs';
+var AI_WORKER=W+'/ai';
+
+function esc(s){if(s==null)return'';var d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+function getDfsKey(){return localStorage.getItem('lumina_key_dataforseo')||''}
+function getOaiKey(){return localStorage.getItem('lumina_key_openai')||''}
+
+function dfsPost(endpoint,data,toolName){
+  var tn=toolName||'paa-research';
+  var key=getDfsKey();
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':tn};
+  if(key)headers['X-DFS-Key']=key;
+  return fetch(DFS_WORKER+'?endpoint='+encodeURIComponent(endpoint),{method:'POST',headers:headers,body:JSON.stringify(data)})
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if(d._lumina&&window.luminaQuota){window.luminaQuota.update(tn,d);window.luminaQuota.update('dfs',d)}
+      if(d.needsKey||d.error&&/limit|quota|forbid/i.test(d.error)){var e=new Error(d.error||'Tageslimit erreicht. Füge deinen eigenen DataForSEO-Key für unbegrenzten Zugriff hinzu.');e.isQuota=true;throw e}
+      return d
+    })
+}
+
+function aiPost(system,user,model,maxTokens,toolName){
+  var tn=toolName||'paa-research-ai';
+  var oai=getOaiKey();
+  var headers={'Content-Type':'application/json','X-Lumina-Tool':tn};
+  if(oai)headers['X-OAI-Key']=oai;
+  return fetch(AI_WORKER,{method:'POST',headers:headers,body:JSON.stringify({model:model||'gpt-4.1-mini',messages:[{role:'system',content:system},{role:'user',content:user}],max_tokens:maxTokens||2000})})
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if(d._lumina&&window.luminaQuota){window.luminaQuota.update(tn,d);window.luminaQuota.update('ai',d)}
+      if(d.needsKey||d.error&&/limit|quota|forbid/i.test(d.error)){var e=new Error(d.error||'KI-Limit erreicht. Füge deinen eigenen OpenAI-Key für unbegrenzten Zugriff hinzu.');e.isQuota=true;throw e}
+      if(!d.choices||!d.choices[0])throw new Error('KI lieferte keine Antwort');
+      return d.choices[0].message.content
+    })
+}
+
+function parseAiJson(text){
+  if(!text)return null;
+  var t=String(text).trim();
+  t=t.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
+  try{return JSON.parse(t)}catch(e){
+    var m=t.match(/\{[\s\S]*\}/);
+    if(m){try{return JSON.parse(m[0])}catch(e2){}}
+    return null
+  }
+}
+
+// ── State ──
+var state={keyword:'',loc:2040,lang:'de',device:'desktop',country:'Austria',rawItems:[],paaTree:[],flatPAAs:[],relatedSearches:[],autocompletePAAs:[],clusters:null,scores:null,brief:null,simulation:null,currentTab:'tree'};
+
+var countryNames={2032:'Argentina',2036:'Australia',2040:'Austria',2056:'Belgium',2076:'Brazil',2100:'Bulgaria',2124:'Canada',2152:'Chile',2156:'China',2158:'Taiwan',2170:'Colombia',2191:'Croatia',2203:'Czech Republic',2208:'Denmark',2233:'Estonia',2246:'Finland',2250:'France',2276:'Germany',2300:'Greece',2344:'Hong Kong',2348:'Hungary',2352:'Iceland',2356:'India',2360:'Indonesia',2372:'Ireland',2376:'Israel',2380:'Italy',2392:'Japan',2410:'South Korea',2428:'Latvia',2440:'Lithuania',2442:'Luxembourg',2458:'Malaysia',2484:'Mexico',2504:'Morocco',2528:'Netherlands',2554:'New Zealand',2566:'Nigeria',2578:'Norway',2586:'Pakistan',2604:'Peru',2608:'Philippines',2616:'Poland',2620:'Portugal',2642:'Romania',2643:'Russia',2682:'Saudi Arabia',2688:'Serbia',2702:'Singapore',2703:'Slovakia',2704:'Vietnam',2705:'Slovenia',2710:'South Africa',2724:'Spain',2752:'Sweden',2756:'Switzerland',2764:'Thailand',2784:'UAE',2792:'Turkey',2804:'Ukraine',2818:'Egypt',2826:'United Kingdom',2840:'United States'};
+var defaultLangMap={2032:'es',2036:'en',2040:'de',2056:'nl',2076:'pt',2100:'bg',2124:'en',2152:'es',2156:'zh',2158:'zh',2170:'es',2191:'hr',2203:'cs',2208:'da',2233:'et',2246:'fi',2250:'fr',2276:'de',2300:'el',2344:'zh',2348:'hu',2352:'is',2356:'en',2360:'id',2372:'en',2376:'he',2380:'it',2392:'ja',2410:'ko',2428:'lv',2440:'lt',2442:'fr',2458:'ms',2484:'es',2504:'fr',2528:'nl',2554:'en',2566:'en',2578:'no',2586:'ur',2604:'es',2608:'en',2616:'pl',2620:'pt',2642:'ro',2643:'ru',2682:'ar',2688:'sr',2702:'en',2703:'sk',2705:'sl',2710:'en',2724:'es',2752:'sv',2756:'de',2764:'th',2784:'ar',2792:'tr',2804:'uk',2818:'ar',2826:'en',2840:'en',2704:'vi'};
+
+document.getElementById('locSelect').addEventListener('change',function(){var langSel=document.getElementById('langSelect');if(!langSel._userChanged){var dl=defaultLangMap[parseInt(this.value)]||'en';langSel.value=dl}});
+document.getElementById('langSelect').addEventListener('change',function(){this._userChanged=true});
+
+// ── URL params ──
+(function(){var p=new URLSearchParams(location.search);var kw=p.get('kw')||p.get('q');if(kw)document.getElementById('kwIn').value=kw;var loc=p.get('loc');if(loc&&countryNames[parseInt(loc)])document.getElementById('locSelect').value=loc;var lang=p.get('lang');if(lang)document.getElementById('langSelect').value=lang})();
+
+// ══════════════════════════════════════════════════════════
+// Main analyze flow
+// ══════════════════════════════════════════════════════════
+var btn=document.getElementById('btnGo'),kwIn=document.getElementById('kwIn');
+btn.addEventListener('click',analyze);
+kwIn.addEventListener('keydown',function(e){if(e.key==='Enter')analyze()});
+
+function analyze(){
+  var kw=kwIn.value.trim();
+  if(!kw){kwIn.focus();return}
+  state.keyword=kw;
+  state.loc=parseInt(document.getElementById('locSelect').value);
+  state.lang=document.getElementById('langSelect').value;
+  state.device=document.getElementById('deviceSelect').value;
+  state.country=countryNames[state.loc]||'';
+  state.clusters=null;state.scores=null;state.brief=null;state.simulation=null;state.autocompletePAAs=[];
+  // Reset UI
+  document.getElementById('tabCluster').style.display='keine';
+  document.getElementById('tabSim').style.display='keine';
+  document.getElementById('tabBrief').style.display='keine';
+  document.getElementById('autocompleteView').style.display='keine';
+  document.getElementById('loading').style.display='block';
+  document.getElementById('res').style.display='keine';
+  document.getElementById('aiCards').style.display='keine';
+  document.getElementById('toolbar').style.display='keine';
+  btn.disabled=true;btn.textContent='Analysiere…';
+
+  dfsPost('serp/google/organic/live/advanced',[{keyword:kw,location_code:state.loc,language_code:state.lang,device:state.device,depth:10,people_also_ask_click_depth:4}],'paa-research')
+    .then(function(d){
+      document.getElementById('loading').style.display='keine';
+      if(d.status_code&&d.status_code!==20000)throw new Error(d.status_message||'API-Fehler');
+      var tasks=d.tasks||[];
+      if(!tasks.length||!tasks[0].result||!tasks[0].result.length)throw new Error('Keine Ergebnisse erhalten');
+      var result=tasks[0].result[0];
+      var items=result.items||[];
+      state.rawItems=items;
+      var paaContainer=null;
+      for(var i=0;i<items.length;i++){if(items[i].type==='people_also_ask'){paaContainer=items[i];break}}
+      if(paaContainer&&paaContainer.items){state.flatPAAs=paaContainer.items.filter(function(x){return x.type==='people_also_ask_element'})}else{state.flatPAAs=[]}
+      state.paaTree=buildTree(state.flatPAAs);
+      var rel=null;
+      for(var j=0;j<items.length;j++){if(items[j].type==='related_searches'){rel=items[j];break}}
+      state.relatedSearches=rel&&rel.items?rel.items:[];
+      render();
+    })
+    .catch(function(e){
+      document.getElementById('loading').style.display='keine';
+      showError(e);
+    })
+    .finally(function(){
+      btn.disabled=false;btn.textContent='PAAs extrahieren';
+    });
+}
+
+function showError(e){
+  var msg=e&&e.message?e.message:'Etwas ist schiefgelaufen. Bitte versuche es erneut.';
+  var html='<div class="err-box">⚠️ '+esc(msg);
+  if(e&&e.isQuota){html+=' <a onclick="if(window.luminaSettings)luminaSettings.open()">Open Settings →</a>'}
+  html+='</div>';
+  var res=document.getElementById('res');
+  res.style.display='block';
+  document.getElementById('treeView').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════════
+// Tree reconstruction
+// ══════════════════════════════════════════════════════════
+function buildTree(flatItems){
+  if(!flatItems||!flatItems.length)return[];
+  var roots=[];
+  var byTitle={};
+  flatItems.forEach(function(x){byTitle[x.title]=x;x.children=[]});
+  flatItems.forEach(function(x){
+    if(x.seed_question&&byTitle[x.seed_question]){
+      byTitle[x.seed_question].children.push(x);
+    }else{
+      roots.push(x);
+    }
+  });
+  return roots;
+}
+
+function flattenTree(nodes,parent){
+  var out=[];
+  (nodes||[]).forEach(function(n){
+    n._parent=parent||'';
+    out.push(n);
+    if(n.children&&n.children.length)out=out.concat(flattenTree(n.children,n.title));
+  });
+  return out;
+}
+
+// ══════════════════════════════════════════════════════════
+// Rendering
+// ══════════════════════════════════════════════════════════
+function render(){
+  renderMetrics();
+  renderTree();
+  renderRelated();
+  document.getElementById('res').style.display='block';
+  document.getElementById('aiCards').style.display='block';
+  showToolbar();
+  animateMetrics();
+}
+
+function renderMetrics(){
+  var total=state.flatPAAs.length;
+  var domains={};
+  var aiCount=0;
+  state.flatPAAs.forEach(function(q){
+    (q.expanded_element||[]).forEach(function(e){
+      if(e.domain)domains[e.domain]=1;
+      if(e.type==='people_also_ask_ai_overview_expanded_element')aiCount++;
+    });
+  });
+  document.getElementById('mTotal').textContent=total;
+  document.getElementById('mDomains').textContent=Object.keys(domains).length;
+  document.getElementById('mAI').textContent=aiCount;
+  document.getElementById('mRelated').textContent=state.relatedSearches.length;
+}
+
+function animateMetrics(){
+  document.querySelectorAll('.metric p').forEach(function(el){
+    var target=parseInt((el.textContent||'').replace(/[^0-9]/g,''),10);
+    if(isNaN(target)||target===0)return;
+    var start=performance.now(),dur=600;
+    function tick(now){
+      var p=Math.min((now-start)/dur,1);
+      var ease=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*ease);
+      if(p<1)requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+function renderTree(){
+  var container=document.getElementById('treeView');
+  if(!state.paaTree.length){
+    container.innerHTML='<div class="err-box" style="background:var(--warn-bg);color:var(--warn);border-color:var(--warn-border)">ℹ️ No People Also Ask questions returned for this query. Try a broader or more common keyword.</div>';
+    return;
+  }
+  container.innerHTML=state.paaTree.map(function(n,i){return renderNode(n,0,'r-'+i)}).join('');
+  container.querySelectorAll('.paa-node-header').forEach(function(h){
+    h.addEventListener('click',function(){h.parentElement.classList.toggle('collapsed')});
+  });
+}
+
+function renderNode(node,level,id){
+  var exp=node.expanded_element||[];
+  var first=exp[0]||{};
+  var isAI=first.type==='people_also_ask_ai_overview_expanded_element';
+  var description='',url='',domain='',refs=[];
+  if(isAI){description=first.text||'';refs=first.references||[]}
+  else{description=first.description||'';url=first.url||'';domain=first.domain||''}
+  var scoreChip='';
+  if(state.scores&&state.scores[node.title]){
+    var sc=state.scores[node.title];
+    var cls=sc.score>=80?'score-high':(sc.score>=60?'score-mid':'score-low');
+    scoreChip='<span class="score-chip '+cls+'" title="'+esc(sc.reason||'')+'">'+sc.score+'/100</span>';
+  }
+  var domainChip=domain?'<span class="paa-domain-chip">'+esc(domain)+'</span>':'';
+  var aiBadge=isAI?'<span class="ai-overview-badge">AI Overview</span>':'';
+  var childrenHtml='';
+  if(node.children&&node.children.length){
+    childrenHtml='<div class="paa-children">'+node.children.map(function(c,i){return renderNode(c,level+1,id+'-'+i)}).join('')+'</div>';
+  }
+  var refsHtml='';
+  if(refs.length){
+    refsHtml='<div class="paa-refs"><strong>References:</strong> '+refs.slice(0,6).map(function(r){return'<a href="'+esc(r.url||'#')+'" target="_blank" rel="noopener">'+esc(r.title||r.source||r.url||'')+'</a>'}).join(' · ')+'</div>';
+  }
+  var reasoningHtml='';
+  if(state.scores&&state.scores[node.title]&&state.scores[node.title].reason){
+    reasoningHtml='<div class="paa-reasoning">💡 '+esc(state.scores[node.title].reason)+'</div>';
+  }
+  var body='';
+  if(description||url||refsHtml||reasoningHtml){
+    body='<div class="paa-body">'+
+      (description?'<p class="paa-desc">'+esc(description.substring(0,500))+(description.length>500?'…':'')+'</p>':'')+
+      (url?'<a href="'+esc(url)+'" target="_blank" rel="noopener" class="paa-url">'+esc(url)+'</a>':'')+
+      refsHtml+reasoningHtml+
+    '</div>';
+  }
+  return '<div class="paa-node level-'+level+'" data-title="'+esc(node.title)+'">'+
+    '<div class="paa-node-header">'+
+    '<span class="paa-toggle">▸</span>'+
+    '<span class="paa-q">'+esc(node.title)+'</span>'+
+    aiBadge+scoreChip+domainChip+
+    '</div>'+
+    body+childrenHtml+
+  '</div>';
+}
+
+function renderRelated(){
+  var v=document.getElementById('relatedView');
+  if(!state.relatedSearches.length){v.style.display='keine';return}
+  v.style.display='block';
+  v.innerHTML='<div class="related-box"><h3>Related Searches</h3><div>'+state.relatedSearches.map(function(s){return'<span class="chip" onclick="document.getElementById(\'kwIn\').value='+JSON.stringify(s)+';document.getElementById(\'kwIn\').scrollIntoView({behavior:\'smooth\'})">'+esc(s)+'</span>'}).join('')+'</div></div>';
+}
+
+// ══════════════════════════════════════════════════════════
+// Tabs
+// ══════════════════════════════════════════════════════════
+document.querySelectorAll('.paa-tab').forEach(function(t){
+  t.addEventListener('click',function(){switchTab(t.dataset.tab)});
+});
+function switchTab(tab){
+  state.currentTab=tab;
+  document.querySelectorAll('.paa-tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab)});
+  document.getElementById('treeView').style.display=tab==='tree'?'block':'keine';
+  document.getElementById('clusterView').style.display=tab==='cluster'?'block':'keine';
+  document.getElementById('simView').style.display=tab==='sim'?'block':'keine';
+  document.getElementById('briefView').style.display=tab==='brief'?'block':'keine';
+}
+
+// ══════════════════════════════════════════════════════════
+// Toolbar
+// ══════════════════════════════════════════════════════════
+function showToolbar(){
+  var tb=document.getElementById('toolbar');
+  tb.style.display='flex';
+  tb.innerHTML='<button class="tb-btn" id="tbCopy">📋 Copy Tree</button><button class="tb-btn" id="tbCsv">📊 CSV</button><button class="tb-btn" id="tbMd" disabled>📄 Brief (MD)</button><button class="tb-btn" id="tbSchema" disabled>🏷️ FAQ Schema</button><button class="tb-btn" id="tbShare">🔗 Share URL</button>';
+  document.getElementById('tbCopy').addEventListener('click',copyTree);
+  document.getElementById('tbCsv').addEventListener('click',exportCsv);
+  document.getElementById('tbMd').addEventListener('click',downloadBriefMd);
+  document.getElementById('tbSchema').addEventListener('click',downloadFaqSchema);
+  document.getElementById('tbShare').addEventListener('click',shareUrl);
+}
+
+function copyTree(){
+  var text='PAA Research: "'+state.keyword+'" ('+state.country+' / '+state.lang+')\n';
+  text+='='.repeat(60)+'\n\n';
+  function walk(nodes,depth){
+    nodes.forEach(function(n){
+      var indent='  '.repeat(depth);
+      text+=indent+'• '+n.title+'\n';
+      var exp=(n.expanded_element||[])[0];
+      if(exp){
+        var desc=exp.description||exp.text||'';
+        if(desc)text+=indent+'  → '+desc.substring(0,200)+(desc.length>200?'…':'')+'\n';
+        if(exp.url)text+=indent+'  '+exp.url+'\n';
+      }
+      text+='\n';
+      if(n.children&&n.children.length)walk(n.children,depth+1);
+    });
+  }
+  walk(state.paaTree,0);
+  if(state.relatedSearches.length){
+    text+='\nRelated Searches:\n'+state.relatedSearches.map(function(s){return'• '+s}).join('\n');
+  }
+  navigator.clipboard.writeText(text).then(function(){
+    var b=document.getElementById('tbCopy');
+    b.classList.add('copied');b.textContent='✓ Kopiert!';
+    setTimeout(function(){b.classList.remove('copied');b.textContent='📋 Baum kopieren'},1800);
+  });
+}
+
+function exportCsv(){
+  var rows=[['Frage','Parent','Antwort-Snippet','Quell-URL','Domain','Cluster','Quality Score','Intent']];
+  var flat=flattenTree(state.paaTree);
+  flat.forEach(function(n){
+    var exp=(n.expanded_element||[])[0]||{};
+    var answer=(exp.description||exp.text||'').replace(/\s+/g,' ').substring(0,300);
+    var url=exp.url||'';
+    var domain=exp.domain||'';
+    var cluster='';var intent='';
+    if(state.clusters){
+      for(var i=0;i<state.clusters.length;i++){
+        if((state.clusters[i].questions||[]).indexOf(n.title)>=0){cluster=state.clusters[i].name;intent=state.clusters[i].intent||'';break}
+      }
+    }
+    var score=(state.scores&&state.scores[n.title])?state.scores[n.title].score:'';
+    rows.push([n.title,n._parent||'',answer,url,domain,cluster,score,intent]);
+  });
+  var csv=rows.map(function(r){return r.map(function(c){return'"'+String(c||'').replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='paa-'+state.keyword.replace(/\s+/g,'-')+'.csv';a.click();
+}
+
+function downloadBriefMd(){
+  if(!state.brief)return;
+  var md=state.brief.markdown||'';
+  var blob=new Blob([md],{type:'text/markdown;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='geo-brief-'+state.keyword.replace(/\s+/g,'-')+'.md';a.click();
+}
+
+function downloadFaqSchema(){
+  if(!state.brief||!state.brief.faqSchema)return;
+  var json=JSON.stringify(state.brief.faqSchema,null,2);
+  var blob=new Blob([json],{type:'application/ld+json;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='faq-schema-'+state.keyword.replace(/\s+/g,'-')+'.json';a.click();
+}
+
+function shareUrl(){
+  var u=new URL(location.href);
+  u.searchParams.set('kw',state.keyword);
+  u.searchParams.set('loc',state.loc);
+  u.searchParams.set('lang',state.lang);
+  navigator.clipboard.writeText(u.toString()).then(function(){
+    var b=document.getElementById('tbShare');
+    b.classList.add('copied');b.textContent='✓ URL kopiert!';
+    setTimeout(function(){b.classList.remove('copied');b.textContent='🔗 URL teilen'},1800);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// AI Card 1: Clustering
+// ══════════════════════════════════════════════════════════
+document.getElementById('btnCluster').addEventListener('click',runClustering);
+function runClustering(){
+  if(!state.flatPAAs.length)return;
+  var btn=document.getElementById('btnCluster');
+  btn.disabled=true;btn.textContent='Clustere…';
+  var questions=state.flatPAAs.map(function(q){return q.title});
+  var system='You are an SEO research expert. Group the following People Also Ask questions into 3-6 topical clusters based on subtopic and search intent. Return ONLY valid JSON — no markdown, no commentary — in this exact format: {"clusters":[{"name":"Short cluster name","intent":"informational","questions":["question 1","question 2"]}]}. Intent must be one of: informational, commercial, navigational, transactional. Each question must appear in exactly one cluster. Cluster names should be in the same language as the questions.';
+  var user='Seed keyword: "'+state.keyword+'"\nMarket: '+state.country+' ('+state.lang+')\n\nQuestions:\n'+questions.map(function(q,i){return(i+1)+'. '+q}).join('\n');
+  aiPost(system,user,'gpt-4.1-mini',2500,'paa-research-ai').then(function(text){
+    var parsed=parseAiJson(text);
+    if(parsed&&parsed.clusters&&parsed.clusters.length){
+      state.clusters=parsed.clusters;
+      renderClusters();
+      document.getElementById('tabCluster').style.display='inline-block';
+      switchTab('cluster');
+      btn.textContent='✓ Geclustert';setTimeout(function(){btn.textContent='🧩 Neu clustern'},1800);
+    }else{
+      btn.textContent='⚠️ Fehler — erneut versuchen';
+    }
+  }).catch(function(e){
+    btn.textContent='⚠️ Fehler';
+    if(e.isQuota)alert(e.message);
+  }).finally(function(){btn.disabled=false});
+}
+
+function renderClusters(){
+  if(!state.clusters)return;
+  var html=state.clusters.map(function(c){
+    var intent=(c.intent||'informational').toLowerCase();
+    var qs=(c.questions||[]).map(function(q){return'<li>'+esc(q)+'</li>'}).join('');
+    return'<div class="cluster-card"><div class="cluster-head"><div class="cluster-name">'+esc(c.name||'Cluster')+'</div><span class="intent-badge intent-'+esc(intent)+'">'+esc(intent)+'</span><span class="cluster-count">'+(c.questions||[]).length+' Q</span></div><ul class="cluster-questions">'+qs+'</ul></div>';
+  }).join('');
+  document.getElementById('clusterView').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════════
+// AI Card 2: Answer Quality Scoring
+// ══════════════════════════════════════════════════════════
+document.getElementById('btnScore').addEventListener('click',runScoring);
+function runScoring(){
+  if(!state.flatPAAs.length)return;
+  var btn=document.getElementById('btnScore');
+  btn.disabled=true;btn.textContent='Bewerte…';
+  var items=state.flatPAAs.map(function(q,i){
+    var exp=(q.expanded_element||[])[0]||{};
+    var ans=(exp.description||exp.text||'').substring(0,350);
+    var dom=exp.domain||'unknown';
+    return(i+1)+'. Q: '+q.title+'\n   A: '+ans+'\n   Source: '+dom;
+  }).join('\n\n');
+  var system='You are an SEO content quality expert. Given a list of questions from Google People Also Ask and their current top answers, score EACH answer 0-100 on these criteria combined: completeness (does it fully answer?), specificity (concrete data, numbers, examples?), E-E-A-T signals (authoritative source?), freshness (recent data?). Return ONLY valid JSON — no markdown — in this exact format: {"scores":[{"index":1,"score":42,"reason":"brief 1-sentence reason in English"}]}. Use the same index numbering as the input. Reasoning must be concise (max 18 words) and reveal opportunities or strengths.';
+  var user='Keyword: "'+state.keyword+'"\nMarket: '+state.country+'\n\nQuestions + top answers:\n\n'+items;
+  aiPost(system,user,'gpt-4.1',3500,'paa-research-ai').then(function(text){
+    var parsed=parseAiJson(text);
+    if(parsed&&parsed.scores){
+      state.scores={};
+      parsed.scores.forEach(function(s){
+        var idx=s.index-1;
+        if(state.flatPAAs[idx]){
+          state.scores[state.flatPAAs[idx].title]={score:s.score,reason:s.reason||''};
+        }
+      });
+      renderTree();
+      btn.textContent='✓ Bewertet';setTimeout(function(){btn.textContent='📊 Neu bewerten'},1800);
+    }else{
+      btn.textContent='⚠️ Fehler — erneut versuchen';
+    }
+  }).catch(function(e){
+    btn.textContent='⚠️ Fehler';
+    if(e.isQuota)alert(e.message);
+  }).finally(function(){btn.disabled=false});
+}
+
+// ══════════════════════════════════════════════════════════
+// AI Card 3: GEO Content Brief
+// ══════════════════════════════════════════════════════════
+document.getElementById('btnBrief').addEventListener('click',runBrief);
+function runBrief(){
+  if(!state.flatPAAs.length)return;
+  var btn=document.getElementById('btnBrief');
+  btn.disabled=true;btn.textContent='Generiere…';
+  var paaList=state.flatPAAs.map(function(q,i){
+    var exp=(q.expanded_element||[])[0]||{};
+    var ans=(exp.description||exp.text||'').substring(0,250);
+    return(i+1)+'. '+q.title+(ans?' — '+ans:'');
+  }).join('\n');
+  var clustersNote=state.clusters?'\n\nExisting clusters (use these as H2 sections):\n'+state.clusters.map(function(c){return'- '+c.name+' ('+c.intent+')'}).join('\n'):'';
+  var system='You are a senior SEO and GEO (Generative Engine Optimization) content strategist. Given a list of People Also Ask questions for a keyword, generate a complete content brief that is optimized for BOTH classic SEO and AI-engine citation (Google AI Overviews, ChatGPT Search, Perplexity). Return ONLY valid JSON — no markdown fences, no commentary — in this exact format: {"title":"Page title H1 (max 60 chars)","metaDescription":"Meta description (max 155 chars)","structure":[{"h2":"Section heading","h3":["sub question 1","sub question 2"]}],"passages":[{"question":"exact PAA question","answer":"134-167 word passage that directly answers the question with specific data, numbers, and citations. This length is optimal for Google AI Overviews."}],"entities":["entity 1","entity 2","entity 3"],"citationHooks":["specific stat or data point 1","specific stat or data point 2"],"faqSchema":{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"question","acceptedAnswer":{"@type":"Answer","text":"concise 30-50 word answer"}}]}}. Language: match the questions language. Passages must be 134-167 words (count carefully). Include 8-15 entities and 5-10 citation hooks.';
+  var user='Seed keyword: "'+state.keyword+'"\nMarket: '+state.country+' ('+state.lang+')\n\nQuestions:\n'+paaList+clustersNote;
+  aiPost(system,user,'gpt-4.1',6000,'paa-research-ai').then(function(text){
+    var parsed=parseAiJson(text);
+    if(parsed&&parsed.passages){
+      state.brief=parsed;
+      state.brief.markdown=buildBriefMarkdown(parsed);
+      renderBrief();
+      document.getElementById('tabBrief').style.display='inline-block';
+      document.getElementById('tbMd').disabled=false;
+      document.getElementById('tbSchema').disabled=!parsed.faqSchema;
+      switchTab('brief');
+      btn.textContent='✓ Generiert';setTimeout(function(){btn.textContent='📄 Neu generieren'},1800);
+    }else{
+      btn.textContent='⚠️ Fehler — erneut versuchen';
+    }
+  }).catch(function(e){
+    btn.textContent='⚠️ Fehler';
+    if(e.isQuota)alert(e.message);
+  }).finally(function(){btn.disabled=false});
+}
+
+function buildBriefMarkdown(b){
+  var md='# '+(b.title||state.keyword)+'\n\n';
+  if(b.metaDescription)md+='**Meta:** '+b.metaDescription+'\n\n';
+  md+='## Content Structure\n\n';
+  (b.structure||[]).forEach(function(s){
+    md+='### '+(s.h2||'')+'\n';
+    (s.h3||[]).forEach(function(h){md+='- '+h+'\n'});
+    md+='\n';
+  });
+  md+='## Passages (134-167 words each, AI-Overview optimal)\n\n';
+  (b.passages||[]).forEach(function(p){
+    md+='### Q: '+p.question+'\n\n'+p.answer+'\n\n---\n\n';
+  });
+  md+='## Entity Checklist\n\n';
+  (b.entities||[]).forEach(function(e){md+='- [ ] '+e+'\n'});
+  md+='\n## Citation Hooks (data points for GEO)\n\n';
+  (b.citationHooks||[]).forEach(function(c){md+='- '+c+'\n'});
+  md+='\n## FAQ Schema (JSON-LD)\n\n```json\n'+JSON.stringify(b.faqSchema||{},null,2)+'\n```\n';
+  return md;
+}
+
+function renderBrief(){
+  var b=state.brief;if(!b)return;
+  var html='<div class="brief-box">';
+  if(b.title)html+='<h4>Page Title</h4><p><strong>'+esc(b.title)+'</strong></p>';
+  if(b.metaDescription)html+='<h4>Meta Description</h4><p>'+esc(b.metaDescription)+'</p>';
+  html+='<h4>Content Structure</h4>';
+  (b.structure||[]).forEach(function(s){
+    html+='<h5>'+esc(s.h2||'')+'</h5><ul>'+(s.h3||[]).map(function(h){return'<li>'+esc(h)+'</li>'}).join('')+'</ul>';
+  });
+  html+='<h4>Passages (134-167 words, AI-Overview optimal)</h4>';
+  (b.passages||[]).forEach(function(p){
+    html+='<h5>Q: '+esc(p.question)+'</h5><div class="passage">'+esc(p.answer)+'</div>';
+  });
+  if(b.entities&&b.entities.length){
+    html+='<h4>Entity Checklist</h4><ul>'+b.entities.map(function(e){return'<li>'+esc(e)+'</li>'}).join('')+'</ul>';
+  }
+  if(b.citationHooks&&b.citationHooks.length){
+    html+='<h4>Citation Hooks (GEO)</h4><ul>'+b.citationHooks.map(function(c){return'<li>'+esc(c)+'</li>'}).join('')+'</ul>';
+  }
+  html+='<h4>Downloads</h4><p>Use the toolbar above the results to download Brief (Markdown) and FAQ Schema (JSON-LD).</p>';
+  html+='</div>';
+  document.getElementById('briefView').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════════
+// AI Card 4: Prompt Simulation
+// ══════════════════════════════════════════════════════════
+document.getElementById('btnSim').addEventListener('click',runSimulation);
+function runSimulation(){
+  if(!state.flatPAAs.length)return;
+  var btn=document.getElementById('btnSim');
+  btn.disabled=true;btn.textContent='Simuliere…';
+  var topRoots=state.paaTree.slice(0,5);
+  if(!topRoots.length)topRoots=state.flatPAAs.slice(0,5);
+  var qList=topRoots.map(function(q,i){return(i+1)+'. '+q.title}).join('\n');
+  var system='You are simulating a generative search engine (like Google AI Overview, Perplexity, or ChatGPT Search). For EACH question, generate a 60-100 word authoritative answer and list 3-5 hypothetical source domains that such an answer would cite (well-known authoritative sites in that domain). Return ONLY valid JSON — no markdown fences — in this exact format: {"answers":[{"index":1,"answer":"60-100 word answer","domains":["domain1.com","domain2.com","domain3.com"]}]}.';
+  var user='Keyword: "'+state.keyword+'"\nMarket: '+state.country+' ('+state.lang+')\n\nQuestions:\n'+qList;
+  aiPost(system,user,'gpt-4.1',3000,'paa-research-ai').then(function(text){
+    var parsed=parseAiJson(text);
+    if(parsed&&parsed.answers){
+      state.simulation=parsed.answers.map(function(a){
+        var q=topRoots[a.index-1];
+        if(!q)return null;
+        var exp=(q.expanded_element||[])[0]||{};
+        return{question:q.title,googleAnswer:(exp.description||exp.text||'').substring(0,400),googleDomain:exp.domain||'',aiAnswer:a.answer,aiDomains:a.domains||[]};
+      }).filter(Boolean);
+      renderSimulation();
+      document.getElementById('tabSim').style.display='inline-block';
+      switchTab('sim');
+      btn.textContent='✓ Simuliert';setTimeout(function(){btn.textContent='🆚 Neu simulieren'},1800);
+    }else{
+      btn.textContent='⚠️ Fehler — erneut versuchen';
+    }
+  }).catch(function(e){
+    btn.textContent='⚠️ Fehler';
+    if(e.isQuota)alert(e.message);
+  }).finally(function(){btn.disabled=false});
+}
+
+function renderSimulation(){
+  if(!state.simulation)return;
+  var html='<div class="sim-grid">'+state.simulation.map(function(s){
+    var overlapSet={};
+    if(s.googleDomain)overlapSet[s.googleDomain.toLowerCase()]=1;
+    var aiDomHtml=(s.aiDomains||[]).map(function(d){
+      var isOverlap=overlapSet[(d||'').toLowerCase()];
+      return'<span class="sim-dom'+(isOverlap?' overlap':'')+'">'+esc(d)+'</span>';
+    }).join('');
+    var gDomHtml=s.googleDomain?'<span class="sim-dom overlap">'+esc(s.googleDomain)+'</span>':'<span class="sim-dom" style="opacity:.5">none</span>';
+    return'<div class="sim-item"><div class="sim-q">'+esc(s.question)+'</div><div class="sim-cols"><div class="sim-col"><div class="sim-col-head google">🔍 Google PAA</div><div class="sim-answer">'+esc((s.googleAnswer||'').substring(0,240)||'(keine Antwort)')+'</div><div class="sim-domains">'+gDomHtml+'</div></div><div class="sim-col"><div class="sim-col-head ai">🤖 AI-simulated</div><div class="sim-answer">'+esc(s.aiAnswer||'')+'</div><div class="sim-domains">'+aiDomHtml+'</div></div></div></div>';
+  }).join('')+'</div><p style="font-size:11px;color:var(--muted);margin-top:10px">Green chips are domains that appear in both Google and the AI simulation (overlap). Others are AI-only predictions — hypothetical citation candidates worth targeting.</p>';
+  document.getElementById('simView').innerHTML=html;
+}
+
+// ══════════════════════════════════════════════════════════
+// AI Card 5: Alphabet Expansion via Autocomplete
+// ══════════════════════════════════════════════════════════
+document.getElementById('btnExpand').addEventListener('click',runAlphabetExpansion);
+function runAlphabetExpansion(){
+  if(!state.keyword)return;
+  if(!confirm('Alphabet-Expansion feuert 33 Google-Autocomplete-Calls. Verbraucht ~33 DataForSEO-Credits aus einem separaten Bucket (100/Tag). Fortfahren?'))return;
+  var btn=document.getElementById('btnExpand');
+  btn.disabled=true;btn.textContent='0 / 33…';
+  var letters='abcdefghijklmnopqrstuvwxyz'.split('');
+  var modifiers=['how','why','what','when','where','who','can'];
+  var allProbes=letters.map(function(l){return state.keyword+' '+l}).concat(modifiers.map(function(m){return m+' '+state.keyword}));
+  var done=0,results=[];
+  var existing={};
+  state.flatPAAs.forEach(function(q){existing[q.title.toLowerCase()]=1});
+  var queue=allProbes.slice();
+  function next(){
+    if(!queue.length){
+      finish();return;
+    }
+    var probe=queue.shift();
+    dfsPost('serp/google/autocomplete/live/advanced',[{keyword:probe,location_code:state.loc,language_code:state.lang,client:'gws-wiz-serp'}],'paa-autocomplete')
+      .then(function(d){
+        var tasks=d.tasks||[];
+        if(tasks[0]&&tasks[0].result&&tasks[0].result[0]&&tasks[0].result[0].items){
+          tasks[0].result[0].items.forEach(function(it){
+            var sug=(it.suggestion||'').trim();
+            if(sug&&!existing[sug.toLowerCase()]){
+              existing[sug.toLowerCase()]=1;
+              results.push({text:sug,probe:probe});
+            }
+          });
+        }
+      })
+      .catch(function(){})
+      .finally(function(){
+        done++;
+        btn.textContent=done+' / 33…';
+        setTimeout(next,80);
+      });
+  }
+  function finish(){
+    state.autocompletePAAs=results;
+    renderAutocomplete();
+    btn.disabled=false;
+    btn.textContent='✓ '+results.length+' gefunden';
+    setTimeout(function(){btn.textContent='🔤 Neu erweitern'},2000);
+  }
+  next();
+}
+
+function renderAutocomplete(){
+  var v=document.getElementById('autocompleteView');
+  if(!state.autocompletePAAs.length){v.innerHTML='<div class="ac-section"><h3>Autocomplete Expansion</h3><p style="font-size:11px;color:var(--muted)">No new suggestions beyond the PAA tree.</p></div>';v.style.display='block';return}
+  var grouped={};
+  state.autocompletePAAs.forEach(function(r){
+    var k=r.probe;
+    if(!grouped[k])grouped[k]=[];
+    grouped[k].push(r.text);
+  });
+  var html='<div class="ac-section"><h3>Autocomplete Expansion ('+state.autocompletePAAs.length+' new suggestions)</h3>';
+  Object.keys(grouped).forEach(function(probe){
+    html+='<div style="margin:8px 0"><div style="font-size:10px;color:var(--muted);font-family:var(--mono);margin-bottom:4px">probe: '+esc(probe)+'</div><div>'+grouped[probe].map(function(s){return'<span class="chip">'+esc(s)+'</span>'}).join('')+'</div></div>';
+  });
+  html+='</div>';
+  v.innerHTML=html;
+  v.style.display='block';
+}
+
+</script>
+<style id="cc">.consent-banner{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.consent-inner{max-width:440px;width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;box-shadow:0 12px 48px rgba(0,0,0,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.consent-text{font-size:13px;color:var(--muted);line-height:1.6}.consent-text strong{color:var(--text);font-size:14px}.consent-text a{color:var(--accent)}.consent-btns{display:flex;gap:10px;width:100%}.consent-btn{border:none;padding:12px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);transition:transform .15s;flex:1}.consent-btn.accept{background:var(--accent);color:#fff}.consent-btn.reject{background:var(--card);color:var(--muted);border:1px solid var(--border)}@media(max-width:600px){.consent-inner{padding:24px 20px;max-width:calc(100% - 32px)}.consent-btns{flex-direction:column}}</style>
+<div id="consentBanner" class="consent-banner" style="display:none"><div class="consent-inner"><div class="consent-text"><strong>Cookie-Einstellungen</strong><br>Wir verwenden Google Analytics, um zu verstehen, wie Besucher diese Seite nutzen. <a href="/de/datenschutz.html">Datenschutz</a></div><div class="consent-btns"><button id="consentReject" class="consent-btn reject">Ablehnen</button><button id="consentAccept" class="consent-btn accept">Akzeptieren</button></div></div></div><script>
+(function(){
+  var c=localStorage.getItem('lumina_consent');
+  if(c==='granted'){gtag('consent','update',{'analytics_storage':'granted'});return}
+  if(c==='denied')return;
+  var b=document.getElementById('consentBanner');if(b)b.style.display='flex';
+  document.getElementById('consentAccept').addEventListener('click',function(){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    localStorage.setItem('lumina_consent','granted');b.style.display='keine';
+  });
+  document.getElementById('consentReject').addEventListener('click',function(){
+    localStorage.setItem('lumina_consent','denied');b.style.display='keine';
+  });
+})();
+</script>
+<script src="/settings.js?v=3" defer></script>
+<script>(function(){if(typeof gtag!=='function')return;var path=location.pathname;var lang=path.indexOf('/de/')===0?'de':'en';var tn=null,extra={language:lang};var m=path.match(/\/(?:de\/)?tools\/([^\/]+)/);if(m){tn=m[1]}function fire(){var d={tool_name:tn};for(var k in extra)d[k]=extra[k];gtag('event','tool_use',d)}if(tn){var b=document.getElementById('btnGo');if(b)b.addEventListener('click',fire)}document.addEventListener('click',function(e){var a=e.target.closest('a[href*="chromewebstore.google.com"]');if(!a)return;var loc='other';if(a.closest('.tn'))loc='nav';else if(a.closest('.mobile-menu'))loc='mobile_menu';else if(a.closest('.cta-box'))loc='cta_box';else if(a.closest('.tf'))loc='footer';gtag('event','cta_click',{cta_location:loc,language:lang})})})()</script>
+</body>
+</html>
