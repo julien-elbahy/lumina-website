@@ -197,7 +197,7 @@ footer{border-color:rgba(160,135,105,.12)}
 /* ── Skip Link ── */
 .skip-link{position:absolute;top:-100px;left:16px;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;z-index:999;transition:top .2s}.skip-link:focus{top:8px}
 /* ── Nav ── */
-.tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:19px;color:var(--text);line-height:1.1}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-top:-2px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
+body:has(.mobile-menu.open) .tn{position:fixed!important;left:0;right:0}.tn{transition:background .3s ease,border-color .3s ease;position:sticky;top:0;z-index:400;background:var(--bg);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}.nl{display:flex;align-items:center;gap:12px;text-decoration:none}.nl img{width:28px;height:28px;border-radius:6px}.nl span{font-weight:800;font-size:19px;color:var(--text);line-height:1.1}.nl em{font-style:normal;font-weight:400;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;display:block;margin-top:-2px}.nr{display:flex;gap:18px;align-items:center}.nr>a{font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;transition:color .2s}.nr>a:hover{color:var(--text)}.bt{position:relative;z-index:60;background:var(--card);border:1px solid var(--border-h);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:13px;line-height:1;transition:all .2s;color:var(--text);height:32px;display:inline-flex;align-items:center}.bt:hover{border-color:var(--accent);background:var(--accent-soft)}.bc{background:var(--accent);color:#fff!important;padding:0 14px;border-radius:8px;font-weight:700;font-size:11px;line-height:1;transition:transform .15s;white-space:nowrap;height:32px;display:inline-flex;align-items:center;letter-spacing:.3px}.bc:hover{transform:translateY(-1px)}
 /* ── Tools Dropdown ── */
 .tools-dd{position:relative;z-index:100}.tools-trigger{cursor:pointer;font-size:14px;font-weight:600;color:var(--text2);transition:color .2s}.tools-trigger:hover{color:var(--text)!important}
 /* ── Burger + Mobile Menu ── */
@@ -402,7 +402,7 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-chart .ds-axis{stroke:var(--border);stroke-width:1;fill:none}
 .ds-chart .ds-grid{stroke:var(--border);stroke-width:1;fill:none;opacity:.4;stroke-dasharray:2 3}
 .ds-chart .ds-tick{fill:var(--muted);font-size:10px;font-family:var(--font)}
-@media(max-width:640px){.ds-chart{height:170px}}
+@media(max-width:640px){.ds-chart{height:170px;margin-left:-18px;margin-right:-18px;width:calc(100% + 36px)}}
 .ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted);flex-wrap:wrap}
 .ds-leg-item{display:inline-flex;align-items:center;gap:4px}
 .ds-leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
@@ -454,6 +454,8 @@ footer{border-color:rgba(160,135,105,.12)}
   .ds-row-main .ds-cell-range{grid-column:1/-1}
   .ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:0}
   .ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%;min-width:0}
+  .ds-row-main .ds-cell-compare .cs-wrap,.ds-row-main .ds-cell-country .cs-wrap{display:block;width:100%}
+  .ds-row-main .ds-cell-compare .cs-trigger,.ds-row-main .ds-cell-country .cs-trigger{width:100%;max-width:none;display:flex;justify-content:flex-start}
   .ds-row-main .ds-pills{width:100%;justify-content:space-between}
 }
 /* Filter row */
@@ -733,12 +735,12 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <div class="ds-grid-2">
     <div class="ds-card">
       <div class="ds-card-h"><h3>🔍 Top Suchanfragen</h3><span class="ds-sub" id="dbQueriesCount"></span></div>
-      <div class="ds-table-toolbar">Zeige <select class="ds-limit-sel" data-target="queries"><option>25</option><option selected>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> Zeilen</div>
+      <div class="ds-table-toolbar">Zeige <select class="ds-limit-sel" data-target="queries"><option selected>10</option><option>25</option><option>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> Zeilen</div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
       <div class="ds-card-h"><h3>📄 Top Seiten</h3><span class="ds-sub" id="dbPagesCount"></span></div>
-      <div class="ds-table-toolbar">Zeige <select class="ds-limit-sel" data-target="pages"><option>25</option><option selected>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> Zeilen</div>
+      <div class="ds-table-toolbar">Zeige <select class="ds-limit-sel" data-target="pages"><option selected>10</option><option>25</option><option>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> Zeilen</div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th data-sort="key">Seite</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
