@@ -397,29 +397,59 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:900px){.ds-grid-2{grid-template-columns:1fr}}
 /* Chart */
-.ds-chart{width:100%;height:260px;position:relative}
-.ds-chart svg{width:100%;height:100%;display:block}
+.ds-chart{width:100%;height:200px;position:relative;overflow:visible}
+.ds-chart svg{width:100%;height:100%;display:block;overflow:visible}
 .ds-chart .ds-axis{stroke:var(--border);stroke-width:1;fill:none}
 .ds-chart .ds-grid{stroke:var(--border);stroke-width:1;fill:none;opacity:.4;stroke-dasharray:2 3}
 .ds-chart .ds-tick{fill:var(--muted);font-size:10px;font-family:var(--font)}
-.ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted)}
+@media(max-width:640px){.ds-chart{height:170px}}
+.ds-legend{display:flex;gap:12px;font-size:11px;color:var(--muted);flex-wrap:wrap}
 .ds-leg-item{display:inline-flex;align-items:center;gap:4px}
 .ds-leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 /* Tables */
 .ds-table-wrap{overflow-x:auto;max-height:480px;overflow-y:auto;border-radius:8px;border:1px solid var(--border)}
 .ds-table{width:100%;border-collapse:collapse;font-size:12px}
-.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border)}
+.ds-table th{background:var(--bg2);color:var(--muted);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.4px;padding:10px;text-align:left;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:2;box-shadow:0 1px 0 var(--border);white-space:nowrap}
 [data-theme="light"] .ds-table th{background:#faf6ed}
 .ds-table th[data-sort]{cursor:pointer;user-select:none;transition:color .15s}
 .ds-table th[data-sort]:hover{color:var(--accent)}
 .ds-table th .sort-arr{display:inline-block;margin-left:4px;font-size:9px;color:var(--accent);font-weight:900}
 .ds-table th.sorted{color:var(--accent)}
-.ds-cannib-row{padding:3px 0;font-size:11px;line-height:1.4}
-.ds-cannib-row code{background:rgba(255,245,225,.08);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--text);font-family:var(--mono)}
-.ds-cannib-row .ds-cannib-meta{color:var(--muted);font-size:10px;margin-left:6px}
-.ds-cannib-more{font-size:10px;color:var(--muted);padding:4px 0 0;font-style:italic}
+.ds-card-h{align-items:baseline;gap:10px;flex-wrap:nowrap}
+.ds-card-h h3{flex:1 1 auto;min-width:0}
+.ds-card-h .ds-sub{font-size:11px;color:var(--muted);font-weight:500;margin-left:auto;text-align:right;line-height:1.3;flex:0 0 auto;white-space:normal;max-width:50%}
+.ds-card-h .ds-count{margin-left:auto;flex:0 0 auto}
+@media(max-width:640px){.ds-card-h{flex-wrap:wrap}.ds-card-h .ds-sub{text-align:left;margin-left:0;max-width:100%;font-size:10px}}
+.ds-table-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:8px 0 6px;font-size:11px;color:var(--muted)}
+.ds-table-toolbar select{background:var(--input-bg,rgba(0,0,0,.12));border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-family:var(--font);font-size:11px;cursor:pointer}
+.ds-table-toolbar select:hover,.ds-table-toolbar select:focus{border-color:var(--accent);outline:none}
+.ds-cannib-row{padding:5px 0;font-size:11px;line-height:1.4;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px dashed var(--border)}
+.ds-cannib-row:last-child{border-bottom:none}
+.ds-cannib-row code{background:rgba(255,245,225,.08);padding:2px 6px;border-radius:4px;font-size:10px;color:var(--text);font-family:var(--mono);flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ds-cannib-row .ds-cannib-meta{color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums;flex:0 0 auto;display:flex;gap:10px}
+.ds-cannib-row .ds-cannib-meta span{min-width:45px;text-align:right}
+.ds-cannib-row .ds-cannib-meta .ds-cannib-pos{color:var(--accent);font-weight:700}
+.ds-cannib-row .ds-cannib-meta .ds-cannib-clicks{color:var(--text);font-weight:700}
+.ds-cannib-more{font-size:10px;color:var(--muted);padding:6px 0 0;font-style:italic}
+.ds-cannib-more button{background:none;border:none;color:var(--accent);cursor:pointer;font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;font-family:var(--font);text-decoration:underline}
+.ds-cannib-more button:hover{color:var(--accent-h)}
 .ds-cannib-pages{max-width:420px}
 [data-theme="light"] .ds-cannib-row code{background:rgba(200,122,48,.08)}
+.ds-row-main{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.ds-row-main .ds-cell{flex:0 0 auto}
+.ds-row-main .ds-cell-property{min-width:180px;max-width:260px}
+.ds-row-main .ds-cell-property select{width:100%}
+.ds-row-main .ds-cell-range{flex:1 1 320px;min-width:0}
+.ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:150px}
+.ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%}
+@media(max-width:900px){
+  .ds-row-main{flex-wrap:wrap}
+  .ds-row-main .ds-cell-property{flex:1 1 100%;max-width:100%;min-width:0}
+  .ds-row-main .ds-cell-range{flex:1 1 100%;order:2;min-width:0}
+  .ds-row-main .ds-cell-compare{flex:1 1 calc(50% - 7px);min-width:0;order:3}
+  .ds-row-main .ds-cell-country{flex:1 1 calc(50% - 7px);min-width:0;order:4}
+  .ds-row-main .ds-pills{width:100%;justify-content:space-between}
+}
 /* Filter row */
 .ds-filters-row{display:flex;gap:12px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);flex-wrap:wrap;align-items:flex-end}
 .ds-filter-group{flex:1;min-width:220px}
@@ -446,7 +476,24 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-delta.down{background:rgba(239,68,68,.14);color:var(--err)}
 .ds-delta.flat{color:var(--muted)}
 .ds-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:13px}
-@media(max-width:640px){.ds-card{padding:14px}.ds-stat-val{font-size:22px}.ds-pills{width:100%}.ds-row{flex-direction:column;align-items:stretch}.ds-row > div{width:100%}.ds-table th,.ds-table td{padding:5px 6px;font-size:10px}.ds-table .ds-query{max-width:96px}.ds-table .ds-path{max-width:100px}.ds-table .ds-delta{font-size:9px;padding:1px 4px}}
+@media(max-width:640px){
+  .ds-card{padding:14px}
+  .ds-stat-val{font-size:22px}
+  .ds-pills{width:100%}
+  .ds-row{flex-direction:column;align-items:stretch}
+  .ds-row > div{width:100%}
+  .ds-table th,.ds-table td{padding:5px 6px;font-size:10px}
+  .ds-table .ds-query{max-width:96px}
+  .ds-table .ds-path{max-width:100px}
+  .ds-table .ds-delta{font-size:9px;padding:1px 4px}
+  .ds-table-wrap{max-height:none;overflow-y:visible}
+  .ds-table th{position:static}
+  .ds-cannib-pages{max-width:none}
+  .ds-cannib-row{flex-wrap:nowrap;gap:6px}
+  .ds-cannib-row code{font-size:9px}
+  .ds-cannib-row .ds-cannib-meta{font-size:9px;gap:6px}
+  .ds-cannib-row .ds-cannib-meta span{min-width:36px}
+}
 </style>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
@@ -568,12 +615,12 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
 
   <!-- Filter bar -->
   <div class="ds-card ds-filter">
-    <div class="ds-row" style="flex-wrap:wrap;gap:14px;align-items:center">
-      <div>
+    <div class="ds-row ds-row-main">
+      <div class="ds-cell ds-cell-property">
         <div class="ds-label">🏠 Property</div>
         <select id="dbSite" class="ds-select"></select>
       </div>
-      <div style="flex:1">
+      <div class="ds-cell ds-cell-range">
         <div class="ds-label">⏱ Zeitraum</div>
         <div class="ds-pills" id="dbRange">
           <button class="ds-pill" data-range="7">7d</button>
@@ -585,11 +632,35 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-pill" data-range="custom">Individuell</button>
         </div>
       </div>
-      <div>
+      <div class="ds-cell ds-cell-compare">
         <div class="ds-label">🔀 Vergleich</div>
         <select id="dbCompare" class="ds-select">
           <option value="prev">Vorperiode</option>
+          <option value="yoy">Jahr zu Jahr</option>
           <option value="none">Kein Vergleich</option>
+        </select>
+      </div>
+      <div class="ds-cell ds-cell-country">
+        <div class="ds-label">🌍 Land</div>
+        <select id="dbCountryFilter" class="ds-select">
+          <option value="all">Alle</option>
+          <option value="aut">🇦🇹 Österreich</option>
+          <option value="deu">🇩🇪 Deutschland</option>
+          <option value="che">🇨🇭 Schweiz</option>
+          <option value="usa">🇺🇸 USA</option>
+          <option value="gbr">🇬🇧 Großbritannien</option>
+          <option value="fra">🇫🇷 Frankreich</option>
+          <option value="ita">🇮🇹 Italien</option>
+          <option value="esp">🇪🇸 Spanien</option>
+          <option value="nld">🇳🇱 Niederlande</option>
+          <option value="pol">🇵🇱 Polen</option>
+          <option value="bel">🇧🇪 Belgien</option>
+          <option value="swe">🇸🇪 Schweden</option>
+          <option value="can">🇨🇦 Kanada</option>
+          <option value="aus">🇦🇺 Australien</option>
+          <option value="ind">🇮🇳 Indien</option>
+          <option value="bra">🇧🇷 Brasilien</option>
+          <option value="jpn">🇯🇵 Japan</option>
         </select>
       </div>
     </div>
@@ -628,29 +699,6 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
           <button class="ds-filter-clear" id="dbKwClear" title="Löschen">×</button>
         </div>
       </div>
-      <div class="ds-filter-group" style="flex:0 0 auto;min-width:140px">
-        <div class="ds-label">🌍 Land</div>
-        <select id="dbCountryFilter" class="ds-select" style="width:100%">
-          <option value="all">Alle</option>
-          <option value="aut">🇦🇹 Österreich</option>
-          <option value="deu">🇩🇪 Deutschland</option>
-          <option value="che">🇨🇭 Schweiz</option>
-          <option value="usa">🇺🇸 USA</option>
-          <option value="gbr">🇬🇧 Großbritannien</option>
-          <option value="fra">🇫🇷 Frankreich</option>
-          <option value="ita">🇮🇹 Italien</option>
-          <option value="esp">🇪🇸 Spanien</option>
-          <option value="nld">🇳🇱 Niederlande</option>
-          <option value="pol">🇵🇱 Polen</option>
-          <option value="bel">🇧🇪 Belgien</option>
-          <option value="swe">🇸🇪 Schweden</option>
-          <option value="can">🇨🇦 Kanada</option>
-          <option value="aus">🇦🇺 Australien</option>
-          <option value="ind">🇮🇳 Indien</option>
-          <option value="bra">🇧🇷 Brasilien</option>
-          <option value="jpn">🇯🇵 Japan</option>
-        </select>
-      </div>
       <button class="ds-filter-apply" id="dbApplyFilters">🔎 Filter anwenden</button>
     </div>
     <div class="ds-meta" id="dbMeta"></div>
@@ -678,33 +726,35 @@ gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad
   <!-- Grids -->
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🔍 Top Suchanfragen</h3><span class="ds-count" id="dbQueriesCount"></span></div>
+      <div class="ds-card-h"><h3>🔍 Top Suchanfragen</h3><span class="ds-sub" id="dbQueriesCount"></span></div>
+      <div class="ds-table-toolbar">Zeige <select class="ds-limit-sel" data-target="queries"><option>25</option><option selected>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> Zeilen</div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbQueriesTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📄 Top Seiten</h3><span class="ds-count" id="dbPagesCount"></span></div>
+      <div class="ds-card-h"><h3>📄 Top Seiten</h3><span class="ds-sub" id="dbPagesCount"></span></div>
+      <div class="ds-table-toolbar">Zeige <select class="ds-limit-sel" data-target="pages"><option>25</option><option selected>50</option><option>100</option><option>200</option><option>500</option><option>1000</option></select> Zeilen</div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbPagesTable"><thead><tr><th data-sort="key">Seite</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-grid-2">
     <div class="ds-card">
-      <div class="ds-card-h"><h3>🏆 Gewinner <span style="font-size:11px;color:var(--muted);font-weight:500">Position verbessert</span></h3></div>
+      <div class="ds-card-h"><h3>🏆 Gewinner</h3><span class="ds-sub">Position verbessert</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbWinnersTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="from">Von</th><th class="ds-num" data-sort="to">Bis</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
     <div class="ds-card">
-      <div class="ds-card-h"><h3>📉 Verlierer <span style="font-size:11px;color:var(--muted);font-weight:500">Position gefallen</span></h3></div>
+      <div class="ds-card-h"><h3>📉 Verlierer</h3><span class="ds-sub">Position gefallen</span></div>
       <div class="ds-table-wrap"><table class="ds-table" id="dbLosersTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="from">Von</th><th class="ds-num" data-sort="to">Bis</th><th class="ds-num" data-sort="delta">Δ</th><th class="ds-num" data-sort="clicks">Clicks</th></tr></thead><tbody></tbody></table></div>
     </div>
   </div>
 
   <div class="ds-card">
-    <div class="ds-card-h"><h3>🍎 Einfache Gewinne <span style="font-size:11px;color:var(--muted);font-weight:500">Position 5-25, hohe Impressions, schnelle Erfolge</span></h3></div>
+    <div class="ds-card-h"><h3>🍎 Einfache Gewinne</h3><span class="ds-sub">Position 5–25, hohe Impressions, schnelle Erfolge</span></div>
     <div class="ds-table-wrap"><table class="ds-table" id="dbFruitsTable"><thead><tr><th data-sort="key">Suchanfrage</th><th class="ds-num" data-sort="impressions">Impr.</th><th class="ds-num" data-sort="clicks">Clicks</th><th class="ds-num" data-sort="ctr">CTR</th><th class="ds-num" data-sort="position">Pos.</th></tr></thead><tbody></tbody></table></div>
   </div>
 
   <div class="ds-card">
-    <div class="ds-card-h"><h3>⚔️ Keyword-Kannibalisierung <span style="font-size:11px;color:var(--muted);font-weight:500">gleiche Suchanfrage auf 2+ Seiten</span></h3></div>
+    <div class="ds-card-h"><h3>⚔️ Keyword-Kannibalisierung</h3><span class="ds-sub">gleiche Suchanfrage auf 2+ Seiten</span></div>
     <div class="ds-table-wrap"><table class="ds-table" id="dbCannibTable"><thead><tr><th>Suchanfrage</th><th class="ds-num">Seiten</th><th>Top URLs (beste Position zuerst)</th></tr></thead><tbody></tbody></table></div>
   </div>
 
@@ -815,6 +865,9 @@ var METRIC_LABELS={clicks:'Clicks',impressions:'Impressions',ctr:'CTR',position:
 try{var saved=JSON.parse(localStorage.getItem('lumina_db_gsc_metrics')||'null');}catch(e){}
 var _activeMetrics=saved||{clicks:true,impressions:true,ctr:false,position:false};
 var _sortState={};
+try{var savedLimits=JSON.parse(localStorage.getItem('lumina_db_gsc_limits')||'null');}catch(e){}
+var _rowLimits=savedLimits||{queries:50,pages:50};
+var _cannibExpanded={};
 var _lastR=null;
 
 /* ── Auth helpers (mirror Ask AI pattern) ── */
@@ -867,6 +920,12 @@ function getPrevDates(sd,ed){
   var days=Math.round((endD-startD)/86400000)+1;
   var prevEnd=new Date(startD);prevEnd.setDate(prevEnd.getDate()-1);
   var prevStart=new Date(prevEnd);prevStart.setDate(prevStart.getDate()-(days-1));
+  return {sd:toISO(prevStart),ed:toISO(prevEnd)};
+}
+function getYoYDates(sd,ed){
+  var startD=new Date(sd),endD=new Date(ed);
+  var prevStart=new Date(startD);prevStart.setFullYear(prevStart.getFullYear()-1);
+  var prevEnd=new Date(endD);prevEnd.setFullYear(prevEnd.getFullYear()-1);
   return {sd:toISO(prevStart),ed:toISO(prevEnd)};
 }
 
@@ -947,9 +1006,26 @@ _applyFilters.addEventListener('click',function(){
   updateFilterUI();
   loadData();
 });
+/* Länder-Filter löst sofort aus (er ist jetzt auf der Haupt-Filterzeile) */
+_countryFilter.addEventListener('change',function(){
+  _filters.country=_countryFilter.value;
+  updateFilterUI();
+  loadData();
+});
 /* Enter key in filter inputs triggers apply */
 [_pageVal,_kwVal].forEach(function(inp){
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();_applyFilters.click()}});
+});
+
+/* Zeilen-Limit Dropdowns (Top Suchanfragen / Top Seiten) */
+document.querySelectorAll('.ds-limit-sel').forEach(function(sel){
+  var target=sel.getAttribute('data-target');
+  if(_rowLimits[target])sel.value=String(_rowLimits[target]);
+  sel.addEventListener('change',function(){
+    _rowLimits[target]=parseInt(sel.value,10)||50;
+    localStorage.setItem('lumina_db_gsc_limits',JSON.stringify(_rowLimits));
+    if(_lastR)render(_lastR);
+  });
 });
 
 function updateFilterUI(){
@@ -1002,6 +1078,7 @@ function loadData(){
     range=getRangeDates(_currentRange);
   }
   if(_compareMode==='prev'){prevRange=getPrevDates(range.sd,range.ed)}
+  else if(_compareMode==='yoy'){prevRange=getYoYDates(range.sd,range.ed)}
 
   getGscToken(function(token){
     if(!token){showError('Token refresh failed. Reconnect in Settings.');return}
@@ -1022,8 +1099,8 @@ function loadData(){
 
     /* Current period fetches */
     q({startDate:range.sd,endDate:range.ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(d){R.dates=d.rows||[]}).catch(function(e){errors.push('dates')}).finally(done);
-    q({startDate:range.sd,endDate:range.ed,dimensions:['query'],rowLimit:200,type:'web'}).then(function(d){R.queries=d.rows||[]}).catch(function(e){errors.push('queries')}).finally(done);
-    q({startDate:range.sd,endDate:range.ed,dimensions:['page'],rowLimit:100,type:'web'}).then(function(d){R.pages=d.rows||[]}).catch(function(e){errors.push('pages')}).finally(done);
+    q({startDate:range.sd,endDate:range.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.queries=d.rows||[]}).catch(function(e){errors.push('queries')}).finally(done);
+    q({startDate:range.sd,endDate:range.ed,dimensions:['page'],rowLimit:1000,type:'web'}).then(function(d){R.pages=d.rows||[]}).catch(function(e){errors.push('pages')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['device'],rowLimit:5,type:'web'}).then(function(d){R.devices=d.rows||[]}).catch(function(e){errors.push('devices')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['country'],rowLimit:20,type:'web'}).then(function(d){R.countries=d.rows||[]}).catch(function(e){errors.push('countries')}).finally(done);
     q({startDate:range.sd,endDate:range.ed,dimensions:['query','page'],rowLimit:1000,type:'web'}).then(function(d){R.queryPage=d.rows||[]}).catch(function(e){errors.push('queryPage')}).finally(done);
@@ -1031,8 +1108,8 @@ function loadData(){
     /* Previous period */
     if(prevRange){
       q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['date'],rowLimit:500,type:'web'}).then(function(d){R.prevDates=d.rows||[]}).catch(function(e){errors.push('prevDates')}).finally(done);
-      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['query'],rowLimit:500,type:'web'}).then(function(d){R.prevQueries=d.rows||[]}).catch(function(e){errors.push('prevQueries')}).finally(done);
-      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['page'],rowLimit:500,type:'web'}).then(function(d){R.prevPages=d.rows||[]}).catch(function(e){errors.push('prevPages')}).finally(done);
+      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['query'],rowLimit:1000,type:'web'}).then(function(d){R.prevQueries=d.rows||[]}).catch(function(e){errors.push('prevQueries')}).finally(done);
+      q({startDate:prevRange.sd,endDate:prevRange.ed,dimensions:['page'],rowLimit:1000,type:'web'}).then(function(d){R.prevPages=d.rows||[]}).catch(function(e){errors.push('prevPages')}).finally(done);
     }
   });
 }
@@ -1092,34 +1169,42 @@ function render(R){
   renderChartLegend();
   renderChart();
 
-  /* Top queries */
-  var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[r.keys[0]]=r});
+  /* Top Suchanfragen — user-controlled row limit */
+  var prevQMap={};(R.prevQueries||[]).forEach(function(r){prevQMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   _sortState.queries=_sortState.queries||{col:'clicks',dir:-1};
-  renderSortableTable('dbQueriesTable',(R.queries||[]).slice(0,100),prevQMap,'query',_sortState.queries);
-  document.getElementById('dbQueriesCount').textContent=(R.queries||[]).length+' Queries';
+  var qLimit=_rowLimits.queries||50;
+  renderSortableTable('dbQueriesTable',(R.queries||[]).slice(0,qLimit),prevQMap,'query',_sortState.queries);
+  document.getElementById('dbQueriesCount').textContent='zeige '+Math.min(qLimit,(R.queries||[]).length)+' von '+(R.queries||[]).length;
 
-  /* Top pages */
-  var prevPMap={};(R.prevPages||[]).forEach(function(r){prevPMap[r.keys[0]]=r});
+  /* Top Seiten */
+  var prevPMap={};(R.prevPages||[]).forEach(function(r){prevPMap[(r.keys[0]||'').toLowerCase().trim()]=r});
   _sortState.pages=_sortState.pages||{col:'clicks',dir:-1};
-  renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,100),prevPMap,'page',_sortState.pages);
-  document.getElementById('dbPagesCount').textContent=(R.pages||[]).length+' Seiten';
+  var pLimit=_rowLimits.pages||50;
+  renderSortableTable('dbPagesTable',(R.pages||[]).slice(0,pLimit),prevPMap,'page',_sortState.pages);
+  document.getElementById('dbPagesCount').textContent='zeige '+Math.min(pLimit,(R.pages||[]).length)+' von '+(R.pages||[]).length;
 
-  /* Winners & Losers (threshold lowered to 0.3) */
-  var winners=[],losers=[];
+  /* Gewinner & Verlierer — robuste Matching-Logik */
+  var winners=[],losers=[],matchedCount=0;
   (R.queries||[]).forEach(function(r){
-    var prev=prevQMap[r.keys[0]];
-    if(!prev)return;
-    var delta=(prev.position||0)-(r.position||0);
-    if(Math.abs(delta)<0.3)return;
-    var entry={q:r.keys[0],from:prev.position,to:r.position,delta:delta,clicks:r.clicks||0,prevClicks:prev.clicks||0};
+    if(!r.keys||!r.keys[0])return;
+    if((r.impressions||0)<1)return;
+    var key=(r.keys[0]||'').toLowerCase().trim();
+    var prevEntry=prevQMap[key];
+    if(!prevEntry)return;
+    matchedCount++;
+    var delta=(prevEntry.position||0)-(r.position||0);
+    if(Math.abs(delta)<0.2)return;
+    var entry={q:r.keys[0],from:prevEntry.position||0,to:r.position||0,delta:delta,clicks:r.clicks||0,prevClicks:prevEntry.clicks||0};
     if(delta>0)winners.push(entry);else losers.push(entry);
   });
   winners.sort(function(a,b){return b.delta-a.delta});
   losers.sort(function(a,b){return a.delta-b.delta});
+  if(console&&console.log)console.log('[Lumina GSC] Gewinner/Verlierer: '+matchedCount+' Matches von '+(R.queries||[]).length+' aktuell / '+(R.prevQueries||[]).length+' vorher. Schwelle 0.2. Gewinner='+winners.length+' Verlierer='+losers.length);
   _sortState.winners=_sortState.winners||{col:'delta',dir:-1};
   _sortState.losers=_sortState.losers||{col:'delta',dir:1};
-  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners);
-  renderMovementTable('dbLosersTable',losers,false,_sortState.losers);
+  var emptyReason=matchedCount===0?(R.prevQueries&&R.prevQueries.length?'keine Übereinstimmungen':'keine Vergleichsdaten'):null;
+  renderMovementTable('dbWinnersTable',winners,true,_sortState.winners,emptyReason);
+  renderMovementTable('dbLosersTable',losers,false,_sortState.losers,emptyReason);
 
   /* Low-hanging fruits */
   var queries=R.queries||[];
@@ -1182,9 +1267,11 @@ function fmtMetric(v,mk){
 }
 function renderChart(){
   if(!_lastR||!_lastR.dates||!_lastR.dates.length){_chart.innerHTML='<div class="ds-empty">Keine Daten im Zeitraum</div>';return}
+  var cw=_chart.clientWidth;
+  if(!cw||cw<50){requestAnimationFrame(renderChart);return}
   var dates=_lastR.dates;
   var prevDates=_lastR.prevDates||[];
-  var W=_chart.clientWidth||900,H=260,pad={l:48,r:48,t:14,b:28};
+  var W=cw,H=_chart.clientHeight||200,pad={l:40,r:40,t:12,b:24};
   var innerW=W-pad.l-pad.r,innerH=H-pad.t-pad.b;
   var n=dates.length;
   var activeKeys=Object.keys(_activeMetrics).filter(function(k){return _activeMetrics[k]});
@@ -1396,7 +1483,7 @@ function renderSortableTable(id,rows,prevMap,kind,state){
   attachSortHeadersToTable(id,kind,state,function(){renderSortableTable(id,rows,prevMap,kind,state)});
 }
 
-function renderMovementTable(id,rows,isWinners,state){
+function renderMovementTable(id,rows,isWinners,state,emptyReason){
   var getters={
     key:function(r){return r.q||''},
     from:function(r){return r.from||0},
@@ -1406,7 +1493,12 @@ function renderMovementTable(id,rows,isWinners,state){
   };
   var sorted=sortRowsGeneric(rows,state.col,state.dir,getters).slice(0,20);
   var tbody=document.querySelector('#'+id+' tbody');
-  if(!sorted.length){tbody.innerHTML='<tr><td colspan="5" class="ds-empty">Keine signifikante Bewegung (Schwelle 0.3 Positionen)</td></tr>';attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state)});return;}
+  if(!sorted.length){
+    var msg=emptyReason?('Keine signifikante Bewegung ('+emptyReason+')'):'Keine signifikante Bewegung (Schwelle 0.2 Positionen)';
+    tbody.innerHTML='<tr><td colspan="5" class="ds-empty">'+msg+'</td></tr>';
+    attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state,emptyReason)});
+    return;
+  }
   tbody.innerHTML=sorted.map(function(r){
     var qEsc=esc(r.q);
     return '<tr><td><span class="ds-query" title="'+qEsc+'">'+qEsc+'</span></td>'+
@@ -1416,7 +1508,7 @@ function renderMovementTable(id,rows,isWinners,state){
       '<td class="ds-num">'+fmtInt(r.clicks)+'</td>'+
       '</tr>';
   }).join('');
-  attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state)});
+  attachSortHeadersToTable(id,'movement',state,function(){renderMovementTable(id,rows,isWinners,state,emptyReason)});
 }
 
 function renderFruitTable(id,rows,state){
@@ -1449,16 +1541,30 @@ function renderCannibTable(id,rows){
   if(!rows.length){tbody.innerHTML='<tr><td colspan="3" class="ds-empty">Keine signifikante Kannibalisierung erkannt 🎉</td></tr>';return}
   tbody.innerHTML=rows.slice(0,25).map(function(c){
     c.pages.sort(function(a,b){return a.pos-b.pos});
-    var topPages=c.pages.slice(0,5);
+    var isExpanded=_cannibExpanded[c.q]===true;
+    var topPages=isExpanded?c.pages:c.pages.slice(0,5);
     var more=c.pages.length-topPages.length;
     var pagesHtml=topPages.map(function(p){
       var path='/';try{path=new URL(p.page).pathname}catch(e){}
-      if(path.length>44)path=path.slice(0,42)+'\u2026';
-      return '<div class="ds-cannib-row"><code>'+esc(path)+'</code><span class="ds-cannib-meta">Pos '+p.pos.toFixed(1)+' \u00b7 '+fmtInt(p.clicks)+' Clicks</span></div>';
+      if(path.length>52)path=path.slice(0,50)+'…';
+      return '<div class="ds-cannib-row"><code title="'+esc(p.page)+'">'+esc(path)+'</code><span class="ds-cannib-meta"><span class="ds-cannib-pos">'+p.pos.toFixed(1)+'</span><span class="ds-cannib-clicks">'+fmtInt(p.clicks)+'</span></span></div>';
     }).join('');
-    if(more>0)pagesHtml+='<div class="ds-cannib-more">+ '+more+' weitere Seiten</div>';
+    var qAttr=esc(c.q).replace(/"/g,'&quot;');
+    if(more>0){
+      pagesHtml+='<div class="ds-cannib-more"><button data-cannib-q="'+qAttr+'">'+more+' weitere anzeigen</button></div>';
+    }else if(isExpanded&&c.pages.length>5){
+      pagesHtml+='<div class="ds-cannib-more"><button data-cannib-q="'+qAttr+'" data-collapse="1">Weniger anzeigen</button></div>';
+    }
     return '<tr><td><span class="ds-query">'+esc(c.q)+'</span></td><td class="ds-num">'+c.pages.length+'</td><td class="ds-cannib-pages">'+pagesHtml+'</td></tr>';
   }).join('');
+  tbody.querySelectorAll('button[data-cannib-q]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var q=btn.getAttribute('data-cannib-q');
+      if(btn.getAttribute('data-collapse'))_cannibExpanded[q]=false;
+      else _cannibExpanded[q]=true;
+      renderCannibTable(id,rows);
+    });
+  });
 }
 
 function renderSimpleTable(id,rows,kind,state){
