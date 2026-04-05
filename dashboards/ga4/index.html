@@ -446,11 +446,11 @@ footer{border-color:rgba(160,135,105,.12)}
 .ds-row-main .ds-cell-compare,.ds-row-main .ds-cell-country{min-width:150px}
 .ds-row-main .ds-cell-compare select,.ds-row-main .ds-cell-country select{width:100%}
 @media(max-width:900px){
-  .ds-row-main{flex-wrap:wrap}
-  .ds-row-main .ds-cell-property{flex:1 1 100%;max-width:100%;min-width:0}
-  .ds-row-main .ds-cell-range{flex:1 1 100%;order:2;min-width:0}
-  .ds-row-main .ds-cell-compare{flex:1 1 calc(50% - 7px);min-width:0;order:3}
-  .ds-row-main .ds-cell-country{flex:1 1 calc(50% - 7px);min-width:0;order:4}
+  .ds-row-main{flex-wrap:wrap;gap:12px}
+  .ds-row-main .ds-cell-property{flex:0 0 100%;width:100%;max-width:100%;min-width:0;order:1}
+  .ds-row-main .ds-cell-range{flex:0 0 100%;width:100%;order:2;min-width:0}
+  .ds-row-main .ds-cell-compare{flex:0 0 calc(50% - 6px);width:calc(50% - 6px);min-width:0;order:3}
+  .ds-row-main .ds-cell-country{flex:0 0 calc(50% - 6px);width:calc(50% - 6px);min-width:0;order:4}
   .ds-row-main .ds-pills{width:100%;justify-content:space-between}
 }
 /* Filter row */
